@@ -186,7 +186,7 @@ export default function TestPage() {
             </div>
             <div className="bg-muted/50 rounded-lg p-4 text-center">
               <CheckCircle2 className="w-6 h-6 text-primary mx-auto mb-2" />
-              <p className="text-2xl font-bold text-foreground">+4 / -1</p>
+              <p className="text-2xl font-bold text-foreground">+1 / 0</p>
               <p className="text-sm text-muted-foreground">Marking</p>
             </div>
           </div>
@@ -196,11 +196,11 @@ export default function TestPage() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                Each correct answer carries 4 marks
+                Each correct answer carries 1 mark
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                Each wrong answer deducts 1 mark (Negative marking)
+                No negative marking for wrong answers
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />

@@ -74,14 +74,13 @@ export default function AdminAnalyticsPage() {
   }
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
-        <h1 className="text-3xl font-bold text-foreground">Analytics Dashboard</h1>
-        <p className="text-muted-foreground mt-1">Detailed insights into platform performance</p>
+        <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Analytics Dashboard</h1>
+        <p className="text-sm lg:text-base text-muted-foreground mt-1">Detailed insights into platform performance</p>
       </div>
 
-      {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
         <StatsCard
           title="Average Score"
           value={`${data.averageScore}%`}
@@ -117,9 +116,9 @@ export default function AdminAnalyticsPage() {
       </div>
 
       {/* Charts Row 1 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <ChartCard title="Weekly Activity">
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={250}>
             <AreaChart data={data.weeklyActivity}>
               <defs>
                 <linearGradient id="colorAttempts" x1="0" y1="0" x2="0" y2="1">
@@ -128,8 +127,8 @@ export default function AdminAnalyticsPage() {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis dataKey="day" stroke="#888" />
-              <YAxis stroke="#888" />
+              <XAxis dataKey="day" stroke="#888" fontSize={11} />
+              <YAxis stroke="#888" fontSize={11} />
               <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
               <Area type="monotone" dataKey="attempts" stroke="#10b981" fill="url(#colorAttempts)" />
             </AreaChart>
@@ -137,11 +136,11 @@ export default function AdminAnalyticsPage() {
         </ChartCard>
 
         <ChartCard title="Score Distribution">
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={250}>
             <BarChart data={data.scoreDistribution}>
               <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis dataKey="range" stroke="#888" />
-              <YAxis stroke="#888" />
+              <XAxis dataKey="range" stroke="#888" fontSize={10} />
+              <YAxis stroke="#888" fontSize={11} />
               <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
               <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                 {data.scoreDistribution.map((_, index) => (
@@ -154,20 +153,20 @@ export default function AdminAnalyticsPage() {
       </div>
 
       {/* Charts Row 2 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <ChartCard title="Subject Performance Radar">
           {data.subjectPerformance.length > 0 ? (
-            <ResponsiveContainer width="100%" height={350}>
+            <ResponsiveContainer width="100%" height={280}>
               <RadarChart data={data.subjectPerformance}>
                 <PolarGrid stroke="#333" />
-                <PolarAngleAxis dataKey="subject" stroke="#888" fontSize={12} />
-                <PolarRadiusAxis stroke="#888" domain={[0, 100]} />
+                <PolarAngleAxis dataKey="subject" stroke="#888" fontSize={10} />
+                <PolarRadiusAxis stroke="#888" domain={[0, 100]} fontSize={10} />
                 <Radar name="Avg Score" dataKey="avgScore" stroke="#10b981" fill="#10b981" fillOpacity={0.3} />
                 <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
               </RadarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-[350px] text-muted-foreground">
+            <div className="flex items-center justify-center h-[280px] text-muted-foreground text-sm">
               No subject data available
             </div>
           )}
@@ -175,49 +174,48 @@ export default function AdminAnalyticsPage() {
 
         <ChartCard title="Monthly Signups Trend">
           {data.monthlySignups.length > 0 ? (
-            <ResponsiveContainer width="100%" height={350}>
+            <ResponsiveContainer width="100%" height={280}>
               <LineChart data={data.monthlySignups}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis dataKey="month" stroke="#888" />
-                <YAxis stroke="#888" />
+                <XAxis dataKey="month" stroke="#888" fontSize={11} />
+                <YAxis stroke="#888" fontSize={11} />
                 <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
                 <Line
                   type="monotone"
                   dataKey="count"
                   stroke="#10b981"
-                  strokeWidth={3}
-                  dot={{ fill: "#10b981", strokeWidth: 2, r: 6 }}
-                  activeDot={{ r: 8, fill: "#10b981" }}
+                  strokeWidth={2}
+                  dot={{ fill: "#10b981", strokeWidth: 2, r: 4 }}
+                  activeDot={{ r: 6, fill: "#10b981" }}
                 />
               </LineChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-[350px] text-muted-foreground">
+            <div className="flex items-center justify-center h-[280px] text-muted-foreground text-sm">
               No signup data available
             </div>
           )}
         </ChartCard>
       </div>
 
-      {/* Test Category Breakdown */}
       <ChartCard title="Test Attempts by Category">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
           {data.testAttemptsByCategory.map((item, idx) => (
             <div
               key={item.category}
-              className="p-6 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-all duration-300"
+              className="p-4 lg:p-6 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-all duration-300"
             >
               <div
-                className="w-12 h-12 rounded-xl mb-4 flex items-center justify-center"
+                className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl mb-3 lg:mb-4 flex items-center justify-center"
                 style={{ backgroundColor: `${COLORS[idx]}20` }}
               >
-                <Target className="w-6 h-6" style={{ color: COLORS[idx] }} />
+                <Target className="w-5 h-5 lg:w-6 lg:h-6" style={{ color: COLORS[idx] }} />
               </div>
-              <h4 className="text-lg font-semibold text-foreground">{item.category}</h4>
-              <p className="text-3xl font-bold mt-2" style={{ color: COLORS[idx] }}>
+              <h4 className="text-base lg:text-lg font-semibold text-foreground">{item.category}</h4>
+              <p className="text-2xl lg:text-3xl font-bold mt-1 lg:mt-2" style={{ color: COLORS[idx] }}>
                 {item.attempts.toLocaleString()}
               </p>
-              <p className="text-sm text-muted-foreground mt-1">Total Attempts</p>
+              <p className="text-xs lg:text-sm text-muted-foreground mt-1">Total Attempts</p>
             </div>
           ))}
         </div>

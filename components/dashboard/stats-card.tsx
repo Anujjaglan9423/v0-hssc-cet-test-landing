@@ -88,16 +88,16 @@ export function StatsCard({
   return (
     <div
       ref={ref}
-      className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 group"
+      className="bg-card border border-border rounded-xl p-4 lg:p-6 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 group"
     >
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="text-sm text-muted-foreground mb-1">{title}</p>
-          <p className="text-3xl font-bold text-foreground">{displayValue}</p>
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0 flex-1">
+          <p className="text-xs lg:text-sm text-muted-foreground mb-1 truncate">{title}</p>
+          <p className="text-xl lg:text-3xl font-bold text-foreground">{displayValue}</p>
           {change && (
             <p
               className={cn(
-                "text-sm mt-2 font-medium",
+                "text-xs lg:text-sm mt-1 lg:mt-2 font-medium line-clamp-1",
                 changeType === "positive" && "text-accent",
                 changeType === "negative" && "text-destructive",
                 changeType === "neutral" && "text-muted-foreground",
@@ -109,11 +109,11 @@ export function StatsCard({
         </div>
         <div
           className={cn(
-            "w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110",
+            "w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 flex-shrink-0",
             colorClasses[color],
           )}
         >
-          <Icon className="w-6 h-6" />
+          <Icon className="w-5 h-5 lg:w-6 lg:h-6" />
         </div>
       </div>
     </div>

@@ -17,6 +17,7 @@ import {
   Loader2,
   ChevronDown,
   ChevronUp,
+  Users,
 } from "lucide-react"
 import { getTestResult } from "@/lib/actions/student"
 import Link from "next/link"
@@ -35,6 +36,8 @@ interface ResultData {
   total_questions: number
   percentage: number
   time_taken: number
+  rank: number
+  total_participants: number
   questions: Array<{
     id: string
     question_text: string
@@ -122,6 +125,13 @@ export default function ResultPage() {
     return "text-destructive"
   }
 
+  const getRankColor = () => {
+    if (result.rank === 1) return "text-amber-400"
+    if (result.rank === 2) return "text-slate-400"
+    if (result.rank === 3) return "text-amber-600"
+    return "text-primary"
+  }
+
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-5xl mx-auto space-y-8">
@@ -140,7 +150,7 @@ export default function ResultPage() {
 
         {/* Score Card */}
         <Card className="p-8 bg-gradient-to-br from-primary/10 via-background to-accent/10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className={`text-6xl font-bold ${getScoreColor()} mb-2`}>{result.percentage.toFixed(1)}%</div>
               <p className="text-muted-foreground">Overall Score</p>
@@ -149,6 +159,15 @@ export default function ResultPage() {
                 <span className="font-medium text-foreground">
                   {result.score} / {result.total_marks} marks
                 </span>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <div className={`text-6xl font-bold ${getRankColor()} mb-2`}>#{result.rank}</div>
+              <p className="text-muted-foreground">Your Rank</p>
+              <div className="mt-2 flex items-center justify-center gap-2">
+                <Users className="w-5 h-5 text-muted-foreground" />
+                <span className="font-medium text-foreground">of {result.total_participants} students</span>
               </div>
             </div>
 
@@ -280,7 +299,7 @@ export default function ResultPage() {
                               : "bg-destructive/20 text-destructive"
                         }`}
                       >
-                        {isUnattempted ? "0" : isCorrect ? "+4" : "-1"}
+                        {isUnattempted ? "0" : isCorrect ? "+1" : "0"}
                       </span>
                       {isExpanded ? (
                         <ChevronUp className="w-5 h-5 text-muted-foreground" />

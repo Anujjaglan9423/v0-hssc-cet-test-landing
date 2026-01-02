@@ -374,7 +374,7 @@ export async function getTestById(testId: string) {
   }
 
   if (!test) {
-    console.error("Test not found with id:", testId)
+    console.log("Test not found with id:", testId)
     return null
   }
 
@@ -450,13 +450,21 @@ export async function getTestResult(attemptId: string) {
 
   const totalQuestions = questionsWithAnswers.length
   const unattempted = totalQuestions - correct - incorrect
-  const score = correct * 4 - incorrect
-  const totalMarks = totalQuestions * 4
-  const percentage = totalMarks > 0 ? Math.round((Math.max(0, score) / totalMarks) * 100) : 0
+  const score = correct
+  const totalMarks = totalQuestions
+  const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
+
+  const { data: resultData } = await supabase.from("test_results").select("rank").eq("attempt_id", attemptId).single()
+
+  // Get total participants
+  const { count: totalParticipants } = await supabase
+    .from("test_results")
+    .select("id", { count: "exact" })
+    .eq("test_id", attempt.test_id)
 
   return {
     test: attempt.test,
-    score: Math.max(0, score),
+    score: score,
     total_marks: totalMarks,
     correct,
     incorrect,
@@ -465,6 +473,8 @@ export async function getTestResult(attemptId: string) {
     percentage,
     time_taken: attempt.time_taken || 0,
     questions: questionsWithAnswers,
+    rank: resultData?.rank || 1,
+    total_participants: totalParticipants || 1,
   }
 }
 
@@ -495,7 +505,7 @@ export async function submitTest(testId: string, answers: Record<string, string>
   const questions = test.questions || []
   const totalQuestions = questions.length
 
-  // Calculate scores
+  // Calculate scores - 1 mark per correct, 0 for wrong (no negative marking)
   let correct = 0
   let incorrect = 0
 
@@ -511,9 +521,9 @@ export async function submitTest(testId: string, answers: Record<string, string>
   })
 
   const unattempted = totalQuestions - correct - incorrect
-  const score = correct * 4 - incorrect // +4 for correct, -1 for incorrect
-  const totalMarks = totalQuestions * 4
-  const percentage = totalMarks > 0 ? Math.round((Math.max(0, score) / totalMarks) * 100) : 0
+  const score = correct // Score = number of correct answers
+  const totalMarks = totalQuestions
+  const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
 
   // Create test attempt
   const { data: attempt, error: attemptError } = await supabase
@@ -523,7 +533,7 @@ export async function submitTest(testId: string, answers: Record<string, string>
       user_id: user.id,
       status: "completed",
       completed_at: new Date().toISOString(),
-      time_taken: test.duration * 60, // Assuming full time used
+      time_taken: test.duration * 60,
     })
     .select()
     .single()
@@ -550,7 +560,14 @@ export async function submitTest(testId: string, answers: Record<string, string>
     await supabase.from("user_answers").insert(userAnswers)
   }
 
-  // Create test result
+  // Get all existing results for this test to calculate rank
+  const { data: allResults } = await supabase
+    .from("test_results")
+    .select("id, score")
+    .eq("test_id", testId)
+    .order("score", { ascending: false })
+
+  // Create test result first
   const { data: result, error: resultError } = await supabase
     .from("test_results")
     .insert({
@@ -561,9 +578,10 @@ export async function submitTest(testId: string, answers: Record<string, string>
       correct_answers: correct,
       wrong_answers: incorrect,
       unanswered: unattempted,
-      score: percentage,
+      score: score, // Store actual score (correct answers count)
       percentage: percentage,
       time_taken: test.duration * 60,
+      rank: 1, // Will be updated below
     })
     .select()
     .single()
@@ -571,6 +589,20 @@ export async function submitTest(testId: string, answers: Record<string, string>
   if (resultError) {
     console.error("Error creating result:", resultError)
     return { success: false, error: resultError.message }
+  }
+
+  // Now recalculate ranks for ALL results including the new one
+  const allResultsWithNew = [...(allResults || []), { id: result.id, score: score }]
+
+  // Sort by score descending
+  const sortedResults = allResultsWithNew.sort((a, b) => b.score - a.score)
+
+  // Update ranks for all results
+  for (let i = 0; i < sortedResults.length; i++) {
+    await supabase
+      .from("test_results")
+      .update({ rank: i + 1 })
+      .eq("id", sortedResults[i].id)
   }
 
   revalidatePath("/student/results")
@@ -721,4 +753,55 @@ export async function getStudentAnalytics() {
     totalWrong,
     totalAttempted,
   }
+}
+
+export async function getSubjectsAndTopics() {
+  const supabase = await createClient()
+
+  const { data: subjects } = await supabase
+    .from("subjects")
+    .select(`
+      id,
+      name,
+      topics (id, name)
+    `)
+    .order("name")
+
+  return subjects || []
+}
+
+export async function getPracticeQuestions(subjectId: string, topicIds: string[], count: number, difficulty: string) {
+  const supabase = await createClient()
+
+  let query = supabase.from("questions").select(`
+      id,
+      question_text,
+      option_a,
+      option_b,
+      option_c,
+      option_d,
+      correct_answer,
+      explanation,
+      test:tests!inner (subject_id, topic_id, difficulty)
+    `)
+
+  // Filter by subject
+  query = query.eq("tests.subject_id", subjectId)
+
+  // Filter by topics if selected
+  if (topicIds.length > 0) {
+    query = query.in("tests.topic_id", topicIds)
+  }
+
+  // Filter by difficulty
+  if (difficulty !== "all") {
+    query = query.eq("tests.difficulty", difficulty)
+  }
+
+  const { data: questions } = await query.limit(count)
+
+  // Shuffle questions
+  const shuffled = questions?.sort(() => Math.random() - 0.5) || []
+
+  return shuffled.slice(0, count)
 }

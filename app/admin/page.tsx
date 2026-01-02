@@ -77,15 +77,15 @@ export default function AdminDashboard() {
   ]
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Header - Changed to use generic greeting since user comes from server */}
+    <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
-        <h1 className="text-3xl font-bold text-foreground">Welcome back, Admin!</h1>
-        <p className="text-muted-foreground mt-1">Here's what's happening with your platform today.</p>
+        <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Welcome back, Admin!</h1>
+        <p className="text-sm lg:text-base text-muted-foreground mt-1">
+          Here's what's happening with your platform today.
+        </p>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
         <StatsCard
           title="Total Students"
           value={(stats?.totalStudents || 0).toLocaleString()}
@@ -120,10 +120,9 @@ export default function AdminDashboard() {
         />
       </div>
 
-      {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <ChartCard title="Monthly Signups">
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={250}>
             <AreaChart data={stats?.monthlySignups || []}>
               <defs>
                 <linearGradient id="colorSignups" x1="0" y1="0" x2="0" y2="1">
@@ -132,27 +131,27 @@ export default function AdminDashboard() {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis dataKey="month" stroke="#888" />
-              <YAxis stroke="#888" />
+              <XAxis dataKey="month" stroke="#888" fontSize={12} />
+              <YAxis stroke="#888" fontSize={12} />
               <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
-              <Area type="monotone" dataKey="count" stroke="#10b981" strokeWidth={3} fill="url(#colorSignups)" />
+              <Area type="monotone" dataKey="count" stroke="#10b981" strokeWidth={2} fill="url(#colorSignups)" />
             </AreaChart>
           </ResponsiveContainer>
         </ChartCard>
 
         <ChartCard title="Test Attempts by Category">
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
                 data={testAttemptsByCategory}
                 cx="50%"
                 cy="50%"
-                innerRadius={60}
-                outerRadius={100}
+                innerRadius={50}
+                outerRadius={80}
                 paddingAngle={5}
                 dataKey="attempts"
                 nameKey="category"
-                label={({ category, percent }) => `${category} ${(percent * 100).toFixed(0)}%`}
+                label={({ category, percent }) => `${(percent * 100).toFixed(0)}%`}
               >
                 {testAttemptsByCategory.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -169,61 +168,64 @@ export default function AdminDashboard() {
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={subjectPerformance} layout="vertical">
             <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-            <XAxis type="number" domain={[0, 100]} stroke="#888" />
-            <YAxis dataKey="subject" type="category" width={120} stroke="#888" />
+            <XAxis type="number" domain={[0, 100]} stroke="#888" fontSize={12} />
+            <YAxis dataKey="subject" type="category" width={100} stroke="#888" fontSize={11} />
             <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
             <Bar dataKey="avgScore" fill="#10b981" radius={[0, 4, 4, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </ChartCard>
 
-      {/* Recent Students */}
       <ChartCard title="Recent Students">
-        <DataTable
-          data={students.slice(0, 5)}
-          searchKey="name"
-          columns={[
-            { key: "name", header: "Name", sortable: true },
-            { key: "email", header: "Email" },
-            {
-              key: "plan",
-              header: "Plan",
-              render: (student: any) => (
-                <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    student.plan === "pro"
-                      ? "bg-primary/20 text-primary"
-                      : student.plan === "basic"
-                        ? "bg-amber-500/20 text-amber-500"
-                        : "bg-muted text-muted-foreground"
-                  }`}
-                >
-                  {(student.plan || "free").toUpperCase()}
-                </span>
-              ),
-            },
-            { key: "testsAttempted", header: "Tests", sortable: true },
-            {
-              key: "averageScore",
-              header: "Avg Score",
-              sortable: true,
-              render: (student: any) => (
-                <span
-                  className={`font-medium ${
-                    student.averageScore >= 80
-                      ? "text-accent"
-                      : student.averageScore >= 60
-                        ? "text-amber-500"
-                        : "text-destructive"
-                  }`}
-                >
-                  {student.averageScore || 0}%
-                </span>
-              ),
-            },
-            { key: "lastActive", header: "Last Active" },
-          ]}
-        />
+        <div className="overflow-x-auto -mx-4 lg:mx-0">
+          <div className="min-w-[600px] lg:min-w-0 px-4 lg:px-0">
+            <DataTable
+              data={students.slice(0, 5)}
+              searchKey="name"
+              columns={[
+                { key: "name", header: "Name", sortable: true },
+                { key: "email", header: "Email" },
+                {
+                  key: "plan",
+                  header: "Plan",
+                  render: (student: any) => (
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        student.plan === "pro"
+                          ? "bg-primary/20 text-primary"
+                          : student.plan === "basic"
+                            ? "bg-amber-500/20 text-amber-500"
+                            : "bg-muted text-muted-foreground"
+                      }`}
+                    >
+                      {(student.plan || "free").toUpperCase()}
+                    </span>
+                  ),
+                },
+                { key: "testsAttempted", header: "Tests", sortable: true },
+                {
+                  key: "averageScore",
+                  header: "Avg Score",
+                  sortable: true,
+                  render: (student: any) => (
+                    <span
+                      className={`font-medium ${
+                        student.averageScore >= 80
+                          ? "text-accent"
+                          : student.averageScore >= 60
+                            ? "text-amber-500"
+                            : "text-destructive"
+                      }`}
+                    >
+                      {student.averageScore || 0}%
+                    </span>
+                  ),
+                },
+                { key: "lastActive", header: "Last Active" },
+              ]}
+            />
+          </div>
+        </div>
       </ChartCard>
     </div>
   )

@@ -58,125 +58,115 @@ export default function AdminStudentsPage() {
   }
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Students</h1>
-          <p className="text-muted-foreground mt-1">Manage and monitor all enrolled students</p>
+          <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Students</h1>
+          <p className="text-sm lg:text-base text-muted-foreground mt-1">Manage and monitor all enrolled students</p>
         </div>
-        <Button className="gap-2" onClick={handleExportCSV}>
+        <Button className="gap-2 w-full sm:w-auto" onClick={handleExportCSV}>
           <Download className="w-4 h-4" />
           Export CSV
         </Button>
       </div>
 
       <ChartCard title={`All Students (${students.length})`}>
-        <DataTable
-          data={students}
-          searchKey="name"
-          pageSize={10}
-          columns={[
-            { key: "name", header: "Name", sortable: true },
-            { key: "email", header: "Email" },
-            { key: "phone", header: "Phone" },
-            {
-              key: "plan",
-              header: "Plan",
-              sortable: true,
-              render: (student: any) => (
-                <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    student.plan === "pro"
-                      ? "bg-primary/20 text-primary"
-                      : student.plan === "basic"
-                        ? "bg-amber-500/20 text-amber-500"
-                        : "bg-muted text-muted-foreground"
-                  }`}
-                >
-                  {(student.plan || "free").toUpperCase()}
-                </span>
-              ),
-            },
-            { key: "testsAttempted", header: "Tests", sortable: true },
-            {
-              key: "averageScore",
-              header: "Avg Score",
-              sortable: true,
-              render: (student: any) => (
-                <div className="flex items-center gap-2">
-                  <div className="w-16 h-2 bg-muted rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full ${
-                        student.averageScore >= 80
-                          ? "bg-accent"
-                          : student.averageScore >= 60
-                            ? "bg-amber-500"
-                            : "bg-destructive"
+        <div className="overflow-x-auto -mx-4 lg:mx-0">
+          <div className="min-w-[800px] lg:min-w-0 px-4 lg:px-0">
+            <DataTable
+              data={students}
+              searchKey="name"
+              pageSize={10}
+              columns={[
+                { key: "name", header: "Name", sortable: true },
+                { key: "email", header: "Email" },
+                { key: "phone", header: "Phone" },
+                {
+                  key: "plan",
+                  header: "Plan",
+                  sortable: true,
+                  render: (student: any) => (
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        student.plan === "pro"
+                          ? "bg-primary/20 text-primary"
+                          : student.plan === "basic"
+                            ? "bg-amber-500/20 text-amber-500"
+                            : "bg-muted text-muted-foreground"
                       }`}
-                      style={{ width: `${student.averageScore || 0}%` }}
-                    />
-                  </div>
-                  <span className="text-sm font-medium">{student.averageScore || 0}%</span>
-                </div>
-              ),
-            },
-            {
-              key: "progress",
-              header: "Progress",
-              sortable: true,
-              render: (student: any) => (
-                <div className="flex items-center gap-2">
-                  <div className="w-16 h-2 bg-muted rounded-full overflow-hidden">
-                    <div className="h-full bg-primary rounded-full" style={{ width: `${student.progress || 0}%` }} />
-                  </div>
-                  <span className="text-sm">{student.progress || 0}%</span>
-                </div>
-              ),
-            },
-            { key: "lastActive", header: "Last Active" },
-            {
-              key: "actions",
-              header: "Actions",
-              render: (student: any) => (
-                <Button variant="ghost" size="sm" onClick={() => setSelectedStudent(student)}>
-                  <Eye className="w-4 h-4" />
-                </Button>
-              ),
-            },
-          ]}
-        />
+                    >
+                      {(student.plan || "free").toUpperCase()}
+                    </span>
+                  ),
+                },
+                { key: "testsAttempted", header: "Tests", sortable: true },
+                {
+                  key: "averageScore",
+                  header: "Avg Score",
+                  sortable: true,
+                  render: (student: any) => (
+                    <div className="flex items-center gap-2">
+                      <div className="w-12 lg:w-16 h-2 bg-muted rounded-full overflow-hidden">
+                        <div
+                          className={`h-full rounded-full ${
+                            student.averageScore >= 80
+                              ? "bg-accent"
+                              : student.averageScore >= 60
+                                ? "bg-amber-500"
+                                : "bg-destructive"
+                          }`}
+                          style={{ width: `${student.averageScore || 0}%` }}
+                        />
+                      </div>
+                      <span className="text-sm font-medium">{student.averageScore || 0}%</span>
+                    </div>
+                  ),
+                },
+                { key: "lastActive", header: "Last Active" },
+                {
+                  key: "actions",
+                  header: "Actions",
+                  render: (student: any) => (
+                    <Button variant="ghost" size="sm" onClick={() => setSelectedStudent(student)}>
+                      <Eye className="w-4 h-4" />
+                    </Button>
+                  ),
+                },
+              ]}
+            />
+          </div>
+        </div>
       </ChartCard>
 
-      {/* Student Detail Modal */}
       <Dialog open={!!selectedStudent} onOpenChange={() => setSelectedStudent(null)}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto mx-4 lg:mx-auto">
           {selectedStudent && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl">Student Details</DialogTitle>
+                <DialogTitle className="text-xl lg:text-2xl">Student Details</DialogTitle>
               </DialogHeader>
 
-              <div className="space-y-6 py-4">
+              <div className="space-y-4 lg:space-y-6 py-4">
                 {/* Basic Info */}
-                <div className="flex items-start gap-6 p-4 bg-muted/30 rounded-xl">
-                  <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center text-2xl font-bold text-primary">
+                <div className="flex flex-col sm:flex-row items-start gap-4 lg:gap-6 p-4 bg-muted/30 rounded-xl">
+                  <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-primary/20 flex items-center justify-center text-xl lg:text-2xl font-bold text-primary flex-shrink-0">
                     {selectedStudent.name?.charAt(0) || "?"}
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-foreground">{selectedStudent.name}</h3>
-                    <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
-                      <span className="flex items-center gap-1">
-                        <Mail className="w-4 h-4" />
-                        {selectedStudent.email}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg lg:text-xl font-bold text-foreground">{selectedStudent.name}</h3>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-2 text-sm text-muted-foreground">
+                      <span className="flex items-center gap-1 truncate">
+                        <Mail className="w-4 h-4 flex-shrink-0" />
+                        <span className="truncate">{selectedStudent.email}</span>
                       </span>
                       {selectedStudent.phone && (
                         <span className="flex items-center gap-1">
-                          <Phone className="w-4 h-4" />
+                          <Phone className="w-4 h-4 flex-shrink-0" />
                           {selectedStudent.phone}
                         </span>
                       )}
                     </div>
-                    <div className="flex items-center gap-3 mt-3">
+                    <div className="flex flex-wrap items-center gap-2 lg:gap-3 mt-3">
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-medium ${
                           selectedStudent.plan === "pro"
@@ -196,21 +186,23 @@ export default function AdminStudentsPage() {
                 </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-4 gap-4">
-                  <div className="p-4 bg-muted/30 rounded-xl text-center">
-                    <p className="text-2xl font-bold text-foreground">{selectedStudent.testsAttempted || 0}</p>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+                  <div className="p-3 lg:p-4 bg-muted/30 rounded-xl text-center">
+                    <p className="text-xl lg:text-2xl font-bold text-foreground">
+                      {selectedStudent.testsAttempted || 0}
+                    </p>
                     <p className="text-xs text-muted-foreground">Tests Attempted</p>
                   </div>
-                  <div className="p-4 bg-muted/30 rounded-xl text-center">
-                    <p className="text-2xl font-bold text-accent">{selectedStudent.averageScore || 0}%</p>
+                  <div className="p-3 lg:p-4 bg-muted/30 rounded-xl text-center">
+                    <p className="text-xl lg:text-2xl font-bold text-accent">{selectedStudent.averageScore || 0}%</p>
                     <p className="text-xs text-muted-foreground">Avg Score</p>
                   </div>
-                  <div className="p-4 bg-muted/30 rounded-xl text-center">
-                    <p className="text-2xl font-bold text-primary">{selectedStudent.progress || 0}%</p>
+                  <div className="p-3 lg:p-4 bg-muted/30 rounded-xl text-center">
+                    <p className="text-xl lg:text-2xl font-bold text-primary">{selectedStudent.progress || 0}%</p>
                     <p className="text-xs text-muted-foreground">Progress</p>
                   </div>
-                  <div className="p-4 bg-muted/30 rounded-xl text-center">
-                    <p className="text-2xl font-bold text-foreground">{selectedStudent.totalTime || "0h"}</p>
+                  <div className="p-3 lg:p-4 bg-muted/30 rounded-xl text-center">
+                    <p className="text-xl lg:text-2xl font-bold text-foreground">{selectedStudent.totalTime || "0h"}</p>
                     <p className="text-xs text-muted-foreground">Total Time</p>
                   </div>
                 </div>

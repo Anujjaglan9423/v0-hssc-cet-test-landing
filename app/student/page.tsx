@@ -82,23 +82,21 @@ export default function StudentDashboard() {
   const topicTests = tests.filter((t) => t.category === "topic")
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Header - Changed to generic greeting */}
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Welcome, Student!</h1>
-          <p className="text-muted-foreground mt-1">Continue your preparation journey</p>
+          <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Welcome, Student!</h1>
+          <p className="text-sm lg:text-base text-muted-foreground mt-1">Continue your preparation journey</p>
         </div>
         <Link href="/student/tests">
-          <Button className="gap-2">
+          <Button className="gap-2 w-full sm:w-auto">
             <Zap className="w-4 h-4" />
             Start Test
           </Button>
         </Link>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
         <StatsCard
           title="Tests Attempted"
           value={stats.testsAttempted}
@@ -133,10 +131,9 @@ export default function StudentDashboard() {
         />
       </div>
 
-      {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <ChartCard title="Performance Trend">
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={250}>
             <AreaChart data={performanceTrend}>
               <defs>
                 <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
@@ -145,20 +142,20 @@ export default function StudentDashboard() {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis dataKey="test" stroke="#888" />
-              <YAxis stroke="#888" domain={[0, 100]} />
+              <XAxis dataKey="test" stroke="#888" fontSize={11} />
+              <YAxis stroke="#888" domain={[0, 100]} fontSize={11} />
               <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
-              <Area type="monotone" dataKey="score" stroke="#10b981" strokeWidth={3} fill="url(#colorScore)" />
+              <Area type="monotone" dataKey="score" stroke="#10b981" strokeWidth={2} fill="url(#colorScore)" />
             </AreaChart>
           </ResponsiveContainer>
         </ChartCard>
 
         <ChartCard title="Subject-wise Performance">
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={250}>
             <RadarChart data={subjectPerformance}>
               <PolarGrid stroke="#333" />
-              <PolarAngleAxis dataKey="subject" stroke="#888" fontSize={11} />
-              <PolarRadiusAxis stroke="#888" domain={[0, 100]} />
+              <PolarAngleAxis dataKey="subject" stroke="#888" fontSize={10} />
+              <PolarRadiusAxis stroke="#888" domain={[0, 100]} fontSize={10} />
               <Radar name="Score" dataKey="score" stroke="#10b981" fill="#10b981" fillOpacity={0.3} />
               <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
             </RadarChart>
@@ -167,19 +164,19 @@ export default function StudentDashboard() {
       </div>
 
       {/* Recent Tests & Recommended */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <ChartCard title="Recent Test Results">
-          <div className="space-y-4">
+          <div className="space-y-3">
             {recentResults.length > 0 ? (
               recentResults.map((result: any, idx: number) => (
                 <div
                   key={result.id}
-                  className="flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all duration-300 animate-in fade-in slide-in-from-left-4"
+                  className="flex items-center justify-between p-3 lg:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all duration-300 animate-in fade-in slide-in-from-left-4"
                   style={{ animationDelay: `${idx * 100}ms` }}
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3">
                     <div
-                      className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                      className={`w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center ${
                         result.score >= 80
                           ? "bg-accent/20 text-accent"
                           : result.score >= 60
@@ -187,18 +184,20 @@ export default function StudentDashboard() {
                             : "bg-destructive/20 text-destructive"
                       }`}
                     >
-                      <Trophy className="w-6 h-6" />
+                      <Trophy className="w-5 h-5 lg:w-6 lg:h-6" />
                     </div>
                     <div>
-                      <p className="font-medium text-foreground">{result.test?.title || "Test"}</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="font-medium text-foreground text-sm lg:text-base line-clamp-1">
+                        {result.test?.title || "Test"}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
                         {new Date(result.created_at).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p
-                      className={`text-2xl font-bold ${
+                      className={`text-xl lg:text-2xl font-bold ${
                         result.score >= 80 ? "text-accent" : result.score >= 60 ? "text-amber-500" : "text-destructive"
                       }`}
                     >
@@ -209,10 +208,9 @@ export default function StudentDashboard() {
                 </div>
               ))
             ) : (
-              <div className="text-center py-8 text-muted-foreground">
-                <FileText className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                <p>No tests attempted yet</p>
-                <p className="text-sm">Start a test to see your results here</p>
+              <div className="text-center py-6 text-muted-foreground">
+                <FileText className="w-10 h-10 mx-auto mb-3 opacity-50" />
+                <p className="text-sm">No tests attempted yet</p>
               </div>
             )}
             <Link href="/student/results">
@@ -224,22 +222,22 @@ export default function StudentDashboard() {
         </ChartCard>
 
         <ChartCard title="Recommended Tests">
-          <div className="space-y-4">
+          <div className="space-y-3">
             {recommendedTests.length > 0 ? (
               recommendedTests.map((test: any, idx: number) => (
                 <div
                   key={test.id}
-                  className="flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all duration-300 animate-in fade-in slide-in-from-right-4"
+                  className="flex items-center justify-between p-3 lg:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all duration-300 animate-in fade-in slide-in-from-right-4"
                   style={{ animationDelay: `${idx * 100}ms` }}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                      <BookOpen className="w-6 h-6 text-primary" />
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                      <BookOpen className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
                     </div>
                     <div>
-                      <p className="font-medium text-foreground">{test.title}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {test.questions_count} Questions | {test.duration} min
+                      <p className="font-medium text-foreground text-sm lg:text-base line-clamp-1">{test.title}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {test.questions_count} Qs | {test.duration} min
                       </p>
                     </div>
                   </div>
@@ -249,9 +247,9 @@ export default function StudentDashboard() {
                 </div>
               ))
             ) : (
-              <div className="text-center py-8 text-muted-foreground">
-                <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                <p>No tests available</p>
+              <div className="text-center py-6 text-muted-foreground">
+                <BookOpen className="w-10 h-10 mx-auto mb-3 opacity-50" />
+                <p className="text-sm">No tests available</p>
               </div>
             )}
             <Link href="/student/tests">
@@ -263,35 +261,34 @@ export default function StudentDashboard() {
         </ChartCard>
       </div>
 
-      {/* Quick Actions */}
       <ChartCard title="Quick Actions">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
           <Link href="/student/tests?category=exam">
-            <div className="p-6 rounded-xl bg-primary/10 hover:bg-primary/20 transition-all duration-300 text-center group cursor-pointer">
-              <FileText className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
-              <p className="font-medium text-foreground">Full Mock Tests</p>
-              <p className="text-sm text-muted-foreground">{examTests.length} Available</p>
+            <div className="p-4 lg:p-6 rounded-xl bg-primary/10 hover:bg-primary/20 transition-all duration-300 text-center group cursor-pointer">
+              <FileText className="w-6 h-6 lg:w-8 lg:h-8 text-primary mx-auto mb-2 lg:mb-3 group-hover:scale-110 transition-transform" />
+              <p className="font-medium text-foreground text-sm lg:text-base">Full Mock Tests</p>
+              <p className="text-xs text-muted-foreground">{examTests.length} Available</p>
             </div>
           </Link>
           <Link href="/student/tests?category=subject">
-            <div className="p-6 rounded-xl bg-accent/10 hover:bg-accent/20 transition-all duration-300 text-center group cursor-pointer">
-              <BookOpen className="w-8 h-8 text-accent mx-auto mb-3 group-hover:scale-110 transition-transform" />
-              <p className="font-medium text-foreground">Subject Tests</p>
-              <p className="text-sm text-muted-foreground">{subjectTests.length} Available</p>
+            <div className="p-4 lg:p-6 rounded-xl bg-accent/10 hover:bg-accent/20 transition-all duration-300 text-center group cursor-pointer">
+              <BookOpen className="w-6 h-6 lg:w-8 lg:h-8 text-accent mx-auto mb-2 lg:mb-3 group-hover:scale-110 transition-transform" />
+              <p className="font-medium text-foreground text-sm lg:text-base">Subject Tests</p>
+              <p className="text-xs text-muted-foreground">{subjectTests.length} Available</p>
             </div>
           </Link>
           <Link href="/student/tests?category=topic">
-            <div className="p-6 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 transition-all duration-300 text-center group cursor-pointer">
-              <Target className="w-8 h-8 text-amber-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
-              <p className="font-medium text-foreground">Topic Tests</p>
-              <p className="text-sm text-muted-foreground">{topicTests.length} Available</p>
+            <div className="p-4 lg:p-6 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 transition-all duration-300 text-center group cursor-pointer">
+              <Target className="w-6 h-6 lg:w-8 lg:h-8 text-amber-500 mx-auto mb-2 lg:mb-3 group-hover:scale-110 transition-transform" />
+              <p className="font-medium text-foreground text-sm lg:text-base">Topic Tests</p>
+              <p className="text-xs text-muted-foreground">{topicTests.length} Available</p>
             </div>
           </Link>
           <Link href="/student/practice">
-            <div className="p-6 rounded-xl bg-destructive/10 hover:bg-destructive/20 transition-all duration-300 text-center group cursor-pointer">
-              <Zap className="w-8 h-8 text-destructive mx-auto mb-3 group-hover:scale-110 transition-transform" />
-              <p className="font-medium text-foreground">Quick Practice</p>
-              <p className="text-sm text-muted-foreground">Unlimited</p>
+            <div className="p-4 lg:p-6 rounded-xl bg-destructive/10 hover:bg-destructive/20 transition-all duration-300 text-center group cursor-pointer">
+              <Zap className="w-6 h-6 lg:w-8 lg:h-8 text-destructive mx-auto mb-2 lg:mb-3 group-hover:scale-110 transition-transform" />
+              <p className="font-medium text-foreground text-sm lg:text-base">Quick Practice</p>
+              <p className="text-xs text-muted-foreground">Unlimited</p>
             </div>
           </Link>
         </div>
