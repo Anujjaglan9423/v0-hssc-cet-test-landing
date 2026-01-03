@@ -51,9 +51,9 @@ export default function AdminTestsPage() {
     }
   }
 
-  const examTests = tests.filter((t) => t.category === "exam")
-  const subjectTests = tests.filter((t) => t.category === "subject")
-  const topicTests = tests.filter((t) => t.category === "topic")
+  const examTests = tests.filter((t) => t.test_type === "full")
+  const subjectTests = tests.filter((t) => t.test_type === "subject")
+  const topicTests = tests.filter((t) => t.test_type === "topic")
 
   const handleTestCreated = async () => {
     await loadTests()
@@ -346,7 +346,9 @@ export default function AdminTestsPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-muted/50 rounded-xl">
                 <div>
                   <p className="text-xs text-muted-foreground">Category</p>
-                  <p className="font-medium capitalize">{selectedTest.category}</p>
+                  <p className="font-medium capitalize">
+                    {selectedTest.test_type === "full" ? "Full Exam" : selectedTest.test_type}
+                  </p>
                 </div>
                 {selectedTest.subject && (
                   <div>

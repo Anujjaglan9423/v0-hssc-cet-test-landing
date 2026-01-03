@@ -805,3 +805,113 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
 
   return shuffled.slice(0, count)
 }
+
+export async function saveTestProgress(
+  testId: string,
+  answers: Record<string, string>,
+  flagged: string[],
+  currentQuestion: number,
+  timeRemaining: number,
+) {
+  const supabase = await createClient()
+
+  const user = await getCurrentUser()
+  if (!user) {
+    return { success: false, error: "Not authenticated" }
+  }
+
+  // Check for existing paused or in_progress attempt
+  const { data: existingAttempt } = await supabase
+    .from("test_attempts")
+    .select("id")
+    .eq("test_id", testId)
+    .eq("user_id", user.id)
+    .in("status", ["paused", "in_progress"])
+    .maybeSingle()
+
+  if (existingAttempt) {
+    // Update existing attempt
+    const { error } = await supabase
+      .from("test_attempts")
+      .update({
+        status: "paused",
+        answers: answers,
+        flagged: flagged,
+        current_question: currentQuestion,
+        time_remaining: timeRemaining,
+      })
+      .eq("id", existingAttempt.id)
+
+    if (error) {
+      console.error("Error saving progress:", error)
+      return { success: false, error: error.message }
+    }
+
+    return { success: true, attemptId: existingAttempt.id }
+  } else {
+    // Create new paused attempt
+    const { data: attempt, error } = await supabase
+      .from("test_attempts")
+      .insert({
+        test_id: testId,
+        user_id: user.id,
+        status: "paused",
+        answers: answers,
+        flagged: flagged,
+        current_question: currentQuestion,
+        time_remaining: timeRemaining,
+      })
+      .select()
+      .single()
+
+    if (error) {
+      console.error("Error creating paused attempt:", error)
+      return { success: false, error: error.message }
+    }
+
+    return { success: true, attemptId: attempt.id }
+  }
+}
+
+export async function getPausedTestState(testId: string) {
+  const supabase = await createClient()
+
+  const user = await getCurrentUser()
+  if (!user) {
+    return null
+  }
+
+  const { data: attempt, error } = await supabase
+    .from("test_attempts")
+    .select("id, answers, flagged, current_question, time_remaining, status")
+    .eq("test_id", testId)
+    .eq("user_id", user.id)
+    .eq("status", "paused")
+    .maybeSingle()
+
+  if (error || !attempt) {
+    return null
+  }
+
+  return {
+    attemptId: attempt.id,
+    answers: (attempt.answers as Record<string, string>) || {},
+    flagged: (attempt.flagged as string[]) || [],
+    currentQuestion: attempt.current_question || 0,
+    timeRemaining: attempt.time_remaining || 0,
+  }
+}
+
+export async function clearPausedTestState(testId: string) {
+  const supabase = await createClient()
+
+  const user = await getCurrentUser()
+  if (!user) {
+    return { success: false }
+  }
+
+  // Delete paused attempt
+  await supabase.from("test_attempts").delete().eq("test_id", testId).eq("user_id", user.id).eq("status", "paused")
+
+  return { success: true }
+}

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { getAvailableTests } from "@/lib/actions/student"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,6 +12,9 @@ export default function StudentTestsPage() {
   const [tests, setTests] = useState<any[]>([])
   const [search, setSearch] = useState("")
   const [isLoading, setIsLoading] = useState(true)
+  const [selectedExam, setSelectedExam] = useState<string>("all")
+  const [selectedSubject, setSelectedSubject] = useState<string>("all")
+  const [selectedTopic, setSelectedTopic] = useState<string>("all")
 
   useEffect(() => {
     async function loadTests() {
@@ -32,8 +35,49 @@ export default function StudentTestsPage() {
   const subjectTests = tests.filter((t) => t.test_type === "subject")
   const topicTests = tests.filter((t) => t.test_type === "topic")
 
+  const uniqueExams = useMemo(() => {
+    const exams = examTests.filter((t) => t.exam?.name).map((t) => ({ id: t.exam.id, name: t.exam.name }))
+    return Array.from(new Map(exams.map((e) => [e.id, e])).values())
+  }, [examTests])
+
+  const uniqueSubjects = useMemo(() => {
+    const subjects = subjectTests
+      .filter((t) => t.subject?.name)
+      .map((t) => ({ id: t.subject.id, name: t.subject.name }))
+    return Array.from(new Map(subjects.map((s) => [s.id, s])).values())
+  }, [subjectTests])
+
+  const uniqueTopics = useMemo(() => {
+    const topics = topicTests.filter((t) => t.topic?.name).map((t) => ({ id: t.topic.id, name: t.topic.name }))
+    return Array.from(new Map(topics.map((t) => [t.id, t])).values())
+  }, [topicTests])
+
   const filterTests = (testList: typeof tests) =>
     testList.filter((t) => t.title.toLowerCase().includes(search.toLowerCase()))
+
+  const filteredExamTests = useMemo(() => {
+    let filtered = examTests
+    if (selectedExam !== "all") {
+      filtered = filtered.filter((t) => t.exam?.id === selectedExam)
+    }
+    return filterTests(filtered)
+  }, [examTests, selectedExam, search])
+
+  const filteredSubjectTests = useMemo(() => {
+    let filtered = subjectTests
+    if (selectedSubject !== "all") {
+      filtered = filtered.filter((t) => t.subject?.id === selectedSubject)
+    }
+    return filterTests(filtered)
+  }, [subjectTests, selectedSubject, search])
+
+  const filteredTopicTests = useMemo(() => {
+    let filtered = topicTests
+    if (selectedTopic !== "all") {
+      filtered = filtered.filter((t) => t.topic?.id === selectedTopic)
+    }
+    return filterTests(filtered)
+  }, [topicTests, selectedTopic, search])
 
   const TestCard = ({ test }: { test: (typeof tests)[0] }) => (
     <div className="p-4 lg:p-6 rounded-xl border border-border bg-card hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1 group">
@@ -72,6 +116,7 @@ export default function StudentTestsPage() {
         {test.title}
       </h3>
 
+      {test.exam && <p className="text-xs lg:text-sm text-muted-foreground mb-1">Exam: {test.exam.name}</p>}
       {test.subject && <p className="text-xs lg:text-sm text-muted-foreground mb-1">Subject: {test.subject.name}</p>}
       {test.topic && <p className="text-xs lg:text-sm text-muted-foreground mb-2 lg:mb-3">Topic: {test.topic.name}</p>}
 
@@ -105,6 +150,43 @@ export default function StudentTestsPage() {
     </div>
   )
 
+  const SubTabs = ({
+    items,
+    selected,
+    onSelect,
+    label,
+  }: {
+    items: { id: string; name: string }[]
+    selected: string
+    onSelect: (id: string) => void
+    label: string
+  }) => (
+    <div className="mb-4">
+      <p className="text-xs text-muted-foreground mb-2">Filter by {label}:</p>
+      <div className="flex flex-wrap gap-2">
+        <Button
+          variant={selected === "all" ? "default" : "outline"}
+          size="sm"
+          onClick={() => onSelect("all")}
+          className="text-xs h-7"
+        >
+          All
+        </Button>
+        {items.map((item) => (
+          <Button
+            key={item.id}
+            variant={selected === item.id ? "default" : "outline"}
+            size="sm"
+            onClick={() => onSelect(item.id)}
+            className="text-xs h-7"
+          >
+            {item.name}
+          </Button>
+        ))}
+      </div>
+    </div>
+  )
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -133,7 +215,7 @@ export default function StudentTestsPage() {
         </div>
       </div>
 
-      {/* Stats - Made responsive */}
+      {/* Stats */}
       <div className="grid grid-cols-3 gap-3 lg:gap-6">
         <div className="bg-card border border-border rounded-xl p-4 lg:p-6 flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
           <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-xl bg-primary/20 flex items-center justify-center">
@@ -198,9 +280,12 @@ export default function StudentTestsPage() {
         </TabsContent>
 
         <TabsContent value="full">
-          {filterTests(examTests).length > 0 ? (
+          {uniqueExams.length > 0 && (
+            <SubTabs items={uniqueExams} selected={selectedExam} onSelect={setSelectedExam} label="Exam" />
+          )}
+          {filteredExamTests.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-              {filterTests(examTests).map((test) => (
+              {filteredExamTests.map((test) => (
                 <TestCard key={test.id} test={test} />
               ))}
             </div>
@@ -213,9 +298,12 @@ export default function StudentTestsPage() {
         </TabsContent>
 
         <TabsContent value="subject">
-          {filterTests(subjectTests).length > 0 ? (
+          {uniqueSubjects.length > 0 && (
+            <SubTabs items={uniqueSubjects} selected={selectedSubject} onSelect={setSelectedSubject} label="Subject" />
+          )}
+          {filteredSubjectTests.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-              {filterTests(subjectTests).map((test) => (
+              {filteredSubjectTests.map((test) => (
                 <TestCard key={test.id} test={test} />
               ))}
             </div>
@@ -228,9 +316,12 @@ export default function StudentTestsPage() {
         </TabsContent>
 
         <TabsContent value="topic">
-          {filterTests(topicTests).length > 0 ? (
+          {uniqueTopics.length > 0 && (
+            <SubTabs items={uniqueTopics} selected={selectedTopic} onSelect={setSelectedTopic} label="Topic" />
+          )}
+          {filteredTopicTests.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-              {filterTests(topicTests).map((test) => (
+              {filteredTopicTests.map((test) => (
                 <TestCard key={test.id} test={test} />
               ))}
             </div>
