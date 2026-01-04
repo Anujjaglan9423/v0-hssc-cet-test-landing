@@ -6,6 +6,7 @@ import Footer from "@/components/footer"
 
 const posts = [
   {
+    slug: "hssc-cet-2026-complete-syllabus-exam-pattern",
     title: "HSSC CET 2026: Complete Syllabus and Exam Pattern",
     excerpt:
       "Everything you need to know about the HSSC CET exam pattern, marking scheme, and detailed syllabus breakdown.",
@@ -15,6 +16,7 @@ const posts = [
     image: "/exam-syllabus-study-guide.jpg",
   },
   {
+    slug: "top-10-tips-crack-hssc-cet-first-attempt",
     title: "Top 10 Tips to Crack HSSC CET in First Attempt",
     excerpt: "Learn proven strategies from toppers who cleared HSSC CET with flying colors. Expert tips inside!",
     date: "Dec 10, 2025",
@@ -23,6 +25,7 @@ const posts = [
     image: "/success-tips-study-motivation.jpg",
   },
   {
+    slug: "important-current-affairs-hssc-cet-2026",
     title: "Important Current Affairs for HSSC CET 2026",
     excerpt: "Stay updated with the most important current affairs topics expected in HSSC CET 2026 examination.",
     date: "Dec 5, 2025",
@@ -31,6 +34,7 @@ const posts = [
     image: "/current-affairs-news-newspaper.jpg",
   },
   {
+    slug: "haryana-gk-districts-history-culture",
     title: "Haryana GK: Districts, History & Culture",
     excerpt: "Complete guide to Haryana General Knowledge covering districts, history, culture, and important facts.",
     date: "Nov 28, 2025",
@@ -39,6 +43,7 @@ const posts = [
     image: "/haryana-culture-heritage.jpg",
   },
   {
+    slug: "math-shortcuts-hssc-cet-quick-calculation-tricks",
     title: "Math Shortcuts for HSSC CET: Quick Calculation Tricks",
     excerpt: "Master these mathematical shortcuts to solve quantitative aptitude questions faster in HSSC CET.",
     date: "Nov 20, 2025",
@@ -47,6 +52,7 @@ const posts = [
     image: "/mathematics-calculation-formulas.jpg",
   },
   {
+    slug: "english-grammar-rules-hssc-aspirant",
     title: "English Grammar Rules Every HSSC Aspirant Must Know",
     excerpt: "Essential English grammar rules and common errors to avoid in HSSC CET English section.",
     date: "Nov 15, 2025",
@@ -121,10 +127,12 @@ export default function BlogPage() {
                       {post.readTime}
                     </span>
                   </div>
-                  <Button variant="ghost" className="w-full mt-4 group">
-                    Read More
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
+                  <Link href={`/blog/${post.slug}`}>
+                    <Button variant="ghost" className="w-full mt-4 group">
+                      Read More
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             ))}

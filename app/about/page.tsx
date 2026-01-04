@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { BookOpen, Users, Award, Target, ArrowLeft, CheckCircle } from "lucide-react"
 import Footer from "@/components/footer"
 
@@ -8,17 +9,12 @@ const team = [
   {
     name: "Anuj Jaglan",
     role: "Founder & CEO",
-    image: "/professional-indian-man-founder.jpg",
+    initials: "AJ",
   },
   {
-    name: "Priya Sharma",
-    role: "Content Head",
-    image: "/professional-indian-woman-educator.jpg",
-  },
-  {
-    name: "Rajesh Kumar",
-    role: "Technical Lead",
-    image: "/professional-indian-man-developer.jpg",
+    name: "Gaurav Joshi",
+    role: "Co-Founder & CTO",
+    initials: "GJ",
   },
 ]
 
@@ -121,18 +117,18 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team */}
+      {/* Team - Updated to use Avatar component with only 2 members */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-foreground text-center mb-12">Meet Our Team</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="flex justify-center gap-16">
             {team.map((member, index) => (
               <div key={index} className="text-center">
-                <img
-                  src={member.image || "/placeholder.svg"}
-                  alt={member.name}
-                  className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
-                />
+                <Avatar className="w-32 h-32 mx-auto mb-4">
+                  <AvatarFallback className="text-2xl font-bold bg-primary text-primary-foreground">
+                    {member.initials}
+                  </AvatarFallback>
+                </Avatar>
                 <h3 className="text-xl font-semibold text-foreground">{member.name}</h3>
                 <p className="text-muted-foreground">{member.role}</p>
               </div>

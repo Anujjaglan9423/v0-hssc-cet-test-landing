@@ -497,3 +497,139 @@ export async function getAdminAnalytics() {
     ],
   }
 }
+
+export async function createCustomMockTest(
+  title: string,
+  percentages: Record<string, number>,
+  totalQuestions = 100,
+  duration = 120,
+) {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+
+  if (!user) {
+    return { success: false, error: "Not authenticated" }
+  }
+
+  const { data: testResults } = await supabase
+    .from("tests")
+    .select(`
+      id,
+      subject:subjects (id, name),
+      questions (
+        id,
+        question_text,
+        option_a,
+        option_b,
+        option_c,
+        option_d,
+        correct_answer,
+        explanation,
+        exam_source
+      )
+    `)
+    .not("subject_id", "is", null)
+    .order("created_at", { ascending: false })
+
+  if (!testResults || testResults.length === 0) {
+    return { success: false, error: "No questions available in subject tests" }
+  }
+
+  // Group questions by subject, filtering out invalid correct answers
+  const questionsBySubject: Record<string, any[]> = {}
+  const validAnswers = ["a", "b", "c", "d"]
+
+  testResults.forEach((test: any) => {
+    const subjectName = test.subject?.name || "General"
+    if (!questionsBySubject[subjectName]) {
+      questionsBySubject[subjectName] = []
+    }
+
+    test.questions?.forEach((q: any) => {
+      const lowerAnswer = q.correct_answer?.toLowerCase() || ""
+      if (validAnswers.includes(lowerAnswer)) {
+        questionsBySubject[subjectName].push(q)
+      }
+    })
+  })
+
+  // Select questions according to percentages
+  const selectedQuestions: any[] = []
+  Object.entries(percentages).forEach(([subject, percentage]) => {
+    if (percentage === 0) return
+
+    const targetCount = Math.round((percentage / 100) * totalQuestions)
+    const subjectQuestions = questionsBySubject[subject] || []
+
+    if (subjectQuestions.length === 0) {
+      console.log(`[v0] No valid questions found for ${subject}`)
+      return
+    }
+
+    // Randomly shuffle and select
+    const shuffled = [...subjectQuestions].sort(() => Math.random() - 0.5)
+    const selected = shuffled.slice(0, Math.min(targetCount, shuffled.length))
+    console.log(`[v0] Selected ${selected.length} questions for ${subject} (target: ${targetCount})`)
+    selectedQuestions.push(...selected)
+  })
+
+  // Shuffle final questions
+  const finalQuestions = selectedQuestions.sort(() => Math.random() - 0.5).slice(0, totalQuestions)
+
+  console.log(`[v0] Total questions selected: ${finalQuestions.length} / ${totalQuestions}`)
+
+  if (finalQuestions.length < totalQuestions) {
+    return {
+      success: false,
+      error: `Only ${finalQuestions.length} questions available with valid answers, need ${totalQuestions}`,
+    }
+  }
+
+  // Create test
+  const { data: test, error: testError } = await supabase
+    .from("tests")
+    .insert({
+      title,
+      description: `Custom mock test - ${Object.entries(percentages)
+        .filter(([, p]) => p > 0)
+        .map(([s, p]) => `${s}: ${p}%`)
+        .join(", ")}`,
+      test_type: "full",
+      duration,
+      difficulty: "medium",
+      total_questions: finalQuestions.length,
+      created_by: user.id,
+    })
+    .select()
+    .single()
+
+  if (testError) {
+    console.error("Error creating test:", testError)
+    return { success: false, error: testError.message }
+  }
+
+  // Create questions in the test
+  const questions = finalQuestions.map((q, index) => ({
+    test_id: test.id,
+    question_order: index + 1,
+    question_text: q.question_text,
+    option_a: q.option_a,
+    option_b: q.option_b,
+    option_c: q.option_c,
+    option_d: q.option_d,
+    correct_answer: q.correct_answer.toLowerCase(),
+    explanation: q.explanation || null,
+    exam_source: q.exam_source || null,
+  }))
+
+  const { error: questionsError } = await supabase.from("questions").insert(questions)
+
+  if (questionsError) {
+    console.error("Error creating questions:", questionsError)
+    await supabase.from("tests").delete().eq("id", test.id)
+    return { success: false, error: questionsError.message }
+  }
+
+  revalidatePath("/admin/tests")
+  return { success: true, test, questionsCount: finalQuestions.length }
+}

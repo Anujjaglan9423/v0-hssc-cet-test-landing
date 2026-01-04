@@ -19,6 +19,8 @@ import {
   ChevronRight,
   Menu,
   X,
+  Mail,
+  MessageSquare,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -33,6 +35,8 @@ const adminLinks = [
   { href: "/admin/students", icon: Users, label: "Students" },
   { href: "/admin/tests", icon: FileText, label: "Tests" },
   { href: "/admin/analytics", icon: BarChart3, label: "Analytics" },
+  { href: "/admin/contacts", icon: Mail, label: "Contacts" },
+  { href: "/admin/feedback", icon: MessageSquare, label: "Feedback" },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ]
 

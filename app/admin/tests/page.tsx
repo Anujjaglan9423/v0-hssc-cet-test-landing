@@ -8,12 +8,14 @@ import { Button } from "@/components/ui/button"
 import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangle, Loader2 } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CSVUploadModal } from "@/components/admin/csv-upload-modal"
+import { CustomMockTestModal } from "@/components/admin/custom-mock-test-modal"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 export default function AdminTestsPage() {
   const [tests, setTests] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [showUploadModal, setShowUploadModal] = useState(false)
+  const [showCustomMockModal, setShowCustomMockModal] = useState(false)
   const [showSuccessToast, setShowSuccessToast] = useState(false)
   const [newTestTitle, setNewTestTitle] = useState("")
 
@@ -190,6 +192,10 @@ export default function AdminTestsPage() {
           <p className="text-muted-foreground mt-1">Create and manage all test series</p>
         </div>
         <div className="flex gap-3">
+          <Button variant="outline" className="gap-2 bg-transparent" onClick={() => setShowCustomMockModal(true)}>
+            <FileText className="w-4 h-4" />
+            Create Mock Test
+          </Button>
           <Button variant="outline" className="gap-2 bg-transparent" onClick={() => setShowUploadModal(true)}>
             <Upload className="w-4 h-4" />
             Upload CSV
@@ -297,6 +303,13 @@ export default function AdminTestsPage() {
       </Tabs>
 
       <CSVUploadModal open={showUploadModal} onOpenChange={setShowUploadModal} onTestCreated={handleTestCreated} />
+      <CustomMockTestModal
+        isOpen={showCustomMockModal}
+        onClose={() => {
+          setShowCustomMockModal(false)
+          loadTests()
+        }}
+      />
 
       {/* View Test Modal */}
       <Dialog open={showViewModal} onOpenChange={setShowViewModal}>
