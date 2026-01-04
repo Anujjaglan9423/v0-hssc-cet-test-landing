@@ -77,9 +77,9 @@ export default function StudentDashboard() {
   const recentResults = dashboardData?.recentResults || []
   const recommendedTests = tests.slice(0, 3)
 
-  const examTests = tests.filter((t) => t.category === "exam")
-  const subjectTests = tests.filter((t) => t.category === "subject")
-  const topicTests = tests.filter((t) => t.category === "topic")
+  const fullTests = tests.filter((t) => t.test_type === "full")
+  const subjectTests = tests.filter((t) => t.test_type === "subject")
+  const topicTests = tests.filter((t) => t.test_type === "topic")
 
   return (
     <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -105,17 +105,10 @@ export default function StudentDashboard() {
           icon={FileText}
           color="primary"
         />
-        <StatsCard
-          title="Average Score"
-          value={`${stats.averageScore}%`}
-          change={stats.averageScore >= 70 ? "Great job!" : "Keep improving!"}
-          changeType={stats.averageScore >= 70 ? "positive" : "neutral"}
-          icon={Target}
-          color="accent"
-        />
+        {/* Removed average score stat card */}
         <StatsCard
           title="Best Score"
-          value={`${stats.bestScore}%`}
+          value={`${Math.min(stats.bestScore, 100)}%`}
           change="Personal best"
           changeType="neutral"
           icon={Trophy}
@@ -177,9 +170,9 @@ export default function StudentDashboard() {
                   <div className="flex items-center gap-3">
                     <div
                       className={`w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center ${
-                        result.score >= 80
+                        result.percentage >= 80
                           ? "bg-accent/20 text-accent"
-                          : result.score >= 60
+                          : result.percentage >= 60
                             ? "bg-amber-500/20 text-amber-500"
                             : "bg-destructive/20 text-destructive"
                       }`}
@@ -198,10 +191,14 @@ export default function StudentDashboard() {
                   <div className="text-right">
                     <p
                       className={`text-xl lg:text-2xl font-bold ${
-                        result.score >= 80 ? "text-accent" : result.score >= 60 ? "text-amber-500" : "text-destructive"
+                        result.percentage >= 80
+                          ? "text-accent"
+                          : result.percentage >= 60
+                            ? "text-amber-500"
+                            : "text-destructive"
                       }`}
                     >
-                      {result.score}%
+                      {result.marks}/{result.total_questions}
                     </p>
                     <p className="text-xs text-muted-foreground">Rank #{result.rank || "-"}</p>
                   </div>
@@ -263,21 +260,21 @@ export default function StudentDashboard() {
 
       <ChartCard title="Quick Actions">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
-          <Link href="/student/tests?category=exam">
+          <Link href="/student/tests?tab=full">
             <div className="p-4 lg:p-6 rounded-xl bg-primary/10 hover:bg-primary/20 transition-all duration-300 text-center group cursor-pointer">
               <FileText className="w-6 h-6 lg:w-8 lg:h-8 text-primary mx-auto mb-2 lg:mb-3 group-hover:scale-110 transition-transform" />
               <p className="font-medium text-foreground text-sm lg:text-base">Full Mock Tests</p>
-              <p className="text-xs text-muted-foreground">{examTests.length} Available</p>
+              <p className="text-xs text-muted-foreground">{fullTests.length} Available</p>
             </div>
           </Link>
-          <Link href="/student/tests?category=subject">
+          <Link href="/student/tests?tab=subject">
             <div className="p-4 lg:p-6 rounded-xl bg-accent/10 hover:bg-accent/20 transition-all duration-300 text-center group cursor-pointer">
               <BookOpen className="w-6 h-6 lg:w-8 lg:h-8 text-accent mx-auto mb-2 lg:mb-3 group-hover:scale-110 transition-transform" />
               <p className="font-medium text-foreground text-sm lg:text-base">Subject Tests</p>
               <p className="text-xs text-muted-foreground">{subjectTests.length} Available</p>
             </div>
           </Link>
-          <Link href="/student/tests?category=topic">
+          <Link href="/student/tests?tab=topic">
             <div className="p-4 lg:p-6 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 transition-all duration-300 text-center group cursor-pointer">
               <Target className="w-6 h-6 lg:w-8 lg:h-8 text-amber-500 mx-auto mb-2 lg:mb-3 group-hover:scale-110 transition-transform" />
               <p className="font-medium text-foreground text-sm lg:text-base">Topic Tests</p>

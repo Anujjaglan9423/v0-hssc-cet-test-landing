@@ -27,8 +27,18 @@ export async function getStudentDashboard() {
 
   const testsAttempted = results?.length || 0
   const averageScore =
-    testsAttempted > 0 ? Math.round(results!.reduce((sum, r) => sum + r.score, 0) / testsAttempted) : 0
-  const bestScore = testsAttempted > 0 ? Math.max(...results!.map((r) => r.score)) : 0
+    testsAttempted > 0
+      ? Math.round(
+          results!.reduce((sum, r) => {
+            const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
+            return sum + percentage
+          }, 0) / testsAttempted,
+        )
+      : 0
+  const bestScore =
+    testsAttempted > 0
+      ? Math.max(...results!.map((r) => (r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0)))
+      : 0
   const totalTime = results?.reduce((sum, r) => sum + (r.time_taken || 0), 0) || 0
 
   // Get performance trend (last 7 tests)
@@ -38,7 +48,7 @@ export async function getStudentDashboard() {
       .reverse()
       .map((r, i) => ({
         test: `Test ${i + 1}`,
-        score: r.score,
+        score: r.total_questions > 0 ? Math.round((r.score / r.total_questions) * 100) : 0,
       })) || []
 
   // Get subject-wise performance
@@ -48,7 +58,8 @@ export async function getStudentDashboard() {
     if (!subjectScores[subjectName]) {
       subjectScores[subjectName] = { total: 0, count: 0 }
     }
-    subjectScores[subjectName].total += r.score
+    const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
+    subjectScores[subjectName].total += percentage
     subjectScores[subjectName].count += 1
   })
 
@@ -65,7 +76,12 @@ export async function getStudentDashboard() {
       bestScore,
       totalTime: `${Math.floor(totalTime / 3600)}h`,
     },
-    recentResults: results?.slice(0, 3) || [],
+    recentResults:
+      results?.slice(0, 3).map((r) => ({
+        ...r,
+        marks: r.score,
+        percentage: r.total_questions > 0 ? Math.round((r.score / r.total_questions) * 100) : 0,
+      })) || [],
     performanceTrend,
     subjectPerformance,
   }
@@ -544,7 +560,7 @@ export async function submitTest(testId: string, answers: Record<string, string>
   }
 
   // Save user answers
-  const userAnswers = Object.entries(answers).map(([questionId, answer]) => {
+  const userAnswersArray = Object.entries(answers).map(([questionId, answer]) => {
     const question = questions.find((q: any) => q.id === questionId)
     const isCorrect = question && answer.toLowerCase() === question.correct_answer.toLowerCase()
     return {
@@ -556,8 +572,8 @@ export async function submitTest(testId: string, answers: Record<string, string>
     }
   })
 
-  if (userAnswers.length > 0) {
-    await supabase.from("user_answers").insert(userAnswers)
+  if (userAnswersArray.length > 0) {
+    await supabase.from("user_answers").insert(userAnswersArray)
   }
 
   // Get all existing results for this test to calculate rank
@@ -616,7 +632,6 @@ export async function getStudentAnalytics() {
   const user = await getCurrentUser()
   if (!user) return null
 
-  // Get all user results with test info
   const { data: results } = await supabase
     .from("test_results")
     .select(`
@@ -647,18 +662,26 @@ export async function getStudentAnalytics() {
       totalCorrect: 0,
       totalWrong: 0,
       totalAttempted: 0,
+      accuracyDisplay: "0/0",
     }
   }
 
   // Calculate stats
-  const overallScore = Math.round(allResults.reduce((sum, r) => sum + r.score, 0) / totalAttempts)
-  const totalCorrect = allResults.reduce((sum, r) => sum + r.correct_answers, 0)
-  const totalWrong = allResults.reduce((sum, r) => sum + r.wrong_answers, 0)
-  const totalAttempted = totalCorrect + totalWrong
-  const accuracyRate = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0
+  const overallScore = Math.round(
+    allResults.reduce((sum, r) => {
+      const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
+      return sum + percentage
+    }, 0) / totalAttempts,
+  )
+
+  const totalCorrect = allResults.reduce((sum, r) => sum + r.score, 0)
+  const totalQuestions = allResults.reduce((sum, r) => sum + r.total_questions, 0)
+  const accuracyRate = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0
+  const accuracyDisplay = `${totalCorrect}/${totalQuestions}`
 
   const totalTime = allResults.reduce((sum, r) => sum + (r.time_taken || 0), 0)
-  const totalQuestions = allResults.reduce((sum, r) => sum + r.total_questions, 0)
+  const totalWrong = totalQuestions - totalCorrect
+
   const avgTimePerQuestion = totalQuestions > 0 ? Math.round(totalTime / totalQuestions) : 0
 
   // Calculate streak
@@ -700,49 +723,52 @@ export async function getStudentAnalytics() {
   // Performance trend (last 7 tests)
   const performanceTrend = allResults.slice(-7).map((r, i) => ({
     week: `Test ${i + 1}`,
-    score: r.score,
+    score: r.total_questions > 0 ? Math.round((r.score / r.total_questions) * 100) : 0,
     time: Math.round((r.time_taken || 0) / r.total_questions),
   }))
 
-  // Subject performance
+  // Subject performance - Clamp to 0-100%
   const subjectScores: Record<string, { total: number; count: number }> = {}
   allResults.forEach((r) => {
     const subjectName = (r.test as any)?.subject?.name || "General"
     if (!subjectScores[subjectName]) {
       subjectScores[subjectName] = { total: 0, count: 0 }
     }
-    subjectScores[subjectName].total += r.score
+    const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
+    subjectScores[subjectName].total += percentage
     subjectScores[subjectName].count++
   })
 
   const subjectPerformance = Object.entries(subjectScores).map(([subject, data]) => ({
     subject,
-    score: Math.round(data.total / data.count),
+    score: Math.round(Math.min(100, data.total / data.count)),
     tests: data.count,
   }))
 
-  // Topic strengths
+  // Topic strengths - Clamp to 0-100%
   const topicScores: Record<string, { total: number; count: number }> = {}
   allResults.forEach((r) => {
     const topicName = (r.test as any)?.topic?.name || (r.test as any)?.subject?.name || "General"
     if (!topicScores[topicName]) {
       topicScores[topicName] = { total: 0, count: 0 }
     }
-    topicScores[topicName].total += r.score
+    const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
+    topicScores[topicName].total += percentage
     topicScores[topicName].count++
   })
 
   const topicStrengths = Object.entries(topicScores)
     .map(([topic, data]) => ({
       topic,
-      strength: Math.round(data.total / data.count),
+      strength: Math.round(Math.min(100, data.total / data.count)),
     }))
     .sort((a, b) => b.strength - a.strength)
     .slice(0, 6)
 
   return {
-    overallScore,
+    overallScore: Math.min(overallScore, 100),
     accuracyRate,
+    accuracyDisplay,
     avgTimePerQuestion,
     currentStreak,
     bestStreak,
@@ -751,29 +777,109 @@ export async function getStudentAnalytics() {
     topicStrengths,
     totalCorrect,
     totalWrong,
-    totalAttempted,
+    totalAttempted: totalQuestions,
   }
 }
 
+// Get subjects and topics that have questions through tests
 export async function getSubjectsAndTopics() {
   const supabase = await createClient()
 
-  const { data: subjects } = await supabase
-    .from("subjects")
+  // Get subjects that have tests with questions
+  const { data: testsWithQuestions } = await supabase
+    .from("tests")
     .select(`
-      id,
-      name,
-      topics (id, name)
+      subject_id,
+      topic_id,
+      subject:subjects (id, name),
+      topic:topics (id, name),
+      questions (id)
     `)
-    .order("name")
+    .not("subject_id", "is", null)
 
-  return subjects || []
+  if (!testsWithQuestions) return []
+
+  // Build subjects map with only those that have questions
+  const subjectsMap: Record<
+    string,
+    {
+      id: string
+      name: string
+      topics: Map<string, { id: string; name: string; questionCount: number }>
+      questionCount: number
+    }
+  > = {}
+
+  testsWithQuestions.forEach((test) => {
+    const questionsCount = test.questions?.length || 0
+    if (questionsCount === 0) return // Skip tests without questions
+
+    const subject = test.subject as any
+    if (!subject) return
+
+    if (!subjectsMap[subject.id]) {
+      subjectsMap[subject.id] = {
+        id: subject.id,
+        name: subject.name,
+        topics: new Map(),
+        questionCount: 0,
+      }
+    }
+
+    subjectsMap[subject.id].questionCount += questionsCount
+
+    // Add topic if exists
+    const topic = test.topic as any
+    if (topic) {
+      const existingTopic = subjectsMap[subject.id].topics.get(topic.id)
+      if (existingTopic) {
+        existingTopic.questionCount += questionsCount
+      } else {
+        subjectsMap[subject.id].topics.set(topic.id, {
+          id: topic.id,
+          name: topic.name,
+          questionCount: questionsCount,
+        })
+      }
+    }
+  })
+
+  // Convert to array format
+  const subjects = Object.values(subjectsMap).map((subject) => ({
+    id: subject.id,
+    name: subject.name,
+    questionCount: subject.questionCount,
+    topics: Array.from(subject.topics.values()),
+  }))
+
+  return subjects.sort((a, b) => a.name.localeCompare(b.name))
 }
 
+// Fetch questions from tests correctly
 export async function getPracticeQuestions(subjectId: string, topicIds: string[], count: number, difficulty: string) {
   const supabase = await createClient()
 
-  let query = supabase.from("questions").select(`
+  // First get tests that match subject and optionally topics
+  let testsQuery = supabase.from("tests").select("id").eq("subject_id", subjectId)
+
+  if (topicIds.length > 0) {
+    testsQuery = testsQuery.in("topic_id", topicIds)
+  }
+
+  if (difficulty !== "all") {
+    testsQuery = testsQuery.eq("difficulty", difficulty)
+  }
+
+  const { data: tests } = await testsQuery
+
+  if (!tests || tests.length === 0) return []
+
+  const testIds = tests.map((t) => t.id)
+
+  // Get questions from these tests
+  const { data: questions } = await supabase
+    .from("questions")
+    .select(`
       id,
       question_text,
       option_a,
@@ -781,31 +887,19 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
       option_c,
       option_d,
       correct_answer,
-      explanation,
-      test:tests!inner (subject_id, topic_id, difficulty)
+      explanation
     `)
+    .in("test_id", testIds)
 
-  // Filter by subject
-  query = query.eq("tests.subject_id", subjectId)
-
-  // Filter by topics if selected
-  if (topicIds.length > 0) {
-    query = query.in("tests.topic_id", topicIds)
-  }
-
-  // Filter by difficulty
-  if (difficulty !== "all") {
-    query = query.eq("tests.difficulty", difficulty)
-  }
-
-  const { data: questions } = await query.limit(count)
+  if (!questions) return []
 
   // Shuffle questions
-  const shuffled = questions?.sort(() => Math.random() - 0.5) || []
+  const shuffled = questions.sort(() => Math.random() - 0.5)
 
   return shuffled.slice(0, count)
 }
 
+// Save test progress
 export async function saveTestProgress(
   testId: string,
   answers: Record<string, string>,
@@ -873,6 +967,7 @@ export async function saveTestProgress(
   }
 }
 
+// Get paused test state
 export async function getPausedTestState(testId: string) {
   const supabase = await createClient()
 
@@ -902,6 +997,7 @@ export async function getPausedTestState(testId: string) {
   }
 }
 
+// Clear paused test state
 export async function clearPausedTestState(testId: string) {
   const supabase = await createClient()
 

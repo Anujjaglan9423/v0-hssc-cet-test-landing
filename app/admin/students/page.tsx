@@ -29,16 +29,8 @@ export default function AdminStudentsPage() {
   }, [])
 
   const handleExportCSV = () => {
-    const headers = ["Name", "Email", "Phone", "Plan", "Tests Attempted", "Average Score", "Last Active"]
-    const rows = students.map((s) => [
-      s.name,
-      s.email,
-      s.phone || "",
-      s.plan,
-      s.testsAttempted,
-      s.averageScore,
-      s.lastActive,
-    ])
+    const headers = ["Name", "Email", "Phone", "Plan", "Tests Attempted", "Last Active"]
+    const rows = students.map((s) => [s.name, s.email, s.phone || "", s.plan, s.testsAttempted, s.lastActive])
 
     const csvContent = [headers.join(","), ...rows.map((row) => row.join(","))].join("\n")
     const blob = new Blob([csvContent], { type: "text/csv" })
@@ -100,28 +92,6 @@ export default function AdminStudentsPage() {
                   ),
                 },
                 { key: "testsAttempted", header: "Tests", sortable: true },
-                {
-                  key: "averageScore",
-                  header: "Avg Score",
-                  sortable: true,
-                  render: (student: any) => (
-                    <div className="flex items-center gap-2">
-                      <div className="w-12 lg:w-16 h-2 bg-muted rounded-full overflow-hidden">
-                        <div
-                          className={`h-full rounded-full ${
-                            student.averageScore >= 80
-                              ? "bg-accent"
-                              : student.averageScore >= 60
-                                ? "bg-amber-500"
-                                : "bg-destructive"
-                          }`}
-                          style={{ width: `${student.averageScore || 0}%` }}
-                        />
-                      </div>
-                      <span className="text-sm font-medium">{student.averageScore || 0}%</span>
-                    </div>
-                  ),
-                },
                 { key: "lastActive", header: "Last Active" },
                 {
                   key: "actions",
@@ -194,16 +164,8 @@ export default function AdminStudentsPage() {
                     <p className="text-xs text-muted-foreground">Tests Attempted</p>
                   </div>
                   <div className="p-3 lg:p-4 bg-muted/30 rounded-xl text-center">
-                    <p className="text-xl lg:text-2xl font-bold text-accent">{selectedStudent.averageScore || 0}%</p>
-                    <p className="text-xs text-muted-foreground">Avg Score</p>
-                  </div>
-                  <div className="p-3 lg:p-4 bg-muted/30 rounded-xl text-center">
                     <p className="text-xl lg:text-2xl font-bold text-primary">{selectedStudent.progress || 0}%</p>
                     <p className="text-xs text-muted-foreground">Progress</p>
-                  </div>
-                  <div className="p-3 lg:p-4 bg-muted/30 rounded-xl text-center">
-                    <p className="text-xl lg:text-2xl font-bold text-foreground">{selectedStudent.totalTime || "0h"}</p>
-                    <p className="text-xs text-muted-foreground">Total Time</p>
                   </div>
                 </div>
               </div>

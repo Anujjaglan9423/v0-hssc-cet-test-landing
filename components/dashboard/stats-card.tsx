@@ -119,3 +119,5 @@ export function StatsCard({
     </div>
   )
 }
+
+export default StatsCard

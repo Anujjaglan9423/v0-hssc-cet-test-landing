@@ -16,6 +16,7 @@ import {
   Edit,
   Save,
   Loader2,
+  Plus,
 } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
@@ -24,7 +25,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
-import { createTest, getExamsSubjectsTopics } from "@/lib/actions/admin"
+import { createTest, getExamsSubjectsTopics, createExam, createSubject, createTopic } from "@/lib/actions/admin"
 
 interface Question {
   id: string
@@ -72,6 +73,17 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null)
   const [showEditModal, setShowEditModal] = useState(false)
   const questionsPerPage = 5
+
+  // States for creating new exam/subject/topic
+  const [showAddExam, setShowAddExam] = useState(false)
+  const [showAddSubject, setShowAddSubject] = useState(false)
+  const [showAddTopic, setShowAddTopic] = useState(false)
+  const [newExamName, setNewExamName] = useState("")
+  const [newSubjectName, setNewSubjectName] = useState("")
+  const [newTopicName, setNewTopicName] = useState("")
+  const [isAddingExam, setIsAddingExam] = useState(false)
+  const [isAddingSubject, setIsAddingSubject] = useState(false)
+  const [isAddingTopic, setIsAddingTopic] = useState(false)
 
   // Load exams, subjects, topics
   useEffect(() => {
@@ -329,6 +341,61 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
     a.click()
   }
 
+  // Handlers for creating exam/subject/topic
+  const handleAddExam = async () => {
+    if (!newExamName.trim()) return
+    setIsAddingExam(true)
+    try {
+      const result = await createExam(newExamName.trim())
+      if (result.success && result.data) {
+        setExams([...exams, result.data])
+        setSelectedExamId(result.data.id)
+        setNewExamName("")
+        setShowAddExam(false)
+      }
+    } catch (error) {
+      console.error("Error adding exam:", error)
+    } finally {
+      setIsAddingExam(false)
+    }
+  }
+
+  const handleAddSubject = async () => {
+    if (!newSubjectName.trim() || !selectedExamId) return
+    setIsAddingSubject(true)
+    try {
+      const result = await createSubject(newSubjectName.trim(), selectedExamId)
+      if (result.success && result.data) {
+        setSubjects([...subjects, result.data])
+        setSelectedSubjectId(result.data.id)
+        setNewSubjectName("")
+        setShowAddSubject(false)
+      }
+    } catch (error) {
+      console.error("Error adding subject:", error)
+    } finally {
+      setIsAddingSubject(false)
+    }
+  }
+
+  const handleAddTopic = async () => {
+    if (!newTopicName.trim() || !selectedSubjectId) return
+    setIsAddingTopic(true)
+    try {
+      const result = await createTopic(newTopicName.trim(), selectedSubjectId)
+      if (result.success && result.data) {
+        setTopics([...topics, result.data])
+        setSelectedTopicId(result.data.id)
+        setNewTopicName("")
+        setShowAddTopic(false)
+      }
+    } catch (error) {
+      console.error("Error adding topic:", error)
+    } finally {
+      setIsAddingTopic(false)
+    }
+  }
+
   return (
     <>
       <Dialog
@@ -443,20 +510,42 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
                   />
                 </div>
 
+                {/* Exam Type with Add Button */}
                 <div>
                   <Label>Exam Type</Label>
-                  <Select value={selectedExamId} onValueChange={setSelectedExamId}>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Select exam" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {exams.map((exam) => (
-                        <SelectItem key={exam.id} value={exam.id}>
-                          {exam.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="flex gap-2 mt-1">
+                    <Select value={selectedExamId} onValueChange={setSelectedExamId}>
+                      <SelectTrigger className="flex-1">
+                        <SelectValue placeholder="Select exam" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {exams.map((exam) => (
+                          <SelectItem key={exam.id} value={exam.id}>
+                            {exam.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Button type="button" variant="outline" size="icon" onClick={() => setShowAddExam(true)}>
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  {showAddExam && (
+                    <div className="flex gap-2 mt-2">
+                      <Input
+                        placeholder="New exam name"
+                        value={newExamName}
+                        onChange={(e) => setNewExamName(e.target.value)}
+                        className="flex-1"
+                      />
+                      <Button type="button" size="sm" onClick={handleAddExam} disabled={isAddingExam}>
+                        {isAddingExam ? <Loader2 className="w-4 h-4 animate-spin" /> : "Add"}
+                      </Button>
+                      <Button type="button" variant="ghost" size="sm" onClick={() => setShowAddExam(false)}>
+                        Cancel
+                      </Button>
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -473,39 +562,97 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
                   </Select>
                 </div>
 
+                {/* Subject with Add Button */}
                 {(testType === "subject" || testType === "topic") && (
                   <div>
                     <Label>Subject</Label>
-                    <Select value={selectedSubjectId} onValueChange={setSelectedSubjectId}>
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="Select subject" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {filteredSubjects.map((subject) => (
-                          <SelectItem key={subject.id} value={subject.id}>
-                            {subject.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="flex gap-2 mt-1">
+                      <Select value={selectedSubjectId} onValueChange={setSelectedSubjectId}>
+                        <SelectTrigger className="flex-1">
+                          <SelectValue placeholder="Select subject" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {filteredSubjects.map((subject) => (
+                            <SelectItem key={subject.id} value={subject.id}>
+                              {subject.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setShowAddSubject(true)}
+                        disabled={!selectedExamId}
+                        title={!selectedExamId ? "Select exam first" : "Add subject"}
+                      >
+                        <Plus className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    {showAddSubject && (
+                      <div className="flex gap-2 mt-2">
+                        <Input
+                          placeholder="New subject name"
+                          value={newSubjectName}
+                          onChange={(e) => setNewSubjectName(e.target.value)}
+                          className="flex-1"
+                        />
+                        <Button type="button" size="sm" onClick={handleAddSubject} disabled={isAddingSubject}>
+                          {isAddingSubject ? <Loader2 className="w-4 h-4 animate-spin" /> : "Add"}
+                        </Button>
+                        <Button type="button" variant="ghost" size="sm" onClick={() => setShowAddSubject(false)}>
+                          Cancel
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 )}
 
+                {/* Topic with Add Button */}
                 {testType === "topic" && (
                   <div>
                     <Label>Topic</Label>
-                    <Select value={selectedTopicId} onValueChange={setSelectedTopicId}>
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="Select topic" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {filteredTopics.map((topic) => (
-                          <SelectItem key={topic.id} value={topic.id}>
-                            {topic.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="flex gap-2 mt-1">
+                      <Select value={selectedTopicId} onValueChange={setSelectedTopicId}>
+                        <SelectTrigger className="flex-1">
+                          <SelectValue placeholder="Select topic" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {filteredTopics.map((topic) => (
+                            <SelectItem key={topic.id} value={topic.id}>
+                              {topic.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setShowAddTopic(true)}
+                        disabled={!selectedSubjectId}
+                        title={!selectedSubjectId ? "Select subject first" : "Add topic"}
+                      >
+                        <Plus className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    {showAddTopic && (
+                      <div className="flex gap-2 mt-2">
+                        <Input
+                          placeholder="New topic name"
+                          value={newTopicName}
+                          onChange={(e) => setNewTopicName(e.target.value)}
+                          className="flex-1"
+                        />
+                        <Button type="button" size="sm" onClick={handleAddTopic} disabled={isAddingTopic}>
+                          {isAddingTopic ? <Loader2 className="w-4 h-4 animate-spin" /> : "Add"}
+                        </Button>
+                        <Button type="button" variant="ghost" size="sm" onClick={() => setShowAddTopic(false)}>
+                          Cancel
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 )}
 

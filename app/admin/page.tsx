@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { DataTable } from "@/components/dashboard/data-table"
-import { getAdminStats, getAllStudents } from "@/lib/actions/admin"
+import { getAdminStats, getAllStudents, getAdminAnalytics } from "@/lib/actions/admin"
 import { Users, FileText, DollarSign, Activity, Loader2 } from "lucide-react"
 import {
   BarChart,
@@ -32,20 +32,39 @@ interface AdminStats {
   monthlySignups: { month: string; count: number }[]
 }
 
+interface AnalyticsData {
+  averageScore: number
+  passRate: number
+  completionRate: number
+  totalAttempts: number
+  testAttemptsByCategory: Array<{ category: string; attempts: number }>
+  subjectPerformance: Array<{ subject: string; avgScore: number }>
+}
+
 export default function AdminDashboard() {
   const [stats, setStats] = useState<AdminStats | null>(null)
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
   const [students, setStudents] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     async function loadData() {
       setIsLoading(true)
+      setError(null)
       try {
-        const [statsData, studentsData] = await Promise.all([getAdminStats(), getAllStudents()])
+        const [statsData, studentsData, analyticsData] = await Promise.all([
+          getAdminStats(),
+          getAllStudents(),
+          getAdminAnalytics(),
+        ])
+        console.log("[v0] Admin data loaded:", { statsData, studentsData: studentsData.length, analyticsData })
         setStats(statsData)
         setStudents(studentsData)
+        setAnalytics(analyticsData)
       } catch (error) {
-        console.error("Error loading admin data:", error)
+        console.error("[v0] Error loading admin data:", error)
+        setError(error instanceof Error ? error.message : "Failed to load data")
       } finally {
         setIsLoading(false)
       }
@@ -61,20 +80,27 @@ export default function AdminDashboard() {
     )
   }
 
-  const testAttemptsByCategory = [
-    { category: "Full Exams", attempts: Math.floor((stats?.totalAttempts || 0) * 0.4) },
-    { category: "Subject Tests", attempts: Math.floor((stats?.totalAttempts || 0) * 0.35) },
-    { category: "Topic Tests", attempts: Math.floor((stats?.totalAttempts || 0) * 0.25) },
-  ]
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <p className="text-destructive text-lg font-semibold mb-2">Error loading dashboard</p>
+          <p className="text-muted-foreground text-sm">{error}</p>
+        </div>
+      </div>
+    )
+  }
 
-  const subjectPerformance = [
-    { subject: "General Studies", avgScore: 74 },
-    { subject: "Reasoning", avgScore: 70 },
-    { subject: "Mathematics", avgScore: 65 },
-    { subject: "English", avgScore: 78 },
-    { subject: "Hindi", avgScore: 80 },
-    { subject: "Current Affairs", avgScore: 72 },
-  ]
+  if (!stats || !analytics) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <p className="text-muted-foreground">No data available</p>
+      </div>
+    )
+  }
+
+  const testAttemptsByCategory = analytics?.testAttemptsByCategory || []
+  const subjectPerformance = analytics?.subjectPerformance || []
 
   return (
     <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -203,24 +229,6 @@ export default function AdminDashboard() {
                   ),
                 },
                 { key: "testsAttempted", header: "Tests", sortable: true },
-                {
-                  key: "averageScore",
-                  header: "Avg Score",
-                  sortable: true,
-                  render: (student: any) => (
-                    <span
-                      className={`font-medium ${
-                        student.averageScore >= 80
-                          ? "text-accent"
-                          : student.averageScore >= 60
-                            ? "text-amber-500"
-                            : "text-destructive"
-                      }`}
-                    >
-                      {student.averageScore || 0}%
-                    </span>
-                  ),
-                },
                 { key: "lastActive", header: "Last Active" },
               ]}
             />

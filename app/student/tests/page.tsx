@@ -5,7 +5,7 @@ import { getAvailableTests } from "@/lib/actions/student"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { FileText, Clock, Users, Search, Play, BookOpen, Target, Award, Loader2 } from "lucide-react"
+import { FileText, Clock, Users, Search, Play, BookOpen, Target, Loader2 } from "lucide-react"
 import Link from "next/link"
 
 export default function StudentTestsPage() {
@@ -135,11 +135,7 @@ export default function StudentTestsPage() {
         </span>
       </div>
 
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1 lg:gap-2">
-          <Award className="w-3 h-3 lg:w-4 lg:h-4 text-muted-foreground" />
-          <span className="text-xs lg:text-sm text-muted-foreground">Avg: {test.avg_score || 0}%</span>
-        </div>
+      <div className="flex items-center justify-end">
         <Link href={`/student/test/${test.id}`}>
           <Button size="sm" className="gap-1 lg:gap-2 text-xs lg:text-sm group-hover:bg-primary">
             <Play className="w-3 h-3 lg:w-4 lg:h-4" />

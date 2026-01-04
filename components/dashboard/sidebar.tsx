@@ -50,6 +50,7 @@ export function Sidebar({ type, user }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const links = type === "admin" ? adminLinks : studentLinks
+  const dashboardPath = type === "admin" ? "/admin" : "/student"
 
   const displayName = user?.full_name || "User"
   const initials = displayName.charAt(0).toUpperCase()
@@ -72,10 +73,10 @@ export function Sidebar({ type, user }: SidebarProps) {
   const handleLogout = async () => {
     try {
       await logoutUser()
-      window.location.replace("/login")
+      window.location.replace("/")
     } catch (error) {
       console.error("Logout error:", error)
-      window.location.replace("/login")
+      window.location.replace("/")
     }
   }
 
@@ -83,7 +84,7 @@ export function Sidebar({ type, user }: SidebarProps) {
     <>
       {/* Logo */}
       <div className="p-4 border-b border-border">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href={dashboardPath} className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
             <BookOpen className="w-5 h-5 text-primary-foreground" />
           </div>
@@ -155,8 +156,9 @@ export function Sidebar({ type, user }: SidebarProps) {
 
   return (
     <>
+      {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 h-16 bg-card border-b border-border flex items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href={dashboardPath} className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
             <BookOpen className="w-4 h-4 text-primary-foreground" />
           </div>

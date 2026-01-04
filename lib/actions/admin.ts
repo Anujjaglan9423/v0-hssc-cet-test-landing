@@ -54,6 +54,7 @@ export async function getAllStudents() {
       *,
       test_results (
         score,
+        total_questions,
         time_taken,
         created_at
       )
@@ -71,7 +72,12 @@ export async function getAllStudents() {
       const results = student.test_results || []
       const testsAttempted = results.length
       const averageScore =
-        testsAttempted > 0 ? Math.round(results.reduce((sum: number, r: any) => sum + r.score, 0) / testsAttempted) : 0
+        testsAttempted > 0
+          ? Math.round(
+              results.reduce((sum: number, r: any) => sum + ((r.score || 0) / (r.total_questions || 1)) * 100, 0) /
+                testsAttempted,
+            )
+          : 0
       const totalTime = results.reduce((sum: number, r: any) => sum + (r.time_taken || 0), 0)
       const lastActive =
         results.length > 0
@@ -81,7 +87,7 @@ export async function getAllStudents() {
 
       return {
         ...student,
-        name: student.full_name, // Map full_name to name for compatibility
+        name: student.full_name,
         testsAttempted,
         averageScore,
         totalTime: `${Math.floor(totalTime / 3600)}h ${Math.floor((totalTime % 3600) / 60)}m`,
@@ -134,7 +140,7 @@ export async function getAllTests() {
       topic:topics (id, name),
       questions (id),
       test_attempts (id),
-      test_results (score)
+      test_results (score, total_questions)
     `)
     .order("created_at", { ascending: false })
 
@@ -150,7 +156,12 @@ export async function getAllTests() {
       attempts_count: test.test_attempts?.length || 0,
       avg_score:
         test.test_results?.length > 0
-          ? Math.round(test.test_results.reduce((sum: number, r: any) => sum + r.score, 0) / test.test_results.length)
+          ? Math.round(
+              test.test_results.reduce(
+                (sum: number, r: any) => sum + ((r.score || 0) / (r.total_questions || 1)) * 100,
+                0,
+              ) / test.test_results.length,
+            )
           : 0,
     })) || []
   )
@@ -383,9 +394,6 @@ export async function getAdminAnalytics() {
     .from("test_results")
     .select(`
       score,
-      percentage,
-      correct_answers,
-      wrong_answers,
       total_questions,
       created_at,
       test:tests (
@@ -397,11 +405,14 @@ export async function getAdminAnalytics() {
 
   const results = allResults || []
   const totalAttempts = results.length
-  const averageScore = totalAttempts > 0 ? Math.round(results.reduce((sum, r) => sum + r.score, 0) / totalAttempts) : 0
-  const passRate =
-    totalAttempts > 0 ? Math.round((results.filter((r) => r.score >= 60).length / totalAttempts) * 100) : 0
+
+  const percentages = results.map((r) => ((r.score || 0) / (r.total_questions || 1)) * 100)
+  const averageScore = totalAttempts > 0 ? Math.round(percentages.reduce((sum, p) => sum + p, 0) / totalAttempts) : 0
+  const passRate = totalAttempts > 0 ? Math.round((percentages.filter((p) => p >= 60).length / totalAttempts) * 100) : 0
   const completionRate =
-    totalAttempts > 0 ? Math.round((results.filter((r) => r.total_questions > 0).length / totalAttempts) * 100) : 0
+    totalAttempts > 0
+      ? Math.round((results.filter((r) => (r.total_questions || 0) > 0).length / totalAttempts) * 100)
+      : 0
 
   // Weekly activity (last 7 days)
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -417,7 +428,7 @@ export async function getAdminAnalytics() {
       weeklyActivity[dayIndex].attempts++
     })
 
-  // Score distribution
+  // Score distribution - use percentage values
   const scoreRanges = [
     { range: "0-20%", min: 0, max: 20, count: 0 },
     { range: "21-40%", min: 21, max: 40, count: 0 },
@@ -426,8 +437,8 @@ export async function getAdminAnalytics() {
     { range: "81-100%", min: 81, max: 100, count: 0 },
   ]
 
-  results.forEach((r) => {
-    const range = scoreRanges.find((sr) => r.score >= sr.min && r.score <= sr.max)
+  percentages.forEach((p) => {
+    const range = scoreRanges.find((sr) => p >= sr.min && p <= sr.max)
     if (range) range.count++
   })
 
@@ -438,7 +449,8 @@ export async function getAdminAnalytics() {
     if (!subjectScores[subjectName]) {
       subjectScores[subjectName] = { total: 0, count: 0 }
     }
-    subjectScores[subjectName].total += r.score
+    const percentage = ((r.score || 0) / (r.total_questions || 1)) * 100
+    subjectScores[subjectName].total += percentage
     subjectScores[subjectName].count++
   })
 

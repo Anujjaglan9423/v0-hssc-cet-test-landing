@@ -13,12 +13,14 @@ import { getSubjectsAndTopics } from "@/lib/actions/student"
 interface Topic {
   id: string
   name: string
+  questionCount: number
 }
 
 interface Subject {
   id: string
   name: string
   topics: Topic[]
+  questionCount: number
 }
 
 const subjectIcons: Record<string, any> = {
@@ -129,7 +131,10 @@ export default function StudentPracticePage() {
                       }`}
                     />
                     <p className="font-medium text-foreground text-sm lg:text-base">{subject.name}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{subject.topics?.length || 0} topics</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {subject.questionCount} questions
+                      {subject.topics?.length > 0 && ` • ${subject.topics.length} topics`}
+                    </p>
                   </button>
                 )
               })}
@@ -167,11 +172,30 @@ export default function StudentPracticePage() {
 
       {/* Topic Selection */}
       {selectedSubject && selectedSubjectData && (
-        <ChartCard title="2. Select Topics">
+        <ChartCard title="2. Select Topics (Optional)">
           {selectedSubjectData.topics?.length === 0 ? (
-            <p className="text-muted-foreground text-center py-4 text-sm lg:text-base">
-              No topics available for this subject.
-            </p>
+            <div className="text-center py-4">
+              <p className="text-muted-foreground text-sm lg:text-base">
+                No specific topics available. Questions will be drawn from all {selectedSubjectData.name} tests.
+              </p>
+              <Button
+                variant="outline"
+                className="mt-3 bg-transparent"
+                onClick={() => {
+                  const practiceSettings = {
+                    subjectId: selectedSubject,
+                    topicIds: [],
+                    questionCount: questionCount[0],
+                    difficulty,
+                    timeLimit,
+                  }
+                  sessionStorage.setItem("practiceSettings", JSON.stringify(practiceSettings))
+                  router.push("/student/practice/start")
+                }}
+              >
+                Practice All {selectedSubjectData.name} Questions
+              </Button>
+            </div>
           ) : (
             <div className="flex flex-wrap gap-2 lg:gap-3">
               {selectedSubjectData.topics?.map((topic) => (
@@ -184,7 +208,7 @@ export default function StudentPracticePage() {
                       : "border-border hover:border-primary bg-card text-foreground"
                   }`}
                 >
-                  {topic.name}
+                  {topic.name} ({topic.questionCount})
                 </button>
               ))}
               <button
@@ -277,7 +301,7 @@ export default function StudentPracticePage() {
           size="lg"
           className="gap-2 px-8 lg:px-12 py-5 lg:py-6 text-base lg:text-lg w-full sm:w-auto"
           onClick={startPractice}
-          disabled={!selectedSubject || selectedTopics.length === 0 || isStarting}
+          disabled={!selectedSubject || isStarting}
         >
           {isStarting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Play className="w-5 h-5" />}
           Start Practice

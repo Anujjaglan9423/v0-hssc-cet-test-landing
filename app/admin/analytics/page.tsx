@@ -22,7 +22,6 @@ import {
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
-  Radar,
 } from "recharts"
 
 const COLORS = ["#10b981", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899"]
@@ -42,14 +41,18 @@ interface AnalyticsData {
 export default function AdminAnalyticsPage() {
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     async function loadAnalytics() {
       try {
+        console.log("[v0] Loading analytics...")
         const analytics = await getAdminAnalytics()
+        console.log("[v0] Analytics loaded:", analytics)
         setData(analytics)
       } catch (error) {
-        console.error("Error loading analytics:", error)
+        console.error("[v0] Error loading analytics:", error)
+        setError(error instanceof Error ? error.message : "Failed to load analytics")
       } finally {
         setIsLoading(false)
       }
@@ -61,6 +64,17 @@ export default function AdminAnalyticsPage() {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <p className="text-destructive text-lg font-semibold mb-2">Error loading analytics</p>
+          <p className="text-muted-foreground text-sm">{error}</p>
+        </div>
       </div>
     )
   }
@@ -83,7 +97,7 @@ export default function AdminAnalyticsPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
         <StatsCard
           title="Average Score"
-          value={`${data.averageScore}%`}
+          value={`${Math.min(100, data.averageScore)}%`}
           change="Based on all attempts"
           changeType="neutral"
           icon={Target}
@@ -161,7 +175,6 @@ export default function AdminAnalyticsPage() {
                 <PolarGrid stroke="#333" />
                 <PolarAngleAxis dataKey="subject" stroke="#888" fontSize={10} />
                 <PolarRadiusAxis stroke="#888" domain={[0, 100]} fontSize={10} />
-                <Radar name="Avg Score" dataKey="avgScore" stroke="#10b981" fill="#10b981" fillOpacity={0.3} />
                 <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
               </RadarChart>
             </ResponsiveContainer>

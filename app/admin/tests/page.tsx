@@ -5,18 +5,7 @@ import { ChartCard } from "@/components/dashboard/chart-card"
 import { DataTable } from "@/components/dashboard/data-table"
 import { getAllTests, deleteTest, getTestWithQuestions } from "@/lib/actions/admin"
 import { Button } from "@/components/ui/button"
-import {
-  FileText,
-  Users,
-  Clock,
-  BarChart3,
-  Upload,
-  CheckCircle2,
-  Eye,
-  Trash2,
-  AlertTriangle,
-  Loader2,
-} from "lucide-react"
+import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangle, Loader2 } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CSVUploadModal } from "@/components/admin/csv-upload-modal"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
@@ -149,23 +138,6 @@ export default function AdminTestsPage() {
       ),
     },
     {
-      key: "avg_score",
-      header: "Avg Score",
-      sortable: true,
-      render: (test: any) => (
-        <span className="flex items-center gap-1">
-          <BarChart3 className="w-4 h-4 text-muted-foreground" />
-          <span
-            className={`font-medium ${
-              test.avg_score >= 70 ? "text-accent" : test.avg_score >= 50 ? "text-amber-500" : "text-destructive"
-            }`}
-          >
-            {test.avg_score || 0}%
-          </span>
-        </span>
-      ),
-    },
-    {
       key: "actions",
       header: "Actions",
       render: (test: any) => (
@@ -291,7 +263,7 @@ export default function AdminTestsPage() {
                   sortable: true,
                   render: (test: any) => test.subject?.name || "-",
                 },
-                ...testColumns.slice(1),
+                ...testColumns.slice(2),
               ]}
             />
           </ChartCard>
@@ -317,7 +289,7 @@ export default function AdminTestsPage() {
                   sortable: true,
                   render: (test: any) => test.topic?.name || "-",
                 },
-                ...testColumns.slice(1),
+                ...testColumns.slice(2),
               ]}
             />
           </ChartCard>
@@ -328,7 +300,7 @@ export default function AdminTestsPage() {
 
       {/* View Test Modal */}
       <Dialog open={showViewModal} onOpenChange={setShowViewModal}>
-        <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[85vh] overflow-hidden flex flex-col">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-xl">
               <Eye className="w-5 h-5 text-primary" />
@@ -341,9 +313,9 @@ export default function AdminTestsPage() {
           </DialogHeader>
 
           {selectedTest && (
-            <div className="space-y-4 mt-4">
+            <div className="space-y-4 mt-4 overflow-y-auto flex-1 pr-4">
               {/* Test Info */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-muted/50 rounded-xl">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4 bg-muted/50 rounded-xl">
                 <div>
                   <p className="text-xs text-muted-foreground">Category</p>
                   <p className="font-medium capitalize">
@@ -366,10 +338,6 @@ export default function AdminTestsPage() {
                   <p className="text-xs text-muted-foreground">Attempts</p>
                   <p className="font-medium">{selectedTest.attempts_count || 0}</p>
                 </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Avg Score</p>
-                  <p className="font-medium">{selectedTest.avg_score || 0}%</p>
-                </div>
               </div>
 
               {/* Questions List */}
@@ -377,11 +345,7 @@ export default function AdminTestsPage() {
                 <div className="space-y-4">
                   <h3 className="font-semibold text-foreground">Questions</h3>
                   {selectedTestQuestions.map((q, idx) => (
-                    <div
-                      key={q.id}
-                      className="bg-card border border-border rounded-xl p-4 animate-in fade-in"
-                      style={{ animationDelay: `${idx * 30}ms` }}
-                    >
+                    <div key={q.id} className="bg-card border border-border rounded-xl p-4">
                       <div className="flex items-start gap-3 mb-3">
                         <span className="w-7 h-7 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold flex-shrink-0">
                           {idx + 1}
