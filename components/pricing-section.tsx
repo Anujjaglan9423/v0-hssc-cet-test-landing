@@ -25,11 +25,11 @@ const plans = [
   },
   {
     name: "Pro",
-    price: { monthly: 299, yearly: 1999 },
-    description: "Perfect for serious aspirants",
+    price: { monthly: 30, yearly: 250 },
+    description: "Complete preparation package",
     features: [
       { name: "10,000+ Practice Questions", included: true },
-      { name: "50+ Mock Tests", included: true },
+      { name: "Unlimited Mock Tests", included: true },
       { name: "Advanced Analytics", included: true },
       { name: "Mobile Access", included: true },
       { name: "Detailed Solutions", included: true },
@@ -38,22 +38,6 @@ const plans = [
     ],
     cta: "Get Pro",
     popular: true,
-  },
-  {
-    name: "Premium",
-    price: { monthly: 499, yearly: 2999 },
-    description: "Complete preparation package",
-    features: [
-      { name: "Everything in Pro", included: true },
-      { name: "Previous Year Papers", included: true },
-      { name: "Expert Doubt Support", included: true },
-      { name: "Study Material PDFs", included: true },
-      { name: "Live Test Analysis", included: true },
-      { name: "Priority Support", included: true },
-      { name: "Unlimited Access", included: true },
-    ],
-    cta: "Get Premium",
-    popular: false,
   },
 ]
 
@@ -92,11 +76,10 @@ export default function PricingSection() {
           <span className={`text-sm font-medium ${isYearly ? "text-foreground" : "text-muted-foreground"}`}>
             Yearly
           </span>
-          {isYearly && <Badge className="bg-accent text-accent-foreground">Save 45%</Badge>}
+          {isYearly && <Badge className="bg-accent text-accent-foreground">Save 30%</Badge>}
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
           {plans.map((plan) => (
             <div
               key={plan.name}
