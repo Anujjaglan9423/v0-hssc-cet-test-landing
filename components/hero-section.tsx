@@ -88,10 +88,12 @@ export default function HeroSection() {
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="px-8 group border-border hover:bg-muted bg-transparent">
-                <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                Watch Demo
-              </Button>
+              <Link href="/demo">
+                <Button size="lg" variant="outline" className="px-8 group border-border hover:bg-muted bg-transparent">
+                  <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                  Watch Demo
+                </Button>
+              </Link>
             </div>
 
             {/* Trust Badges */}

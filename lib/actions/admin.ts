@@ -633,3 +633,53 @@ export async function createCustomMockTest(
   revalidatePath("/admin/tests")
   return { success: true, test, questionsCount: finalQuestions.length }
 }
+
+export async function getAllTestResults() {
+  const supabase = await createClient()
+
+  const { data: results, error } = await supabase
+    .from("test_results")
+    .select(`
+      id,
+      score,
+      total_questions,
+      time_taken,
+      created_at,
+      user:users (
+        id,
+        full_name,
+        email
+      ),
+      test:tests (
+        id,
+        title,
+        test_type,
+        subject:subjects (name),
+        topic:topics (name)
+      )
+    `)
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching test results:", error)
+    return []
+  }
+
+  return (
+    results?.map((result) => ({
+      id: result.id,
+      studentName: (result.user as any)?.full_name || "Unknown",
+      studentEmail: (result.user as any)?.email || "Unknown",
+      studentId: (result.user as any)?.id,
+      testTitle: (result.test as any)?.title || "Unknown Test",
+      testType: (result.test as any)?.test_type || "full",
+      subject: (result.test as any)?.subject?.name || "-",
+      topic: (result.test as any)?.topic?.name || "-",
+      score: result.score || 0,
+      totalQuestions: result.total_questions || 0,
+      percentage: result.total_questions > 0 ? Math.round(((result.score || 0) / result.total_questions) * 100) : 0,
+      timeTaken: result.time_taken || 0,
+      completedAt: result.created_at,
+    })) || []
+  )
+}
