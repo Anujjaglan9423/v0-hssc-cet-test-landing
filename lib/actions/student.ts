@@ -1011,3 +1011,109 @@ export async function clearPausedTestState(testId: string) {
 
   return { success: true }
 }
+
+export async function getExamCategories() {
+  const supabase = await createClient()
+
+  const { data: categories, error } = await supabase
+    .from("exam_categories")
+    .select(`
+      *,
+      exams (
+        id,
+        name,
+        slug,
+        description,
+        image_url,
+        display_order
+      )
+    `)
+    .eq("is_active", true)
+    .order("display_order", { ascending: true })
+
+  if (error) {
+    console.error("Error fetching exam categories:", error)
+    return []
+  }
+
+  // Sort exams within each category
+  return (
+    categories?.map((cat) => ({
+      ...cat,
+      exams: cat.exams?.sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0)) || [],
+    })) || []
+  )
+}
+
+export async function getTestsByExam(examId: string) {
+  const supabase = await createClient()
+
+  const { data: tests, error } = await supabase
+    .from("tests")
+    .select(`
+      *,
+      exam:exams (id, name),
+      subject:subjects (id, name),
+      topic:topics (id, name),
+      questions (id),
+      test_attempts (id)
+    `)
+    .eq("exam_id", examId)
+    .eq("is_active", true)
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching tests by exam:", error)
+    return []
+  }
+
+  return (
+    tests?.map((test) => ({
+      ...test,
+      questions_count: test.questions?.length || 0,
+      attempts_count: test.test_attempts?.length || 0,
+    })) || []
+  )
+}
+
+export async function getExamsByCategory(categorySlug: string) {
+  if (!categorySlug || categorySlug === "undefined") {
+    return { category: null, exams: [] }
+  }
+
+  const supabase = await createClient()
+
+  const { data: category, error: catError } = await supabase
+    .from("exam_categories")
+    .select("id, name, description")
+    .eq("slug", categorySlug)
+    .single()
+
+  if (catError || !category) {
+    console.error("Error fetching category:", catError?.message)
+    return { category: null, exams: [] }
+  }
+
+  const { data: exams, error } = await supabase
+    .from("exams")
+    .select(`
+      *,
+      tests (id)
+    `)
+    .eq("category_id", category.id)
+    .order("display_order", { ascending: true })
+
+  if (error) {
+    console.error("Error fetching exams:", error)
+    return { category, exams: [] }
+  }
+
+  return {
+    category,
+    exams:
+      exams?.map((exam) => ({
+        ...exam,
+        test_count: exam.tests?.length || 0,
+      })) || [],
+  }
+}

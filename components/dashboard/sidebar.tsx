@@ -21,6 +21,7 @@ import {
   X,
   Mail,
   MessageSquare,
+  FolderTree,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -34,6 +35,7 @@ const adminLinks = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/admin/students", icon: Users, label: "Students" },
   { href: "/admin/tests", icon: FileText, label: "Tests" },
+  { href: "/admin/manage", icon: FolderTree, label: "Manage" }, // Added Manage link
   { href: "/admin/results", icon: Trophy, label: "Results" },
   { href: "/admin/analytics", icon: BarChart3, label: "Analytics" },
   { href: "/admin/contacts", icon: Mail, label: "Contacts" },

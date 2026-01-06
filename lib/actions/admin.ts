@@ -167,17 +167,19 @@ export async function getAllTests() {
   )
 }
 
-// Get exams, subjects, and topics for dropdowns
+// Get exams, subjects, topics, and categories for dropdowns
 export async function getExamsSubjectsTopics() {
   const supabase = await createClient()
 
-  const [{ data: exams }, { data: subjects }, { data: topics }] = await Promise.all([
-    supabase.from("exams").select("*").order("name"),
+  const [{ data: categories }, { data: exams }, { data: subjects }, { data: topics }] = await Promise.all([
+    supabase.from("exam_categories").select("*").order("display_order"),
+    supabase.from("exams").select("*, category:exam_categories(id, name)").order("name"),
     supabase.from("subjects").select("*, exam:exams(name)").order("name"),
     supabase.from("topics").select("*, subject:subjects(name)").order("name"),
   ])
 
   return {
+    categories: categories || [],
     exams: exams || [],
     subjects: subjects || [],
     topics: topics || [],
@@ -332,16 +334,22 @@ export async function deleteQuestion(questionId: string) {
 }
 
 // Create exam/subject/topic
-export async function createExam(name: string, description?: string) {
+export async function createExam(name: string, categoryId?: string) {
   const supabase = await createClient()
 
-  const { data, error } = await supabase.from("exams").insert({ name, description }).select().single()
+  const { data, error } = await supabase
+    .from("exams")
+    .insert({ name, category_id: categoryId || null })
+    .select()
+    .single()
 
   if (error) {
+    console.error("Error creating exam:", error)
     return { success: false, error: error.message }
   }
 
   revalidatePath("/admin/tests")
+  revalidatePath("/admin/manage")
   return { success: true, data }
 }
 
@@ -682,4 +690,231 @@ export async function getAllTestResults() {
       completedAt: result.created_at,
     })) || []
   )
+}
+
+// Exam categories management
+export async function getExamCategories() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.from("exam_categories").select("*").order("display_order", { ascending: true })
+
+  if (error) {
+    console.error("Error fetching exam categories:", error)
+    return []
+  }
+
+  return data || []
+}
+
+export async function createExamCategory(data: {
+  name: string
+  description?: string
+  slug: string
+  image_url?: string
+}) {
+  const supabase = await createClient()
+
+  const { data: result, error } = await supabase
+    .from("exam_categories")
+    .insert({
+      name: data.name,
+      description: data.description,
+      slug: data.slug,
+      image_url: data.image_url,
+      is_active: true,
+    })
+    .select()
+    .single()
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/manage")
+  return { success: true, data: result }
+}
+
+export async function updateExamCategory(
+  id: string,
+  data: {
+    name?: string
+    description?: string
+    slug?: string
+    image_url?: string
+  },
+) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("exam_categories").update(data).eq("id", id)
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/manage")
+  return { success: true }
+}
+
+export async function deleteExamCategory(id: string) {
+  const supabase = await createClient()
+
+  // First unlink any exams from this category
+  await supabase.from("exams").update({ category_id: null }).eq("category_id", id)
+
+  const { error } = await supabase.from("exam_categories").delete().eq("id", id)
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/manage")
+  return { success: true }
+}
+
+// Exams management
+export async function getAllExams() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from("exams")
+    .select("*, category:exam_categories(id, name)")
+    .order("name", { ascending: true })
+
+  if (error) {
+    console.error("Error fetching exams:", error)
+    return []
+  }
+
+  return data || []
+}
+
+export async function updateExam(
+  id: string,
+  data: {
+    name?: string
+    description?: string
+    category_id?: string | null
+  },
+) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("exams").update(data).eq("id", id)
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/manage")
+  return { success: true }
+}
+
+export async function deleteExam(id: string) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("exams").delete().eq("id", id)
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/manage")
+  return { success: true }
+}
+
+// Subjects management
+export async function getAllSubjects() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from("subjects")
+    .select("*, exam:exams(id, name)")
+    .order("name", { ascending: true })
+
+  if (error) {
+    console.error("Error fetching subjects:", error)
+    return []
+  }
+
+  return data || []
+}
+
+export async function updateSubject(
+  id: string,
+  data: {
+    name?: string
+    exam_id?: string
+  },
+) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("subjects").update(data).eq("id", id)
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/manage")
+  return { success: true }
+}
+
+export async function deleteSubject(id: string) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("subjects").delete().eq("id", id)
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/manage")
+  return { success: true }
+}
+
+// Topics management
+export async function getAllTopics() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from("topics")
+    .select("*, subject:subjects(id, name)")
+    .order("name", { ascending: true })
+
+  if (error) {
+    console.error("Error fetching topics:", error)
+    return []
+  }
+
+  return data || []
+}
+
+export async function updateTopic(
+  id: string,
+  data: {
+    name?: string
+    subject_id?: string
+  },
+) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("topics").update(data).eq("id", id)
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/manage")
+  return { success: true }
+}
+
+export async function deleteTopic(id: string) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("topics").delete().eq("id", id)
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/manage")
+  return { success: true }
 }
