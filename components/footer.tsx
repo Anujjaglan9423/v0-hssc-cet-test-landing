@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { BookOpen, Mail, Phone } from "lucide-react"
+import Image from "next/image"
+import { Mail, Phone } from "lucide-react"
 
 const footerLinks = {
   product: [
@@ -29,12 +30,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold text-foreground">
-                CET <span className="text-primary">TEST</span>
-              </span>
+              <Image
+                src="/logo.png"
+                alt="CET TEST Logo"
+                width={120}
+                height={40}
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="text-muted-foreground text-sm mb-4">
               India's leading test series platform for competitive exam preparation.

@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Menu, X, BookOpen } from "lucide-react"
+import { Menu, X } from "lucide-react"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,12 +23,14 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center group-hover:scale-105 transition-transform">
-              <BookOpen className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold text-foreground">
-              CET <span className="text-primary">TEST</span>
-            </span>
+            <Image
+              src="/logo.png"
+              alt="CET TEST Logo"
+              width={120}
+              height={40}
+              className="h-10 w-auto group-hover:scale-105 transition-transform"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
