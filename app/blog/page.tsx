@@ -6,32 +6,33 @@ import Footer from "@/components/footer"
 
 const posts = [
   {
-    slug: "hssc-cet-2026-complete-syllabus-exam-pattern",
-    title: "HSSC CET 2026: Complete Syllabus and Exam Pattern",
+    slug: "competitive-exams-2026-complete-syllabus-exam-pattern",
+    title: "Competitive Exams 2026: Complete Syllabus and Exam Pattern",
     excerpt:
-      "Everything you need to know about the HSSC CET exam pattern, marking scheme, and detailed syllabus breakdown.",
+      "Everything you need to know about Haryana CET, SSC, Railway, and Uttarakhand exam patterns, marking scheme, and detailed syllabus breakdown.",
     date: "Dec 15, 2025",
     readTime: "8 min read",
     category: "Exam Guide",
     image: "/exam-syllabus-study-guide.jpg",
   },
   {
-    slug: "top-10-tips-crack-hssc-cet-first-attempt",
-    title: "Top 10 Tips to Crack HSSC CET in First Attempt",
-    excerpt: "Learn proven strategies from toppers who cleared HSSC CET with flying colors. Expert tips inside!",
+    slug: "top-10-tips-crack-competitive-exam-first-attempt",
+    title: "Top 10 Tips to Crack Any Competitive Exam in First Attempt",
+    excerpt:
+      "Learn proven strategies from toppers who cleared competitive exams with flying colors. Expert tips inside!",
     date: "Dec 10, 2025",
     readTime: "6 min read",
     category: "Tips & Tricks",
     image: "/success-tips-study-motivation.jpg",
   },
   {
-    slug: "important-current-affairs-hssc-cet-2026",
-    title: "Important Current Affairs for HSSC CET 2026",
-    excerpt: "Stay updated with the most important current affairs topics expected in HSSC CET 2026 examination.",
+    slug: "current-affairs-competitive-exams-2026",
+    title: "Important Current Affairs for Competitive Exams 2026",
+    excerpt: "Stay updated with the most important current affairs topics expected in competitive exams 2026.",
     date: "Dec 5, 2025",
     readTime: "10 min read",
     category: "Current Affairs",
-    image: "/current-affairs-news-newspaper.jpg",
+    image: "/current-affairs-news.jpg",
   },
   {
     slug: "haryana-gk-districts-history-culture",
@@ -43,22 +44,23 @@ const posts = [
     image: "/haryana-culture-heritage.jpg",
   },
   {
-    slug: "math-shortcuts-hssc-cet-quick-calculation-tricks",
-    title: "Math Shortcuts for HSSC CET: Quick Calculation Tricks",
-    excerpt: "Master these mathematical shortcuts to solve quantitative aptitude questions faster in HSSC CET.",
+    slug: "math-shortcuts-quick-calculation-tricks",
+    title: "Math Shortcuts: Quick Calculation Tricks for All Exams",
+    excerpt:
+      "Master these mathematical shortcuts to solve quantitative aptitude questions faster in any competitive exam.",
     date: "Nov 20, 2025",
     readTime: "7 min read",
     category: "Mathematics",
-    image: "/mathematics-calculation-formulas.jpg",
+    image: "/mathematics-calculation.jpg",
   },
   {
-    slug: "english-grammar-rules-hssc-aspirant",
-    title: "English Grammar Rules Every HSSC Aspirant Must Know",
-    excerpt: "Essential English grammar rules and common errors to avoid in HSSC CET English section.",
+    slug: "english-grammar-rules-competitive-aspirant",
+    title: "English Grammar Rules Every Competitive Aspirant Must Know",
+    excerpt: "Essential English grammar rules and common errors to avoid in all competitive exam English sections.",
     date: "Nov 15, 2025",
     readTime: "9 min read",
     category: "English",
-    image: "/english-grammar-book-learning.jpg",
+    image: "/english-grammar-learning.jpg",
   },
 ]
 
@@ -74,7 +76,7 @@ export default function BlogPage() {
                 <BookOpen className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="text-xl font-bold text-foreground">
-                HSSC CET <span className="text-primary">TEST</span>
+                CET <span className="text-primary">TEST</span>
               </span>
             </Link>
             <Link href="/">
@@ -91,10 +93,10 @@ export default function BlogPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/5 to-background">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            HSSC CET <span className="text-primary">Blog</span>
+            CET TEST <span className="text-primary">Blog</span>
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            Expert tips, exam strategies, and study resources to help you ace the HSSC CET exam.
+            Expert tips, exam strategies, and study resources to help you ace all competitive exams.
           </p>
         </div>
       </section>

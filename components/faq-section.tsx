@@ -5,19 +5,24 @@ import { ChevronDown } from "lucide-react"
 
 const faqs = [
   {
-    question: "What is HSSC CET and why should I prepare with your platform?",
+    question: "What is CET TEST and why should I prepare with your platform?",
     answer:
-      "HSSC CET (Haryana Staff Selection Commission Common Eligibility Test) is a qualifying exam for various government jobs in Haryana. Our platform provides comprehensive preparation with 10,000+ questions, real exam simulation, and detailed analytics to maximize your chances of success.",
+      "CET TEST is a comprehensive exam preparation platform for all competitive government exams including Haryana CET, SSC, Railway, and Uttarakhand exams. Our platform provides 10,000+ questions, real exam simulation, and detailed analytics to maximize your chances of success across all exam types.",
   },
   {
     question: "How are your mock tests different from others?",
     answer:
-      "Our mock tests are designed by experts who have analyzed years of HSSC CET patterns. Each test mirrors the actual exam in terms of difficulty, question types, and time constraints. Plus, you get detailed solutions and performance analytics after every test.",
+      "Our mock tests are designed by experts who have analyzed years of exam patterns across multiple competitive exams. Each test mirrors the actual exam format in difficulty, question types, and time constraints. Plus, you get detailed solutions and performance analytics after every test.",
   },
   {
     question: "Can I access the platform on my mobile device?",
     answer:
       "Yes! Our platform is fully responsive and optimized for all devices. You can practice tests, review solutions, and track your progress seamlessly on your smartphone, tablet, or computer.",
+  },
+  {
+    question: "Which exams are covered on CET TEST?",
+    answer:
+      "We cover multiple exam categories including Haryana Exams (CET, Police, Group D), SSC Exams (CGL, CHSL, MTS, GD), Railway Exams (NTPC, Group D, ALP), and Uttarakhand Exams (UKPSC, UKSSSC).",
   },
   {
     question: "What happens after my subscription ends?",
@@ -28,11 +33,6 @@ const faqs = [
     question: "Do you offer refunds if I'm not satisfied?",
     answer:
       "Yes, we offer a 7-day money-back guarantee. If you're not satisfied with our platform within the first 7 days of your purchase, contact our support team for a full refund.",
-  },
-  {
-    question: "How often is the question bank updated?",
-    answer:
-      "Our content team updates the question bank regularly based on the latest exam patterns and trends. We add new questions every week and update existing ones to ensure relevance.",
   },
 ]
 

@@ -49,7 +49,7 @@ export default function ContactPage() {
                 <BookOpen className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="text-xl font-bold text-foreground">
-                HSSC CET <span className="text-primary">TEST</span>
+                CET <span className="text-primary">TEST</span>
               </span>
             </Link>
             <Link href="/">
@@ -69,7 +69,7 @@ export default function ContactPage() {
             Get in <span className="text-primary">Touch</span>
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            Have questions about HSSC CET TEST? We're here to help. Reach out to us anytime!
+            Have questions about CET TEST? We're here to help. Reach out to us anytime!
           </p>
         </div>
       </section>

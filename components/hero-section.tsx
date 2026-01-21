@@ -1,11 +1,8 @@
 "use client"
-
-import type React from "react"
-
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Play, CheckCircle2, Sparkles } from "lucide-react"
+import { ArrowRight, Play, CheckCircle2, Sparkles, BookOpen } from "lucide-react"
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -36,14 +33,14 @@ export default function HeroSection() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
               <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">#1 Test Series for HSSC CET</span>
+              <span className="text-sm font-medium text-primary">#1 Test Series Platform in India</span>
             </div>
 
             {/* Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-balance">
-              Crack Your{" "}
+              Master Your{" "}
               <span className="text-primary relative">
-                HSSC CET
+                Competitive Exam
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                   <path
                     d="M2 10C50 4 150 4 198 10"
@@ -54,13 +51,13 @@ export default function HeroSection() {
                   />
                 </svg>
               </span>{" "}
-              Exam with Confidence
+              with Confidence
             </h1>
 
             {/* Description */}
             <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-              India's most comprehensive test series platform designed specifically for HSSC CET aspirants. Practice
-              with real exam patterns and boost your success rate.
+              India's most comprehensive test series platform for competitive exam preparation. Prepare for Haryana
+              exams, SSC, Railway, Uttarakhand, and more with real exam patterns and boost your success rate.
             </p>
 
             {/* Features List */}
@@ -172,25 +169,5 @@ export default function HeroSection() {
         </div>
       </div>
     </section>
-  )
-}
-
-function BookOpen(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-    </svg>
   )
 }

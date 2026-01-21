@@ -30,6 +30,7 @@ import {
   getPausedTestState,
   clearPausedTestState,
 } from "@/lib/actions/student"
+import { getCurrentUser } from "@/lib/auth"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -40,6 +41,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { FeedbackModal } from "@/components/student/feedback-modal"
 
 interface Question {
   id: string
@@ -88,10 +90,18 @@ export default function TestPage() {
   const [showExitDialog, setShowExitDialog] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [isRestarting, setIsRestarting] = useState(false)
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false)
+  const [lastAttemptId, setLastAttemptId] = useState<string | null>(null)
+  const [userId, setUserId] = useState<string | null>(null)
 
   useEffect(() => {
-    async function loadTest() {
+    const loadTest = async () => {
       try {
+        const user = await getCurrentUser()
+        if (user) {
+          setUserId(user.id)
+        }
+
         const [data, paused] = await Promise.all([getTestById(testId), getPausedTestState(testId)])
 
         if (data) {
@@ -242,7 +252,8 @@ export default function TestPage() {
 
       const result = await submitTest(testId, answers)
       if (result.success) {
-        router.push(`/student/results/${result.attemptId}`)
+        setLastAttemptId(result.attemptId)
+        setShowFeedbackModal(true)
       }
     } catch (error) {
       console.error("Error submitting test:", error)
@@ -268,6 +279,13 @@ export default function TestPage() {
       await clearPausedTestState(testId)
       setPausedState(null)
       setTestStarted(true)
+    }
+  }
+
+  const handleFeedbackClose = () => {
+    setShowFeedbackModal(false)
+    if (lastAttemptId) {
+      router.push(`/student/results/${lastAttemptId}`)
     }
   }
 
@@ -766,6 +784,17 @@ export default function TestPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {showFeedbackModal && userId && lastAttemptId && test && (
+        <FeedbackModal
+          isOpen={showFeedbackModal}
+          onClose={handleFeedbackClose}
+          userId={userId}
+          testId={testId}
+          attemptId={lastAttemptId}
+          testTitle={test.title}
+        />
+      )}
     </div>
   )
 }

@@ -16,91 +16,84 @@ const posts: Record<
     author: string
   }
 > = {
-  "hssc-cet-2026-complete-syllabus-exam-pattern": {
-    title: "HSSC CET 2026: Complete Syllabus and Exam Pattern",
+  "competitive-exams-2026-complete-syllabus-exam-pattern": {
+    title: "Competitive Exams 2026: Complete Syllabus and Exam Pattern",
     date: "Dec 15, 2025",
     readTime: "8 min read",
     category: "Exam Guide",
     image: "/exam-syllabus-study-guide.jpg",
-    author: "HSSC CET TEST Team",
+    author: "CET TEST Team",
     content: `
-      <h2>HSSC CET Exam Pattern 2026</h2>
-      <p>The Haryana Staff Selection Commission Common Eligibility Test (HSSC CET) is conducted for recruitment to various Group C posts in Haryana. Understanding the exam pattern is crucial for effective preparation.</p>
+      <h2>Competitive Exam Patterns 2026</h2>
+      <p>Competitive exams have different structures depending on the exam type. Understanding the pattern is crucial for effective preparation. Whether you're preparing for HSSC CET, SSC, Railway, or Uttarakhand exams, each has its unique format.</p>
       
-      <h3>Exam Structure</h3>
+      <h3>Common Exam Structures</h3>
       <ul>
-        <li><strong>Total Questions:</strong> 100</li>
-        <li><strong>Total Marks:</strong> 100</li>
-        <li><strong>Duration:</strong> 90 minutes</li>
-        <li><strong>Negative Marking:</strong> 0.25 marks for each wrong answer</li>
+        <li><strong>Total Questions:</strong> Varies by exam (80-100 typically)</li>
+        <li><strong>Total Marks:</strong> Same as questions in most exams</li>
+        <li><strong>Duration:</strong> 60-120 minutes depending on exam</li>
+        <li><strong>Negative Marking:</strong> 0.25-0.5 marks for each wrong answer</li>
         <li><strong>Mode:</strong> Computer Based Test (CBT)</li>
       </ul>
       
-      <h3>Subject-wise Distribution</h3>
+      <h3>Subject-wise Distribution (General Pattern)</h3>
       <ul>
-        <li><strong>General Awareness:</strong> 25 questions</li>
-        <li><strong>Reasoning:</strong> 20 questions</li>
-        <li><strong>Mathematics:</strong> 20 questions</li>
-        <li><strong>English:</strong> 15 questions</li>
-        <li><strong>Hindi:</strong> 10 questions</li>
-        <li><strong>Haryana GK:</strong> 10 questions</li>
+        <li><strong>General Awareness:</strong> 20-30%</li>
+        <li><strong>Reasoning:</strong> 20-25%</li>
+        <li><strong>Mathematics:</strong> 20-25%</li>
+        <li><strong>English/Language:</strong> 15-20%</li>
+        <li><strong>Specialized Topics:</strong> 10-15% (varies by exam)</li>
       </ul>
       
-      <h2>Detailed Syllabus</h2>
+      <h2>Detailed Syllabus Coverage</h2>
       
       <h3>General Awareness</h3>
-      <p>Current affairs, Indian History, Geography, Indian Polity, Economics, Science & Technology, Sports, Awards & Honours.</p>
-      
-      <h3>Haryana GK</h3>
-      <p>History of Haryana, Geography, Culture, Festivals, Famous Personalities, Government Schemes, Districts, Rivers & Lakes.</p>
+      <p>Current affairs, Indian History, Geography, Indian Polity, Economics, Science & Technology, Sports, Awards & Honours - applicable across most competitive exams.</p>
       
       <h3>Mathematics</h3>
-      <p>Number System, Percentage, Ratio & Proportion, Average, Time & Work, Time & Distance, Profit & Loss, Simple & Compound Interest, Data Interpretation.</p>
+      <p>Number System, Percentage, Ratio & Proportion, Average, Time & Work, Time & Distance, Profit & Loss, Simple & Compound Interest, Data Interpretation - fundamental topics common to all exams.</p>
       
       <h3>Reasoning</h3>
-      <p>Analogy, Classification, Series, Coding-Decoding, Blood Relations, Direction Sense, Syllogism, Statement & Conclusions, Puzzles.</p>
+      <p>Analogy, Classification, Series, Coding-Decoding, Blood Relations, Direction Sense, Syllogism, Statement & Conclusions, Puzzles - essential for logical thinking across all exams.</p>
       
-      <h3>English</h3>
-      <p>Grammar (Tenses, Voice, Narration), Vocabulary, Synonyms & Antonyms, One Word Substitution, Idioms & Phrases, Comprehension.</p>
-      
-      <h3>Hindi</h3>
-      <p>व्याकरण, संधि, समास, पर्यायवाची, विलोम शब्द, मुहावरे, लोकोक्तियाँ, अनेक शब्दों के लिए एक शब्द।</p>
+      <h3>Language Skills</h3>
+      <p>Grammar (Tenses, Voice, Narration), Vocabulary, Synonyms & Antonyms, Comprehension - applicable in English, Hindi, and other language sections.</p>
       
       <h2>Preparation Tips</h2>
       <ol>
-        <li>Start with understanding the complete syllabus</li>
-        <li>Create a study schedule covering all subjects</li>
+        <li>Start with understanding the complete syllabus for your chosen exam</li>
+        <li>Create a study schedule covering all subjects proportionally</li>
         <li>Practice previous year question papers</li>
-        <li>Take mock tests regularly</li>
-        <li>Focus on Haryana GK as it's unique to this exam</li>
-        <li>Stay updated with current affairs</li>
+        <li>Take mock tests regularly to simulate exam conditions</li>
+        <li>Focus on specialized topics specific to your exam</li>
+        <li>Stay updated with current affairs across domains</li>
       </ol>
     `,
   },
-  "top-10-tips-crack-hssc-cet-first-attempt": {
-    title: "Top 10 Tips to Crack HSSC CET in First Attempt",
+  "top-10-tips-crack-competitive-exam-first-attempt": {
+    title: "Top 10 Tips to Crack Competitive Exams in First Attempt",
     date: "Dec 10, 2025",
     readTime: "6 min read",
     category: "Tips & Tricks",
     image: "/success-tips-study-motivation.jpg",
-    author: "HSSC CET TEST Team",
+    author: "CET TEST Team",
     content: `
-      <h2>Proven Strategies from HSSC CET Toppers</h2>
-      <p>Clearing HSSC CET in the first attempt requires smart preparation and dedication. Here are the top 10 tips from successful candidates.</p>
+      <h2>Proven Strategies from Competitive Exam Toppers</h2>
+      <p>Clearing competitive exams in the first attempt requires smart preparation and dedication. Here are the top 10 tips from successful candidates across various competitive exams.</p>
       
-      <h3>1. Understand the Exam Pattern</h3>
-      <p>Before starting preparation, thoroughly understand the exam pattern, marking scheme, and syllabus. This helps in creating an effective study plan.</p>
+      <h3>1. Understand Your Exam Pattern</h3>
+      <p>Before starting preparation, thoroughly understand the exam pattern, marking scheme, and syllabus specific to your chosen exam (HSSC CET, SSC, Railway, etc). This helps in creating an effective study plan.</p>
       
       <h3>2. Create a Realistic Study Schedule</h3>
       <p>Divide your time wisely among all subjects. Allocate more time to weaker areas while maintaining regular revision of strong subjects.</p>
       
-      <h3>3. Focus on Haryana GK</h3>
-      <p>Haryana GK questions are relatively easy to score if prepared well. Cover all districts, history, culture, and current affairs of Haryana.</p>
+      <h3>3. Focus on Core Concepts</h3>
+      <p>Don't just memorize; understand the underlying concepts. This helps in solving new variations of questions in the exam.</p>
       
-      <h3>4. Practice Mathematics Daily</h3>
-      <p>Mathematics requires consistent practice. Solve at least 50 questions daily and learn shortcut tricks for faster calculations.</p>
+      <h3>4. Practice Problem Solving Daily</h3>
+      <p>Mathematics and Reasoning require consistent practice. Solve at least 50 questions daily and learn shortcut tricks for faster calculations.</p>
       
-      <h3>5. Master Reasoning Concepts</h3>
+      <h3>5. Master Logical Thinking</h3>
       <p>Reasoning is more about understanding patterns than memorization. Practice different types of questions to build logical thinking.</p>
       
       <h3>6. Stay Updated with Current Affairs</h3>
@@ -110,7 +103,7 @@ const posts: Record<
       <p>Mock tests help in understanding the real exam environment and identifying weak areas. Take at least 2-3 full-length tests weekly.</p>
       
       <h3>8. Analyze Your Performance</h3>
-      <p>After each mock test, analyze your performance. Identify patterns in mistakes and work on improving them.</p>
+      <p>After each mock test, analyze your performance. Identify patterns in mistakes and work on improving them systematically.</p>
       
       <h3>9. Revise Regularly</h3>
       <p>Regular revision is key to retention. Create short notes for quick revision before the exam.</p>
@@ -119,31 +112,33 @@ const posts: Record<
       <p>Take care of your physical and mental health. Adequate sleep, exercise, and a positive mindset are crucial for effective preparation.</p>
     `,
   },
-  "important-current-affairs-hssc-cet-2026": {
-    title: "Important Current Affairs for HSSC CET 2026",
+  "current-affairs-competitive-exams-2026": {
+    title: "Important Current Affairs for Competitive Exams 2026",
     date: "Dec 5, 2025",
     readTime: "10 min read",
     category: "Current Affairs",
     image: "/current-affairs-news-newspaper.jpg",
-    author: "HSSC CET TEST Team",
+    author: "CET TEST Team",
     content: `
-      <h2>Must-Know Current Affairs for HSSC CET 2026</h2>
-      <p>Current affairs form a significant portion of the General Awareness section. Here are the most important topics to cover.</p>
+      <h2>Must-Know Current Affairs for All Competitive Exams</h2>
+      <p>Current affairs form a significant portion of the General Awareness section in most competitive exams. Here are the most important topics to cover.</p>
       
       <h3>National News</h3>
       <ul>
         <li>Important government schemes and policies</li>
-        <li>Constitutional amendments</li>
+        <li>Constitutional amendments and legal changes</li>
         <li>Economic developments and budget highlights</li>
         <li>Defense and security updates</li>
+        <li>Railway and Infrastructure projects</li>
       </ul>
       
-      <h3>Haryana Specific News</h3>
+      <h3>State-Specific News (Haryana, Uttarakhand, etc.)</h3>
       <ul>
-        <li>New government schemes in Haryana</li>
-        <li>Infrastructure projects</li>
+        <li>New government schemes in your state</li>
+        <li>Infrastructure projects and development</li>
         <li>Awards and achievements</li>
         <li>Important appointments</li>
+        <li>State-specific policies</li>
       </ul>
       
       <h3>International Affairs</h3>
@@ -151,13 +146,15 @@ const posts: Record<
         <li>India's foreign relations</li>
         <li>International summits and conferences</li>
         <li>Global economic developments</li>
+        <li>UN and international organizations</li>
       </ul>
       
       <h3>Sports</h3>
       <ul>
         <li>Major tournaments and winners</li>
         <li>Olympic and Commonwealth Games updates</li>
-        <li>Sports personalities from Haryana</li>
+        <li>Sports personalities and achievements</li>
+        <li>Major sports events and records</li>
       </ul>
       
       <h3>Awards & Honours</h3>
@@ -166,12 +163,14 @@ const posts: Record<
         <li>National Film Awards</li>
         <li>Literary Awards</li>
         <li>Sports Awards</li>
+        <li>Nobel Prizes</li>
       </ul>
       
       <h3>Science & Technology</h3>
       <ul>
-        <li>ISRO missions</li>
+        <li>ISRO missions and space exploration</li>
         <li>Defense technology developments</li>
+        <li>Medical and biotechnology breakthroughs</li>
         <li>New inventions and discoveries</li>
       </ul>
     `,
@@ -180,61 +179,61 @@ const posts: Record<
     title: "Haryana GK: Districts, History & Culture",
     date: "Nov 28, 2025",
     readTime: "12 min read",
-    category: "Haryana GK",
+    category: "State GK",
     image: "/haryana-culture-heritage.jpg",
-    author: "HSSC CET TEST Team",
+    author: "CET TEST Team",
     content: `
       <h2>Complete Guide to Haryana General Knowledge</h2>
-      <p>Haryana GK is a scoring section in HSSC CET. This comprehensive guide covers all important topics.</p>
+      <p>Haryana GK is a scoring section in competitive exams. This comprehensive guide covers all important topics applicable across different states.</p>
       
-      <h3>Basic Information</h3>
+      <h3>General Knowledge Base</h3>
       <ul>
-        <li><strong>Formation:</strong> 1st November 1966</li>
-        <li><strong>Capital:</strong> Chandigarh (shared with Punjab)</li>
-        <li><strong>Total Districts:</strong> 22</li>
-        <li><strong>Official Language:</strong> Hindi</li>
-        <li><strong>State Animal:</strong> Black Buck</li>
-        <li><strong>State Bird:</strong> Black Francolin</li>
-        <li><strong>State Flower:</strong> Lotus</li>
-        <li><strong>State Tree:</strong> Peepal</li>
+        <li><strong>Formation Year:</strong> Check specific to your state</li>
+        <li><strong>Capital:</strong> Know the state capital</li>
+        <li><strong>Total Districts:</strong> Important for geography</li>
+        <li><strong>Official Language:</strong> State language details</li>
+        <li><strong>State Symbols:</strong> Animal, Bird, Flower, Tree</li>
       </ul>
       
-      <h3>Districts of Haryana</h3>
-      <p>Haryana has 22 districts divided into 6 divisions: Ambala, Karnal, Rohtak, Hisar, Gurgaon, and Faridabad.</p>
+      <h3>Districts and Geography</h3>
+      <p>Know all districts of your state, their boundaries, and important cities. Understand geographical features like rivers, lakes, and mountains.</p>
       
       <h3>Historical Background</h3>
-      <p>Haryana has a rich historical heritage dating back to the Vedic period. The famous Kurukshetra war of Mahabharata was fought here.</p>
+      <p>Study the history of your state including ancient kingdoms, freedom struggle, and significant historical events relevant to the state.</p>
       
       <h3>Culture & Festivals</h3>
       <ul>
-        <li><strong>Folk Dances:</strong> Ghoomar, Khoria, Dhamal, Loor</li>
-        <li><strong>Folk Music:</strong> Ragini, Saang</li>
-        <li><strong>Festivals:</strong> Teej, Gugga Navami, Holi, Diwali</li>
-        <li><strong>Handicrafts:</strong> Pottery, Embroidery, Weaving</li>
+        <li><strong>Folk Dances:</strong> Traditional dances of the state</li>
+        <li><strong>Folk Music:</strong> Traditional music forms</li>
+        <li><strong>Festivals:</strong> Major festivals celebrated</li>
+        <li><strong>Handicrafts:</strong> Traditional crafts and art forms</li>
       </ul>
       
       <h3>Famous Personalities</h3>
-      <p>Haryana has produced many notable personalities including sports legends, freedom fighters, and scholars.</p>
+      <p>Study notable people from your state including freedom fighters, sports legends, scholars, and current achievers.</p>
       
       <h3>Government Schemes</h3>
+      <p>Be aware of major government schemes operational in your state, including welfare schemes, development initiatives, and recent policies.</p>
+      
+      <h3>Development and Infrastructure</h3>
       <ul>
-        <li>Beti Bachao Beti Padhao</li>
-        <li>Mukhyamantri Parivar Samridhi Yojana</li>
-        <li>Deen Dayal Jan Awas Yojana</li>
-        <li>Haryana Kaushal Rozgar Nigam</li>
+        <li>Major industries and economic activities</li>
+        <li>Important projects and initiatives</li>
+        <li>Education and healthcare infrastructure</li>
+        <li>Transportation and connectivity</li>
       </ul>
     `,
   },
-  "math-shortcuts-hssc-cet-quick-calculation-tricks": {
-    title: "Math Shortcuts for HSSC CET: Quick Calculation Tricks",
+  "math-shortcuts-quick-calculation-tricks": {
+    title: "Math Shortcuts: Quick Calculation Tricks for All Exams",
     date: "Nov 20, 2025",
     readTime: "7 min read",
     category: "Mathematics",
     image: "/mathematics-calculation-formulas.jpg",
-    author: "HSSC CET TEST Team",
+    author: "CET TEST Team",
     content: `
       <h2>Speed Up Your Math Calculations</h2>
-      <p>Time management is crucial in HSSC CET. These shortcuts will help you solve math questions faster.</p>
+      <p>Time management is crucial in competitive exams. These shortcuts will help you solve math questions faster across all exam types.</p>
       
       <h3>Percentage Shortcuts</h3>
       <ul>
@@ -242,6 +241,7 @@ const posts: Record<
         <li>5% = Half of 10%</li>
         <li>15% = 10% + 5%</li>
         <li>20% = 10% × 2</li>
+        <li>25% = One-fourth of the number</li>
       </ul>
       
       <h3>Multiplication Tricks</h3>
@@ -249,6 +249,7 @@ const posts: Record<
         <li>Multiply by 11: Add adjacent digits (e.g., 23 × 11 = 253)</li>
         <li>Multiply by 5: Divide by 2 and multiply by 10</li>
         <li>Multiply by 25: Divide by 4 and multiply by 100</li>
+        <li>Multiply by 99: Multiply by 100 and subtract the number</li>
       </ul>
       
       <h3>Division Tricks</h3>
@@ -261,66 +262,73 @@ const posts: Record<
       <p>For numbers ending in 5: (First digit × Next digit) and append 25</p>
       <p>Example: 25² = 2 × 3 = 6, append 25 = 625</p>
       
-      <h3>Time and Work Formula</h3>
-      <p>If A does work in x days and B in y days, together they finish in xy/(x+y) days</p>
-      
-      <h3>Ratio and Proportion</h3>
-      <p>Use cross multiplication for quick solutions. If a:b = c:d, then ad = bc</p>
+      <h3>Important Formulas</h3>
+      <ul>
+        <li><strong>Time and Work:</strong> If A does work in x days and B in y days, together they finish in xy/(x+y) days</li>
+        <li><strong>Ratio and Proportion:</strong> If a:b = c:d, then ad = bc</li>
+        <li><strong>Average:</strong> Sum of all numbers / Count of numbers</li>
+      </ul>
       
       <h3>Practice Tips</h3>
       <ol>
         <li>Memorize tables up to 20</li>
-        <li>Learn squares up to 30</li>
+        <li>Learn squares up to 30 and cubes up to 12</li>
         <li>Practice mental calculations daily</li>
         <li>Use approximation for complex calculations</li>
+        <li>Learn estimation techniques for data interpretation</li>
       </ol>
     `,
   },
-  "english-grammar-rules-hssc-aspirant": {
-    title: "English Grammar Rules Every HSSC Aspirant Must Know",
+  "english-grammar-rules-competitive-aspirant": {
+    title: "English Grammar Rules Every Competitive Aspirant Must Know",
     date: "Nov 15, 2025",
     readTime: "9 min read",
     category: "English",
     image: "/english-grammar-book-learning.jpg",
-    author: "HSSC CET TEST Team",
+    author: "CET TEST Team",
     content: `
-      <h2>Essential English Grammar for HSSC CET</h2>
-      <p>English section can be scoring if you master these fundamental grammar rules.</p>
+      <h2>Essential English Grammar for Competitive Exams</h2>
+      <p>English section can be scoring if you master these fundamental grammar rules applicable across all competitive exams.</p>
       
       <h3>Tenses</h3>
       <p>Understanding the correct use of tenses is crucial:</p>
       <ul>
-        <li><strong>Simple Present:</strong> Habitual actions, universal truths</li>
-        <li><strong>Present Continuous:</strong> Actions happening now</li>
-        <li><strong>Present Perfect:</strong> Past actions with present relevance</li>
+        <li><strong>Simple Present:</strong> Habitual actions, universal truths, facts</li>
+        <li><strong>Present Continuous:</strong> Actions happening now, temporary situations</li>
+        <li><strong>Present Perfect:</strong> Past actions with present relevance or recent completion</li>
         <li><strong>Simple Past:</strong> Completed actions in the past</li>
+        <li><strong>Past Continuous:</strong> Ongoing actions in the past</li>
       </ul>
       
       <h3>Subject-Verb Agreement</h3>
       <ul>
         <li>Singular subjects take singular verbs</li>
         <li>Plural subjects take plural verbs</li>
-        <li>Words like 'everyone', 'anybody' are singular</li>
+        <li>Words like 'everyone', 'anybody', 'someone' are singular</li>
         <li>Collective nouns can be singular or plural based on context</li>
+        <li>None can be singular or plural</li>
       </ul>
       
       <h3>Active and Passive Voice</h3>
-      <p>Active: Subject + Verb + Object</p>
-      <p>Passive: Object + Be verb + Past participle + by + Subject</p>
+      <p><strong>Active:</strong> Subject + Verb + Object</p>
+      <p><strong>Passive:</strong> Object + Be verb + Past participle + by + Subject</p>
+      <p>Passive voice changes tense of 'be' verb and uses past participle of main verb.</p>
       
       <h3>Direct and Indirect Speech</h3>
       <ul>
-        <li>Change of pronouns based on speaker</li>
+        <li>Change of pronouns based on speaker and listener</li>
         <li>Change of tense (backshift rule)</li>
-        <li>Change of time and place expressions</li>
+        <li>Change of time and place expressions (this → that, here → there)</li>
+        <li>Change of question marks to full stops in indirect speech</li>
       </ul>
       
       <h3>Common Errors to Avoid</h3>
       <ul>
         <li>Using 'the' before proper nouns unnecessarily</li>
-        <li>Confusing 'since' and 'for' with time expressions</li>
+        <li>Confusing 'since' (specific point) and 'for' (duration) with time expressions</li>
         <li>Wrong preposition usage</li>
         <li>Double negatives</li>
+        <li>Misplaced modifiers</li>
       </ul>
       
       <h3>Important One Word Substitutions</h3>
@@ -329,6 +337,15 @@ const posts: Record<
         <li>Omnipresent - Present everywhere</li>
         <li>Posthumous - After death</li>
         <li>Unanimous - In complete agreement</li>
+        <li>Altruist - One who thinks of others' welfare</li>
+      </ul>
+      
+      <h3>Vocabulary Building</h3>
+      <ul>
+        <li>Learn synonyms and antonyms daily</li>
+        <li>Understand word roots and prefixes/suffixes</li>
+        <li>Practice using new words in sentences</li>
+        <li>Read comprehension passages to improve contextual understanding</li>
       </ul>
     `,
   },
@@ -353,7 +370,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <BookOpen className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="text-xl font-bold text-foreground">
-                HSSC CET <span className="text-primary">TEST</span>
+                CET <span className="text-primary">TEST</span>
               </span>
             </Link>
             <Link href="/blog">
@@ -408,7 +425,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div className="mt-12 p-6 bg-primary/5 rounded-xl border border-primary/20">
             <h3 className="text-xl font-semibold text-foreground mb-2">Ready to Start Practicing?</h3>
             <p className="text-muted-foreground mb-4">
-              Join thousands of students preparing for HSSC CET with our comprehensive test series.
+              Join thousands of students preparing for competitive exams with our comprehensive test series.
             </p>
             <Link href="/register">
               <Button>Start Free Trial</Button>

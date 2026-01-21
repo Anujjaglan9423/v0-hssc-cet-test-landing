@@ -496,133 +496,142 @@ export async function getTestResult(attemptId: string) {
 
 // Submit test
 export async function submitTest(testId: string, answers: Record<string, string>) {
-  const supabase = await createClient()
+  try {
+    const supabase = await createClient()
 
-  const user = await getCurrentUser()
-  if (!user) {
-    return { success: false, error: "Not authenticated" }
-  }
+    const user = await getCurrentUser()
+    if (!user) {
+      console.log("[v0] User not authenticated in submitTest")
+      return { success: false, error: "Not authenticated" }
+    }
 
-  // Get test with questions
-  const { data: test } = await supabase
-    .from("tests")
-    .select(`
-      id,
-      duration,
-      questions (id, correct_answer)
-    `)
-    .eq("id", testId)
-    .single()
+    console.log("[v0] User authenticated:", user.id)
 
-  if (!test) {
-    return { success: false, error: "Test not found" }
-  }
+    // Get test with questions
+    const { data: test } = await supabase
+      .from("tests")
+      .select(`
+        id,
+        duration,
+        questions (id, correct_answer)
+      `)
+      .eq("id", testId)
+      .single()
 
-  const questions = test.questions || []
-  const totalQuestions = questions.length
+    if (!test) {
+      return { success: false, error: "Test not found" }
+    }
 
-  // Calculate scores - 1 mark per correct, 0 for wrong (no negative marking)
-  let correct = 0
-  let incorrect = 0
+    const questions = test.questions || []
+    const totalQuestions = questions.length
 
-  questions.forEach((q: any) => {
-    const userAnswer = answers[q.id]
-    if (userAnswer) {
-      if (userAnswer.toLowerCase() === q.correct_answer.toLowerCase()) {
-        correct++
-      } else {
-        incorrect++
+    // Calculate scores - 1 mark per correct, 0 for wrong (no negative marking)
+    let correct = 0
+    let incorrect = 0
+
+    questions.forEach((q: any) => {
+      const userAnswer = answers[q.id]
+      if (userAnswer) {
+        if (userAnswer.toLowerCase() === q.correct_answer.toLowerCase()) {
+          correct++
+        } else {
+          incorrect++
+        }
       }
-    }
-  })
-
-  const unattempted = totalQuestions - correct - incorrect
-  const score = correct // Score = number of correct answers
-  const totalMarks = totalQuestions
-  const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
-
-  // Create test attempt
-  const { data: attempt, error: attemptError } = await supabase
-    .from("test_attempts")
-    .insert({
-      test_id: testId,
-      user_id: user.id,
-      status: "completed",
-      completed_at: new Date().toISOString(),
-      time_taken: test.duration * 60,
     })
-    .select()
-    .single()
 
-  if (attemptError) {
-    console.error("Error creating attempt:", attemptError)
-    return { success: false, error: attemptError.message }
-  }
+    const unattempted = totalQuestions - correct - incorrect
+    const score = correct // Score = number of correct answers
+    const totalMarks = totalQuestions
+    const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
 
-  // Save user answers
-  const userAnswersArray = Object.entries(answers).map(([questionId, answer]) => {
-    const question = questions.find((q: any) => q.id === questionId)
-    const isCorrect = question && answer.toLowerCase() === question.correct_answer.toLowerCase()
-    return {
-      attempt_id: attempt.id,
-      question_id: questionId,
-      selected_answer: answer,
-      is_correct: isCorrect,
-      time_spent: 0,
+    // Create test attempt
+    const { data: attempt, error: attemptError } = await supabase
+      .from("test_attempts")
+      .insert({
+        test_id: testId,
+        user_id: user.id,
+        status: "completed",
+        completed_at: new Date().toISOString(),
+        time_taken: test.duration * 60,
+      })
+      .select()
+      .single()
+
+    if (attemptError) {
+      console.error("Error creating attempt:", attemptError)
+      return { success: false, error: attemptError.message }
     }
-  })
 
-  if (userAnswersArray.length > 0) {
-    await supabase.from("user_answers").insert(userAnswersArray)
-  }
-
-  // Get all existing results for this test to calculate rank
-  const { data: allResults } = await supabase
-    .from("test_results")
-    .select("id, score")
-    .eq("test_id", testId)
-    .order("score", { ascending: false })
-
-  // Create test result first
-  const { data: result, error: resultError } = await supabase
-    .from("test_results")
-    .insert({
-      attempt_id: attempt.id,
-      user_id: user.id,
-      test_id: testId,
-      total_questions: totalQuestions,
-      correct_answers: correct,
-      wrong_answers: incorrect,
-      unanswered: unattempted,
-      score: score, // Store actual score (correct answers count)
-      percentage: percentage,
-      time_taken: test.duration * 60,
-      rank: 1, // Will be updated below
+    // Save user answers
+    const userAnswersArray = Object.entries(answers).map(([questionId, answer]) => {
+      const question = questions.find((q: any) => q.id === questionId)
+      const isCorrect = question && answer.toLowerCase() === question.correct_answer.toLowerCase()
+      return {
+        attempt_id: attempt.id,
+        question_id: questionId,
+        selected_answer: answer,
+        is_correct: isCorrect,
+        time_spent: 0,
+      }
     })
-    .select()
-    .single()
 
-  if (resultError) {
-    console.error("Error creating result:", resultError)
-    return { success: false, error: resultError.message }
-  }
+    if (userAnswersArray.length > 0) {
+      await supabase.from("user_answers").insert(userAnswersArray)
+    }
 
-  // Now recalculate ranks for ALL results including the new one
-  const allResultsWithNew = [...(allResults || []), { id: result.id, score: score }]
-
-  // Sort by score descending
-  const sortedResults = allResultsWithNew.sort((a, b) => b.score - a.score)
-
-  // Update ranks for all results
-  for (let i = 0; i < sortedResults.length; i++) {
-    await supabase
+    // Get all existing results for this test to calculate rank
+    const { data: allResults } = await supabase
       .from("test_results")
-      .update({ rank: i + 1 })
-      .eq("id", sortedResults[i].id)
-  }
+      .select("id, score")
+      .eq("test_id", testId)
+      .order("score", { ascending: false })
 
-  revalidatePath("/student/results")
-  return { success: true, attemptId: attempt.id }
+    // Create test result first
+    const { data: result, error: resultError } = await supabase
+      .from("test_results")
+      .insert({
+        attempt_id: attempt.id,
+        user_id: user.id,
+        test_id: testId,
+        total_questions: totalQuestions,
+        correct_answers: correct,
+        wrong_answers: incorrect,
+        unanswered: unattempted,
+        score: score,
+        percentage: percentage,
+        time_taken: test.duration * 60,
+        rank: 1,
+      })
+      .select()
+      .single()
+
+    if (resultError) {
+      console.error("Error creating result:", resultError)
+      return { success: false, error: resultError.message }
+    }
+
+    // Now recalculate ranks for ALL results including the new one
+    const allResultsWithNew = [...(allResults || []), { id: result.id, score: score }]
+
+    // Sort by score descending
+    const sortedResults = allResultsWithNew.sort((a, b) => b.score - a.score)
+
+    // Update ranks for all results
+    for (let i = 0; i < sortedResults.length; i++) {
+      await supabase
+        .from("test_results")
+        .update({ rank: i + 1 })
+        .eq("id", sortedResults[i].id)
+    }
+
+    revalidatePath("/student/results")
+    console.log("[v0] Test submitted successfully with attemptId:", attempt.id)
+    return { success: true, attemptId: attempt.id }
+  } catch (error) {
+    console.error("[v0] submitTest error:", error)
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error occurred" }
+  }
 }
 
 // Get student analytics

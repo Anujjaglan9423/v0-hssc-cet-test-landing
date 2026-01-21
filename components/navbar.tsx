@@ -26,7 +26,7 @@ export default function Navbar() {
               <BookOpen className="w-5 h-5 text-primary-foreground" />
             </div>
             <span className="text-xl font-bold text-foreground">
-              HSSC CET <span className="text-primary">TEST</span>
+              CET <span className="text-primary">TEST</span>
             </span>
           </Link>
 

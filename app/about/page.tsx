@@ -22,7 +22,7 @@ const values = [
   {
     icon: Target,
     title: "Mission-Driven",
-    description: "Helping every HSSC CET aspirant achieve their dream government job.",
+    description: "Helping every CET aspirant achieve their dream government job.",
   },
   {
     icon: Award,
@@ -48,7 +48,7 @@ export default function AboutPage() {
                 <BookOpen className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="text-xl font-bold text-foreground">
-                HSSC CET <span className="text-primary">TEST</span>
+                CET <span className="text-primary">TEST</span>
               </span>
             </Link>
             <Link href="/">
@@ -65,12 +65,12 @@ export default function AboutPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            About <span className="text-primary">HSSC CET TEST</span>
+            About <span className="text-primary">CET TEST</span>
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            We are on a mission to make quality HSSC CET preparation accessible to every aspirant in Haryana. Our
-            platform provides comprehensive test series, detailed analytics, and expert guidance to help you crack the
-            exam with confidence.
+            We are on a mission to make quality exam preparation accessible to every aspirant across India. Our platform
+            provides comprehensive test series for Haryana, SSC, Railway, and Uttarakhand exams with detailed analytics
+            and expert guidance to help you crack your exam with confidence.
           </p>
         </div>
       </section>
@@ -143,9 +143,9 @@ export default function AboutPage() {
           <h2 className="text-3xl font-bold text-foreground text-center mb-12">Why Choose Us?</h2>
           <div className="space-y-4">
             {[
-              "Exam-pattern questions updated regularly",
+              "Exam-pattern questions for multiple competitive exams",
               "Detailed performance analytics and insights",
-              "Expert-curated content by HSSC toppers",
+              "Expert-curated content by exam toppers",
               "Affordable pricing for all students",
               "24/7 doubt support and guidance",
               "Mobile-friendly platform for learning anywhere",
