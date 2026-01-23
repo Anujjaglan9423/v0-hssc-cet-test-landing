@@ -3,10 +3,11 @@
 import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { BookOpen, Eye, EyeOff, Mail, Lock, ArrowLeft, AlertCircle } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, ArrowLeft, AlertCircle } from "lucide-react"
 import { loginUser } from "@/lib/auth"
 
 export default function LoginPage() {
@@ -53,12 +54,13 @@ export default function LoginPage() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="text-2xl font-bold text-foreground">
-              HSSC CET <span className="text-primary">TEST</span>
-            </span>
+            <Image
+              src="/logo.png"
+              alt="CET TEST Logo"
+              width={120}
+              height={40}
+              className="h-10 w-auto"
+            />
           </Link>
 
           {/* Header */}

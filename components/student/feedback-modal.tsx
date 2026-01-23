@@ -62,13 +62,13 @@ export function FeedbackModal({ isOpen, onClose, userId, testId, attemptId, test
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Share Your Feedback</DialogTitle>
           <DialogDescription>Help us improve by sharing your experience with {testTitle}</DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6 py-4">
+        <div className="space-y-6 py-4 pr-4">
           {/* Rating */}
           <div>
             <Label className="text-base font-semibold mb-3 block">How would you rate this test?</Label>
@@ -164,7 +164,7 @@ export function FeedbackModal({ isOpen, onClose, userId, testId, attemptId, test
           </div>
         </div>
 
-        <DialogFooter>
+        <DialogFooter className="sticky bottom-0 bg-background border-t pt-4">
           <Button variant="outline" onClick={onClose} disabled={isSubmitting}>
             Skip
           </Button>

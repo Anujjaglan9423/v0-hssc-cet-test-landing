@@ -552,79 +552,100 @@ export default function TestPage() {
         </Button>
       </div>
 
-      <div className="max-w-7xl mx-auto p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6">
-        <div className="lg:col-span-3 space-y-4 lg:space-y-6">
-          <div className="space-y-2">
-            <div className="flex justify-between text-xs lg:text-sm">
-              <span className="text-muted-foreground">Progress</span>
-              <span className="text-foreground font-medium">
-                {answeredCount}/{test.questions.length} answered
+      <div className="max-w-7xl mx-auto p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-5 gap-3 lg:gap-4">
+        {/* Main Question Section - Takes 3 columns on desktop */}
+        <div className="lg:col-span-3 space-y-3 lg:space-y-4">
+          {/* Progress Section */}
+          <div className="bg-card rounded-lg border border-border p-3 lg:p-4 space-y-2">
+            <div className="flex justify-between items-center text-xs lg:text-sm">
+              <span className="text-muted-foreground font-medium">Progress</span>
+              <span className="font-bold text-foreground bg-primary/10 px-2 py-1 rounded">
+                {answeredCount}/{test.questions.length}
               </span>
             </div>
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-2.5 rounded-full" />
           </div>
 
-          <Card className="p-4 lg:p-6">
-            <div className="flex items-start justify-between mb-4 lg:mb-6">
-              <span className="px-2 lg:px-3 py-1 bg-primary/10 text-primary rounded-full text-xs lg:text-sm font-medium">
-                Question {currentQuestion + 1}
-              </span>
+          {/* Question Card */}
+          <Card className="p-4 lg:p-6 border border-border rounded-xl">
+            {/* Question Header */}
+            <div className="flex items-center justify-between mb-2 lg:mb-3 gap-3">
+              <div className="flex items-center gap-2">
+                <span className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-xs lg:text-sm font-semibold">
+                  Q{currentQuestion + 1}
+                </span>
+                <span className="text-xs lg:text-sm text-muted-foreground">
+                  of {test.questions.length}
+                </span>
+              </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => toggleFlag(question.id)}
-                className={flagged.has(question.id) ? "text-amber-500" : "text-muted-foreground"}
+                className={`gap-1.5 ${flagged.has(question.id) ? "text-amber-500 bg-amber-500/10" : "text-muted-foreground hover:text-amber-500"}`}
               >
-                <Flag className="w-4 h-4 mr-1" />
-                <span className="hidden lg:inline">{flagged.has(question.id) ? "Flagged" : "Flag"}</span>
+                <Flag className={`w-4 h-4 ${flagged.has(question.id) ? "fill-current" : ""}`} />
+                <span className="hidden sm:inline text-xs font-medium">
+                  {flagged.has(question.id) ? "Flagged" : "Flag"}
+                </span>
               </Button>
             </div>
 
-            <p className="text-base lg:text-lg text-foreground mb-4 lg:mb-6 leading-relaxed">
-              {question.question_text}
-            </p>
+            {/* Question Text */}
+            <div className="mb-3 lg:mb-4 pb-2 lg:pb-3 border-b border-border/50">
+              <p className="text-base lg:text-lg font-medium text-foreground leading-relaxed">
+                {question.question_text}
+              </p>
+            </div>
 
-            <RadioGroup
-              value={answers[question.id] || ""}
-              onValueChange={(value) => handleAnswer(question.id, value)}
-              className="space-y-2 lg:space-y-3"
-            >
-              {[
-                { key: "a", value: question.option_a },
-                { key: "b", value: question.option_b },
-                { key: "c", value: question.option_c },
-                { key: "d", value: question.option_d },
-              ].map((option) => (
-                <Label
-                  key={option.key}
-                  htmlFor={`option-${option.key}`}
-                  className={`flex items-center gap-2 lg:gap-3 p-3 lg:p-4 rounded-lg border cursor-pointer transition-all text-sm lg:text-base ${
-                    answers[question.id] === option.key
-                      ? "border-primary bg-primary/5"
-                      : "border-border hover:border-primary/50 hover:bg-muted/50"
-                  }`}
-                >
-                  <RadioGroupItem value={option.key} id={`option-${option.key}`} />
-                  <span className="flex-1 text-foreground">
-                    <span className="font-medium mr-2">({option.key.toUpperCase()})</span>
-                    {option.value}
-                  </span>
-                </Label>
-              ))}
-            </RadioGroup>
+            {/* Options */}
+            <div className="space-y-2.5 lg:space-y-3 mb-4">
+              <RadioGroup
+                value={answers[question.id] || ""}
+                onValueChange={(value) => handleAnswer(question.id, value)}
+              >
+                {[
+                  { key: "a", value: question.option_a },
+                  { key: "b", value: question.option_b },
+                  { key: "c", value: question.option_c },
+                  { key: "d", value: question.option_d },
+                ].map((option) => (
+                  <div
+                    key={option.key}
+                    className={`flex items-start gap-3 p-3 lg:p-4 rounded-lg border-2 cursor-pointer transition-all text-sm lg:text-base ${
+                      answers[question.id] === option.key
+                        ? "border-primary bg-primary/5 shadow-sm"
+                        : "border-border hover:border-primary/30 hover:bg-muted/40"
+                    }`}
+                    onClick={() => {
+                      const radioInput = document.getElementById(`option-${option.key}`)
+                      if (radioInput) radioInput.click()
+                    }}
+                  >
+                    <RadioGroupItem value={option.key} id={`option-${option.key}`} className="mt-1 flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <span className="font-bold text-primary mr-2">({option.key.toUpperCase()})</span>
+                      <span className="text-foreground">{option.value}</span>
+                    </div>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
 
-            <div className="flex items-center justify-between mt-6 lg:mt-8 pt-4 lg:pt-6 border-t border-border">
+            {/* Navigation Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-4 lg:pt-6 border-t border-border/50">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setCurrentQuestion((prev) => Math.max(0, prev - 1))}
                 disabled={currentQuestion === 0}
+                className="w-full sm:w-auto gap-1.5"
               >
-                <ChevronLeft className="w-4 h-4 mr-1" />
+                <ChevronLeft className="w-4 h-4" />
                 <span className="hidden lg:inline">Previous</span>
               </Button>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 w-full sm:w-auto">
                 <Button
                   variant="outline"
                   size="sm"
@@ -633,53 +654,54 @@ export default function TestPage() {
                     setAnswers(rest)
                   }}
                   disabled={!answers[question.id]}
+                  className="flex-1 sm:flex-none text-xs lg:text-sm"
                 >
                   Clear
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    if (currentQuestion < test.questions.length - 1) {
-                      setCurrentQuestion((prev) => prev + 1)
-                    }
-                  }}
-                  disabled={!answers[question.id]}
-                >
-                  <span className="hidden lg:inline">Save &</span> Next
                 </Button>
               </div>
 
               <Button
-                variant="outline"
+                variant="default"
                 size="sm"
-                onClick={() => setCurrentQuestion((prev) => Math.min(test.questions.length - 1, prev + 1))}
-                disabled={currentQuestion === test.questions.length - 1}
+                onClick={() => {
+                  if (currentQuestion < test.questions.length - 1) {
+                    setCurrentQuestion((prev) => prev + 1)
+                  }
+                }}
+                disabled={!answers[question.id] || currentQuestion === test.questions.length - 1}
+                className="w-full sm:w-auto gap-1.5"
               >
                 <span className="hidden lg:inline">Next</span>
-                <ChevronRight className="w-4 h-4 ml-1" />
+                <span className="lg:hidden">Next Q</span>
+                <ChevronRight className="w-4 h-4" />
               </Button>
             </div>
           </Card>
         </div>
 
-        <div className="lg:col-span-1">
-          <Card className="p-3 lg:p-4 sticky top-24">
-            <h3 className="font-semibold text-foreground mb-3 lg:mb-4 text-sm lg:text-base">Question Navigator</h3>
+        {/* Right Sidebar - Question Navigator */}
+        <div className="lg:col-span-2">
+          <Card className="p-4 lg:p-5 sticky top-32 lg:top-28 border border-border rounded-xl">
+            <h3 className="font-bold text-foreground mb-4 text-sm lg:text-base flex items-center gap-2">
+              <Target className="w-4 h-4 text-primary" />
+              Question Navigator
+            </h3>
 
-            <div className="grid grid-cols-5 gap-1 lg:gap-2 mb-4 lg:mb-6">
+            {/* Question Grid */}
+            <div className="grid grid-cols-8 sm:grid-cols-10 lg:grid-cols-6 gap-1.5 mb-5 lg:mb-6">
               {test.questions.map((q, index) => (
                 <button
                   key={q.id}
                   onClick={() => setCurrentQuestion(index)}
-                  className={`w-8 h-8 lg:w-10 lg:h-10 rounded-lg text-xs lg:text-sm font-medium transition-all ${
+                  title={`Question ${index + 1}`}
+                  className={`aspect-square rounded-md text-xs font-semibold transition-all flex items-center justify-center ${
                     currentQuestion === index
-                      ? "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2"
+                      ? "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 scale-110"
                       : answers[q.id]
-                        ? "bg-accent text-accent-foreground"
+                        ? "bg-accent text-accent-foreground hover:scale-105"
                         : flagged.has(q.id)
-                          ? "bg-amber-500/20 text-amber-500 border border-amber-500"
-                          : "bg-muted text-muted-foreground hover:bg-muted/80"
+                          ? "bg-amber-500/20 text-amber-600 border-2 border-amber-500 hover:scale-105"
+                          : "bg-muted text-muted-foreground hover:bg-muted/70 hover:scale-105"
                   }`}
                 >
                   {index + 1}
@@ -687,18 +709,39 @@ export default function TestPage() {
               ))}
             </div>
 
-            <div className="space-y-2 text-xs lg:text-sm">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 lg:w-4 lg:h-4 rounded bg-accent" />
-                <span className="text-muted-foreground">Answered ({answeredCount})</span>
+            {/* Legend */}
+            <div className="space-y-2.5 pt-4 lg:pt-5 border-t border-border/50">
+              <div className="flex items-center gap-2.5 text-xs lg:text-sm">
+                <div className="w-3 h-3 lg:w-3.5 lg:h-3.5 rounded-sm bg-accent" />
+                <span className="text-muted-foreground">
+                  Answered <span className="font-semibold text-foreground">({answeredCount})</span>
+                </span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 lg:w-4 lg:h-4 rounded bg-muted" />
-                <span className="text-muted-foreground">Not Answered ({test.questions.length - answeredCount})</span>
+              <div className="flex items-center gap-2.5 text-xs lg:text-sm">
+                <div className="w-3 h-3 lg:w-3.5 lg:h-3.5 rounded-sm bg-muted" />
+                <span className="text-muted-foreground">
+                  Pending <span className="font-semibold text-foreground">({test.questions.length - answeredCount})</span>
+                </span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 lg:w-4 lg:h-4 rounded bg-amber-500/20 border border-amber-500" />
-                <span className="text-muted-foreground">Flagged ({flagged.size})</span>
+              <div className="flex items-center gap-2.5 text-xs lg:text-sm">
+                <div className="w-3 h-3 lg:w-3.5 lg:h-3.5 rounded-sm border-2 border-amber-500 bg-amber-500/20" />
+                <span className="text-muted-foreground">
+                  Flagged <span className="font-semibold text-foreground">({flagged.size})</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="mt-4 lg:mt-5 pt-4 lg:pt-5 border-t border-border/50 space-y-2">
+              <div className="flex justify-between items-center text-xs lg:text-sm">
+                <span className="text-muted-foreground">Completion</span>
+                <span className="font-bold text-primary">{Math.round(progress)}%</span>
+              </div>
+              <div className="flex justify-between items-center text-xs lg:text-sm">
+                <span className="text-muted-foreground">Time Left</span>
+                <span className={`font-mono font-bold ${timeLeft < 300 ? "text-destructive" : "text-primary"}`}>
+                  {formatTime(timeLeft)}
+                </span>
               </div>
             </div>
           </Card>

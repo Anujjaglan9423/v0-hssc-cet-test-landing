@@ -3,11 +3,12 @@
 import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { BookOpen, Eye, EyeOff, Mail, Lock, User, ArrowLeft, Check, AlertCircle } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, User, ArrowLeft, Check, AlertCircle } from "lucide-react"
 import { signupUser } from "@/lib/auth"
 
 export default function SignupPage() {
@@ -57,9 +58,9 @@ export default function SignupPage() {
         </div>
         <div className="relative z-10 flex flex-col justify-center p-12">
           <div className="max-w-md">
-            <h2 className="text-4xl font-bold text-primary-foreground mb-6">Start Your HSSC CET Preparation Today</h2>
+            <h2 className="text-4xl font-bold text-primary-foreground mb-6">Master Your Competitive Exam</h2>
             <p className="text-lg text-primary-foreground/80 mb-8">
-              Join thousands of successful candidates who cracked HSSC CET with our comprehensive test series.
+              Join thousands of successful candidates who cracked their exams with our comprehensive test series.
             </p>
 
             {/* Benefits */}
@@ -96,12 +97,13 @@ export default function SignupPage() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="text-2xl font-bold text-foreground">
-              HSSC CET <span className="text-primary">TEST</span>
-            </span>
+            <Image
+              src="/logo.png"
+              alt="CET TEST Logo"
+              width={120}
+              height={40}
+              className="h-10 w-auto"
+            />
           </Link>
 
           {/* Header */}

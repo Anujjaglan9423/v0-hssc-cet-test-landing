@@ -1,11 +1,12 @@
 "use client"
 
+import { SidebarContent } from "@/components/ui/sidebar"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { logoutUser, type User } from "@/lib/auth"
 import {
-  BookOpen,
   LayoutDashboard,
   Users,
   FileText,
@@ -22,6 +23,7 @@ import {
   Mail,
   MessageSquare,
   FolderTree,
+  BookOpen,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -35,7 +37,8 @@ const adminLinks = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/admin/students", icon: Users, label: "Students" },
   { href: "/admin/tests", icon: FileText, label: "Tests" },
-  { href: "/admin/manage", icon: FolderTree, label: "Manage" }, // Added Manage link
+  { href: "/admin/manage", icon: FolderTree, label: "Manage" },
+  { href: "/admin/payments", icon: BarChart3, label: "Payments" },
   { href: "/admin/results", icon: Trophy, label: "Results" },
   { href: "/admin/analytics", icon: BarChart3, label: "Analytics" },
   { href: "/admin/contacts", icon: Mail, label: "Contacts" },
@@ -91,15 +94,14 @@ export function Sidebar({ type, user }: SidebarProps) {
     <>
       {/* Logo */}
       <div className="p-4 border-b border-border">
-        <Link href={dashboardPath} className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-            <BookOpen className="w-5 h-5 text-primary-foreground" />
-          </div>
-          {(!collapsed || isMobile) && (
-            <span className="text-lg font-bold text-foreground whitespace-nowrap">
-              HSSC CET <span className="text-primary">TEST</span>
-            </span>
-          )}
+        <Link href={dashboardPath} className="flex items-center justify-center">
+          <Image
+            src="/logo.png"
+            alt="CET TEST Logo"
+            width={collapsed && !isMobile ? 30 : 120}
+            height={30}
+            className={cn("h-8 w-auto flex-shrink-0", collapsed && !isMobile && "h-7")}
+          />
         </Link>
       </div>
 
@@ -166,12 +168,13 @@ export function Sidebar({ type, user }: SidebarProps) {
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 h-16 bg-card border-b border-border flex items-center justify-between px-4">
         <Link href={dashboardPath} className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <BookOpen className="w-4 h-4 text-primary-foreground" />
-          </div>
-          <span className="text-base font-bold text-foreground">
-            HSSC CET <span className="text-primary">TEST</span>
-          </span>
+          <Image
+            src="/logo.png"
+            alt="CET TEST Logo"
+            width={100}
+            height={30}
+            className="h-8 w-auto"
+          />
         </Link>
         <Button variant="ghost" size="icon" onClick={() => setMobileOpen(true)}>
           <Menu className="w-6 h-6" />
