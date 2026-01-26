@@ -51,20 +51,36 @@ export function MockTestModal({ isOpen, onClose }: MockTestModalProps) {
   const [mockTestsTaken, setMockTestsTaken] = useState<Record<string, string>>({}) // category -> test_id
 
   useEffect(() => {
-    if (isOpen) {
-      loadMockTests()
+    if (!isOpen) return
+
+    let isMounted = true
+    const abortController = new AbortController()
+
+    const loadData = async () => {
       loadMockTestsHistory()
+      await loadMockTests(isMounted, abortController.signal)
+    }
+
+    loadData()
+
+    return () => {
+      isMounted = false
+      abortController.abort()
     }
   }, [isOpen])
 
   const loadMockTestsHistory = () => {
-    const history = localStorage.getItem("mock_tests_taken")
-    if (history) {
-      setMockTestsTaken(JSON.parse(history))
+    try {
+      const history = localStorage.getItem("mock_tests_taken")
+      if (history) {
+        setMockTestsTaken(JSON.parse(history))
+      }
+    } catch (error) {
+      console.error("Error loading mock tests history:", error)
     }
   }
 
-  const loadMockTests = async () => {
+  const loadMockTests = async (isMounted: boolean, signal: AbortSignal) => {
     setIsLoading(true)
     try {
       const { data: categories, error: catError } = await supabase
@@ -73,16 +89,20 @@ export function MockTestModal({ isOpen, onClose }: MockTestModalProps) {
         .eq("is_active", true)
         .order("display_order")
 
+      if (signal.aborted || !isMounted) return
+
       if (catError) throw catError
 
       if (!categories || categories.length === 0) {
-        setExams([])
+        if (isMounted) setExams([])
         return
       }
 
       const examsData: ExamWithTests[] = []
 
       for (const category of categories) {
+        if (signal.aborted || !isMounted) return
+
         const { data: categoryExams, error: examError } = await supabase
           .from("exams")
           .select(
@@ -116,11 +136,17 @@ export function MockTestModal({ isOpen, onClose }: MockTestModalProps) {
         }
       }
 
-      setExams(examsData)
+      if (isMounted) {
+        setExams(examsData)
+      }
     } catch (error) {
-      console.error("Error loading mock tests:", error)
+      if (!signal.aborted) {
+        console.error("Error loading mock tests:", error)
+      }
     } finally {
-      setIsLoading(false)
+      if (isMounted) {
+        setIsLoading(false)
+      }
     }
   }
 
