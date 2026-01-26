@@ -16,25 +16,42 @@ export default function MockTestPage() {
 
   useEffect(() => {
     async function checkAndRedirect() {
-      if (!testId) return
+      console.log("[v0] MockTestPage: testId =", testId)
+      
+      if (!testId) {
+        console.log("[v0] No testId provided")
+        setError("Invalid test ID")
+        setIsLoading(false)
+        return
+      }
 
       try {
         // Get the test to verify it exists
         const { data: test, error: err } = await supabase
           .from("tests")
-          .select("id")
+          .select("id, title")
           .eq("id", testId)
           .single()
 
-        if (err || !test) {
+        console.log("[v0] Test query result:", { test, error: err })
+
+        if (err) {
+          console.error("[v0] Supabase error:", err)
+          setError("Failed to load mock test")
+          return
+        }
+
+        if (!test) {
+          console.log("[v0] Test not found")
           setError("Mock test not found")
           return
         }
 
         // Redirect to the actual test interface
-        router.push(`/mock-test/attempt/${testId}`)
+        console.log("[v0] Redirecting to mock-test-attempt:", testId)
+        router.push(`/mock-test-attempt/${testId}`)
       } catch (err) {
-        console.error("[v0] Error:", err)
+        console.error("[v0] Error in checkAndRedirect:", err)
         setError("Failed to load mock test")
       } finally {
         setIsLoading(false)
@@ -46,7 +63,7 @@ export default function MockTestPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen bg-background">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     )
@@ -54,7 +71,7 @@ export default function MockTestPage() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen bg-background">
         <div className="text-center">
           <AlertCircle className="w-16 h-16 mx-auto mb-4 text-destructive" />
           <h2 className="text-2xl font-bold text-foreground mb-2">{error}</h2>

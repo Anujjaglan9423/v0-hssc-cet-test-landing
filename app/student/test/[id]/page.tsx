@@ -99,23 +99,38 @@ export default function TestPage() {
   useEffect(() => {
     const loadTest = async () => {
       try {
+        console.log("[v0] Loading test with ID:", testId)
+        
         const user = await getCurrentUser()
         if (user) {
           setUserId(user.id)
+          console.log("[v0] User logged in:", user.id)
+        } else {
+          console.log("[v0] No user logged in")
         }
 
-        const [data, paused] = await Promise.all([getTestById(testId), isMockTest ? Promise.resolve(null) : getPausedTestState(testId)])
+        console.log("[v0] Fetching test and paused state...")
+        const [data, paused] = await Promise.all([
+          getTestById(testId), 
+          isMockTest ? Promise.resolve(null) : getPausedTestState(testId)
+        ])
+
+        console.log("[v0] Test data received:", data ? { title: data.title, questionCount: data.questions?.length } : null)
+        console.log("[v0] Paused state:", paused)
 
         if (data) {
           setTest(data)
           setTimeLeft(data.duration * 60)
+          console.log("[v0] Test loaded successfully, duration:", data.duration)
 
           if (paused) {
             setPausedState(paused)
           }
+        } else {
+          console.warn("[v0] No test data returned from getTestById")
         }
       } catch (error) {
-        console.error("Error loading test:", error)
+        console.error("[v0] Error loading test:", error)
       } finally {
         setIsLoading(false)
       }
