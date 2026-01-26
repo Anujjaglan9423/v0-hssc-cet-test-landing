@@ -495,17 +495,21 @@ export async function getTestResult(attemptId: string) {
 }
 
 // Submit test
-export async function submitTest(testId: string, answers: Record<string, string>) {
+export async function submitTest(testId: string, answers: Record<string, string>, isMockTest: boolean = false) {
   try {
     const supabase = await createClient()
 
     const user = await getCurrentUser()
-    if (!user) {
+    if (!user && !isMockTest) {
       console.log("[v0] User not authenticated in submitTest")
       return { success: false, error: "Not authenticated" }
     }
 
-    console.log("[v0] User authenticated:", user.id)
+    if (user) {
+      console.log("[v0] User authenticated:", user.id)
+    } else {
+      console.log("[v0] Mock test - no authentication required")
+    }
 
     // Get test with questions
     const { data: test } = await supabase
@@ -550,10 +554,11 @@ export async function submitTest(testId: string, answers: Record<string, string>
       .from("test_attempts")
       .insert({
         test_id: testId,
-        user_id: user.id,
+        user_id: user?.id || null,
         status: "completed",
         completed_at: new Date().toISOString(),
         time_taken: test.duration * 60,
+        is_mock: isMockTest,
       })
       .select()
       .single()

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useParams, useRouter } from "next/navigation"
+import { useParams, useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -72,7 +72,9 @@ interface PausedState {
 export default function TestPage() {
   const params = useParams()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const testId = params.id as string
+  const isMockTest = searchParams.get("mock") === "true"
 
   const [test, setTest] = useState<Test | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -102,7 +104,7 @@ export default function TestPage() {
           setUserId(user.id)
         }
 
-        const [data, paused] = await Promise.all([getTestById(testId), getPausedTestState(testId)])
+        const [data, paused] = await Promise.all([getTestById(testId), isMockTest ? Promise.resolve(null) : getPausedTestState(testId)])
 
         if (data) {
           setTest(data)
@@ -119,7 +121,7 @@ export default function TestPage() {
       }
     }
     loadTest()
-  }, [testId])
+  }, [testId, isMockTest])
 
   useEffect(() => {
     if (!testStarted || timeLeft <= 0 || isPaused) return
@@ -248,9 +250,11 @@ export default function TestPage() {
 
     try {
       // Clear any paused state before submitting
-      await clearPausedTestState(testId)
+      if (!isMockTest) {
+        await clearPausedTestState(testId)
+      }
 
-      const result = await submitTest(testId, answers)
+      const result = await submitTest(testId, answers, isMockTest)
       if (result.success) {
         setLastAttemptId(result.attemptId)
         setShowFeedbackModal(true)
@@ -286,6 +290,9 @@ export default function TestPage() {
     setShowFeedbackModal(false)
     if (lastAttemptId) {
       router.push(`/student/results/${lastAttemptId}`)
+    } else if (isMockTest) {
+      // For mock tests without account, go back to mock test home
+      router.push("/mock-test")
     }
   }
 
