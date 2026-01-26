@@ -572,7 +572,7 @@ export async function submitTest(testId: string, answers: Record<string, string>
       const question = questions.find((q: any) => q.id === questionId)
       const isCorrect = question && answer.toLowerCase() === question.correct_answer.toLowerCase()
       return {
-        attempt_id: attempt.id,
+        attempt_id: attempt?.id,
         question_id: questionId,
         selected_answer: answer,
         is_correct: isCorrect,
@@ -595,8 +595,8 @@ export async function submitTest(testId: string, answers: Record<string, string>
     const { data: result, error: resultError } = await supabase
       .from("test_results")
       .insert({
-        attempt_id: attempt.id,
-        user_id: user.id,
+        attempt_id: attempt?.id,
+        user_id: user?.id || null,
         test_id: testId,
         total_questions: totalQuestions,
         correct_answers: correct,
