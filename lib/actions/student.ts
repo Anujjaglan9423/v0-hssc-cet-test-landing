@@ -558,7 +558,6 @@ export async function submitTest(testId: string, answers: Record<string, string>
         status: "completed",
         completed_at: new Date().toISOString(),
         time_taken: test.duration * 60,
-        is_mock: isMockTest,
       })
       .select()
       .single()
