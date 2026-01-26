@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabase"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Loader2, ChevronLeft, FileText, Clock, Users, Play, Lock } from "lucide-react"
+import { Loader2, ChevronLeft, FileText, Clock, Play, Lock } from "lucide-react"
 import Link from "next/link"
 
 function TestCard({ test, isFree, isTestTaken, onTestClick }: { test: any; isFree: boolean; isTestTaken: boolean; onTestClick: () => void }) {
@@ -46,10 +46,6 @@ function TestCard({ test, isFree, isTestTaken, onTestClick }: { test: any; isFre
           <span className="flex items-center gap-1">
             <Clock className="w-4 h-4" />
             {test.duration} min
-          </span>
-          <span className="flex items-center gap-1">
-            <Users className="w-4 h-4" />
-            {(test.attempts_count || 0).toLocaleString()}
           </span>
         </div>
 
@@ -116,7 +112,7 @@ function MockTestCategoryContent() {
         // Get exams for this category
         const { data: examsData, error: examsError } = await supabase
           .from("exams")
-          .select("id, name, slug, description, test_count")
+          .select("id, name, slug, description")
           .eq("category_id", catData.id)
           .order("display_order")
 
@@ -128,7 +124,7 @@ function MockTestCategoryContent() {
         for (const exam of examsData) {
           const { data: testsData, error: testsError } = await supabase
             .from("tests")
-            .select("id, title, duration, total_questions, attempts_count")
+            .select("id, title, duration, total_questions")
             .eq("exam_id", exam.id)
             .order("created_at")
 
