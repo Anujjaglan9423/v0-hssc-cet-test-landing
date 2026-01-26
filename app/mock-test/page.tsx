@@ -41,10 +41,10 @@ export default function MockTestPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    async function loadCategories() {
-      let isMounted = true
-      const abortController = new AbortController()
+    let isMounted = true
+    const abortController = new AbortController()
 
+    async function loadCategories() {
       setIsLoading(true)
       setError(null)
 
@@ -65,7 +65,7 @@ export default function MockTestPage() {
           setCategories(defaultCategories)
         }
       } catch (err) {
-        if (!abortController.signal.aborted) {
+        if (!abortController.signal.aborted && isMounted) {
           console.error("[v0] Error loading mock test categories:", err)
           setError("Failed to load mock test categories")
           setCategories(defaultCategories)
@@ -75,14 +75,14 @@ export default function MockTestPage() {
           setIsLoading(false)
         }
       }
-
-      return () => {
-        isMounted = false
-        abortController.abort()
-      }
     }
 
     loadCategories()
+
+    return () => {
+      isMounted = false
+      abortController.abort()
+    }
   }, [])
 
   if (isLoading) {

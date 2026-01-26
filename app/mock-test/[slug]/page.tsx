@@ -90,10 +90,10 @@ function MockTestCategoryContent() {
   }, [])
 
   useEffect(() => {
-    async function loadExams() {
-      let isMounted = true
-      const abortController = new AbortController()
+    let isMounted = true
+    const abortController = new AbortController()
 
+    async function loadExams() {
       if (!categorySlug || categorySlug === "undefined") {
         setIsLoading(false)
         return
@@ -144,7 +144,7 @@ function MockTestCategoryContent() {
           setExams(examsWithTests)
         }
       } catch (error) {
-        if (!abortController.signal.aborted) {
+        if (!abortController.signal.aborted && isMounted) {
           console.error("[v0] Error loading exams:", error)
         }
       } finally {
@@ -152,14 +152,14 @@ function MockTestCategoryContent() {
           setIsLoading(false)
         }
       }
-
-      return () => {
-        isMounted = false
-        abortController.abort()
-      }
     }
 
     loadExams()
+
+    return () => {
+      isMounted = false
+      abortController.abort()
+    }
   }, [categorySlug])
 
   const loadMockTestsHistory = () => {
