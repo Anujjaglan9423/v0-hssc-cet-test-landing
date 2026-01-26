@@ -48,7 +48,7 @@ HSSC CET TEST is a comprehensive online test preparation platform for Haryana St
 
 ## Project Structure
 
-```
+\`\`\`
 ├── app/                          # Next.js App Router pages
 │   ├── about/page.tsx           # About us page
 │   ├── admin/                   # Admin panel
@@ -113,7 +113,7 @@ HSSC CET TEST is a comprehensive online test preparation platform for Haryana St
 │   └── utils.ts                 # Utility functions
 ├── scripts/                     # SQL migration scripts
 └── middleware.ts                # Next.js middleware
-```
+\`\`\`
 
 ---
 
@@ -277,7 +277,7 @@ The database consists of **12 tables**:
 
 ### Entity Relationship Diagram
 
-```
+\`\`\`
 users ─────────────────┬─────────────────┬─────────────────┐
   │                    │                 │                 │
   │                    │                 │                 │
@@ -301,7 +301,7 @@ sessions          test_attempts     test_results     test_feedback
                                                         exams
 
 contacts (standalone - contact form submissions)
-```
+\`\`\`
 
 ---
 
@@ -469,7 +469,7 @@ The platform uses **custom authentication** with bcrypt password hashing and ses
 
 Required environment variables (automatically configured via Supabase integration):
 
-```env
+\`\`\`env
 # Supabase Configuration
 SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
@@ -489,7 +489,7 @@ POSTGRES_HOST=your-host
 
 # Development Redirect URL (for auth)
 NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL=http://localhost:3000
-```
+\`\`\`
 
 ---
 
@@ -585,7 +585,7 @@ All server actions are called directly from React Server Components or via `useT
 
 ### Example Usage:
 
-```tsx
+\`\`\`tsx
 // In a Server Component
 import { getStudentDashboard } from "@/lib/actions/student"
 
@@ -608,7 +608,7 @@ function QuestionComponent() {
     })
   }
 }
-```
+\`\`\`
 
 ---
 
