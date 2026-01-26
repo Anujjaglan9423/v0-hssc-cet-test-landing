@@ -65,7 +65,7 @@ function TestCard({ test, isFree, isTestTaken }: { test: any; isFree: boolean; i
 
   const handleTestClick = () => {
     if (isFree) {
-      router.push(`/student/test/${test.id}?mock=true`)
+      router.push(`/mock-test-attempt/${test.id}`)
     } else {
       router.push("/signup")
     }
