@@ -87,7 +87,6 @@ function MockTestCategoryContent() {
 
   useEffect(() => {
     let isMounted = true
-    const abortController = new AbortController()
 
     async function loadExams() {
       if (!categorySlug || categorySlug === "undefined") {
@@ -104,7 +103,7 @@ function MockTestCategoryContent() {
           .eq("slug", categorySlug)
           .single()
 
-        if (abortController.signal.aborted || !isMounted) return
+        if (!isMounted) return
         if (catError) throw catError
 
         setCategory(catData)
@@ -116,7 +115,7 @@ function MockTestCategoryContent() {
           .eq("category_id", catData.id)
           .order("display_order")
 
-        if (abortController.signal.aborted || !isMounted) return
+        if (!isMounted) return
         if (examsError) throw examsError
 
         // For each exam, get its tests
@@ -139,10 +138,12 @@ function MockTestCategoryContent() {
         if (isMounted) {
           setExams(examsWithTests)
         }
-      } catch (error) {
-        if (!abortController.signal.aborted && isMounted) {
-          console.error("[v0] Error loading exams:", error)
+      } catch (error: any) {
+        // Ignore abort errors and unmount scenarios
+        if (error?.name === "AbortError" || !isMounted) {
+          return
         }
+        console.error("[v0] Error loading exams:", error)
       } finally {
         if (isMounted) {
           setIsLoading(false)
@@ -154,7 +155,6 @@ function MockTestCategoryContent() {
 
     return () => {
       isMounted = false
-      abortController.abort()
     }
   }, [categorySlug])
 

@@ -42,7 +42,6 @@ export default function MockTestPage() {
 
   useEffect(() => {
     let isMounted = true
-    const abortController = new AbortController()
 
     async function loadCategories() {
       setIsLoading(true)
@@ -55,7 +54,7 @@ export default function MockTestPage() {
           .eq("is_active", true)
           .order("display_order")
 
-        if (!isMounted || abortController.signal.aborted) return
+        if (!isMounted) return
 
         if (err) throw err
 
@@ -64,9 +63,13 @@ export default function MockTestPage() {
         } else {
           setCategories(defaultCategories)
         }
-      } catch (err) {
-        if (!abortController.signal.aborted && isMounted) {
-          console.error("[v0] Error loading mock test categories:", err)
+      } catch (err: any) {
+        // Ignore abort errors - they're expected when component unmounts
+        if (err?.name === "AbortError" || !isMounted) {
+          return
+        }
+        console.error("[v0] Error loading mock test categories:", err)
+        if (isMounted) {
           setError("Failed to load mock test categories")
           setCategories(defaultCategories)
         }
@@ -81,7 +84,6 @@ export default function MockTestPage() {
 
     return () => {
       isMounted = false
-      abortController.abort()
     }
   }, [])
 
