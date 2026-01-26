@@ -20,7 +20,7 @@ import {
   Target,
   ArrowLeft,
 } from "lucide-react"
-import { getTestById, submitTest } from "@/lib/actions/student"
+import { getTestById, submitMockTest } from "@/lib/actions/student"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -129,13 +129,17 @@ export default function MockTestAttemptPage() {
     setIsSubmitting(true)
 
     try {
-      const result = await submitTest(testId, answers, true)
+      console.log("[v0] Mock test handleSubmit called with testId:", testId)
+      const result = await submitMockTest(testId, answers) // Use submitMockTest
+      console.log("[v0] Mock test result:", result)
       if (result.success) {
         setLastAttemptId(result.attemptId)
         setShowFeedbackModal(true)
+      } else {
+        console.error("[v0] Submit failed:", result.error)
       }
     } catch (error) {
-      console.error("Error submitting test:", error)
+      console.error("[v0] Error in handleSubmit:", error)
     } finally {
       setIsSubmitting(false)
       setShowSubmitDialog(false)
