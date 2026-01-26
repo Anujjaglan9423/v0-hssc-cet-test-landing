@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play, CheckCircle2, Sparkles, BookOpen } from "lucide-react"
+import { MockTestButton } from "@/components/mock-test-button"
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -85,12 +86,7 @@ export default function HeroSection() {
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Link href="/demo">
-                <Button size="lg" variant="outline" className="px-8 group border-border hover:bg-muted bg-transparent">
-                  <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                  Watch Demo
-                </Button>
-              </Link>
+              <MockTestButton />
             </div>
 
             {/* Trust Badges */}
