@@ -75,15 +75,15 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
       expires_at: expiresAt.toISOString(),
     })
 
-    // Set cookie
-    const cookieStore = await cookies()
-    cookieStore.set("auth_token", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-      expires: expiresAt,
-      path: "/",
-    })
+  // Set cookie
+  const cookieStore = await cookies()
+  cookieStore.set("auth_token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    expires: expiresAt,
+    path: "/",
+  })
 
     return {
       success: true,
