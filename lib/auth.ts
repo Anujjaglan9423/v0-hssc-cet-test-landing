@@ -129,7 +129,8 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
   cookieStore.set("auth_token", token, {
     httpOnly: true,
     secure: false,
-    sameSite: "lax",
+    sameSite: "none",
+    domain:".cettest.site",
     expires: expiresAt,
     path: "/",
   })
