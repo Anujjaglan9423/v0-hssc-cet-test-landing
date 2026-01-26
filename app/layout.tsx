@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "CET TEST",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/logo.png",
     apple: "/apple-icon.png",
   },
 }
