@@ -495,17 +495,21 @@ export async function getTestResult(attemptId: string) {
 }
 
 // Submit test
-export async function submitTest(testId: string, answers: Record<string, string>) {
+export async function submitTest(testId: string, answers: Record<string, string>, isMockTest: boolean = false) {
   try {
     const supabase = await createClient()
 
     const user = await getCurrentUser()
-    if (!user) {
+    if (!user && !isMockTest) {
       console.log("[v0] User not authenticated in submitTest")
       return { success: false, error: "Not authenticated" }
     }
 
-    console.log("[v0] User authenticated:", user.id)
+    if (user) {
+      console.log("[v0] User authenticated:", user.id)
+    } else {
+      console.log("[v0] Mock test - no authentication required")
+    }
 
     // Get test with questions
     const { data: test } = await supabase
@@ -550,7 +554,7 @@ export async function submitTest(testId: string, answers: Record<string, string>
       .from("test_attempts")
       .insert({
         test_id: testId,
-        user_id: user.id,
+        user_id: user?.id || null,
         status: "completed",
         completed_at: new Date().toISOString(),
         time_taken: test.duration * 60,
@@ -568,7 +572,7 @@ export async function submitTest(testId: string, answers: Record<string, string>
       const question = questions.find((q: any) => q.id === questionId)
       const isCorrect = question && answer.toLowerCase() === question.correct_answer.toLowerCase()
       return {
-        attempt_id: attempt.id,
+        attempt_id: attempt?.id,
         question_id: questionId,
         selected_answer: answer,
         is_correct: isCorrect,
@@ -591,8 +595,8 @@ export async function submitTest(testId: string, answers: Record<string, string>
     const { data: result, error: resultError } = await supabase
       .from("test_results")
       .insert({
-        attempt_id: attempt.id,
-        user_id: user.id,
+        attempt_id: attempt?.id,
+        user_id: user?.id || null,
         test_id: testId,
         total_questions: totalQuestions,
         correct_answers: correct,
@@ -1054,6 +1058,143 @@ export async function getExamCategories() {
   )
 }
 
+/**
+ * Submit a free mock test - No authentication required
+ * This is a dedicated function for free mock tests
+ */
+export async function submitMockTest(testId: string, answers: Record<string, string>) {
+  try {
+    const supabase = await createClient()
+    console.log("[v0] Submitting mock test:", testId)
+
+    // Get test with questions
+    const { data: test, error: testError } = await supabase
+      .from("tests")
+      .select(
+        `
+        id,
+        title,
+        duration,
+        questions (id, correct_answer)
+      `
+      )
+      .eq("id", testId)
+      .single()
+
+    if (testError || !test) {
+      console.error("[v0] Error fetching test:", testError)
+      return { success: false, error: "Test not found" }
+    }
+
+    console.log("[v0] Test fetched, calculating scores...")
+
+    const questions = test.questions || []
+    const totalQuestions = questions.length
+
+    // Calculate scores
+    let correct = 0
+    let incorrect = 0
+
+    questions.forEach((q: any) => {
+      const userAnswer = answers[q.id]
+      if (userAnswer) {
+        if (userAnswer.toLowerCase() === q.correct_answer.toLowerCase()) {
+          correct++
+        } else {
+          incorrect++
+        }
+      }
+    })
+
+    const unattempted = totalQuestions - correct - incorrect
+    const score = correct
+    const totalMarks = totalQuestions
+    const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
+
+    console.log("[v0] Scores calculated - Correct:", correct, "Incorrect:", incorrect, "Percentage:", percentage)
+
+    // Create test attempt (no user_id for mock tests)
+    const { data: attempt, error: attemptError } = await supabase
+      .from("test_attempts")
+      .insert({
+        test_id: testId,
+        user_id: null,
+        status: "completed",
+        completed_at: new Date().toISOString(),
+        time_taken: test.duration * 60,
+      })
+      .select()
+      .single()
+
+    if (attemptError || !attempt) {
+      console.error("[v0] Error creating attempt:", attemptError)
+      return { success: false, error: "Failed to create attempt" }
+    }
+
+    console.log("[v0] Attempt created:", attempt.id)
+
+    // Save user answers
+    const userAnswersArray = Object.entries(answers).map(([questionId, answer]) => {
+      const question = questions.find((q: any) => q.id === questionId)
+      const isCorrect = question && answer.toLowerCase() === question.correct_answer.toLowerCase()
+      return {
+        attempt_id: attempt.id,
+        question_id: questionId,
+        selected_answer: answer,
+        is_correct: isCorrect,
+        time_spent: 0,
+      }
+    })
+
+    if (userAnswersArray.length > 0) {
+      const { error: answersError } = await supabase.from("user_answers").insert(userAnswersArray)
+      if (answersError) {
+        console.error("[v0] Error saving answers:", answersError)
+      }
+    }
+
+    // Create test result
+    const { data: result, error: resultError } = await supabase
+      .from("test_results")
+      .insert({
+        attempt_id: attempt.id,
+        user_id: null,
+        test_id: testId,
+        total_questions: totalQuestions,
+        correct_answers: correct,
+        wrong_answers: incorrect,
+        unanswered: unattempted,
+        score: score,
+        percentage: percentage,
+        time_taken: test.duration * 60,
+        rank: 1,
+      })
+      .select()
+      .single()
+
+    if (resultError) {
+      console.error("[v0] Error creating result:", resultError)
+      return { success: false, error: "Failed to create result" }
+    }
+
+    console.log("[v0] Mock test submitted successfully - Result ID:", result?.id)
+
+    return {
+      success: true,
+      attemptId: attempt.id,
+      resultId: result?.id,
+      score: score,
+      percentage: percentage,
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+    }
+  } catch (error) {
+    console.error("[v0] submitMockTest error:", error)
+    return { success: false, error: "Failed to submit mock test" }
+  }
+}
+
 export async function getTestsByExam(examId: string) {
   const supabase = await createClient()
 
@@ -1124,5 +1265,75 @@ export async function getExamsByCategory(categorySlug: string) {
         ...exam,
         test_count: exam.tests?.length || 0,
       })) || [],
+  }
+}
+
+/**
+ * Submit a free mock test - Simple function for unauthenticated users
+ * Calculates scores and returns result data for sessionStorage
+ */
+export async function submitFreeMockTest(
+  testId: string,
+  testTitle: string,
+  answers: Record<string, string>,
+  questions: any[]
+) {
+  try {
+    console.log("[v0] submitFreeMockTest - testId:", testId)
+    console.log("[v0] submitFreeMockTest - answers count:", Object.keys(answers).length)
+    console.log("[v0] submitFreeMockTest - questions count:", questions.length)
+
+    const totalQuestions = questions.length
+
+    // Calculate scores
+    let correct = 0
+    let incorrect = 0
+
+    questions.forEach((q: any) => {
+      const userAnswer = answers[q.id]
+      if (userAnswer) {
+        const isCorrect = userAnswer.toLowerCase() === q.correct_answer.toLowerCase()
+        if (isCorrect) {
+          correct++
+          console.log(`[v0] Q${q.id} CORRECT`)
+        } else {
+          incorrect++
+          console.log(`[v0] Q${q.id} WRONG - User: ${userAnswer}, Correct: ${q.correct_answer}`)
+        }
+      }
+    })
+
+    const unattempted = totalQuestions - correct - incorrect
+    const score = correct
+    const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
+
+    console.log("[v0] Results - Correct:", correct, "Incorrect:", incorrect, "Unattempted:", unattempted, "Percentage:", percentage)
+
+    // Generate a unique result ID
+    const resultId = `mock-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+
+    const resultData = {
+      testId,
+      testTitle,
+      totalQuestions,
+      correct,
+      incorrect,
+      unattempted,
+      score,
+      percentage,
+      answers,
+      questions,
+    }
+
+    console.log("[v0] Returning success with resultId:", resultId)
+
+    return {
+      success: true,
+      resultId,
+      data: resultData,
+    }
+  } catch (error) {
+    console.error("[v0] submitFreeMockTest error:", error)
+    return { success: false, error: "Failed to submit mock test" }
   }
 }
