@@ -20,7 +20,7 @@ import {
   Target,
   ArrowLeft,
 } from "lucide-react"
-import { getTestById, submitMockTest } from "@/lib/actions/student"
+import { getTestById, submitFreeMockTest, submitMockTest } from "@/lib/actions/student" // Declare submitMockTest
 import {
   AlertDialog,
   AlertDialogAction,
@@ -130,16 +130,28 @@ export default function MockTestAttemptPage() {
 
     try {
       console.log("[v0] Mock test handleSubmit called with testId:", testId)
-      const result = await submitMockTest(testId, answers) // Use submitMockTest
-      console.log("[v0] Mock test result:", result)
+      console.log("[v0] Test title:", test.title)
+      console.log("[v0] Answers:", answers)
+      
+      const result = await submitFreeMockTest(testId, test.title, answers, test.questions)
+      console.log("[v0] submitFreeMockTest result:", result)
+      
       if (result.success) {
-        setLastAttemptId(result.attemptId)
-        setShowFeedbackModal(true)
+        // Store result data in sessionStorage
+        sessionStorage.setItem(`mock-test-result-${result.resultId}`, JSON.stringify(result.data))
+        console.log("[v0] Result stored in sessionStorage, redirecting to:", `/mock-test-results/${result.resultId}`)
+        
+        // Redirect to results page
+        setTimeout(() => {
+          router.push(`/mock-test-results/${result.resultId}`)
+        }, 500)
       } else {
         console.error("[v0] Submit failed:", result.error)
+        alert("Failed to submit test. Please try again.")
       }
     } catch (error) {
       console.error("[v0] Error in handleSubmit:", error)
+      alert("Error submitting test")
     } finally {
       setIsSubmitting(false)
       setShowSubmitDialog(false)

@@ -1267,3 +1267,73 @@ export async function getExamsByCategory(categorySlug: string) {
       })) || [],
   }
 }
+
+/**
+ * Submit a free mock test - Simple function for unauthenticated users
+ * Calculates scores and returns result data for sessionStorage
+ */
+export async function submitFreeMockTest(
+  testId: string,
+  testTitle: string,
+  answers: Record<string, string>,
+  questions: any[]
+) {
+  try {
+    console.log("[v0] submitFreeMockTest - testId:", testId)
+    console.log("[v0] submitFreeMockTest - answers count:", Object.keys(answers).length)
+    console.log("[v0] submitFreeMockTest - questions count:", questions.length)
+
+    const totalQuestions = questions.length
+
+    // Calculate scores
+    let correct = 0
+    let incorrect = 0
+
+    questions.forEach((q: any) => {
+      const userAnswer = answers[q.id]
+      if (userAnswer) {
+        const isCorrect = userAnswer.toLowerCase() === q.correct_answer.toLowerCase()
+        if (isCorrect) {
+          correct++
+          console.log(`[v0] Q${q.id} CORRECT`)
+        } else {
+          incorrect++
+          console.log(`[v0] Q${q.id} WRONG - User: ${userAnswer}, Correct: ${q.correct_answer}`)
+        }
+      }
+    })
+
+    const unattempted = totalQuestions - correct - incorrect
+    const score = correct
+    const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
+
+    console.log("[v0] Results - Correct:", correct, "Incorrect:", incorrect, "Unattempted:", unattempted, "Percentage:", percentage)
+
+    // Generate a unique result ID
+    const resultId = `mock-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+
+    const resultData = {
+      testId,
+      testTitle,
+      totalQuestions,
+      correct,
+      incorrect,
+      unattempted,
+      score,
+      percentage,
+      answers,
+      questions,
+    }
+
+    console.log("[v0] Returning success with resultId:", resultId)
+
+    return {
+      success: true,
+      resultId,
+      data: resultData,
+    }
+  } catch (error) {
+    console.error("[v0] submitFreeMockTest error:", error)
+    return { success: false, error: "Failed to submit mock test" }
+  }
+}
