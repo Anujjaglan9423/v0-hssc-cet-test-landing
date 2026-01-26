@@ -5,7 +5,8 @@ import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Loader2, ChevronRight, BookOpen, GraduationCap, AlertCircle, Lock } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Loader2, ChevronRight, BookOpen, GraduationCap, AlertCircle, Lock, FileText, Clock, Play, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 const categoryIcons: Record<string, React.ReactNode> = {
@@ -34,6 +35,79 @@ const defaultCategories = [
     exams: [],
   },
 ]
+
+function TestCard({ test, isFree, isTestTaken, examSlug }: { test: any; isFree: boolean; isTestTaken: boolean; examSlug: string }) {
+  const router = useRouter()
+
+  const handleTestClick = () => {
+    if (isFree) {
+      router.push(`/student/test/${test.id}?mock=true`)
+    } else {
+      router.push("/signup")
+    }
+  }
+
+  return (
+    <Card className="group hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary/30">
+      <CardContent className="p-5">
+        <div className="flex items-start justify-between mb-3">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary/20 text-primary">
+            <FileText className="w-6 h-6" />
+          </div>
+          {!isFree && (
+            <div className="flex items-center gap-1 bg-amber-500/20 text-amber-600 px-3 py-1.5 rounded-full text-xs font-semibold">
+              <Lock className="w-3 h-3" />
+              Premium
+            </div>
+          )}
+          {isFree && !isTestTaken && (
+            <Badge variant="secondary" className="bg-green-500/20 text-green-600 border-green-500/30">
+              Free
+            </Badge>
+          )}
+          {isTestTaken && isFree && (
+            <Badge className="bg-green-500 text-white">Completed</Badge>
+          )}
+        </div>
+
+        <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+          {test.title}
+        </h3>
+
+        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+          <span className="flex items-center gap-1">
+            <FileText className="w-4 h-4" />
+            {test.total_questions} Qs
+          </span>
+          <span className="flex items-center gap-1">
+            <Clock className="w-4 h-4" />
+            {test.duration} min
+          </span>
+        </div>
+
+        {isFree ? (
+          <Button
+            onClick={handleTestClick}
+            disabled={isTestTaken}
+            className="w-full gap-2"
+          >
+            <Play className="w-4 h-4" />
+            {isTestTaken ? "Test Completed" : "Start Free Mock"}
+          </Button>
+        ) : (
+          <Button 
+            onClick={handleTestClick}
+            variant="outline" 
+            className="w-full gap-2 bg-transparent border-amber-500/30 text-amber-600 hover:bg-amber-500/10"
+          >
+            <Lock className="w-4 h-4" />
+            Sign up to take this test
+          </Button>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
 
 export default function MockTestPage() {
   const [categories, setCategories] = useState<any[]>([])
