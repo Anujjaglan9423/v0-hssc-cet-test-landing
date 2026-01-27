@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap, CheckCircle2, Sparkles, BookOpen } from "lucide-react"
 
@@ -8,7 +9,8 @@ export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    setIsVisible(true)
+    const timer = setTimeout(() => setIsVisible(true), 0)
+    return () => clearTimeout(timer)
   }, [])
 
   const features = ["10,000+ Practice Questions", "Detailed Solutions & Analytics", "Topic-wise & Full Length Tests"]
