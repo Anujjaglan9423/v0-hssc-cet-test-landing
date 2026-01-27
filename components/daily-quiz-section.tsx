@@ -6,10 +6,14 @@ import { Card } from '@/components/ui/card'
 import { Sparkles, CheckCircle2, XCircle, RefreshCw } from 'lucide-react'
 
 interface QuizQuestion {
-  question: string
-  options: string[]
+  questionEn: string
+  questionHi: string
+  optionsEn: string[]
+  optionsHi: string[]
   correct: number
-  explanation: string
+  explanationEn: string
+  explanationHi: string
+  category: string
 }
 
 interface QuizState {
@@ -19,6 +23,7 @@ interface QuizState {
   isCorrect: boolean | null
   loading: boolean
   error: string | null
+  language: 'en' | 'hi'
 }
 
 export default function DailyQuizSection() {
@@ -29,6 +34,7 @@ export default function DailyQuizSection() {
     isCorrect: null,
     loading: false,
     error: null,
+    language: 'en',
   })
 
   const loadQuestion = async () => {
@@ -49,6 +55,7 @@ export default function DailyQuizSection() {
           isCorrect: null,
           loading: false,
           error: null,
+          language: 'en',
         })
       }
     } catch (err) {
@@ -79,8 +86,32 @@ export default function DailyQuizSection() {
       isCorrect: null,
       loading: false,
       error: null,
+      language: 'en',
     })
   }
+
+  const toggleLanguage = () => {
+    setState((prev) => ({
+      ...prev,
+      language: prev.language === 'en' ? 'hi' : 'en',
+    }))
+  }
+
+  const currentQuestion = state.question ? (
+    state.language === 'en'
+      ? state.question.questionEn
+      : state.question.questionHi
+  ) : ''
+  const currentOptions = state.question ? (
+    state.language === 'en'
+      ? state.question.optionsEn
+      : state.question.optionsHi
+  ) : []
+  const currentExplanation = state.question ? (
+    state.language === 'en'
+      ? state.question.explanationEn
+      : state.question.explanationHi
+  ) : ''
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50">
@@ -97,7 +128,7 @@ export default function DailyQuizSection() {
             AI-Powered Daily Quiz
           </h2>
           <p className="text-gray-600 text-lg">
-            Challenge yourself with a new question every day, powered by AI
+            Challenge yourself with India-focused questions on Current Affairs, Reasoning, Maths & GK
           </p>
         </div>
 
@@ -110,7 +141,7 @@ export default function DailyQuizSection() {
                 Ready for Today's Question?
               </h3>
               <p className="text-gray-600 mb-8">
-                Get a fresh AI-generated question to test your knowledge
+                Get a fresh AI-generated question to test your knowledge on India's current affairs, reasoning, mathematics, and general knowledge
               </p>
               <Button
                 onClick={loadQuestion}
@@ -123,19 +154,48 @@ export default function DailyQuizSection() {
             </div>
           ) : (
             <div>
+              {/* Language Toggle */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-sm font-semibold text-indigo-600">
+                  {state.question.category}
+                </div>
+                <div className="flex gap-2 bg-gray-100 rounded-lg p-1">
+                  <button
+                    onClick={toggleLanguage}
+                    className={`px-4 py-2 rounded font-semibold text-sm transition-all ${
+                      state.language === 'en'
+                        ? 'bg-white text-indigo-600 shadow'
+                        : 'text-gray-600 hover:text-gray-800'
+                    }`}
+                  >
+                    English
+                  </button>
+                  <button
+                    onClick={toggleLanguage}
+                    className={`px-4 py-2 rounded font-semibold text-sm transition-all ${
+                      state.language === 'hi'
+                        ? 'bg-white text-indigo-600 shadow'
+                        : 'text-gray-600 hover:text-gray-800'
+                    }`}
+                  >
+                    हिंदी
+                  </button>
+                </div>
+              </div>
+
               {/* Question */}
               <div className="mb-8">
                 <div className="text-sm font-semibold text-indigo-600 mb-3">
-                  Question
+                  {state.language === 'en' ? 'Question' : 'प्रश्न'}
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 leading-relaxed">
-                  {state.question.question}
+                  {currentQuestion}
                 </h3>
               </div>
 
               {/* Options */}
               <div className="space-y-3 mb-8">
-                {state.question.options.map((option, index) => (
+                {currentOptions.map((option, index) => (
                   <button
                     key={index}
                     onClick={() => handleAnswer(index)}
@@ -180,9 +240,15 @@ export default function DailyQuizSection() {
                   }`}
                 >
                   <div className="font-semibold mb-2">
-                    {state.isCorrect ? '🎉 Correct!' : '❌ Incorrect'}
+                    {state.isCorrect
+                      ? state.language === 'en'
+                        ? '🎉 Correct!'
+                        : '🎉 सही उत्तर!'
+                      : state.language === 'en'
+                        ? '❌ Incorrect'
+                        : '❌ गलत'}
                   </div>
-                  <p className="text-sm">{state.question.explanation}</p>
+                  <p className="text-sm">{currentExplanation}</p>
                 </div>
               )}
 
@@ -201,14 +267,14 @@ export default function DailyQuizSection() {
                   className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" />
-                  Next Question
+                  {state.language === 'en' ? 'Next Question' : 'अगला प्रश्न'}
                 </Button>
                 <Button
                   onClick={resetQuiz}
                   variant="outline"
                   className="flex-1"
                 >
-                  Exit Quiz
+                  {state.language === 'en' ? 'Exit Quiz' : 'बाहर निकलें'}
                 </Button>
               </div>
             </div>
@@ -218,16 +284,16 @@ export default function DailyQuizSection() {
         {/* Stats Bar */}
         <div className="grid grid-cols-3 gap-4 mt-8 text-center">
           <div className="bg-white rounded-lg p-4 shadow">
-            <div className="text-2xl font-bold text-indigo-600">Daily</div>
-            <div className="text-sm text-gray-600">New Question</div>
+            <div className="text-2xl font-bold text-indigo-600">India</div>
+            <div className="text-sm text-gray-600">Focused</div>
           </div>
           <div className="bg-white rounded-lg p-4 shadow">
-            <div className="text-2xl font-bold text-blue-600">AI</div>
+            <div className="text-2xl font-bold text-blue-600">Bilingual</div>
+            <div className="text-sm text-gray-600">EN & HI</div>
+          </div>
+          <div className="bg-white rounded-lg p-4 shadow">
+            <div className="text-2xl font-bold text-indigo-600">AI</div>
             <div className="text-sm text-gray-600">Powered</div>
-          </div>
-          <div className="bg-white rounded-lg p-4 shadow">
-            <div className="text-2xl font-bold text-indigo-600">Instant</div>
-            <div className="text-sm text-gray-600">Feedback</div>
           </div>
         </div>
       </div>
