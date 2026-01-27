@@ -97,11 +97,14 @@ export default function HeroSection() {
             <div className="flex items-center gap-6 pt-4">
               <div className="flex -space-x-3">
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-muted overflow-hidden">
-                    <img
-                      src={`/indian-student-avatar-.jpg?height=40&width=40&query=indian student avatar ${i}`}
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-muted overflow-hidden flex-shrink-0">
+                    <Image
+                      src="/indian-student-avatar-.jpg"
                       alt="Student"
+                      width={40}
+                      height={40}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   </div>
                 ))}
@@ -131,10 +134,13 @@ export default function HeroSection() {
               {/* Main Card */}
               <div className="bg-card rounded-3xl shadow-2xl border border-border p-6 relative z-10">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-muted">
-                  <img
+                  <Image
                     src="/students-studying-online-exam-preparation-india.jpg"
                     alt="Students preparing for exam"
+                    width={600}
+                    height={450}
                     className="w-full h-full object-cover"
+                    priority
                   />
                 </div>
 

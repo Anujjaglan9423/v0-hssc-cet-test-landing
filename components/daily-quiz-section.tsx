@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Sparkles, CheckCircle2, XCircle, RefreshCw } from 'lucide-react'
@@ -37,7 +37,7 @@ export default function DailyQuizSection() {
     language: 'en',
   })
 
-  const loadQuestion = async () => {
+  const loadQuestion = useCallback(async () => {
     setState((prev) => ({ ...prev, loading: true, error: null }))
     try {
       const response = await fetch('/api/generate-daily-question', {
@@ -65,20 +65,22 @@ export default function DailyQuizSection() {
         loading: false,
       }))
     }
-  }
+  }, [])
 
-  const handleAnswer = (index: number) => {
-    if (state.answered) return
-    const isCorrect = index === state.question?.correct
-    setState((prev) => ({
-      ...prev,
-      userAnswer: index,
-      answered: true,
-      isCorrect,
-    }))
-  }
+  const handleAnswer = useCallback((index: number) => {
+    setState((prev) => {
+      if (prev.answered) return prev
+      const isCorrect = index === prev.question?.correct
+      return {
+        ...prev,
+        userAnswer: index,
+        answered: true,
+        isCorrect,
+      }
+    })
+  }, [])
 
-  const resetQuiz = () => {
+  const resetQuiz = useCallback(() => {
     setState({
       question: null,
       userAnswer: null,
@@ -88,30 +90,44 @@ export default function DailyQuizSection() {
       error: null,
       language: 'en',
     })
-  }
+  }, [])
 
-  const toggleLanguage = () => {
+  const toggleLanguage = useCallback(() => {
     setState((prev) => ({
       ...prev,
       language: prev.language === 'en' ? 'hi' : 'en',
     }))
-  }
+  }, [])
 
-  const currentQuestion = state.question ? (
-    state.language === 'en'
-      ? state.question.questionEn
-      : state.question.questionHi
-  ) : ''
-  const currentOptions = state.question ? (
-    state.language === 'en'
-      ? state.question.optionsEn
-      : state.question.optionsHi
-  ) : []
-  const currentExplanation = state.question ? (
-    state.language === 'en'
-      ? state.question.explanationEn
-      : state.question.explanationHi
-  ) : ''
+  const currentQuestion = useMemo(
+    () =>
+      state.question
+        ? state.language === 'en'
+          ? state.question.questionEn
+          : state.question.questionHi
+        : '',
+    [state.question, state.language]
+  )
+
+  const currentOptions = useMemo(
+    () =>
+      state.question
+        ? state.language === 'en'
+          ? state.question.optionsEn
+          : state.question.optionsHi
+        : [],
+    [state.question, state.language]
+  )
+
+  const currentExplanation = useMemo(
+    () =>
+      state.question
+        ? state.language === 'en'
+          ? state.question.explanationEn
+          : state.question.explanationHi
+        : '',
+    [state.question, state.language]
+  )
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50">
