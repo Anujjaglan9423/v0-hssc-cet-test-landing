@@ -36,6 +36,9 @@ export default function DailyQuizSection() {
     error: null,
     language: 'en',
   })
+  
+  // Track excluded categories to avoid repetition
+  const [excludedCategories, setExcludedCategories] = useState<string[]>([])
 
   const loadQuestion = useCallback(async () => {
     setState((prev) => ({ ...prev, loading: true, error: null }))
@@ -43,6 +46,7 @@ export default function DailyQuizSection() {
       const response = await fetch('/api/generate-daily-question', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ excludeTopics: excludedCategories }),
       })
       const data = await response.json()
       if (data.error) {
@@ -57,6 +61,15 @@ export default function DailyQuizSection() {
           error: null,
           language: 'en',
         })
+        
+        // Add category to excluded list to avoid repetition
+        if (data.category) {
+          setExcludedCategories((prev) => {
+            const updated = [...prev, data.category]
+            // Keep only last 3 categories
+            return updated.slice(-3)
+          })
+        }
       }
     } catch (err) {
       setState((prev) => ({
@@ -65,7 +78,7 @@ export default function DailyQuizSection() {
         loading: false,
       }))
     }
-  }, [])
+  }, [excludedCategories])
 
   const handleAnswer = useCallback((index: number) => {
     setState((prev) => {
