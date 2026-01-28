@@ -2,7 +2,14 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
+import { Metadata } from "next"
 import { supabase } from "@/lib/supabase"
+
+export const metadata: Metadata = {
+  title: "Free Mock Tests - HSSC, CET, Police, Group D | CET TEST",
+  description: "Practice unlimited free mock tests for HSSC, CET, Haryana Police, Group D and other competitive exams. Get detailed performance analytics and improve your preparation.",
+  keywords: "mock test, HSSC mock test, CET mock test, Haryana Police test, Group D mock test, free online test, practice questions",
+}
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"

@@ -8,11 +8,38 @@ import "./globals.css"
 const _geistMono = Geist_Mono({ subsets: ["latin"], display: "swap" })
 
 export const metadata: Metadata = {
-  title: "CET TEST - Master All Competitive Exams",
+  title: "CET TEST - HSSC, CET, Mock Tests & Haryana Exams | Free Online Practice",
   description:
-    "India's leading test series platform for all competitive exams - Haryana, SSC, Railway, and Uttarakhand. Practice unlimited mock tests, get detailed analytics, and crack your exam with confidence.",
+    "India's #1 online test series platform for HSSC, CET, SSC, Railway, and Haryana exams. Practice free mock tests, get detailed analytics, performance tracking, and expert-crafted question papers. Prepare for Haryana competitive exams with confidence.",
+  keywords: "HSSC, CET, mock test, Haryana exam, competitive exam, SSC, Railway, online test series, HSSC exam preparation, CET exam prep, free mock tests, Haryana recruitment",
   generator: "v0.app",
   manifest: "/manifest.json",
+  metadataBase: new URL("https://cettest.site"),
+  alternates: {
+    canonical: "https://cettest.site",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://cettest.site",
+    title: "CET TEST - Master HSSC, CET & Haryana Competitive Exams",
+    description: "Free online mock tests and exam preparation for HSSC, CET, and all Haryana competitive exams. Practice unlimited tests with detailed analytics.",
+    siteName: "CET TEST",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "CET TEST - Competitive Exam Preparation Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CET TEST - HSSC & CET Exam Preparation",
+    description: "Practice free mock tests for HSSC, CET, and Haryana exams with detailed analytics",
+    images: ["/logo.png"],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
