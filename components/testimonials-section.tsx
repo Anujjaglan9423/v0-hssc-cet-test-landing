@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
+import Image from "next/image"
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -53,15 +54,15 @@ export default function TestimonialsSection() {
     return () => clearInterval(interval)
   }, [isAutoPlaying])
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     setIsAutoPlaying(false)
     setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-  }
+  }, [])
 
-  const goToPrev = () => {
+  const goToPrev = useCallback(() => {
     setIsAutoPlaying(false)
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-  }
+  }, [])
 
   return (
     <section className="py-20">
@@ -89,22 +90,29 @@ export default function TestimonialsSection() {
                   <Quote className="w-12 h-12 text-primary/20 mb-6" />
                   <p className="text-lg md:text-xl text-foreground leading-relaxed mb-8">"{testimonial.content}"</p>
                   <div className="flex items-center gap-4">
-                    <img
-                      src={testimonial.image || "/placeholder.svg"}
-                      alt={testimonial.name}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-primary/20"
-                    />
+                  <Image
+                    src={testimonial.image || "/placeholder.svg"}
+                    alt={testimonial.name}
+                    width={56}
+                    height={56}
+                    className="w-14 h-14 rounded-full object-cover border-2 border-primary/20"
+                    loading="lazy"
+                  />
                     <div>
                       <p className="font-semibold text-foreground">{testimonial.name}</p>
                       <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                     </div>
-                    <div className="ml-auto flex gap-1">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <svg key={i} className="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
-                          <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                        </svg>
-                      ))}
-                    </div>
+                  <div className="ml-auto flex gap-1">
+                    {useMemo(
+                      () =>
+                        [...Array(testimonial.rating)].map((_, i) => (
+                          <svg key={i} className="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                          </svg>
+                        )),
+                      [testimonial.rating]
+                    )}
+                  </div>
                   </div>
                 </div>
               ))}

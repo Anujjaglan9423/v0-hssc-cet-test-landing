@@ -1,12 +1,11 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter, Geist_Mono } from "next/font/google"
+import { Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
 import "./globals.css"
 
-const _inter = Inter({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"], display: "swap" })
 
 export const metadata: Metadata = {
   title: "CET TEST - Master All Competitive Exams",
