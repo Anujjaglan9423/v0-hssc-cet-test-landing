@@ -113,7 +113,7 @@ Your site has been optimized for speed and efficiency. Below are all the improve
 
 ## 8. **Performance Testing Commands**
 
-```bash
+\`\`\`bash
 # Build the project
 npm run build
 
@@ -122,7 +122,7 @@ npm run dev
 
 # Check bundle size (optional, requires analyzer)
 npm run build -- --analyze
-```
+\`\`\`
 
 ---
 
