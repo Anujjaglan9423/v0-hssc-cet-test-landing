@@ -1,5 +1,12 @@
 import Link from "next/link"
+import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
+
+export const metadata: Metadata = {
+  title: "About CET TEST - India's Leading Competitive Exam Preparation Platform",
+  description: "Learn about CET TEST - India's #1 online platform for HSSC, CET, SSC, Railway and Haryana competitive exams. 50,000+ students, 10,000+ questions, 95% success rate.",
+  keywords: "about cettest, competitive exam preparation, HSSC preparation, CET exam coaching, online test series",
+}
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { BookOpen, Users, Award, Target, ArrowLeft, CheckCircle } from "lucide-react"
