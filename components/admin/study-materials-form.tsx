@@ -49,6 +49,8 @@ export default function StudyMaterialsForm() {
         throw new Error("File upload is required for PDF and image materials")
       }
 
+      console.log("[v0] Submitting form with type:", type, "title:", title, "videoUrl:", videoUrl)
+
       const formData = new FormData()
       formData.append("type", type)
       formData.append("title", title)
@@ -56,6 +58,7 @@ export default function StudyMaterialsForm() {
       if (file) formData.append("file", file)
       if (videoUrl) formData.append("videoUrl", videoUrl)
 
+      console.log("[v0] FormData prepared, calling createStudyMaterial...")
       await createStudyMaterial(formData)
 
       setSuccess(true)
@@ -65,7 +68,9 @@ export default function StudyMaterialsForm() {
       setVideoUrl("")
       setTimeout(() => setSuccess(false), 3000)
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to upload material")
+      const errorMessage = err instanceof Error ? err.message : "Failed to upload material"
+      console.log("[v0] Error:", errorMessage)
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }

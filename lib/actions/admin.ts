@@ -951,6 +951,8 @@ export async function createStudyMaterial(formData: FormData) {
   const file = formData.get("file") as File | null
   const videoUrl = formData.get("videoUrl") as string
 
+  console.log("[v0] Study Material Form Data:", { type, title, description, hasFile: !!file, hasVideoUrl: !!videoUrl })
+
   if (!type || !title) {
     throw new Error("Type and title are required")
   }
@@ -958,6 +960,7 @@ export async function createStudyMaterial(formData: FormData) {
   let fileUrl = null
 
   if (file && file.size > 0) {
+    console.log("[v0] Uploading file:", file.name)
     const fileExt = file.name.split(".").pop()
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
     const filePath = `study-materials/${fileName}`
@@ -965,20 +968,23 @@ export async function createStudyMaterial(formData: FormData) {
     const { error: uploadError } = await supabase.storage.from("uploads").upload(filePath, file)
 
     if (uploadError) {
-      console.error("Error uploading file:", uploadError)
-      throw new Error("Failed to upload file")
+      console.error("[v0] Error uploading file:", uploadError)
+      throw new Error(`Failed to upload file: ${uploadError.message}`)
     }
 
     const { data: publicUrlData } = supabase.storage.from("uploads").getPublicUrl(filePath)
     fileUrl = publicUrlData.publicUrl
+    console.log("[v0] File uploaded successfully:", fileUrl)
   }
+
+  console.log("[v0] Inserting into database with data:", { type, title, description, fileUrl, videoUrl })
 
   const { data: result, error } = await supabase
     .from("study_materials")
     .insert({
       type,
       title,
-      description,
+      description: description || null,
       file_url: fileUrl,
       video_url: type === "video" ? videoUrl : null,
       is_active: true,
@@ -987,10 +993,12 @@ export async function createStudyMaterial(formData: FormData) {
     .single()
 
   if (error) {
-    console.error("Error creating study material:", error)
-    throw new Error("Failed to create study material")
+    console.error("[v0] Error creating study material:", error)
+    console.error("[v0] Error details:", JSON.stringify(error))
+    throw new Error(`Failed to create study material: ${error.message}`)
   }
 
+  console.log("[v0] Study material created successfully:", result.id)
   revalidatePath("/")
   return result
 }
