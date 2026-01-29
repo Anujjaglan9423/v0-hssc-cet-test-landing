@@ -1,5 +1,8 @@
+-- Drop existing study_materials table and recreate
+DROP TABLE IF EXISTS public.study_materials CASCADE;
+
 -- Study Materials table
-CREATE TABLE IF NOT EXISTS public.study_materials (
+CREATE TABLE public.study_materials (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   title TEXT NOT NULL,
   description TEXT,
