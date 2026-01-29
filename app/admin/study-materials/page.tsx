@@ -145,7 +145,7 @@ export default function AdminStudyMaterialsPage() {
                 <Input
                   required
                   placeholder="Material title"
-                  value={formData.title}
+                  value={formData.title || ""}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 />
               </div>
@@ -154,7 +154,7 @@ export default function AdminStudyMaterialsPage() {
                 <label className="block text-sm font-medium mb-1">Description</label>
                 <Textarea
                   placeholder="Material description (optional)"
-                  value={formData.description}
+                  value={formData.description || ""}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={3}
                 />
@@ -185,7 +185,7 @@ export default function AdminStudyMaterialsPage() {
                     required
                     type="url"
                     placeholder="https://youtube.com/watch?v=..."
-                    value={formData.youtube_url}
+                    value={formData.youtube_url || ""}
                     onChange={(e) => setFormData({ ...formData, youtube_url: e.target.value })}
                   />
                 </div>
