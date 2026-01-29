@@ -5,6 +5,7 @@ import { Mail, Phone } from "lucide-react"
 const footerLinks = {
   product: [
     { name: "Test Series", href: "#test-series" },
+    { name: "Study Materials", href: "/study-materials" },
     { name: "Features", href: "#features" },
     { name: "Pricing", href: "#pricing" },
     { name: "FAQs", href: "#faq" },
