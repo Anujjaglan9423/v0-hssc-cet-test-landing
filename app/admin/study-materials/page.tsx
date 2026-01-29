@@ -32,6 +32,11 @@ export default function AdminStudyMaterialsPage() {
     { revalidateOnFocus: false }
   )
 
+  // Debug errors
+  if (materialsError) {
+    console.log("[v0] Error fetching materials:", materialsError)
+  }
+
   const handleReset = () => {
     setFormData({
       title: "",
