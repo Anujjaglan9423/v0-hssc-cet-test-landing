@@ -8,6 +8,7 @@ const footerLinks = {
     { name: "Features", href: "#features" },
     { name: "Pricing", href: "#pricing" },
     { name: "FAQs", href: "#faq" },
+    { name: "Study Materials", href: "/study-materials" },
   ],
   company: [
     { name: "About Us", href: "/about" },
