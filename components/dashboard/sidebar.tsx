@@ -23,7 +23,6 @@ import {
   Mail,
   MessageSquare,
   FolderTree,
-  BookOpen,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -38,7 +37,6 @@ const adminLinks = [
   { href: "/admin/students", icon: Users, label: "Students" },
   { href: "/admin/tests", icon: FileText, label: "Tests" },
   { href: "/admin/manage", icon: FolderTree, label: "Manage" },
-  { href: "/admin/study-materials", icon: BookOpen, label: "Study Materials" },
   { href: "/admin/payments", icon: BarChart3, label: "Payments" },
   { href: "/admin/results", icon: Trophy, label: "Results" },
   { href: "/admin/analytics", icon: BarChart3, label: "Analytics" },

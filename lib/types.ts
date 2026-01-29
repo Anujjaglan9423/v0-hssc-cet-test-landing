@@ -116,17 +116,3 @@ export interface StudentWithStats extends Profile {
   total_time: number
   last_active: string | null
 }
-
-export interface StudyMaterial {
-  id: string
-  title: string
-  description: string | null
-  material_type: "image" | "pdf" | "link"
-  content: string
-  file_url: string | null
-  category: "study_material" | "general_info"
-  is_active: boolean
-  uploaded_by: string
-  created_at: string
-  updated_at: string
-}
