@@ -4,6 +4,7 @@ import StatsSection from "@/components/stats-section"
 import FeaturesSection from "@/components/features-section"
 import DailyQuizSection from "@/components/daily-quiz-section"
 import TestSeriesSection from "@/components/test-series-section"
+import ResourcesSection from "@/components/resources-section"
 import TestimonialsSection from "@/components/testimonials-section"
 import PricingSection from "@/components/pricing-section"
 import FAQSection from "@/components/faq-section"
@@ -19,6 +20,7 @@ export default function Home() {
       <FeaturesSection />
       <DailyQuizSection />
       <TestSeriesSection />
+      <ResourcesSection />
       <TestimonialsSection />
       <PricingSection />
       <FAQSection />

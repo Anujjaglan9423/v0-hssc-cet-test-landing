@@ -918,3 +918,120 @@ export async function deleteTopic(id: string) {
   revalidatePath("/admin/manage")
   return { success: true }
 }
+
+// Study Materials Management
+export async function getStudyMaterials() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from("study_materials")
+    .select("*")
+    .eq("is_active", true)
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching study materials:", error)
+    return []
+  }
+
+  return data || []
+}
+
+export async function createStudyMaterial(formData: FormData) {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+
+  if (!user || user.role !== "admin") {
+    throw new Error("Unauthorized")
+  }
+
+  const type = formData.get("type") as string
+  const title = formData.get("title") as string
+  const description = formData.get("description") as string
+  const file = formData.get("file") as File | null
+  const videoUrl = formData.get("videoUrl") as string
+
+  if (!type || !title) {
+    throw new Error("Type and title are required")
+  }
+
+  let fileUrl = null
+
+  if (file && file.size > 0) {
+    const fileExt = file.name.split(".").pop()
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
+    const filePath = `study-materials/${fileName}`
+
+    const { error: uploadError } = await supabase.storage.from("uploads").upload(filePath, file)
+
+    if (uploadError) {
+      console.error("Error uploading file:", uploadError)
+      throw new Error("Failed to upload file")
+    }
+
+    const { data: publicUrlData } = supabase.storage.from("uploads").getPublicUrl(filePath)
+    fileUrl = publicUrlData.publicUrl
+  }
+
+  const { data: result, error } = await supabase
+    .from("study_materials")
+    .insert({
+      type,
+      title,
+      description,
+      file_url: fileUrl,
+      video_url: type === "video" ? videoUrl : null,
+      is_active: true,
+    })
+    .select()
+    .single()
+
+  if (error) {
+    console.error("Error creating study material:", error)
+    throw new Error("Failed to create study material")
+  }
+
+  revalidatePath("/")
+  return result
+}
+
+export async function deleteStudyMaterial(materialId: string) {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+
+  if (!user || user.role !== "admin") {
+    throw new Error("Unauthorized")
+  }
+
+  const { error } = await supabase.from("study_materials").delete().eq("id", materialId)
+
+  if (error) {
+    console.error("Error deleting study material:", error)
+    throw new Error("Failed to delete study material")
+  }
+
+  revalidatePath("/")
+  return true
+}
+
+export async function updateStudyMaterial(
+  materialId: string,
+  data: { title?: string; description?: string; is_active?: boolean }
+) {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+
+  if (!user || user.role !== "admin") {
+    throw new Error("Unauthorized")
+  }
+
+  const { error } = await supabase.from("study_materials").update(data).eq("id", materialId)
+
+  if (error) {
+    console.error("Error updating study material:", error)
+    throw new Error("Failed to update study material")
+  }
+
+  revalidatePath("/")
+  return true
+}
