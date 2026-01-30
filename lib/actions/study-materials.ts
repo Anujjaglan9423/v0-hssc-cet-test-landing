@@ -57,10 +57,9 @@ export async function getAllStudyMaterials(): Promise<StudyMaterial[]> {
   return data || []
 }
 
-// Upload study material
+// Add study material (using external links instead of file uploads)
 export async function uploadStudyMaterial(
   material: Omit<StudyMaterial, "id" | "created_at" | "updated_at" | "created_by">,
-  file?: File,
 ) {
   const supabase = await createClient()
   const user = await getCurrentUser()
@@ -69,33 +68,14 @@ export async function uploadStudyMaterial(
     return { success: false, error: "Unauthorized" }
   }
 
-  let fileUrl = material.file_url
-
-  // Upload file if provided
-  if (file && material.content_type !== "youtube") {
-    const fileName = `${Date.now()}-${file.name}`
-    const { error: uploadError } = await supabase.storage
-      .from("study-materials")
-      .upload(fileName, file)
-
-    if (uploadError) {
-      console.error("Error uploading file:", uploadError)
-      return { success: false, error: uploadError.message }
-    }
-
-    // Get public URL
-    const { data } = supabase.storage.from("study-materials").getPublicUrl(fileName)
-    fileUrl = data.publicUrl
-  }
-
-  // Insert into database
+  // Insert into database with the provided file URL
   const { data, error } = await supabase
     .from("study_materials")
     .insert({
       title: material.title,
       description: material.description,
       content_type: material.content_type,
-      file_url: fileUrl,
+      file_url: material.file_url,
       youtube_url: material.youtube_url,
       created_by: user.id,
       is_active: material.is_active,
@@ -152,26 +132,6 @@ export async function deleteStudyMaterial(id: string) {
 
   if (!user || user.role !== "admin") {
     return { success: false, error: "Unauthorized" }
-  }
-
-  // Get the material first to delete associated file
-  const { data: material, error: fetchError } = await supabase
-    .from("study_materials")
-    .select("*")
-    .eq("id", id)
-    .single()
-
-  if (fetchError) {
-    console.error("Error fetching material:", fetchError)
-    return { success: false, error: fetchError.message }
-  }
-
-  // Delete file from storage if it exists
-  if (material.file_url && material.content_type !== "youtube") {
-    const fileName = material.file_url.split("/").pop()
-    if (fileName) {
-      await supabase.storage.from("study-materials").remove([fileName])
-    }
   }
 
   // Delete from database
