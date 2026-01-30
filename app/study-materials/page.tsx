@@ -5,6 +5,8 @@ import { getActiveStudyMaterials, StudyMaterial } from "@/lib/actions/study-mate
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { FileText, Image, Video, Download, ExternalLink, Loader2 } from "lucide-react"
+import Navbar from "@/components/navbar"
+import Footer from "@/components/footer"
 
 export default function StudyMaterialsPage() {
   const [materials, setMaterials] = useState<StudyMaterial[]>([])
@@ -53,8 +55,10 @@ export default function StudyMaterialsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-background pt-24 pb-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-4">Study Materials</h1>
@@ -169,7 +173,7 @@ export default function StudyMaterialsPage() {
                       variant="default"
                       className="w-full gap-2"
                     >
-                      <a href={material.file_url} download>
+                      <a href={material.file_url} target="_blank" rel="noopener noreferrer">
                         <Download className="w-4 h-4" />
                         Download
                       </a>
@@ -184,7 +188,9 @@ export default function StudyMaterialsPage() {
             ))}
           </div>
         )}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   )
 }
