@@ -13,6 +13,7 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "Daily Quiz", href: "#daily-quiz" },
     { name: "Test Series", href: "#test-series" },
+    { name: "Study Materials", href: "/study-materials" },
     { name: "Features", href: "#features" },
     { name: "Pricing", href: "#pricing" },
     { name: "FAQs", href: "#faq" },
