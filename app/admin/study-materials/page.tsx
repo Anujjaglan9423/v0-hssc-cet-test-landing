@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { FileText, Image, Video, Trash2, Check, X, Loader2, Plus } from "lucide-react"
+import { FileText, Image, Video, Trash2, Check, X, Loader2, Plus, Link } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -26,8 +26,7 @@ export default function AdminStudyMaterialsPage() {
     title: "",
     description: "",
     content_type: "pdf" as "pdf" | "image" | "youtube",
-    youtube_url: "",
-    file: null as File | null,
+    file_url: "",
   })
 
   useEffect(() => {
@@ -51,34 +50,30 @@ export default function AdminStudyMaterialsPage() {
     setUploading(true)
 
     try {
-      const result = await uploadStudyMaterial(
-        {
-          title: formData.title,
-          description: formData.description,
-          content_type: formData.content_type,
-          youtube_url: formData.content_type === "youtube" ? formData.youtube_url : null,
-          file_url: formData.content_type === "youtube" ? formData.youtube_url : null,
-          is_active: true,
-        },
-        formData.file || undefined,
-      )
+      const result = await uploadStudyMaterial({
+        title: formData.title,
+        description: formData.description,
+        content_type: formData.content_type,
+        youtube_url: formData.content_type === "youtube" ? formData.file_url : null,
+        file_url: formData.file_url,
+        is_active: true,
+      })
 
       if (result.success) {
         setFormData({
           title: "",
           description: "",
           content_type: "pdf",
-          youtube_url: "",
-          file: null,
+          file_url: "",
         })
         setIsOpen(false)
         await loadMaterials()
       } else {
-        alert("Error uploading material: " + result.error)
+        alert("Error adding material: " + result.error)
       }
     } catch (error) {
-      console.error("Error uploading:", error)
-      alert("Error uploading material")
+      console.error("Error adding:", error)
+      alert("Error adding material")
     } finally {
       setUploading(false)
     }
@@ -122,6 +117,28 @@ export default function AdminStudyMaterialsPage() {
     }
   }
 
+  const getUrlPlaceholder = (type: "pdf" | "image" | "youtube") => {
+    switch (type) {
+      case "pdf":
+        return "https://drive.google.com/file/d/... or any PDF link"
+      case "image":
+        return "https://example.com/image.jpg or any image link"
+      case "youtube":
+        return "https://youtube.com/watch?v=..."
+    }
+  }
+
+  const getUrlLabel = (type: "pdf" | "image" | "youtube") => {
+    switch (type) {
+      case "pdf":
+        return "PDF Link"
+      case "image":
+        return "Image Link"
+      case "youtube":
+        return "YouTube URL"
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -135,8 +152,8 @@ export default function AdminStudyMaterialsPage() {
           </DialogTrigger>
           <DialogContent className="max-w-md">
             <DialogHeader>
-              <DialogTitle>Upload Study Material</DialogTitle>
-              <DialogDescription>Add a new study material for students</DialogDescription>
+              <DialogTitle>Add Study Material</DialogTitle>
+              <DialogDescription>Add a new study material link for students</DialogDescription>
             </DialogHeader>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -168,6 +185,7 @@ export default function AdminStudyMaterialsPage() {
                     setFormData({
                       ...formData,
                       content_type: e.target.value as "pdf" | "image" | "youtube",
+                      file_url: "",
                     })
                   }
                   className="w-full border border-input rounded-md px-3 py-2 bg-background"
@@ -178,39 +196,33 @@ export default function AdminStudyMaterialsPage() {
                 </select>
               </div>
 
-              {formData.content_type === "youtube" ? (
-                <div>
-                  <label className="block text-sm font-medium mb-1">YouTube URL</label>
-                  <Input
-                    required
-                    type="url"
-                    placeholder="https://youtube.com/watch?v=..."
-                    value={formData.youtube_url || ""}
-                    onChange={(e) => setFormData({ ...formData, youtube_url: e.target.value })}
-                  />
-                </div>
-              ) : (
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Upload {formData.content_type.toUpperCase()}
-                  </label>
-                  <Input
-                    required
-                    type="file"
-                    accept={formData.content_type === "pdf" ? ".pdf" : "image/*"}
-                    onChange={(e) => setFormData({ ...formData, file: e.target.files?.[0] || null })}
-                  />
-                </div>
-              )}
+              <div>
+                <label className="block text-sm font-medium mb-1 flex items-center gap-2">
+                  <Link className="w-4 h-4" />
+                  {getUrlLabel(formData.content_type)}
+                </label>
+                <Input
+                  required
+                  type="url"
+                  placeholder={getUrlPlaceholder(formData.content_type)}
+                  value={formData.file_url || ""}
+                  onChange={(e) => setFormData({ ...formData, file_url: e.target.value })}
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  {formData.content_type === "pdf" && "Paste a Google Drive, Dropbox, or any direct PDF link"}
+                  {formData.content_type === "image" && "Paste a direct image URL"}
+                  {formData.content_type === "youtube" && "Paste a YouTube video URL"}
+                </p>
+              </div>
 
               <Button type="submit" disabled={uploading} className="w-full gap-2">
                 {uploading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    Uploading...
+                    Adding...
                   </>
                 ) : (
-                  "Upload Material"
+                  "Add Material"
                 )}
               </Button>
             </form>
@@ -227,7 +239,7 @@ export default function AdminStudyMaterialsPage() {
         </div>
       ) : materials.length === 0 ? (
         <Card className="p-12 text-center">
-          <p className="text-muted-foreground text-lg mb-4">No study materials uploaded yet</p>
+          <p className="text-muted-foreground text-lg mb-4">No study materials added yet</p>
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
               <Button className="gap-2">
