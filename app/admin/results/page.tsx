@@ -352,7 +352,7 @@ function ResultsContent() {
 
 export default function AdminResultsPage() {
   return (
-    <div className="p-6 lg:p-8 lg:ml-64 pt-20 lg:pt-8">
+    <div className="p-6 lg:p-8 pt-20 lg:pt-8">
       <Suspense
         fallback={
           <div className="flex items-center justify-center min-h-[400px]">
