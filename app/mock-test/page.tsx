@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
+import type { Metadata } from "next"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -33,6 +34,16 @@ const defaultCategories = [
     description: "CGL, CHSL, MTS, and more",
   },
 ]
+
+export async function generateMetadata() {
+  return {
+    title: "Free HSSC CET Mock Tests | Haryana Exam Practice Questions | CET TEST",
+    description:
+      "Practice free HSSC CET mock tests for Haryana exams. Get access to CET, Police, Group D practice papers with detailed solutions and performance analysis. Start your exam preparation today.",
+    keywords:
+      "HSSC CET mock test, free HSSC mock test, CET practice questions, Haryana exam mock test, HSSC CET practice, online mock test for HSSC",
+  }
+}
 
 function ExamSectionCard({ exam, onClick }: { exam: any; onClick: () => void }) {
   return (
@@ -319,9 +330,9 @@ export default function MockTestPage() {
       <div className="w-full min-h-screen bg-background py-6 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto space-y-6 lg:space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2 lg:space-y-4">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Try Free Mock Tests</h1>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Free HSSC CET Mock Tests</h1>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Select an exam category to get started. Get one full-length mock exam free from each section!
+              Take free HSSC CET practice tests, Haryana Police mock exams, and Group D mock papers. Get access to unlimited practice questions with detailed solutions. Select an exam category to get started with one full-length free mock test per section!
             </p>
           </div>
 

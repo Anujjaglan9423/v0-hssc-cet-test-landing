@@ -42,7 +42,7 @@ export default function HeroSection() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-balance">
               Master Your{" "}
               <span className="text-primary relative">
-                Competitive Exam
+                HSSC CET & Haryana Exams
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                   <path
                     d="M2 10C50 4 150 4 198 10"
@@ -58,8 +58,7 @@ export default function HeroSection() {
 
             {/* Description */}
             <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-              India's most comprehensive test series platform for competitive exam preparation. Prepare for Haryana
-              exams, SSC, Railway, Uttarakhand, and more with real exam patterns and boost your success rate.
+              India's most comprehensive free HSSC CET mock test platform. Prepare for Haryana HSSC, Police, Group D, and other Haryana recruitment exams with 10,000+ practice questions, detailed solutions, and real exam patterns. Join 50,000+ students succeeding with CET TEST.
             </p>
 
             {/* Features List */}

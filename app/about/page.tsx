@@ -3,9 +3,9 @@ import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-  title: "About CET TEST - India's Leading Competitive Exam Preparation Platform",
-  description: "Learn about CET TEST - India's #1 online platform for HSSC, CET, SSC, Railway and Haryana competitive exams. 50,000+ students, 10,000+ questions, 95% success rate.",
-  keywords: "about cettest, competitive exam preparation, HSSC preparation, CET exam coaching, online test series",
+  title: "About CET TEST - India's Top HSSC CET Mock Test Platform for Haryana Exams",
+  description: "Learn about CET TEST - India's #1 free platform for HSSC CET mock tests and Haryana exam preparation. 50,000+ students, 10,000+ practice questions, 95% success rate. Prepare for HSSC, Police, Group D exams with detailed analytics.",
+  keywords: "about CET TEST, HSSC CET exam preparation, Haryana recruitment exams, free mock tests platform, competitive exam coaching, online test series for Haryana, HSSC CET guide",
 }
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -75,9 +75,7 @@ export default function AboutPage() {
             About <span className="text-primary">CET TEST</span>
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            We are on a mission to make quality exam preparation accessible to every aspirant across India. Our platform
-            provides comprehensive test series for Haryana, SSC, Railway, and Uttarakhand exams with detailed analytics
-            and expert guidance to help you crack your exam with confidence.
+            We are on a mission to make quality exam preparation accessible to every HSSC CET aspirant across Haryana. Our platform provides comprehensive free HSSC CET mock tests, Haryana Police exam preparation, Group D recruitment exams, and other Haryana state competitive exams with detailed analytics, expert solutions, and personalized guidance to help you crack your exam with confidence.
           </p>
         </div>
       </section>
