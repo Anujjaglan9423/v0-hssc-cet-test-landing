@@ -80,7 +80,7 @@ function TestCard({ test }: { test: any }) {
           </span>
         </div>
 
-        <Link href={`/student/test/${test.id}`}>
+        <Link href={`/take-test/${test.id}`}>
           <Button className="w-full gap-2 group-hover:bg-primary">
             <Play className="w-4 h-4" />
             Start Test

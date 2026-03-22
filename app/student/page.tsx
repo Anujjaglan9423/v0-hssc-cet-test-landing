@@ -238,7 +238,7 @@ export default function StudentDashboard() {
                       </p>
                     </div>
                   </div>
-                  <Link href={`/student/test/${test.id}`}>
+                  <Link href={`/take-test/${test.id}`}>
                     <Button size="sm">Start</Button>
                   </Link>
                 </div>
