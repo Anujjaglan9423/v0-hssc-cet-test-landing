@@ -8,10 +8,31 @@ import "./globals.css"
 const _geistMono = Geist_Mono({ subsets: ["latin"], display: "swap" })
 
 export const metadata: Metadata = {
-  title: "CET TEST - HSSC, CET, Mock Tests & Haryana Exams | Free Online Practice",
+  title: "CET TEST - SSC, Railway, UKSSSC, HSSC Mock Tests | Free Online Practice 2026",
   description:
-    "India's #1 online test series platform for HSSC, CET, SSC, Railway, and Haryana exams. Practice free mock tests, get detailed analytics, performance tracking, and expert-crafted question papers. Prepare for Haryana competitive exams with confidence.",
-  keywords: "HSSC, CET, mock test, Haryana exam, competitive exam, SSC, Railway, online test series, HSSC exam preparation, CET exam prep, free mock tests, Haryana recruitment",
+    "India's leading online test series for SSC CGL, SSC CHSL, SSC MTS, Railway RRB NTPC, Group D, UKSSSC, Uttarakhand State Exams, HSSC CET, Haryana Police & Clerk exams. Practice free mock tests with detailed analytics, previous year papers, topic-wise tests & instant results. Start your government job preparation today!",
+  keywords: [
+    "SSC CGL mock test",
+    "SSC CHSL preparation",
+    "SSC MTS online test",
+    "Railway RRB NTPC mock test",
+    "Railway Group D test series",
+    "RRB ALP exam preparation",
+    "UKSSSC mock test",
+    "Uttarakhand state exam",
+    "UK VDO test series",
+    "Uttarakhand Patwari exam",
+    "HSSC CET mock test",
+    "Haryana Police exam",
+    "Haryana Clerk test series",
+    "HSSC Group D preparation",
+    "free online mock tests",
+    "government job preparation",
+    "competitive exam test series",
+    "previous year papers",
+    "topic wise practice tests",
+    "exam preparation 2026",
+  ],
   generator: "v0.app",
   manifest: "/manifest.json",
   metadataBase: new URL("https://cettest.site"),
@@ -22,32 +43,49 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://cettest.site",
-    title: "CET TEST - Master HSSC, CET & Haryana Competitive Exams",
-    description: "Free online mock tests and exam preparation for HSSC, CET, and all Haryana competitive exams. Practice unlimited tests with detailed analytics.",
+    title: "CET TEST - SSC, Railway, Uttarakhand & Haryana Exam Preparation",
+    description:
+      "Free online mock tests for SSC CGL/CHSL/MTS, Railway RRB NTPC/Group D, UKSSSC Uttarakhand exams, HSSC CET & Haryana state exams. Practice unlimited tests with detailed performance analytics.",
     siteName: "CET TEST",
     images: [
       {
-        url: "/logo.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "CET TEST - Competitive Exam Preparation Platform",
+        alt: "CET TEST - Government Exam Preparation Platform for SSC, Railway, Uttarakhand & Haryana",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CET TEST - HSSC & CET Exam Preparation",
-    description: "Practice free mock tests for HSSC, CET, and Haryana exams with detailed analytics",
-    images: ["/logo.png"],
+    title: "CET TEST - SSC, Railway, UKSSSC & HSSC Exam Preparation",
+    description:
+      "Practice free mock tests for SSC, Railway, Uttarakhand & Haryana government exams with detailed analytics and instant results",
+    images: ["/og-image.png"],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "Education",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "CET TEST",
   },
   icons: {
-    icon: "/logo.png",
+    icon: "/icon.png",
     apple: "/apple-icon.png",
+  },
+  other: {
+    "google-site-verification": "lm_5SF7FbX7_uM8Ze3BkTudNFttvMjDieo6Tz0hQqEY",
   },
 }
 
