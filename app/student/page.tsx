@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { getStudentDashboard, getAvailableTests } from "@/lib/actions/student"
-import { FileText, Trophy, Clock, Target, BookOpen, Zap, Loader2 } from "lucide-react"
+import { FileText, Trophy, Clock, Target, BookOpen, Zap, Loader2, RotateCcw, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import {
@@ -221,28 +221,48 @@ export default function StudentDashboard() {
         <ChartCard title="Recommended Tests">
           <div className="space-y-3">
             {recommendedTests.length > 0 ? (
-              recommendedTests.map((test: any, idx: number) => (
-                <div
-                  key={test.id}
-                  className="flex items-center justify-between p-3 lg:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all duration-300 animate-in fade-in slide-in-from-right-4"
-                  style={{ animationDelay: `${idx * 100}ms` }}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                      <BookOpen className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
+              recommendedTests.map((test: any, idx: number) => {
+                const hasAttempted = test.user_attempt !== null
+                return (
+                  <div
+                    key={test.id}
+                    className={`flex items-center justify-between p-3 lg:p-4 rounded-xl transition-all duration-300 animate-in fade-in slide-in-from-right-4 ${hasAttempted ? 'bg-green-500/10 border border-green-500/20' : 'bg-muted/30 hover:bg-muted/50'}`}
+                    style={{ animationDelay: `${idx * 100}ms` }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center ${hasAttempted ? 'bg-green-500/20' : 'bg-primary/20'}`}>
+                        {hasAttempted ? (
+                          <CheckCircle2 className="w-5 h-5 lg:w-6 lg:h-6 text-green-500" />
+                        ) : (
+                          <BookOpen className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
+                        )}
+                      </div>
+                      <div>
+                        <p className="font-medium text-foreground text-sm lg:text-base line-clamp-1">{test.title}</p>
+                        {hasAttempted ? (
+                          <p className="text-xs text-green-600">
+                            Score: {test.user_attempt.score}/{test.user_attempt.totalQuestions} ({test.user_attempt.percentage}%)
+                          </p>
+                        ) : (
+                          <p className="text-xs text-muted-foreground">
+                            {test.questions_count} Qs | {test.duration} min
+                          </p>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-foreground text-sm lg:text-base line-clamp-1">{test.title}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {test.questions_count} Qs | {test.duration} min
-                      </p>
-                    </div>
+                    <Link href={`/take-test/${test.id}`}>
+                      {hasAttempted ? (
+                        <Button size="sm" variant="outline" className="gap-1 border-green-500/50 text-green-600 hover:bg-green-500 hover:text-white">
+                          <RotateCcw className="w-3 h-3" />
+                          Retry
+                        </Button>
+                      ) : (
+                        <Button size="sm">Start</Button>
+                      )}
+                    </Link>
                   </div>
-                  <Link href={`/take-test/${test.id}`}>
-                    <Button size="sm">Start</Button>
-                  </Link>
-                </div>
-              ))
+                )
+              })
             ) : (
               <div className="text-center py-6 text-muted-foreground">
                 <BookOpen className="w-10 h-10 mx-auto mb-3 opacity-50" />

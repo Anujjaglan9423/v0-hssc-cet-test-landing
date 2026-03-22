@@ -90,6 +90,7 @@ export async function getStudentDashboard() {
 // Get all available tests for students
 export async function getAvailableTests() {
   const supabase = await createClient()
+  const user = await getCurrentUser()
 
   const { data: tests, error } = await supabase
     .from("tests")
@@ -110,6 +111,30 @@ export async function getAvailableTests() {
     return []
   }
 
+  // Get user's test results if logged in
+  let userResults: Record<string, { score: number; totalQuestions: number; percentage: number; attemptId: string }> = {}
+  
+  if (user) {
+    const { data: results } = await supabase
+      .from("test_results")
+      .select("test_id, score, total_questions, percentage, attempt_id")
+      .eq("user_id", user.id)
+    
+    if (results) {
+      // Keep the best attempt for each test
+      results.forEach((r) => {
+        if (!userResults[r.test_id] || r.score > userResults[r.test_id].score) {
+          userResults[r.test_id] = {
+            score: r.score,
+            totalQuestions: r.total_questions,
+            percentage: r.percentage,
+            attemptId: r.attempt_id
+          }
+        }
+      })
+    }
+  }
+
   return (
     tests?.map((test) => ({
       ...test,
@@ -119,6 +144,7 @@ export async function getAvailableTests() {
         test.test_results?.length > 0
           ? Math.round(test.test_results.reduce((sum: number, r: any) => sum + r.score, 0) / test.test_results.length)
           : 0,
+      user_attempt: userResults[test.id] || null,
     })) || []
   )
 }
@@ -1197,6 +1223,7 @@ export async function submitMockTest(testId: string, answers: Record<string, str
 
 export async function getTestsByExam(examId: string) {
   const supabase = await createClient()
+  const user = await getCurrentUser()
 
   const { data: tests, error } = await supabase
     .from("tests")
@@ -1217,11 +1244,36 @@ export async function getTestsByExam(examId: string) {
     return []
   }
 
+  // Get user's test results if logged in
+  let userResults: Record<string, { score: number; totalQuestions: number; percentage: number; attemptId: string }> = {}
+  
+  if (user) {
+    const { data: results } = await supabase
+      .from("test_results")
+      .select("test_id, score, total_questions, percentage, attempt_id")
+      .eq("user_id", user.id)
+    
+    if (results) {
+      // Keep only the latest attempt for each test
+      results.forEach((r) => {
+        if (!userResults[r.test_id] || r.score > userResults[r.test_id].score) {
+          userResults[r.test_id] = {
+            score: r.score,
+            totalQuestions: r.total_questions,
+            percentage: r.percentage,
+            attemptId: r.attempt_id
+          }
+        }
+      })
+    }
+  }
+
   return (
     tests?.map((test) => ({
       ...test,
       questions_count: test.questions?.length || 0,
       attempts_count: test.test_attempts?.length || 0,
+      user_attempt: userResults[test.id] || null,
     })) || []
   )
 }

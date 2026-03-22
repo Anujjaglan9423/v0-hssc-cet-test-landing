@@ -8,13 +8,15 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Loader2, ChevronLeft, FileText, BookOpen, Target, Clock, Users, Search, Play } from "lucide-react"
+import { Loader2, ChevronLeft, FileText, BookOpen, Target, Clock, Users, Search, Play, RotateCcw, CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 
 // Test Card Component
 function TestCard({ test }: { test: any }) {
+  const hasAttempted = test.user_attempt !== null
+  
   return (
-    <Card className="group hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary/30">
+    <Card className={`group hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1 border-2 ${hasAttempted ? 'border-green-500/30 bg-green-500/5' : 'hover:border-primary/30'}`}>
       <CardContent className="p-5">
         <div className="flex items-start justify-between mb-3">
           <div
@@ -34,18 +36,26 @@ function TestCard({ test }: { test: any }) {
               <Target className="w-6 h-6" />
             )}
           </div>
-          <Badge
-            variant="secondary"
-            className={`${
-              test.difficulty === "hard"
-                ? "bg-red-500/20 text-red-500"
-                : test.difficulty === "medium"
-                  ? "bg-amber-500/20 text-amber-500"
-                  : "bg-green-500/20 text-green-500"
-            }`}
-          >
-            {test.difficulty ? test.difficulty.charAt(0).toUpperCase() + test.difficulty.slice(1) : "Medium"}
-          </Badge>
+          <div className="flex items-center gap-2">
+            {hasAttempted && (
+              <Badge variant="secondary" className="bg-green-500/20 text-green-600">
+                <CheckCircle2 className="w-3 h-3 mr-1" />
+                Attempted
+              </Badge>
+            )}
+            <Badge
+              variant="secondary"
+              className={`${
+                test.difficulty === "hard"
+                  ? "bg-red-500/20 text-red-500"
+                  : test.difficulty === "medium"
+                    ? "bg-amber-500/20 text-amber-500"
+                    : "bg-green-500/20 text-green-500"
+              }`}
+            >
+              {test.difficulty ? test.difficulty.charAt(0).toUpperCase() + test.difficulty.slice(1) : "Medium"}
+            </Badge>
+          </div>
         </div>
 
         <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
@@ -80,12 +90,41 @@ function TestCard({ test }: { test: any }) {
           </span>
         </div>
 
-        <Link href={`/take-test/${test.id}`}>
-          <Button className="w-full gap-2 group-hover:bg-primary">
-            <Play className="w-4 h-4" />
-            Start Test
-          </Button>
-        </Link>
+        {hasAttempted ? (
+          <div className="space-y-3">
+            {/* Score Display */}
+            <div className="bg-muted/50 rounded-lg p-3">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-muted-foreground">Your Score</span>
+                <span className={`text-lg font-bold ${test.user_attempt.percentage >= 60 ? 'text-green-600' : test.user_attempt.percentage >= 40 ? 'text-amber-600' : 'text-red-600'}`}>
+                  {test.user_attempt.score}/{test.user_attempt.totalQuestions}
+                </span>
+              </div>
+              <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+                <div 
+                  className={`h-full rounded-full transition-all ${test.user_attempt.percentage >= 60 ? 'bg-green-500' : test.user_attempt.percentage >= 40 ? 'bg-amber-500' : 'bg-red-500'}`}
+                  style={{ width: `${test.user_attempt.percentage}%` }}
+                />
+              </div>
+              <p className="text-xs text-muted-foreground mt-1 text-right">{test.user_attempt.percentage}%</p>
+            </div>
+            
+            {/* Reattempt Button */}
+            <Link href={`/take-test/${test.id}`}>
+              <Button variant="outline" className="w-full gap-2 border-primary/50 hover:bg-primary hover:text-primary-foreground">
+                <RotateCcw className="w-4 h-4" />
+                Reattempt Test
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <Link href={`/take-test/${test.id}`}>
+            <Button className="w-full gap-2 group-hover:bg-primary">
+              <Play className="w-4 h-4" />
+              Start Test
+            </Button>
+          </Link>
+        )}
       </CardContent>
     </Card>
   )
