@@ -62,8 +62,8 @@ export default function StudentResultsPage() {
   }
 
   const avgScore =
-    results.length > 0 ? Math.round(results.reduce((acc, r) => acc + (r.correct_answers || 0), 0) / results.length) : 0
-  const bestScore = results.length > 0 ? Math.max(...results.map((r) => r.correct_answers || 0)) : 0
+    results.length > 0 ? Math.round(results.reduce((acc, r) => acc + (r.score || 0), 0) / results.length) : 0
+  const bestScore = results.length > 0 ? Math.max(...results.map((r) => r.score || 0)) : 0
   const totalTime = results.reduce((acc, r) => acc + (r.time_taken || 0), 0)
 
   return (
@@ -144,14 +144,14 @@ export default function StudentResultsPage() {
                 render: (result) => (
                   <span
                     className={`font-bold ${
-                      (result.correct_answers / result.total_questions) * 100 >= 80
+                      (result.score / result.total_questions) * 100 >= 80
                         ? "text-accent"
-                        : (result.correct_answers / result.total_questions) * 100 >= 60
+                        : (result.score / result.total_questions) * 100 >= 60
                           ? "text-amber-500"
                           : "text-destructive"
                     }`}
                   >
-                    {result.correct_answers}/{result.total_questions}
+                    {result.score}/{result.total_questions}
                   </span>
                 ),
               },
@@ -216,7 +216,7 @@ export default function StudentResultsPage() {
                 <div className="grid grid-cols-3 gap-4">
                   <div className="p-4 bg-accent/10 rounded-xl text-center">
                     <p className="text-4xl font-bold text-accent">
-                      {selectedResult.correct_answers}/{selectedResult.total_questions}
+                      {selectedResult.score}/{selectedResult.total_questions}
                     </p>
                     <p className="text-sm text-muted-foreground">Score (Marks)</p>
                   </div>
