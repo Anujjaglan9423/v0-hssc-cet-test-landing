@@ -561,6 +561,8 @@ export async function submitTest(testId: string, answers: Record<string, string>
     const hasNegativeMarking = test.has_negative_marking || false
     const negativeMarkingPercent = test.negative_marking_percent || 0
 
+    console.log("[v0] Negative marking settings:", { hasNegativeMarking, negativeMarkingPercent })
+
     // Calculate scores - 1 mark per correct, apply negative marking for wrong if enabled
     let correct = 0
     let incorrect = 0
@@ -578,12 +580,18 @@ export async function submitTest(testId: string, answers: Record<string, string>
 
     const unattempted = totalQuestions - correct - incorrect
     
+    console.log("[v0] Score calculation:", { correct, incorrect, unattempted })
+    
     // Calculate score with negative marking
     let score = correct
     if (hasNegativeMarking && negativeMarkingPercent > 0) {
       const deductionPerWrong = negativeMarkingPercent / 100 // e.g., 25% = 0.25 marks deducted per wrong answer
-      score = Math.max(0, correct - (incorrect * deductionPerWrong))
+      const totalDeduction = incorrect * deductionPerWrong
+      score = Math.max(0, correct - totalDeduction)
       score = Math.round(score * 100) / 100 // Round to 2 decimal places
+      console.log("[v0] Negative marking applied:", { deductionPerWrong, totalDeduction, finalScore: score })
+    } else {
+      console.log("[v0] No negative marking applied, score:", score)
     }
     
     const totalMarks = totalQuestions
