@@ -396,6 +396,8 @@ export async function getTestById(testId: string) {
       id,
       title,
       duration,
+      has_negative_marking,
+      negative_marking_percent,
       questions (
         id,
         question_text,
@@ -440,7 +442,9 @@ export async function getTestResult(attemptId: string) {
       test:tests (
         id,
         title,
-        duration
+        duration,
+        has_negative_marking,
+        negative_marking_percent
       )
     `)
     .eq("id", attemptId)
@@ -492,11 +496,18 @@ export async function getTestResult(attemptId: string) {
 
   const totalQuestions = questionsWithAnswers.length
   const unattempted = totalQuestions - correct - incorrect
-  const score = correct
   const totalMarks = totalQuestions
-  const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
 
-  const { data: resultData } = await supabase.from("test_results").select("rank").eq("attempt_id", attemptId).single()
+  // Fetch the actual stored score with negative marking from test_results
+  const { data: resultData } = await supabase
+    .from("test_results")
+    .select("rank, score, percentage")
+    .eq("attempt_id", attemptId)
+    .single()
+  
+  // Use stored score (which includes negative marking) or calculate if not found
+  const storedScore = resultData?.score ?? correct
+  const storedPercentage = resultData?.percentage ?? (totalMarks > 0 ? Math.round((correct / totalMarks) * 100) : 0)
 
   // Get total participants
   const { count: totalParticipants } = await supabase
@@ -506,13 +517,13 @@ export async function getTestResult(attemptId: string) {
 
   return {
     test: attempt.test,
-    score: score,
+    score: storedScore,
     total_marks: totalMarks,
     correct,
     incorrect,
     unattempted,
     total_questions: totalQuestions,
-    percentage,
+    percentage: storedPercentage,
     time_taken: attempt.time_taken || 0,
     questions: questionsWithAnswers,
     rank: resultData?.rank || 1,
@@ -537,12 +548,14 @@ export async function submitTest(testId: string, answers: Record<string, string>
       console.log("[v0] Mock test - no authentication required")
     }
 
-    // Get test with questions
+    // Get test with questions and negative marking settings
     const { data: test } = await supabase
       .from("tests")
       .select(`
         id,
         duration,
+        has_negative_marking,
+        negative_marking_percent,
         questions (id, correct_answer)
       `)
       .eq("id", testId)
@@ -554,8 +567,12 @@ export async function submitTest(testId: string, answers: Record<string, string>
 
     const questions = test.questions || []
     const totalQuestions = questions.length
+    const hasNegativeMarking = test.has_negative_marking || false
+    const negativeMarkingPercent = test.negative_marking_percent || 0
 
-    // Calculate scores - 1 mark per correct, 0 for wrong (no negative marking)
+    
+
+    // Calculate scores - 1 mark per correct, apply negative marking for wrong if enabled
     let correct = 0
     let incorrect = 0
 
@@ -571,7 +588,18 @@ export async function submitTest(testId: string, answers: Record<string, string>
     })
 
     const unattempted = totalQuestions - correct - incorrect
-    const score = correct // Score = number of correct answers
+    
+    
+    
+    // Calculate score with negative marking
+    let score = correct
+    if (hasNegativeMarking && negativeMarkingPercent > 0) {
+      const deductionPerWrong = negativeMarkingPercent / 100 // e.g., 25% = 0.25 marks deducted per wrong answer
+      const totalDeduction = incorrect * deductionPerWrong
+      score = Math.max(0, correct - totalDeduction)
+      score = Math.round(score * 100) / 100 // Round to 2 decimal places
+      }
+    
     const totalMarks = totalQuestions
     const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
 

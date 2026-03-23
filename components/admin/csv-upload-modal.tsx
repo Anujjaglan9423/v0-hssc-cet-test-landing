@@ -70,6 +70,8 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
   const [selectedTopicId, setSelectedTopicId] = useState("")
   const [duration, setDuration] = useState("30")
   const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard">("medium")
+  const [hasNegativeMarking, setHasNegativeMarking] = useState(false)
+  const [negativeMarkingPercent, setNegativeMarkingPercent] = useState("25")
 
   // Preview state
   const [currentPage, setCurrentPage] = useState(1)
@@ -120,6 +122,8 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
     setSelectedTopicId("")
     setDuration("30")
     setDifficulty("medium")
+    setHasNegativeMarking(false)
+    setNegativeMarkingPercent("25")
     setCurrentPage(1)
   }
 
@@ -299,6 +303,8 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
         topic_id: selectedTopicId || undefined,
         duration: Number.parseInt(duration),
         difficulty,
+        has_negative_marking: hasNegativeMarking,
+        negative_marking_percent: hasNegativeMarking ? Number.parseFloat(negativeMarkingPercent) : 0,
         questions: questions.map((q) => ({
           question_text: q.questionText,
           option_a: q.optionA,
@@ -724,6 +730,45 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
                     onChange={(e) => setDuration(e.target.value)}
                     className="mt-1"
                   />
+                </div>
+
+                {/* Negative Marking Section */}
+                <div className="col-span-2 p-4 border rounded-lg bg-muted/30">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label className="text-base font-medium">Negative Marking</Label>
+                      <p className="text-sm text-muted-foreground">Deduct marks for wrong answers</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={hasNegativeMarking}
+                        onChange={(e) => setHasNegativeMarking(e.target.checked)}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-muted peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                    </label>
+                  </div>
+                  
+                  {hasNegativeMarking && (
+                    <div className="mt-4 p-3 bg-destructive/10 rounded-lg border border-destructive/20">
+                      <Label className="text-sm text-destructive">Deduction Percentage (%)</Label>
+                      <div className="flex items-center gap-2 mt-2">
+                        <Input
+                          type="number"
+                          min="1"
+                          max="100"
+                          value={negativeMarkingPercent}
+                          onChange={(e) => setNegativeMarkingPercent(e.target.value)}
+                          className="w-24"
+                        />
+                        <span className="text-sm text-muted-foreground">% of marks deducted per wrong answer</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Example: If set to 25%, wrong answers will deduct 0.25 marks (1/4th of correct answer marks)
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 

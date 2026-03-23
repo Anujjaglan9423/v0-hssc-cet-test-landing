@@ -27,6 +27,8 @@ interface ResultData {
     id: string
     title: string
     duration: number
+    has_negative_marking?: boolean
+    negative_marking_percent?: number
   }
   score: number
   total_marks: number
@@ -299,7 +301,13 @@ export default function ResultPage() {
                               : "bg-destructive/20 text-destructive"
                         }`}
                       >
-                        {isUnattempted ? "0" : isCorrect ? "+1" : "0"}
+                        {isUnattempted 
+                          ? "0" 
+                          : isCorrect 
+                            ? "+1" 
+                            : result.test.has_negative_marking 
+                              ? `-${(result.test.negative_marking_percent || 25) / 100}` 
+                              : "0"}
                       </span>
                       {isExpanded ? (
                         <ChevronUp className="w-5 h-5 text-muted-foreground" />

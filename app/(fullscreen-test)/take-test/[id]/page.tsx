@@ -61,6 +61,8 @@ interface Test {
   title: string
   duration: number
   questions: Question[]
+  has_negative_marking?: boolean
+  negative_marking_percent?: number
 }
 
 interface PausedState {
@@ -435,7 +437,9 @@ export default function FullscreenTestPage() {
             </div>
             <div className="bg-muted/50 rounded-lg p-4 text-center">
               <CheckCircle2 className="w-6 h-6 text-primary mx-auto mb-2" />
-              <p className="text-2xl font-bold text-foreground">+1 / 0</p>
+              <p className="text-2xl font-bold text-foreground">
+                +1 / {test.has_negative_marking ? `-${(test.negative_marking_percent || 25) / 100}` : "0"}
+              </p>
               <p className="text-sm text-muted-foreground">Marking</p>
             </div>
           </div>
@@ -448,8 +452,15 @@ export default function FullscreenTestPage() {
                 Each correct answer carries 1 mark
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                No negative marking for wrong answers
+                {test.has_negative_marking ? (
+                  <AlertCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                ) : (
+                  <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                )}
+                {test.has_negative_marking 
+                  ? <span className="text-destructive font-medium">Negative marking: {test.negative_marking_percent}% deducted for wrong answers</span>
+                  : "No negative marking for wrong answers"
+                }
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
@@ -746,7 +757,7 @@ export default function FullscreenTestPage() {
                     setCurrentQuestion((prev) => prev + 1)
                   }
                 }}
-                disabled={!answers[question.id] || currentQuestion === test.questions.length - 1}
+                disabled={currentQuestion === test.questions.length - 1}
                 className="w-full sm:w-auto gap-1.5"
               >
                 <span className="hidden lg:inline">Next</span>
