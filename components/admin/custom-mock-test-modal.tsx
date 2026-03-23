@@ -29,6 +29,8 @@ export function CustomMockTestModal({ isOpen, onClose }: Props) {
   )
   const [isLoading, setIsLoading] = useState(false)
   const [totalQuestions] = useState(100)
+  const [hasNegativeMarking, setHasNegativeMarking] = useState(false)
+  const [negativeMarkingPercent, setNegativeMarkingPercent] = useState(25)
 
   const totalPercent = Object.values(percentages).reduce((sum, p) => sum + p, 0)
 
@@ -48,7 +50,7 @@ export function CustomMockTestModal({ isOpen, onClose }: Props) {
 
     setIsLoading(true)
     try {
-      const result = await createCustomMockTest(title, percentages, totalQuestions)
+      const result = await createCustomMockTest(title, percentages, totalQuestions, 120, hasNegativeMarking, hasNegativeMarking ? negativeMarkingPercent : 0)
       if (result.success) {
         toast({
           title: "Success",
@@ -122,6 +124,44 @@ export function CustomMockTestModal({ isOpen, onClose }: Props) {
                 {totalPercent}%
               </span>
             </div>
+          </div>
+
+          {/* Negative Marking Section */}
+          <div className="p-4 border rounded-lg bg-muted/30">
+            <div className="flex items-center justify-between">
+              <div>
+                <label className="text-sm font-medium">Negative Marking</label>
+                <p className="text-xs text-muted-foreground">Deduct marks for wrong answers</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={hasNegativeMarking}
+                  onChange={(e) => setHasNegativeMarking(e.target.checked)}
+                  className="sr-only peer"
+                  disabled={isLoading}
+                />
+                <div className="w-11 h-6 bg-muted peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+            
+            {hasNegativeMarking && (
+              <div className="mt-3 p-3 bg-destructive/10 rounded-lg border border-destructive/20">
+                <label className="text-xs text-destructive font-medium">Deduction Percentage</label>
+                <div className="flex items-center gap-2 mt-2">
+                  <Input
+                    type="number"
+                    min="1"
+                    max="100"
+                    value={negativeMarkingPercent}
+                    onChange={(e) => setNegativeMarkingPercent(Number(e.target.value))}
+                    className="w-20 h-8"
+                    disabled={isLoading}
+                  />
+                  <span className="text-xs text-muted-foreground">% deducted per wrong answer</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

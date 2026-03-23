@@ -396,6 +396,8 @@ export async function getTestById(testId: string) {
       id,
       title,
       duration,
+      has_negative_marking,
+      negative_marking_percent,
       questions (
         id,
         question_text,
@@ -537,12 +539,14 @@ export async function submitTest(testId: string, answers: Record<string, string>
       console.log("[v0] Mock test - no authentication required")
     }
 
-    // Get test with questions
+    // Get test with questions and negative marking settings
     const { data: test } = await supabase
       .from("tests")
       .select(`
         id,
         duration,
+        has_negative_marking,
+        negative_marking_percent,
         questions (id, correct_answer)
       `)
       .eq("id", testId)
@@ -554,8 +558,10 @@ export async function submitTest(testId: string, answers: Record<string, string>
 
     const questions = test.questions || []
     const totalQuestions = questions.length
+    const hasNegativeMarking = test.has_negative_marking || false
+    const negativeMarkingPercent = test.negative_marking_percent || 0
 
-    // Calculate scores - 1 mark per correct, 0 for wrong (no negative marking)
+    // Calculate scores - 1 mark per correct, apply negative marking for wrong if enabled
     let correct = 0
     let incorrect = 0
 
@@ -571,7 +577,15 @@ export async function submitTest(testId: string, answers: Record<string, string>
     })
 
     const unattempted = totalQuestions - correct - incorrect
-    const score = correct // Score = number of correct answers
+    
+    // Calculate score with negative marking
+    let score = correct
+    if (hasNegativeMarking && negativeMarkingPercent > 0) {
+      const deductionPerWrong = negativeMarkingPercent / 100 // e.g., 25% = 0.25 marks deducted per wrong answer
+      score = Math.max(0, correct - (incorrect * deductionPerWrong))
+      score = Math.round(score * 100) / 100 // Round to 2 decimal places
+    }
+    
     const totalMarks = totalQuestions
     const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
 

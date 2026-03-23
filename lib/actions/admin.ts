@@ -196,6 +196,8 @@ export async function createTest(testData: {
   topic_id?: string
   duration: number
   difficulty: "easy" | "medium" | "hard"
+  has_negative_marking?: boolean
+  negative_marking_percent?: number
   questions: Array<{
     question_text: string
     option_a: string
@@ -227,6 +229,8 @@ export async function createTest(testData: {
       duration: testData.duration,
       difficulty: testData.difficulty,
       total_questions: testData.questions.length,
+      has_negative_marking: testData.has_negative_marking || false,
+      negative_marking_percent: testData.negative_marking_percent || 0,
       created_by: user.id,
     })
     .select()
@@ -511,6 +515,8 @@ export async function createCustomMockTest(
   percentages: Record<string, number>,
   totalQuestions = 100,
   duration = 120,
+  hasNegativeMarking = false,
+  negativeMarkingPercent = 0,
 ) {
   const supabase = await createClient()
   const user = await getCurrentUser()
@@ -606,6 +612,8 @@ export async function createCustomMockTest(
       duration,
       difficulty: "medium",
       total_questions: finalQuestions.length,
+      has_negative_marking: hasNegativeMarking,
+      negative_marking_percent: negativeMarkingPercent,
       created_by: user.id,
     })
     .select()
