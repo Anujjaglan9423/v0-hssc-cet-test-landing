@@ -4,7 +4,20 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { BookOpen, ArrowLeft, Calendar, Clock, ArrowRight } from "lucide-react"
 import Footer from "@/components/footer"
 
-const posts = [
+interface BlogPost {
+  id: string
+  slug: string
+  title: string
+  description: string
+  category: string
+  tags: string[]
+  featured_image_url: string | null
+  created_at: string
+  status: string
+}
+
+// Fallback posts for when database is empty
+const fallbackPosts = [
   {
     slug: "competitive-exams-2026-complete-syllabus-exam-pattern",
     title: "Competitive Exams 2026: Complete Syllabus and Exam Pattern",
@@ -34,37 +47,44 @@ const posts = [
     category: "Current Affairs",
     image: "/current-affairs-news.jpg",
   },
-  {
-    slug: "haryana-gk-districts-history-culture",
-    title: "Haryana GK: Districts, History & Culture",
-    excerpt: "Complete guide to Haryana General Knowledge covering districts, history, culture, and important facts.",
-    date: "Nov 28, 2025",
-    readTime: "12 min read",
-    category: "Haryana GK",
-    image: "/haryana-culture-heritage.jpg",
-  },
-  {
-    slug: "math-shortcuts-quick-calculation-tricks",
-    title: "Math Shortcuts: Quick Calculation Tricks for All Exams",
-    excerpt:
-      "Master these mathematical shortcuts to solve quantitative aptitude questions faster in any competitive exam.",
-    date: "Nov 20, 2025",
-    readTime: "7 min read",
-    category: "Mathematics",
-    image: "/mathematics-calculation.jpg",
-  },
-  {
-    slug: "english-grammar-rules-competitive-aspirant",
-    title: "English Grammar Rules Every Competitive Aspirant Must Know",
-    excerpt: "Essential English grammar rules and common errors to avoid in all competitive exam English sections.",
-    date: "Nov 15, 2025",
-    readTime: "9 min read",
-    category: "English",
-    image: "/english-grammar-learning.jpg",
-  },
 ]
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  let posts = fallbackPosts
+  let dbPosts: BlogPost[] = []
+
+  try {
+    // Fetch published blogs from API
+    const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL ? 'https://' + process.env.NEXT_PUBLIC_VERCEL_URL : 'http://localhost:3000'}/api/blogs`, {
+      next: { revalidate: 60 }, // Revalidate every 60 seconds
+    })
+
+    if (response.ok) {
+      dbPosts = await response.json()
+      console.log("[v0] Fetched blog posts from database:", dbPosts.length)
+
+      // Convert database posts to display format
+      if (dbPosts.length > 0) {
+        posts = dbPosts.map((post) => ({
+          slug: post.slug,
+          title: post.title,
+          excerpt: post.description.substring(0, 150) + "...",
+          date: new Date(post.created_at).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          }),
+          readTime: "5 min read", // Could be calculated based on content
+          category: post.category || "General",
+          image: post.featured_image_url || "/placeholder.svg",
+        }))
+      }
+    }
+  } catch (error) {
+    console.error("[v0] Failed to fetch blogs:", error)
+    // Use fallback posts
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -104,41 +124,47 @@ export default function BlogPage() {
       {/* Blog Posts */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post, index) => (
-              <Card
-                key={index}
-                className="border-border bg-card hover:shadow-lg transition-all hover:-translate-y-1 overflow-hidden"
-              >
-                <img src={post.image || "/placeholder.svg"} alt={post.title} className="w-full h-48 object-cover" />
-                <CardHeader className="pb-2">
-                  <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full w-fit">
-                    {post.category}
-                  </span>
-                </CardHeader>
-                <CardContent>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2">{post.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{post.excerpt}</p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      {post.date}
+          {posts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-lg">No blog posts available yet.</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {posts.map((post, index) => (
+                <Card
+                  key={index}
+                  className="border-border bg-card hover:shadow-lg transition-all hover:-translate-y-1 overflow-hidden"
+                >
+                  <img src={post.image || "/placeholder.svg"} alt={post.title} className="w-full h-48 object-cover" />
+                  <CardHeader className="pb-2">
+                    <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full w-fit">
+                      {post.category}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {post.readTime}
-                    </span>
-                  </div>
-                  <Link href={`/blog/${post.slug}`}>
-                    <Button variant="ghost" className="w-full mt-4 group">
-                      Read More
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  </CardHeader>
+                  <CardContent>
+                    <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2">{post.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{post.excerpt}</p>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {post.date}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {post.readTime}
+                      </span>
+                    </div>
+                    <Link href={`/blog/${post.slug}`}>
+                      <Button variant="ghost" className="w-full mt-4 group">
+                        Read More
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

@@ -4,7 +4,20 @@ import { BookOpen, ArrowLeft, Calendar, Clock, User } from "lucide-react"
 import Footer from "@/components/footer"
 import { notFound } from "next/navigation"
 
-const posts: Record<
+interface BlogPostDB {
+  id: string
+  title: string
+  description: string
+  meta_description: string
+  category: string
+  featured_image_url: string | null
+  created_at: string
+  status: string
+  meta_title?: string
+  tags?: string[]
+}
+
+const fallbackPosts: Record<
   string,
   {
     title: string
@@ -353,11 +366,53 @@ const posts: Record<
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const post = posts[slug]
 
-  if (!post) {
+  let post: BlogPostDB | null = null
+  let fallbackPost = fallbackPosts[slug]
+
+  // Try to fetch from database first
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_VERCEL_URL ? 'https://' + process.env.NEXT_PUBLIC_VERCEL_URL : 'http://localhost:3000'}/api/blogs?slug=${slug}`,
+      { next: { revalidate: 60 } }
+    )
+
+    if (response.ok) {
+      post = await response.json()
+      console.log("[v0] Fetched blog from database:", post.title)
+    }
+  } catch (error) {
+    console.error("[v0] Failed to fetch blog from database:", error)
+  }
+
+  // If not found in database, use fallback
+  if (!post && !fallbackPost) {
     notFound()
   }
+
+  const displayPost = post
+    ? {
+        title: post.title,
+        content: `<p>${post.description.replace(/\n/g, "</p><p>")}</p>`,
+        date: new Date(post.created_at).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        }),
+        readTime: "5 min read",
+        category: post.category || "General",
+        image: post.featured_image_url || "/placeholder.svg",
+        author: "CET TEST Team",
+      }
+    : {
+        title: fallbackPost!.title,
+        content: fallbackPost!.content,
+        date: fallbackPost!.date,
+        readTime: fallbackPost!.readTime,
+        category: fallbackPost!.category,
+        image: fallbackPost!.image,
+        author: fallbackPost!.author,
+      }
 
   return (
     <div className="min-h-screen bg-background">
@@ -387,38 +442,40 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <article className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Category Badge */}
-          <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">{post.category}</span>
+          <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
+            {displayPost.category}
+          </span>
 
           {/* Title */}
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-4">{post.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-4">{displayPost.title}</h1>
 
           {/* Meta Info */}
           <div className="flex flex-wrap items-center gap-4 text-muted-foreground mb-8">
             <span className="flex items-center gap-1">
               <User className="w-4 h-4" />
-              {post.author}
+              {displayPost.author}
             </span>
             <span className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
-              {post.date}
+              {displayPost.date}
             </span>
             <span className="flex items-center gap-1">
               <Clock className="w-4 h-4" />
-              {post.readTime}
+              {displayPost.readTime}
             </span>
           </div>
 
           {/* Featured Image */}
           <img
-            src={post.image || "/placeholder.svg"}
-            alt={post.title}
+            src={displayPost.image || "/placeholder.svg"}
+            alt={displayPost.title}
             className="w-full h-64 md:h-96 object-cover rounded-xl mb-8"
           />
 
           {/* Content */}
           <div
             className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-a:text-primary"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: displayPost.content }}
           />
 
           {/* CTA */}

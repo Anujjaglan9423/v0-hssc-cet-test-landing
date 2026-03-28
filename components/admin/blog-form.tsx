@@ -220,13 +220,37 @@ export function BlogForm({ onDataChange }: BlogFormProps) {
     setIsSubmitting(true)
 
     try {
-      // Simulate API call
-      console.log("Blog post submitted:", {
-        ...formData,
-        featuredImage: formData.featuredImage?.name,
+      const formDataToSend = new FormData()
+      formDataToSend.append("title", formData.title)
+      formDataToSend.append("slug", formData.slug)
+      formDataToSend.append("description", formData.description)
+      formDataToSend.append("category", formData.category)
+      formDataToSend.append("tags", formData.tags.join(","))
+      formDataToSend.append("focusKeyword", formData.focusKeyword)
+      formDataToSend.append("metaTitle", formData.metaTitle)
+      formDataToSend.append("metaDescription", formData.metaDescription)
+      formDataToSend.append("status", formData.status)
+
+      if (formData.featuredImage) {
+        formDataToSend.append("featuredImage", formData.featuredImage)
+      }
+
+      console.log("[v0] Submitting blog post:", formData.title)
+
+      const response = await fetch("/api/blogs", {
+        method: "POST",
+        body: formDataToSend,
       })
 
-      // Show success message (replace with actual API call)
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to create blog post")
+      }
+
+      const result = await response.json()
+      console.log("[v0] Blog post created successfully:", result)
+
+      // Show success message
       alert(`Blog post "${formData.title}" created as ${formData.status}!`)
 
       // Reset form
@@ -244,6 +268,9 @@ export function BlogForm({ onDataChange }: BlogFormProps) {
         featuredImagePreview: null,
       })
       setTagInput("")
+    } catch (error) {
+      console.error("[v0] Error creating blog post:", error)
+      alert(`Error: ${error instanceof Error ? error.message : "Failed to create blog post"}`)
     } finally {
       setIsSubmitting(false)
     }
