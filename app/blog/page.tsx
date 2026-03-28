@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useState, useMemo } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { BookOpen, ArrowLeft, Calendar, Clock, ArrowRight, Search, Zap, TrendingUp } from "lucide-react"
-import Footer from "@/components/footer"
+import { useState, useMemo } from 'react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { BookOpen, ArrowLeft, Calendar, Clock, ArrowRight, Search, Zap, TrendingUp } from 'lucide-react'
+import Footer from '@/components/footer'
 
 interface BlogPost {
   slug: string
