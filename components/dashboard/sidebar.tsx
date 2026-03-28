@@ -40,6 +40,7 @@ const adminLinks = [
   { href: "/admin/tests", icon: FileText, label: "Tests" },
   { href: "/admin/manage", icon: FolderTree, label: "Manage" },
   { href: "/admin/study-materials", icon: Library, label: "Study Materials" },
+  { href: "/admin/create-blog", icon: BookOpen, label: "Create Blog" },
   { href: "/admin/payments", icon: BarChart3, label: "Payments" },
   { href: "/admin/results", icon: Trophy, label: "Results" },
   { href: "/admin/analytics", icon: BarChart3, label: "Analytics" },
