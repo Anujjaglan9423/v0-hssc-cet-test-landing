@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { BookOpen, ArrowLeft, Calendar, Clock, User } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { BookOpen, ArrowLeft, Calendar, Clock, User, Share2, MessageCircle, Heart } from "lucide-react"
 import Footer from "@/components/footer"
 import { notFound } from "next/navigation"
 
@@ -36,356 +37,57 @@ const fallbackPosts: Record<
     category: "Exam Guide",
     image: "/exam-syllabus-study-guide.jpg",
     author: "CET TEST Team",
-    content: `
-      <h2>Competitive Exam Patterns 2026</h2>
-      <p>Competitive exams have different structures depending on the exam type. Understanding the pattern is crucial for effective preparation. Whether you're preparing for HSSC CET, SSC, Railway, or Uttarakhand exams, each has its unique format.</p>
-      
-      <h3>Common Exam Structures</h3>
-      <ul>
-        <li><strong>Total Questions:</strong> Varies by exam (80-100 typically)</li>
-        <li><strong>Total Marks:</strong> Same as questions in most exams</li>
-        <li><strong>Duration:</strong> 60-120 minutes depending on exam</li>
-        <li><strong>Negative Marking:</strong> 0.25-0.5 marks for each wrong answer</li>
-        <li><strong>Mode:</strong> Computer Based Test (CBT)</li>
-      </ul>
-      
-      <h3>Subject-wise Distribution (General Pattern)</h3>
-      <ul>
-        <li><strong>General Awareness:</strong> 20-30%</li>
-        <li><strong>Reasoning:</strong> 20-25%</li>
-        <li><strong>Mathematics:</strong> 20-25%</li>
-        <li><strong>English/Language:</strong> 15-20%</li>
-        <li><strong>Specialized Topics:</strong> 10-15% (varies by exam)</li>
-      </ul>
-      
-      <h2>Detailed Syllabus Coverage</h2>
-      
-      <h3>General Awareness</h3>
-      <p>Current affairs, Indian History, Geography, Indian Polity, Economics, Science & Technology, Sports, Awards & Honours - applicable across most competitive exams.</p>
-      
-      <h3>Mathematics</h3>
-      <p>Number System, Percentage, Ratio & Proportion, Average, Time & Work, Time & Distance, Profit & Loss, Simple & Compound Interest, Data Interpretation - fundamental topics common to all exams.</p>
-      
-      <h3>Reasoning</h3>
-      <p>Analogy, Classification, Series, Coding-Decoding, Blood Relations, Direction Sense, Syllogism, Statement & Conclusions, Puzzles - essential for logical thinking across all exams.</p>
-      
-      <h3>Language Skills</h3>
-      <p>Grammar (Tenses, Voice, Narration), Vocabulary, Synonyms & Antonyms, Comprehension - applicable in English, Hindi, and other language sections.</p>
-      
-      <h2>Preparation Tips</h2>
-      <ol>
-        <li>Start with understanding the complete syllabus for your chosen exam</li>
-        <li>Create a study schedule covering all subjects proportionally</li>
-        <li>Practice previous year question papers</li>
-        <li>Take mock tests regularly to simulate exam conditions</li>
-        <li>Focus on specialized topics specific to your exam</li>
-        <li>Stay updated with current affairs across domains</li>
-      </ol>
-    `,
+    content: `<h2>Competitive Exam Patterns 2026</h2><p>Competitive exams have different structures depending on the exam type. Understanding the pattern is crucial for effective preparation.</p>`,
   },
-  "top-10-tips-crack-competitive-exam-first-attempt": {
-    title: "Top 10 Tips to Crack Competitive Exams in First Attempt",
-    date: "Dec 10, 2025",
-    readTime: "6 min read",
-    category: "Tips & Tricks",
-    image: "/success-tips-study-motivation.jpg",
-    author: "CET TEST Team",
-    content: `
-      <h2>Proven Strategies from Competitive Exam Toppers</h2>
-      <p>Clearing competitive exams in the first attempt requires smart preparation and dedication. Here are the top 10 tips from successful candidates across various competitive exams.</p>
-      
-      <h3>1. Understand Your Exam Pattern</h3>
-      <p>Before starting preparation, thoroughly understand the exam pattern, marking scheme, and syllabus specific to your chosen exam (HSSC CET, SSC, Railway, etc). This helps in creating an effective study plan.</p>
-      
-      <h3>2. Create a Realistic Study Schedule</h3>
-      <p>Divide your time wisely among all subjects. Allocate more time to weaker areas while maintaining regular revision of strong subjects.</p>
-      
-      <h3>3. Focus on Core Concepts</h3>
-      <p>Don't just memorize; understand the underlying concepts. This helps in solving new variations of questions in the exam.</p>
-      
-      <h3>4. Practice Problem Solving Daily</h3>
-      <p>Mathematics and Reasoning require consistent practice. Solve at least 50 questions daily and learn shortcut tricks for faster calculations.</p>
-      
-      <h3>5. Master Logical Thinking</h3>
-      <p>Reasoning is more about understanding patterns than memorization. Practice different types of questions to build logical thinking.</p>
-      
-      <h3>6. Stay Updated with Current Affairs</h3>
-      <p>Read newspapers daily and make notes of important events. Focus on last 6 months' current affairs before the exam.</p>
-      
-      <h3>7. Take Regular Mock Tests</h3>
-      <p>Mock tests help in understanding the real exam environment and identifying weak areas. Take at least 2-3 full-length tests weekly.</p>
-      
-      <h3>8. Analyze Your Performance</h3>
-      <p>After each mock test, analyze your performance. Identify patterns in mistakes and work on improving them systematically.</p>
-      
-      <h3>9. Revise Regularly</h3>
-      <p>Regular revision is key to retention. Create short notes for quick revision before the exam.</p>
-      
-      <h3>10. Stay Healthy and Positive</h3>
-      <p>Take care of your physical and mental health. Adequate sleep, exercise, and a positive mindset are crucial for effective preparation.</p>
-    `,
-  },
-  "current-affairs-competitive-exams-2026": {
-    title: "Important Current Affairs for Competitive Exams 2026",
-    date: "Dec 5, 2025",
-    readTime: "10 min read",
-    category: "Current Affairs",
-    image: "/current-affairs-news-newspaper.jpg",
-    author: "CET TEST Team",
-    content: `
-      <h2>Must-Know Current Affairs for All Competitive Exams</h2>
-      <p>Current affairs form a significant portion of the General Awareness section in most competitive exams. Here are the most important topics to cover.</p>
-      
-      <h3>National News</h3>
-      <ul>
-        <li>Important government schemes and policies</li>
-        <li>Constitutional amendments and legal changes</li>
-        <li>Economic developments and budget highlights</li>
-        <li>Defense and security updates</li>
-        <li>Railway and Infrastructure projects</li>
-      </ul>
-      
-      <h3>State-Specific News (Haryana, Uttarakhand, etc.)</h3>
-      <ul>
-        <li>New government schemes in your state</li>
-        <li>Infrastructure projects and development</li>
-        <li>Awards and achievements</li>
-        <li>Important appointments</li>
-        <li>State-specific policies</li>
-      </ul>
-      
-      <h3>International Affairs</h3>
-      <ul>
-        <li>India's foreign relations</li>
-        <li>International summits and conferences</li>
-        <li>Global economic developments</li>
-        <li>UN and international organizations</li>
-      </ul>
-      
-      <h3>Sports</h3>
-      <ul>
-        <li>Major tournaments and winners</li>
-        <li>Olympic and Commonwealth Games updates</li>
-        <li>Sports personalities and achievements</li>
-        <li>Major sports events and records</li>
-      </ul>
-      
-      <h3>Awards & Honours</h3>
-      <ul>
-        <li>Padma Awards</li>
-        <li>National Film Awards</li>
-        <li>Literary Awards</li>
-        <li>Sports Awards</li>
-        <li>Nobel Prizes</li>
-      </ul>
-      
-      <h3>Science & Technology</h3>
-      <ul>
-        <li>ISRO missions and space exploration</li>
-        <li>Defense technology developments</li>
-        <li>Medical and biotechnology breakthroughs</li>
-        <li>New inventions and discoveries</li>
-      </ul>
-    `,
-  },
-  "haryana-gk-districts-history-culture": {
-    title: "Haryana GK: Districts, History & Culture",
-    date: "Nov 28, 2025",
-    readTime: "12 min read",
-    category: "State GK",
-    image: "/haryana-culture-heritage.jpg",
-    author: "CET TEST Team",
-    content: `
-      <h2>Complete Guide to Haryana General Knowledge</h2>
-      <p>Haryana GK is a scoring section in competitive exams. This comprehensive guide covers all important topics applicable across different states.</p>
-      
-      <h3>General Knowledge Base</h3>
-      <ul>
-        <li><strong>Formation Year:</strong> Check specific to your state</li>
-        <li><strong>Capital:</strong> Know the state capital</li>
-        <li><strong>Total Districts:</strong> Important for geography</li>
-        <li><strong>Official Language:</strong> State language details</li>
-        <li><strong>State Symbols:</strong> Animal, Bird, Flower, Tree</li>
-      </ul>
-      
-      <h3>Districts and Geography</h3>
-      <p>Know all districts of your state, their boundaries, and important cities. Understand geographical features like rivers, lakes, and mountains.</p>
-      
-      <h3>Historical Background</h3>
-      <p>Study the history of your state including ancient kingdoms, freedom struggle, and significant historical events relevant to the state.</p>
-      
-      <h3>Culture & Festivals</h3>
-      <ul>
-        <li><strong>Folk Dances:</strong> Traditional dances of the state</li>
-        <li><strong>Folk Music:</strong> Traditional music forms</li>
-        <li><strong>Festivals:</strong> Major festivals celebrated</li>
-        <li><strong>Handicrafts:</strong> Traditional crafts and art forms</li>
-      </ul>
-      
-      <h3>Famous Personalities</h3>
-      <p>Study notable people from your state including freedom fighters, sports legends, scholars, and current achievers.</p>
-      
-      <h3>Government Schemes</h3>
-      <p>Be aware of major government schemes operational in your state, including welfare schemes, development initiatives, and recent policies.</p>
-      
-      <h3>Development and Infrastructure</h3>
-      <ul>
-        <li>Major industries and economic activities</li>
-        <li>Important projects and initiatives</li>
-        <li>Education and healthcare infrastructure</li>
-        <li>Transportation and connectivity</li>
-      </ul>
-    `,
-  },
-  "math-shortcuts-quick-calculation-tricks": {
-    title: "Math Shortcuts: Quick Calculation Tricks for All Exams",
-    date: "Nov 20, 2025",
-    readTime: "7 min read",
-    category: "Mathematics",
-    image: "/mathematics-calculation-formulas.jpg",
-    author: "CET TEST Team",
-    content: `
-      <h2>Speed Up Your Math Calculations</h2>
-      <p>Time management is crucial in competitive exams. These shortcuts will help you solve math questions faster across all exam types.</p>
-      
-      <h3>Percentage Shortcuts</h3>
-      <ul>
-        <li>To find 10% of any number, just move the decimal one place left</li>
-        <li>5% = Half of 10%</li>
-        <li>15% = 10% + 5%</li>
-        <li>20% = 10% × 2</li>
-        <li>25% = One-fourth of the number</li>
-      </ul>
-      
-      <h3>Multiplication Tricks</h3>
-      <ul>
-        <li>Multiply by 11: Add adjacent digits (e.g., 23 × 11 = 253)</li>
-        <li>Multiply by 5: Divide by 2 and multiply by 10</li>
-        <li>Multiply by 25: Divide by 4 and multiply by 100</li>
-        <li>Multiply by 99: Multiply by 100 and subtract the number</li>
-      </ul>
-      
-      <h3>Division Tricks</h3>
-      <ul>
-        <li>Divide by 5: Multiply by 2 and divide by 10</li>
-        <li>Divide by 25: Multiply by 4 and divide by 100</li>
-      </ul>
-      
-      <h3>Square Shortcuts</h3>
-      <p>For numbers ending in 5: (First digit × Next digit) and append 25</p>
-      <p>Example: 25² = 2 × 3 = 6, append 25 = 625</p>
-      
-      <h3>Important Formulas</h3>
-      <ul>
-        <li><strong>Time and Work:</strong> If A does work in x days and B in y days, together they finish in xy/(x+y) days</li>
-        <li><strong>Ratio and Proportion:</strong> If a:b = c:d, then ad = bc</li>
-        <li><strong>Average:</strong> Sum of all numbers / Count of numbers</li>
-      </ul>
-      
-      <h3>Practice Tips</h3>
-      <ol>
-        <li>Memorize tables up to 20</li>
-        <li>Learn squares up to 30 and cubes up to 12</li>
-        <li>Practice mental calculations daily</li>
-        <li>Use approximation for complex calculations</li>
-        <li>Learn estimation techniques for data interpretation</li>
-      </ol>
-    `,
-  },
-  "english-grammar-rules-competitive-aspirant": {
-    title: "English Grammar Rules Every Competitive Aspirant Must Know",
-    date: "Nov 15, 2025",
-    readTime: "9 min read",
-    category: "English",
-    image: "/english-grammar-book-learning.jpg",
-    author: "CET TEST Team",
-    content: `
-      <h2>Essential English Grammar for Competitive Exams</h2>
-      <p>English section can be scoring if you master these fundamental grammar rules applicable across all competitive exams.</p>
-      
-      <h3>Tenses</h3>
-      <p>Understanding the correct use of tenses is crucial:</p>
-      <ul>
-        <li><strong>Simple Present:</strong> Habitual actions, universal truths, facts</li>
-        <li><strong>Present Continuous:</strong> Actions happening now, temporary situations</li>
-        <li><strong>Present Perfect:</strong> Past actions with present relevance or recent completion</li>
-        <li><strong>Simple Past:</strong> Completed actions in the past</li>
-        <li><strong>Past Continuous:</strong> Ongoing actions in the past</li>
-      </ul>
-      
-      <h3>Subject-Verb Agreement</h3>
-      <ul>
-        <li>Singular subjects take singular verbs</li>
-        <li>Plural subjects take plural verbs</li>
-        <li>Words like 'everyone', 'anybody', 'someone' are singular</li>
-        <li>Collective nouns can be singular or plural based on context</li>
-        <li>None can be singular or plural</li>
-      </ul>
-      
-      <h3>Active and Passive Voice</h3>
-      <p><strong>Active:</strong> Subject + Verb + Object</p>
-      <p><strong>Passive:</strong> Object + Be verb + Past participle + by + Subject</p>
-      <p>Passive voice changes tense of 'be' verb and uses past participle of main verb.</p>
-      
-      <h3>Direct and Indirect Speech</h3>
-      <ul>
-        <li>Change of pronouns based on speaker and listener</li>
-        <li>Change of tense (backshift rule)</li>
-        <li>Change of time and place expressions (this → that, here → there)</li>
-        <li>Change of question marks to full stops in indirect speech</li>
-      </ul>
-      
-      <h3>Common Errors to Avoid</h3>
-      <ul>
-        <li>Using 'the' before proper nouns unnecessarily</li>
-        <li>Confusing 'since' (specific point) and 'for' (duration) with time expressions</li>
-        <li>Wrong preposition usage</li>
-        <li>Double negatives</li>
-        <li>Misplaced modifiers</li>
-      </ul>
-      
-      <h3>Important One Word Substitutions</h3>
-      <ul>
-        <li>Autobiography - Story of one's own life</li>
-        <li>Omnipresent - Present everywhere</li>
-        <li>Posthumous - After death</li>
-        <li>Unanimous - In complete agreement</li>
-        <li>Altruist - One who thinks of others' welfare</li>
-      </ul>
-      
-      <h3>Vocabulary Building</h3>
-      <ul>
-        <li>Learn synonyms and antonyms daily</li>
-        <li>Understand word roots and prefixes/suffixes</li>
-        <li>Practice using new words in sentences</li>
-        <li>Read comprehension passages to improve contextual understanding</li>
-      </ul>
-    `,
-  },
+}
+
+async function getBlogPost(slug: string) {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      : "http://localhost:3000"
+
+    const response = await fetch(`${baseUrl}/api/blogs?slug=${slug}`, {
+      next: { revalidate: 60 },
+    })
+
+    if (response.ok) {
+      return await response.json()
+    }
+  } catch (error) {
+    console.error("[v0] Failed to fetch blog:", error)
+  }
+
+  return null
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await getBlogPost(slug)
+
+  if (!post) {
+    return {
+      title: "Blog Post",
+      description: "Read our latest blog post",
+    }
+  }
+
+  return {
+    title: post.meta_title || post.title,
+    description: post.meta_description || post.description.substring(0, 160),
+    openGraph: {
+      title: post.title,
+      description: post.meta_description,
+      images: post.featured_image_url ? [{ url: post.featured_image_url }] : [],
+    },
+  }
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
+  const post = await getBlogPost(slug)
+  const fallbackPost = fallbackPosts[slug as keyof typeof fallbackPosts]
 
-  let post: BlogPostDB | null = null
-  let fallbackPost = fallbackPosts[slug]
-
-  // Try to fetch from database first
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL ? 'https://' + process.env.NEXT_PUBLIC_VERCEL_URL : 'http://localhost:3000'}/api/blogs?slug=${slug}`,
-      { next: { revalidate: 60 } }
-    )
-
-    if (response.ok) {
-      post = await response.json()
-      console.log("[v0] Fetched blog from database:", post.title)
-    }
-  } catch (error) {
-    console.error("[v0] Failed to fetch blog from database:", error)
-  }
-
-  // If not found in database, use fallback
   if (!post && !fallbackPost) {
     notFound()
   }
@@ -393,10 +95,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const displayPost = post
     ? {
         title: post.title,
-        content: `<p>${post.description.replace(/\n/g, "</p><p>")}</p>`,
+        content: post.description,
         date: new Date(post.created_at).toLocaleDateString("en-US", {
           year: "numeric",
-          month: "short",
+          month: "long",
           day: "numeric",
         }),
         readTime: "5 min read",
@@ -416,80 +118,173 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold text-foreground">
-                CET <span className="text-primary">TEST</span>
-              </span>
-            </Link>
-            <Link href="/blog">
-              <Button variant="ghost" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Blog
-              </Button>
-            </Link>
-          </div>
+      {/* Sticky Header */}
+      <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 hover:opacity-70 transition-opacity">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+              <BookOpen className="w-4 h-4 text-primary-foreground" />
+            </div>
+            <span className="font-bold text-foreground hidden sm:block">CET TEST</span>
+          </Link>
+          <Link href="/blog">
+            <Button variant="ghost" size="sm">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Blog
+            </Button>
+          </Link>
         </div>
       </header>
 
-      {/* Blog Post Content */}
-      <article className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Category Badge */}
-          <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
-            {displayPost.category}
-          </span>
+      {/* Hero Section with Featured Image */}
+      <div className="relative h-96 sm:h-[500px] overflow-hidden bg-muted">
+        <img
+          src={displayPost.image || "/placeholder.svg"}
+          alt={displayPost.title}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+      </div>
 
-          {/* Title */}
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mt-4 mb-4">{displayPost.title}</h1>
-
-          {/* Meta Info */}
-          <div className="flex flex-wrap items-center gap-4 text-muted-foreground mb-8">
-            <span className="flex items-center gap-1">
-              <User className="w-4 h-4" />
-              {displayPost.author}
-            </span>
-            <span className="flex items-center gap-1">
+      {/* Main Content */}
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Article Header */}
+        <div className="mb-12">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
+            <span className="text-sm font-bold text-primary uppercase tracking-wider">{displayPost.category}</span>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Calendar className="w-4 h-4" />
               {displayPost.date}
-            </span>
-            <span className="flex items-center gap-1">
+            </div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Clock className="w-4 h-4" />
               {displayPost.readTime}
-            </span>
+            </div>
           </div>
 
-          {/* Featured Image */}
-          <img
-            src={displayPost.image || "/placeholder.svg"}
-            alt={displayPost.title}
-            className="w-full h-64 md:h-96 object-cover rounded-xl mb-8"
-          />
+          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 leading-tight">
+            {displayPost.title}
+          </h1>
 
-          {/* Content */}
-          <div
-            className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-a:text-primary"
-            dangerouslySetInnerHTML={{ __html: displayPost.content }}
-          />
-
-          {/* CTA */}
-          <div className="mt-12 p-6 bg-primary/5 rounded-xl border border-primary/20">
-            <h3 className="text-xl font-semibold text-foreground mb-2">Ready to Start Practicing?</h3>
-            <p className="text-muted-foreground mb-4">
-              Join thousands of students preparing for competitive exams with our comprehensive test series.
-            </p>
-            <Link href="/register">
-              <Button>Start Free Trial</Button>
-            </Link>
+          {/* Author Info */}
+          <div className="flex items-center gap-4 pt-6 border-t border-border">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent" />
+            <div>
+              <p className="font-semibold text-foreground">{displayPost.author}</p>
+              <p className="text-sm text-muted-foreground">Expert Educator</p>
+            </div>
           </div>
         </div>
+
+        {/* Share & Action Buttons */}
+        <div className="flex flex-wrap gap-3 mb-12 pb-12 border-b border-border">
+          <Button variant="outline" size="sm" className="gap-2">
+            <Heart className="w-4 h-4" />
+            <span className="hidden sm:inline">Like</span>
+          </Button>
+          <Button variant="outline" size="sm" className="gap-2">
+            <Share2 className="w-4 h-4" />
+            <span className="hidden sm:inline">Share</span>
+          </Button>
+          <Button variant="outline" size="sm" className="gap-2">
+            <MessageCircle className="w-4 h-4" />
+            <span className="hidden sm:inline">Comment</span>
+          </Button>
+        </div>
+
+        {/* Article Content */}
+        <div className="prose prose-lg max-w-none mb-16">
+          <div
+            className="text-foreground leading-relaxed"
+            dangerouslySetInnerHTML={{
+              __html: displayPost.content
+                .split("\n")
+                .map((p: string) => (p.trim() ? `<p>${p}</p>` : ""))
+                .join(""),
+            }}
+          />
+        </div>
+
+        {/* Call to Action */}
+        <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl p-8 mb-12 border border-primary/20">
+          <h3 className="text-2xl font-bold text-foreground mb-3">Ready to Excel in Your Exams?</h3>
+          <p className="text-muted-foreground mb-6">
+            Get access to comprehensive study materials, mock tests, and expert guidance to crack your competitive exams.
+          </p>
+          <Link href="/register">
+            <Button size="lg" className="gap-2">
+              Start Free Trial
+              <ArrowLeft className="w-4 h-4 rotate-180" />
+            </Button>
+          </Link>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-border my-12" />
+
+        {/* Author Bio Card */}
+        <Card className="bg-card border-border">
+          <CardContent className="p-8">
+            <h3 className="text-lg font-bold text-foreground mb-4">About the Author</h3>
+            <div className="flex gap-4">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex-shrink-0" />
+              <div>
+                <p className="font-semibold text-foreground text-lg">{displayPost.author}</p>
+                <p className="text-sm text-muted-foreground mb-3">Expert Educator & CET TEST Contributor</p>
+                <p className="text-foreground mb-4">
+                  Passionate about helping students prepare effectively for competitive exams with proven strategies and detailed content.
+                </p>
+                <Link href="#follow">
+                  <Button variant="outline" size="sm">
+                    Follow Author
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </article>
+
+      {/* Related Posts Section */}
+      <section className="bg-card/50 py-16 border-t border-b border-border">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-foreground mb-8">Related Articles</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {["Tips & Tricks", "Current Affairs", "Exam Guide"].map((category, i) => (
+              <Card key={i} className="overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all hover:-translate-y-1">
+                <div className="h-40 bg-muted" />
+                <CardContent className="p-6">
+                  <span className="text-xs font-bold text-primary uppercase">{category}</span>
+                  <h3 className="font-bold text-foreground mt-2 line-clamp-2 hover:text-primary transition-colors">
+                    Strategies for {category}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+                    Master the essential concepts and techniques needed to excel.
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter CTA */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary/5 to-accent/5">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-foreground mb-3">Get Weekly Study Tips</h2>
+          <p className="text-muted-foreground mb-8">
+            Subscribe to our newsletter for exam strategies, current affairs updates, and insider tips delivered weekly.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 px-4 py-3 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <Button className="whitespace-nowrap">Subscribe</Button>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>
