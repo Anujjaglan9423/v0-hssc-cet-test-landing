@@ -50,6 +50,94 @@
   --secondary: oklch(0.22 0.02 250);
   --secondary-foreground: oklch(0.95 0.01 250);
   --muted: oklch(0.22 0.02 250);
+  --muted-foreground: oklch(0.6 0.02 250);
+  --accent: oklch(0.75 0.2 160);
+  --accent-foreground: oklch(0.12 0 0);
+  --destructive: oklch(0.717 0.245 27.325);
+  --destructive-foreground: oklch(0.95 0.01 250);
+  --border: oklch(0.25 0.02 250);
+  --input: oklch(0.25 0.02 250);
+  --ring: oklch(0.3 0 0);
+  --sidebar: oklch(0.12 0.02 250);
+  --sidebar-foreground: oklch(0.95 0.01 250);
+  --sidebar-primary: oklch(0.65 0.25 260);
+  --sidebar-primary-foreground: oklch(0.12 0 0);
+  --sidebar-accent: oklch(0.22 0.02 250);
+  --sidebar-accent-foreground: oklch(0.95 0.01 250);
+  --sidebar-border: oklch(0.25 0.02 250);
+  --sidebar-ring: oklch(0.3 0 0);
+}
+
+/* Rich text editor styles */
+.ProseMirror {
+  @apply text-foreground;
+}
+
+.ProseMirror > * + * {
+  @apply mt-4;
+}
+
+.ProseMirror h1 {
+  @apply text-2xl font-bold mb-2 mt-6;
+}
+
+.ProseMirror h2 {
+  @apply text-xl font-bold mb-2 mt-5;
+}
+
+.ProseMirror h3 {
+  @apply text-lg font-bold mb-2 mt-4;
+}
+
+.ProseMirror p {
+  @apply mb-3;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  @apply ml-6 mb-3;
+}
+
+.ProseMirror li {
+  @apply mb-1;
+}
+
+.ProseMirror blockquote {
+  @apply border-l-4 border-primary pl-4 italic text-muted-foreground my-4;
+}
+
+.ProseMirror code {
+  @apply bg-muted text-foreground px-1.5 py-0.5 rounded font-mono text-sm;
+}
+
+.ProseMirror pre {
+  @apply bg-muted p-4 rounded-lg overflow-x-auto my-4;
+}
+
+.ProseMirror pre code {
+  @apply bg-transparent p-0;
+}
+
+.ProseMirror a {
+  @apply text-primary hover:underline;
+}
+
+.ProseMirror img {
+  @apply max-w-full h-auto rounded-lg my-4;
+}
+
+.dark {
+  --background: oklch(0.12 0.02 250);
+  --foreground: oklch(0.95 0.01 250);
+  --card: oklch(0.16 0.02 250);
+  --card-foreground: oklch(0.95 0.01 250);
+  --popover: oklch(0.16 0.02 250);
+  --popover-foreground: oklch(0.95 0.01 250);
+  --primary: oklch(0.65 0.25 260);
+  --primary-foreground: oklch(0.12 0 0);
+  --secondary: oklch(0.22 0.02 250);
+  --secondary-foreground: oklch(0.95 0.01 250);
+  --muted: oklch(0.22 0.02 250);
   --muted-foreground: oklch(0.65 0.02 250);
   --accent: oklch(0.65 0.2 160);
   --accent-foreground: oklch(0.12 0 0);

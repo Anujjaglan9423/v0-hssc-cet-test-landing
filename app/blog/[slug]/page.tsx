@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { RichTextDisplay } from "@/components/admin/rich-text-display"
 import { BookOpen, ArrowLeft, Calendar, Clock, User } from "lucide-react"
 import Footer from "@/components/footer"
 import { notFound } from "next/navigation"
@@ -473,10 +474,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           />
 
           {/* Content */}
-          <div
-            className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-a:text-primary"
-            dangerouslySetInnerHTML={{ __html: displayPost.content }}
-          />
+          <RichTextDisplay content={displayPost.content} />
 
           {/* CTA */}
           <div className="mt-12 p-6 bg-primary/5 rounded-xl border border-primary/20">

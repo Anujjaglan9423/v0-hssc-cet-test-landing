@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import {
   Select,
   SelectContent,
@@ -13,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { RichTextEditor } from "./rich-text-editor"
 import { AlertCircle, Upload, X } from "lucide-react"
 
 interface FormData {
@@ -521,13 +521,10 @@ export function BlogForm({ onDataChange }: BlogFormProps) {
         <CardContent className="space-y-4">
           <div>
             <Label htmlFor="description">Description / Content *</Label>
-            <Textarea
-              id="description"
-              placeholder="Write your blog post content here. Support for rich formatting coming soon."
+            <RichTextEditor
               value={formData.description}
               onChange={handleDescriptionChange}
-              rows={10}
-              className={`resize-none font-mono text-sm ${errors.description ? "border-destructive" : ""}`}
+              placeholder="Start typing your blog post content. Use the toolbar to format text, add headings, lists, links, and images."
             />
             {errors.description && (
               <div className="flex items-center gap-2 text-destructive text-sm mt-2">
@@ -536,8 +533,7 @@ export function BlogForm({ onDataChange }: BlogFormProps) {
               </div>
             )}
             <p className="text-muted-foreground text-sm mt-2">
-              Write clear, engaging content that provides value to your readers. Include your focus
-              keyword naturally throughout the content
+              Write clear, engaging content with rich formatting. Use the toolbar to add headings, lists, links, and images. Include your focus keyword naturally throughout the content
             </p>
           </div>
         </CardContent>
