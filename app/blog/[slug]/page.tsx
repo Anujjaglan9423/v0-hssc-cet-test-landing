@@ -124,10 +124,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               )}
 
               {/* Article Content */}
-              <div className="blog-article max-w-none space-y-6">
-                <div className="text-lg leading-8 text-muted-foreground [&_h2]:text-3xl [&_h2]:font-serif [&_h2]:font-bold [&_h2]:text-foreground [&_h2]:mt-12 [&_h2]:mb-6 [&_h3]:text-2xl [&_h3]:font-serif [&_h3]:font-bold [&_h3]:text-foreground [&_h3]:mt-10 [&_h3]:mb-4 [&_p]:leading-8 [&_p]:text-muted-foreground [&_strong]:text-foreground [&_strong]:font-semibold [&_em]:text-muted-foreground [&_a]:text-primary [&_a]:underline [&_a:hover]:opacity-80 [&_code]:bg-muted [&_code]:px-2 [&_code]:py-1 [&_code]:rounded [&_code]:text-foreground [&_code]:text-sm [&_code]:font-mono [&_ul]:my-6 [&_ul]:ml-6 [&_ol]:my-6 [&_ol]:ml-6 [&_li]:mb-3 [&_li]:text-muted-foreground [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:bg-primary/5 [&_blockquote]:px-6 [&_blockquote]:py-4 [&_blockquote]:italic [&_blockquote]:text-lg [&_blockquote]:my-8">
-                  <div dangerouslySetInnerHTML={{ __html: post.description }} />
-                </div>
+              <div className="max-w-none text-lg leading-relaxed text-muted-foreground">
+                <div dangerouslySetInnerHTML={{ __html: post.description }} />
               </div>
 
               {/* SEO Meta - Subtle */}
