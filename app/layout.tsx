@@ -1,12 +1,11 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Geist_Mono, Playfair_Display } from "next/font/google"
+import { Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
 import "./globals.css"
 
 const _geistMono = Geist_Mono({ subsets: ["latin"], display: "swap" })
-const _playfairDisplay = Playfair_Display({ subsets: ["latin"], display: "swap", variable: "--font-serif" })
 
 export const metadata: Metadata = {
   title: "CET TEST - SSC, Railway, UKSSSC, HSSC Mock Tests | Free Online Practice 2026",

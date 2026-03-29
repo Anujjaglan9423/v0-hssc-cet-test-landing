@@ -52,7 +52,7 @@ export default async function BlogPage() {
       {/* Hero */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/10 via-transparent to-background">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-6 leading-tight">
+          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
             CET <span className="text-primary">TEST Blog</span>
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
@@ -89,7 +89,7 @@ export default async function BlogPage() {
                           <span className="inline-block w-2 h-2 rounded-full bg-primary" />
                           <span className="text-sm font-medium text-primary uppercase tracking-wider">Featured</span>
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4 leading-tight text-balance group-hover:text-primary transition-colors">
+                        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight text-balance group-hover:text-primary transition-colors">
                           {posts[0].title}
                         </h2>
                         <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -144,7 +144,7 @@ export default async function BlogPage() {
                             </span>
                           </CardHeader>
                           <CardContent className="flex-1 flex flex-col">
-                            <h3 className="text-xl font-serif font-semibold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                            <h3 className="text-xl font-semibold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
                               {post.title}
                             </h3>
                             <p className="text-muted-foreground text-sm mb-6 line-clamp-2 flex-1 leading-relaxed">
@@ -175,7 +175,7 @@ export default async function BlogPage() {
           ) : (
             <div className="text-center py-20">
               <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-              <h2 className="text-2xl font-serif font-semibold text-foreground mb-2">No blog posts yet</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-2">No blog posts yet</h2>
               <p className="text-muted-foreground">Check back soon for expert tips and exam strategies!</p>
             </div>
           )}
