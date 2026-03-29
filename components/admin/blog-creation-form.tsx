@@ -14,8 +14,7 @@ import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
 
 // Dynamically import ReactQuill to avoid SSR issues
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
-import "react-quill/dist/quill.snow.css"
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false, loading: () => <div>Loading editor...</div> })
 
 interface BlogCreationFormProps {
   initialData?: {
