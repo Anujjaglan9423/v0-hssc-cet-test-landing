@@ -286,7 +286,7 @@
 }
 
 .ql-editor {
-  @apply p-4 min-h-96 prose prose-sm dark:prose-invert prose-a:text-primary prose-code:bg-muted prose-code:text-foreground;
+  @apply p-4 min-h-96 font-sans text-base leading-relaxed;
 }
 
 .ql-editor.ql-blank::before {
