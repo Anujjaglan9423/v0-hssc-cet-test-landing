@@ -10,11 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card } from "@/components/ui/card"
 import { toast } from "sonner"
 import { Loader2, Upload, X } from "lucide-react"
-import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
-
-// Dynamically import ReactQuill to avoid SSR issues
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false, loading: () => <div>Loading editor...</div> })
 
 interface BlogCreationFormProps {
   initialData?: {
@@ -106,7 +102,7 @@ export function BlogCreationForm({ initialData }: BlogCreationFormProps) {
 
     if (!title.trim()) newErrors.title = "Title is required"
     if (!slug.trim()) newErrors.slug = "Slug is required"
-    if (!content.trim() || content.trim() === "<p><br></p>") newErrors.content = "Content is required"
+    if (!content.trim()) newErrors.content = "Content is required"
     if (!category) newErrors.category = "Category is required"
     if (!metaTitle.trim()) newErrors.metaTitle = "Meta title is required"
     if (!metaDescription.trim()) newErrors.metaDescription = "Meta description is required"
@@ -333,30 +329,19 @@ export function BlogCreationForm({ initialData }: BlogCreationFormProps) {
           {/* Content */}
           <Card className="p-6 space-y-3">
             <div>
-              <Label className="text-base font-semibold">Content *</Label>
-              <p className="text-xs text-muted-foreground mt-1">Main blog post content with rich text editor</p>
+              <Label htmlFor="content" className="text-base font-semibold">Content *</Label>
+              <p className="text-xs text-muted-foreground mt-1">Main blog post content (plain text or HTML)</p>
             </div>
-            <div className="border border-border rounded-lg overflow-hidden bg-white dark:bg-slate-950">
-              <ReactQuill
-                value={content}
-                onChange={setContent}
-                theme="snow"
-                modules={{
-                  toolbar: [
-                    [{ header: [1, 2, 3, false] }],
-                    ["bold", "italic", "underline", "strike"],
-                    [{ list: "ordered" }, { list: "bullet" }],
-                    ["blockquote", "code-block"],
-                    [{ color: [] }, { background: [] }],
-                    ["link", "image"],
-                    ["clean"],
-                  ],
-                }}
-                placeholder="Write your blog content here..."
-                className="h-96"
-              />
-            </div>
+            <Textarea
+              id="content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="Write your blog content here..."
+              rows={12}
+              className="resize-none"
+            />
             {errors.content && <p className="text-xs text-destructive">{errors.content}</p>}
+            <p className="text-xs text-muted-foreground">Supports plain text or basic HTML tags</p>
           </Card>
         </div>
 

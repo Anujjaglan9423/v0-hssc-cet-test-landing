@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "react-quill/dist/quill.snow.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -257,42 +256,4 @@
   }
 }
 
-/* ReactQuill Styling */
-.ql-toolbar {
-  @apply bg-muted/50 border-b border-border rounded-t-lg;
-}
 
-.ql-toolbar.ql-snow {
-  @apply p-3 gap-2;
-}
-
-.ql-toolbar.ql-snow .ql-formats {
-  @apply gap-1;
-}
-
-.ql-toolbar.ql-snow button,
-.ql-toolbar.ql-snow button.ql-active,
-.ql-toolbar.ql-snow .ql-picker-label {
-  @apply text-muted-foreground hover:text-foreground transition-colors;
-}
-
-.ql-toolbar.ql-snow button.ql-active,
-.ql-toolbar.ql-snow .ql-picker-label {
-  @apply text-primary;
-}
-
-.ql-container {
-  @apply bg-white dark:bg-slate-950 border border-border rounded-b-lg font-sans text-base;
-}
-
-.ql-editor {
-  @apply p-4 min-h-96 font-sans text-base leading-relaxed;
-}
-
-.ql-editor.ql-blank::before {
-  @apply text-muted-foreground italic;
-}
-
-.ql-editor::selection {
-  @apply bg-primary/20;
-}
