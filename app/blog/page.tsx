@@ -50,72 +50,132 @@ export default async function BlogPage() {
       </header>
 
       {/* Hero */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/5 to-background">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/10 via-transparent to-background">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-6 leading-tight">
             CET <span className="text-primary">TEST Blog</span>
           </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            Expert tips, exam strategies, and study resources to help you ace all competitive exams.
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            Expert insights, proven exam strategies, and comprehensive study resources to help you excel in all competitive exams.
           </p>
         </div>
       </section>
 
       {/* Blog Posts */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {posts.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <Card
-                  key={post.id}
-                  className="border-border bg-card hover:shadow-lg transition-all hover:-translate-y-1 overflow-hidden flex flex-col"
-                >
-                  {post.featured_image_url ? (
-                    <img
-                      src={post.featured_image_url}
-                      alt={post.title}
-                      className="w-full h-48 object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-48 bg-muted flex items-center justify-center">
-                      <FileText className="w-12 h-12 text-muted-foreground" />
+            <>
+              {/* Featured Post */}
+              {posts[0] && (
+                <div className="mb-20 group cursor-pointer">
+                  <Link href={`/blog/${posts[0].slug}`}>
+                    <div className="grid md:grid-cols-2 gap-8 items-center">
+                      <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+                        {posts[0].featured_image_url ? (
+                          <img
+                            src={posts[0].featured_image_url}
+                            alt={posts[0].title}
+                            className="w-full h-80 md:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="w-full h-80 md:h-96 bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
+                            <FileText className="w-20 h-20 text-muted-foreground opacity-20" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col justify-center">
+                        <div className="mb-4 flex items-center gap-2">
+                          <span className="inline-block w-2 h-2 rounded-full bg-primary" />
+                          <span className="text-sm font-medium text-primary uppercase tracking-wider">Featured</span>
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4 leading-tight text-balance group-hover:text-primary transition-colors">
+                          {posts[0].title}
+                        </h2>
+                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                          {getExcerpt(posts[0].description, 200)}
+                        </p>
+                        <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                          <span className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-primary" />
+                            {new Date(posts[0].created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                          </span>
+                          <span className="flex items-center gap-2">
+                            <Clock className="w-4 h-4 text-primary" />
+                            {getReadTime(posts[0].description)}
+                          </span>
+                        </div>
+                        <div className="mt-8">
+                          <Button size="lg" className="group/btn">
+                            Read Article
+                            <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                          </Button>
+                        </div>
+                      </div>
                     </div>
-                  )}
-                  <CardHeader className="pb-2">
-                    <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full w-fit">
-                      {post.category}
-                    </span>
-                  </CardHeader>
-                  <CardContent className="flex-1 flex flex-col">
-                    <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2">{post.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2 flex-1">
-                      {getExcerpt(post.description)}
-                    </p>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        {new Date(post.created_at).toLocaleDateString()}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {getReadTime(post.description)}
-                      </span>
-                    </div>
-                    <Link href={`/blog/${post.slug}`}>
-                      <Button variant="ghost" className="w-full mt-4 group">
-                        Read More
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  </Link>
+                </div>
+              )}
+
+              {/* Grid Posts */}
+              {posts.length > 1 && (
+                <>
+                  <div className="my-12 border-t border-border/50" />
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {posts.slice(1).map((post) => (
+                      <Link key={post.id} href={`/blog/${post.slug}`}>
+                        <Card className="border-border bg-card hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col h-full group">
+                          <div className="relative overflow-hidden h-56 bg-muted">
+                            {post.featured_image_url ? (
+                              <img
+                                src={post.featured_image_url}
+                                alt={post.title}
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <FileText className="w-12 h-12 text-muted-foreground opacity-30" />
+                              </div>
+                            )}
+                          </div>
+                          <CardHeader className="pb-2">
+                            <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full w-fit">
+                              {post.category}
+                            </span>
+                          </CardHeader>
+                          <CardContent className="flex-1 flex flex-col">
+                            <h3 className="text-xl font-serif font-semibold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                              {post.title}
+                            </h3>
+                            <p className="text-muted-foreground text-sm mb-6 line-clamp-2 flex-1 leading-relaxed">
+                              {getExcerpt(post.description)}
+                            </p>
+                            <div className="flex items-center justify-between text-xs text-muted-foreground">
+                              <span className="flex items-center gap-1">
+                                <Calendar className="w-3 h-3" />
+                                {new Date(post.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {getReadTime(post.description)}
+                              </span>
+                            </div>
+                            <div className="mt-6 flex items-center text-primary text-sm font-medium group-hover:gap-2 gap-1 transition-all">
+                              Read More
+                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+            </>
           ) : (
             <div className="text-center py-20">
               <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-              <h2 className="text-2xl font-semibold text-foreground mb-2">No blog posts yet</h2>
+              <h2 className="text-2xl font-serif font-semibold text-foreground mb-2">No blog posts yet</h2>
               <p className="text-muted-foreground">Check back soon for expert tips and exam strategies!</p>
             </div>
           )}
