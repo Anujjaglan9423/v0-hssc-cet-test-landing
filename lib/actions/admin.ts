@@ -926,3 +926,122 @@ export async function deleteTopic(id: string) {
   revalidatePath("/admin/manage")
   return { success: true }
 }
+
+// Blog management
+export async function getAllBlogs() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching blogs:", error)
+    return []
+  }
+
+  return data || []
+}
+
+export async function createBlog(data: {
+  title: string
+  slug: string
+  focus_keyword: string
+  meta_title: string
+  meta_description: string
+  category: string
+  tags: string[]
+  featured_image_url?: string
+  description: string
+  status: "draft" | "published"
+}) {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+
+  if (!user) {
+    return { success: false, error: "Not authenticated" }
+  }
+
+  const { data: blog, error } = await supabase
+    .from("blogs")
+    .insert({
+      title: data.title,
+      slug: data.slug,
+      focus_keyword: data.focus_keyword,
+      meta_title: data.meta_title,
+      meta_description: data.meta_description,
+      category: data.category,
+      tags: data.tags,
+      featured_image_url: data.featured_image_url || null,
+      description: data.description,
+      status: data.status,
+      created_by: user.id,
+    })
+    .select()
+    .single()
+
+  if (error) {
+    console.error("Error creating blog:", error)
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/blog")
+  revalidatePath("/blog")
+  return { success: true, blog }
+}
+
+export async function updateBlog(
+  id: string,
+  data: {
+    title?: string
+    slug?: string
+    focus_keyword?: string
+    meta_title?: string
+    meta_description?: string
+    category?: string
+    tags?: string[]
+    featured_image_url?: string
+    description?: string
+    status?: "draft" | "published"
+  },
+) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("blogs").update(data).eq("id", id)
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/blog")
+  revalidatePath("/blog")
+  return { success: true }
+}
+
+export async function deleteBlog(id: string) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("blogs").delete().eq("id", id)
+
+  if (error) {
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/blog")
+  revalidatePath("/blog")
+  return { success: true }
+}
+
+export async function getBlogBySlug(slug: string) {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.from("blogs").select("*").eq("slug", slug).single()
+
+  if (error) {
+    console.error("Error fetching blog:", error)
+    return null
+  }
+
+  return data
+}
