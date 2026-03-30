@@ -167,7 +167,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       </header>
 
       {/* Hero Section */}
-      <section className="relative">
+      {/* <section className="relative">
         {/* Featured Image */}
         {blog.featured_image_url && (
           <div className="w-full h-64 md:h-96 lg:h-[500px] relative">
@@ -358,7 +358,138 @@ export default async function BlogPostPage({ params }: PageProps) {
                       </div>
                     </CardContent>
                   </Card>
-                )}
+                )} */}
+                // 🔥 ONLY UI PART UPDATED (keep your logic same)
+
+<div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+
+  {/* 🔥 HERO SECTION PREMIUM */}
+  <section className="relative overflow-hidden">
+    {blog.featured_image_url && (
+      <div className="absolute inset-0">
+        <img
+          src={blog.featured_image_url}
+          className="w-full h-full object-cover blur-sm scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-white" />
+      </div>
+    )}
+
+    <div className="relative max-w-5xl mx-auto px-4 py-20 text-white">
+      <Badge className="bg-white/20 text-white backdrop-blur">
+        {blog.category}
+      </Badge>
+
+      <h1 className="text-4xl md:text-5xl font-bold mt-4 leading-tight">
+        {blog.title}
+      </h1>
+
+      <div className="flex flex-wrap gap-4 mt-6 text-sm opacity-90">
+        <span className="flex items-center gap-1">
+          <Calendar className="w-4 h-4" />
+          {formatDate(blog.created_at)}
+        </span>
+        <span className="flex items-center gap-1">
+          <Clock className="w-4 h-4" />
+          {readTime}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  {/* 🔥 MAIN CONTENT */}
+  <div className="max-w-7xl mx-auto px-4 py-12 grid lg:grid-cols-12 gap-10">
+
+    {/* 🔥 LEFT CONTENT */}
+    <div className="lg:col-span-8 space-y-8">
+
+      {/* 💎 INTRO CARD */}
+      <Card className="shadow-lg border-0 rounded-2xl">
+        <CardContent className="p-6">
+          <div
+            className="prose max-w-none prose-lg"
+            dangerouslySetInnerHTML={{ __html: blog.description }}
+          />
+        </CardContent>
+      </Card>
+
+      {/* 🔥 CTA PREMIUM */}
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-8 shadow-xl">
+        <h3 className="text-2xl font-bold mb-2">
+          🚀 Start Your CET Preparation Today!
+        </h3>
+        <p className="opacity-90 mb-4">
+          Practice with free mock tests and boost your score faster.
+        </p>
+        <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+          Start Free Mock Test →
+        </Button>
+      </div>
+
+      {/* 🔥 SHARE */}
+      <div className="flex justify-between items-center border-t pt-6">
+        <p className="text-sm text-muted-foreground">
+          Found this helpful?
+        </p>
+        <ShareButtons title={blog.title} slug={slug} />
+      </div>
+
+    </div>
+
+    {/* 🔥 RIGHT SIDEBAR */}
+    <div className="lg:col-span-4 space-y-6 sticky top-24 h-fit">
+
+      {/* 💎 QUICK NAV */}
+      <Card className="rounded-2xl shadow-md">
+        <CardContent className="p-6">
+          <h3 className="font-semibold mb-3">Quick Navigation</h3>
+          <ul className="space-y-2 text-sm">
+            <li className="hover:text-primary cursor-pointer">Introduction</li>
+            <li className="hover:text-primary cursor-pointer">Syllabus</li>
+            <li className="hover:text-primary cursor-pointer">Strategy</li>
+          </ul>
+        </CardContent>
+      </Card>
+
+      {/* 💎 RELATED */}
+      <Card className="rounded-2xl shadow-md">
+        <CardContent className="p-6">
+          <h3 className="font-semibold mb-4">Related Articles</h3>
+          <div className="space-y-4">
+            {relatedBlogs.map((post) => (
+              <Link key={post.id} href={`/blog/${post.slug}`}>
+                <div className="flex gap-3 group">
+                  <img
+                    src={post.featured_image_url || ""}
+                    className="w-14 h-14 rounded-lg object-cover"
+                  />
+                  <p className="text-sm group-hover:text-primary">
+                    {post.title}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 💎 CATEGORY */}
+      <Card className="rounded-2xl shadow-md">
+        <CardContent className="p-6">
+          <h3 className="font-semibold mb-4">Categories</h3>
+          <div className="flex flex-wrap gap-2">
+            {blog.tags?.map((tag, i) => (
+              <Badge key={i} className="bg-gray-100 hover:bg-primary hover:text-white">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+    </div>
+  </div>
+</div>
 
                 {/* Recent Posts */}
                 {recentBlogs.length > 0 && (
@@ -391,7 +522,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 )}
 
                 {/* Categories */}
-                <Card>
+                {/* <Card>
                   <CardContent className="p-6">
                     <h3 className="font-semibold text-foreground mb-4">Popular Categories</h3>
                     <div className="flex flex-wrap gap-2">
@@ -406,7 +537,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                       ))}
                     </div>
                   </CardContent>
-                </Card>
+                </Card> */}
               </div>
             </aside>
           </div>
