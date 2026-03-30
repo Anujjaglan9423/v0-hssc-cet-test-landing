@@ -8,12 +8,11 @@ import {
   Calendar,
   Clock,
   User,
-  Share2,
-  Bookmark,
   ChevronRight,
   Tag,
   ArrowRight,
 } from "lucide-react"
+import { ShareButtons } from "@/components/blog/share-buttons"
 import Footer from "@/components/footer"
 import { notFound } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
@@ -278,16 +277,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     <h3 className="font-semibold text-foreground">Found this helpful?</h3>
                     <p className="text-sm text-muted-foreground">Share it with your friends preparing for exams</p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm">
-                      <Share2 className="w-4 h-4 mr-2" />
-                      Share
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      <Bookmark className="w-4 h-4 mr-2" />
-                      Save
-                    </Button>
-                  </div>
+                  <ShareButtons title={blog.title} slug={slug} />
                 </div>
               </div>
 
@@ -304,7 +294,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                       </p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-3">
-                      <Link href="/register">
+                      <Link href="/signup">
                         <Button size="lg" className="w-full sm:w-auto">
                           Start Free Trial
                           <ArrowRight className="w-4 h-4 ml-2" />
