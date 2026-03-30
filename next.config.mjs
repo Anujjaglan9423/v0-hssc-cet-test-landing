@@ -18,7 +18,7 @@ const nextConfig = {
   compress: true,
   reactStrictMode: true,
   poweredByHeader: false,
-  // turbopack: {},
+  turbopack: {},
 };
 
 export default nextConfig;
