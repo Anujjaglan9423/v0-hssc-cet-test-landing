@@ -1,74 +1,82 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { BookOpen, ArrowLeft, Calendar, Clock, ArrowRight } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { BookOpen, ArrowLeft, Calendar, Clock, ArrowRight, Search, Tag } from "lucide-react"
 import Footer from "@/components/footer"
+import { createClient } from "@/lib/supabase/server"
+import type { Metadata } from "next"
 
-const posts = [
-  {
-    slug: "competitive-exams-2026-complete-syllabus-exam-pattern",
-    title: "Competitive Exams 2026: Complete Syllabus and Exam Pattern",
-    excerpt:
-      "Everything you need to know about Haryana CET, SSC, Railway, and Uttarakhand exam patterns, marking scheme, and detailed syllabus breakdown.",
-    date: "Dec 15, 2025",
-    readTime: "8 min read",
-    category: "Exam Guide",
-    image: "/exam-syllabus-study-guide.jpg",
-  },
-  {
-    slug: "top-10-tips-crack-competitive-exam-first-attempt",
-    title: "Top 10 Tips to Crack Any Competitive Exam in First Attempt",
-    excerpt:
-      "Learn proven strategies from toppers who cleared competitive exams with flying colors. Expert tips inside!",
-    date: "Dec 10, 2025",
-    readTime: "6 min read",
-    category: "Tips & Tricks",
-    image: "/success-tips-study-motivation.jpg",
-  },
-  {
-    slug: "current-affairs-competitive-exams-2026",
-    title: "Important Current Affairs for Competitive Exams 2026",
-    excerpt: "Stay updated with the most important current affairs topics expected in competitive exams 2026.",
-    date: "Dec 5, 2025",
-    readTime: "10 min read",
-    category: "Current Affairs",
-    image: "/current-affairs-news.jpg",
-  },
-  {
-    slug: "haryana-gk-districts-history-culture",
-    title: "Haryana GK: Districts, History & Culture",
-    excerpt: "Complete guide to Haryana General Knowledge covering districts, history, culture, and important facts.",
-    date: "Nov 28, 2025",
-    readTime: "12 min read",
-    category: "Haryana GK",
-    image: "/haryana-culture-heritage.jpg",
-  },
-  {
-    slug: "math-shortcuts-quick-calculation-tricks",
-    title: "Math Shortcuts: Quick Calculation Tricks for All Exams",
-    excerpt:
-      "Master these mathematical shortcuts to solve quantitative aptitude questions faster in any competitive exam.",
-    date: "Nov 20, 2025",
-    readTime: "7 min read",
-    category: "Mathematics",
-    image: "/mathematics-calculation.jpg",
-  },
-  {
-    slug: "english-grammar-rules-competitive-aspirant",
-    title: "English Grammar Rules Every Competitive Aspirant Must Know",
-    excerpt: "Essential English grammar rules and common errors to avoid in all competitive exam English sections.",
-    date: "Nov 15, 2025",
-    readTime: "9 min read",
-    category: "English",
-    image: "/english-grammar-learning.jpg",
-  },
-]
+export const metadata: Metadata = {
+  title: "Blog | CET TEST - Exam Preparation Tips & Study Resources",
+  description: "Expert tips, exam strategies, and study resources to help you ace all competitive exams including HSSC CET, SSC, Railway, and more.",
+}
 
-export default function BlogPage() {
+interface Blog {
+  id: string
+  title: string
+  slug: string
+  description: string
+  status: string
+  meta_title: string
+  meta_description: string
+  focus_keyword: string
+  tags: string[]
+  category: string
+  featured_image_url: string | null
+  created_at: string
+}
+
+async function getBlogs(): Promise<Blog[]> {
+  const supabase = await createClient()
+  
+  const { data: blogs, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("status", "publish")
+    .order("created_at", { ascending: false })
+  
+  if (error) {
+    console.error("Error fetching blogs:", error)
+    return []
+  }
+  
+  return blogs || []
+}
+
+function calculateReadTime(content: string): string {
+  const wordsPerMinute = 200
+  const text = content.replace(/<[^>]*>/g, "")
+  const wordCount = text.split(/\s+/).length
+  const readTime = Math.ceil(wordCount / wordsPerMinute)
+  return `${readTime} min read`
+}
+
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })
+}
+
+function getExcerpt(html: string, maxLength: number = 150): string {
+  const text = html.replace(/<[^>]*>/g, "")
+  if (text.length <= maxLength) return text
+  return text.slice(0, maxLength).trim() + "..."
+}
+
+export default async function BlogPage() {
+  const blogs = await getBlogs()
+  const featuredBlog = blogs[0]
+  const remainingBlogs = blogs.slice(1)
+
+  const categories = [...new Set(blogs.map(blog => blog.category).filter(Boolean))]
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
@@ -90,54 +98,188 @@ export default function BlogPage() {
       </header>
 
       {/* Hero */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/5 to-background">
+      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/5 via-primary/2 to-background">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+            Knowledge Hub
+          </Badge>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance">
             CET TEST <span className="text-primary">Blog</span>
           </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            Expert tips, exam strategies, and study resources to help you ace all competitive exams.
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto text-pretty">
+            Expert tips, exam strategies, and study resources to help you ace competitive exams like HSSC CET, SSC, Railway, and Uttarakhand exams.
           </p>
+          
+          {/* Categories */}
+          {categories.length > 0 && (
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+              <span className="text-sm text-muted-foreground">Popular topics:</span>
+              {categories.slice(0, 6).map((category) => (
+                <Badge
+                  key={category}
+                  variant="secondary"
+                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                >
+                  {category}
+                </Badge>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Blog Posts */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post, index) => (
-              <Card
-                key={index}
-                className="border-border bg-card hover:shadow-lg transition-all hover:-translate-y-1 overflow-hidden"
-              >
-                <img src={post.image || "/placeholder.svg"} alt={post.title} className="w-full h-48 object-cover" />
-                <CardHeader className="pb-2">
-                  <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full w-fit">
-                    {post.category}
-                  </span>
-                </CardHeader>
-                <CardContent>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2">{post.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{post.excerpt}</p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      {post.date}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {post.readTime}
-                    </span>
+      {/* Featured Post */}
+      {featuredBlog && (
+        <section className="py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-sm font-medium text-primary uppercase tracking-wider mb-6">Featured Article</h2>
+            <Link href={`/blog/${featuredBlog.slug}`}>
+              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-border group">
+                <div className="grid md:grid-cols-2 gap-0">
+                  <div className="relative h-64 md:h-auto md:min-h-[400px] overflow-hidden bg-muted">
+                    {featuredBlog.featured_image_url ? (
+                      <img
+                        src={featuredBlog.featured_image_url}
+                        alt={featuredBlog.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <BookOpen className="w-16 h-16 text-muted-foreground/30" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:hidden" />
                   </div>
-                  <Link href={`/blog/${post.slug}`}>
-                    <Button variant="ghost" className="w-full mt-4 group">
-                      Read More
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <CardContent className="p-6 md:p-10 flex flex-col justify-center">
+                    {featuredBlog.category && (
+                      <Badge className="w-fit mb-4 bg-primary/10 text-primary border-primary/20">
+                        {featuredBlog.category}
+                      </Badge>
+                    )}
+                    <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors text-balance">
+                      {featuredBlog.title}
+                    </h3>
+                    <p className="text-muted-foreground mb-6 line-clamp-3 text-pretty">
+                      {getExcerpt(featuredBlog.description, 200)}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {formatDate(featuredBlog.created_at)}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        {calculateReadTime(featuredBlog.description)}
+                      </span>
+                    </div>
+                    <Button className="w-fit group/btn">
+                      Read Article
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                     </Button>
-                  </Link>
-                </CardContent>
+                  </CardContent>
+                </div>
               </Card>
-            ))}
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* Blog Posts Grid */}
+      {remainingBlogs.length > 0 && (
+        <section className="py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-foreground">Latest Articles</h2>
+              <span className="text-sm text-muted-foreground">{blogs.length} articles</span>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {remainingBlogs.map((post) => (
+                <Link key={post.id} href={`/blog/${post.slug}`}>
+                  <Card className="h-full border-border bg-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden group">
+                    <div className="relative h-48 overflow-hidden bg-muted">
+                      {post.featured_image_url ? (
+                        <img
+                          src={post.featured_image_url}
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <BookOpen className="w-10 h-10 text-muted-foreground/30" />
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    <CardHeader className="pb-2">
+                      {post.category && (
+                        <Badge className="w-fit text-xs bg-primary/10 text-primary border-primary/20">
+                          {post.category}
+                        </Badge>
+                      )}
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                        {post.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                        {getExcerpt(post.description, 100)}
+                      </p>
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {formatDate(post.created_at)}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {calculateReadTime(post.description)}
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Empty State */}
+      {blogs.length === 0 && (
+        <section className="py-20 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center mx-auto mb-6">
+              <BookOpen className="w-10 h-10 text-muted-foreground" />
+            </div>
+            <h2 className="text-2xl font-bold text-foreground mb-4">No articles yet</h2>
+            <p className="text-muted-foreground mb-8">
+              We are working on creating helpful content for your exam preparation. Check back soon!
+            </p>
+            <Link href="/">
+              <Button>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Home
+              </Button>
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* Newsletter CTA */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-muted/50">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+            Stay Updated with Exam Tips
+          </h2>
+          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Get the latest study tips, exam strategies, and important updates delivered straight to your inbox.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+            <Link href="/register" className="flex-1 sm:flex-initial">
+              <Button size="lg" className="w-full">
+                Start Free Trial
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
