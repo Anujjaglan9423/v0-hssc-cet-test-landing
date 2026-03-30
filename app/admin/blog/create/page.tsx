@@ -245,7 +245,7 @@ export default function CreateBlogPage() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="draft">Draft</SelectItem>
-              <SelectItem value="published">Published</SelectItem>
+              <SelectItem value="publish">Published</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={handleSubmit} disabled={loading}>
@@ -254,7 +254,7 @@ export default function CreateBlogPage() {
             ) : (
               <Save className="w-4 h-4 mr-2" />
             )}
-            {status === "published" ? "Publish" : "Save Draft"}
+            {status === "publish" ? "Publish" : "Save Draft"}
           </Button>
         </div>
       </div>

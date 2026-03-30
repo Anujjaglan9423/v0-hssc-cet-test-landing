@@ -13,7 +13,7 @@ export async function GET(
       .from("blogs")
       .select("*")
       .eq("slug", slug)
-      .eq("status", "published")
+      .eq("status", "publish")
       .single()
     
     if (error || !blog) {

@@ -107,7 +107,7 @@ export default function AdminBlogPage() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "published":
+      case "publish":
         return <Badge className="bg-accent text-accent-foreground">Published</Badge>
       case "draft":
         return <Badge variant="secondary">Draft</Badge>
@@ -149,7 +149,7 @@ export default function AdminBlogPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="published">Published</SelectItem>
+                <SelectItem value="publish">Published</SelectItem>
                 <SelectItem value="draft">Draft</SelectItem>
               </SelectContent>
             </Select>

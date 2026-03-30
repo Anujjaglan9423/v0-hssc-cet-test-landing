@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     
     // If public, only show published posts
     if (publicOnly) {
-      query = query.eq("status", "published")
+      query = query.eq("status", "publish")
     } else if (status && status !== "all") {
       query = query.eq("status", status)
     }

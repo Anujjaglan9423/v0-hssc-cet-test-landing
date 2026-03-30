@@ -273,7 +273,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="draft">Draft</SelectItem>
-              <SelectItem value="published">Published</SelectItem>
+              <SelectItem value="publish">Published</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={handleSubmit} disabled={loading}>

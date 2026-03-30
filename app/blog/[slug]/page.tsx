@@ -46,7 +46,7 @@ async function getBlog(slug: string): Promise<Blog | null> {
     .from("blogs")
     .select("*")
     .eq("slug", slug)
-    .eq("status", "published")
+    .eq("status", "publish")
     .single()
   
   if (error || !blog) {
@@ -62,7 +62,7 @@ async function getRelatedBlogs(category: string, currentSlug: string): Promise<B
   const { data: blogs } = await supabase
     .from("blogs")
     .select("*")
-    .eq("status", "published")
+    .eq("status", "publish")
     .eq("category", category)
     .neq("slug", currentSlug)
     .limit(3)
@@ -76,7 +76,7 @@ async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
   const { data: blogs } = await supabase
     .from("blogs")
     .select("*")
-    .eq("status", "published")
+    .eq("status", "publish")
     .neq("slug", currentSlug)
     .order("created_at", { ascending: false })
     .limit(4)

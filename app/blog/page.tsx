@@ -33,7 +33,7 @@ async function getBlogs(): Promise<Blog[]> {
   const { data: blogs, error } = await supabase
     .from("blogs")
     .select("*")
-    .eq("status", "published")
+    .eq("status", "publish")
     .order("created_at", { ascending: false })
   
   if (error) {
