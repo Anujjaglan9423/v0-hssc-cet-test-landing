@@ -274,7 +274,7 @@ export default async function BlogPage() {
             Get the latest study tips, exam strategies, and important updates delivered straight to your inbox.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
-            <Link href="/register" className="flex-1 sm:flex-initial">
+            <Link href="/signup" className="flex-1 sm:flex-initial">
               <Button size="lg" className="w-full">
                 Start Free Trial
                 <ArrowRight className="w-4 h-4 ml-2" />
