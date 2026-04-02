@@ -1,10 +1,10 @@
-// v2 - Bypass middleware, allow all requests through
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
+// Direct middleware - no external imports
 export async function proxy(request: NextRequest) {
-  // Allow all requests without middleware processing
-  return NextResponse.next({ request })
+  // Allow all requests through without any processing
+  return NextResponse.next()
 }
 
 export const config = {
@@ -12,4 +12,5 @@ export const config = {
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 }
+
 
