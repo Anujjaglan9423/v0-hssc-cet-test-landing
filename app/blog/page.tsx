@@ -51,20 +51,25 @@ interface Blog {
 }
 
 async function getBlogs(): Promise<Blog[]> {
-  const supabase = await createClient()
-  
-  const { data: blogs, error } = await supabase
-    .from("blogs")
-    .select("*")
-    .eq("status", "publish")
-    .order("created_at", { ascending: false })
-  
-  if (error) {
-    console.error("Error fetching blogs:", error)
+  try {
+    const supabase = await createClient()
+    
+    const { data: blogs, error } = await supabase
+      .from("blogs")
+      .select("*")
+      .eq("status", "publish")
+      .order("created_at", { ascending: false })
+    
+    if (error) {
+      console.error("Error fetching blogs:", error)
+      return []
+    }
+    
+    return blogs || []
+  } catch (error) {
+    console.error("[v0] Failed to fetch blogs:", error)
     return []
   }
-  
-  return blogs || []
 }
 
 function calculateReadTime(content: string): string {
