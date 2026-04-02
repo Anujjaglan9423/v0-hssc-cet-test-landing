@@ -5,7 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
 
   return [
-    // 🔥 Homepage (Most Important)
+    // 🔥 Homepage
     {
       url: baseUrl,
       lastModified: now,
@@ -41,7 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
 
-    // 📄 Informational Pages
+    // 📄 Informational
     {
       url: `${baseUrl}/about`,
       lastModified: now,
@@ -55,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
 
-    // 📝 Blog (Very Important for SEO)
+    // 📝 Blog
     {
       url: `${baseUrl}/blog`,
       lastModified: now,
@@ -63,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
 
-    // ⚖️ Legal Pages
+    // ⚖️ Legal
     {
       url: `${baseUrl}/privacy-policy`,
       lastModified: now,
@@ -81,6 +81,76 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'yearly',
       priority: 0.4,
+    },
+
+    // 📚 Exams Pages
+    {
+      url: `${baseUrl}/exams/ssc`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/exams/ssc-cgl`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/exams/railway`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/exams/railway-rrb-ntpc`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/exams/haryana`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/exams/hssc-cet`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/exams/uksssc`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+
+    // 🧪 Demo Pages
+    {
+      url: `${baseUrl}/demo`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/demo/test/haryana-police`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/demo/test/haryana-group-d`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/demo/test/haryana-cet`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
   ]
 }
