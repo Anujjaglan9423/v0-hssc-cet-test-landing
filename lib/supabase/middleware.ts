@@ -21,24 +21,30 @@ export async function updateSession(request: NextRequest) {
     "/refund-policy",
     "/terms-of-service",
     "/demo",
+    "/exams",
   ]
 
   const isPublicRoute = publicRoutes.some(route => {
     if (route === "/") return pathname === "/"
     if (route === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/")
     if (route === "/demo") return pathname === "/demo" || pathname.startsWith("/demo/")
+    if (route === "/exams") return pathname.startsWith("/exams")
     return pathname === route || pathname.startsWith(route + "/")
   })
 
+  // Check if Supabase is configured
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
   // For protected routes, verify authentication
-  if (!isPublicRoute) {
+  if (!isPublicRoute && supabaseUrl && supabaseKey) {
     const authToken = request.cookies.get("auth_token")?.value
 
     try {
       // Create Supabase client for database queries only
       const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        supabaseUrl,
+        supabaseKey,
         {
           cookies: {
             getAll() {
