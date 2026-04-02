@@ -1,12 +1,18 @@
 import { NextResponse, type NextRequest } from "next/server"
 
 export async function updateSession(request: NextRequest) {
+  console.log("[v0] Middleware v2 - checking Supabase config")
+  
   // If Supabase is not configured, allow all public routes through
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
+  console.log("[v0] Supabase URL exists:", !!supabaseUrl)
+  console.log("[v0] Supabase Key exists:", !!supabaseKey)
+
   // If Supabase credentials are missing, skip all middleware logic
   if (!supabaseUrl || !supabaseKey) {
+    console.log("[v0] Supabase not configured, allowing request through")
     return NextResponse.next({ request })
   }
 
