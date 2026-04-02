@@ -8,6 +8,10 @@ export async function updateSession(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname
 
+  // Check if Supabase is configured
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
   // Allow public access to these routes without checking authentication
   const publicRoutes = [
     "/",
@@ -21,24 +25,33 @@ export async function updateSession(request: NextRequest) {
     "/refund-policy",
     "/terms-of-service",
     "/demo",
+    "/admin/config", // Allow access to config page
   ]
 
   const isPublicRoute = publicRoutes.some(route => {
     if (route === "/") return pathname === "/"
     if (route === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/")
     if (route === "/demo") return pathname === "/demo" || pathname.startsWith("/demo/")
+    if (route === "/admin/config") return pathname === "/admin/config"
     return pathname === route || pathname.startsWith(route + "/")
   })
 
   // For protected routes, verify authentication
   if (!isPublicRoute) {
+    // If Supabase is not configured, redirect to config page
+    if (!supabaseUrl || !supabaseAnonKey) {
+      const url = request.nextUrl.clone()
+      url.pathname = "/admin/config"
+      return NextResponse.redirect(url)
+    }
+
     const authToken = request.cookies.get("auth_token")?.value
 
     try {
       // Create Supabase client for database queries only
       const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        supabaseUrl,
+        supabaseAnonKey,
         {
           cookies: {
             getAll() {
