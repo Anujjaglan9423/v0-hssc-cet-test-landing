@@ -3,9 +3,31 @@ import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-  title: "About CET TEST - India's Leading Competitive Exam Preparation Platform",
-  description: "Learn about CET TEST - India's #1 online platform for HSSC, CET, SSC, Railway and Haryana competitive exams. 50,000+ students, 10,000+ questions, 95% success rate.",
-  keywords: "about cettest, competitive exam preparation, HSSC preparation, CET exam coaching, online test series",
+  title: "About CET TEST - India's #1 Free Mock Test Platform for Haryana CET & HSSC Exams",
+  description:
+    "Learn about CET TEST - India's leading free online mock test platform for Haryana CET, HSSC CET, HSSC Police Constable, HSSSC Group D, SSC CGL, Railway NTPC & UKSSSC. 50,000+ students, 10,000+ questions, 95% success rate.",
+  keywords: [
+    "about CET TEST platform",
+    "Haryana CET preparation platform",
+    "HSSC CET online coaching",
+    "best mock test site Haryana",
+    "free government exam preparation India",
+    "CET TEST cettest.site",
+    "HSSC exam online platform",
+    "competitive exam preparation Haryana",
+    "SSC Railway UKSSSC preparation",
+    "online test series India 2026",
+  ],
+  alternates: {
+    canonical: "https://cettest.site/about",
+  },
+  openGraph: {
+    title: "About CET TEST - India's #1 Free Mock Test Platform for Haryana CET & HSSC",
+    description:
+      "CET TEST is India's leading free mock test platform for Haryana CET, HSSC, SSC, Railway & UKSSSC exams. 50,000+ students, 95% success rate.",
+    url: "https://cettest.site/about",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "About CET TEST - Free Exam Preparation Platform" }],
+  },
 }
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"

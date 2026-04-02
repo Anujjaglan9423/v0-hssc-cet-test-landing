@@ -4,67 +4,62 @@ import Link from "next/link"
 import { CheckCircle2, BookOpen, Users, Trophy } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "UKSSSC Mock Tests 2026 | Uttarakhand State Exams - VDO, Patwari, Forest Guard Free Online",
+  title: "Railway Exams Mock Tests 2026 | RRB NTPC, Group D Free Online Practice Tests",
   description:
-    "Prepare for UKSSSC 2026 exams with unlimited free mock tests for VDO, Patwari, Forest Guard, Police & all Uttarakhand state exams. Previous year papers, topic-wise practice & instant results. Start free now!",
+    "Prepare for Railway exams with unlimited free mock tests for RRB NTPC, Group D, ALP and more. Previous year papers, CBT stages, topic-wise practice & instant results. Start free preparation now!",
   keywords: [
-    "UKSSSC mock test 2026",
-    "Uttarakhand state exam free test",
-    "UKSSSC exam preparation 2026",
-    "UK VDO mock test 2026",
-    "Uttarakhand Patwari mock test",
-    "UKSSSC Forest Guard test series",
-    "Uttarakhand Group C exam practice",
-    "UKSSSC previous year papers",
-    "Uttarakhand govt job exam 2026",
-    "UKSSSC syllabus 2026",
-    "UKSSSC exam pattern 2026",
-    "Uttarakhand staff selection commission test",
-    "UK Lekhpal mock test",
-    "Uttarakhand Police Constable test",
-    "UKSSSC free practice test",
+    "RRB NTPC mock test 2026",
+    "Railway Group D exam preparation",
+    "RRB exam free online test",
+    "Railway recruitment board practice",
+    "RRB NTPC CBT Stage 1 2 test",
+    "Indian Railways mock test",
+    "RRB ALP exam preparation",
+    "Railway exam previous year papers",
+    "RRB test series 2026",
+    "free railway exam practice India",
   ],
   alternates: {
-    canonical: "https://cettest.site/exams/uksssc",
+    canonical: "https://cettest.site/exams/railway",
   },
   openGraph: {
-    title: "UKSSSC Mock Tests 2026 | Uttarakhand State Exams - Free Online",
+    title: "Railway Exams Mock Tests 2026 | RRB NTPC, Group D",
     description:
-      "Crack UKSSSC 2026 with unlimited free mock tests for VDO, Patwari, Forest Guard, Police & all Uttarakhand state exams. Previous year papers & instant results.",
-    url: "https://cettest.site/exams/uksssc",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "UKSSSC Mock Test 2026 - Free Uttarakhand Exam Practice" }],
+      "Free mock tests for all Railway exams (RRB NTPC, Group D, ALP). Unlimited practice with detailed analytics and previous year papers.",
+    url: "https://cettest.site/exams/railway",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Railway Exams Mock Tests - Free Online Preparation" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "UKSSSC Mock Tests 2026 | Uttarakhand State Exams",
-    description: "Unlimited free UKSSSC mock tests with instant results & previous year papers. Start now!",
+    title: "Railway Exams Mock Tests 2026 | RRB NTPC, Group D",
+    description: "Free mock tests for all Railway exams with instant results.",
     images: ["/og-image.png"],
   },
 }
 
-export default function UKSSCSPage() {
+export default function RailwayExamsPage() {
   const exams = [
     {
-      name: "UK VDO",
-      description: "Village Development Officer recruitment in Uttarakhand",
-      link: "#",
-      features: ["100+ Mock Tests", "Previous Year Papers", "Subject-wise Practice"]
+      name: "RRB NTPC",
+      description: "Non-Technical Popular Categories - Railway recruitment exam",
+      link: "/exams/railway-rrb-ntpc",
+      features: ["CBT Stage 1 & 2 Tests", "100+ Mock Tests", "Previous Year Papers"]
     },
     {
-      name: "Patwari / Lekhpal",
-      description: "Land record and revenue department positions",
+      name: "RRB Group D",
+      description: "Group D and unskilled worker positions in Indian Railways",
       link: "#",
       features: ["Timed Practice Tests", "Detailed Solutions", "Performance Analytics"]
     },
     {
-      name: "Forest Guard",
-      description: "Uttarakhand forest department recruitment",
+      name: "RRB ALP",
+      description: "Assistant Loco Pilot recruitment examination",
       link: "#",
-      features: ["Full Mock Tests", "Real Exam Pattern", "Topic-wise Practice"]
+      features: ["Full Mock Tests", "Real Exam Pattern", "Technical Questions"]
     },
     {
-      name: "Uttarakhand Police Constable",
-      description: "Police recruitment in Uttarakhand",
+      name: "RRB Technician",
+      description: "Railway technician and skilled worker positions",
       link: "#",
       features: ["Comprehensive Coverage", "Expert Explanations", "Instant Results"]
     },
@@ -76,10 +71,10 @@ export default function UKSSCSPage() {
       <section className="py-16 px-4 md:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Uttarakhand State Exams Preparation
+            Railway Exams Preparation
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
-            Master all UKSSSC exams with unlimited free mock tests, previous year papers, and detailed performance analytics
+            Master all Railway exams with unlimited free mock tests, previous year papers, and detailed performance analytics
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/signup">
@@ -100,7 +95,7 @@ export default function UKSSCSPage() {
       {/* Exams Grid */}
       <section className="py-16 px-4 md:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Uttarakhand UKSSSC Exam Categories</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Railway Exam Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {exams.map((exam, idx) => (
               <div key={idx} className="bg-background rounded-lg p-6 border hover:shadow-lg transition-shadow">
@@ -130,7 +125,7 @@ export default function UKSSCSPage() {
       {/* Why Choose Section */}
       <section className="py-16 px-4 md:px-6 lg:px-8 bg-muted/30">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose CET TEST for UKSSSC Preparation?</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose CET TEST for Railway Exams?</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
               <Trophy className="w-12 h-12 text-primary mx-auto mb-3" />
@@ -159,7 +154,7 @@ export default function UKSSCSPage() {
       {/* CTA Section */}
       <section className="py-16 px-4 md:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto bg-primary text-primary-foreground rounded-lg p-12 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Crack Your UKSSSC Exam?</h2>
+          <h2 className="text-3xl font-bold mb-4">Ready to Crack Your Railway Exam?</h2>
           <p className="text-lg mb-8 opacity-90">Join thousands of students and start your free preparation today</p>
           <Link href="/signup">
             <Button size="lg" variant="secondary">

@@ -4,69 +4,64 @@ import Link from "next/link"
 import { CheckCircle2, BookOpen, Users, Trophy } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "UKSSSC Mock Tests 2026 | Uttarakhand State Exams - VDO, Patwari, Forest Guard Free Online",
+  title: "Haryana Exams Mock Tests 2026 | HSSC CET, Police, HSSSC Group D Free Online Tests",
   description:
-    "Prepare for UKSSSC 2026 exams with unlimited free mock tests for VDO, Patwari, Forest Guard, Police & all Uttarakhand state exams. Previous year papers, topic-wise practice & instant results. Start free now!",
+    "Prepare for Haryana government exams with free mock tests for HSSC CET, HSSC Police Constable, HSSSC Group D and more. Unlimited practice tests, previous year papers & instant results. Start free today!",
   keywords: [
-    "UKSSSC mock test 2026",
-    "Uttarakhand state exam free test",
-    "UKSSSC exam preparation 2026",
-    "UK VDO mock test 2026",
-    "Uttarakhand Patwari mock test",
-    "UKSSSC Forest Guard test series",
-    "Uttarakhand Group C exam practice",
-    "UKSSSC previous year papers",
-    "Uttarakhand govt job exam 2026",
-    "UKSSSC syllabus 2026",
-    "UKSSSC exam pattern 2026",
-    "Uttarakhand staff selection commission test",
-    "UK Lekhpal mock test",
-    "Uttarakhand Police Constable test",
-    "UKSSSC free practice test",
+    "Haryana exam mock test 2026",
+    "HSSC CET free online test",
+    "Haryana Police Constable mock test",
+    "HSSSC Group D exam preparation",
+    "Haryana government job exams",
+    "HSSC exam mock test series",
+    "Haryana sarkari naukri preparation",
+    "HSSC CET CHSL Police Group D tests",
+    "Haryana state exam 2026",
+    "free Haryana government exam preparation",
   ],
   alternates: {
-    canonical: "https://cettest.site/exams/uksssc",
+    canonical: "https://cettest.site/exams/haryana",
   },
   openGraph: {
-    title: "UKSSSC Mock Tests 2026 | Uttarakhand State Exams - Free Online",
+    title: "Haryana Exams Mock Tests 2026 | HSSC CET, Police, HSSSC Group D",
     description:
-      "Crack UKSSSC 2026 with unlimited free mock tests for VDO, Patwari, Forest Guard, Police & all Uttarakhand state exams. Previous year papers & instant results.",
-    url: "https://cettest.site/exams/uksssc",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "UKSSSC Mock Test 2026 - Free Uttarakhand Exam Practice" }],
+      "Free mock tests for Haryana HSSC CET, Police Constable, HSSSC Group D and all state exams. Practice unlimited tests with detailed analytics.",
+    url: "https://cettest.site/exams/haryana",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Haryana Exams Mock Tests - Free Online Preparation" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "UKSSSC Mock Tests 2026 | Uttarakhand State Exams",
-    description: "Unlimited free UKSSSC mock tests with instant results & previous year papers. Start now!",
+    title: "Haryana Exams Mock Tests 2026 | HSSC CET, Police, HSSSC",
+    description: "Free mock tests for all Haryana government exams with instant results.",
     images: ["/og-image.png"],
   },
 }
 
-export default function UKSSCSPage() {
+export default function HaryanaExamsPage() {
   const exams = [
     {
-      name: "UK VDO",
-      description: "Village Development Officer recruitment in Uttarakhand",
-      link: "#",
+      name: "HSSC CET",
+      description: "Combined Entrance Test for various Group B & C positions",
+      link: "/exams/hssc-cet",
       features: ["100+ Mock Tests", "Previous Year Papers", "Subject-wise Practice"]
     },
     {
-      name: "Patwari / Lekhpal",
-      description: "Land record and revenue department positions",
+      name: "HSSC Police Constable",
+      description: "Haryana Police recruitment exam preparation",
       link: "#",
-      features: ["Timed Practice Tests", "Detailed Solutions", "Performance Analytics"]
+      features: ["Timed Tests", "Detailed Solutions", "Performance Analytics"]
     },
     {
-      name: "Forest Guard",
-      description: "Uttarakhand forest department recruitment",
+      name: "HSSSC Group D",
+      description: "Group D positions in various Haryana departments",
       link: "#",
-      features: ["Full Mock Tests", "Real Exam Pattern", "Topic-wise Practice"]
+      features: ["100+ Questions", "Real Exam Pattern", "Instant Results"]
     },
     {
-      name: "Uttarakhand Police Constable",
-      description: "Police recruitment in Uttarakhand",
+      name: "Haryana VDO/Patwari",
+      description: "Village Development Officer and Lekhpal exams",
       link: "#",
-      features: ["Comprehensive Coverage", "Expert Explanations", "Instant Results"]
+      features: ["Comprehensive Syllabus", "Topic-wise Tests", "Expert Solutions"]
     },
   ]
 
@@ -76,10 +71,10 @@ export default function UKSSCSPage() {
       <section className="py-16 px-4 md:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Uttarakhand State Exams Preparation
+            Haryana Government Exams Preparation
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
-            Master all UKSSSC exams with unlimited free mock tests, previous year papers, and detailed performance analytics
+            Master all Haryana exams with unlimited free mock tests, previous year papers, and detailed performance analytics
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/signup">
@@ -100,7 +95,7 @@ export default function UKSSCSPage() {
       {/* Exams Grid */}
       <section className="py-16 px-4 md:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Uttarakhand UKSSSC Exam Categories</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Haryana Exam Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {exams.map((exam, idx) => (
               <div key={idx} className="bg-background rounded-lg p-6 border hover:shadow-lg transition-shadow">
@@ -130,7 +125,7 @@ export default function UKSSCSPage() {
       {/* Why Choose Section */}
       <section className="py-16 px-4 md:px-6 lg:px-8 bg-muted/30">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose CET TEST for UKSSSC Preparation?</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose CET TEST for Haryana Exams?</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
               <Trophy className="w-12 h-12 text-primary mx-auto mb-3" />
@@ -159,7 +154,7 @@ export default function UKSSCSPage() {
       {/* CTA Section */}
       <section className="py-16 px-4 md:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto bg-primary text-primary-foreground rounded-lg p-12 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Crack Your UKSSSC Exam?</h2>
+          <h2 className="text-3xl font-bold mb-4">Ready to Crack Your Haryana Exam?</h2>
           <p className="text-lg mb-8 opacity-90">Join thousands of students and start your free preparation today</p>
           <Link href="/signup">
             <Button size="lg" variant="secondary">
