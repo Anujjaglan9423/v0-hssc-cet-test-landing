@@ -45,22 +45,67 @@ export default function ExamsSection() {
   ]
 
   return (
-    <section id="exams" className="py-20 px-4 md:px-6 lg:px-8 scroll-mt-24">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center text-balance">Choose Your Exam Preparation</h2>
-        <p className="text-center text-muted-foreground mb-12">Select the exam category you want to prepare for and get started with unlimited free mock tests</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <section
+      id="exams"
+      className="py-24 px-4 md:px-6 lg:px-8 scroll-mt-24 bg-gradient-to-b from-white via-slate-50 to-white"
+    >
+      <div className="max-w-7xl mx-auto">
+
+        {/* Heading */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Choose Your Exam Preparation
+          </h2>
+          <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
+            Select your exam category and start practicing with{" "}
+            <span className="font-semibold text-gray-700">
+              unlimited free mock tests
+            </span>
+          </p>
+        </div>
+
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {examCategories.map((exam, idx) => (
             <Link key={idx} href={exam.link}>
-              <div className={`${exam.gradient} rounded-lg p-8 border ${exam.borderColor} hover:shadow-lg transition-all duration-300 h-full cursor-pointer group`}>
-                <div className="flex items-start justify-between mb-4">
-                  <div className="text-5xl mb-2">{exam.icon}</div>
-                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+              <div
+                className={`
+              relative overflow-hidden rounded-2xl p-8 h-full cursor-pointer group
+              border border-white/40 backdrop-blur-xl
+              bg-white/70
+              shadow-md hover:shadow-2xl
+              transition-all duration-500
+              hover:-translate-y-2
+            `}
+              >
+                {/* Glow Effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-xl" />
+
+                {/* Top */}
+                <div className="flex items-start justify-between mb-6 relative z-10">
+                  <div className="text-5xl transform group-hover:scale-110 transition duration-300">
+                    {exam.icon}
+                  </div>
+
+                  <div className="p-2 rounded-full bg-gray-100 group-hover:bg-blue-100 transition">
+                    <ArrowRight className="w-5 h-5 text-gray-500 group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+                  </div>
                 </div>
-                <h3 className={`text-2xl font-bold mb-2 ${exam.textColor}`}>{exam.name}</h3>
-                <p className="text-muted-foreground mb-6">{exam.description}</p>
-                <Button className="w-full" variant="secondary">
+
+                {/* Title */}
+                <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-blue-600 transition">
+                  {exam.name}
+                </h3>
+
+                {/* Description */}
+                <p className="text-gray-500 mb-8 leading-relaxed">
+                  {exam.description}
+                </p>
+
+                {/* Button */}
+                <Button
+                  className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+                >
                   Explore Tests
                 </Button>
               </div>
