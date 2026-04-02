@@ -39,63 +39,48 @@ interface PageProps {
 }
 
 async function getBlog(slug: string): Promise<Blog | null> {
-  try {
-    const supabase = await createClient()
-    
-    const { data: blog, error } = await supabase
-      .from("blogs")
-      .select("*")
-      .eq("slug", slug)
-      .eq("status", "publish")
-      .single()
-    
-    if (error || !blog) {
-      return null
-    }
-    
-    return blog
-  } catch (error) {
-    console.error("[v0] Failed to fetch blog:", error)
+  const supabase = await createClient()
+  
+  const { data: blog, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "publish")
+    .single()
+  
+  if (error || !blog) {
     return null
   }
+  
+  return blog
 }
 
 async function getRelatedBlogs(category: string, currentSlug: string): Promise<Blog[]> {
-  try {
-    const supabase = await createClient()
-    
-    const { data: blogs } = await supabase
-      .from("blogs")
-      .select("*")
-      .eq("status", "publish")
-      .eq("category", category)
-      .neq("slug", currentSlug)
-      .limit(3)
-    
-    return blogs || []
-  } catch (error) {
-    console.error("[v0] Failed to fetch related blogs:", error)
-    return []
-  }
+  const supabase = await createClient()
+  
+  const { data: blogs } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("status", "publish")
+    .eq("category", category)
+    .neq("slug", currentSlug)
+    .limit(3)
+  
+  return blogs || []
 }
 
 async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
-  try {
-    const supabase = await createClient()
-    
-    const { data: blogs } = await supabase
-      .from("blogs")
-      .select("*")
-      .eq("status", "publish")
-      .neq("slug", currentSlug)
-      .order("created_at", { ascending: false })
-      .limit(4)
-    
-    return blogs || []
-  } catch (error) {
-    console.error("[v0] Failed to fetch recent blogs:", error)
-    return []
-  }
+  const supabase = await createClient()
+  
+  const { data: blogs } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("status", "publish")
+    .neq("slug", currentSlug)
+    .order("created_at", { ascending: false })
+    .limit(4)
+  
+  return blogs || []
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

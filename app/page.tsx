@@ -2,7 +2,6 @@ import Navbar from "@/components/navbar"
 import HeroSection from "@/components/hero-section"
 import StatsSection from "@/components/stats-section"
 import FeaturesSection from "@/components/features-section"
-import ExamCategoriesSection from "@/components/exam-categories-section"
 import DailyQuizSection from "@/components/daily-quiz-section"
 import TestSeriesSection from "@/components/test-series-section"
 import TestimonialsSection from "@/components/testimonials-section"
@@ -18,7 +17,6 @@ export default function Home() {
       <HeroSection />
       <StatsSection />
       <FeaturesSection />
-      <ExamCategoriesSection />
       <DailyQuizSection />
       <TestSeriesSection />
       <TestimonialsSection />
