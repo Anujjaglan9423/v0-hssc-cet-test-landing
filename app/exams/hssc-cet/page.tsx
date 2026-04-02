@@ -4,24 +4,41 @@ import Link from "next/link"
 import { CheckCircle2, FileText, Clock, BarChart3 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "HSSC CET Mock Test 2026 | Free Online Practice Test Series",
+  title: "HSSC CET Mock Test 2026 | Free Haryana CET Online Practice Test Series",
   description:
-    "Practice unlimited HSSC CET mock tests online with detailed solutions. Get previous year papers, exam pattern, syllabus & instant performance analysis. Start free mock test now!",
+    "Crack HSSC CET 2026 with unlimited free mock tests! Practice Haryana CET exam with previous year papers, updated syllabus, topic-wise tests & instant results. 10,000+ questions. Start free now!",
   keywords: [
-    "HSSC CET mock test",
-    "Haryana CET exam preparation",
-    "HSSC CET free online test",
-    "HSSC CET practice questions",
-    "Haryana constable test paper",
+    "HSSC CET mock test 2026",
+    "Haryana CET free mock test",
+    "HSSC CET online test series",
+    "Haryana CET exam preparation 2026",
     "HSSC CET previous year papers",
-    "HSSC CET exam pattern",
-    "HSSC CET syllabus",
+    "Haryana CET practice questions",
+    "HSSC CET syllabus 2026",
+    "HSSC CET exam pattern 2026",
+    "Haryana CET solved papers",
     "HSSC CET study material",
-    "HSSC CET solved papers",
+    "Haryana CET online preparation",
+    "HSSC Combined Entrance Test mock test",
+    "Haryana sarkari naukri CET",
+    "HSSC CET free practice test",
+    "Haryana CET result cutoff 2026",
   ],
+  alternates: {
+    canonical: "https://cettest.site/exams/hssc-cet",
+  },
   openGraph: {
-    title: "HSSC CET Mock Test 2026 | Free Practice Tests",
-    description: "Practice unlimited HSSC CET mock tests with detailed analysis and previous year papers",
+    title: "HSSC CET Mock Test 2026 | Free Haryana CET Online Practice",
+    description:
+      "Crack HSSC CET 2026 with unlimited free mock tests, previous year papers & detailed performance analytics. Practice Haryana CET now!",
+    url: "https://cettest.site/exams/hssc-cet",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "HSSC CET Mock Test 2026 - Free Haryana CET Preparation" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HSSC CET Mock Test 2026 | Free Haryana CET Practice",
+    description: "Unlimited free HSSC CET mock tests with instant results & previous year papers. Start now!",
+    images: ["/og-image.png"],
   },
 }
 

@@ -4,24 +4,41 @@ import Link from "next/link"
 import { CheckCircle2, FileText, Clock, BarChart3 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "RRB NTPC Mock Test 2026 | Free Online Practice Test Series",
+  title: "RRB NTPC Mock Test 2026 | Free Railway Exam Online Practice Test Series",
   description:
-    "Prepare for Railway RRB NTPC exam with unlimited free mock tests, previous year papers & detailed performance analytics. Practice online now!",
+    "Prepare for RRB NTPC 2026 with unlimited free mock tests. Railway NTPC previous year papers, CBT Stage 1 & 2 practice, updated syllabus & instant results. 500+ questions. Start free preparation now!",
   keywords: [
-    "RRB NTPC mock test",
-    "Railway RRB exam preparation",
-    "RRB NTPC test series",
-    "RRB NTPC free online test",
-    "Railway NTPC practice questions",
-    "RRB NTPC previous year papers",
-    "RRB NTPC exam pattern",
-    "RRB NTPC syllabus",
-    "Railway recruitment board test",
+    "RRB NTPC mock test 2026",
+    "Railway NTPC free online test",
+    "RRB NTPC exam preparation 2026",
+    "RRB NTPC CBT Stage 1 mock test",
+    "RRB NTPC CBT Stage 2 mock test",
+    "Railway NTPC previous year papers",
+    "RRB NTPC practice questions",
+    "Railway NTPC test series 2026",
+    "RRB NTPC syllabus 2026",
+    "RRB NTPC exam pattern 2026",
+    "Railway recruitment board NTPC mock test",
+    "RRB NTPC online preparation",
     "RRB NTPC solved papers",
+    "Indian Railways NTPC 2026",
+    "RRB NTPC free practice test",
   ],
+  alternates: {
+    canonical: "https://cettest.site/exams/railway-rrb-ntpc",
+  },
   openGraph: {
-    title: "RRB NTPC Mock Test 2026 | Free Practice Tests",
-    description: "Master Railway RRB NTPC with unlimited mock tests and detailed analysis",
+    title: "RRB NTPC Mock Test 2026 | Free Railway Online Practice",
+    description:
+      "Crack RRB NTPC 2026 with unlimited free CBT Stage 1 & 2 mock tests, previous year papers & detailed analytics. Start free now!",
+    url: "https://cettest.site/exams/railway-rrb-ntpc",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "RRB NTPC Mock Test 2026 - Free Railway Exam Practice" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RRB NTPC Mock Test 2026 | Free Railway Practice",
+    description: "Unlimited free RRB NTPC mock tests with instant results & previous year papers. Start now!",
+    images: ["/og-image.png"],
   },
 }
 

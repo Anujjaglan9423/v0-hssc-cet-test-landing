@@ -4,24 +4,41 @@ import Link from "next/link"
 import { CheckCircle2, FileText, Clock, BarChart3 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "SSC CGL Mock Test 2026 | Free Online Practice & Preparation",
+  title: "SSC CGL Mock Test 2026 | Free Online Practice Test Series Tier 1 & 2",
   description:
-    "Prepare for SSC CGL with unlimited free mock tests, previous year papers, and detailed analysis. Practice online with our comprehensive test series for Tier-1, Tier-2 & Tier-3.",
+    "Prepare for SSC CGL 2026 with unlimited free mock tests for Tier 1 & Tier 2. Previous year papers, updated syllabus, topic-wise practice & instant performance analysis. 1000+ questions. Start free!",
   keywords: [
-    "SSC CGL mock test",
-    "SSC CGL exam preparation",
+    "SSC CGL mock test 2026",
     "SSC CGL free online test",
-    "SSC CGL practice questions",
+    "SSC CGL exam preparation 2026",
+    "SSC CGL Tier 1 mock test",
+    "SSC CGL Tier 2 mock test",
     "SSC CGL previous year papers",
-    "SSC CGL test series",
-    "SSC CGL syllabus",
-    "SSC CGL exam pattern",
-    "SSC CGL tier 1",
-    "SSC CGL tier 2",
+    "SSC CGL practice questions",
+    "SSC CGL test series 2026",
+    "SSC CGL syllabus 2026",
+    "SSC CGL exam pattern 2026",
+    "SSC Combined Graduate Level mock test",
+    "SSC CGL online preparation",
+    "SSC CGL solved papers",
+    "Staff Selection Commission CGL 2026",
+    "SSC CGL free practice test",
   ],
+  alternates: {
+    canonical: "https://cettest.site/exams/ssc-cgl",
+  },
   openGraph: {
-    title: "SSC CGL Mock Test 2026 | Free Practice Tests",
-    description: "Master SSC CGL with unlimited mock tests and detailed performance analysis",
+    title: "SSC CGL Mock Test 2026 | Free Online Practice Tier 1 & Tier 2",
+    description:
+      "Crack SSC CGL 2026 with unlimited free Tier 1 & Tier 2 mock tests, previous year papers & detailed performance analytics. Start free now!",
+    url: "https://cettest.site/exams/ssc-cgl",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "SSC CGL Mock Test 2026 - Free Online Practice" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SSC CGL Mock Test 2026 | Free Tier 1 & 2 Practice",
+    description: "Unlimited free SSC CGL mock tests with instant results & previous year papers. Start now!",
+    images: ["/og-image.png"],
   },
 }
 

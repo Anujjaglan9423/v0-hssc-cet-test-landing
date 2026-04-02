@@ -8,8 +8,31 @@ import { createClient } from "@/lib/supabase/server"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Blog | CET TEST - Exam Preparation Tips & Study Resources",
-  description: "Expert tips, exam strategies, and study resources to help you ace all competitive exams including HSSC CET, SSC, Railway, and more.",
+  title: "Blog | Haryana CET, HSSC, SSC & Railway Exam Tips & Study Resources 2026",
+  description:
+    "Expert exam tips, study strategies, syllabus updates & preparation guides for Haryana CET, HSSC CET, SSC CGL, RRB NTPC & UKSSSC exams. Read the latest articles to boost your government job preparation.",
+  keywords: [
+    "Haryana CET exam tips 2026",
+    "HSSC CET study guide",
+    "SSC CGL preparation tips",
+    "RRB NTPC study resources",
+    "government job exam blog",
+    "HSSC CET syllabus guide",
+    "Haryana CET previous year analysis",
+    "competitive exam preparation tips India",
+    "UKSSSC exam strategy",
+    "sarkari naukri preparation blog",
+  ],
+  alternates: {
+    canonical: "https://cettest.site/blog",
+  },
+  openGraph: {
+    title: "Blog | Haryana CET, HSSC, SSC & Railway Exam Tips 2026",
+    description:
+      "Expert tips, study strategies & syllabus updates for Haryana CET, HSSC CET, SSC, Railway & UKSSSC exams.",
+    url: "https://cettest.site/blog",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "CET TEST Blog - Exam Tips & Study Resources" }],
+  },
 }
 
 interface Blog {
