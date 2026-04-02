@@ -183,7 +183,9 @@ export default async function BlogPostPage({ params }: PageProps) {
         {/* Title Section */}
         <div className={`relative ${blog.featured_image_url ? "-mt-48 md:-mt-64" : "pt-12"} z-20`}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className={`${blog.featured_image_url ? "bg-card/95 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-10" : ""}`}>
+            <div className={`${blog.featured_image_url 
+  ? "bg-card/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-border/50 p-6 md:p-10" 
+  : ""}`}>
               {/* Breadcrumb */}
               <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                 <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
@@ -205,12 +207,12 @@ export default async function BlogPostPage({ params }: PageProps) {
               )}
 
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight text-balance">
+           <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
                 {blog.title}
               </h1>
 
               {/* Meta Info */}
-              <div className="flex flex-wrap items-center gap-4 md:gap-6 mt-6 text-muted-foreground">
+             <div className="flex flex-wrap items-center gap-6 mt-6 text-sm text-muted-foreground border-t pt-4">
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                     <User className="w-5 h-5 text-primary" />
@@ -247,31 +249,31 @@ export default async function BlogPostPage({ params }: PageProps) {
       </section>
 
       {/* Content Section */}
-      <article className="py-12 px-4 sm:px-6 lg:px-8">
+      <article className="py-14 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
             {/* Main Content */}
             <div className="lg:col-span-8">
               {/* Article Content */}
               <div
-                className="prose prose-lg max-w-none 
-                  prose-headings:text-foreground prose-headings:font-bold prose-headings:scroll-mt-20
-                  prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-l-4 prose-h2:border-primary prose-h2:pl-4
-                  prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                  prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-4
-                  prose-li:text-muted-foreground prose-li:leading-relaxed
-                  prose-strong:text-foreground prose-strong:font-semibold
-                  prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                  prose-blockquote:border-l-primary prose-blockquote:bg-muted/50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
-                  prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-normal prose-code:before:content-none prose-code:after:content-none
-                  prose-img:rounded-xl prose-img:shadow-lg
-                  prose-ul:my-4 prose-ol:my-4
-                "
+               className="prose prose-lg max-w-none 
+prose-headings:text-foreground prose-headings:font-extrabold prose-headings:tracking-tight
+prose-h2:text-3xl prose-h2:mt-14 prose-h2:mb-6 prose-h2:border-none
+prose-h3:text-xl prose-h3:mt-10 prose-h3:mb-4
+prose-p:text-muted-foreground prose-p:leading-loose prose-p:text-[17px] prose-p:mb-5
+prose-li:text-muted-foreground prose-li:leading-loose prose-li:mb-1
+prose-strong:text-foreground prose-strong:font-semibold
+prose-a:text-primary hover:prose-a:underline
+prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-muted/40 prose-blockquote:px-5 prose-blockquote:py-3 prose-blockquote:rounded-xl prose-blockquote:not-italic
+prose-code:bg-muted prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+prose-img:rounded-2xl prose-img:shadow-xl
+prose-ul:my-6 prose-ol:my-6
+"
                 dangerouslySetInnerHTML={{ __html: blog.description }}
               />
 
               {/* Share Section */}
-              <div className="mt-12 pt-8 border-t border-border">
+              <div className="mt-16 pt-8 border-t border-border">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div>
                     <h3 className="font-semibold text-foreground">Found this helpful?</h3>
@@ -282,20 +284,20 @@ export default async function BlogPostPage({ params }: PageProps) {
               </div>
 
               {/* CTA Section */}
-              <Card className="mt-8 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20 overflow-hidden">
+             <Card className="mt-14 overflow-hidden border-none shadow-2xl bg-gradient-to-r from-primary to-indigo-600 text-white">
                 <CardContent className="p-6 md:p-8">
                   <div className="flex flex-col md:flex-row md:items-center gap-6">
                     <div className="flex-1">
                       <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
                         Ready to Start Practicing?
                       </h3>
-                      <p className="text-muted-foreground">
+                      <p className="text-white/80">
                         Join thousands of students preparing for competitive exams with our comprehensive test series and study materials.
                       </p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-3">
                       <Link href="/signup">
-                        <Button size="lg" className="w-full sm:w-auto">
+                       <Button size="lg" className="w-full sm:w-auto bg-white text-primary hover:bg-gray-100">
                           Start Free Trial
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
@@ -310,7 +312,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <aside className="lg:col-span-4">
               <div className="sticky top-24 space-y-6">
                 {/* Table of Contents - Placeholder for JS enhancement */}
-                <Card>
+            <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
                   <CardContent className="p-6">
                     <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                       <BookOpen className="w-4 h-4 text-primary" />
@@ -324,7 +326,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                 {/* Related Posts */}
                 {relatedBlogs.length > 0 && (
-                  <Card>
+                 <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
                     <CardContent className="p-6">
                       <h3 className="font-semibold text-foreground mb-4">Related Articles</h3>
                       <div className="space-y-4">
@@ -334,7 +336,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                             href={`/blog/${post.slug}`}
                             className="block group"
                           >
-                            <div className="flex gap-3">
+                            <div className="flex gap-3 p-2 rounded-xl hover:bg-muted/50 transition">
                               {post.featured_image_url && (
                                 <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-muted">
                                   <img
@@ -362,7 +364,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                 {/* Recent Posts */}
                 {recentBlogs.length > 0 && (
-                  <Card>
+                  <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
                     <CardContent className="p-6">
                       <h3 className="font-semibold text-foreground mb-4">Recent Articles</h3>
                       <div className="space-y-3">
@@ -391,15 +393,16 @@ export default async function BlogPostPage({ params }: PageProps) {
                 )}
 
                 {/* Categories */}
-                <Card>
+              <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
                   <CardContent className="p-6">
                     <h3 className="font-semibold text-foreground mb-4">Popular Categories</h3>
                     <div className="flex flex-wrap gap-2">
                       {["CET", "Current Affairs", "Study Tips", "Mathematics", "English", "Reasoning"].map((cat) => (
+     
                         <Badge
                           key={cat}
                           variant="secondary"
-                          className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                          className="bg-muted/50 hover:bg-primary hover:text-white transition cursor-pointer"
                         >
                           {cat}
                         </Badge>
