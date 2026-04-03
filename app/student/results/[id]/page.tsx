@@ -21,6 +21,7 @@ import {
 } from "lucide-react"
 import { getTestResult } from "@/lib/actions/student"
 import Link from "next/link"
+import { BilingualText } from "@/components/bilingual-text"
 
 interface ResultData {
   test: {
@@ -319,7 +320,15 @@ export default function ResultPage() {
 
                   {isExpanded && (
                     <div className="px-4 pb-4 pt-0 border-t border-border">
-                      <p className="text-foreground mb-4 mt-4">{q.question_text}</p>
+                      <div className="mb-4 mt-4">
+                        <BilingualText
+                          text={q.question_text}
+                          className="text-foreground"
+                          hindiClassName="text-foreground"
+                          englishClassName="text-foreground"
+                          separator={true}
+                        />
+                      </div>
 
                       <div className="space-y-2">
                         {[
@@ -342,11 +351,21 @@ export default function ResultPage() {
                                     : "border-border"
                               }`}
                             >
-                              <div className="flex items-center gap-2">
-                                <span className="font-medium">({option.key.toUpperCase()})</span>
-                                <span className="flex-1">{option.value}</span>
-                                {isCorrectAnswer && <CheckCircle2 className="w-5 h-5 text-accent" />}
-                                {isUserAnswer && !isCorrectAnswer && <XCircle className="w-5 h-5 text-destructive" />}
+                              <div className="flex items-start gap-2">
+                                <span className="font-medium flex-shrink-0 mt-1">({option.key.toUpperCase()})</span>
+                                <div className="flex-1">
+                                  <BilingualText
+                                    text={option.value}
+                                    className="text-sm"
+                                    hindiClassName="text-sm"
+                                    englishClassName="text-sm"
+                                    separator={true}
+                                  />
+                                </div>
+                                <div className="flex-shrink-0">
+                                  {isCorrectAnswer && <CheckCircle2 className="w-5 h-5 text-accent" />}
+                                  {isUserAnswer && !isCorrectAnswer && <XCircle className="w-5 h-5 text-destructive" />}
+                                </div>
                               </div>
                             </div>
                           )
@@ -355,8 +374,14 @@ export default function ResultPage() {
 
                       {q.explanation && (
                         <div className="mt-4 p-3 bg-primary/5 rounded-lg border border-primary/20">
-                          <p className="text-sm font-medium text-primary mb-1">Explanation:</p>
-                          <p className="text-sm text-muted-foreground">{q.explanation}</p>
+                          <p className="text-sm font-medium text-primary mb-3">Explanation:</p>
+                          <BilingualText
+                            text={q.explanation}
+                            className="text-sm text-muted-foreground"
+                            hindiClassName="text-sm text-muted-foreground"
+                            englishClassName="text-sm text-muted-foreground"
+                            separator={true}
+                          />
                         </div>
                       )}
                     </div>
