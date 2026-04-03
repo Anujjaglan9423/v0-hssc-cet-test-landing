@@ -44,6 +44,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { FeedbackModal } from "@/components/student/feedback-modal"
+import { BilingualText } from "@/components/bilingual-text"
 
 interface Question {
   id: string
@@ -682,9 +683,13 @@ export default function FullscreenTestPage() {
 
             {/* Question Text */}
             <div className="mb-3 lg:mb-4 pb-2 lg:pb-3 border-b border-border/50">
-              <p className="text-base lg:text-lg font-medium text-foreground leading-relaxed">
-                {question.question_text}
-              </p>
+              <BilingualText
+                text={question.question_text}
+                className="text-base lg:text-lg font-medium text-foreground"
+                hindiClassName="text-base lg:text-lg font-medium text-foreground"
+                englishClassName="text-base lg:text-lg font-medium text-foreground"
+                separator={true}
+              />
             </div>
 
             {/* Options */}
@@ -701,7 +706,7 @@ export default function FullscreenTestPage() {
                 ].map((option) => (
                   <div
                     key={option.key}
-                    className={`flex items-start gap-3 p-3 lg:p-4 rounded-lg border-2 cursor-pointer transition-all text-sm lg:text-base ${
+                    className={`flex items-start gap-3 p-3 lg:p-4 rounded-lg border-2 cursor-pointer transition-all ${
                       answers[question.id] === option.key
                         ? "border-primary bg-primary/5 shadow-sm"
                         : "border-border hover:border-primary/30 hover:bg-muted/40"
@@ -713,8 +718,14 @@ export default function FullscreenTestPage() {
                   >
                     <RadioGroupItem value={option.key} id={`option-${option.key}`} className="mt-1 flex-shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <span className="font-bold text-primary mr-2">({option.key.toUpperCase()})</span>
-                      <span className="text-foreground">{option.value}</span>
+                      <span className="font-bold text-primary block mb-1">({option.key.toUpperCase()})</span>
+                      <BilingualText
+                        text={option.value}
+                        className="text-sm lg:text-base text-foreground"
+                        hindiClassName="text-sm lg:text-base text-foreground"
+                        englishClassName="text-sm lg:text-base text-foreground"
+                        separator={true}
+                      />
                     </div>
                   </div>
                 ))}
