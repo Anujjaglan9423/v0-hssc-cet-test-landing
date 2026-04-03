@@ -55,6 +55,7 @@ interface Question {
   option_d: string
   correct_answer: string
   explanation?: string
+  image_url?: string
 }
 
 interface Test {
@@ -690,6 +691,18 @@ export default function FullscreenTestPage() {
                 englishClassName="text-base lg:text-lg font-medium text-foreground"
                 separator={true}
               />
+              
+              {/* Question Image */}
+              {question.image_url && (
+                <div className="mt-3 flex justify-center">
+                  <img 
+                    src={question.image_url} 
+                    alt="Question figure" 
+                    className="max-w-full max-h-64 rounded-lg border border-border object-contain"
+                    loading="lazy"
+                  />
+                </div>
+              )}
             </div>
 
             {/* Options */}

@@ -16,6 +16,8 @@ import {
   Save,
   Loader2,
   Plus,
+  ImageIcon,
+  X,
 } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
@@ -36,6 +38,8 @@ interface Question {
   correctAnswer: string
   explanation?: string
   examSource?: string
+  imageUrl?: string
+  needsImage?: boolean
 }
 
 interface CSVUploadModalProps {
@@ -78,6 +82,10 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null)
   const [showEditModal, setShowEditModal] = useState(false)
   const questionsPerPage = 5
+
+  // Image upload state
+  const [uploadingImageFor, setUploadingImageFor] = useState<string | null>(null)
+  const imageInputRef = useRef<HTMLInputElement>(null)
 
   // States for creating new exam/subject/topic
   const [showAddExam, setShowAddExam] = useState(false)
@@ -227,6 +235,14 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
       // Extract exam source
       const examSource = examDetailsIdx >= 0 ? values[examDetailsIdx]?.replace(/^"|"$/g, "") : ""
 
+      // Check if question needs an image (contains "figure", "diagram", "image", "चित्र" etc.)
+      const imageKeywords = /figure|diagram|image|chart|graph|चित्र|आकृति|fig\.|fig\s/i
+      const needsImage = imageKeywords.test(questionText) || 
+                         imageKeywords.test(optionA) || 
+                         imageKeywords.test(optionB) || 
+                         imageKeywords.test(optionC) || 
+                         imageKeywords.test(optionD)
+
       parsedQuestions.push({
         id: `q-${i}`,
         questionText,
@@ -237,6 +253,8 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
         correctAnswer,
         explanation,
         examSource,
+        needsImage,
+        imageUrl: undefined,
       })
     }
 
@@ -314,6 +332,7 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
           correct_answer: q.correctAnswer.toLowerCase(),
           explanation: q.explanation,
           exam_source: q.examSource,
+          image_url: q.imageUrl,
         })),
       })
 
@@ -345,6 +364,69 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
     setQuestions((prev) => prev.map((q) => (q.id === editingQuestion.id ? editingQuestion : q)))
     setShowEditModal(false)
     setEditingQuestion(null)
+  }
+
+  const handleImageUpload = async (questionId: string, file: File) => {
+    if (!file.type.startsWith('image/')) {
+      setParseError('Please select an image file')
+      return
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setParseError('Image size must be less than 5MB')
+      return
+    }
+
+    setUploadingImageFor(questionId)
+    setParseError(null)
+
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/upload-question-image', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Upload failed')
+      }
+
+      const { url } = await response.json()
+      
+      setQuestions((prev) =>
+        prev.map((q) =>
+          q.id === questionId ? { ...q, imageUrl: url, needsImage: false } : q
+        )
+      )
+    } catch (error) {
+      setParseError(error instanceof Error ? error.message : 'Failed to upload image')
+    } finally {
+      setUploadingImageFor(null)
+    }
+  }
+
+  const handleRemoveImage = (questionId: string) => {
+    setQuestions((prev) =>
+      prev.map((q) =>
+        q.id === questionId ? { ...q, imageUrl: undefined, needsImage: true } : q
+      )
+    )
+  }
+
+  const triggerImageUpload = (questionId: string) => {
+    setUploadingImageFor(questionId)
+    imageInputRef.current?.click()
+  }
+
+  const handleImageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file && uploadingImageFor) {
+      handleImageUpload(uploadingImageFor, file)
+    }
+    e.target.value = ''
   }
 
   const totalPages = Math.ceil(questions.length / questionsPerPage)
@@ -819,6 +901,59 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
                       </div>
                     </div>
                     <p className="text-sm text-foreground mb-2">{q.questionText}</p>
+                    
+                    {/* Image Section */}
+                    {(q.needsImage || q.imageUrl) && (
+                      <div className="mb-3 p-3 border border-dashed rounded-lg bg-muted/30">
+                        {q.imageUrl ? (
+                          <div className="space-y-2">
+                            <div className="relative">
+                              <img 
+                                src={q.imageUrl} 
+                                alt="Question figure" 
+                                className="max-h-40 rounded-lg object-contain mx-auto"
+                              />
+                              <Button
+                                variant="destructive"
+                                size="icon"
+                                className="absolute top-1 right-1 h-6 w-6"
+                                onClick={() => handleRemoveImage(q.id)}
+                              >
+                                <X className="w-3 h-3" />
+                              </Button>
+                            </div>
+                            <p className="text-xs text-center text-accent">Image uploaded</p>
+                          </div>
+                        ) : (
+                          <div className="text-center space-y-2">
+                            <div className="flex items-center justify-center gap-2 text-amber-600">
+                              <ImageIcon className="w-4 h-4" />
+                              <span className="text-xs font-medium">This question needs an image</span>
+                            </div>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => triggerImageUpload(q.id)}
+                              disabled={uploadingImageFor === q.id}
+                              className="gap-2"
+                            >
+                              {uploadingImageFor === q.id ? (
+                                <>
+                                  <Loader2 className="w-3 h-3 animate-spin" />
+                                  Uploading...
+                                </>
+                              ) : (
+                                <>
+                                  <Upload className="w-3 h-3" />
+                                  Upload Image
+                                </>
+                              )}
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    
                     <div className="grid grid-cols-2 gap-1 text-xs">
                       <span className={cn("p-1 rounded", q.correctAnswer === "a" && "bg-accent/20 text-accent")}>
                         A: {q.optionA}
@@ -836,6 +971,15 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
                   </div>
                 ))}
               </div>
+              
+              {/* Hidden image input */}
+              <input
+                ref={imageInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageInputChange}
+              />
 
               {/* Pagination */}
               <div className="flex justify-center gap-2">
@@ -983,6 +1127,86 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
                   rows={2}
                 />
               </div>
+              
+              {/* Image upload in edit modal */}
+              <div>
+                <Label>Question Image (Optional)</Label>
+                <div className="mt-2 p-3 border border-dashed rounded-lg bg-muted/30">
+                  {editingQuestion.imageUrl ? (
+                    <div className="space-y-2">
+                      <div className="relative">
+                        <img 
+                          src={editingQuestion.imageUrl} 
+                          alt="Question figure" 
+                          className="max-h-32 rounded-lg object-contain mx-auto"
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="icon"
+                          className="absolute top-1 right-1 h-6 w-6"
+                          onClick={() => setEditingQuestion({ ...editingQuestion, imageUrl: undefined, needsImage: true })}
+                        >
+                          <X className="w-3 h-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        id="edit-image-input"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0]
+                          if (file && editingQuestion) {
+                            setUploadingImageFor(editingQuestion.id)
+                            try {
+                              const formData = new FormData()
+                              formData.append('file', file)
+                              const response = await fetch('/api/upload-question-image', {
+                                method: 'POST',
+                                body: formData,
+                              })
+                              if (response.ok) {
+                                const { url } = await response.json()
+                                setEditingQuestion({ ...editingQuestion, imageUrl: url, needsImage: false })
+                              }
+                            } catch (error) {
+                              console.error('Upload error:', error)
+                            } finally {
+                              setUploadingImageFor(null)
+                            }
+                          }
+                          e.target.value = ''
+                        }}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => document.getElementById('edit-image-input')?.click()}
+                        disabled={uploadingImageFor === editingQuestion.id}
+                        className="gap-2"
+                      >
+                        {uploadingImageFor === editingQuestion.id ? (
+                          <>
+                            <Loader2 className="w-3 h-3 animate-spin" />
+                            Uploading...
+                          </>
+                        ) : (
+                          <>
+                            <ImageIcon className="w-3 h-3" />
+                            Add Image
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
               <div className="flex justify-end gap-2">
                 <Button variant="outline" onClick={() => setShowEditModal(false)}>
                   Cancel

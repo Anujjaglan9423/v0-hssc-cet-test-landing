@@ -207,6 +207,7 @@ export async function createTest(testData: {
     correct_answer: string
     explanation?: string
     exam_source?: string
+    image_url?: string
   }>
 }) {
   const supabase = await createClient()
@@ -253,6 +254,7 @@ export async function createTest(testData: {
     correct_answer: q.correct_answer.toLowerCase(),
     explanation: q.explanation || null,
     exam_source: q.exam_source || null,
+    image_url: q.image_url || null,
   }))
 
   const { error: questionsError } = await supabase.from("questions").insert(questions)
