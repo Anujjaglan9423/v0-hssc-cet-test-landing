@@ -710,6 +710,7 @@ export default function FullscreenTestPage() {
               <RadioGroup
                 value={answers[question.id] || ""}
                 onValueChange={(value) => handleAnswer(question.id, value)}
+                className="grid grid-cols-2 gap-3"
               >
                 {[
                   { key: "a", value: question.option_a },
