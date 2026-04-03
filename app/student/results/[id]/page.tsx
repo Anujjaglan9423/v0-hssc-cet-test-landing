@@ -51,6 +51,7 @@ interface ResultData {
     correct_answer: string
     user_answer: string | null
     explanation?: string
+    image_url?: string
   }>
 }
 
@@ -328,6 +329,18 @@ export default function ResultPage() {
                           englishClassName="text-foreground"
                           separator={true}
                         />
+                        
+                        {/* Question Image */}
+                        {q.image_url && (
+                          <div className="mt-3 flex justify-center">
+                            <img 
+                              src={q.image_url} 
+                              alt="Question figure" 
+                              className="max-w-full max-h-64 rounded-lg border border-border object-contain"
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
                       </div>
 
                       <div className="space-y-2">

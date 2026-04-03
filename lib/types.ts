@@ -67,6 +67,7 @@ export interface Question {
   correct_answer: "a" | "b" | "c" | "d"
   explanation: string | null
   exam_source: string | null
+  image_url: string | null
   created_at: string
 }
 

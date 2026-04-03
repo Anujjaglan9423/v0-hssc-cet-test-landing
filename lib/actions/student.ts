@@ -406,7 +406,8 @@ export async function getTestById(testId: string) {
         option_c,
         option_d,
         correct_answer,
-        explanation
+        explanation,
+        image_url
       )
     `)
     .eq("id", testId)
