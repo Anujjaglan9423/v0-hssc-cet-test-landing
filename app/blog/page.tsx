@@ -1,4 +1,7 @@
+"use cache"
+
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -6,6 +9,7 @@ import { BookOpen, ArrowLeft, Calendar, Clock, ArrowRight, Sparkles } from "luci
 import Footer from "@/components/footer"
 import { createClient } from "@/lib/supabase/server"
 import type { Metadata } from "next"
+import { cacheLife } from "next/cache"
 
 export const metadata: Metadata = {
   title: "Blog | Haryana CET, HSSC, SSC & Railway Exam Tips & Study Resources 2026",
@@ -51,11 +55,14 @@ interface Blog {
 }
 
 async function getBlogs(): Promise<Blog[]> {
+  "use cache"
+  cacheLife("hours")
+  
   const supabase = await createClient()
   
   const { data: blogs, error } = await supabase
     .from("blogs")
-    .select("*")
+    .select("id, title, slug, description, category, featured_image_url, created_at")
     .eq("status", "publish")
     .order("created_at", { ascending: false })
   
@@ -192,10 +199,13 @@ export default async function BlogPage() {
                     {/* Image */}
                     <div className="relative h-52 overflow-hidden bg-muted">
                       {post.featured_image_url ? (
-                        <img
+                        <Image
                           src={post.featured_image_url}
                           alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-accent/10">

@@ -1,4 +1,7 @@
+"use cache"
+
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -17,6 +20,7 @@ import Footer from "@/components/footer"
 import { notFound } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import type { Metadata } from "next"
+import { cacheLife } from "next/cache"
 
 interface Blog {
   id: string
@@ -39,6 +43,9 @@ interface PageProps {
 }
 
 async function getBlog(slug: string): Promise<Blog | null> {
+  "use cache"
+  cacheLife("hours")
+  
   const supabase = await createClient()
   
   const { data: blog, error } = await supabase
@@ -56,11 +63,14 @@ async function getBlog(slug: string): Promise<Blog | null> {
 }
 
 async function getRelatedBlogs(category: string, currentSlug: string): Promise<Blog[]> {
+  "use cache"
+  cacheLife("hours")
+  
   const supabase = await createClient()
   
   const { data: blogs } = await supabase
     .from("blogs")
-    .select("*")
+    .select("id, title, slug, description, featured_image_url, created_at")
     .eq("status", "publish")
     .eq("category", category)
     .neq("slug", currentSlug)
@@ -70,11 +80,14 @@ async function getRelatedBlogs(category: string, currentSlug: string): Promise<B
 }
 
 async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
+  "use cache"
+  cacheLife("hours")
+  
   const supabase = await createClient()
   
   const { data: blogs } = await supabase
     .from("blogs")
-    .select("*")
+    .select("id, title, slug, description, featured_image_url, created_at")
     .eq("status", "publish")
     .neq("slug", currentSlug)
     .order("created_at", { ascending: false })
@@ -243,10 +256,13 @@ export default async function BlogPostPage({ params }: PageProps) {
               <div className="hidden lg:block">
                 <div className="sticky top-24 w-full h-80 relative rounded-xl overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
-                  <img
+                  <Image
                     src={blog.featured_image_url}
                     alt={blog.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    fill
+                    sizes="50vw"
+                    priority
+                    className="object-cover hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 rounded-xl ring-1 ring-border/50" />
                 </div>
