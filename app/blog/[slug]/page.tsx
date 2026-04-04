@@ -145,21 +145,22 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <header className="border-b border-border/50 bg-background/80 backdrop-blur-lg sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary/30 transition-all">
                 <BookOpen className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold text-foreground">
+              <span className="text-lg sm:text-xl font-bold text-foreground">
                 CET <span className="text-primary">TEST</span>
               </span>
             </Link>
             <Link href="/blog">
-              <Button variant="ghost" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                All Articles
+              <Button variant="ghost" size="sm" className="gap-1 sm:gap-2 text-xs sm:text-sm">
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">All Articles</span>
+                <span className="sm:hidden">Back</span>
               </Button>
             </Link>
           </div>
@@ -167,137 +168,168 @@ export default async function BlogPostPage({ params }: PageProps) {
       </header>
 
       {/* Hero Section */}
-      <section className="relative">
-        {/* Featured Image */}
-        {blog.featured_image_url && (
-          <div className="w-full h-64 md:h-96 lg:h-[500px] relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent z-10" />
-            <img
-              src={blog.featured_image_url}
-              alt={blog.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        )}
-        
-        {/* Title Section */}
-        <div className={`relative ${blog.featured_image_url ? "-mt-48 md:-mt-64" : "pt-12"} z-20`}>
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className={`${blog.featured_image_url ? "bg-card/95 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-10" : ""}`}>
-              {/* Breadcrumb */}
-              <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-                <ChevronRight className="w-4 h-4" />
-                <Link href="/blog" className="hover:text-foreground transition-colors">Blog</Link>
-                {blog.category && (
-                  <>
-                    <ChevronRight className="w-4 h-4" />
-                    <span className="text-primary">{blog.category}</span>
-                  </>
-                )}
-              </nav>
+      <section className="relative pt-8 sm:pt-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            {/* Title Section */}
+            <div>
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
+            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
+            <Link href="/blog" className="hover:text-foreground transition-colors">Blog</Link>
+            {blog.category && (
+              <>
+                <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="text-primary font-medium">{blog.category}</span>
+              </>
+            )}
+          </nav>
 
-              {/* Category Badge */}
-              {blog.category && (
-                <Badge className="bg-primary/10 text-primary border-primary/20 mb-4">
-                  {blog.category}
-                </Badge>
-              )}
+          {/* Category Badge */}
+          {blog.category && (
+            <div className="mb-4 sm:mb-6">
+              <Badge className="bg-gradient-to-r from-primary/20 to-primary/10 text-primary border border-primary/30 text-xs sm:text-sm px-3 sm:px-4 py-1.5 rounded-full font-medium">
+                {blog.category}
+              </Badge>
+            </div>
+          )}
 
-              {/* Title */}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight text-balance">
-                {blog.title}
-              </h1>
+          {/* Title */}
+          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight text-balance mb-6 sm:mb-8">
+            {blog.title}
+          </h1>
 
-              {/* Meta Info */}
-              <div className="flex flex-wrap items-center gap-4 md:gap-6 mt-6 text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <User className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">CET TEST Team</p>
-                    <p className="text-xs text-muted-foreground">Author</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 text-sm">
-                  <Calendar className="w-4 h-4" />
-                  {formatDate(blog.created_at)}
-                </div>
-                <div className="flex items-center gap-1 text-sm">
-                  <Clock className="w-4 h-4" />
-                  {readTime}
-                </div>
+          {/* Meta Info */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pb-6 sm:pb-8 border-b border-border/50">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center flex-shrink-0">
+                <User className="w-6 h-6 text-primary" />
               </div>
+              <div>
+                <p className="text-sm font-semibold text-foreground">CET TEST Team</p>
+                <p className="text-xs text-muted-foreground">Author</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-primary/60" />
+                {formatDate(blog.created_at)}
+              </div>
+              <div className="hidden sm:flex items-center gap-1">
+                <span className="text-border">•</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-primary/60" />
+                {readTime}
+              </div>
+            </div>
+          </div>
 
               {/* Tags */}
               {blog.tags && blog.tags.length > 0 && (
-                <div className="flex flex-wrap items-center gap-2 mt-4">
-                  <Tag className="w-4 h-4 text-muted-foreground" />
+                <div className="flex flex-wrap items-center gap-2 mt-6 sm:mt-8">
                   {blog.tags.map((tag, index) => (
-                    <Badge key={index} variant="secondary" className="text-xs">
+                    <Badge key={index} variant="secondary" className="text-xs bg-muted/60 hover:bg-muted text-foreground/80 px-2.5 sm:px-3 py-1 rounded-full transition-colors cursor-pointer">
                       {tag}
                     </Badge>
                   ))}
                 </div>
               )}
             </div>
+
+            {/* Featured Image with Overlay */}
+            {blog.featured_image_url && (
+              <div className="hidden lg:block">
+                <div className="sticky top-24 w-full h-80 relative rounded-xl overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
+                  <img
+                    src={blog.featured_image_url}
+                    alt={blog.title}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 rounded-xl ring-1 ring-border/50" />
+                </div>
+              </div>
+            )}
           </div>
+
+          {/* Mobile Image - Below Title */}
+          {blog.featured_image_url && (
+            <div className="lg:hidden mt-8 sm:mt-12">
+              <div className="w-full h-64 sm:h-72 relative rounded-lg sm:rounded-xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
+                <img
+                  src={blog.featured_image_url}
+                  alt={blog.title}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 rounded-lg sm:rounded-xl ring-1 ring-border/50" />
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
       {/* Content Section */}
-      <article className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
+      <article className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-background to-background">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16">
             {/* Main Content */}
             <div className="lg:col-span-8">
               {/* Article Content */}
               <div
-                className="prose prose-lg max-w-none 
+                className="prose prose-base sm:prose-lg max-w-none 
                   prose-headings:text-foreground prose-headings:font-bold prose-headings:scroll-mt-20
-                  prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-l-4 prose-h2:border-primary prose-h2:pl-4
-                  prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                  prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-4
-                  prose-li:text-muted-foreground prose-li:leading-relaxed
+                  prose-h2:text-xl sm:text-2xl prose-h2:mt-12 sm:prose-h2:mt-14 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:border-l-4 prose-h2:border-primary prose-h2:pl-4 sm:prose-h2:pl-5
+                  prose-h3:text-lg sm:text-xl prose-h3:mt-8 sm:prose-h3:mt-10 prose-h3:mb-4 sm:prose-h3:mb-5 prose-h3:font-semibold
+                  prose-h4:text-base sm:text-lg prose-h4:mt-6 prose-h4:mb-3 prose-h4:font-semibold
+                  prose-p:text-muted-foreground prose-p:leading-relaxed sm:prose-p:leading-loose prose-p:mb-4 sm:prose-p:mb-5
+                  prose-li:text-muted-foreground prose-li:leading-relaxed sm:prose-li:leading-loose prose-li:mb-2
                   prose-strong:text-foreground prose-strong:font-semibold
-                  prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                  prose-blockquote:border-l-primary prose-blockquote:bg-muted/50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
-                  prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-normal prose-code:before:content-none prose-code:after:content-none
-                  prose-img:rounded-xl prose-img:shadow-lg
-                  prose-ul:my-4 prose-ol:my-4
+                  prose-em:text-muted-foreground prose-em:italic
+                  prose-a:text-primary prose-a:font-medium prose-a:no-underline hover:prose-a:underline hover:prose-a:underline-offset-2 transition-all
+                  prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-primary/5 prose-blockquote:py-4 sm:prose-blockquote:py-5 prose-blockquote:px-4 sm:prose-blockquote:px-5 prose-blockquote:rounded-r-lg prose-blockquote:not-italic prose-blockquote:my-6 prose-blockquote:text-foreground prose-blockquote:font-medium
+                  prose-code:bg-muted prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none prose-code:text-foreground/90
+                  prose-pre:bg-muted prose-pre:border prose-pre:border-border/50 prose-pre:rounded-lg
+                  prose-img:rounded-xl prose-img:shadow-xl prose-img:my-6 sm:prose-img:my-8 prose-img:border prose-img:border-border/50
+                  prose-ul:my-5 sm:prose-ul:my-6 prose-ul:space-y-2
+                  prose-ol:my-5 sm:prose-ol:my-6 prose-ol:space-y-2
+                  prose-table:my-6 prose-td:px-3 prose-td:py-2 prose-th:px-3 prose-th:py-2 prose-th:font-semibold prose-th:bg-muted/50
                 "
                 dangerouslySetInnerHTML={{ __html: blog.description }}
               />
 
               {/* Share Section */}
-              <div className="mt-12 pt-8 border-t border-border">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="mt-12 sm:mt-16 lg:mt-20 pt-8 sm:pt-10 border-t border-border/50">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
                   <div>
-                    <h3 className="font-semibold text-foreground">Found this helpful?</h3>
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">Found this helpful?</h3>
                     <p className="text-sm text-muted-foreground">Share it with your friends preparing for exams</p>
                   </div>
-                  <ShareButtons title={blog.title} slug={slug} />
+                  <div className="flex-shrink-0">
+                    <ShareButtons title={blog.title} slug={slug} />
+                  </div>
                 </div>
               </div>
 
               {/* CTA Section */}
-              <Card className="mt-8 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20 overflow-hidden">
-                <CardContent className="p-6 md:p-8">
-                  <div className="flex flex-col md:flex-row md:items-center gap-6">
+              <Card className="mt-12 sm:mt-16 lg:mt-20 bg-gradient-to-br from-primary/15 via-primary/8 to-primary/5 border border-primary/20 overflow-hidden hover:border-primary/40 transition-all shadow-lg hover:shadow-xl hover:shadow-primary/10">
+                <CardContent className="p-6 sm:p-8 lg:p-10">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8">
                     <div className="flex-1">
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
+                      <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3 text-balance">
                         Ready to Start Practicing?
                       </h3>
-                      <p className="text-muted-foreground">
+                      <p className="text-muted-foreground text-base leading-relaxed">
                         Join thousands of students preparing for competitive exams with our comprehensive test series and study materials.
                       </p>
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <Link href="/signup">
-                        <Button size="lg" className="w-full sm:w-auto">
+                    <div className="flex flex-col gap-3">
+                      <Link href="/signup" className="flex-shrink-0">
+                        <Button size="lg" className="w-full sm:w-auto text-base font-semibold gap-2 shadow-lg hover:shadow-xl">
                           Start Free Trial
-                          <ArrowRight className="w-4 h-4 ml-2" />
+                          <ArrowRight className="w-5 h-5" />
                         </Button>
                       </Link>
                     </div>
@@ -308,25 +340,25 @@ export default async function BlogPostPage({ params }: PageProps) {
 
             {/* Sidebar */}
             <aside className="lg:col-span-4">
-              <div className="sticky top-24 space-y-6">
-                {/* Table of Contents - Placeholder for JS enhancement */}
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                      <BookOpen className="w-4 h-4 text-primary" />
+              <div className="sticky top-24 space-y-6 sm:space-y-8">
+                {/* Quick Navigation */}
+                <Card className="border border-border/50 shadow-sm hover:shadow-md transition-shadow">
+                  <CardContent className="p-5 sm:p-6">
+                    <h3 className="font-bold text-foreground mb-4 flex items-center gap-2 text-base sm:text-lg">
+                      <BookOpen className="w-5 h-5 text-primary" />
                       Quick Navigation
                     </h3>
-                    <p className="text-sm text-muted-foreground">
-                      Scroll through the article to explore all sections and tips covered in this guide.
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Scroll through the article to explore all sections and key insights covered in this comprehensive guide.
                     </p>
                   </CardContent>
                 </Card>
 
                 {/* Related Posts */}
                 {relatedBlogs.length > 0 && (
-                  <Card>
-                    <CardContent className="p-6">
-                      <h3 className="font-semibold text-foreground mb-4">Related Articles</h3>
+                  <Card className="border border-border/50 shadow-sm hover:shadow-md transition-shadow">
+                    <CardContent className="p-5 sm:p-6">
+                      <h3 className="font-bold text-foreground mb-5 text-base sm:text-lg">Related Articles</h3>
                       <div className="space-y-4">
                         {relatedBlogs.map((post) => (
                           <Link
@@ -336,19 +368,19 @@ export default async function BlogPostPage({ params }: PageProps) {
                           >
                             <div className="flex gap-3">
                               {post.featured_image_url && (
-                                <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-muted">
+                                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-lg overflow-hidden flex-shrink-0 bg-muted ring-1 ring-border/50">
                                   <img
                                     src={post.featured_image_url}
                                     alt={post.title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                                   />
                                 </div>
                               )}
                               <div className="flex-1 min-w-0">
-                                <h4 className="text-sm font-medium text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+                                <h4 className="text-sm font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
                                   {post.title}
                                 </h4>
-                                <p className="text-xs text-muted-foreground mt-1">
+                                <p className="text-xs text-muted-foreground mt-2">
                                   {formatDate(post.created_at)}
                                 </p>
                               </div>
@@ -362,24 +394,24 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                 {/* Recent Posts */}
                 {recentBlogs.length > 0 && (
-                  <Card>
-                    <CardContent className="p-6">
-                      <h3 className="font-semibold text-foreground mb-4">Recent Articles</h3>
-                      <div className="space-y-3">
+                  <Card className="border border-border/50 shadow-sm hover:shadow-md transition-shadow">
+                    <CardContent className="p-5 sm:p-6">
+                      <h3 className="font-bold text-foreground mb-5 text-base sm:text-lg">Latest Articles</h3>
+                      <div className="space-y-4">
                         {recentBlogs.map((post, index) => (
                           <Link
                             key={post.id}
                             href={`/blog/${post.slug}`}
-                            className="flex items-start gap-3 group"
+                            className="flex items-start gap-4 group p-3 rounded-lg hover:bg-muted/50 transition-colors"
                           >
-                            <span className="text-lg font-bold text-primary/40 group-hover:text-primary transition-colors">
+                            <span className="text-xl sm:text-2xl font-bold text-primary/30 group-hover:text-primary/60 transition-colors flex-shrink-0 w-6 text-center">
                               {String(index + 1).padStart(2, "0")}
                             </span>
                             <div className="flex-1 min-w-0">
-                              <h4 className="text-sm font-medium text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+                              <h4 className="text-sm font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
                                 {post.title}
                               </h4>
-                              <p className="text-xs text-muted-foreground mt-1">
+                              <p className="text-xs text-muted-foreground mt-1.5">
                                 {calculateReadTime(post.description)}
                               </p>
                             </div>
@@ -391,15 +423,15 @@ export default async function BlogPostPage({ params }: PageProps) {
                 )}
 
                 {/* Categories */}
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-foreground mb-4">Popular Categories</h3>
+                <Card className="border border-border/50 shadow-sm hover:shadow-md transition-shadow">
+                  <CardContent className="p-5 sm:p-6">
+                    <h3 className="font-bold text-foreground mb-5 text-base sm:text-lg">Categories</h3>
                     <div className="flex flex-wrap gap-2">
                       {["CET", "Current Affairs", "Study Tips", "Mathematics", "English", "Reasoning"].map((cat) => (
                         <Badge
                           key={cat}
                           variant="secondary"
-                          className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                          className="cursor-pointer text-xs sm:text-sm bg-muted/60 hover:bg-primary/20 text-foreground/80 hover:text-primary transition-all px-2.5 py-1 rounded-full font-medium"
                         >
                           {cat}
                         </Badge>
