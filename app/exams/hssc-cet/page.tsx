@@ -1,138 +1,302 @@
 import { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { CheckCircle2, FileText, Clock, BarChart3 } from "lucide-react"
+import { CheckCircle2, FileText, Clock, BarChart3, ChevronDown, HelpCircle, Target } from "lucide-react"
+import FooterLinkNavbar from "@/components/footer-link-navbar"
+import FooterLinkFooter from "@/components/footer-link-footer"
 
+// SEO OPTIMIZATION: Metadata with high-intent localized keywords
 export const metadata: Metadata = {
-  title: "HSSC CET Mock Test 2026 | Free Haryana CET Online Practice Test Series",
+  title: "HSSC CET Mock Test 2026 | Free Haryana CET Group C & D Practice Sets",
   description:
-    "Crack HSSC CET 2026 with unlimited free mock tests! Practice Haryana CET exam with previous year papers, updated syllabus, topic-wise tests & instant results. 10,000+ questions. Start free now!",
+    "Boost your score in HSSC CET 2026! Access free mock tests for Haryana CET Group C and D. Includes NTA pattern questions, Haryana GK, previous year solved papers, and detailed analytics. Start for free!",
   keywords: [
-    "HSSC CET mock test 2026",
-    "Haryana CET free mock test",
-    "HSSC CET online test series",
-    "Haryana CET exam preparation 2026",
-    "HSSC CET previous year papers",
-    "Haryana CET practice questions",
-    "HSSC CET syllabus 2026",
-    "HSSC CET exam pattern 2026",
-    "Haryana CET solved papers",
-    "HSSC CET study material",
-    "Haryana CET online preparation",
-    "HSSC Combined Entrance Test mock test",
-    "Haryana sarkari naukri CET",
-    "HSSC CET free practice test",
-    "Haryana CET result cutoff 2026",
+    "HSSC CET Mock Test 2026",
+    "Haryana CET Group C Mock Test",
+    "HSSC CET Group D Free Online Test",
+    "NTA HSSC CET Exam Pattern",
+    "Haryana CET Previous Year Papers with Solutions",
+    "HSSC CET Haryana GK Questions",
+    "Free Haryana CET Practice Set 2026",
+    "Sarkari Result Haryana CET Prep",
+    "HSSC CET Online Test Series Hindi",
+    "Haryana Staff Selection Commission CET Preparation",
   ],
   alternates: {
     canonical: "https://cettest.site/exams/hssc-cet",
   },
   openGraph: {
     title: "HSSC CET Mock Test 2026 | Free Haryana CET Online Practice",
-    description:
-      "Crack HSSC CET 2026 with unlimited free mock tests, previous year papers & detailed performance analytics. Practice Haryana CET now!",
+    description: "Crack HSSC CET 2026 with NTA-based mock tests, Haryana GK sets & previous year papers.",
     url: "https://cettest.site/exams/hssc-cet",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "HSSC CET Mock Test 2026 - Free Haryana CET Preparation" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "HSSC CET Mock Test 2026 | Free Haryana CET Practice",
-    description: "Unlimited free HSSC CET mock tests with instant results & previous year papers. Start now!",
-    images: ["/og-image.png"],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "HSSC CET 2026 Preparation" }],
   },
 }
 
 export default function HSCSCETPage() {
+  const faqs = [
+    {
+      q: "Is the HSSC CET Mock Test based on the NTA pattern?",
+      a: "Yes, all our HSSC CET practice sets follow the latest NTA (National Testing Agency) pattern, focusing on the 95+5 marks distribution and specified syllabus weightage."
+    },
+    {
+      q: "Does this include Haryana GK and Current Affairs?",
+      a: "Absolutely. Our HSSC CET mock tests include dedicated sections for Haryana History, Geography, Polity, and monthly Haryana Current Affairs."
+    },
+    {
+      q: "Can I access HSSC CET Group D previous year papers?",
+      a: "Yes, we provide solved previous year question papers for both HSSC CET Group C and Group D exams to help you understand the difficulty level."
+    }
+  ];
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-background to-muted/50">
-      {/* Hero Section */}
-      <section className="py-16 px-4 md:px-6 lg:px-8">
+      <FooterLinkNavbar />
+
+      {/* Hero Section: Keyword-rich H1 */}
+      <section className="pt-24 pb-16 md:pt-32 md:pb-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            HSSC CET Mock Tests & Exam Preparation
+          <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium bg-primary/10 text-primary rounded-full">
+            Updated for 2026 NTA Pattern
+          </span>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            Free <span className="text-primary">HSSC CET Mock Test</span> 2026
           </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Master Haryana CET with unlimited free mock tests, previous year papers, and detailed performance analytics
+          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Prepare for Haryana CET Group C & D with unlimited free practice tests,
+            solved previous year papers, and expert-curated Haryana GK sets.
           </p>
-          <div className="flex gap-4 justify-center">
-            <Link href="/signup">
-              <Button size="lg" className="gap-2">
-                <CheckCircle2 className="w-5 h-5" />
-                Start Free Test Now
-              </Button>
-            </Link>
+          <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/demo">
-              <Button variant="outline" size="lg">
-                View Demo Test
+              <Button size="lg" className="gap-2 cursor-pointer">
+                <CheckCircle2 className="w-5 h-5" />
+                Start Free Mock Test
+              </Button>
+            </Link>
+            <Link href="#exam-details">
+              <Button variant="outline" size="lg" className="cursor-pointer">
+                Exam Overview
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 px-4 md:px-6 lg:px-8 bg-muted/30">
+      {/* Features Grid */}
+      <section className="py-20 px-4 md:px-6 lg:px-8 bg-gradient-to-b from-white to-muted/30 border-y">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Why Choose CET TEST for HSSC CET Preparation?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-background rounded-lg p-6 border">
-              <FileText className="w-10 h-10 text-primary mb-3" />
-              <h3 className="font-semibold mb-2">100+ Mock Tests</h3>
-              <p className="text-sm text-muted-foreground">Comprehensive test series covering all HSSC CET topics</p>
-            </div>
-            <div className="bg-background rounded-lg p-6 border">
-              <Clock className="w-10 h-10 text-primary mb-3" />
-              <h3 className="font-semibold mb-2">Timed Tests</h3>
-              <p className="text-sm text-muted-foreground">Real exam conditions with timer to improve speed and accuracy</p>
-            </div>
-            <div className="bg-background rounded-lg p-6 border">
-              <BarChart3 className="w-10 h-10 text-primary mb-3" />
-              <h3 className="font-semibold mb-2">Detailed Analytics</h3>
-              <p className="text-sm text-muted-foreground">Track progress with subject-wise performance reports</p>
-            </div>
-            <div className="bg-background rounded-lg p-6 border">
-              <CheckCircle2 className="w-10 h-10 text-primary mb-3" />
-              <h3 className="font-semibold mb-2">Solutions & Explanations</h3>
-              <p className="text-sm text-muted-foreground">Detailed explanations for every question to learn effectively</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Content Section */}
-      <section className="py-16 px-4 md:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6">HSSC CET Exam Overview</h2>
-          <div className="space-y-4 mb-8">
-            <p className="text-lg text-muted-foreground">
-              The Haryana Staff Selection Commission (HSSC) conducts the Combined Entrance Test (CET) for various government positions in Haryana. Our platform provides comprehensive preparation resources for aspiring candidates.
+          {/* Heading */}
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Why Choose Our Mock Tests?
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Designed for serious Haryana CET aspirants with real exam-level experience
             </p>
-            <h3 className="text-2xl font-semibold mt-8">Exam Pattern</h3>
-            <ul className="space-y-2 list-disc list-inside">
-              <li>Total Questions: 100</li>
-              <li>Duration: 90 minutes</li>
-              <li>Subjects: General Knowledge, Reasoning, Mathematics, English</li>
-              <li>Negative Marking: 0.25 marks per wrong answer</li>
-              <li>Total Marks: 100</li>
-            </ul>
-
-            <h3 className="text-2xl font-semibold mt-8">Syllabus Coverage</h3>
-            <ul className="space-y-2 list-disc list-inside">
-              <li>General Knowledge & Current Affairs</li>
-              <li>Logical Reasoning & Mental Ability</li>
-              <li>Quantitative Aptitude</li>
-              <li>English Language & Comprehension</li>
-              <li>Computer Basics</li>
-            </ul>
           </div>
 
-          <Link href="/signup">
-            <Button size="lg" className="w-full md:w-auto">
-              Start Practicing HSSC CET Now
-            </Button>
-          </Link>
+          {/* Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            {/* Card 1 */}
+            <div className="group relative p-6 rounded-2xl border bg-white shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+
+              <div className="mb-4 flex items-center justify-center w-14 h-14 rounded-xl bg-blue-50 group-hover:bg-blue-100 transition">
+                <FileText className="w-7 h-7 text-blue-600" />
+              </div>
+
+              <h3 className="font-semibold text-lg mb-2 group-hover:text-blue-600 transition">
+                10,000+ Questions
+              </h3>
+
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Extensive question bank covering Haryana GK, Maths, and Reasoning topics.
+              </p>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group relative p-6 rounded-2xl border bg-white shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+
+              <div className="mb-4 flex items-center justify-center w-14 h-14 rounded-xl bg-green-50 group-hover:bg-green-100 transition">
+                <Target className="w-7 h-7 text-green-600" />
+              </div>
+
+              <h3 className="font-semibold text-lg mb-2 group-hover:text-green-600 transition">
+                NTA Level Mocks
+              </h3>
+
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Practice questions designed to match the real NTA exam difficulty level.
+              </p>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group relative p-6 rounded-2xl border bg-white shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+
+              <div className="mb-4 flex items-center justify-center w-14 h-14 rounded-xl bg-purple-50 group-hover:bg-purple-100 transition">
+                <BarChart3 className="w-7 h-7 text-purple-600" />
+              </div>
+
+              <h3 className="font-semibold text-lg mb-2 group-hover:text-purple-600 transition">
+                Rank Analysis
+              </h3>
+
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Compare your performance with other aspirants and track your progress.
+              </p>
+            </div>
+
+            {/* Card 4 */}
+            <div className="group relative p-6 rounded-2xl border bg-white shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+
+              <div className="mb-4 flex items-center justify-center w-14 h-14 rounded-xl bg-orange-50 group-hover:bg-orange-100 transition">
+                <Clock className="w-7 h-7 text-orange-600" />
+              </div>
+
+              <h3 className="font-semibold text-lg mb-2 group-hover:text-orange-600 transition">
+                Live Timer
+              </h3>
+
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Simulate real exam conditions and improve your speed & accuracy.
+              </p>
+            </div>
+
+          </div>
         </div>
       </section>
+
+      {/* Exam Details Section: Structured for Google Snippets */}
+      <section id="exam-details" className="py-24 px-4 bg-gradient-to-b from-background to-muted/30">
+        <div className="max-w-5xl mx-auto">
+
+          {/* Heading */}
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              HSSC CET 2026 Exam Pattern & Syllabus
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Understand the latest exam pattern and syllabus to boost your preparation strategy
+            </p>
+          </div>
+
+          {/* Pattern Card */}
+          <div className="mb-14 rounded-2xl border bg-white shadow-sm overflow-hidden">
+
+            {/* Header */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 font-semibold text-gray-800">
+              Exam Pattern Overview
+            </div>
+
+            {/* Rows */}
+            <div className="divide-y">
+
+              {[
+                ["Conducting Body", "HSSC (via NTA)"],
+                ["Total Questions", "100 Questions"],
+                ["Total Marks", "100 (OMR Based)"],
+                ["Duration", "90 Minutes"],
+                ["Negative Marking", "No (All 5 options compulsory)"],
+              ].map(([label, value], i) => (
+                <div key={i} className="grid grid-cols-2 px-6 py-4 hover:bg-muted/30 transition">
+                  <span className="text-sm font-medium text-gray-600">{label}</span>
+                  <span className="text-sm font-semibold text-gray-900">{value}</span>
+                </div>
+              ))}
+
+            </div>
+          </div>
+
+          {/* Syllabus + CTA */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+            {/* Syllabus */}
+            <div className="p-6 rounded-2xl border bg-white shadow-sm">
+
+              <h3 className="text-xl font-bold mb-5 flex items-center gap-2">
+                <CheckCircle2 className="text-green-600 w-5 h-5" />
+                Syllabus Focus
+              </h3>
+
+              <ul className="space-y-4 text-sm text-gray-700">
+
+                <li>
+                  <strong>Haryana GK:</strong> History, Culture, Welfare Schemes (25%)
+                </li>
+
+                <li>
+                  <strong>General Awareness:</strong> India GK & Current Affairs
+                </li>
+
+                <li>
+                  <strong>Reasoning & Math:</strong> Quantitative Aptitude
+                </li>
+
+                <li>
+                  <strong>Languages:</strong> English & Hindi Grammar
+                </li>
+
+                <li>
+                  <strong>Computers:</strong> Basic Fundamentals
+                </li>
+
+              </ul>
+            </div>
+
+            {/* CTA Card */}
+            <div className="relative p-8 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-xl flex flex-col justify-between">
+
+              {/* Glow Effect */}
+              <div className="absolute inset-0 bg-white/10 blur-2xl opacity-20 rounded-2xl" />
+
+              <div className="relative z-10">
+                <h3 className="text-2xl font-bold mb-3">
+                  Ready to Test Your Knowledge?
+                </h3>
+
+                <p className="text-sm mb-6 opacity-90">
+                  Join thousands of aspirants practicing daily for HSSC CET 2026.
+                </p>
+              </div>
+
+              <Link href="/signup" className="relative z-10">
+                <Button className="w-full h-12 text-base font-semibold bg-white text-blue-600 hover:bg-gray-100">
+                  Create Free Account →
+                </Button>
+              </Link>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+      {/* NO-JS FAQ SECTION: SEO Optimized and Server-Side Compatible */}
+      <section className="py-20 px-4 bg-muted/30">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">HSSC CET FAQs</h2>
+            <p className="text-muted-foreground">Common queries from Haryana state exam aspirants.</p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <details key={index} className="group border rounded-xl bg-background overflow-hidden transition-all">
+                <summary className="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-muted/50">
+                  <span className="font-semibold text-lg">{faq.q}</span>
+                  <ChevronDown className="w-5 h-5 transition-transform duration-300 group-open:rotate-180" />
+                </summary>
+                <div className="px-5 pb-6 text-muted-foreground border-t pt-4 leading-relaxed">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <FooterLinkFooter />
     </main>
   )
 }

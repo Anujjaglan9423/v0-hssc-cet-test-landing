@@ -1,35 +1,14 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { BookOpen, ArrowLeft } from "lucide-react"
-import Footer from "@/components/footer"
+import FooterLinkNavbar from "@/components/footer-link-navbar"
+import FooterLinkFooter from "@/components/footer-link-footer"
 
 export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold text-foreground">
-                HSSC CET <span className="text-primary">TEST</span>
-              </span>
-            </Link>
-            <Link href="/">
-              <Button variant="ghost" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <FooterLinkNavbar />
 
       {/* Content */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-foreground mb-8">Privacy Policy</h1>
           <p className="text-muted-foreground mb-8">Last updated: January 1, 2026</p>
@@ -97,19 +76,19 @@ export default function PrivacyPolicyPage() {
                 </li>
                 <li>
                   Phone:{" "}
-                  <a href="tel:+919896979805" className="text-primary hover:underline">
-                    +91 9896979805
+                  <a href="tel:+917291849546" className="text-primary hover:underline">
+                    +91 7291849546
                   </a>
                 </li>
                 <li>
                   Instagram:{" "}
                   <a
-                    href="https://instagram.com/jaglan2"
+                    href="https://instagram.com/cet__test"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:underline"
                   >
-                    @jaglan2
+                    @cet__test
                   </a>
                 </li>
               </ul>
@@ -118,7 +97,7 @@ export default function PrivacyPolicyPage() {
         </div>
       </section>
 
-      <Footer />
+      <FooterLinkFooter />
     </div>
   )
 }

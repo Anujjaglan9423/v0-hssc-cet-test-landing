@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Eye, EyeOff, Mail, Lock, User, ArrowLeft, Check, AlertCircle } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, User, ArrowLeft, Check, AlertCircle, Users } from "lucide-react"
 import { signupUser } from "@/lib/auth"
 
 export default function SignupPage() {
@@ -51,38 +51,70 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Image */}
-      <div className="hidden lg:flex flex-1 bg-primary relative overflow-hidden">
+      <div className="hidden lg:flex flex-1 relative overflow-hidden bg-gradient-to-br from-primary via-primary to-indigo-400">
+
+        {/* Background Glow */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary-foreground/10 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-primary-foreground/10 rounded-full blur-3xl animate-float-delay" />
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float-delay" />
         </div>
+
         <div className="relative z-10 flex flex-col justify-center p-12">
-          <div className="max-w-md">
-            <h2 className="text-4xl font-bold text-primary-foreground mb-6">Master Your Competitive Exam</h2>
-            <p className="text-lg text-primary-foreground/80 mb-8">
-              Join thousands of successful candidates who cracked their exams with our comprehensive test series.
+
+          <div className="max-w-md space-y-8">
+
+            {/* Badge */}
+            <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium">
+              🚀 Haryana CET • SSC • Railway • UKSSSC
+            </div>
+
+            {/* Heading */}
+            <h2 className="text-4xl font-bold text-white leading-tight">
+              Master Your Competitive Exams
+            </h2>
+
+            {/* Description */}
+            <p className="text-lg text-white leading-relaxed">
+              Prepare for <strong>Haryana CET</strong>, <strong>SSC</strong>,
+              <strong> Railway</strong>, and <strong>UKSSSC exams</strong> with real exam-level
+              mock tests, detailed analytics, and structured practice.
             </p>
 
             {/* Benefits */}
             <div className="space-y-4">
               {[
                 "10,000+ Practice Questions",
-                "Real Exam Environment",
-                "Detailed Analytics & Reports",
+                "Real CBT Exam Interface",
+                "Detailed Performance Analytics",
                 "24/7 Access on All Devices",
-              ].map((benefit) => (
-                <div key={benefit} className="flex items-center gap-3 text-primary-foreground">
-                  <div className="w-6 h-6 rounded-full bg-primary-foreground/20 flex items-center justify-center flex-shrink-0">
+              ].map((benefit, i) => (
+                <div key={i} className="flex items-center gap-3 text-white/90">
+                  <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
                     <Check className="w-4 h-4" />
                   </div>
-                  <span>{benefit}</span>
+                  <span className="text-sm font-medium">{benefit}</span>
                 </div>
               ))}
             </div>
+
+            {/* Trust Card */}
+            <div className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur rounded-xl border border-white/10">
+
+              <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+
+              <div>
+                <p className="text-white font-semibold">50,000+ Aspirants</p>
+                <p className="text-white/70 text-sm">Preparing daily with CET TEST</p>
+              </div>
+
+            </div>
+
           </div>
+
         </div>
       </div>
-
       {/* Right Side - Form */}
       <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">

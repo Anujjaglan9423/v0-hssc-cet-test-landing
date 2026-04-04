@@ -2,6 +2,8 @@ import { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CheckCircle2, BookOpen, Users, Trophy } from "lucide-react"
+import FooterLinkNavbar from "@/components/footer-link-navbar"
+import FooterLinkFooter from "@/components/footer-link-footer"
 
 export const metadata: Metadata = {
   title: "UKSSSC Mock Tests 2026 | Uttarakhand State Exams - VDO, Patwari, Forest Guard Free Online",
@@ -47,13 +49,13 @@ export default function UKSSCSPage() {
     {
       name: "UK VDO",
       description: "Village Development Officer recruitment in Uttarakhand",
-      link: "#",
+      link: "/mock-test",
       features: ["100+ Mock Tests", "Previous Year Papers", "Subject-wise Practice"]
     },
     {
       name: "Patwari / Lekhpal",
       description: "Land record and revenue department positions",
-      link: "#",
+      link: "/mock-test",
       features: ["Timed Practice Tests", "Detailed Solutions", "Performance Analytics"]
     },
     {
@@ -72,8 +74,9 @@ export default function UKSSCSPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-background to-muted/50">
+      <FooterLinkNavbar />
       {/* Hero Section */}
-      <section className="py-16 px-4 md:px-6 lg:px-8">
+      <section className="pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Uttarakhand State Exams Preparation
@@ -168,6 +171,7 @@ export default function UKSSCSPage() {
           </Link>
         </div>
       </section>
+      <FooterLinkFooter />
     </main>
   )
 }

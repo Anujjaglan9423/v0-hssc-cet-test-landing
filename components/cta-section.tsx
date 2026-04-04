@@ -6,49 +6,59 @@ import { ArrowRight, Sparkles } from "lucide-react"
 
 export default function CTASection() {
   return (
-    <section className="py-20 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-primary -z-10" />
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-foreground/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary-foreground/10 rounded-full blur-3xl" />
-      </div>
+    <section className="py-28 bg-primary relative">
+      <div className="max-w-4xl mx-auto px-6 text-center">
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 mb-6">
-          <Sparkles className="w-4 h-4 text-primary-foreground" />
-          <span className="text-sm font-medium text-primary-foreground">Start your journey today</span>
-        </div>
-
-        <h2 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-6 text-balance">
-          Ready to Crack HSSC CET?
-        </h2>
-
-        <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-          Join 50,000+ aspirants who are preparing smarter, not harder. Start your free trial today and experience the
-          difference.
+        {/* Tag */}
+        <p className="text-xs tracking-[0.25em] text-white/90 uppercase mb-6">
+          Trusted by serious aspirants
         </p>
 
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link href="/signup">
-            <Button size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 px-8 group">
-              Get Started Free
-              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
-          <Link href="#pricing">
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 px-8 bg-transparent"
-            >
-              View Pricing
-            </Button>
-          </Link>
+        {/* Headline */}
+        <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+          Stop Guessing.
+          <br />
+          Start Cracking Exams.
+        </h2>
+
+        {/* Subheading */}
+        <p className="mt-6 text-lg text-white/80 leading-relaxed max-w-2xl mx-auto">
+          Real exam-level mock tests for <span className="text-white font-medium">HSSC CET, SSC, Railway & Banking</span>.
+          Built for aspirants who want results — not distractions.
+        </p>
+
+        {/* Divider */}
+        <div className="w-16 h-[2px] bg-white/40 mx-auto my-10" />
+
+        {/* Stats (minimal + premium) */}
+        <div className="flex justify-center gap-10 text-left mb-12">
+          <div>
+            <p className="text-2xl font-semibold text-white">50K+</p>
+            <p className="text-xs text-white/70">Aspirants</p>
+          </div>
+          <div>
+            <p className="text-2xl font-semibold text-white">500+</p>
+            <p className="text-xs text-white/70">Tests</p>
+          </div>
+          <div>
+            <p className="text-2xl font-semibold text-white">Top Results</p>
+            <p className="text-xs text-white/70">Proven Outcomes</p>
+          </div>
         </div>
 
-        <p className="mt-6 text-sm text-primary-foreground/60">
-          No credit card required • 7-day free trial • Cancel anytime
+        {/* CTA */}
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Link href="/signup">
+            <Button size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 hover:text-black px-8 group cursor-pointer">
+              START FREE TRIAL
+            </Button>
+          </Link>
+
+        </div>
+
+        {/* Trust */}
+        <p className="mt-6 text-xs text-white/60">
+          No credit card required • 7-day free access
         </p>
       </div>
     </section>

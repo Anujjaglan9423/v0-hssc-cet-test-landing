@@ -59,7 +59,7 @@ export default function PricingSection() {
         </div>
 
         {/* Toggle */}
-        <div className="flex items-center justify-center gap-4 mb-12">
+        <div className="flex items-center justify-center gap-8 mb-12">
           <span className={`text-sm font-medium ${!isYearly ? "text-foreground" : "text-muted-foreground"}`}>
             Monthly
           </span>
@@ -68,9 +68,8 @@ export default function PricingSection() {
             className={`relative w-14 h-7 rounded-full transition-colors ${isYearly ? "bg-primary" : "bg-muted"}`}
           >
             <span
-              className={`absolute top-1 w-5 h-5 rounded-full bg-background shadow transition-transform ${
-                isYearly ? "translate-x-8" : "translate-x-1"
-              }`}
+              className={`absolute top-1 w-5 h-5 rounded-full bg-background shadow transition-transform ${isYearly ? "translate-x-8" : "translate-x-1"
+                }`}
             />
           </button>
           <span className={`text-sm font-medium ${isYearly ? "text-foreground" : "text-muted-foreground"}`}>
@@ -83,9 +82,8 @@ export default function PricingSection() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-2xl bg-card border transition-all duration-300 hover:shadow-xl ${
-                plan.popular ? "border-primary shadow-lg scale-105" : "border-border hover:-translate-y-2"
-              }`}
+              className={`relative rounded-2xl bg-card border transition-all duration-300 hover:shadow-xl ${plan.popular ? "border-primary shadow-lg scale-105" : "border-border hover:-translate-y-2"
+                }`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
@@ -108,11 +106,10 @@ export default function PricingSection() {
 
                 <Link href="/signup">
                   <Button
-                    className={`w-full ${
-                      plan.popular
+                    className={`w-full ${plan.popular
                         ? "bg-primary hover:bg-primary/90"
                         : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                    }`}
+                      }`}
                   >
                     {plan.cta}
                   </Button>

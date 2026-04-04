@@ -2,6 +2,8 @@ import { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CheckCircle2, BookOpen, Users, Trophy } from "lucide-react"
+import FooterLinkNavbar from "@/components/footer-link-navbar"
+import FooterLinkFooter from "@/components/footer-link-footer"
 
 export const metadata: Metadata = {
   title: "Railway Exams Mock Tests 2026 | RRB NTPC, Group D Free Online Practice Tests",
@@ -42,7 +44,7 @@ export default function RailwayExamsPage() {
     {
       name: "RRB NTPC",
       description: "Non-Technical Popular Categories - Railway recruitment exam",
-      link: "/exams/railway-rrb-ntpc",
+      link: "/mock-test",
       features: ["CBT Stage 1 & 2 Tests", "100+ Mock Tests", "Previous Year Papers"]
     },
     {
@@ -54,7 +56,7 @@ export default function RailwayExamsPage() {
     {
       name: "RRB ALP",
       description: "Assistant Loco Pilot recruitment examination",
-      link: "#",
+      link: "/mock-test",
       features: ["Full Mock Tests", "Real Exam Pattern", "Technical Questions"]
     },
     {
@@ -67,8 +69,9 @@ export default function RailwayExamsPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-background to-muted/50">
+      <FooterLinkNavbar />
       {/* Hero Section */}
-      <section className="py-16 px-4 md:px-6 lg:px-8">
+      <section className="pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Railway Exams Preparation
@@ -78,13 +81,13 @@ export default function RailwayExamsPage() {
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/signup">
-              <Button size="lg" className="gap-2">
+              <Button size="lg" className="gap-2 cursor-pointer">
                 <CheckCircle2 className="w-5 h-5" />
                 Start Free Test Now
               </Button>
             </Link>
-            <Link href="/about">
-              <Button variant="outline" size="lg">
+            <Link href="/exams/railway-rrb-ntpc">
+              <Button variant="outline" size="lg" className="cursor-pointer">
                 Learn More
               </Button>
             </Link>
@@ -112,7 +115,7 @@ export default function RailwayExamsPage() {
                   ))}
                 </div>
                 <Link href={exam.link}>
-                  <Button className="w-full">
+                  <Button className="w-full cursor-pointer">
                     {exam.link === "#" ? "Coming Soon" : "Start Practicing"}
                   </Button>
                 </Link>
@@ -157,12 +160,13 @@ export default function RailwayExamsPage() {
           <h2 className="text-3xl font-bold mb-4">Ready to Crack Your Railway Exam?</h2>
           <p className="text-lg mb-8 opacity-90">Join thousands of students and start your free preparation today</p>
           <Link href="/signup">
-            <Button size="lg" variant="secondary">
+            <Button size="lg" variant="secondary" className="cursor-pointer">
               Start Practicing for Free
             </Button>
           </Link>
         </div>
       </section>
+      <FooterLinkFooter />
     </main>
   )
 }

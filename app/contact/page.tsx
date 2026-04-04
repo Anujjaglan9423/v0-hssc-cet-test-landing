@@ -2,15 +2,14 @@
 
 import type React from "react"
 import { useState } from "react"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { BookOpen, ArrowLeft, Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react"
-import Footer from "@/components/footer"
+import { Mail, Phone, MapPin, Send, CheckCircle, MessageSquare, Clock, Globe } from "lucide-react"
 import { submitContact } from "@/lib/actions/contact"
+import FooterLinkNavbar from "@/components/footer-link-navbar"
+import FooterLinkFooter from "@/components/footer-link-footer"
+import Link from "next/link"
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
@@ -40,188 +39,232 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold text-foreground">
-                CET <span className="text-primary">TEST</span>
-              </span>
+      <FooterLinkNavbar />
+
+      {/* Hero Section - Keyword Optimized */}
+      <section className="pt-28 pb-20 md:pt-36 md:pb-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
+
+        {/* Background Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-primary/10 blur-3xl rounded-full opacity-30" />
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+
+          {/* Badge */}
+          <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
+            💬 Support for Haryana CET, SSC, Railway & UKSSSC Aspirants
+          </div>
+
+          {/* Heading */}
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+            Contact <span className="text-primary">CET TEST</span> Support
+          </h1>
+
+          {/* Subheading */}
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
+            Need help with <strong>Haryana CET (HSSC Group C & D)</strong>,
+            <strong> SSC exams</strong>, <strong>Railway (RRB)</strong>, or
+            <strong> UKSSSC preparation</strong>? Our support team is here to assist you
+            with mock tests, account issues, and exam guidance.
+          </p>
+
+          {/* Quick Help Points */}
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground mb-10">
+            <span>✔ Mock Test Support</span>
+            <span>✔ Account & Login Issues</span>
+            <span>✔ Exam Guidance</span>
+            <span>✔ Fast Response</span>
+          </div>
+
+          {/* CTA */}
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/signup">
+              <Button size="lg" className="cursor-pointer">
+                Start Free Mock Test →
+              </Button>
             </Link>
-            <Link href="/">
-              <Button variant="ghost" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
+
+            <Link href="/mock-test">
+              <Button variant="outline" size="lg" className="cursor-pointer">
+                Explore All Exams
               </Button>
             </Link>
           </div>
-        </div>
-      </header>
 
-      {/* Hero */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/5 to-background">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Get in <span className="text-primary">Touch</span>
-          </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            Have questions about CET TEST? We're here to help. Reach out to us anytime!
-          </p>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Contact Information</h2>
-            <p className="text-muted-foreground mb-8">
-              Feel free to reach out to us through any of the following channels. We typically respond within 24 hours.
-            </p>
+      <section className="py-24 px-4 bg-gradient-to-b from-card relative overflow-hidden">
 
-            <div className="space-y-6">
-              <Card className="border-border bg-card">
-                <CardContent className="flex items-center gap-4 p-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Email</h3>
-                    <a
-                      href="mailto:anujjaglan9423@gmail.com"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      anujjaglan9423@gmail.com
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
+        {/* Background Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-primary/10 blur-3xl rounded-full opacity-30" />
 
-              <Card className="border-border bg-card">
-                <CardContent className="flex items-center gap-4 p-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Phone</h3>
-                    <a href="tel:+919896979805" className="text-muted-foreground hover:text-primary transition-colors">
-                      +91 9896979805
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-start relative z-10">
 
-              <Card className="border-border bg-card">
-                <CardContent className="flex items-center gap-4 p-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.689-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Instagram</h3>
-                    <a
-                      href="https://instagram.com/jaglan2"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      @jaglan2
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
+          {/* LEFT SIDE */}
+          <div className="space-y-10">
 
-              <Card className="border-border bg-card">
-                <CardContent className="flex items-center gap-4 p-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Location</h3>
-                    <p className="text-muted-foreground">Haryana, India</p>
-                  </div>
-                </CardContent>
-              </Card>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                How Can We Help You?
+              </h2>
+
+              <p className="text-muted-foreground leading-relaxed max-w-md">
+                Get support for <strong>Haryana CET (HSSC Group C & D)</strong>,
+                <strong> SSC exams</strong>, <strong>Railway (RRB)</strong>, and
+                <strong> UKSSSC</strong>. Whether it’s mock tests, account issues,
+                or exam guidance — we are here to help.
+              </p>
+            </div>
+
+            {/* CONTACT CARDS */}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+
+              {/* Email */}
+              <div className="group flex items-center gap-4 p-5 rounded-2xl border bg-white shadow-sm hover:shadow-xl transition-all hover:-translate-y-1">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <Mail className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase">Support Email</p>
+                  <a href="mailto:anujjaglan9423@gmail.com" className="text-sm font-medium hover:text-blue-600">
+                    anujjaglan9423@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div className="group flex items-center gap-4 p-5 rounded-2xl border bg-white shadow-sm hover:shadow-xl transition-all hover:-translate-y-1">
+                <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
+                  <Phone className="w-6 h-6 text-green-600" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase">Helpline</p>
+                  <a href="tel:+917291849546" className="text-sm font-medium hover:text-green-600">
+                    +91 7291849546
+                  </a>
+                </div>
+              </div>
+
+              {/* Time */}
+              <div className="group flex items-center gap-4 p-5 rounded-2xl border bg-white shadow-sm hover:shadow-xl transition-all hover:-translate-y-1">
+                <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center">
+                  <Clock className="w-6 h-6 text-purple-600" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase">Response Time</p>
+                  <p className="text-sm font-medium text-gray-700">Within 24 Hours</p>
+                </div>
+              </div>
+
+              {/* Location */}
+              <div className="group flex items-center gap-4 p-5 rounded-2xl border bg-white shadow-sm hover:shadow-xl transition-all hover:-translate-y-1">
+                <div className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
+                  <MapPin className="w-6 h-6 text-orange-600" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase">Head Office</p>
+                  <p className="text-sm font-medium text-gray-700">Haryana, India</p>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          {/* Contact Form */}
-          <Card className="border-border bg-card">
-            <CardHeader>
-              <CardTitle className="text-2xl">Send us a Message</CardTitle>
-            </CardHeader>
-            <CardContent>
+          {/* RIGHT SIDE FORM */}
+          <div className="relative">
+
+            {/* Glow */}
+            <div className="absolute inset-0 bg-primary/10 blur-2xl opacity-20 rounded-2xl" />
+
+            <div className="relative bg-white rounded-2xl border shadow-2xl p-6">
+
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5 text-primary" />
+                  Send Your Query
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Our experts will respond quickly to help you with your exam preparation
+                </p>
+              </div>
+
               {submitted ? (
                 <div className="text-center py-12">
-                  <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
                     <CheckCircle className="w-8 h-8 text-green-600" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Message Sent!</h3>
-                  <p className="text-muted-foreground mb-4">Thank you for reaching out. We'll get back to you soon.</p>
+                  <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
+                  <p className="text-muted-foreground mb-6">
+                    We’ll get back to you shortly.
+                  </p>
                   <Button onClick={() => setSubmitted(false)} variant="outline">
                     Send Another Message
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
+
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name</Label>
-                      <Input id="firstName" name="firstName" placeholder="Anuj" required disabled={isLoading} />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name</Label>
-                      <Input id="lastName" name="lastName" placeholder="Jaglan" required disabled={isLoading} />
-                    </div>
+                    <Input name="firstName" placeholder="First Name" required disabled={isLoading} />
+                    <Input name="lastName" placeholder="Last Name" required disabled={isLoading} />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="your@email.com"
-                      required
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone (Optional)</Label>
-                    <Input id="phone" name="phone" type="tel" placeholder="+91 98969 79805" disabled={isLoading} />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <Input id="subject" name="subject" placeholder="How can we help?" required disabled={isLoading} />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      placeholder="Tell us more about your query..."
-                      rows={4}
-                      required
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
-                    <Send className="w-4 h-4 mr-2" />
-                    {isLoading ? "Sending..." : "Send Message"}
+
+                  <Input type="email" name="email" placeholder="Email Address" required disabled={isLoading} />
+
+                  <Input type="tel" name="phone" placeholder="Phone / WhatsApp" disabled={isLoading} />
+
+                  <Input name="subject" placeholder="Subject (Haryana CET / SSC / Railway / UKSSSC)" required disabled={isLoading} />
+
+                  <Textarea name="message" placeholder="Write your query..." rows={4} required disabled={isLoading} />
+
+                  <Button
+                    type="submit"
+                    className="w-full h-12 font-semibold shadow-md hover:shadow-xl transition"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Sending..." : "Submit Inquiry →"}
                   </Button>
+
                 </form>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <Footer />
+      {/* SEO Footer Text Section */}
+      <section className="py-16 px-4 bg-gradient-to-b from-muted/30 to-background border-t relative overflow-hidden">
+
+        {/* Background Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-primary/10 blur-3xl rounded-full opacity-30" />
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+
+          {/* Heading */}
+          <h2 className="text-2xl md:text-3xl font-bold mb-5 flex items-center justify-center gap-2">
+            <Globe className="w-6 h-6 text-primary" />
+            Connecting Aspirants Across India
+          </h2>
+
+          {/* Content */}
+          <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-6">
+            CET TEST is a growing platform for <strong>Haryana CET (HSSC Group C & D)</strong>,
+            <strong> SSC exams</strong>, <strong>Railway (RRB)</strong>, and
+            <strong> UKSSSC preparation</strong>. We provide free mock tests,
+            previous year questions, and real exam-level practice to help aspirants succeed.
+          </p>
+
+          {/* Support Line */}
+          <p className="text-xs text-muted-foreground max-w-xl mx-auto">
+            Facing any issue with mock tests or account access? Use the contact form above — our support team will assist you quickly.
+          </p>
+
+        </div>
+      </section>
+
+      <FooterLinkFooter />
     </div>
   )
 }

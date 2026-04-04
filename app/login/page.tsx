@@ -7,7 +7,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Eye, EyeOff, Mail, Lock, ArrowLeft, AlertCircle } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, ArrowLeft, AlertCircle, Users, CheckCircle2 } from "lucide-react"
 import { loginUser } from "@/lib/auth"
 
 export default function LoginPage() {
@@ -148,34 +148,67 @@ export default function LoginPage() {
       </div>
 
       {/* Right Side - Image */}
-      <div className="hidden lg:flex flex-1 bg-primary relative overflow-hidden">
+      <div className="hidden lg:flex flex-1 relative overflow-hidden bg-gradient-to-br from-primary via-primary to-indigo-400">
+
+        {/* Background Glow */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-foreground/10 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-foreground/10 rounded-full blur-3xl animate-float-delay" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float-delay" />
         </div>
+
         <div className="relative z-10 flex flex-col justify-center p-12">
-          <div className="max-w-md">
-            <h2 className="text-4xl font-bold text-primary-foreground mb-6">Continue Your Journey to Success</h2>
-            <p className="text-lg text-primary-foreground/80 mb-8">
-              Access your personalized dashboard, track progress, and resume your preparation right where you left off.
-            </p>
-            <div className="flex items-center gap-4 p-4 bg-primary-foreground/10 rounded-xl">
-              <div className="w-12 h-12 rounded-full bg-primary-foreground/20 flex items-center justify-center">
-                <svg className="w-6 h-6 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <p className="text-primary-foreground font-medium">50,000+ Students</p>
-                <p className="text-primary-foreground/70 text-sm">Already preparing with us</p>
-              </div>
+
+          <div className="max-w-md space-y-8">
+
+            {/* Badge */}
+            <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium">
+              🚀 Haryana CET • SSC • Railway • UKSSSC
             </div>
+
+            {/* Heading */}
+            <h2 className="text-4xl font-bold text-white leading-tight">
+              Continue Your Journey to Success
+            </h2>
+
+            {/* Description */}
+            <p className="text-lg text-white leading-relaxed">
+              Resume your preparation for <strong>Haryana CET</strong>, <strong>SSC</strong>,
+              <strong> Railway</strong>, and <strong>UKSSSC exams</strong>.
+              Practice mock tests, track your progress, and improve your rank.
+            </p>
+
+            {/* Features */}
+            <div className="space-y-3">
+              {[
+                "Real Exam Level Mock Tests",
+                "Performance & Rank Analysis",
+                "10,000+ Practice Questions",
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3 text-white/90">
+                  <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                  <span className="text-sm">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Trust Card */}
+            <div className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur rounded-xl border border-white/10">
+
+              <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+
+              <div>
+                <p className="text-white font-semibold">50,000+ Aspirants</p>
+                <p className="text-white/70 text-sm">Preparing daily with CET TEST</p>
+              </div>
+
+            </div>
+
           </div>
+
         </div>
       </div>
     </div>
