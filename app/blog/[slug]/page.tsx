@@ -169,23 +169,10 @@ export default async function BlogPostPage({ params }: PageProps) {
 
       {/* Hero Section */}
       <section className="relative pt-8 sm:pt-12">
-        {/* Featured Image with Overlay */}
-        {blog.featured_image_url ? (
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12">
-            <div className="w-full h-64 sm:h-72 lg:h-80 relative rounded-lg sm:rounded-xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
-              <img
-                src={blog.featured_image_url}
-                alt={blog.title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 rounded-lg sm:rounded-xl ring-1 ring-border/50" />
-            </div>
-          </div>
-        ) : null}
-        
-        {/* Title Section */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            {/* Title Section */}
+            <div>
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
             <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
@@ -239,14 +226,46 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Tags */}
-          {blog.tags && blog.tags.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2 mt-6 sm:mt-8">
-              {blog.tags.map((tag, index) => (
-                <Badge key={index} variant="secondary" className="text-xs bg-muted/60 hover:bg-muted text-foreground/80 px-2.5 sm:px-3 py-1 rounded-full transition-colors cursor-pointer">
-                  {tag}
-                </Badge>
-              ))}
+              {/* Tags */}
+              {blog.tags && blog.tags.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2 mt-6 sm:mt-8">
+                  {blog.tags.map((tag, index) => (
+                    <Badge key={index} variant="secondary" className="text-xs bg-muted/60 hover:bg-muted text-foreground/80 px-2.5 sm:px-3 py-1 rounded-full transition-colors cursor-pointer">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Featured Image with Overlay */}
+            {blog.featured_image_url && (
+              <div className="hidden lg:block">
+                <div className="sticky top-24 w-full h-80 relative rounded-xl overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
+                  <img
+                    src={blog.featured_image_url}
+                    alt={blog.title}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 rounded-xl ring-1 ring-border/50" />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Image - Below Title */}
+          {blog.featured_image_url && (
+            <div className="lg:hidden mt-8 sm:mt-12">
+              <div className="w-full h-64 sm:h-72 relative rounded-lg sm:rounded-xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
+                <img
+                  src={blog.featured_image_url}
+                  alt={blog.title}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 rounded-lg sm:rounded-xl ring-1 ring-border/50" />
+              </div>
             </div>
           )}
         </div>
