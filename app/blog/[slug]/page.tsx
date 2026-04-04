@@ -171,14 +171,16 @@ export default async function BlogPostPage({ params }: PageProps) {
       <section className="relative pt-8 sm:pt-12">
         {/* Featured Image with Overlay */}
         {blog.featured_image_url ? (
-          <div className="w-full h-80 sm:h-96 lg:h-[550px] relative mb-8 sm:mb-12">
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-10" />
-            <img
-              src={blog.featured_image_url}
-              alt={blog.title}
-              className="w-full h-full object-cover rounded-xl sm:rounded-2xl shadow-2xl"
-            />
-            <div className="absolute inset-0 rounded-xl sm:rounded-2xl ring-1 ring-white/10" />
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12">
+            <div className="w-full h-64 sm:h-72 lg:h-80 relative rounded-lg sm:rounded-xl overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
+              <img
+                src={blog.featured_image_url}
+                alt={blog.title}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 rounded-lg sm:rounded-xl ring-1 ring-border/50" />
+            </div>
           </div>
         ) : null}
         
