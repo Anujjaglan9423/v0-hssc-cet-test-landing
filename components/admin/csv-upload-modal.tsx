@@ -48,14 +48,36 @@ interface CSVUploadModalProps {
   onTestCreated: () => void
 }
 
+interface ManualQuestion {
+  questionText: string
+  optionA: string
+  optionB: string
+  optionC: string
+  optionD: string
+  correctAnswer: "a" | "b" | "c" | "d"
+  explanation: string
+}
+
 export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadModalProps) {
   const [step, setStep] = useState<"upload" | "configure" | "preview">("upload")
+  const [uploadMode, setUploadMode] = useState<"csv" | "manual">("csv")
   const [file, setFile] = useState<File | null>(null)
   const [questions, setQuestions] = useState<Question[]>([])
   const [parseError, setParseError] = useState<string | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
+  
+  // Manual question entry state
+  const [manualQuestion, setManualQuestion] = useState<ManualQuestion>({
+    questionText: "",
+    optionA: "",
+    optionB: "",
+    optionC: "",
+    optionD: "",
+    correctAnswer: "a",
+    explanation: "",
+  })
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -512,6 +534,37 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
     setSelectedTopicId("")
   }
 
+  const handleAddManualQuestion = () => {
+    if (!manualQuestion.questionText || !manualQuestion.optionA || !manualQuestion.optionB || !manualQuestion.optionC || !manualQuestion.optionD) {
+      setParseError("Please fill in all fields")
+      return
+    }
+
+    const newQuestion: Question = {
+      id: `q-${Date.now()}`,
+      questionText: manualQuestion.questionText,
+      optionA: manualQuestion.optionA,
+      optionB: manualQuestion.optionB,
+      optionC: manualQuestion.optionC,
+      optionD: manualQuestion.optionD,
+      correctAnswer: manualQuestion.correctAnswer,
+      explanation: manualQuestion.explanation,
+      needsImage: false,
+    }
+
+    setQuestions([...questions, newQuestion])
+    setManualQuestion({
+      questionText: "",
+      optionA: "",
+      optionB: "",
+      optionC: "",
+      optionD: "",
+      correctAnswer: "a",
+      explanation: "",
+    })
+    setParseError(null)
+  }
+
   return (
     <>
       <Dialog
@@ -558,6 +611,39 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
           {/* Step 1: Upload */}
           {step === "upload" && (
             <div className="space-y-4">
+              {/* Mode Selector Tabs */}
+              <div className="flex gap-4 border-b">
+                <button
+                  onClick={() => {
+                    setUploadMode("csv")
+                    setParseError(null)
+                  }}
+                  className={cn(
+                    "px-4 py-2 font-medium text-sm border-b-2 transition-colors",
+                    uploadMode === "csv"
+                      ? "border-primary text-primary"
+                      : "border-transparent text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  Upload CSV
+                </button>
+                <button
+                  onClick={() => {
+                    setUploadMode("manual")
+                    setParseError(null)
+                  }}
+                  className={cn(
+                    "px-4 py-2 font-medium text-sm border-b-2 transition-colors",
+                    uploadMode === "manual"
+                      ? "border-primary text-primary"
+                      : "border-transparent text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  Add Manually
+                </button>
+              </div>
+
+              {uploadMode === "csv" && (
               <div
                 className={cn(
                   "border-2 border-dashed rounded-xl p-8 text-center transition-colors",
@@ -594,6 +680,141 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
                   Browse Files
                 </Button>
               </div>
+              )}
+
+              {uploadMode === "manual" && (
+              <div className="space-y-4">
+                <div className="p-4 bg-accent/10 rounded-xl">
+                  <p className="text-sm text-foreground font-medium mb-2">Add Question Manually</p>
+                  <p className="text-xs text-muted-foreground">Currently added: {questions.length} question{questions.length !== 1 ? "s" : ""}</p>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <Label>Question Text *</Label>
+                    <Textarea
+                      placeholder="Enter the question"
+                      value={manualQuestion.questionText}
+                      onChange={(e) => setManualQuestion({...manualQuestion, questionText: e.target.value})}
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Option A *</Label>
+                      <Input
+                        placeholder="Option A"
+                        value={manualQuestion.optionA}
+                        onChange={(e) => setManualQuestion({...manualQuestion, optionA: e.target.value})}
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label>Option B *</Label>
+                      <Input
+                        placeholder="Option B"
+                        value={manualQuestion.optionB}
+                        onChange={(e) => setManualQuestion({...manualQuestion, optionB: e.target.value})}
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label>Option C *</Label>
+                      <Input
+                        placeholder="Option C"
+                        value={manualQuestion.optionC}
+                        onChange={(e) => setManualQuestion({...manualQuestion, optionC: e.target.value})}
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label>Option D *</Label>
+                      <Input
+                        placeholder="Option D"
+                        value={manualQuestion.optionD}
+                        onChange={(e) => setManualQuestion({...manualQuestion, optionD: e.target.value})}
+                        className="mt-1"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label>Correct Answer *</Label>
+                    <Select 
+                      value={manualQuestion.correctAnswer}
+                      onValueChange={(v: "a" | "b" | "c" | "d") => setManualQuestion({...manualQuestion, correctAnswer: v})}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="a">Option A</SelectItem>
+                        <SelectItem value="b">Option B</SelectItem>
+                        <SelectItem value="c">Option C</SelectItem>
+                        <SelectItem value="d">Option D</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label>Explanation (Optional)</Label>
+                    <Textarea
+                      placeholder="Explanation for the answer"
+                      value={manualQuestion.explanation}
+                      onChange={(e) => setManualQuestion({...manualQuestion, explanation: e.target.value})}
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <div className="flex gap-2 pt-2">
+                    <Button 
+                      type="button"
+                      onClick={handleAddManualQuestion}
+                      className="flex-1"
+                      disabled={!manualQuestion.questionText || !manualQuestion.optionA}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Question
+                    </Button>
+                    {questions.length > 0 && (
+                    <Button 
+                      type="button"
+                      onClick={() => setStep("configure")}
+                      variant="outline"
+                      className="flex-1"
+                    >
+                      Continue
+                      <ChevronRight className="w-4 h-4 ml-2" />
+                    </Button>
+                    )}
+                  </div>
+                </div>
+
+                {questions.length > 0 && (
+                <div className="mt-6 pt-4 border-t">
+                  <h4 className="font-medium text-sm mb-3">Added Questions ({questions.length})</h4>
+                  <div className="space-y-2 max-h-48 overflow-y-auto">
+                    {questions.map((q, idx) => (
+                      <div key={q.id} className="p-2 bg-muted/50 rounded-lg text-sm">
+                        <div className="flex justify-between items-start">
+                          <span className="flex-1">{idx + 1}. {q.questionText.substring(0, 50)}...</span>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 text-destructive"
+                            onClick={() => handleDeleteQuestion(q.id)}
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                )}
+              </div>
+              )}
 
               {parseError && (
                 <div className="flex items-center gap-2 p-3 bg-destructive/10 text-destructive rounded-lg">
@@ -602,10 +823,12 @@ export function CSVUploadModal({ open, onOpenChange, onTestCreated }: CSVUploadM
                 </div>
               )}
 
+              {uploadMode === "csv" && (
               <Button variant="outline" onClick={downloadSampleCSV} className="w-full gap-2 bg-transparent">
                 <Download className="w-4 h-4" />
                 Download Sample CSV
               </Button>
+              )}
             </div>
           )}
 
