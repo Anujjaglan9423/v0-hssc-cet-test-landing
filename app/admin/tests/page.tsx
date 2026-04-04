@@ -5,10 +5,11 @@ import { ChartCard } from "@/components/dashboard/chart-card"
 import { DataTable } from "@/components/dashboard/data-table"
 import { getAllTests, deleteTest, getTestWithQuestions } from "@/lib/actions/admin"
 import { Button } from "@/components/ui/button"
-import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangle, Loader2 } from "lucide-react"
+import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangle, Loader2, Edit } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CSVUploadModal } from "@/components/admin/csv-upload-modal"
 import { CustomMockTestModal } from "@/components/admin/custom-mock-test-modal"
+import { TestEditModal } from "@/components/admin/test-edit-modal"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 export default function AdminTestsPage() {
@@ -25,6 +26,10 @@ export default function AdminTestsPage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [testToDelete, setTestToDelete] = useState<any | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
+  
+  const [testToEdit, setTestToEdit] = useState<any | null>(null)
+  const [editTestQuestions, setEditTestQuestions] = useState<any[]>([])
+  const [showEditModal, setShowEditModal] = useState(false)
 
   useEffect(() => {
     loadTests()
@@ -77,6 +82,17 @@ export default function AdminTestsPage() {
     const fullTest = await getTestWithQuestions(test.id)
     if (fullTest) {
       setSelectedTestQuestions(fullTest.questions || [])
+    }
+  }
+
+  const handleEditTest = async (test: any) => {
+    setTestToEdit(test)
+    setShowEditModal(true)
+
+    // Load questions
+    const fullTest = await getTestWithQuestions(test.id)
+    if (fullTest) {
+      setEditTestQuestions(fullTest.questions || [])
     }
   }
 
@@ -154,6 +170,17 @@ export default function AdminTestsPage() {
             }}
           >
             <Eye className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-accent"
+            onClick={(e) => {
+              e.stopPropagation()
+              handleEditTest(test)
+            }}
+          >
+            <Edit className="w-4 h-4" />
           </Button>
           <Button
             variant="ghost"
@@ -308,6 +335,16 @@ export default function AdminTestsPage() {
         onClose={() => {
           setShowCustomMockModal(false)
           loadTests()
+        }}
+      />
+      <TestEditModal
+        open={showEditModal}
+        onOpenChange={setShowEditModal}
+        test={testToEdit}
+        questions={editTestQuestions}
+        onTestUpdated={() => {
+          loadTests()
+          setShowEditModal(false)
         }}
       />
 

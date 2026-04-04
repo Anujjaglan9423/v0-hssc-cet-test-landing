@@ -339,6 +339,84 @@ export async function deleteQuestion(questionId: string) {
   return { success: true }
 }
 
+// Update a test
+export async function updateTest(testId: string, data: Record<string, any>) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("tests").update(data).eq("id", testId)
+
+  if (error) {
+    console.error("Error updating test:", error)
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/tests")
+  return { success: true }
+}
+
+// Add questions to existing test
+export async function addQuestionsToTest(
+  testId: string,
+  questions: Array<{
+    question_text: string
+    option_a: string
+    option_b: string
+    option_c: string
+    option_d: string
+    correct_answer: string
+    explanation?: string
+    exam_source?: string
+    image_url?: string
+  }>
+) {
+  const supabase = await createClient()
+
+  // Get the current highest order number
+  const { data: existingQuestions } = await supabase
+    .from("questions")
+    .select("question_order")
+    .eq("test_id", testId)
+    .order("question_order", { ascending: false })
+    .limit(1)
+
+  let startOrder = 1
+  if (existingQuestions && existingQuestions.length > 0) {
+    startOrder = (existingQuestions[0].question_order || 0) + 1
+  }
+
+  const newQuestions = questions.map((q, index) => ({
+    test_id: testId,
+    question_order: startOrder + index,
+    question_text: q.question_text,
+    option_a: q.option_a,
+    option_b: q.option_b,
+    option_c: q.option_c,
+    option_d: q.option_d,
+    correct_answer: q.correct_answer.toLowerCase(),
+    explanation: q.explanation || null,
+    exam_source: q.exam_source || null,
+    image_url: q.image_url || null,
+  }))
+
+  const { error } = await supabase.from("questions").insert(newQuestions)
+
+  if (error) {
+    console.error("Error adding questions:", error)
+    return { success: false, error: error.message }
+  }
+
+  // Update total_questions count
+  const { count } = await supabase
+    .from("questions")
+    .select("*", { count: "exact", head: true })
+    .eq("test_id", testId)
+
+  await supabase.from("tests").update({ total_questions: count }).eq("id", testId)
+
+  revalidatePath("/admin/tests")
+  return { success: true }
+}
+
 // Create exam/subject/topic
 export async function createExam(name: string, categoryId?: string) {
   const supabase = await createClient()
