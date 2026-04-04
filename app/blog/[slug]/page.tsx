@@ -207,7 +207,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           )}
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight text-balance mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight text-balance mb-6 sm:mb-8">
             {blog.title}
           </h1>
 
@@ -260,9 +260,9 @@ export default async function BlogPostPage({ params }: PageProps) {
               <div
                 className="prose prose-base sm:prose-lg max-w-none 
                   prose-headings:text-foreground prose-headings:font-bold prose-headings:scroll-mt-20
-                  prose-h2:text-2xl sm:text-3xl prose-h2:mt-12 sm:prose-h2:mt-14 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:border-l-4 prose-h2:border-primary prose-h2:pl-4 sm:prose-h2:pl-5
-                  prose-h3:text-xl sm:text-2xl prose-h3:mt-8 sm:prose-h3:mt-10 prose-h3:mb-4 sm:prose-h3:mb-5 prose-h3:font-semibold
-                  prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-3 prose-h4:font-semibold
+                  prose-h2:text-xl sm:text-2xl prose-h2:mt-12 sm:prose-h2:mt-14 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:border-l-4 prose-h2:border-primary prose-h2:pl-4 sm:prose-h2:pl-5
+                  prose-h3:text-lg sm:text-xl prose-h3:mt-8 sm:prose-h3:mt-10 prose-h3:mb-4 sm:prose-h3:mb-5 prose-h3:font-semibold
+                  prose-h4:text-base sm:text-lg prose-h4:mt-6 prose-h4:mb-3 prose-h4:font-semibold
                   prose-p:text-muted-foreground prose-p:leading-relaxed sm:prose-p:leading-loose prose-p:mb-4 sm:prose-p:mb-5
                   prose-li:text-muted-foreground prose-li:leading-relaxed sm:prose-li:leading-loose prose-li:mb-2
                   prose-strong:text-foreground prose-strong:font-semibold
@@ -297,7 +297,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <CardContent className="p-6 sm:p-8 lg:p-10">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8">
                     <div className="flex-1">
-                      <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 text-balance">
+                      <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3 text-balance">
                         Ready to Start Practicing?
                       </h3>
                       <p className="text-muted-foreground text-base leading-relaxed">
