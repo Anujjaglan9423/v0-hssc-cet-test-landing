@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Loader2, ChevronRight, BookOpen, GraduationCap, AlertCircle, Lock, FileText, Clock, Play, ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
+import FooterLinkNavbar from "@/components/footer-link-navbar"
+import FooterLinkFooter from "@/components/footer-link-footer"
 
 const categoryIcons: Record<string, React.ReactNode> = {
   haryana: <GraduationCap className="w-8 h-8" />,
@@ -72,11 +74,10 @@ function TestCard({ test, isFree, isTestTaken }: { test: any; isFree: boolean; i
   }
 
   return (
-    <Card className={`group border-2 overflow-hidden transition-all duration-300 ${
-      isFree 
-        ? "hover:shadow-lg hover:-translate-y-1 hover:border-primary/30" 
-        : "hover:shadow-xl"
-    }`}>
+    <Card className={`group border-2 overflow-hidden transition-all duration-300 ${isFree
+      ? "hover:shadow-lg hover:-translate-y-1 hover:border-primary/30"
+      : "hover:shadow-xl"
+      }`}>
       <CardContent className="p-5 relative h-full">
         {/* Blur overlay for locked tests - only visible on hover */}
         {!isFree && (
@@ -84,8 +85,8 @@ function TestCard({ test, isFree, isTestTaken }: { test: any; isFree: boolean; i
             <div className="flex flex-col items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <Lock className="w-8 h-8 text-white" />
               <p className="text-sm text-white font-semibold text-center px-2">Sign up to take this test</p>
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 onClick={(e) => {
                   e.stopPropagation()
                   handleTestClick()
@@ -137,9 +138,9 @@ function TestCard({ test, isFree, isTestTaken }: { test: any; isFree: boolean; i
             {isTestTaken ? "Test Completed" : "Start Free Mock"}
           </Button>
         ) : (
-          <Button 
+          <Button
             onClick={handleTestClick}
-            variant="outline" 
+            variant="outline"
             className="w-full gap-2 bg-transparent"
           >
             <Lock className="w-4 h-4" />
@@ -316,26 +317,54 @@ export default function MockTestPage() {
   // Level 1: Category Selection
   if (!selectedCategory) {
     return (
-      <div className="w-full min-h-screen bg-background py-6 px-4 sm:px-6 lg:px-8">
+      <><FooterLinkNavbar /><div className="w-full min-h-screen bg-background py-24 pt-32 px-4 sm:px-6 lg:px-8">
+
         <div className="max-w-6xl mx-auto space-y-6 lg:space-y-8">
-          <div className="text-center max-w-3xl mx-auto space-y-2 lg:space-y-4">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Try Free Mock Tests</h1>
+          {/* Heading Section */}
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground leading-tight">
+              Try Free
+              <span className="block mt-2 text-primary">
+                Mock Tests
+              </span>
+            </h1>
+
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Select an exam category to get started. Get one full-length mock exam free from each section!
+              Select an exam category to get started. Experience real exam-level mock tests — completely free.
             </p>
           </div>
 
-          <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 sm:p-5 flex items-start gap-3">
-            <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <span className="text-primary font-semibold text-xs">i</span>
-            </div>
-            <div className="min-w-0">
-              <p className="font-semibold text-foreground mb-1 text-sm sm:text-base">How it works</p>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Select a category, then choose an exam section (CET, Police, Group D, etc). Take one free mock test from each section without creating an account. Hover over locked tests to see the signup option.
-              </p>
+          {/* Premium Info Card */}
+          <div className="relative group">
+
+            {/* Glow Effect */}
+            <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30 opacity-30 group-hover:opacity-60 transition duration-500" />
+
+            {/* Glass Card */}
+            <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl p-5 sm:p-6 flex items-start gap-4 shadow-xl">
+
+              {/* Icon */}
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center flex-shrink-0 shadow-inner">
+                <span className="text-primary font-bold text-sm">i</span>
+              </div>
+
+              {/* Content */}
+              <div className="min-w-0">
+                <p className="font-semibold text-foreground mb-1 text-base sm:text-lg">
+                  How it works
+                </p>
+
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Select a category, choose an exam section (CET, Police, Group D, etc), and start instantly.
+                  You can attempt one free mock test per section without signup.
+                  Locked tests reveal unlock options on hover.
+                </p>
+              </div>
+
             </div>
           </div>
+
+
 
           {error && (
             <div className="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg text-amber-800 dark:text-amber-200">
@@ -344,33 +373,48 @@ export default function MockTestPage() {
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-7">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.slug)}
-                className="group w-full"
+                className="group w-full text-left"
               >
-                <Card className="cursor-pointer overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-                  <div
-                    className={`relative h-40 sm:h-48 bg-gradient-to-br ${categoryColors[category.slug] || "from-gray-500 to-gray-700"}`}
-                  >
-                    <div className="absolute inset-0 bg-black/20" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
-                        {categoryIcons[category.slug] || <BookOpen className="w-8 h-8" />}
-                      </div>
+                <Card className="rounded-2xl border border-border bg-background shadow-sm overflow-hidden hover:shadow-md transition">
+                  <div className="h-1 w-full bg-primary" />
+                  {/* Top Section */}
+                  <div className="h-28 sm:h-32 flex items-center justify-center border-b border-border/50">
+                    <div className="
+            w-16 h-16 sm:w-18 sm:h-18 rounded-xl 
+            bg-muted flex items-center justify-center
+            text-foreground
+            group-hover:bg-primary/10 group-hover:text-primary
+            transition-all duration-300
+          ">
+                      {categoryIcons[category.slug] || <BookOpen className="w-7 h-7" />}
                     </div>
                   </div>
 
-                  <CardContent className="p-4 sm:p-6">
-                    <h3 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-primary transition-colors mb-2">
-                      {category.name}
-                    </h3>
-                    <p className="text-muted-foreground text-xs sm:text-sm mb-4 leading-relaxed">{category.description}</p>
-                    <div className="flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all text-sm">
-                      Browse Tests
-                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                  {/* Content */}
+                  <CardContent className="p-5 space-y-5">
+
+                    <div className="flex items-start gap-4">
+
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-semibold text-primary leading-snug">
+                          {category.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                          {category.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="flex items-center justify-center">
+                      <Button size="lg" variant="default" className="cursor-pointer">
+                        Practice Mocks →
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -378,7 +422,8 @@ export default function MockTestPage() {
             ))}
           </div>
         </div>
-      </div>
+
+      </div><FooterLinkFooter /></>
     )
   }
 
@@ -387,23 +432,82 @@ export default function MockTestPage() {
   // Level 2: Exam Sections (CET, Police, Group D, etc.)
   if (!selectedExam) {
     return (
-      <div className="w-full min-h-screen bg-background py-6 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto space-y-6 lg:space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 lg:mb-8">
-            <button
-              onClick={() => {
-                setSelectedCategory(null)
-                setExamSections([])
-              }}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors w-fit"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm sm:text-base">Back</span>
-            </button>
+      <><FooterLinkNavbar />
+        <div className="w-full min-h-screen bg-background py-24 pt-32 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto space-y-6 lg:space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-center">
+              <button
+                onClick={() => {
+                  setSelectedCategory(null)
+                  setExamSections([])
+                }}
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors w-fit"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span className="text-sm sm:text-base cursor-pointer">Back</span>
+              </button>
+
+            </div>
             <div className="flex-1 min-w-0">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground truncate">{currentCategory?.name}</h1>
               <p className="text-xs sm:text-sm text-muted-foreground mt-1 line-clamp-2">{currentCategory?.description}</p>
             </div>
+
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 sm:p-5 flex items-start gap-3">
+              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-primary font-semibold text-xs">i</span>
+              </div>
+              <div className="min-w-0">
+                <p className="font-semibold text-foreground mb-1 text-sm sm:text-base">Select an Exam Section</p>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  Choose a section below to view all available tests. Get one free mock test per section without signup.
+                </p>
+              </div>
+            </div>
+
+            {isLoading ? (
+              <div className="flex items-center justify-center min-h-[40vh] lg:min-h-[60vh]">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                {examSections.map((exam) => (
+                  <ExamSectionCard
+                    key={exam.id}
+                    exam={exam}
+                    onClick={() => setSelectedExam(exam.id)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        <FooterLinkFooter /></>
+    )
+  }
+
+  // Level 3: Tests for selected exam section
+  const currentExam = examSections.find((e) => e.id === selectedExam)
+
+  return (
+    <><FooterLinkNavbar />
+      <div className="w-full min-h-screen bg-background py-24 pt-32 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto space-y-6 lg:space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 lg:mb-8">
+            <button
+              onClick={() => setSelectedExam(null)}
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors w-fit"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span className="text-sm sm:text-base cursor-pointer">Back</span>
+            </button>
+
+          </div>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground truncate">{currentExam?.name}</h1>
+            {currentExam?.description && (
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1 line-clamp-2">{currentExam.description}</p>
+            )}
           </div>
 
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 sm:p-5 flex items-start gap-3">
@@ -411,9 +515,9 @@ export default function MockTestPage() {
               <span className="text-primary font-semibold text-xs">i</span>
             </div>
             <div className="min-w-0">
-              <p className="font-semibold text-foreground mb-1 text-sm sm:text-base">Select an Exam Section</p>
+              <p className="font-semibold text-foreground mb-1 text-sm sm:text-base">Free Test Per Section</p>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Choose a section below to view all available tests. Get one free mock test per section without signup.
+                The first test is free for all users. Hover over locked tests to see signup option. Additional tests are available after signing up.
               </p>
             </div>
           </div>
@@ -422,77 +526,27 @@ export default function MockTestPage() {
             <div className="flex items-center justify-center min-h-[40vh] lg:min-h-[60vh]">
               <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
+          ) : tests.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-sm sm:text-base">No tests available for this section yet.</p>
+            </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-              {examSections.map((exam) => (
-                <ExamSectionCard
-                  key={exam.id}
-                  exam={exam}
-                  onClick={() => setSelectedExam(exam.id)}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+              {tests.map((test, index) => (
+                <TestCard
+                  key={test.id}
+                  test={test}
+                  isFree={index === 0}
+                  isTestTaken={index === 0 && !!mockTestsTaken[`${selectedCategory}-${currentExam?.slug}`]}
                 />
               ))}
             </div>
           )}
         </div>
       </div>
-    )
-  }
+      <FooterLinkFooter />
+    </>
 
-  // Level 3: Tests for selected exam section
-  const currentExam = examSections.find((e) => e.id === selectedExam)
 
-  return (
-    <div className="w-full min-h-screen bg-background py-6 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto space-y-6 lg:space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 lg:mb-8">
-          <button
-            onClick={() => setSelectedExam(null)}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors w-fit"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm sm:text-base">Back</span>
-          </button>
-          <div className="flex-1 min-w-0">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground truncate">{currentExam?.name}</h1>
-            {currentExam?.description && (
-              <p className="text-xs sm:text-sm text-muted-foreground mt-1 line-clamp-2">{currentExam.description}</p>
-            )}
-          </div>
-        </div>
-
-        <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 sm:p-5 flex items-start gap-3">
-          <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-            <span className="text-primary font-semibold text-xs">i</span>
-          </div>
-          <div className="min-w-0">
-            <p className="font-semibold text-foreground mb-1 text-sm sm:text-base">Free Test Per Section</p>
-            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-              The first test is free for all users. Hover over locked tests to see signup option. Additional tests are available after signing up.
-            </p>
-          </div>
-        </div>
-
-        {isLoading ? (
-          <div className="flex items-center justify-center min-h-[40vh] lg:min-h-[60vh]">
-            <Loader2 className="w-8 h-8 animate-spin text-primary" />
-          </div>
-        ) : tests.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground text-sm sm:text-base">No tests available for this section yet.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-            {tests.map((test, index) => (
-              <TestCard
-                key={test.id}
-                test={test}
-                isFree={index === 0}
-                isTestTaken={index === 0 && !!mockTestsTaken[`${selectedCategory}-${currentExam?.slug}`]}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
   )
 }

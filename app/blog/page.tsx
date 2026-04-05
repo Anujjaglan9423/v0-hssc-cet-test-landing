@@ -6,6 +6,8 @@ import { BookOpen, ArrowLeft, Calendar, Clock, ArrowRight, Sparkles } from "luci
 import Footer from "@/components/footer"
 import { createClient } from "@/lib/supabase/server"
 import type { Metadata } from "next"
+import FooterLinkNavbar from "@/components/footer-link-navbar"
+import FooterLinkFooter from "@/components/footer-link-footer"
 
 export const metadata: Metadata = {
   title: "Blog | Haryana CET, HSSC, SSC & Railway Exam Tips & Study Resources 2026",
@@ -52,18 +54,18 @@ interface Blog {
 
 async function getBlogs(): Promise<Blog[]> {
   const supabase = await createClient()
-  
+
   const { data: blogs, error } = await supabase
     .from("blogs")
     .select("*")
     .eq("status", "publish")
     .order("created_at", { ascending: false })
-  
+
   if (error) {
     console.error("Error fetching blogs:", error)
     return []
   }
-  
+
   return blogs || []
 }
 
@@ -95,27 +97,7 @@ export default async function BlogPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border/50 bg-background/80 backdrop-blur-xl sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/40 transition-shadow">
-                <BookOpen className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold text-foreground">
-                CET <span className="text-primary">TEST</span>
-              </span>
-            </Link>
-            <Link href="/">
-              <Button variant="ghost" size="sm" className="gap-2">
-                <ArrowLeft className="w-4 h-4" />
-                Back to Home
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <FooterLinkNavbar />
 
       {/* Premium Hero Section */}
       <section className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -123,10 +105,10 @@ export default async function BlogPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
-        
+
         {/* Decorative Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20" />
-        
+
         <div className="max-w-5xl mx-auto relative">
           <div className="text-center">
             {/* Badge */}
@@ -134,7 +116,7 @@ export default async function BlogPage() {
               <Sparkles className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-primary">Expert Resources & Insights</span>
             </div>
-            
+
             {/* Main Heading */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
               Knowledge Hub for
@@ -142,12 +124,12 @@ export default async function BlogPage() {
                 Exam Excellence
               </span>
             </h1>
-            
+
             {/* Description */}
             <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
               Discover expert strategies, in-depth guides, and proven techniques to ace your competitive exams with confidence.
             </p>
-            
+
             {/* Stats Row */}
             <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
               <div className="text-center">
@@ -267,7 +249,7 @@ export default async function BlogPage() {
         {/* Background Elements */}
         <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent" />
         <div className="absolute bottom-0 left-1/3 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-        
+
         <div className="max-w-4xl mx-auto relative">
           <Card className="border border-primary/20 bg-gradient-to-br from-card to-card/80 overflow-hidden">
             <CardContent className="p-8 sm:p-12">
@@ -294,7 +276,7 @@ export default async function BlogPage() {
         </div>
       </section>
 
-      <Footer />
+      <FooterLinkFooter />
     </div>
   )
 }

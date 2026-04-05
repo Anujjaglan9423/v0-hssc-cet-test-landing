@@ -144,7 +144,7 @@ export default function FullscreenTestPage() {
         }
 
         const [data, paused] = await Promise.all([
-          getTestById(testId), 
+          getTestById(testId),
           isMockTest ? Promise.resolve(null) : getPausedTestState(testId)
         ])
 
@@ -459,7 +459,7 @@ export default function FullscreenTestPage() {
                 ) : (
                   <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                 )}
-                {test.has_negative_marking 
+                {test.has_negative_marking
                   ? <span className="text-destructive font-medium">Negative marking: {test.negative_marking_percent}% deducted for wrong answers</span>
                   : "No negative marking for wrong answers"
                 }
@@ -548,18 +548,18 @@ export default function FullscreenTestPage() {
                 <Button
                   type="button"
                   variant="outline"
-                  className="flex-1 bg-transparent"
+                  className="flex-1 bg-transparent cursor-pointer"
                   onClick={handleOpenRestartDialog}
                 >
                   <RotateCcw className="w-4 h-4 mr-2" />
                   Restart
                 </Button>
-                <Button type="button" className="flex-1" onClick={handleResume}>
+                <Button type="button" className="flex-1 cursor-pointer" onClick={handleResume}>
                   <Play className="w-4 h-4 mr-2" />
                   Resume
                 </Button>
               </div>
-              <Button type="button" variant="secondary" className="w-full" onClick={handleOpenExitDialog}>
+              <Button type="button" variant="secondary" className="w-full cursor-pointer" onClick={handleOpenExitDialog}>
                 <LogOut className="w-4 h-4 mr-2" />
                 Save & Exit
               </Button>
@@ -582,7 +582,7 @@ export default function FullscreenTestPage() {
               variant="outline"
               size="sm"
               onClick={toggleFullscreen}
-              className="hidden sm:flex gap-1 lg:gap-2 bg-transparent"
+              className="hidden sm:flex gap-1 lg:gap-2 bg-transparent cursor-pointer"
               title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
             >
               {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
@@ -591,7 +591,7 @@ export default function FullscreenTestPage() {
               variant="outline"
               size="sm"
               onClick={handlePauseToggle}
-              className="hidden sm:flex gap-1 lg:gap-2 bg-transparent"
+              className="hidden sm:flex gap-1 lg:gap-2 bg-transparent cursor-pointer"
             >
               <Pause className="w-4 h-4" />
               <span className="hidden lg:inline">Pause</span>
@@ -600,16 +600,15 @@ export default function FullscreenTestPage() {
               variant="outline"
               size="sm"
               onClick={handleOpenRestartDialog}
-              className="hidden sm:flex gap-1 lg:gap-2 bg-transparent"
+              className="hidden sm:flex gap-1 lg:gap-2 bg-transparent cursor-pointer"
             >
               <RotateCcw className="w-4 h-4" />
               <span className="hidden lg:inline">Restart</span>
             </Button>
 
             <div
-              className={`flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-1 lg:py-2 rounded-lg ${
-                timeLeft < 300 ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"
-              }`}
+              className={`flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-1 lg:py-2 rounded-lg ${timeLeft < 300 ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"
+                }`}
             >
               <Clock className="w-4 h-4 lg:w-5 lg:h-5" />
               <span className="font-mono font-bold text-sm lg:text-lg">{formatTime(timeLeft)}</span>
@@ -620,7 +619,7 @@ export default function FullscreenTestPage() {
               size="sm"
               onClick={() => setShowSubmitDialog(true)}
               disabled={isSubmitting}
-              className="text-xs lg:text-sm"
+              className="text-xs lg:text-sm cursor-pointer"
             >
               Submit
             </Button>
@@ -629,23 +628,23 @@ export default function FullscreenTestPage() {
       </header>
 
       <div className="sm:hidden flex gap-2 p-2 bg-card border-b border-border">
-        <Button variant="outline" size="sm" onClick={toggleFullscreen} className="flex-1 gap-2 bg-transparent">
+        <Button variant="outline" size="sm" onClick={toggleFullscreen} className="cursor-pointer flex-1 gap-2 bg-transparent">
           {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
           {isFullscreen ? "Exit" : "Fullscreen"}
         </Button>
-        <Button variant="outline" size="sm" onClick={handlePauseToggle} className="flex-1 gap-2 bg-transparent">
+        <Button variant="outline" size="sm" onClick={handlePauseToggle} className="cursor-pointer flex-1 gap-2 bg-transparent">
           <Pause className="w-4 h-4" />
           Pause
         </Button>
-        <Button variant="outline" size="sm" onClick={handleOpenRestartDialog} className="flex-1 gap-2 bg-transparent">
+        <Button variant="outline" size="sm" onClick={handleOpenRestartDialog} className="cursor-pointer flex-1 gap-2 bg-transparent">
           <RotateCcw className="w-4 h-4" />
           Restart
         </Button>
       </div>
 
-      <div className="max-w-7xl mx-auto p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-5 gap-3 lg:gap-4">
+      <div className="max-w-7xl mx-auto p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-6 gap-3 lg:gap-4">
         {/* Main Question Section - Takes 3 columns on desktop */}
-        <div className="lg:col-span-3 space-y-3 lg:space-y-4">
+        <div className="lg:col-span-4 space-y-3 lg:space-y-4">
           {/* Progress Section */}
           <div className="bg-card rounded-lg border border-border p-3 lg:p-4 space-y-2">
             <div className="flex justify-between items-center text-xs lg:text-sm">
@@ -660,7 +659,7 @@ export default function FullscreenTestPage() {
           {/* Question Card */}
           <Card className="p-4 lg:p-6 border border-border rounded-xl">
             {/* Question Header */}
-            <div className="flex items-center justify-between mb-2 lg:mb-3 gap-3">
+            <div className="flex items-center justify-between mb-2 gap-3">
               <div className="flex items-center gap-2">
                 <span className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-xs lg:text-sm font-semibold">
                   Q{currentQuestion + 1}
@@ -673,10 +672,10 @@ export default function FullscreenTestPage() {
                 variant="ghost"
                 size="sm"
                 onClick={() => toggleFlag(question.id)}
-                className={`gap-1.5 ${flagged.has(question.id) ? "text-amber-500 bg-amber-500/10" : "text-muted-foreground hover:text-amber-500"}`}
+                className={`gap-1.5 cursor-pointer ${flagged.has(question.id) ? "text-amber-500 bg-amber-500/10" : "text-muted-foreground hover:text-amber-500"}`}
               >
                 <Flag className={`w-4 h-4 ${flagged.has(question.id) ? "fill-current" : ""}`} />
-                <span className="hidden sm:inline text-xs font-medium">
+                <span className="hidden sm:inline text-xs font-medium cursor-pointer">
                   {flagged.has(question.id) ? "Flagged" : "Flag"}
                 </span>
               </Button>
@@ -691,13 +690,13 @@ export default function FullscreenTestPage() {
                 englishClassName="text-base lg:text-lg font-medium text-foreground"
                 separator={true}
               />
-              
+
               {/* Question Image */}
               {question.image_url && (
                 <div className="mt-3 flex justify-center">
-                  <img 
-                    src={question.image_url} 
-                    alt="Question figure" 
+                  <img
+                    src={question.image_url}
+                    alt="Question figure"
                     className="max-w-full max-h-64 rounded-lg border border-border object-contain"
                     loading="lazy"
                   />
@@ -720,11 +719,10 @@ export default function FullscreenTestPage() {
                 ].map((option) => (
                   <div
                     key={option.key}
-                    className={`flex items-start gap-3 p-3 lg:p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                      answers[question.id] === option.key
-                        ? "border-primary bg-primary/5 shadow-sm"
-                        : "border-border hover:border-primary/30 hover:bg-muted/40"
-                    }`}
+                    className={`flex items-start gap-3 p-3 lg:p-4 rounded-lg border-2 cursor-pointer transition-all ${answers[question.id] === option.key
+                      ? "border-primary bg-primary/5 shadow-sm"
+                      : "border-border hover:border-primary/30 hover:bg-muted/40"
+                      }`}
                     onClick={() => {
                       const radioInput = document.getElementById(`option-${option.key}`)
                       if (radioInput) radioInput.click()
@@ -753,7 +751,7 @@ export default function FullscreenTestPage() {
                 size="sm"
                 onClick={() => setCurrentQuestion((prev) => Math.max(0, prev - 1))}
                 disabled={currentQuestion === 0}
-                className="w-full sm:w-auto gap-1.5"
+                className="w-full sm:w-auto gap-1.5 cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
                 <span className="hidden lg:inline">Previous</span>
@@ -768,7 +766,7 @@ export default function FullscreenTestPage() {
                     setAnswers(rest)
                   }}
                   disabled={!answers[question.id]}
-                  className="flex-1 sm:flex-none text-xs lg:text-sm"
+                  className="flex-1 sm:flex-none text-xs lg:text-sm cursor-pointer"
                 >
                   Clear
                 </Button>
@@ -783,7 +781,7 @@ export default function FullscreenTestPage() {
                   }
                 }}
                 disabled={currentQuestion === test.questions.length - 1}
-                className="w-full sm:w-auto gap-1.5"
+                className="w-full sm:w-auto gap-1.5 cursor-pointer"
               >
                 <span className="hidden lg:inline">Next</span>
                 <span className="lg:hidden">Next Q</span>
@@ -808,15 +806,14 @@ export default function FullscreenTestPage() {
                   key={q.id}
                   onClick={() => setCurrentQuestion(index)}
                   title={`Question ${index + 1}`}
-                  className={`aspect-square rounded-md text-xs font-semibold transition-all flex items-center justify-center ${
-                    currentQuestion === index
-                      ? "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 scale-110"
-                      : answers[q.id]
-                        ? "bg-accent text-accent-foreground hover:scale-105"
-                        : flagged.has(q.id)
-                          ? "bg-amber-500/20 text-amber-600 border-2 border-amber-500 hover:scale-105"
-                          : "bg-muted text-muted-foreground hover:bg-muted/70 hover:scale-105"
-                  }`}
+                  className={`aspect-square rounded-md text-xs font-semibold transition-all flex items-center justify-center cursor-pointer ${currentQuestion === index
+                    ? "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 scale-110"
+                    : answers[q.id]
+                      ? "bg-accent text-accent-foreground hover:scale-105"
+                      : flagged.has(q.id)
+                        ? "bg-amber-500/20 text-amber-600 border-2 border-amber-500 hover:scale-105"
+                        : "bg-muted text-muted-foreground hover:bg-muted/70 hover:scale-105"
+                    }`}
                 >
                   {index + 1}
                 </button>

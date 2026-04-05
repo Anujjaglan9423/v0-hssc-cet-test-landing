@@ -14,10 +14,15 @@ export function PWAInstallPrompt() {
   const [isInstalled, setIsInstalled] = useState(false)
 
   useEffect(() => {
+    const dismissed = sessionStorage.getItem("pwaPromptDismissed")
+
+    if (dismissed === "true") {
+      return
+    }
     // Check if app is already installed
     const isStandalone = window.matchMedia("(display-mode: standalone)").matches
     const isIOSStandalone = (window.navigator as any).standalone === true
-    
+
     if (isStandalone || isIOSStandalone) {
       setIsInstalled(true)
       return
@@ -51,17 +56,18 @@ export function PWAInstallPrompt() {
 
     deferredPrompt.prompt()
     const { outcome } = await deferredPrompt.userChoice
-    
+
     if (outcome === "accepted") {
       setIsInstalled(true)
     }
-    
+
     setShowPrompt(false)
     setDeferredPrompt(null)
   }
 
   const handleDismiss = () => {
     setShowPrompt(false)
+    sessionStorage.setItem("pwaPromptDismissed", "true")
   }
 
   if (!showPrompt || isInstalled) {
@@ -91,7 +97,7 @@ export function PWAInstallPrompt() {
             <X className="w-5 h-5" />
           </button>
         </div>
-        
+
         <div className="flex gap-2">
           <button
             onClick={handleInstall}

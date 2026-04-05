@@ -17,6 +17,8 @@ import Footer from "@/components/footer"
 import { notFound } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import type { Metadata } from "next"
+import FooterLinkNavbar from "@/components/footer-link-navbar"
+import FooterLinkFooter from "@/components/footer-link-footer"
 
 interface Blog {
   id: string
@@ -40,24 +42,24 @@ interface PageProps {
 
 async function getBlog(slug: string): Promise<Blog | null> {
   const supabase = await createClient()
-  
+
   const { data: blog, error } = await supabase
     .from("blogs")
     .select("*")
     .eq("slug", slug)
     .eq("status", "publish")
     .single()
-  
+
   if (error || !blog) {
     return null
   }
-  
+
   return blog
 }
 
 async function getRelatedBlogs(category: string, currentSlug: string): Promise<Blog[]> {
   const supabase = await createClient()
-  
+
   const { data: blogs } = await supabase
     .from("blogs")
     .select("*")
@@ -65,13 +67,13 @@ async function getRelatedBlogs(category: string, currentSlug: string): Promise<B
     .eq("category", category)
     .neq("slug", currentSlug)
     .limit(3)
-  
+
   return blogs || []
 }
 
 async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
   const supabase = await createClient()
-  
+
   const { data: blogs } = await supabase
     .from("blogs")
     .select("*")
@@ -79,20 +81,20 @@ async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
     .neq("slug", currentSlug)
     .order("created_at", { ascending: false })
     .limit(4)
-  
+
   return blogs || []
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
   const blog = await getBlog(slug)
-  
+
   if (!blog) {
     return {
       title: "Blog Not Found | CET TEST",
     }
   }
-  
+
   return {
     title: blog.meta_title || blog.title,
     description: blog.meta_description || blog.description?.slice(0, 160),
@@ -145,27 +147,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border/50 bg-background/80 backdrop-blur-lg sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary/30 transition-all">
-                <BookOpen className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="text-lg sm:text-xl font-bold text-foreground">
-                CET <span className="text-primary">TEST</span>
-              </span>
-            </Link>
-            <Link href="/blog">
-              <Button variant="ghost" size="sm" className="gap-1 sm:gap-2 text-xs sm:text-sm">
-                <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">All Articles</span>
-                <span className="sm:hidden">Back</span>
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <FooterLinkNavbar />
 
       {/* Hero Section */}
       <section className="relative pt-8 sm:pt-12">
@@ -173,58 +155,58 @@ export default async function BlogPostPage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Title Section */}
             <div>
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-            <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
-            <Link href="/blog" className="hover:text-foreground transition-colors">Blog</Link>
-            {blog.category && (
-              <>
+              {/* Breadcrumb */}
+              <nav className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
+                <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
                 <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span className="text-primary font-medium">{blog.category}</span>
-              </>
-            )}
-          </nav>
+                <Link href="/blog" className="hover:text-foreground transition-colors">Blog</Link>
+                {blog.category && (
+                  <>
+                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="text-primary font-medium">{blog.category}</span>
+                  </>
+                )}
+              </nav>
 
-          {/* Category Badge */}
-          {blog.category && (
-            <div className="mb-4 sm:mb-6">
-              <Badge className="bg-gradient-to-r from-primary/20 to-primary/10 text-primary border border-primary/30 text-xs sm:text-sm px-3 sm:px-4 py-1.5 rounded-full font-medium">
-                {blog.category}
-              </Badge>
-            </div>
-          )}
+              {/* Category Badge */}
+              {blog.category && (
+                <div className="mb-4 sm:mb-6">
+                  <Badge className="bg-gradient-to-r from-primary/20 to-primary/10 text-primary border border-primary/30 text-xs sm:text-sm px-3 sm:px-4 py-1.5 rounded-full font-medium">
+                    {blog.category}
+                  </Badge>
+                </div>
+              )}
 
-          {/* Title */}
-          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight text-balance mb-6 sm:mb-8">
-            {blog.title}
-          </h1>
+              {/* Title */}
+              <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight text-balance mb-6 sm:mb-8">
+                {blog.title}
+              </h1>
 
-          {/* Meta Info */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pb-6 sm:pb-8 border-b border-border/50">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center flex-shrink-0">
-                <User className="w-6 h-6 text-primary" />
+              {/* Meta Info */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pb-6 sm:pb-8 border-b border-border/50">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center flex-shrink-0">
+                    <User className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">CET TEST Team</p>
+                    <p className="text-xs text-muted-foreground">Author</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-primary/60" />
+                    {formatDate(blog.created_at)}
+                  </div>
+                  <div className="hidden sm:flex items-center gap-1">
+                    <span className="text-border">•</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-primary/60" />
+                    {readTime}
+                  </div>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">CET TEST Team</p>
-                <p className="text-xs text-muted-foreground">Author</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-primary/60" />
-                {formatDate(blog.created_at)}
-              </div>
-              <div className="hidden sm:flex items-center gap-1">
-                <span className="text-border">•</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-primary/60" />
-                {readTime}
-              </div>
-            </div>
-          </div>
 
               {/* Tags */}
               {blog.tags && blog.tags.length > 0 && (
@@ -445,7 +427,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
       </article>
 
-      <Footer />
+      <FooterLinkFooter />
     </div>
   )
 }

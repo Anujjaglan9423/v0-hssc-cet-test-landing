@@ -36,7 +36,7 @@ export default function DailyQuizSection() {
     error: null,
     language: 'en',
   })
-  
+
   // Track excluded categories to avoid repetition
   const [excludedCategories, setExcludedCategories] = useState<string[]>([])
 
@@ -61,7 +61,7 @@ export default function DailyQuizSection() {
           error: null,
           language: 'en',
         })
-        
+
         // Add category to excluded list to avoid repetition
         if (data.category) {
           setExcludedCategories((prev) => {
@@ -176,7 +176,7 @@ export default function DailyQuizSection() {
                 onClick={loadQuestion}
                 disabled={state.loading}
                 size="lg"
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
+                className="cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
               >
                 {state.loading ? 'Generating...' : 'Start Quiz'}
               </Button>
@@ -191,21 +191,19 @@ export default function DailyQuizSection() {
                 <div className="flex gap-2 bg-gray-100 rounded-lg p-1">
                   <button
                     onClick={toggleLanguage}
-                    className={`px-4 py-2 rounded font-semibold text-sm transition-all ${
-                      state.language === 'en'
+                    className={`px-4 py-2 rounded font-semibold text-sm transition-all cursor-pointer ${state.language === 'en'
                         ? 'bg-white text-indigo-600 shadow'
                         : 'text-gray-600 hover:text-gray-800'
-                    }`}
+                      }`}
                   >
                     English
                   </button>
                   <button
                     onClick={toggleLanguage}
-                    className={`px-4 py-2 rounded font-semibold text-sm transition-all ${
-                      state.language === 'hi'
+                    className={`px-4 py-2 rounded font-semibold text-sm transition-all cursor-pointer ${state.language === 'hi'
                         ? 'bg-white text-indigo-600 shadow'
                         : 'text-gray-600 hover:text-gray-800'
-                    }`}
+                      }`}
                   >
                     हिंदी
                   </button>
@@ -229,16 +227,15 @@ export default function DailyQuizSection() {
                     key={index}
                     onClick={() => handleAnswer(index)}
                     disabled={state.answered}
-                    className={`w-full p-4 text-left rounded-lg border-2 transition-all duration-200 font-medium ${
-                      state.userAnswer === index
+                    className={`cursor-pointer w-full p-4 text-left rounded-lg border-2 transition-all duration-200 font-medium ${state.userAnswer === index
                         ? state.isCorrect
                           ? 'border-green-500 bg-green-50 text-green-900'
                           : 'border-red-500 bg-red-50 text-red-900'
                         : state.answered &&
-                            index === state.question.correct
+                          index === state.question.correct
                           ? 'border-green-500 bg-green-50 text-green-900'
                           : 'border-gray-200 bg-white text-gray-800 hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer'
-                    } ${state.answered ? 'cursor-default' : ''}`}
+                      } ${state.answered ? 'cursor-default' : ''}`}
                   >
                     <div className="flex items-center justify-between">
                       <span>{option}</span>
@@ -262,11 +259,10 @@ export default function DailyQuizSection() {
               {/* Feedback */}
               {state.answered && (
                 <div
-                  className={`p-6 rounded-lg mb-6 border ${
-                    state.isCorrect
+                  className={`p-6 rounded-lg mb-6 border ${state.isCorrect
                       ? 'bg-green-50 border-green-200 text-green-900'
                       : 'bg-red-50 border-red-200 text-red-900'
-                  }`}
+                    }`}
                 >
                   <div className="font-semibold mb-2">
                     {state.isCorrect

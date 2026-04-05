@@ -103,7 +103,7 @@ export default function ContactsPage() {
 
               <div className="flex items-center justify-between">
                 <Badge className={getStatusColor(contact.status)}>{contact.status.toUpperCase()}</Badge>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="cursor-pointer">
                   Reply
                 </Button>
               </div>

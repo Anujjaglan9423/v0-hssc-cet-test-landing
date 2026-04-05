@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Geist_Mono } from "next/font/google"
+import { Geist_Mono, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
 import "./globals.css"
@@ -117,7 +117,11 @@ export const viewport: Viewport = {
   userScalable: false,
   themeColor: "#0f172a",
 }
-
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",     // ✅ Important
+  preload: true,       // keep true (or false if warning persists)
+})
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -148,7 +152,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`font-sans antialiased`}>
+      {/* <body className={`font-sans antialiased`}> */}
+      <body className={`${inter.className} antialiased`}>
         {children}
         <PWAInstallPrompt />
         <Analytics />

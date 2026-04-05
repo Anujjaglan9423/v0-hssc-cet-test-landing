@@ -53,7 +53,7 @@ export default function CreateBlogPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<FormErrors>({})
-  
+
   // Form state
   const [title, setTitle] = useState("")
   const [slug, setSlug] = useState("")
@@ -99,21 +99,21 @@ export default function CreateBlogPage() {
   // Validation
   const validate = (): boolean => {
     const newErrors: FormErrors = {}
-    
+
     if (!title.trim()) {
       newErrors.title = "Title is required"
     }
-    
+
     if (!slug.trim()) {
       newErrors.slug = "Slug is required"
     } else if (!/^[a-z0-9-]+$/.test(slug)) {
       newErrors.slug = "Slug can only contain lowercase letters, numbers, and hyphens"
     }
-    
+
     if (!description.trim() || description === "<p></p>") {
       newErrors.description = "Description/Content is required"
     }
-    
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -121,30 +121,30 @@ export default function CreateBlogPage() {
   // Submit handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!validate()) return
-    
+
     setLoading(true)
-    
+
     try {
       let featuredImageUrl = null
-      
+
       // Upload image if present
       if (featuredImage) {
         const formData = new FormData()
         formData.append("file", featuredImage)
-        
+
         const uploadResponse = await fetch("/api/upload", {
           method: "POST",
           body: formData,
         })
-        
+
         if (uploadResponse.ok) {
           const uploadData = await uploadResponse.json()
           featuredImageUrl = uploadData.url
         }
       }
-      
+
       // Create blog post
       const response = await fetch("/api/blogs", {
         method: "POST",
@@ -164,7 +164,7 @@ export default function CreateBlogPage() {
           featured_image_url: featuredImageUrl,
         }),
       })
-      
+
       if (response.ok) {
         router.push("/admin/blog")
       } else {
@@ -184,42 +184,42 @@ export default function CreateBlogPage() {
   const getSEOScore = () => {
     let score = 0
     const checks = []
-    
+
     if (title.length >= 30 && title.length <= 60) {
       score += 20
       checks.push({ text: "Title length is optimal (30-60 chars)", passed: true })
     } else {
       checks.push({ text: "Title should be 30-60 characters", passed: false })
     }
-    
+
     if (metaDescription.length >= 120 && metaDescription.length <= 160) {
       score += 20
       checks.push({ text: "Meta description length is optimal (120-160 chars)", passed: true })
     } else {
       checks.push({ text: "Meta description should be 120-160 characters", passed: false })
     }
-    
+
     if (focusKeyword && title.toLowerCase().includes(focusKeyword.toLowerCase())) {
       score += 20
       checks.push({ text: "Focus keyword found in title", passed: true })
     } else if (focusKeyword) {
       checks.push({ text: "Add focus keyword to title", passed: false })
     }
-    
+
     if (focusKeyword && metaDescription.toLowerCase().includes(focusKeyword.toLowerCase())) {
       score += 20
       checks.push({ text: "Focus keyword found in meta description", passed: true })
     } else if (focusKeyword) {
       checks.push({ text: "Add focus keyword to meta description", passed: false })
     }
-    
+
     if (featuredImagePreview) {
       score += 20
       checks.push({ text: "Featured image added", passed: true })
     } else {
       checks.push({ text: "Add a featured image", passed: false })
     }
-    
+
     return { score, checks }
   }
 
@@ -230,7 +230,7 @@ export default function CreateBlogPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={() => router.push("/admin/blog")}>
+          <Button variant="ghost" size="icon" onClick={() => router.push("/admin/blog")} className="cursor-pointer">
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div>
@@ -248,7 +248,7 @@ export default function CreateBlogPage() {
               <SelectItem value="publish">Published</SelectItem>
             </SelectContent>
           </Select>
-          <Button onClick={handleSubmit} disabled={loading}>
+          <Button onClick={handleSubmit} disabled={loading} className="cursor-pointer">
             {loading ? (
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
             ) : (
@@ -285,7 +285,7 @@ export default function CreateBlogPage() {
                     <p className="text-sm text-destructive">{errors.title}</p>
                   )}
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="slug">
                     Slug <span className="text-destructive">*</span>
@@ -307,7 +307,7 @@ export default function CreateBlogPage() {
                     <p className="text-sm text-destructive">{errors.slug}</p>
                   )}
                 </div>
-                
+
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="category">Category</Label>
@@ -322,7 +322,7 @@ export default function CreateBlogPage() {
                       </SelectContent>
                     </Select>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="tags">Tags</Label>
                     <Input
@@ -355,7 +355,7 @@ export default function CreateBlogPage() {
                       type="button"
                       variant="destructive"
                       size="icon"
-                      className="absolute top-2 right-2"
+                      className="absolute top-2 right-2 cursor-pointer"
                       onClick={removeImage}
                     >
                       <X className="w-4 h-4" />
@@ -421,7 +421,7 @@ export default function CreateBlogPage() {
                     The main keyword you want to rank for
                   </p>
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="metaTitle">
                     Meta Title
@@ -436,7 +436,7 @@ export default function CreateBlogPage() {
                     placeholder="SEO title (defaults to post title)"
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="metaDescription">
                     Meta Description
@@ -489,22 +489,21 @@ export default function CreateBlogPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold ${
-                    seoAnalysis.score >= 80 ? "bg-accent/20 text-accent" :
-                    seoAnalysis.score >= 50 ? "bg-yellow-500/20 text-yellow-600" :
-                    "bg-destructive/20 text-destructive"
-                  }`}>
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold ${seoAnalysis.score >= 80 ? "bg-accent/20 text-accent" :
+                      seoAnalysis.score >= 50 ? "bg-yellow-500/20 text-yellow-600" :
+                        "bg-destructive/20 text-destructive"
+                    }`}>
                     {seoAnalysis.score}
                   </div>
                   <div>
                     <p className="font-medium text-foreground">
                       {seoAnalysis.score >= 80 ? "Great!" :
-                       seoAnalysis.score >= 50 ? "Good" : "Needs Work"}
+                        seoAnalysis.score >= 50 ? "Good" : "Needs Work"}
                     </p>
                     <p className="text-xs text-muted-foreground">SEO Score</p>
                   </div>
                 </div>
-                
+
                 <div className="space-y-2">
                   {seoAnalysis.checks.map((check, index) => (
                     <div key={index} className="flex items-start gap-2 text-sm">

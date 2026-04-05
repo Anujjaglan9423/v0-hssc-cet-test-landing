@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
+import { cn } from "@/lib/utils"
 import { getStudentDashboard, getAvailableTests } from "@/lib/actions/student"
 import { FileText, Trophy, Clock, Target, BookOpen, Zap, Loader2, RotateCcw, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -62,17 +63,17 @@ export default function StudentDashboard() {
     dashboardData?.performanceTrend?.length > 0
       ? dashboardData.performanceTrend
       : [
-          { test: "Test 1", score: 0 },
-          { test: "Test 2", score: 0 },
-        ]
+        { test: "Test 1", score: 0 },
+        { test: "Test 2", score: 0 },
+      ]
 
   const subjectPerformance =
     dashboardData?.subjectPerformance?.length > 0
       ? dashboardData.subjectPerformance
       : [
-          { subject: "General", score: 0 },
-          { subject: "Reasoning", score: 0 },
-        ]
+        { subject: "General", score: 0 },
+        { subject: "Reasoning", score: 0 },
+      ]
 
   const recentResults = dashboardData?.recentResults || []
   const recommendedTests = tests.slice(0, 3)
@@ -89,7 +90,7 @@ export default function StudentDashboard() {
           <p className="text-sm lg:text-base text-muted-foreground mt-1">Continue your preparation journey</p>
         </div>
         <Link href="/student/tests">
-          <Button className="gap-2 w-full sm:w-auto">
+          <Button className="gap-2 w-full sm:w-auto cursor-pointer">
             <Zap className="w-4 h-4" />
             Start Test
           </Button>
@@ -126,154 +127,383 @@ export default function StudentDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <ChartCard title="Performance Trend">
-          <ResponsiveContainer width="100%" height={250}>
-            <AreaChart data={performanceTrend}>
+
+          {/* Small helper text */}
+          <p className="text-xs text-muted-foreground mb-3">
+            Your score progression across recent tests
+          </p>
+
+          <ResponsiveContainer width="100%" height={260}>
+            <AreaChart data={performanceTrend} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+
               <defs>
                 <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
+                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.25} />
                   <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis dataKey="test" stroke="#888" fontSize={11} />
-              <YAxis stroke="#888" domain={[0, 100]} fontSize={11} />
-              <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
-              <Area type="monotone" dataKey="score" stroke="#10b981" strokeWidth={2} fill="url(#colorScore)" />
+
+              {/* Clean Grid */}
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#e5e7eb"
+                vertical={false}
+              />
+
+              {/* X Axis */}
+              <XAxis
+                dataKey="test"
+                tickLine={false}
+                axisLine={false}
+                stroke="#9ca3af"
+                fontSize={11}
+              />
+
+              {/* Y Axis */}
+              <YAxis
+                domain={[0, 100]}
+                tickLine={false}
+                axisLine={false}
+                stroke="#9ca3af"
+                fontSize={11}
+              />
+
+              {/* Tooltip */}
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#ffffff",
+                  border: "1px solid #e5e7eb",
+                  borderRadius: "10px",
+                  fontSize: "12px",
+                  padding: "8px 10px",
+                }}
+                formatter={(value) => [`${value}%`, "Score"]}
+                labelStyle={{ color: "#6b7280" }}
+              />
+
+              {/* Main Line */}
+              <Area
+                type="monotone"
+                dataKey="score"
+                stroke="#10b981"
+                strokeWidth={2.5}
+                fill="url(#colorScore)"
+                dot={{ r: 3, strokeWidth: 2, fill: "#fff" }}
+                activeDot={{ r: 6 }}
+              />
+
             </AreaChart>
           </ResponsiveContainer>
+
+          {/* Bottom Insight */}
+          <div className="mt-3 text-xs text-muted-foreground">
+            {performanceTrend?.length > 1 && (
+              <span>
+                Last Score:{" "}
+                <span className="font-medium text-foreground">
+                  {performanceTrend[performanceTrend.length - 1]?.score}%
+                </span>
+              </span>
+            )}
+          </div>
+
         </ChartCard>
 
         <ChartCard title="Subject-wise Performance">
-          <ResponsiveContainer width="100%" height={250}>
+
+          {/* Helper text */}
+          <p className="text-xs text-muted-foreground mb-3">
+            Your performance across different subjects
+          </p>
+
+          <ResponsiveContainer width="100%" height={260}>
             <RadarChart data={subjectPerformance}>
-              <PolarGrid stroke="#333" />
-              <PolarAngleAxis dataKey="subject" stroke="#888" fontSize={10} />
-              <PolarRadiusAxis stroke="#888" domain={[0, 100]} fontSize={10} />
-              <Radar name="Score" dataKey="score" stroke="#10b981" fill="#10b981" fillOpacity={0.3} />
-              <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
+
+              {/* Clean Grid */}
+              <PolarGrid stroke="#e5e7eb" />
+
+              {/* Subject Labels */}
+              <PolarAngleAxis
+                dataKey="subject"
+                tick={{ fill: "#6b7280", fontSize: 11 }}
+              />
+
+              {/* Score Axis */}
+              <PolarRadiusAxis
+                domain={[0, 100]}
+                tick={{ fill: "#9ca3af", fontSize: 10 }}
+                axisLine={false}
+              />
+
+              {/* Radar */}
+              <Radar
+                name="Score"
+                dataKey="score"
+                stroke="#10b981"
+                fill="#10b981"
+                fillOpacity={0.2}
+                strokeWidth={2}
+              />
+
+              {/* Tooltip */}
+              <Tooltip
+                formatter={(value) => [`${value}%`, "Score"]}
+                contentStyle={{
+                  backgroundColor: "#ffffff",
+                  border: "1px solid #e5e7eb",
+                  borderRadius: "10px",
+                  fontSize: "12px",
+                  padding: "8px 10px",
+                }}
+                labelStyle={{ color: "#6b7280" }}
+              />
+
             </RadarChart>
           </ResponsiveContainer>
+
+          {/* Bottom Insight */}
+          <div className="mt-3 text-xs text-muted-foreground">
+            {subjectPerformance?.length > 0 && (
+              <>
+                Strongest:{" "}
+                <span className="font-medium text-foreground">
+                  {
+                    subjectPerformance.reduce((a: any, b: any) =>
+                      a.score > b.score ? a : b
+                    ).subject
+                  }
+                </span>
+                {" • "}
+                Weakest:{" "}
+                <span className="font-medium text-foreground">
+                  {
+                    subjectPerformance.reduce((a: any, b: any) =>
+                      a.score < b.score ? a : b
+                    ).subject
+                  }
+                </span>
+              </>
+            )}
+          </div>
+
         </ChartCard>
       </div>
 
       {/* Recent Tests & Recommended */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+
         <ChartCard title="Recent Test Results">
           <div className="space-y-3">
+
             {recentResults.length > 0 ? (
               recentResults.map((result: any, idx: number) => (
                 <div
                   key={result.id}
-                  className="flex items-center justify-between p-3 lg:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all duration-300 animate-in fade-in slide-in-from-left-4"
-                  style={{ animationDelay: `${idx * 100}ms` }}
+                  className="
+            group flex items-center justify-between
+            rounded-xl border border-border/60 bg-background/60 backdrop-blur
+            p-3 lg:p-4
+            transition-all duration-300
+            hover:-translate-y-[1px]
+            hover:shadow-[0_10px_25px_rgba(0,0,0,0.05)]
+          "
+                  style={{ animationDelay: `${idx * 80}ms` }}
                 >
-                  <div className="flex items-center gap-3">
+
+                  {/* LEFT */}
+                  <div className="flex items-center gap-3 min-w-0">
+
+                    {/* Icon */}
                     <div
-                      className={`w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center ${
-                        result.percentage >= 80
-                          ? "bg-accent/20 text-accent"
-                          : result.percentage >= 60
-                            ? "bg-amber-500/20 text-amber-500"
-                            : "bg-destructive/20 text-destructive"
-                      }`}
+                      className={cn(
+                        "w-10 h-10 lg:w-11 lg:h-11 rounded-lg flex items-center justify-center flex-shrink-0 border",
+                        result.percentage >= 80 && "bg-green-50 text-green-600 border-green-200",
+                        result.percentage >= 60 && result.percentage < 80 && "bg-amber-50 text-amber-600 border-amber-200",
+                        result.percentage < 60 && "bg-red-50 text-red-600 border-red-200"
+                      )}
                     >
-                      <Trophy className="w-5 h-5 lg:w-6 lg:h-6" />
+                      <Trophy className="w-5 h-5" />
                     </div>
-                    <div>
-                      <p className="font-medium text-foreground text-sm lg:text-base line-clamp-1">
+
+                    {/* Text */}
+                    <div className="min-w-0">
+                      <p className="font-medium text-foreground text-sm lg:text-base truncate">
                         {result.test?.title || "Test"}
                       </p>
-                      <p className="text-xs text-muted-foreground">
+
+                      <p className="text-xs text-muted-foreground mt-0.5">
                         {new Date(result.created_at).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
+
+                  {/* RIGHT */}
                   <div className="text-right">
+
+                    {/* Score */}
                     <p
-                      className={`text-xl lg:text-2xl font-bold ${
-                        result.percentage >= 80
-                          ? "text-accent"
-                          : result.percentage >= 60
-                            ? "text-amber-500"
-                            : "text-destructive"
-                      }`}
+                      className={cn(
+                        "text-lg lg:text-xl font-semibold",
+                        result.percentage >= 80 && "text-green-600",
+                        result.percentage >= 60 && result.percentage < 80 && "text-amber-600",
+                        result.percentage < 60 && "text-red-600"
+                      )}
                     >
                       {result.marks}/{result.total_questions}
                     </p>
-                    <p className="text-xs text-muted-foreground">Rank #{result.rank || "-"}</p>
+
+                    {/* Rank */}
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Rank #{result.rank || "-"}
+                    </p>
+
                   </div>
+
                 </div>
               ))
             ) : (
-              <div className="text-center py-6 text-muted-foreground">
-                <FileText className="w-10 h-10 mx-auto mb-3 opacity-50" />
-                <p className="text-sm">No tests attempted yet</p>
+              <div className="text-center py-8">
+                <FileText className="w-10 h-10 mx-auto mb-3 text-muted-foreground/50" />
+                <p className="text-sm text-muted-foreground">
+                  No tests attempted yet
+                </p>
               </div>
             )}
+
+            {/* Button */}
             <Link href="/student/results">
-              <Button variant="outline" className="w-full bg-transparent">
-                View All Results
+              <Button
+                variant="outline"
+                className="
+          w-full mt-2 rounded-xl
+          border-border/60
+          hover:bg-muted/60
+          transition cursor-pointer
+        "
+              >
+                View All Results →
               </Button>
             </Link>
+
           </div>
         </ChartCard>
 
         <ChartCard title="Recommended Tests">
           <div className="space-y-3">
+
             {recommendedTests.length > 0 ? (
               recommendedTests.map((test: any, idx: number) => {
                 const hasAttempted = test.user_attempt !== null
+
                 return (
                   <div
                     key={test.id}
-                    className={`flex items-center justify-between p-3 lg:p-4 rounded-xl transition-all duration-300 animate-in fade-in slide-in-from-right-4 ${hasAttempted ? 'bg-green-500/10 border border-green-500/20' : 'bg-muted/30 hover:bg-muted/50'}`}
-                    style={{ animationDelay: `${idx * 100}ms` }}
+                    className="
+              group flex items-center justify-between
+              rounded-xl border border-border/60 bg-background/60 backdrop-blur
+              p-3 lg:p-4
+              transition-all duration-300
+              hover:-translate-y-[1px]
+              hover:shadow-[0_10px_25px_rgba(0,0,0,0.05)]
+            "
+                    style={{ animationDelay: `${idx * 80}ms` }}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center ${hasAttempted ? 'bg-green-500/20' : 'bg-primary/20'}`}>
+
+                    {/* LEFT */}
+                    <div className="flex items-center gap-3 min-w-0">
+
+                      {/* Icon */}
+                      <div
+                        className={cn(
+                          "w-10 h-10 lg:w-11 lg:h-11 rounded-lg flex items-center justify-center border flex-shrink-0",
+                          hasAttempted
+                            ? "bg-green-50 text-green-600 border-green-200"
+                            : "bg-muted text-foreground border-border"
+                        )}
+                      >
                         {hasAttempted ? (
-                          <CheckCircle2 className="w-5 h-5 lg:w-6 lg:h-6 text-green-500" />
+                          <CheckCircle2 className="w-5 h-5" />
                         ) : (
-                          <BookOpen className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
+                          <BookOpen className="w-5 h-5" />
                         )}
                       </div>
-                      <div>
-                        <p className="font-medium text-foreground text-sm lg:text-base line-clamp-1">{test.title}</p>
+
+                      {/* Content */}
+                      <div className="min-w-0">
+                        <p className="font-medium text-foreground text-sm lg:text-base line-clamp-1">
+                          {test.title}
+                        </p>
+
                         {hasAttempted ? (
-                          <p className="text-xs text-green-600">
-                            Score: {test.user_attempt.score}/{test.user_attempt.totalQuestions} ({test.user_attempt.percentage}%)
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            Score:{" "}
+                            <span className="font-medium text-green-600">
+                              {test.user_attempt.score}/{test.user_attempt.totalQuestions}
+                            </span>{" "}
+                            ({test.user_attempt.percentage}%)
                           </p>
                         ) : (
-                          <p className="text-xs text-muted-foreground">
-                            {test.questions_count} Qs | {test.duration} min
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            {test.questions_count} Qs • {test.duration} min
                           </p>
                         )}
                       </div>
                     </div>
+
+                    {/* RIGHT */}
                     <Link href={`/take-test/${test.id}`}>
                       {hasAttempted ? (
-                        <Button size="sm" variant="outline" className="gap-1 border-green-500/50 text-green-600 hover:bg-green-500 hover:text-white">
-                          <RotateCcw className="w-3 h-3" />
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="
+                    rounded-lg border-border/60
+                    text-green-600 hover:bg-green-600 hover:text-white
+                    transition cursor-pointer
+                  "
+                        >
+                          <RotateCcw className="w-3 h-3 mr-1" />
                           Retry
                         </Button>
                       ) : (
-                        <Button size="sm">Start</Button>
+                        <Button
+                          size="sm"
+                          className="
+                    rounded-lg
+                    shadow-sm cursor-pointer
+                  "
+                        >
+                          Start
+                        </Button>
                       )}
                     </Link>
+
                   </div>
                 )
               })
             ) : (
-              <div className="text-center py-6 text-muted-foreground">
-                <BookOpen className="w-10 h-10 mx-auto mb-3 opacity-50" />
-                <p className="text-sm">No tests available</p>
+              <div className="text-center py-8">
+                <BookOpen className="w-10 h-10 mx-auto mb-3 text-muted-foreground/50" />
+                <p className="text-sm text-muted-foreground">
+                  No tests available
+                </p>
               </div>
             )}
+
+            {/* Bottom Button */}
             <Link href="/student/tests">
-              <Button variant="outline" className="w-full bg-transparent">
-                Browse All Tests
+              <Button
+                variant="outline"
+                className="
+          w-full mt-2 rounded-xl
+          border-border/60
+          hover:bg-muted/60 cursor-pointer
+        "
+              >
+                Browse All Tests →
               </Button>
             </Link>
+
           </div>
         </ChartCard>
       </div>

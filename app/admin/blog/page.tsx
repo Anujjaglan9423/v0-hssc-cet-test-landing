@@ -68,7 +68,7 @@ export default function AdminBlogPage() {
       const params = new URLSearchParams()
       if (searchQuery) params.set("search", searchQuery)
       if (statusFilter !== "all") params.set("status", statusFilter)
-      
+
       const response = await fetch(`/api/blogs?${params.toString()}`)
       if (response.ok) {
         const data = await response.json()
@@ -87,13 +87,13 @@ export default function AdminBlogPage() {
 
   const handleDelete = async () => {
     if (!deleteId) return
-    
+
     try {
       setDeleting(true)
       const response = await fetch(`/api/blogs/${deleteId}`, {
         method: "DELETE",
       })
-      
+
       if (response.ok) {
         setBlogs(blogs.filter(blog => blog.id !== deleteId))
       }
@@ -124,7 +124,7 @@ export default function AdminBlogPage() {
           <h1 className="text-2xl font-bold text-foreground">Blog Management</h1>
           <p className="text-muted-foreground mt-1">Create and manage blog posts for your website</p>
         </div>
-        <Button onClick={() => router.push("/admin/blog/create")}>
+        <Button onClick={() => router.push("/admin/blog/create")} className="cursor-pointer">
           <Plus className="w-4 h-4 mr-2" />
           Create New Post
         </Button>
@@ -172,7 +172,7 @@ export default function AdminBlogPage() {
               <FileText className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
               <h3 className="text-lg font-medium text-foreground">No blog posts yet</h3>
               <p className="text-muted-foreground mt-1">Create your first blog post to get started</p>
-              <Button onClick={() => router.push("/admin/blog/create")} className="mt-4">
+              <Button onClick={() => router.push("/admin/blog/create")} className="mt-4 cursor-pointer">
                 <Plus className="w-4 h-4 mr-2" />
                 Create New Post
               </Button>
@@ -193,7 +193,7 @@ export default function AdminBlogPage() {
                       />
                     </div>
                   )}
-                  
+
                   {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
@@ -203,7 +203,7 @@ export default function AdminBlogPage() {
                       </div>
                       {getStatusBadge(blog.status)}
                     </div>
-                    
+
                     <div className="flex flex-wrap items-center gap-4 mt-2 text-sm text-muted-foreground">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
@@ -222,13 +222,14 @@ export default function AdminBlogPage() {
                       )}
                     </div>
                   </div>
-                  
+
                   {/* Actions */}
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => window.open(`/blog/${blog.slug}`, "_blank")}
+                      className="cursor-pointer"
                     >
                       <Eye className="w-4 h-4" />
                     </Button>
@@ -236,13 +237,14 @@ export default function AdminBlogPage() {
                       variant="outline"
                       size="sm"
                       onClick={() => router.push(`/admin/blog/edit/${blog.id}`)}
+                      className="cursor-pointer"
                     >
                       <Pencil className="w-4 h-4" />
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="text-destructive hover:bg-destructive/10"
+                      className="text-destructive hover:bg-destructive/10 cursor-pointer"
                       onClick={() => setDeleteId(blog.id)}
                     >
                       <Trash2 className="w-4 h-4" />

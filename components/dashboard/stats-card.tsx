@@ -88,29 +88,53 @@ export function StatsCard({
   return (
     <div
       ref={ref}
-      className="bg-card border border-border rounded-xl p-4 lg:p-6 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 group"
+      className="
+    relative group rounded-2xl border border-border/60 bg-white/80 backdrop-blur
+    p-4 lg:p-6 overflow-hidden
+    transition-all duration-300
+    hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(0,0,0,0.06)]
+  "
     >
-      <div className="flex items-start justify-between gap-2">
+      {/* subtle top highlight */}
+      <div className="absolute inset-x-0 top-0 h-[2px] bg-primary/60 opacity-80" />
+
+      {/* soft inner gradient light (very subtle, not visible as gradient) */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/40 to-transparent opacity-20" />
+
+      <div className="relative flex items-start justify-between gap-3">
+
+        {/* Left Content */}
         <div className="min-w-0 flex-1">
-          <p className="text-xs lg:text-sm text-muted-foreground mb-1 truncate">{title}</p>
-          <p className="text-xl lg:text-3xl font-bold text-foreground">{displayValue}</p>
+          <p className="text-xs lg:text-sm text-muted-foreground mb-1 truncate">
+            {title}
+          </p>
+
+          <p className="text-2xl lg:text-3xl font-semibold text-foreground tracking-tight">
+            {displayValue}
+          </p>
+
           {change && (
             <p
               className={cn(
-                "text-xs lg:text-sm mt-1 lg:mt-2 font-medium line-clamp-1",
-                changeType === "positive" && "text-accent",
-                changeType === "negative" && "text-destructive",
-                changeType === "neutral" && "text-muted-foreground",
+                "text-xs lg:text-sm mt-1 lg:mt-2 font-medium",
+                changeType === "positive" && "text-green-600",
+                changeType === "negative" && "text-red-600",
+                changeType === "neutral" && "text-muted-foreground"
               )}
             >
               {change}
             </p>
           )}
         </div>
+
+        {/* Icon */}
         <div
           className={cn(
-            "w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 flex-shrink-0",
-            colorClasses[color],
+            "w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center flex-shrink-0",
+            "bg-muted border border-border/50",
+            "transition-all duration-300",
+            "group-hover:scale-105 group-hover:border-primary/40",
+            colorClasses[color]
           )}
         >
           <Icon className="w-5 h-5 lg:w-6 lg:h-6" />

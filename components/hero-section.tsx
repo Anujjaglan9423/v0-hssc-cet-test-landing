@@ -28,9 +28,8 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div
-            className={`space-y-8 transition-all duration-1000 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
+            className={`space-y-8 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
           >
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
@@ -81,14 +80,14 @@ export default function HeroSection() {
               <Link href="/signup">
                 <Button
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 group animate-pulse-glow"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 group animate-pulse-glow cursor-pointer"
                 >
                   Start Free Trial
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/mock-test">
-                <Button size="lg" variant="outline" className="px-8 group border-border hover:bg-muted bg-transparent">
+                <Button size="lg" variant="outline" className="px-8 group border-border hover:bg-muted cursor-pointer bg-transparent">
                   <Zap className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
                   Try Free Mock Test
                 </Button>
@@ -128,9 +127,8 @@ export default function HeroSection() {
 
           {/* Right Content - Hero Image/Illustration */}
           <div
-            className={`relative transition-all duration-1000 delay-300 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
-            }`}
+            className={`relative transition-all duration-1000 delay-300 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
+              }`}
           >
             <div className="relative">
               {/* Main Card */}

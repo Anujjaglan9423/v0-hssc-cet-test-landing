@@ -49,12 +49,12 @@ export default function FooterLinkNavbar() {
                     {/* Auth Buttons */}
                     <div className="hidden md:flex items-center gap-3">
                         <Link href="/login">
-                            <Button variant="ghost" className="text-sm">
+                            <Button variant="ghost" className="text-sm cursor-pointer">
                                 Log in
                             </Button>
                         </Link>
                         <Link href="/signup">
-                            <Button className="text-sm bg-primary hover:bg-primary/90">Sign up</Button>
+                            <Button className="text-sm bg-primary hover:bg-primary/90 cursor-pointer">Sign up</Button>
                         </Link>
                     </div>
 

@@ -142,7 +142,7 @@ export default function ResultPage() {
         {/* Header */}
         <div className="flex items-center gap-4">
           <Link href="/student/results">
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="cursor-pointer">
               <ArrowLeft className="w-5 h-5" />
             </Button>
           </Link>
@@ -153,106 +153,102 @@ export default function ResultPage() {
         </div>
 
         {/* Score Card */}
-        <Card className="p-8 bg-gradient-to-br from-primary/10 via-background to-accent/10">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className={`text-6xl font-bold ${getScoreColor()} mb-2`}>{result.percentage.toFixed(1)}%</div>
-              <p className="text-muted-foreground">Overall Score</p>
-              <div className="mt-2 flex items-center justify-center gap-2">
-                <Trophy className={`w-5 h-5 ${getScoreColor()}`} />
-                <span className="font-medium text-foreground">
+        <Card className="relative p-6 md:p-8 rounded-3xl border border-white/20 bg-gradient-to-br from-white via-gray-50 to-gray-100">
+
+          {/* TOP SECTION */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+
+            {/* SCORE */}
+            <div className="rounded-2xl p-4 text-center bg-gray/60 border border-gray-200">
+
+              <p className="text-xs uppercase tracking-wider text-gray-400 mb-2">
+                Overall Score
+              </p>
+
+              <h2 className={`text-xl md:text-3xl font-extrabold ${getScoreColor()}`}>
+                {result.percentage.toFixed(1)}%
+              </h2>
+
+              <div className="mt-3 flex items-center justify-center gap-2 text-gray-600">
+                <Trophy className="w-5 h-5 text-yellow-500" />
+                <span className="font-medium text-sm">
                   {result.score} / {result.total_marks} marks
                 </span>
               </div>
             </div>
 
-            <div className="text-center">
-              <div className={`text-6xl font-bold ${getRankColor()} mb-2`}>#{result.rank}</div>
-              <p className="text-muted-foreground">Your Rank</p>
-              <div className="mt-2 flex items-center justify-center gap-2">
-                <Users className="w-5 h-5 text-muted-foreground" />
-                <span className="font-medium text-foreground">of {result.total_participants} students</span>
+            {/* RANK */}
+            <div className="rounded-2xl p-4 text-center bg-white/60 border border-gray-200">
+
+              <p className="text-xs uppercase tracking-wider text-gray-400 mb-2">
+                Your Rank
+              </p>
+
+              <h2 className={`text-xl md:text-3xl font-extrabold ${getRankColor()}`}>
+                #{result.rank}
+              </h2>
+
+              <div className="mt-3 flex items-center justify-center gap-2 text-gray-600">
+                <Users className="w-5 h-5" />
+                <span className="font-medium text-sm">
+                  of {result.total_participants}
+                </span>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-accent">
-                  <CheckCircle2 className="w-5 h-5" />
-                  Correct
-                </span>
-                <span className="font-bold text-foreground">{result.correct}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-destructive">
-                  <XCircle className="w-5 h-5" />
-                  Incorrect
-                </span>
-                <span className="font-bold text-foreground">{result.incorrect}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-muted-foreground">
-                  <MinusCircle className="w-5 h-5" />
-                  Unattempted
-                </span>
-                <span className="font-bold text-foreground">{result.unattempted}</span>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
-                  <Target className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Questions</p>
-                  <p className="font-bold text-foreground">{result.total_questions}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center">
-                  <Clock className="w-6 h-6 text-accent" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Time Taken</p>
-                  <p className="font-bold text-foreground">{Math.floor(result.time_taken / 60)} min</p>
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* Progress Bars */}
-          <div className="mt-8 grid grid-cols-3 gap-4">
-            <div>
-              <div className="flex justify-between text-sm mb-1">
-                <span className="text-accent">Correct</span>
-                <span>{((result.correct / result.total_questions) * 100).toFixed(0)}%</span>
-              </div>
-              <Progress
-                value={(result.correct / result.total_questions) * 100}
-                className="h-2 bg-muted [&>div]:bg-accent"
-              />
+          {/* STATS */}
+          <div className="grid grid-cols-3 gap-4 relative z-10">
+
+            <div className="group rounded-xl p-4 text-center bg-gradient-to-br from-green-50 to-green-100 border border-green-200 ">
+              <CheckCircle2 className="w-6 h-6 text-green-600 mx-auto mb-1 group-hover:scale-110 transition" />
+              <p className="text-xs text-gray-500">Correct</p>
+              <p className="text-xl font-bold text-green-700">{result.correct}</p>
             </div>
-            <div>
-              <div className="flex justify-between text-sm mb-1">
-                <span className="text-destructive">Incorrect</span>
-                <span>{((result.incorrect / result.total_questions) * 100).toFixed(0)}%</span>
-              </div>
-              <Progress
-                value={(result.incorrect / result.total_questions) * 100}
-                className="h-2 bg-muted [&>div]:bg-destructive"
-              />
+
+            <div className="group rounded-xl p-4 text-center bg-gradient-to-br from-red-50 to-red-100 border border-red-200 ">
+              <XCircle className="w-6 h-6 text-red-600 mx-auto mb-1 group-hover:scale-110 transition" />
+              <p className="text-xs text-gray-500">Incorrect</p>
+              <p className="text-xl font-bold text-red-700">{result.incorrect}</p>
             </div>
-            <div>
-              <div className="flex justify-between text-sm mb-1">
-                <span className="text-muted-foreground">Unattempted</span>
-                <span>{((result.unattempted / result.total_questions) * 100).toFixed(0)}%</span>
-              </div>
-              <Progress value={(result.unattempted / result.total_questions) * 100} className="h-2" />
+
+            <div className="group rounded-xl p-4 text-center bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-300 ">
+              <MinusCircle className="w-6 h-6 text-gray-600 mx-auto mb-1 group-hover:scale-110 transition" />
+              <p className="text-xs text-gray-500">Unattempted</p>
+              <p className="text-xl font-bold text-gray-800">{result.unattempted}</p>
             </div>
+
           </div>
+
+          {/* EXTRA INFO */}
+          <div className="grid grid-cols-2 gap-4 relative z-10">
+
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-white/60 border border-gray-200">
+              <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                <Target className="w-5 h-5 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-500">Questions</p>
+                <p className="font-semibold text-gray-900">{result.total_questions}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-white/60 border border-gray-200">
+              <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                <Clock className="w-5 h-5 text-purple-600" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-500">Time Taken</p>
+                <p className="font-semibold text-gray-900">
+                  {Math.floor(result.time_taken / 60)} min
+                </p>
+              </div>
+            </div>
+
+          </div>
+
         </Card>
-
         {/* Questions Review */}
         <div>
           <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
@@ -267,19 +263,25 @@ export default function ResultPage() {
               const isExpanded = expandedQuestions.has(q.id)
 
               return (
-                <Card key={q.id} className="overflow-hidden">
+
+                <Card
+                  key={q.id}
+                  className="group overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-white via-gray-50 to-gray-100 "
+                >
+                  {/* HEADER */}
                   <button
                     onClick={() => toggleQuestion(q.id)}
-                    className="w-full p-4 flex items-center gap-4 text-left hover:bg-muted/50 transition-colors"
+                    className="cursor-pointer w-full p-5 flex items-center gap-4 text-left transition-all duration-300 hover:bg-white/60 backdrop-blur-md"
                   >
+                    {/* STATUS ICON */}
                     <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        isUnattempted
-                          ? "bg-muted text-muted-foreground"
+                      className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 
+      ${isUnattempted
+                          ? "bg-gray-100 text-gray-500"
                           : isCorrect
-                            ? "bg-accent/20 text-accent"
-                            : "bg-destructive/20 text-destructive"
-                      }`}
+                            ? "bg-green-100 text-green-600"
+                            : "bg-red-100 text-red-600"
+                        }`}
                     >
                       {isUnattempted ? (
                         <MinusCircle className="w-5 h-5" />
@@ -289,61 +291,68 @@ export default function ResultPage() {
                         <XCircle className="w-5 h-5" />
                       )}
                     </div>
+
+                    {/* QUESTION TEXT */}
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-foreground">Question {index + 1}</p>
-                      <p className="text-sm text-muted-foreground truncate">{q.question_text}</p>
+                      <p className="text-sm font-semibold text-gray-900 tracking-wide">
+                        Question {index + 1}
+                      </p>
+                      <p className="text-sm text-gray-500 truncate mt-1">
+                        {q.question_text}
+                      </p>
                     </div>
-                    <div className="flex items-center gap-2">
+
+                    {/* SCORE BADGE */}
+                    <div className="flex items-center gap-3">
                       <span
-                        className={`px-2 py-1 rounded text-xs font-medium ${
-                          isUnattempted
-                            ? "bg-muted text-muted-foreground"
+                        className={`px-3 py-1 rounded-full text-xs font-semibold 
+        ${isUnattempted
+                            ? "bg-gray-100 text-gray-500"
                             : isCorrect
-                              ? "bg-accent/20 text-accent"
-                              : "bg-destructive/20 text-destructive"
-                        }`}
+                              ? "bg-green-100 text-green-700"
+                              : "bg-red-100 text-red-600"
+                          }`}
                       >
-                        {isUnattempted 
-                          ? "0" 
-                          : isCorrect 
-                            ? "+1" 
-                            : result.test.has_negative_marking 
-                              ? `-${(result.test.negative_marking_percent || 25) / 100}` 
+                        {isUnattempted
+                          ? "0"
+                          : isCorrect
+                            ? "+1"
+                            : result.test.has_negative_marking
+                              ? `-${(result.test.negative_marking_percent || 25) / 100}`
                               : "0"}
                       </span>
-                      {isExpanded ? (
-                        <ChevronUp className="w-5 h-5 text-muted-foreground" />
-                      ) : (
-                        <ChevronDown className="w-5 h-5 text-muted-foreground" />
-                      )}
+
+                      <div className="p-1 rounded-lg bg-white">
+                        {isExpanded ? (
+                          <ChevronUp className="w-5 h-5 text-gray-500" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 text-gray-500" />
+                        )}
+                      </div>
                     </div>
                   </button>
 
+                  {/* EXPANDED CONTENT */}
                   {isExpanded && (
-                    <div className="px-4 pb-4 pt-0 border-t border-border">
-                      <div className="mb-4 mt-4">
-                        <BilingualText
-                          text={q.question_text}
-                          className="text-foreground"
-                          hindiClassName="text-foreground"
-                          englishClassName="text-foreground"
-                          separator={true}
-                        />
-                        
-                        {/* Question Image */}
+                    <div className="px-5 pb-5 border-t border-gray-200 bg-white/70 backdrop-blur-md animate-in fade-in duration-300">
+
+                      {/* QUESTION */}
+                      <div className="mt-4">
+                        <BilingualText text={q.question_text} className="text-gray-900" separator />
+
                         {q.image_url && (
-                          <div className="mt-3 flex justify-center">
-                            <img 
-                              src={q.image_url} 
-                              alt="Question figure" 
-                              className="max-w-full max-h-64 rounded-lg border border-border object-contain"
-                              loading="lazy"
+                          <div className="mt-4 flex justify-center">
+                            <img
+                              src={q.image_url}
+                              alt="Question"
+                              className="rounded-xl border border-gray-200 max-h-64 object-contain"
                             />
                           </div>
                         )}
                       </div>
 
-                      <div className="space-y-2">
+                      {/* OPTIONS */}
+                      <div className="space-y-3 mt-5">
                         {[
                           { key: "a", value: q.option_a },
                           { key: "b", value: q.option_b },
@@ -356,28 +365,30 @@ export default function ResultPage() {
                           return (
                             <div
                               key={option.key}
-                              className={`p-3 rounded-lg border ${
-                                isCorrectAnswer
-                                  ? "border-accent bg-accent/10"
-                                  : isUserAnswer && !isCorrectAnswer
-                                    ? "border-destructive bg-destructive/10"
-                                    : "border-border"
-                              }`}
+                              className={`p-4 rounded-xl border transition-all duration-300
+              ${isCorrectAnswer
+                                  ? "border-green-300 bg-green-50 "
+                                  : isUserAnswer
+                                    ? "border-red-300 bg-red-50"
+                                    : "border-gray-200 bg-white"
+                                }`}
                             >
-                              <div className="flex items-start gap-2">
-                                <span className="font-medium flex-shrink-0 mt-1">({option.key.toUpperCase()})</span>
+                              <div className="flex gap-3">
+                                <span className="font-semibold text-gray-700">
+                                  ({option.key.toUpperCase()})
+                                </span>
+
                                 <div className="flex-1">
-                                  <BilingualText
-                                    text={option.value}
-                                    className="text-sm"
-                                    hindiClassName="text-sm"
-                                    englishClassName="text-sm"
-                                    separator={true}
-                                  />
+                                  <BilingualText text={option.value} className="text-sm" separator />
                                 </div>
-                                <div className="flex-shrink-0">
-                                  {isCorrectAnswer && <CheckCircle2 className="w-5 h-5 text-accent" />}
-                                  {isUserAnswer && !isCorrectAnswer && <XCircle className="w-5 h-5 text-destructive" />}
+
+                                <div>
+                                  {isCorrectAnswer && (
+                                    <CheckCircle2 className="w-5 h-5 text-green-600" />
+                                  )}
+                                  {isUserAnswer && !isCorrectAnswer && (
+                                    <XCircle className="w-5 h-5 text-red-500" />
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -385,15 +396,16 @@ export default function ResultPage() {
                         })}
                       </div>
 
+                      {/* EXPLANATION */}
                       {q.explanation && (
-                        <div className="mt-4 p-3 bg-primary/5 rounded-lg border border-primary/20">
-                          <p className="text-sm font-medium text-primary mb-3">Explanation:</p>
+                        <div className="mt-6 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200">
+                          <p className="text-sm font-semibold text-blue-700 mb-2">
+                            Explanation
+                          </p>
                           <BilingualText
                             text={q.explanation}
-                            className="text-sm text-muted-foreground"
-                            hindiClassName="text-sm text-muted-foreground"
-                            englishClassName="text-sm text-muted-foreground"
-                            separator={true}
+                            className="text-sm text-gray-600"
+                            separator
                           />
                         </div>
                       )}

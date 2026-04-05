@@ -14,13 +14,14 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
+  LabelList,
 } from "recharts"
-import { TrendingUp, Target, BookOpen, Zap } from "lucide-react"
+import { TrendingUp, Target, BookOpen, Zap, Loader2 } from "lucide-react"
 
 export default function StudentAnalyticsPage() {
-  const [analytics, setAnalytics] = useState(null)
+  const [analytics, setAnalytics] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<any | null>(null)
 
   useEffect(() => {
     const loadData = async () => {
@@ -32,7 +33,7 @@ export default function StudentAnalyticsPage() {
         } else {
           setError("No analytics data available")
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error("Analytics error:", err)
         setError(err instanceof Error ? err.message : "Failed to load analytics")
       } finally {
@@ -45,13 +46,8 @@ export default function StudentAnalyticsPage() {
 
   if (loading) {
     return (
-      <div className="p-8 flex items-center justify-center min-h-[400px]">
-        <div className="text-center">
-          <div className="animate-spin mb-4">
-            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full"></div>
-          </div>
-          <p className="text-sm text-muted-foreground">Loading your analytics...</p>
-        </div>
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     )
   }
@@ -77,114 +73,223 @@ export default function StudentAnalyticsPage() {
   }
 
   return (
-    <div className="space-y-8 p-4 lg:p-8">
-      {/* Header */}
-      <div className="space-y-2">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-          Your Analytics
-        </h1>
-        <p className="text-muted-foreground">Track your progress and identify areas for improvement</p>
-      </div>
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
 
-      {/* Key Metrics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Overall Score Card */}
-        <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-200/20 p-6 hover:border-blue-300/40 transition-all duration-300">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="relative space-y-2">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-muted-foreground">Overall Score</h3>
-              <Target className="w-4 h-4 text-blue-500" />
-            </div>
-            <p className="text-3xl font-bold">{Math.min(100, analytics.overallScore || 0)}%</p>
-            <p className="text-xs text-muted-foreground">Average across all tests</p>
-          </div>
+      <div className="space-y-8">
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-semibold text-foreground">
+            Your Analytics
+          </h1>
+          <p className="text-muted-foreground mt-1">
+            Track your progress and identify areas for improvement
+          </p>
         </div>
 
-        {/* Time Per Question Card */}
-        <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-amber-500/10 to-amber-600/10 border border-amber-200/20 p-6 hover:border-amber-300/40 transition-all duration-300">
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="relative space-y-2">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-muted-foreground">Avg Time/Question</h3>
-              <Zap className="w-4 h-4 text-amber-500" />
-            </div>
-            <p className="text-3xl font-bold">{analytics.avgTimePerQuestion || 0}s</p>
-            <p className="text-xs text-muted-foreground">Seconds per question</p>
-          </div>
-        </div>
+        {/* Key Metrics Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
 
-        {/* Current Streak Card */}
-        <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-200/20 p-6 hover:border-green-300/40 transition-all duration-300">
-          <div className="absolute inset-0 bg-gradient-to-br from-green-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="relative space-y-2">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-muted-foreground">Current Streak</h3>
-              <TrendingUp className="w-4 h-4 text-green-500" />
+          {/* CARD 1 */}
+          <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
+            <div className="flex items-center gap-4">
+
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Target className="w-5 h-5 text-primary" />
+              </div>
+
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground">Overall Score</h3>
+                <p className="text-2xl font-semibold text-foreground">
+                  {Math.min(100, analytics.overallScore || 0)}%
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Average across all tests
+                </p>
+              </div>
+
             </div>
-            <p className="text-3xl font-bold">{analytics.currentStreak || 0}</p>
-            <p className="text-xs text-muted-foreground">days • Best: {analytics.bestStreak || 0}</p>
           </div>
+
+          {/* CARD 2 */}
+          <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
+            <div className="flex items-center gap-4">
+
+              <div className="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                <Zap className="w-5 h-5 text-emerald-500" />
+              </div>
+
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground">Avg Time/Question</h3>
+                <p className="text-2xl font-semibold text-emerald-600">
+                  {analytics.avgTimePerQuestion || 0}s
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Seconds per question
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          {/* CARD 3 */}
+          <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
+            <div className="flex items-center gap-4">
+
+              <div className="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-amber-500" />
+              </div>
+
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground">Current Streak</h3>
+                <p className="text-2xl font-semibold text-amber-600">
+                  {analytics.currentStreak || 0}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  days • Best: {analytics.bestStreak || 0}
+                </p>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
 
       {/* Performance Trend Chart */}
       {analytics.performanceTrend && analytics.performanceTrend.length > 0 && (
-        <Card className="border-blue-200/20 overflow-hidden">
+        <Card className="relative overflow-hidden border border-white/10 bg-white shadow-xl backdrop-blur-xl">
+
+          {/* Glow Effect */}
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 blur-3xl rounded-full" />
+
           <CardHeader>
-            <CardTitle>Performance Trend</CardTitle>
-            <CardDescription>Your test scores over time</CardDescription>
+            <CardTitle className="text-black text-lg font-semibold tracking-wide">
+              Performance Trend
+            </CardTitle>
+            <CardDescription className="text-gray-600">
+              Your test scores over time
+            </CardDescription>
           </CardHeader>
+
           <CardContent>
             <ResponsiveContainer width="100%" height={320}>
-              <LineChart data={analytics.performanceTrend}>
+              <BarChart data={analytics.performanceTrend} barCategoryGap="25%">
+
+                {/* Gradient */}
                 <defs>
-                  <linearGradient id="scoreGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--chart-1))" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0} />
+                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#6366f1" />
+                    <stop offset="100%" stopColor="#8b5cf6" />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" className="opacity-20" />
-                <XAxis dataKey="week" className="text-xs" />
-                <YAxis className="text-xs" />
+
+                {/* Grid */}
+                {/* <CartesianGrid strokeDasharray="3 3" stroke="#000000" /> */}
+
+                {/* X Axis */}
+                <XAxis
+                  dataKey="week"
+                  tick={{ fill: "#242629ff", fontSize: 12 }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+
+                {/* Y Axis */}
+                <YAxis
+                  tick={{ fill: "#242629ff", fontSize: 12 }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+
+                {/* Tooltip */}
                 <Tooltip
-                  contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))" }}
+                  cursor={{ fill: "rgba(255,255,255,0.05)" }}
+                  contentStyle={{
+                    backgroundColor: "#f7f7f8ff",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    borderRadius: "10px",
+                  }}
+                  labelStyle={{ color: "#000000ff" }}
                 />
-                <Legend />
-                <Line
-                  type="monotone"
+
+                {/* Bars */}
+                <Bar
                   dataKey="score"
-                  stroke="hsl(var(--chart-1))"
-                  strokeWidth={2}
-                  dot={{ r: 4 }}
-                  activeDot={{ r: 6 }}
-                  name="Score %"
-                />
-              </LineChart>
+                  fill="#6d93d4ff"
+                  radius={[8, 8, 0, 0]}
+                >
+                  {/* Value on top */}
+                  <LabelList
+                    dataKey="score"
+                    position="top"
+                    fill="#161718ff"
+                    fontSize={12}
+                  />
+                </Bar>
+
+              </BarChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
       )}
-
       {/* Subject Performance & Topic Strengths */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
         {/* Subject Performance */}
         {analytics.subjectPerformance && analytics.subjectPerformance.length > 0 && (
-          <Card className="border-blue-200/20 overflow-hidden">
+          <Card className="bg-white border border-gray-200 shadow-md rounded-2xl">
+
             <CardHeader>
-              <CardTitle>Subject-wise Performance</CardTitle>
-              <CardDescription>Your strength in each subject</CardDescription>
+              <CardTitle className="text-gray-900 font-semibold text-lg">
+                Subject-wise Performance
+              </CardTitle>
+              <CardDescription className="text-gray-500">
+                Your strength in each subject
+              </CardDescription>
             </CardHeader>
+
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={analytics.subjectPerformance}>
-                  <CartesianGrid strokeDasharray="3 3" className="opacity-20" />
-                  <XAxis dataKey="subject" className="text-xs" />
-                  <YAxis className="text-xs" domain={[0, 100]} />
-                  <Tooltip
-                    contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))" }}
+                <BarChart data={analytics.subjectPerformance} barCategoryGap="30%">
+
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+
+                  <XAxis
+                    dataKey="subject"
+                    tick={{ fill: "#6b7280", fontSize: 12 }}
+                    axisLine={false}
+                    tickLine={false}
                   />
-                  <Bar dataKey="score" fill="hsl(var(--chart-2))" radius={[8, 8, 0, 0]} />
+
+                  <YAxis
+                    domain={[0, 100]}
+                    tick={{ fill: "#6b7280", fontSize: 12 }}
+                    axisLine={false}
+                    tickLine={false}
+                  />
+
+                  <Tooltip
+                    cursor={{ fill: "rgba(0,0,0,0.04)" }}
+                    contentStyle={{
+                      backgroundColor: "#ffffff",
+                      border: "1px solid #e5e7eb",
+                      borderRadius: "10px",
+                    }}
+                  />
+
+                  <Bar
+                    dataKey="score"
+                    fill="#3b82f6"
+                    radius={[10, 10, 0, 0]}
+                  >
+                    <LabelList
+                      dataKey="score"
+                      position="top"
+                      fill="#374151"
+                      fontSize={12}
+                    />
+                  </Bar>
+
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -193,35 +298,57 @@ export default function StudentAnalyticsPage() {
 
         {/* Topic Strengths */}
         {analytics.topicStrengths && analytics.topicStrengths.length > 0 && (
-          <Card className="border-blue-200/20 overflow-hidden">
+          <Card className="bg-white border border-gray-200 shadow-md rounded-2xl">
+
             <CardHeader>
-              <CardTitle>Topic-wise Strength</CardTitle>
-              <CardDescription>Performance breakdown by topic</CardDescription>
+              <CardTitle className="text-gray-900 font-semibold text-lg">
+                Topic-wise Strength
+              </CardTitle>
+              <CardDescription className="text-gray-500">
+                Performance breakdown by topic
+              </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              {analytics.topicStrengths.map((topic, idx) => {
+
+            <CardContent className="space-y-5">
+              {analytics.topicStrengths.map((topic: any) => {
                 const strength = Math.min(100, topic.strength)
                 const isStrong = strength >= 70
+
                 return (
                   <div key={topic.topic} className="space-y-2">
+
+                    {/* Header Row */}
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium truncate">{topic.topic}</p>
-                      <p className={`text-sm font-bold ${isStrong ? "text-green-600" : "text-amber-600"}`}>
-                        {strength}%
+                      <p className="text-sm font-medium text-gray-800 truncate">
+                        {topic.topic}
                       </p>
+
+                      <span
+                        className={`text-xs font-semibold px-2 py-1 rounded-full ${isStrong
+                          ? "bg-green-100 text-green-700"
+                          : "bg-yellow-100 text-yellow-700"
+                          }`}
+                      >
+                        {strength}%
+                      </span>
                     </div>
-                    <div className="w-full bg-muted rounded-full h-2.5 overflow-hidden">
+
+                    {/* Progress Bar */}
+                    <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
                       <div
-                        className={`h-2.5 rounded-full transition-all duration-500 ${isStrong ? "bg-gradient-to-r from-green-400 to-green-600" : "bg-gradient-to-r from-amber-400 to-amber-600"}`}
+                        className={`h-2.5 rounded-full transition-all duration-500 ${isStrong ? "bg-green-500" : "bg-yellow-500"
+                          }`}
                         style={{ width: `${strength}%` }}
                       />
                     </div>
+
                   </div>
                 )
               })}
             </CardContent>
           </Card>
         )}
+
       </div>
 
       {/* Personalized Recommendations */}
@@ -234,7 +361,7 @@ export default function StudentAnalyticsPage() {
           <CardDescription>Focus areas based on your performance</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
+          <div className="space-y-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             {analytics.topicStrengths && analytics.topicStrengths.length > 0 ? (
               <>
                 {/* Weakest Areas */}
@@ -259,7 +386,7 @@ export default function StudentAnalyticsPage() {
                 {/* Strongest Areas */}
                 <div className="space-y-3">
                   <h4 className="text-sm font-semibold">Your Strengths</h4>
-                  {analytics.topicStrengths.slice(0, 3).map((topic) => (
+                  {analytics.topicStrengths.slice(0, 3).map((topic: any) => (
                     <div
                       key={topic.topic}
                       className="p-3 rounded-lg bg-green-500/10 border border-green-200/20 hover:border-green-300/40 transition-colors"
