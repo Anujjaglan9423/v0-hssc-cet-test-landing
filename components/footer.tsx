@@ -15,6 +15,7 @@ const footerLinks = {
     // { name: "Careers", href: "/careers" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
+    { name: "HSSC Syllabus", href: "/haryana-exam-syllabus" }
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy-policy" },
@@ -51,11 +52,11 @@ export default function Footer() {
                 <span>anujjaglan9423@gmail.com</span>
               </a>
               <a
-                href="tel:+919896979805"
+                href="tel:+917291849546"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <span>+91 9896979805</span>
+                <span>+91 7291849546</span>
               </a>
             </div>
           </div>
