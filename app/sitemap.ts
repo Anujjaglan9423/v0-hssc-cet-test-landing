@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/study-material`,
+      url: `${baseUrl}/study-materials`,
       lastModified: now,
       changeFrequency: 'daily',
       priority: 0.95,
@@ -62,6 +62,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/blog/hssc-cet-preparation-2026`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/blog/hssc-cet-study-plan-2026`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/blog/hssc-cet-group-d-syllabus-2026`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/blog/hssc-cet-syllabus-2026`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/blog/pmt-2026-update-hssc-physical-measurement-test-date`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+
 
     // ⚖️ Legal
     {
@@ -71,7 +102,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.4,
     },
     {
-      url: `${baseUrl}/term-of-reserve`,
+      url: `${baseUrl}/terms-of-service`,
       lastModified: now,
       changeFrequency: 'yearly',
       priority: 0.4,
@@ -151,6 +182,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
+    },
+
+    // Haryana Exam Syllabus Pages
+    {
+      url: `${baseUrl}/haryana-exam-syllabus`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/haryana-cet-group-c-syllabus`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/haryana-cet-group-d-syllabus`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
     },
   ]
 }

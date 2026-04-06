@@ -16,10 +16,10 @@ export default function MockTestPage() {
 
   useEffect(() => {
     async function checkAndRedirect() {
-      console.log("[v0] MockTestPage: testId =", testId)
-      
+      // console.log("[v0] MockTestPage: testId =", testId)
+
       if (!testId) {
-        console.log("[v0] No testId provided")
+        // console.log("[v0] No testId provided")
         setError("Invalid test ID")
         setIsLoading(false)
         return
@@ -33,22 +33,22 @@ export default function MockTestPage() {
           .eq("id", testId)
           .single()
 
-        console.log("[v0] Test query result:", { test, error: err })
+        // console.log("[v0] Test query result:", { test, error: err })
 
         if (err) {
-          console.error("[v0] Supabase error:", err)
+          // console.error("[v0] Supabase error:", err)
           setError("Failed to load mock test")
           return
         }
 
         if (!test) {
-          console.log("[v0] Test not found")
+          // console.log("[v0] Test not found")
           setError("Mock test not found")
           return
         }
 
         // Redirect to the actual test interface
-        console.log("[v0] Redirecting to mock-test-attempt:", testId)
+        // console.log("[v0] Redirecting to mock-test-attempt:", testId)
         router.push(`/mock-test-attempt/${testId}`)
       } catch (err) {
         console.error("[v0] Error in checkAndRedirect:", err)

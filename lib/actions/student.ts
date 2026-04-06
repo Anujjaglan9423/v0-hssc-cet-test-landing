@@ -29,11 +29,11 @@ export async function getStudentDashboard() {
   const averageScore =
     testsAttempted > 0
       ? Math.round(
-          results!.reduce((sum, r) => {
-            const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
-            return sum + percentage
-          }, 0) / testsAttempted,
-        )
+        results!.reduce((sum, r) => {
+          const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
+          return sum + percentage
+        }, 0) / testsAttempted,
+      )
       : 0
   const bestScore =
     testsAttempted > 0
@@ -113,13 +113,13 @@ export async function getAvailableTests() {
 
   // Get user's test results if logged in
   let userResults: Record<string, { score: number; totalQuestions: number; percentage: number; attemptId: string }> = {}
-  
+
   if (user) {
     const { data: results } = await supabase
       .from("test_results")
       .select("test_id, score, total_questions, percentage, attempt_id")
       .eq("user_id", user.id)
-    
+
     if (results) {
       // Keep the best attempt for each test
       results.forEach((r) => {
@@ -419,7 +419,7 @@ export async function getTestById(testId: string) {
   }
 
   if (!test) {
-    console.log("Test not found with id:", testId)
+    // console.log("Test not found with id:", testId)
     return null
   }
 
@@ -505,7 +505,7 @@ export async function getTestResult(attemptId: string) {
     .select("rank, score, percentage")
     .eq("attempt_id", attemptId)
     .single()
-  
+
   // Use stored score (which includes negative marking) or calculate if not found
   const storedScore = resultData?.score ?? correct
   const storedPercentage = resultData?.percentage ?? (totalMarks > 0 ? Math.round((correct / totalMarks) * 100) : 0)
@@ -544,9 +544,9 @@ export async function submitTest(testId: string, answers: Record<string, string>
     }
 
     if (user) {
-      console.log("[v0] User authenticated:", user.id)
+      // console.log("[v0] User authenticated:", user.id)
     } else {
-      console.log("[v0] Mock test - no authentication required")
+      // console.log("[v0] Mock test - no authentication required")
     }
 
     // Get test with questions and negative marking settings
@@ -571,7 +571,7 @@ export async function submitTest(testId: string, answers: Record<string, string>
     const hasNegativeMarking = test.has_negative_marking || false
     const negativeMarkingPercent = test.negative_marking_percent || 0
 
-    
+
 
     // Calculate scores - 1 mark per correct, apply negative marking for wrong if enabled
     let correct = 0
@@ -589,9 +589,9 @@ export async function submitTest(testId: string, answers: Record<string, string>
     })
 
     const unattempted = totalQuestions - correct - incorrect
-    
-    
-    
+
+
+
     // Calculate score with negative marking
     let score = correct
     if (hasNegativeMarking && negativeMarkingPercent > 0) {
@@ -599,8 +599,8 @@ export async function submitTest(testId: string, answers: Record<string, string>
       const totalDeduction = incorrect * deductionPerWrong
       score = Math.max(0, correct - totalDeduction)
       score = Math.round(score * 100) / 100 // Round to 2 decimal places
-      }
-    
+    }
+
     const totalMarks = totalQuestions
     const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
 
@@ -685,7 +685,7 @@ export async function submitTest(testId: string, answers: Record<string, string>
     }
 
     revalidatePath("/student/results")
-    console.log("[v0] Test submitted successfully with attemptId:", attempt.id)
+    // console.log("[v0] Test submitted successfully with attemptId:", attempt.id)
     return { success: true, attemptId: attempt.id }
   } catch (error) {
     console.error("[v0] submitTest error:", error)
@@ -1120,7 +1120,7 @@ export async function getExamCategories() {
 export async function submitMockTest(testId: string, answers: Record<string, string>) {
   try {
     const supabase = await createClient()
-    console.log("[v0] Submitting mock test:", testId)
+    // console.log("[v0] Submitting mock test:", testId)
 
     // Get test with questions
     const { data: test, error: testError } = await supabase
@@ -1137,11 +1137,11 @@ export async function submitMockTest(testId: string, answers: Record<string, str
       .single()
 
     if (testError || !test) {
-      console.error("[v0] Error fetching test:", testError)
+      // console.error("[v0] Error fetching test:", testError)
       return { success: false, error: "Test not found" }
     }
 
-    console.log("[v0] Test fetched, calculating scores...")
+    // console.log("[v0] Test fetched, calculating scores...")
 
     const questions = test.questions || []
     const totalQuestions = questions.length
@@ -1166,7 +1166,7 @@ export async function submitMockTest(testId: string, answers: Record<string, str
     const totalMarks = totalQuestions
     const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
 
-    console.log("[v0] Scores calculated - Correct:", correct, "Incorrect:", incorrect, "Percentage:", percentage)
+    // console.log("[v0] Scores calculated - Correct:", correct, "Incorrect:", incorrect, "Percentage:", percentage)
 
     // Create test attempt (no user_id for mock tests)
     const { data: attempt, error: attemptError } = await supabase
@@ -1186,7 +1186,7 @@ export async function submitMockTest(testId: string, answers: Record<string, str
       return { success: false, error: "Failed to create attempt" }
     }
 
-    console.log("[v0] Attempt created:", attempt.id)
+    // console.log("[v0] Attempt created:", attempt.id)
 
     // Save user answers
     const userAnswersArray = Object.entries(answers).map(([questionId, answer]) => {
@@ -1232,7 +1232,7 @@ export async function submitMockTest(testId: string, answers: Record<string, str
       return { success: false, error: "Failed to create result" }
     }
 
-    console.log("[v0] Mock test submitted successfully - Result ID:", result?.id)
+    // console.log("[v0] Mock test submitted successfully - Result ID:", result?.id)
 
     return {
       success: true,
@@ -1275,13 +1275,13 @@ export async function getTestsByExam(examId: string) {
 
   // Get user's test results if logged in
   let userResults: Record<string, { score: number; totalQuestions: number; percentage: number; attemptId: string }> = {}
-  
+
   if (user) {
     const { data: results } = await supabase
       .from("test_results")
       .select("test_id, score, total_questions, percentage, attempt_id")
       .eq("user_id", user.id)
-    
+
     if (results) {
       // Keep only the latest attempt for each test
       results.forEach((r) => {
@@ -1360,9 +1360,9 @@ export async function submitFreeMockTest(
   questions: any[]
 ) {
   try {
-    console.log("[v0] submitFreeMockTest - testId:", testId)
-    console.log("[v0] submitFreeMockTest - answers count:", Object.keys(answers).length)
-    console.log("[v0] submitFreeMockTest - questions count:", questions.length)
+    // console.log("[v0] submitFreeMockTest - testId:", testId)
+    // console.log("[v0] submitFreeMockTest - answers count:", Object.keys(answers).length)
+    // console.log("[v0] submitFreeMockTest - questions count:", questions.length)
 
     const totalQuestions = questions.length
 
@@ -1376,10 +1376,10 @@ export async function submitFreeMockTest(
         const isCorrect = userAnswer.toLowerCase() === q.correct_answer.toLowerCase()
         if (isCorrect) {
           correct++
-          console.log(`[v0] Q${q.id} CORRECT`)
+          // console.log(`[v0] Q${q.id} CORRECT`)
         } else {
           incorrect++
-          console.log(`[v0] Q${q.id} WRONG - User: ${userAnswer}, Correct: ${q.correct_answer}`)
+          // console.log(`[v0] Q${q.id} WRONG - User: ${userAnswer}, Correct: ${q.correct_answer}`)
         }
       }
     })
@@ -1388,7 +1388,7 @@ export async function submitFreeMockTest(
     const score = correct
     const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
 
-    console.log("[v0] Results - Correct:", correct, "Incorrect:", incorrect, "Unattempted:", unattempted, "Percentage:", percentage)
+    // console.log("[v0] Results - Correct:", correct, "Incorrect:", incorrect, "Unattempted:", unattempted, "Percentage:", percentage)
 
     // Generate a unique result ID
     const resultId = `mock-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
@@ -1406,7 +1406,7 @@ export async function submitFreeMockTest(
       questions,
     }
 
-    console.log("[v0] Returning success with resultId:", resultId)
+    // console.log("[v0] Returning success with resultId:", resultId)
 
     return {
       success: true,

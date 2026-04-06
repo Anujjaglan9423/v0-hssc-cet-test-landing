@@ -15,13 +15,16 @@ const footerLinks = {
         { name: "Terms of Service", href: "/terms-of-service" },
         { name: "Refund Policy", href: "/refund-policy" },
     ],
+    syllabus: [
+        { name: "HSSC Syllabus", href: "/haryana-exam-syllabus" },
+    ],
 }
 
 export default function FooterLinkFooter() {
     return (
         <footer className="bg-card border-t border-border">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
                     {/* Brand */}
                     <div className="col-span-2">
                         <Link href="/" className="flex items-center gap-2 mb-4">
@@ -76,6 +79,23 @@ export default function FooterLinkFooter() {
                         <h3 className="font-semibold text-foreground mb-4">Legal</h3>
                         <ul className="space-y-2">
                             {footerLinks.legal.map((link) => (
+                                <li key={link.name}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Syllabus Links */}
+                    <div>
+                        <h3 className="font-semibold text-foreground mb-4">Syllabus</h3>
+                        <ul className="space-y-2">
+                            {footerLinks.syllabus.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}

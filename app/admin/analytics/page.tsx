@@ -46,12 +46,12 @@ export default function AdminAnalyticsPage() {
   useEffect(() => {
     async function loadAnalytics() {
       try {
-        console.log("[v0] Loading analytics...")
+        // console.log("[v0] Loading analytics...")
         const analytics = await getAdminAnalytics()
-        console.log("[v0] Analytics loaded:", analytics)
+        // console.log("[v0] Analytics loaded:", analytics)
         setData(analytics)
       } catch (error) {
-        console.error("[v0] Error loading analytics:", error)
+        // console.error("[v0] Error loading analytics:", error)
         setError(error instanceof Error ? error.message : "Failed to load analytics")
       } finally {
         setIsLoading(false)

@@ -129,18 +129,18 @@ export default function MockTestAttemptPage() {
     setIsSubmitting(true)
 
     try {
-      console.log("[v0] Mock test handleSubmit called with testId:", testId)
-      console.log("[v0] Test title:", test.title)
-      console.log("[v0] Answers:", answers)
-      
+      // console.log("[v0] Mock test handleSubmit called with testId:", testId)
+      // console.log("[v0] Test title:", test.title)
+      // console.log("[v0] Answers:", answers)
+
       const result = await submitFreeMockTest(testId, test.title, answers, test.questions)
-      console.log("[v0] submitFreeMockTest result:", result)
-      
+      // console.log("[v0] submitFreeMockTest result:", result)
+
       if (result.success) {
         // Store result data in sessionStorage
         sessionStorage.setItem(`mock-test-result-${result.resultId}`, JSON.stringify(result.data))
-        console.log("[v0] Result stored in sessionStorage, redirecting to:", `/mock-test-results/${result.resultId}`)
-        
+        // console.log("[v0] Result stored in sessionStorage, redirecting to:", `/mock-test-results/${result.resultId}`)
+
         // Redirect to results page
         setTimeout(() => {
           router.push(`/mock-test-results/${result.resultId}`)
@@ -290,9 +290,8 @@ export default function MockTestAttemptPage() {
 
           <div className="flex items-center gap-1 sm:gap-2 lg:gap-4">
             <div
-              className={`flex items-center gap-1 px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm lg:text-base ${
-                timeLeft < 300 ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"
-              }`}
+              className={`flex items-center gap-1 px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm lg:text-base ${timeLeft < 300 ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"
+                }`}
             >
               <Clock className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 flex-shrink-0" />
               <span className="font-mono font-bold">{formatTime(timeLeft)}</span>
@@ -367,15 +366,14 @@ export default function MockTestAttemptPage() {
                 <button
                   key={q.id}
                   onClick={() => setCurrentQuestion(idx)}
-                  className={`aspect-square rounded text-xs font-medium transition-all ${
-                    idx === currentQuestion
+                  className={`aspect-square rounded text-xs font-medium transition-all ${idx === currentQuestion
                       ? "bg-primary text-primary-foreground"
                       : answers[q.id]
                         ? "bg-green-500/20 text-green-600 hover:bg-green-500/30"
                         : flagged.has(q.id)
                           ? "bg-amber-500/20 text-amber-600 hover:bg-amber-500/30"
                           : "bg-muted hover:bg-muted/80"
-                  }`}
+                    }`}
                 >
                   {idx + 1}
                 </button>

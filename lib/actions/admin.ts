@@ -74,15 +74,15 @@ export async function getAllStudents() {
       const averageScore =
         testsAttempted > 0
           ? Math.round(
-              results.reduce((sum: number, r: any) => sum + ((r.score || 0) / (r.total_questions || 1)) * 100, 0) /
-                testsAttempted,
-            )
+            results.reduce((sum: number, r: any) => sum + ((r.score || 0) / (r.total_questions || 1)) * 100, 0) /
+            testsAttempted,
+          )
           : 0
       const totalTime = results.reduce((sum: number, r: any) => sum + (r.time_taken || 0), 0)
       const lastActive =
         results.length > 0
           ? results.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]
-              .created_at
+            .created_at
           : student.created_at
 
       return {
@@ -157,11 +157,11 @@ export async function getAllTests() {
       avg_score:
         test.test_results?.length > 0
           ? Math.round(
-              test.test_results.reduce(
-                (sum: number, r: any) => sum + ((r.score || 0) / (r.total_questions || 1)) * 100,
-                0,
-              ) / test.test_results.length,
-            )
+            test.test_results.reduce(
+              (sum: number, r: any) => sum + ((r.score || 0) / (r.total_questions || 1)) * 100,
+              0,
+            ) / test.test_results.length,
+          )
           : 0,
     })) || []
   )
@@ -656,21 +656,21 @@ export async function createCustomMockTest(
     const subjectQuestions = questionsBySubject[subject] || []
 
     if (subjectQuestions.length === 0) {
-      console.log(`[v0] No valid questions found for ${subject}`)
+      // console.log(`[v0] No valid questions found for ${subject}`)
       return
     }
 
     // Randomly shuffle and select
     const shuffled = [...subjectQuestions].sort(() => Math.random() - 0.5)
     const selected = shuffled.slice(0, Math.min(targetCount, shuffled.length))
-    console.log(`[v0] Selected ${selected.length} questions for ${subject} (target: ${targetCount})`)
+    // console.log(`[v0] Selected ${selected.length} questions for ${subject} (target: ${targetCount})`)
     selectedQuestions.push(...selected)
   })
 
   // Shuffle final questions
   const finalQuestions = selectedQuestions.sort(() => Math.random() - 0.5).slice(0, totalQuestions)
 
-  console.log(`[v0] Total questions selected: ${finalQuestions.length} / ${totalQuestions}`)
+  // console.log(`[v0] Total questions selected: ${finalQuestions.length} / ${totalQuestions}`)
 
   if (finalQuestions.length < totalQuestions) {
     return {

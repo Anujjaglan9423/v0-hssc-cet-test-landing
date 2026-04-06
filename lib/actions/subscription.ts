@@ -29,7 +29,7 @@ export async function getUserSubscription(userId: string) {
     .single()
 
   if (error) {
-    console.log("[v0] No subscription found for user:", userId)
+    // console.log("[v0] No subscription found for user:", userId)
     return null
   }
 
@@ -70,7 +70,7 @@ export async function createSubscriptionForNewUser(userId: string) {
     .single()
 
   if (error) {
-    console.log("[v0] Error creating subscription:", error)
+    // console.log("[v0] Error creating subscription:", error)
     return null
   }
 
@@ -117,7 +117,7 @@ export async function uploadPaymentScreenshot(
     .single()
 
   if (error) {
-    console.log("[v0] Error uploading screenshot:", error)
+    // console.log("[v0] Error uploading screenshot:", error)
     return null
   }
 
@@ -170,7 +170,7 @@ export async function getAdminPayments() {
     .order("created_at", { ascending: false })
 
   if (error) {
-    console.log("[v0] Error fetching admin payments:", error)
+    // console.log("[v0] Error fetching admin payments:", error)
     return []
   }
 
@@ -207,7 +207,7 @@ export async function approvePayment(
     .single()
 
   if (paymentError) {
-    console.log("[v0] Error fetching payment:", paymentError)
+    // console.log("[v0] Error fetching payment:", paymentError)
     return false
   }
 
@@ -222,7 +222,7 @@ export async function approvePayment(
     .eq("id", paymentId)
 
   if (updateError) {
-    console.log("[v0] Error updating payment:", updateError)
+    // console.log("[v0] Error updating payment:", updateError)
     return false
   }
 
@@ -241,7 +241,7 @@ export async function approvePayment(
     .eq("id", payment.subscription_id)
 
   if (subscriptionError) {
-    console.log("[v0] Error updating subscription:", subscriptionError)
+    // console.log("[v0] Error updating subscription:", subscriptionError)
     return false
   }
 
@@ -282,7 +282,7 @@ export async function rejectPayment(
     .eq("id", paymentId)
 
   if (error) {
-    console.log("[v0] Error rejecting payment:", error)
+    // console.log("[v0] Error rejecting payment:", error)
     return false
   }
 
@@ -325,7 +325,7 @@ export async function initiatePayment(
     .single()
 
   if (error) {
-    console.log("[v0] Error initiating payment:", error)
+    // console.log("[v0] Error initiating payment:", error)
     return null
   }
 

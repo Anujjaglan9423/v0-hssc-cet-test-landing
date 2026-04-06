@@ -120,7 +120,7 @@ export default function FullscreenTestPage() {
         await document.exitFullscreen()
       }
     } catch (err) {
-      console.log("[v0] Fullscreen error:", err)
+      // console.log("[v0] Fullscreen error:", err)
     }
   }
 
@@ -131,7 +131,7 @@ export default function FullscreenTestPage() {
         await document.documentElement.requestFullscreen()
       }
     } catch (err) {
-      console.log("[v0] Fullscreen not supported or denied:", err)
+      // console.log("[v0] Fullscreen not supported or denied:", err)
     }
   }
 
@@ -157,7 +157,7 @@ export default function FullscreenTestPage() {
           }
         }
       } catch (error) {
-        console.error("[v0] Error loading test:", error)
+        // console.error("[v0] Error loading test:", error)
       } finally {
         setIsLoading(false)
       }
@@ -214,7 +214,7 @@ export default function FullscreenTestPage() {
       try {
         await saveTestProgress(testId, answers, Array.from(flagged), currentQuestion, timeLeft)
       } catch (error) {
-        console.log("[v0] Error auto-saving on pause:", error)
+        // console.log("[v0] Error auto-saving on pause:", error)
       }
     }
   }
@@ -226,7 +226,7 @@ export default function FullscreenTestPage() {
       await saveTestProgress(testId, answers, Array.from(flagged), currentQuestion, timeLeft)
       return true
     } catch (error) {
-      console.log("[v0] Error saving progress:", error)
+      // console.log("[v0] Error saving progress:", error)
       return false
     } finally {
       setIsSaving(false)
@@ -245,7 +245,7 @@ export default function FullscreenTestPage() {
       }
       window.location.href = "/student/tests"
     } catch (error) {
-      console.log("[v0] Error saving progress:", error)
+      // console.log("[v0] Error saving progress:", error)
       setIsSaving(false)
       alert("Failed to save progress. Please try again.")
     }
@@ -265,7 +265,7 @@ export default function FullscreenTestPage() {
       setShowRestartDialog(false)
       setPausedState(null)
     } catch (error) {
-      console.log("[v0] Error restarting test:", error)
+      // console.log("[v0] Error restarting test:", error)
       alert("Failed to restart test. Please try again.")
     } finally {
       setIsRestarting(false)
@@ -304,7 +304,7 @@ export default function FullscreenTestPage() {
         setShowFeedbackModal(true)
       }
     } catch (error) {
-      console.error("Error submitting test:", error)
+      // console.error("Error submitting test:", error)
     } finally {
       setIsSubmitting(false)
       setShowSubmitDialog(false)

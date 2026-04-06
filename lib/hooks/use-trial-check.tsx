@@ -34,7 +34,7 @@ export function useTrialCheck({ userId, enabled = true }: UseTrialCheckProps) {
           }
         }
       } catch (error) {
-        console.log("[v0] Error checking trial:", error)
+        // console.log("[v0] Error checking trial:", error)
       } finally {
         setLoading(false)
       }

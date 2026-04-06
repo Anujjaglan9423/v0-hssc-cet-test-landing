@@ -58,7 +58,7 @@ export default function AdminDashboard() {
           getAllStudents(),
           getAdminAnalytics(),
         ])
-        console.log("[v0] Admin data loaded:", { statsData, studentsData: studentsData.length, analyticsData })
+        // console.log("[v0] Admin data loaded:", { statsData, studentsData: studentsData.length, analyticsData })
         setStats(statsData)
         setStudents(studentsData)
         setAnalytics(analyticsData)
@@ -216,13 +216,12 @@ export default function AdminDashboard() {
                   header: "Plan",
                   render: (student: any) => (
                     <span
-                      className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        student.plan === "pro"
+                      className={`px-2 py-1 rounded-full text-xs font-medium ${student.plan === "pro"
                           ? "bg-primary/20 text-primary"
                           : student.plan === "basic"
                             ? "bg-amber-500/20 text-amber-500"
                             : "bg-muted text-muted-foreground"
-                      }`}
+                        }`}
                     >
                       {(student.plan || "free").toUpperCase()}
                     </span>

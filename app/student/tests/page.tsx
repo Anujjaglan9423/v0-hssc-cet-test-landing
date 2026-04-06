@@ -68,11 +68,11 @@ export default function StudentTestsPage() {
       setError(null)
       try {
         const data = await getExamCategories()
-        console.log("[v0] Categories loaded:", data)
+        // console.log("[v0] Categories loaded:", data)
         if (data && data.length > 0) {
           setCategories(data)
         } else {
-          console.log("[v0] No categories from DB, using defaults")
+          // console.log("[v0] No categories from DB, using defaults")
           setCategories(defaultCategories)
         }
       } catch (err) {
