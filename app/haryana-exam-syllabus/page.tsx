@@ -111,6 +111,24 @@ export default function HaryanaExamSyllabusPage() {
                     duration: "90 Minutes",
                     link: "/haryana-cet-group-d-syllabus",
                     external: false,
+                },
+                {
+                    id: "haryana-police-constable",
+                    name: "Haryana Police Constable",
+                    shortName: "Police Constable",
+                    description: "Complete selection process and syllabus for Haryana Police Constable recruitment. Includes PMT (Physical Measurement Test), PST (Physical Screening Test), Knowledge Test with 97% weightage, and NCC bonus marks.",
+                    features: [
+                        "PMT + PST Qualifying",
+                        "97 Marks Knowledge Test",
+                        "NCC Bonus (3 Marks)",
+                        "10% Computer Questions",
+                        "20% Haryana GK",
+                        "No Negative Marking"
+                    ],
+                    totalQuestions: 97,
+                    duration: "90 Minutes",
+                    link: "/haryana-police-constable-syllabus",
+                    external: false,
                 }
             ]
         },
