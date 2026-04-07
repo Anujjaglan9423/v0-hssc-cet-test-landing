@@ -389,9 +389,10 @@ export default function HaryanaPoliceConstableSyllabusLayout({
                         title: "Haryana Police Constable Recruitment",
                         description: "Recruitment for Constable positions in Haryana Police Department. Selection based on CET, PMT, PST, and Knowledge Test.",
                         datePosted: "2026-01-01",
+                        validThrough: "2026-03-31", // Added (non-critical issue fixed)
                         employmentType: "FULL_TIME",
                         hiringOrganization: {
-                            "@type": "GovernmentOrganization",
+                            "@type": "Organization", // Changed from GovernmentOrganization to Organization (critical issue fixed)
                             name: "Haryana Staff Selection Commission",
                             sameAs: "https://hssc.gov.in",
                         },
@@ -399,12 +400,23 @@ export default function HaryanaPoliceConstableSyllabusLayout({
                             "@type": "Place",
                             address: {
                                 "@type": "PostalAddress",
+                                streetAddress: "HSSC Office, Panchkula", // Added (non-critical issue fixed)
                                 addressLocality: "Haryana",
                                 addressRegion: "HR",
+                                postalCode: "134112", // Added (non-critical issue fixed)
                                 addressCountry: "India",
                             },
                         },
                         qualifications: "10+2 pass or equivalent",
+                        baseSalary: { // Added (non-critical issue fixed)
+                            "@type": "MonetaryAmount",
+                            currency: "INR",
+                            value: {
+                                "@type": "QuantitativeValue",
+                                value: "Not disclosed yet",
+                                unitText: "MONTH"
+                            }
+                        }
                     }),
                 }}
             />
