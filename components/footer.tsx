@@ -15,7 +15,8 @@ const footerLinks = {
     // { name: "Careers", href: "/careers" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
-    { name: "HSSC Syllabus", href: "/haryana-exam-syllabus" }
+    { name: "HSSC Syllabus", href: "/haryana-exam-syllabus" },
+    { name: "Haryana GK Study Material", href: "/haryana-gk" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy-policy" },

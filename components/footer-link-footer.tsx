@@ -17,6 +17,7 @@ const footerLinks = {
     ],
     syllabus: [
         { name: "HSSC Syllabus", href: "/haryana-exam-syllabus" },
+        { name: "Haryana GK Study Material", href: "/haryana-gk" },
     ],
 }
 

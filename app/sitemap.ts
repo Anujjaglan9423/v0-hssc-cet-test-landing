@@ -209,5 +209,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9,
     },
+
+    // Haryana Exam Syllabus Pages
+    {
+      url: `${baseUrl}/haryana-gk`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/haryana-gk/haryana-basic-info`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/haryana-gk/ancient-history`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
   ]
 }
