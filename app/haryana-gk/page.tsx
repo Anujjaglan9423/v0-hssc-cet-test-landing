@@ -138,7 +138,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "National Parks & Sanctuaries",
             icon: Heart,
             color: "from-green-600 to-green-700",
-            // slug: "national-parks",
+            slug: "national-parks",
             subtopics: ["Sultanpur National Park", "Kalesar National Park", "Bhindawas Wildlife Sanctuary", "Bir Shikargah Sanctuary", "Chhilchhila Sanctuary", "Conservation Reserves", "Animal Rehabilitation Centres", "Zoos of Haryana"]
         },
         {
