@@ -41,6 +41,7 @@ import {
     Calendar,
     Globe,
     Languages,
+    ArrowLeft,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -589,6 +590,17 @@ export default function AncientHistoryOfHaryanaPage() {
                             <Button className="gap-2 cursor-pointer">
                                 {language === "hindi" ? "हरियाणा इतिहास क्विज़ लें" : "Take Haryana History Quiz"} <ChevronRight className="w-4 h-4" />
                             </Button>
+                        </Link>
+                    </div>
+                    {/* Navigation */}
+                    <div className="mt-12 pt-8 border-t flex justify-between items-center max-w-6xl mx-auto">
+                        <Link href="/haryana-gk/haryana-basic-info" className="text-muted-foreground hover:text-foreground flex items-center gap-1">
+                            <ArrowLeft className="w-4 h-4" />
+                            Back to Haryana Basic Information
+                        </Link>
+                        <Link href="/haryana-gk/medieval-history" className="text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                            Next Chapter: Medieval History of Haryana
+                            <ChevronRight className="w-4 h-4" />
                         </Link>
                     </div>
                 </div>

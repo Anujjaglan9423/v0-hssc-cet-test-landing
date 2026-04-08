@@ -12,6 +12,7 @@ export default function FooterLinkNavbar() {
     const navLinks = [
         { name: "Home", href: "/" },
         { name: "Study Material", href: "/study-materials" },
+        { name: "Haryana GK", href: "/haryana-gk" },
         { name: "About", href: "/about" },
         { name: "Contact", href: "/contact" },
         { name: "Blog", href: "/blog" },

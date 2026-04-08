@@ -50,6 +50,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: Sparkles,
             color: "from-blue-600 to-blue-700",
             // slug: "current-affairs",
+            link: "/study-materials",
             subtopics: ["National Events", "International Events", "Sports News", "Awards & Honors", "Appointments", "Haryana Specific News", "Schemes & Policies", "Obituaries"]
         },
         {
@@ -73,7 +74,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Medieval History of Haryana",
             icon: Landmark,
             color: "from-orange-700 to-orange-800",
-            // slug: "medieval-history",
+            slug: "medieval-history",
             subtopics: ["Turk Invasion", "Rise of Chauhan Dynasty", "Bhadanakas Rule", "Muhammad Ghori Invasion", "Sultanate Period", "Mughal Empire (1526-1707 AD)", "Later Mughal Period", "Important Battles"]
         },
         {
@@ -81,7 +82,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Modern History of Haryana",
             icon: Building,
             color: "from-red-700 to-red-800",
-            // slug: "modern-history",
+            slug: "modern-history",
             subtopics: ["British East India Company Rule", "Revolt of 1857 in Haryana", "Congress & National Movement", "Haryana in World War I & II", "1946 Elections & Independence", "Important Freedom Fighters", "Arya Samaj Movement"]
         },
         {
@@ -89,7 +90,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Formation of Haryana State",
             icon: Landmark,
             color: "from-green-700 to-green-800",
-            // slug: "formation-of-haryana",
+            slug: "formation-of-haryana",
             subtopics: ["Demand for Punjab Province", "State Reorganisation Commission", "Regional Formula", "Shah Commission", "1 November 1966 - Formation Day", "First Chief Minister", "First Governor"]
         },
         {
@@ -97,7 +98,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Geographical Structure",
             icon: MapPin,
             color: "from-emerald-700 to-emerald-800",
-            // slug: "geographical-structure",
+            slug: "geographical-structure",
             subtopics: ["Location & Extent", "Geological Structure", "Physiological Divisions", "Geographical Area Divisions", "Latitude & Longitude", "Topography"]
         },
         {
@@ -105,7 +106,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Climate of Haryana",
             icon: Sun,
             color: "from-yellow-600 to-yellow-700",
-            // slug: "climate",
+            slug: "climate",
             subtopics: ["Climate Classification", "Temperature Patterns", "Summer Season", "Monsoon Season", "Winter Season", "Rainfall Distribution", "Humidity & Wind Patterns"]
         },
         {
@@ -113,7 +114,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Soil Resources",
             icon: Leaf,
             color: "from-lime-700 to-lime-800",
-            // slug: "soil-resources",
+            slug: "soil-resources",
             subtopics: ["Types of Soil", "Regional Distribution of Soil", "Soil Erosion", "Soil Salinity", "Soil Alkalinity", "Soil Conservation Measures"]
         },
         {
@@ -121,7 +122,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Drainage System",
             icon: Droplets,
             color: "from-cyan-700 to-cyan-800",
-            // slug: "drainage-system",
+            slug: "drainage-system",
             subtopics: ["Yamuna River", "Ghaggar River", "Markanda River", "Tangri River", "Major Lakes (Sultanpur, Badkhal, Tilyar)", "Drains of Haryana", "Water Conservation"]
         },
         {
@@ -129,7 +130,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Forest Resources",
             icon: Leaf,
             color: "from-teal-700 to-teal-800",
-            // slug: "forest-resources",
+            slug: "forest-resources",
             subtopics: ["Forest Cover in Haryana", "Classification of Forests", "Forest Types", "Schemes for Forest Development", "Tree Plantation Drives"]
         },
         {
@@ -462,6 +463,15 @@ export default function HaryanaGKStudyMaterialPage() {
                                     {topic.slug && (
                                         <div className="p-4 pt-0 mt-auto">
                                             <Link href={`/haryana-gk/${topic.slug}`}>
+                                                <Button className="w-full gap-2 cursor-pointer">
+                                                    <Eye className="w-4 h-4" />
+                                                    Read Chapter {topic.id}: {topic.title}
+                                                </Button>
+                                            </Link>
+                                        </div>)}
+                                    {topic.link && (
+                                        <div className="p-4 pt-0 mt-auto">
+                                            <Link href={topic.link}>
                                                 <Button className="w-full gap-2 cursor-pointer">
                                                     <Eye className="w-4 h-4" />
                                                     Read Chapter {topic.id}: {topic.title}

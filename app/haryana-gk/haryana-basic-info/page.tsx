@@ -559,17 +559,7 @@ export default function HaryanaBasicInformationPage() {
                     </div>
                 </div>
             </section>
-            {/* Navigation */}
-            <div className="mt-12 pt-8 border-t flex justify-between items-center max-w-6xl mx-auto">
-                <Link href="/haryana-gk" className="text-muted-foreground hover:text-foreground flex items-center gap-1">
-                    <ArrowLeft className="w-4 h-4" />
-                    Back to Syllabus
-                </Link>
-                <Link href="/haryana-gk/ancient-history" className="text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
-                    Next Chapter: Ancient History of Haryana
-                    <ChevronRight className="w-4 h-4" />
-                </Link>
-            </div>
+
             {/* FAQ Section */}
             <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-muted/30">
                 <div className="max-w-4xl mx-auto">
@@ -616,6 +606,8 @@ export default function HaryanaBasicInformationPage() {
                         ))}
                     </div>
 
+
+
                     <div className="mt-10 text-center">
                         <p className="text-muted-foreground mb-4">
                             {language === "hindi" ? "अपने हरियाणा ज्ञान का परीक्षण करना चाहते हैं?" : "Want to test your knowledge about Haryana?"}
@@ -624,6 +616,17 @@ export default function HaryanaBasicInformationPage() {
                             <Button className="gap-2 cursor-pointer">
                                 {language === "hindi" ? "हरियाणा जीके क्विज़ लें" : "Take Haryana GK Quiz"} <ChevronRight className="w-4 h-4" />
                             </Button>
+                        </Link>
+                    </div>
+                    {/* Navigation */}
+                    <div className="mt-12 pt-8 border-t flex justify-between items-center max-w-6xl mx-auto">
+                        <Link href="/haryana-gk" className="text-muted-foreground hover:text-foreground flex items-center gap-1">
+                            <ArrowLeft className="w-4 h-4" />
+                            Back to Syllabus
+                        </Link>
+                        <Link href="/haryana-gk/ancient-history" className="text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                            Next Chapter: Ancient History of Haryana
+                            <ChevronRight className="w-4 h-4" />
                         </Link>
                     </div>
                 </div>
