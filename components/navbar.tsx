@@ -17,7 +17,7 @@ export default function Navbar() {
     // { name: "Test Series", href: "#test-series" },
     { name: "Haryana GK", href: "/haryana-gk" },
     { name: "Features", href: "#features" },
-    { name: "Pricing", href: "#pricing" },
+    // { name: "Pricing", href: "#pricing" },
     { name: "FAQs", href: "#faq" },
   ]
 

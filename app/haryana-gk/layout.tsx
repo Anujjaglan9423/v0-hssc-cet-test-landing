@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
     title: "Haryana GK Complete Syllabus 2026 | 33 Chapters for HSSC CET Group C | PDF Download",
-    description: "Complete Haryana GK study material for HSSC CET Group C 2026. 33 chapters covering Haryana History, Geography, Culture, Polity, Sports & Current Affairs. 25 marks separate section - topic-wise syllabus PDF download.",
+    description: "Complete Haryana GK study material for HSSC CET Group C 2026. 33 chapters covering Haryana History, Geography, Culture, Polity, Animal Husbandry, Sports & Current Affairs. 25 marks separate section - topic-wise syllabus PDF download.",
     keywords: [
         "Haryana GK syllabus 2026",
         "Haryana GK complete syllabus",
@@ -19,7 +19,12 @@ export const metadata: Metadata = {
         "HSSC CET preparation",
         "Haryana GK 25 marks",
         "Haryana CET mock test",
-        "Haryana GK important topics"
+        "Haryana GK important topics",
+        "Haryana Police Animal Husbandry GK",
+        "Haryana Police GK",
+        "Animal Husbandry",
+        "Haryana GK",
+        "Haryana Police Animal Husbandry"
     ],
     authors: [{ name: "CET TEST" }],
     creator: "CET TEST",
@@ -59,7 +64,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Haryana GK Complete Syllabus 2026 | 33 Chapters for HSSC CET",
-        description: "Complete Haryana GK study material for HSSC CET Group C 2026. 33 chapters covering History, Geography, Culture, Polity, Sports & Current Affairs.",
+        description: "Complete Haryana GK study material for HSSC CET Group C 2026. 33 chapters covering History, Geography, Culture, Polity, Animal Husbandry, Sports & Current Affairs.",
         images: ["/og-haryana-gk.jpg"],
         creator: "@cettest",
         site: "@cettest",
@@ -86,7 +91,7 @@ export default function HaryanaGKStudyMaterialLayout({
                         "@context": "https://schema.org",
                         "@type": "EducationalOccupationalProgram",
                         name: "Haryana GK Complete Syllabus for HSSC CET Group C",
-                        description: "Comprehensive Haryana GK study material covering 33 chapters including History, Geography, Culture, Polity, Sports, Current Affairs and more for HSSC CET Group C examination.",
+                        description: "Comprehensive Haryana GK study material covering 33 chapters including History, Geography, Culture, Polity, Animal Husbandry, Sports, Current Affairs and more for HSSC CET Group C examination.",
                         educationalProgramMode: "Exam Preparation",
                         timeToComplete: "PT90M",
                         occupationalCategory: "Government Jobs - Haryana",
@@ -171,6 +176,11 @@ export default function HaryanaGKStudyMaterialLayout({
                                 name: "Famous Personalities of Haryana",
                                 description: "Historical, Political, Social Activists, Military, Sports, Art & Literature Personalities",
                             },
+                            {
+                                "@type": "Course",
+                                "name": "Animal Husbandry in Haryana (हरियाणा पशुपालन)",
+                                "description": "Detailed study of livestock in Haryana: Murrah Buffalo (Black Gold), Indigenous Cow breeds, Livestock Census 2019, Veterinary institutes, and state dairy policies."
+                            }
                         ],
                     }),
                 }}

@@ -146,7 +146,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Agriculture & Animal Husbandry",
             icon: Leaf,
             color: "from-lime-600 to-lime-700",
-            // slug: "agriculture",
+            slug: "agriculture",
             subtopics: ["Agriculture Land Use", "Crop Seasons (Rabi, Kharif)", "Horticulture", "Floriculture", "Institutions for Agriculture", "Government Schemes", "Animal Husbandry", "Dairy Development", "Poultry Farming", "Fisheries"]
         },
         {
@@ -154,7 +154,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Irrigation in Haryana",
             icon: Droplets,
             color: "from-sky-700 to-sky-800",
-            // slug: "irrigation",
+            slug: "irrigation",
             subtopics: ["Canal Irrigation System", "Western Yamuna Canal", "Bhakra Canal", "Multipurpose River Valley Projects", "Major Dams", "Tubewell Irrigation", "Government Initiatives"]
         },
         {
@@ -162,7 +162,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Minerals & Energy Resources",
             icon: Building,
             color: "from-stone-700 to-stone-800",
-            // slug: "minerals-energy",
+            slug: "minerals-energy",
             subtopics: ["Mineral Resources (Limestone, Quartz, Gypsum)", "Energy Resources", "Thermal Power Plants", "Renewable Energy", "Solar Energy Policy", "Government Schemes"]
         },
         {
@@ -170,7 +170,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Industries in Haryana",
             icon: Factory,
             color: "from-purple-700 to-purple-800",
-            // slug: "industries",
+            slug: "industries",
             subtopics: ["Industrial Development History", "Maruti Suzuki", "Hero MotoCorp", "Industrial Estates", "IMTs (Industrial Model Townships)", "Major Sugar Mills", "Industrial Development Agencies", "Industrial Parks", "Industrial Awards"]
         },
         {
