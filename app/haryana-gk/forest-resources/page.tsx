@@ -7,7 +7,6 @@ import { useState } from "react";
 import {
     ChevronRight,
     Languages,
-    History,
     Trees,
     Leaf,
     Landmark,
@@ -15,8 +14,6 @@ import {
     ChevronDown,
     HelpCircle,
     Sprout,
-    Mountain,
-    Droplets,
     Flower2,
     ArrowLeft,
 } from "lucide-react";

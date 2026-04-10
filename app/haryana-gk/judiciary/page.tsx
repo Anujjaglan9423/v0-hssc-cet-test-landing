@@ -744,10 +744,10 @@ export default function HaryanaJudiciaryPage() {
                             <ArrowLeft className="w-4 h-4" />
                             {language === "hindi" ? "पीछे जाएँ: हरियाणा की प्रशासनिक संरचना" : "Back to Haryana Administrative Structure"}
                         </Link>
-                        {/* <Link href="/haryana-gk/education" className="text-indigo-600 hover:text-indigo-700 flex items-center gap-1">
-                            {language === "hindi" ? "अगला अध्याय: हरियाणा में शिक्षा" : "Next Chapter: Education in Haryana"}
+                        <Link href="/haryana-gk/panchayati-raj" className="text-indigo-600 hover:text-indigo-700 flex items-center gap-1">
+                            {language === "hindi" ? "अगला अध्याय: हरियाणा में पंचायती राज" : "Next Chapter: Panchayati Raj in Haryana"}
                             <ChevronRight className="w-4 h-4" />
-                        </Link> */}
+                        </Link>
                     </div>
                 </div>
             </section>

@@ -202,7 +202,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Local Self Government",
             icon: Building,
             color: "from-cyan-800 to-cyan-900",
-            // slug: "local-self-government",
+            slug: "panchayati-raj",
             subtopics: ["Panchayati Raj System", "Haryana Panchayati Raj Act", "Zila Parishad", "Gram Panchayats", "Municipal Corporations", "Nagar Palikas", "Nagar Panchayats"]
         },
         {
@@ -210,7 +210,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "District Profile",
             icon: MapPin,
             color: "from-teal-800 to-teal-900",
-            // slug: "district-profile",
+            slug: "district-profile",
             subtopics: ["Ambala Division", "Gurugram Division", "Hisar Division", "Rohtak Division", "Karnal Division", "All 22 Districts Details", "District-wise Population", "District-wise Facts"]
         },
         {
@@ -218,7 +218,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Archaeological Sites & Museums",
             icon: History,
             color: "from-amber-800 to-amber-900",
-            // slug: "archaeological-sites",
+            slug: "archaeological-sites",
             subtopics: ["Archaeological Forts", "Rakhigarhi", "Banawali", "Agroha", "Kunal", "Major Museums", "Shri Krishna Museum", "Rural Museum"]
         },
         {
@@ -226,7 +226,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Tourism in Haryana",
             icon: Heart,
             color: "from-rose-700 to-rose-800",
-            // slug: "tourism",
+            slug: "tourism",
             subtopics: ["Religious Places", "Major Gurudwaras", "Famous Churches", "Major Mosques", "Shrines & Dargahs", "Mausoleums", "Modern Tourist Centres", "Surajkund Mela", "Damdama Lake", "Pinjore Gardens", "Kurukshetra", "Jyotisar"]
         },
         {
@@ -234,7 +234,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Architecture, Art & Crafts",
             icon: Palette,
             color: "from-pink-700 to-pink-800",
-            // slug: "art-crafts",
+            slug: "art-crafts",
             subtopics: ["Architecture of Haryana", "Sculpture", "Phulkari Embroidery", "Pottery", "Weaving", "Traditional Paintings", "Handicrafts"]
         },
         {

@@ -5,19 +5,10 @@ import FooterLinkFooter from "@/components/footer-link-footer";
 import Link from "next/link";
 import { useState } from "react";
 import {
-    BookOpen,
-    Brain,
-    Calculator,
     Globe,
-    Code2,
     Languages,
     ChevronRight,
-    Sparkles,
-    FileText,
-    Target,
-    Clock,
     Award,
-    CheckCircle2,
     ChevronDown,
     HelpCircle,
     MapPin,
@@ -28,12 +19,9 @@ import {
     Dog,
     Bird,
     Trophy,
-    Volume2,
     TrendingUp,
     Building2,
     User,
-    PenTool,
-    ImageIcon,
     ArrowLeft,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";

@@ -7,7 +7,6 @@ import { useState } from "react";
 import {
     ChevronRight,
     Languages,
-    History,
     Droplets,
     Mountain,
     Wind,
@@ -16,7 +15,6 @@ import {
     HelpCircle,
     Waves,
     Trees,
-    Landmark,
     Compass,
     ArrowLeft,
 } from "lucide-react";

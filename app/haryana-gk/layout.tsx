@@ -1,9 +1,11 @@
 // app/haryana-gk-study-material/layout.tsx
-import type { Metadata } from "next"
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Haryana GK Complete Syllabus 2026 | 33 Chapters for HSSC CET Group C | PDF Download",
-    description: "Complete Haryana GK study material for HSSC CET Group C 2026. 33 chapters covering Haryana History, Geography, Culture, Polity, Animal Husbandry, Sports & Current Affairs. 25 marks separate section - topic-wise syllabus PDF download.",
+    title:
+        "Haryana GK Complete Syllabus 2026 | 33 Chapters for HSSC CET Group C | PDF Download",
+    description:
+        "Complete Haryana GK study material for HSSC CET Group C 2026. 33 chapters covering Haryana History, Geography, Culture, Polity, Animal Husbandry, Sports & Current Affairs. 25 marks separate section - topic-wise syllabus PDF download.",
     keywords: [
         "Haryana GK syllabus 2026",
         "Haryana GK complete syllabus",
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
         "Haryana Police GK",
         "Animal Husbandry",
         "Haryana GK",
-        "Haryana Police Animal Husbandry"
+        "Haryana Police Animal Husbandry",
     ],
     authors: [{ name: "CET TEST" }],
     creator: "CET TEST",
@@ -47,7 +49,8 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: "Haryana GK Complete Syllabus 2026 | 33 Chapters for HSSC CET",
-        description: "Complete Haryana GK study material for HSSC CET Group C 2026. 33 chapters covering History, Geography, Culture, Polity, Sports & Current Affairs. 25 marks separate section with topic-wise breakdown.",
+        description:
+            "Complete Haryana GK study material for HSSC CET Group C 2026. 33 chapters covering History, Geography, Culture, Polity, Sports & Current Affairs. 25 marks separate section with topic-wise breakdown.",
         url: "https://cettest.site/haryana-gk",
         siteName: "CET TEST",
         locale: "en_IN",
@@ -64,7 +67,8 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Haryana GK Complete Syllabus 2026 | 33 Chapters for HSSC CET",
-        description: "Complete Haryana GK study material for HSSC CET Group C 2026. 33 chapters covering History, Geography, Culture, Polity, Animal Husbandry, Sports & Current Affairs.",
+        description:
+            "Complete Haryana GK study material for HSSC CET Group C 2026. 33 chapters covering History, Geography, Culture, Polity, Animal Husbandry, Sports & Current Affairs.",
         images: ["/og-haryana-gk.jpg"],
         creator: "@cettest",
         site: "@cettest",
@@ -74,12 +78,12 @@ export const metadata: Metadata = {
     },
     category: "education",
     classification: "Government Exam Preparation - Haryana GK",
-}
+};
 
 export default function HaryanaGKStudyMaterialLayout({
     children,
 }: {
-    children: React.ReactNode
+    children: React.ReactNode;
 }) {
     return (
         <>
@@ -91,7 +95,8 @@ export default function HaryanaGKStudyMaterialLayout({
                         "@context": "https://schema.org",
                         "@type": "EducationalOccupationalProgram",
                         name: "Haryana GK Complete Syllabus for HSSC CET Group C",
-                        description: "Comprehensive Haryana GK study material covering 33 chapters including History, Geography, Culture, Polity, Animal Husbandry, Sports, Current Affairs and more for HSSC CET Group C examination.",
+                        description:
+                            "Comprehensive Haryana GK study material covering 33 chapters including History, Geography, Culture, Polity, Animal Husbandry, Sports, Current Affairs and more for HSSC CET Group C examination.",
                         educationalProgramMode: "Exam Preparation",
                         timeToComplete: "PT90M",
                         occupationalCategory: "Government Jobs - Haryana",
@@ -104,83 +109,129 @@ export default function HaryanaGKStudyMaterialLayout({
                             {
                                 "@type": "Course",
                                 name: "Haryana Current Affairs",
-                                description: "National & International Events, Sports News, Awards, Haryana Specific News, Schemes & Policies",
+                                description:
+                                    "National & International Events, Sports News, Awards, Haryana Specific News, Schemes & Policies",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Basic Information",
-                                description: "State Symbols, Formation Day, Capital, 22 Districts, Borders, Area, Population",
+                                description:
+                                    "State Symbols, Formation Day, Capital, 22 Districts, Borders, Area, Population",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Ancient History",
-                                description: "Siswal Culture, Indus Valley Civilization, Mahabharata War, Yaudheya Republic, Gupta Period",
+                                description:
+                                    "Siswal Culture, Indus Valley Civilization, Mahabharata War, Yaudheya Republic, Gupta Period",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Medieval History",
-                                description: "Turk Invasion, Chauhan Dynasty, Sultanate Period, Mughal Empire, Important Battles",
+                                description:
+                                    "Turk Invasion, Chauhan Dynasty, Sultanate Period, Mughal Empire, Important Battles",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Modern History",
-                                description: "British Rule, Revolt of 1857, National Movement, Freedom Fighters, Arya Samaj Movement",
+                                description:
+                                    "British Rule, Revolt of 1857, National Movement, Freedom Fighters, Arya Samaj Movement",
                             },
                             {
                                 "@type": "Course",
                                 name: "Formation of Haryana State",
-                                description: "State Reorganisation Commission, Shah Commission, 1 November 1966 Formation Day",
+                                description:
+                                    "State Reorganisation Commission, Shah Commission, 1 November 1966 Formation Day",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Geography",
-                                description: "Geological Structure, Physiological Divisions, Climate, Soil Resources, Drainage System",
+                                description:
+                                    "Geological Structure, Physiological Divisions, Climate, Soil Resources, Drainage System",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Environment & Ecology",
-                                description: "Forest Resources, National Parks, Wildlife Sanctuaries, Conservation Reserves",
+                                description:
+                                    "Forest Resources, National Parks, Wildlife Sanctuaries, Conservation Reserves",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Economy",
-                                description: "Agriculture, Animal Husbandry, Irrigation, Minerals, Industries, Transport",
+                                description:
+                                    "Agriculture, Animal Husbandry, Irrigation, Minerals, Industries, Transport",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Polity & Administration",
-                                description: "Administrative Structure, Judiciary, Local Self Government, District Profiles",
+                                description:
+                                    "Administrative Structure, Judiciary, Local Self Government, District Profiles",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Art, Culture & Heritage",
-                                description: "Architecture, Art & Crafts, Music & Dance, Fairs & Festivals, Cultural Heritage, Languages",
+                                description:
+                                    "Architecture, Art & Crafts, Music & Dance, Fairs & Festivals, Cultural Heritage, Languages",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Education, Health & Demographics",
-                                description: "Education System, Health Scenario, Demographic Profile, Population Statistics",
+                                description:
+                                    "Education System, Health Scenario, Demographic Profile, Population Statistics",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Sports & Awards",
-                                description: "Famous Sports Personalities, Phogat Sisters, Neeraj Chopra, Sports Stadiums, Awards",
+                                description:
+                                    "Famous Sports Personalities, Phogat Sisters, Neeraj Chopra, Sports Stadiums, Awards",
                             },
                             {
                                 "@type": "Course",
                                 name: "Haryana Social Welfare Schemes",
-                                description: "Women & Child Development, Beti Bachao Beti Padhao, Farmers Welfare, Ladli Scheme",
+                                description:
+                                    "Women & Child Development, Beti Bachao Beti Padhao, Farmers Welfare, Ladli Scheme",
                             },
                             {
                                 "@type": "Course",
                                 name: "Famous Personalities of Haryana",
-                                description: "Historical, Political, Social Activists, Military, Sports, Art & Literature Personalities",
+                                description:
+                                    "Historical, Political, Social Activists, Military, Sports, Art & Literature Personalities",
                             },
                             {
                                 "@type": "Course",
-                                "name": "Animal Husbandry in Haryana (हरियाणा पशुपालन)",
-                                "description": "Detailed study of livestock in Haryana: Murrah Buffalo (Black Gold), Indigenous Cow breeds, Livestock Census 2019, Veterinary institutes, and state dairy policies."
-                            }
+                                name: "Animal Husbandry in Haryana (हरियाणा पशुपालन)",
+                                description:
+                                    "Detailed study of livestock in Haryana: Murrah Buffalo (Black Gold), Indigenous Cow breeds, Livestock Census 2019, Veterinary institutes, and state dairy policies.",
+                            },
+                            {
+                                "@type": "Course",
+                                name: "Panchayati Raj in Haryana (हरियाणा में पंचायती राज)",
+                                description:
+                                    "Evolution of Panchayati Raj in Haryana, 73rd Constitutional Amendment Act, Three-tier system (Gram Panchayat, Panchayat Samiti, Zila Parishad), Functions, Powers, and Recent Reforms.",
+                            },
+                            {
+                                "@type": "Course",
+                                name: "Haryana Transport and Communication (हरियाणा में परिवहन एवं संचार)",
+                                description:
+                                    "Comprehensive guide to road transport (National Highways, State Highways, Major District Roads), Railways (Divisions, Important Junctions), Air Transport (Airports, Airstrips), and Communication Networks in Haryana.",
+                            },
+                            {
+                                "@type": "Course",
+                                name: "Haryana Judiciary (हरियाणा में न्यायपालिका)",
+                                description:
+                                    "Structure of Haryana Judiciary, High Court (Chandigarh), District Courts, Subordinate Courts, Judicial Officers, Legal Services Authorities, and important judicial appointments.",
+                            },
+                            {
+                                "@type": "Course",
+                                name: "Haryana Administrative Structure (हरियाणा की प्रशासनिक संरचना)",
+                                description:
+                                    "Detailed study of Haryana's administrative setup: Divisions, Districts, Tehsils, Sub-tehsils, Panchayats, Administrative hierarchy, Role of Deputy Commissioner, and District Administration.",
+                            },
+                            {
+                                "@type": "Course",
+                                name: "Haryana Animal Husbandry (हरियाणा पशुपालन)",
+                                description: "Detailed study of livestock in Haryana: Murrah Buffalo (Black Gold), Indigenous Cow breeds, Livestock Census 2019, Veterinary institutes, and state dairy policies."
+                            },
+
                         ],
                     }),
                 }}
@@ -286,7 +337,8 @@ export default function HaryanaGKStudyMaterialLayout({
                         "@context": "https://schema.org",
                         "@type": "Course",
                         name: "Haryana GK Complete Course for HSSC CET",
-                        description: "Complete Haryana GK preparation course with 33 chapters covering entire syllabus for HSSC CET Group C examination.",
+                        description:
+                            "Complete Haryana GK preparation course with 33 chapters covering entire syllabus for HSSC CET Group C examination.",
                         provider: {
                             "@type": "Organization",
                             name: "CET TEST",
@@ -306,7 +358,34 @@ export default function HaryanaGKStudyMaterialLayout({
                             "Haryana Polity & Administration",
                             "Haryana Economy",
                             "Haryana Sports & Awards",
-                            "Haryana Current Affairs"
+                            "Haryana Current Affairs",
+                            "Haryana Basic Info",
+                            "Haryana Formation",
+                            "Haryana Geographical Structure",
+                            "Haryana Soil Resources",
+                            "Haryana Drainage System",
+                            "Haryana Climate",
+                            "Haryana Forests",
+                            "Haryana Wildlife & Sanctuaries",
+                            "Haryana Animal Husbandry",
+                            "Haryana Agriculture",
+                            "Haryana Transport & Communication",
+                            "Haryana Judiciary",
+                            "Haryana Administrative Structure",
+                            "Haryana Art, Culture & Heritage",
+                            "Haryana Education, Health & Demographics",
+                            "Haryana Sports & Awards",
+                            "Haryana Social Welfare Schemes",
+                            "Famous Personalities of Haryana",
+                            "Haryana GK PDF",
+                            "Haryana GK Notes",
+                            "Haryana GK Questions",
+                            "Haryana GK Quiz",
+                            "Haryana GK Online Test",
+                            "Haryana GK Mock Test",
+                            "Haryana GK Study Material",
+                            "Haryana GK Syllabus",
+                            "Haryana GK Previous Year Questions",
                         ],
                         educationalLevel: "Graduate",
                         timeRequired: "P3M",
@@ -316,5 +395,5 @@ export default function HaryanaGKStudyMaterialLayout({
 
             {children}
         </>
-    )
+    );
 }

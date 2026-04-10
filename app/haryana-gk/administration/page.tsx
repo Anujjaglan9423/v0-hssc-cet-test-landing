@@ -816,7 +816,7 @@ export default function HaryanaAdministrativeStructurePage() {
                         </Link>
                     </div>
                     <div className="mt-12 pt-8 border-t flex justify-between items-center max-w-6xl mx-auto">
-                        <Link href="/haryana-gk/transport-communication" className="text-muted-foreground hover:text-foreground flex items-center gap-1">
+                        <Link href="/haryana-gk/transport" className="text-muted-foreground hover:text-foreground flex items-center gap-1">
                             <ArrowLeft className="w-4 h-4" />
                             {language === "hindi" ? "पीछे जाएँ: हरियाणा में परिवहन एवं संचार" : "Back to Transport and Communication in Haryana"}
                         </Link>
