@@ -178,7 +178,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Transport & Communication",
             icon: Bus,
             color: "from-indigo-700 to-indigo-800",
-            // slug: "transport",
+            slug: "transport",
             subtopics: ["Road Transport", "National Highways", "State Highways", "Railway Network", "Metro Rail", "Airports", "Communication Network", "Haryanvi Cinema"]
         },
         {
@@ -186,7 +186,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Administrative Structure",
             icon: Building,
             color: "from-blue-800 to-blue-900",
-            // slug: "administration",
+            slug: "administration",
             subtopics: ["Legislature (Vidhan Sabha)", "Representation in Parliament", "Executive (Governor, CM, Council of Ministers)", "President's Rule", "Major Political Parties", "Administrative Divisions"]
         },
         {
@@ -194,7 +194,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Haryana Judiciary",
             icon: Landmark,
             color: "from-violet-800 to-violet-900",
-            // slug: "judiciary",
+            slug: "judiciary",
             subtopics: ["Punjab & Haryana High Court", "Historical Background", "District Courts", "Institutions & Commissions", "Law Enforcement Agencies", "Lok Adalats"]
         },
         {

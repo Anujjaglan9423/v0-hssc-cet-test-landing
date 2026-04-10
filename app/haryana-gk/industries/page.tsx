@@ -1245,10 +1245,10 @@ export default function IndustriesInHaryanaPage() {
                             <ArrowLeft className="w-4 h-4" />
                             {language === "hindi" ? "पीछे जाएँ: हरियाणा के खनिज और ऊर्जा संसाधन" : "Back to Minerals and Energy Resources of Haryana"}
                         </Link>
-                        {/* <Link href="/haryana-gk/tourism" className="text-slate-600 hover:text-slate-700 flex items-center gap-1">
-                            {language === "hindi" ? "अगला अध्याय: हरियाणा के पर्यटन स्थल" : "Next Chapter: Tourism in Haryana"}
+                        <Link href="/haryana-gk/transport" className="text-slate-600 hover:text-slate-700 flex items-center gap-1">
+                            {language === "hindi" ? "अगला अध्याय: हरियाणा के परिवहन एवं संचार" : "Next Chapter: Transport and Communication in Haryana"}
                             <ChevronRight className="w-4 h-4" />
-                        </Link> */}
+                        </Link>
                     </div>
                 </div>
             </section>

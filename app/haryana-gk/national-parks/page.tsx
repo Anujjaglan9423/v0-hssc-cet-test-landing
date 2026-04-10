@@ -649,8 +649,8 @@ export default function NationalParksOfHaryanaPage() {
                             <ArrowLeft className="w-4 h-4" />
                             Back to Forest Resources of Haryana
                         </Link>
-                        <Link href="/haryana-gk/national-parks" className="text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
-                            Next Chapter: National Parks
+                        <Link href="/haryana-gk/agriculture" className="text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                            Next Chapter: Agriculture & Animal Husbandry
                             <ChevronRight className="w-4 h-4" />
                         </Link>
                     </div>
