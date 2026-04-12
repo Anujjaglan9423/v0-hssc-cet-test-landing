@@ -242,7 +242,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Music & Dance of Haryana",
             icon: Music,
             color: "from-fuchsia-700 to-fuchsia-800",
-            // slug: "music-dance",
+            slug: "music-dance",
             subtopics: ["Evolution of Music", "Folk Music", "Ragini", "Folk Dance (Saang, Phag, Ghoomar, Khoria)", "Folk Theatre (Swang)", "Musical Instruments"]
         },
         {
@@ -250,7 +250,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Fairs & Festivals",
             icon: Sparkles,
             color: "from-orange-600 to-orange-700",
-            // slug: "fairs-festivals",
+            slug: "fairs-festivals",
             subtopics: ["Important Festivals (Teej, Gangore)", "Sikh Festivals", "Fairs of Haryana", "Surajkund International Craft Mela", "Guga Mela", "Pinjore Heritage Festival", "District-wise Fairs"]
         },
         {
@@ -258,7 +258,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Cultural Heritage",
             icon: Utensils,
             color: "from-amber-600 to-amber-700",
-            // slug: "cultural-heritage",
+            slug: "cultural-heritage",
             subtopics: ["Men's Traditional Costumes", "Women's Traditional Costumes", "Children Traditional Costumes", "Traditional Ornaments", "Popular Foods (Bajra Roti, Kadhi, Lassi)", "Prevailing Omens"]
         },
         {
@@ -266,7 +266,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Languages & Literature",
             icon: BookOpen,
             color: "from-sky-600 to-sky-700",
-            // slug: "languages-literature",
+            slug: "languages-literature",
             subtopics: ["Haryanvi Language", "Dialects (Bangru, Deswali)", "Haryanvi Literature", "Prose Literature", "Modern Literature", "Court Literature", "Hindi Literature", "Literary Academies", "Literary Awards"]
         },
         {
@@ -274,7 +274,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Education & Health",
             icon: School,
             color: "from-blue-600 to-blue-700",
-            // slug: "education-health",
+            slug: "education-health",
             subtopics: ["Integrated Education History", "Higher Education (Colleges & Universities)", "KUK, MDU, CDLU", "Health Scenario", "Medical Colleges", "Council of Indian Medicine"]
         },
         {
@@ -282,7 +282,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Demographic Profile",
             icon: Users,
             color: "from-slate-600 to-slate-700",
-            // slug: "demographics",
+            slug: "demographics",
             subtopics: ["Decadal Growth Rate", "Population Density", "Literacy Rate", "Child Population (0-6 years)", "Sex Ratio", "Rural & Urban Population", "Religion Based Census", "Occupational Structure", "Scheduled Castes Population"]
         },
         {
@@ -290,7 +290,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Sports & Awards",
             icon: Trophy,
             color: "from-yellow-700 to-yellow-800",
-            // slug: "sports-awards",
+            slug: "sports-awards",
             subtopics: ["Famous Sports", "Phogat Sisters", "Neeraj Chopra", "Sports Organisations", "Important Sports Stadiums", "Haryana at International Level", "Sports Development Schemes", "Awards of Haryana (Maharana Pratap Award)"]
         },
         {
@@ -298,7 +298,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Social Welfare Schemes",
             icon: Heart,
             color: "from-rose-600 to-rose-700",
-            // slug: "welfare-schemes",
+            slug: "welfare-schemes",
             subtopics: ["Women & Child Development Schemes", "Beti Bachao Beti Padhao", "Social Justice & Empowerment", "Health Schemes", "Insurance Schemes", "Employment Schemes", "Scheduled Castes Schemes", "Farmers Welfare Schemes", "Ladli Scheme"]
         },
         {
@@ -306,7 +306,7 @@ export default function HaryanaGKStudyMaterialPage() {
             title: "Famous Personalities",
             icon: Award,
             color: "from-purple-600 to-purple-700",
-            // slug: "famous-personalities",
+            slug: "famous-personalities",
             subtopics: ["Historical Personalities (Rao Tula Ram)", "Political Personalities (Chaudhary Devi Lal)", "Social Activists", "Military Personnel", "Sports Personalities", "Art & Literature Personalities"]
         }
     ]

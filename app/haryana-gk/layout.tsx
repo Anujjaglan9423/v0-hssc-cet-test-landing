@@ -226,12 +226,6 @@ export default function HaryanaGKStudyMaterialLayout({
                                 description:
                                     "Detailed study of Haryana's administrative setup: Divisions, Districts, Tehsils, Sub-tehsils, Panchayats, Administrative hierarchy, Role of Deputy Commissioner, and District Administration.",
                             },
-                            {
-                                "@type": "Course",
-                                name: "Haryana Animal Husbandry (हरियाणा पशुपालन)",
-                                description: "Detailed study of livestock in Haryana: Murrah Buffalo (Black Gold), Indigenous Cow breeds, Livestock Census 2019, Veterinary institutes, and state dairy policies."
-                            },
-
                         ],
                     }),
                 }}

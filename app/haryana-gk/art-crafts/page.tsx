@@ -633,10 +633,10 @@ export default function HaryanaArchitectureArtCraftsPage() {
                             <ArrowLeft className="w-4 h-4" />
                             {language === "hindi" ? "पर्यटन" : "Tourism"}
                         </Link>
-                        {/* <Link href="/haryana-gk/agriculture" className="text-amber-600 hover:text-amber-700 flex items-center gap-1">
-                            {language === "hindi" ? "अगला अध्याय: कृषि और पशुपालन" : "Next Chapter: Agriculture & Animal Husbandry"}
+                        <Link href="/haryana-gk/music-dance" className="text-amber-600 hover:text-amber-700 flex items-center gap-1">
+                            {language === "hindi" ? "अगला अध्याय: संगीत और नृत्य" : "Next Chapter: Music and Dance"}
                             <ChevronRight className="w-4 h-4" />
-                        </Link> */}
+                        </Link>
                     </div>
                 </div>
             </section>

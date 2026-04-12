@@ -355,5 +355,59 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/haryana-gk/famous-personalities`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/haryana-gk/welfare-schemes`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+     {
+      url: `${baseUrl}/haryana-gk/sports-awards`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+     {
+      url: `${baseUrl}/haryana-gk/demographics`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+     {
+      url: `${baseUrl}/haryana-gk/education-health`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+     {
+      url: `${baseUrl}/haryana-gk/languages-literature`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+     {
+      url: `${baseUrl}/haryana-gk/cultural-heritage`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+     {
+      url: `${baseUrl}/haryana-gk/fairs-festivals`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+     {
+      url: `${baseUrl}/haryana-gk/music-dance`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
   ]
 }
