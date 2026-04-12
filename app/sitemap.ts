@@ -409,5 +409,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9,
     },
+
+      // UKSSSC Exam Syllabus Pages
+      {
+        url: `${baseUrl}/uksssc-vdo-syllabus`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/uksssc-police-constable-syllabus`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
   ]
 }

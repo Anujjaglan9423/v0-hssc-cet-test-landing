@@ -16,7 +16,9 @@ const footerLinks = {
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
     { name: "HSSC Syllabus", href: "/haryana-exam-syllabus" },
-    { name: "Haryana GK Study Material", href: "/haryana-gk" },
+    // { name: "Haryana GK Study Material", href: "/haryana-gk" },
+    { name: "UKSSSC Police Constable Syllabus", href: "/uksssc-police-constable-syllabus" },
+    { name: "UKSSSC VDO Syllabus", href: "/uksssc-vdo-syllabus" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy-policy" },
