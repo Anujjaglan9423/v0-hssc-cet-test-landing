@@ -16,10 +16,12 @@ const footerLinks = {
         { name: "Refund Policy", href: "/refund-policy" },
     ],
     syllabus: [
+        { name: "Syllabus", href: "/syllabus" },
         { name: "HSSC Syllabus", href: "/haryana-exam-syllabus" },
+        { name: "UKSSSC Syllabus", href: "/uksssc-exam-syllabus" },
         // { name: "Haryana GK Study Material", href: "/haryana-gk" },
-        { name: "UKSSSC Police Constable Syllabus", href: "/uksssc-police-constable-syllabus" },
-        { name: "UKSSSC VDO Syllabus", href: "/uksssc-vdo-syllabus" },
+        // { name: "UKSSSC Police Constable Syllabus", href: "/uksssc-police-constable-syllabus" },
+        // { name: "UKSSSC VDO Syllabus", href: "/uksssc-vdo-syllabus" },
     ],
 }
 

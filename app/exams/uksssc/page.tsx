@@ -6,40 +6,40 @@ import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 
 export const metadata: Metadata = {
-  title: "UKSSSC Mock Tests 2026 | Uttarakhand State Exams - VDO, Patwari, Forest Guard Free Online",
+  title: "UKSSSC & UKPSC Mock Tests 2026 | Uttarakhand Govt Exam Preparation Online",
   description:
-    "Prepare for UKSSSC 2026 exams with unlimited free mock tests for VDO, Patwari, Forest Guard, Police & all Uttarakhand state exams. Previous year papers, topic-wise practice & instant results. Start free now!",
+    "Crack UKSSSC & UKPSC 2026 exams with free mock tests for VDO, Patwari, Forest Guard, and UK Police. Practice latest Uttarakhand GK, previous year papers (PYQ), and full-length test series with instant results.",
   keywords: [
     "UKSSSC mock test 2026",
     "Uttarakhand state exam free test",
-    "UKSSSC exam preparation 2026",
-    "UK VDO mock test 2026",
-    "Uttarakhand Patwari mock test",
-    "UKSSSC Forest Guard test series",
-    "Uttarakhand Group C exam practice",
-    "UKSSSC previous year papers",
-    "Uttarakhand govt job exam 2026",
-    "UKSSSC syllabus 2026",
-    "UKSSSC exam pattern 2026",
-    "Uttarakhand staff selection commission test",
-    "UK Lekhpal mock test",
-    "Uttarakhand Police Constable test",
-    "UKSSSC free practice test",
+    "UKSSSC UKPSC exam preparation",
+    "UK VDO VPDO mock test 2026",
+    "Uttarakhand Patwari Lekhpal test series",
+    "UKSSSC Forest Guard practice set",
+    "Uttarakhand Police Constable SI mock test",
+    "UKSSSC previous year question papers",
+    "Uttarakhand GK for competitive exams",
+    "UKSSSC Group C online test hindi",
+    "Uttarakhand govt job preparation 2026",
+    "UKSSSC syllabus and exam pattern",
+    "UKPSC RO ARO mock test online",
+    "Uttarakhand Junior Assistant practice test",
+    "UKSSSC free online coaching material",
   ],
   alternates: {
     canonical: "https://cettest.site/exams/uksssc",
   },
   openGraph: {
-    title: "UKSSSC Mock Tests 2026 | Uttarakhand State Exams - Free Online",
+    title: "UKSSSC & UKPSC Mock Tests 2026 | Free Uttarakhand Exam Practice",
     description:
-      "Crack UKSSSC 2026 with unlimited free mock tests for VDO, Patwari, Forest Guard, Police & all Uttarakhand state exams. Previous year papers & instant results.",
+      "Boost your score in UKSSSC 2026 exams. Get unlimited free mock tests for VDO, Patwari, Forest Guard, and UK Police with detailed solutions and analytics.",
     url: "https://cettest.site/exams/uksssc",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "UKSSSC Mock Test 2026 - Free Uttarakhand Exam Practice" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "UKSSSC Mock Test 2026 - Uttarakhand Govt Exam Preparation" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "UKSSSC Mock Tests 2026 | Uttarakhand State Exams",
-    description: "Unlimited free UKSSSC mock tests with instant results & previous year papers. Start now!",
+    title: "UKSSSC Mock Tests 2026 | Crack Uttarakhand State Exams",
+    description: "Prepare with the best free UKSSSC & UKPSC mock tests, PYQs, and Uttarakhand GK. Start your success journey today!",
     images: ["/og-image.png"],
   },
 }
@@ -61,13 +61,13 @@ export default function UKSSCSPage() {
     {
       name: "Forest Guard",
       description: "Uttarakhand forest department recruitment",
-      link: "#",
+      link: "/mock-test",
       features: ["Full Mock Tests", "Real Exam Pattern", "Topic-wise Practice"]
     },
     {
       name: "Uttarakhand Police Constable",
       description: "Police recruitment in Uttarakhand",
-      link: "#",
+      link: "/mock-test",
       features: ["Comprehensive Coverage", "Expert Explanations", "Instant Results"]
     },
   ]

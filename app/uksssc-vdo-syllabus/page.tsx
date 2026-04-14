@@ -171,7 +171,7 @@ export default function UKSSSCVDOSyllabusPage() {
                             {[
                                 { label: "Total Sections", value: "4", color: "from-blue-500 to-blue-600" },
                                 { label: "Total Questions", value: "100", color: "from-green-500 to-green-600" },
-                                { label: "Duration", value: "2 Hours", color: "from-orange-500 to-orange-600" },
+                                { label: "Duration", value: "1.5 Hours", color: "from-orange-500 to-orange-600" },
                                 { label: "Negative Marking", value: "-0.25", color: "from-red-500 to-red-600" }
                             ].map((item, idx) => (
                                 <div key={idx} className="bg-card rounded-xl p-4 text-center border shadow-sm">

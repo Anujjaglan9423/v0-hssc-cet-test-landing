@@ -2,23 +2,24 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-    title: "UKSSSC VDO Syllabus 2026 | Complete Selection Process & Exam Pattern",
-    description: "Download UKSSSC VDO syllabus 2026 PDF. Complete selection process including written exam (4 subjects: GK, Hindi, Reasoning, Maths), physical standards, and exam pattern. Free mock tests available at cettest.site.",
+    title: "UKSSSC VDO Syllabus 2026 | Gram Vikas Adhikari Exam Pattern & Selection Process",
+    description:
+        "Official UKSSSC VDO syllabus 2026 PDF. Detailed exam pattern for Village Development Officer: Uttarakhand GK, Hindi, Reasoning & Maths. Get selection process details, physical eligibility, and free topic-wise mock tests.",
     keywords: [
-        "UKSSSC VDO syllabus",
         "UKSSSC VDO syllabus 2026",
-        "Uttarakhand VDO syllabus",
-        "UKSSSC Village Development Officer syllabus",
-        "Uttarakhand VDO physical standards",
-        "UKSSSC VDO selection process",
-        "UKSSSC VDO exam pattern",
-        "UKSSSC VDO preparation",
-        "Uttarakhand VDO eligibility",
-        "UKSSSC VDO previous year papers",
         "Uttarakhand Gram Vikas Adhikari syllabus",
-        "UKSSSC VDO written exam syllabus",
-        "UKSSSC VDO marking scheme",
-        "Uttarakhand VDO qualification"
+        "UKSSSC VDO exam pattern 2026",
+        "Uttarakhand VDO selection process",
+        "UKSSSC VDO previous year question papers",
+        "Uttarakhand GK for VDO exam",
+        "UKSSSC VDO physical standards",
+        "Village Development Officer recruitment 2026 Uttarakhand",
+        "UKSSSC VDO Hindi syllabus PDF",
+        "Uttarakhand Panchayati Raj system GK",
+        "UKSSSC VDO numerical ability topics",
+        "UKSSSC VDO eligibility criteria",
+        "Uttarakhand state govt exam syllabus 2026",
+        "UKSSSC VDO preparation strategy",
     ],
     authors: [{ name: "CET TEST" }],
     creator: "CET TEST",
@@ -40,8 +41,9 @@ export const metadata: Metadata = {
         },
     },
     openGraph: {
-        title: "UKSSSC VDO Syllabus 2026 | Complete Selection Process & Exam Pattern",
-        description: "Complete UKSSSC VDO (Village Development Officer) syllabus for 2026 recruitment. Written exam: General Knowledge (30-35 Q), General Hindi (20-25 Q), Reasoning (15-20 Q), Numerical Ability (15-20 Q). Uttarakhand GK focus, no Computer section.",
+        title: "UKSSSC VDO Syllabus 2026 | Complete Exam Pattern & Guide",
+        description:
+            "Master the UKSSSC VDO Exam with our complete syllabus breakdown. Includes Uttarakhand GK, Hindi, and Mental Ability sections with weightage details.",
         url: "https://cettest.site/uksssc-vdo-syllabus",
         siteName: "cettest.site",
         locale: "en_IN",
@@ -57,8 +59,8 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "UKSSSC VDO Syllabus 2026 | Complete Selection Process",
-        description: "Written exam (4 subjects), Uttarakhand GK focus, no negative marking for wrong answers. Free mock tests available at cettest.site.",
+        title: "UKSSSC VDO Syllabus 2026 | Gram Vikas Adhikari Pattern",
+        description: "Detailed syllabus for UKSSSC VDO 2026. Uttarakhand GK focus, Hindi, and Aptitude. Start preparing with free mocks!",
         images: ["/og-uksssc-vdo-syllabus.jpg"],
         creator: "@cettest",
         site: "@cettest",
@@ -66,7 +68,7 @@ export const metadata: Metadata = {
     alternates: {
         canonical: "https://cettest.site/uksssc-vdo-syllabus",
     },
-    category: "uttrakhand-exam",
+    category: "uttarakhand-exam",
     classification: "Village Development Officer Recruitment Examination",
 }
 
@@ -424,3 +426,4 @@ export default function UKSSSCVDOSyllabusLayout({
         </>
     )
 }
+

@@ -162,7 +162,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/demo`,
       lastModified: now,
-      changeFrequency: 'monthly',
+      changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
@@ -411,6 +411,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
       // UKSSSC Exam Syllabus Pages
+      {
+        url: `${baseUrl}/syllabus`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/uksssc-exam-syllabus`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
       {
         url: `${baseUrl}/uksssc-vdo-syllabus`,
         lastModified: now,

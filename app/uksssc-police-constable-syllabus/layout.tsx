@@ -2,48 +2,35 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-    title: "UKSSSC Police Constable & Forest Guard Syllabus 2025-26 | Complete Syllabus Guide | Same Exam Pattern",
-    description: "Download UKSSSC Police Constable and Forest Guard (Van Rakshak) syllabus 2025-26 PDF. Same syllabus for both exams - Computer Knowledge (5 units), General Knowledge (Uttarakhand GK), General Hindi, Reasoning Ability, Numerical Ability. Free mock tests at cettest.site.",
+    title: "UKSSSC Police Constable & Forest Guard Syllabus 2025-26 | Exam Pattern & PDF",
+    description: "Detailed UKSSSC syllabus for Police Constable and Forest Guard (Van Rakshak) 2025-26. Includes 5-unit Computer Knowledge, Uttarakhand GK, Hindi, Reasoning, and Maths. Access free mock tests and PDF guides at cettest.site.",
     keywords: [
-        // Police Constable keywords
-        "UKSSSC Police Constable syllabus",
-        "Uttarakhand Police Constable syllabus",
-        "UK Police syllabus 2025",
-        "UKSSSC Police exam pattern",
-        "Uttarakhand Police recruitment",
-
-        // Forest Guard keywords
-        "UKSSSC Forest Guard syllabus",
-        "Uttarakhand Forest Guard syllabus",
-        "UKSSSC Van Rakshak syllabus",
-        "Uttarakhand Van Rakshak syllabus",
-        "Forest Guard exam pattern 2025",
-        "UKSSSC Forest Guard recruitment",
-
-        // Common keywords
-        "UKSSSC Police Forest Guard same syllabus",
-        "UKSSSC Group C syllabus",
-        "Uttarakhand Police Forest Guard common syllabus",
-        "UKSSSC common eligibility test syllabus",
-        "UKSSSC Computer Knowledge syllabus",
-        "Uttarakhand GK for police forest guard",
-        "UKSSSC General Hindi syllabus",
-        "UKSSSC Reasoning syllabus",
-        "UKSSSC Numerical Ability syllabus",
-
-        // Selection process keywords
-        "UKSSSC Police Constable selection process",
+        // Primary Post Keywords
+        "UKSSSC Police Constable syllabus 2025",
+        "Uttarakhand Forest Guard syllabus 2026",
+        "UKSSSC Van Rakshak exam pattern",
+        "Uttarakhand Police recruitment 2025",
         "UKSSSC Forest Guard selection process",
-        "Uttarakhand Police physical standards",
-        "Uttarakhand Forest Guard physical standards",
-        "UKSSSC PST PET requirements",
 
-        // Preparation keywords
-        "UKSSSC Police mock test",
-        "UKSSSC Forest Guard mock test",
-        "Uttarakhand police forest guard preparation",
-        "UKSSSC previous year paper",
-        "UKSSSC free online preparation"
+        // Subject Specific
+        "UKSSSC Computer Knowledge 5 units",
+        "Uttarakhand GK for competitive exams",
+        "UKSSSC General Hindi syllabus PDF",
+        "UKSSSC Reasoning and Numerical Ability",
+        "Computer Basic Concepts OS MS Office Internet Cyber Security",
+
+        // Unified/Common Exam Keywords
+        "UKSSSC Group C common syllabus",
+        "UKSSSC Police Forest Guard same syllabus",
+        "Uttarakhand common eligibility test syllabus",
+        "UKSSSC inter level syllabus 2026",
+
+        // Physical & Preparation
+        "Uttarakhand Police PST PET requirements",
+        "Forest Guard physical standards Uttarakhand",
+        "UKSSSC Police Constable mock test free",
+        "UKSSSC previous year question papers",
+        "cettest.site free test series"
     ],
     authors: [{ name: "CET TEST" }],
     creator: "CET TEST",
@@ -65,8 +52,8 @@ export const metadata: Metadata = {
         },
     },
     openGraph: {
-        title: "UKSSSC Police Constable & Forest Guard Syllabus 2025-26 | Complete Syllabus Guide | Same Exam Pattern",
-        description: "Complete UKSSSC Police Constable and Forest Guard (Van Rakshak) syllabus for 2025-26 recruitment. Same syllabus for both exams - Computer Knowledge (5 units: Basic Concepts, OS, MS Office, Internet, Cyber Security), General Knowledge (including Uttarakhand GK), General Hindi, Reasoning Ability, and Numerical Ability. Free mock tests available at cettest.site.",
+        title: "UKSSSC Police Constable & Forest Guard Syllabus 2025-26 | Complete Guide",
+        description: "Official-aligned syllabus for UKSSSC Police & Forest Guard. Covers Computer Knowledge (5 Units), Uttarakhand GK, Hindi, and Aptitude. Start your preparation with free mock tests on cettest.site.",
         url: "https://cettest.site/uksssc-police-constable-syllabus",
         siteName: "cettest.site",
         locale: "en_IN",
@@ -76,14 +63,14 @@ export const metadata: Metadata = {
                 url: "/og-uksssc-police-forest-guard.jpg",
                 width: 1200,
                 height: 630,
-                alt: "UKSSSC Police Constable & Forest Guard Syllabus 2025-26 - Complete Guide",
+                alt: "UKSSSC 2025-26 Exam Syllabus - Police and Forest Guard",
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "UKSSSC Police Constable & Forest Guard Syllabus 2025-26 | Complete Guide",
-        description: "Same syllabus for Police Constable and Forest Guard. 5 subjects: Computer Knowledge, GK (Uttarakhand), Hindi, Reasoning, Maths. Free mock tests at cettest.site.",
+        title: "UKSSSC Police Constable & Forest Guard Syllabus 2025-26",
+        description: "Master the common syllabus for UKSSSC Police & Forest Guard exams. Free mock tests and syllabus PDF at cettest.site.",
         images: ["/og-uksssc-police-forest-guard.jpg"],
         creator: "@cettest",
         site: "@cettest",
@@ -91,8 +78,8 @@ export const metadata: Metadata = {
     alternates: {
         canonical: "https://cettest.site/uksssc-police-constable-syllabus",
     },
-    category: "government-exam",
-    classification: "Police & Forest Guard Recruitment Examination",
+    category: "education",
+    classification: "Government Exam Preparation",
 }
 
 export default function UKSSSCPoliceForestGuardLayout({
