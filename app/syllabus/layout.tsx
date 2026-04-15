@@ -510,59 +510,100 @@ export default function SyllabusLayout({
             />
 
             {/* JobPosting Structured Data for State Exams */}
-            {/* JobPosting Structured Data for State Exams - FIXED */}
+            {/* JobPosting for HSSC */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "JobPosting",
-                        title: "State Government Recruitment",
-                        description: "Recruitment opportunities in Haryana and Uttarakhand state government departments through HSSC and UKSSSC examinations",
-                        datePosted: "2026-01-01",
-                        validThrough: "2026-12-31",
-                        employmentType: "FULL_TIME",
-
-                        // FIX 1: hiringOrganization must be a SINGLE object, not an array
-                        hiringOrganization: {
-                            "@type": "GovernmentOrganization",
-                            name: "Haryana Staff Selection Commission & Uttarakhand Subordinate Service Selection Commission",
-                            description: "State recruitment bodies for Haryana and Uttarakhand government jobs",
-                            url: "https://cettest.site/syllabus",
+                        "title": "HSSC Government Recruitment 2026",
+                        "description": "Recruitment opportunities in Haryana government departments through HSSC examinations including CET Group C, Group D, Police Constable and other posts",
+                        "datePosted": "2026-01-01",
+                        "validThrough": "2026-12-31",
+                        "employmentType": "FULL_TIME",
+                        "hiringOrganization": {
+                            "@type": "Organization",
+                            "name": "Haryana Staff Selection Commission",
+                            "sameAs": "https://hssc.gov.in"
                         },
-
-                        // FIX 2: Add missing baseSalary field
-                        baseSalary: {
+                        "baseSalary": {
                             "@type": "MonetaryAmount",
-                            currency: "INR",
-                            value: {
+                            "currency": "INR",
+                            "value": {
                                 "@type": "QuantitativeValue",
-                                minValue: 19900,
-                                maxValue: 112400,
-                                unitText: "MONTH",
-                            },
+                                "minValue": 19900,
+                                "maxValue": 112400,
+                                "unitText": "MONTH"
+                            }
                         },
+                        "jobLocation": {
+                            "@type": "Place",
+                            "address": {
+                                "@type": "PostalAddress",
+                                "addressLocality": "Panchkula",
+                                "addressRegion": "Haryana",
+                                "postalCode": "134109",
+                                "addressCountry": {
+                                    "@type": "Country",
+                                    "name": "India"
+                                }
+                            }
+                        },
+                        "applicantLocationRequirements": {
+                            "@type": "Country",
+                            "name": "India"
+                        },
+                        "jobLocationType": "TELECOMMUTE"
+                    }),
+                }}
+            />
 
-                        jobLocation: [
-                            {
-                                "@type": "Place",
-                                address: {
-                                    "@type": "PostalAddress",
-                                    addressLocality: "Haryana",
-                                    addressRegion: "HR",
-                                    addressCountry: "India",
-                                },
-                            },
-                            {
-                                "@type": "Place",
-                                address: {
-                                    "@type": "PostalAddress",
-                                    addressLocality: "Uttarakhand",
-                                    addressRegion: "UK",
-                                    addressCountry: "India",
-                                },
-                            },
-                        ],
+            {/* JobPosting for UKSSSC */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "JobPosting",
+                        "title": "UKSSSC Government Recruitment 2026",
+                        "description": "Recruitment opportunities in Uttarakhand government departments through UKSSSC examinations including Police Constable, VDO, Junior Assistant and other Group C posts",
+                        "datePosted": "2026-01-01",
+                        "validThrough": "2026-12-31",
+                        "employmentType": "FULL_TIME",
+                        "hiringOrganization": {
+                            "@type": "Organization",
+                            "name": "Uttarakhand Subordinate Service Selection Commission",
+                            "sameAs": "https://sssc.uk.gov.in"
+                        },
+                        "baseSalary": {
+                            "@type": "MonetaryAmount",
+                            "currency": "INR",
+                            "value": {
+                                "@type": "QuantitativeValue",
+                                "minValue": 19900,
+                                "maxValue": 112400,
+                                "unitText": "MONTH"
+                            }
+                        },
+                        "jobLocation": {
+                            "@type": "Place",
+                            "address": {
+                                "@type": "PostalAddress",
+                                "addressLocality": "Dehradun",
+                                "addressRegion": "Uttarakhand",
+                                "postalCode": "248001",
+                                "addressCountry": {
+                                    "@type": "Country",
+                                    "name": "India"
+                                }
+                            }
+                        },
+                        "applicantLocationRequirements": {
+                            "@type": "Country",
+                            "name": "India"
+                        },
+                        "jobLocationType": "TELECOMMUTE"
                     }),
                 }}
             />
