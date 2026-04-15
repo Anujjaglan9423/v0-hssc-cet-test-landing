@@ -510,6 +510,7 @@ export default function SyllabusLayout({
             />
 
             {/* JobPosting Structured Data for State Exams */}
+            {/* JobPosting Structured Data for State Exams - FIXED */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -521,18 +522,27 @@ export default function SyllabusLayout({
                         datePosted: "2026-01-01",
                         validThrough: "2026-12-31",
                         employmentType: "FULL_TIME",
-                        hiringOrganization: [
-                            {
-                                "@type": "GovernmentOrganization",
-                                name: "Haryana Staff Selection Commission",
-                                sameAs: "https://hssc.gov.in",
+
+                        // FIX 1: hiringOrganization must be a SINGLE object, not an array
+                        hiringOrganization: {
+                            "@type": "GovernmentOrganization",
+                            name: "Haryana Staff Selection Commission & Uttarakhand Subordinate Service Selection Commission",
+                            description: "State recruitment bodies for Haryana and Uttarakhand government jobs",
+                            url: "https://cettest.site/syllabus",
+                        },
+
+                        // FIX 2: Add missing baseSalary field
+                        baseSalary: {
+                            "@type": "MonetaryAmount",
+                            currency: "INR",
+                            value: {
+                                "@type": "QuantitativeValue",
+                                minValue: 19900,
+                                maxValue: 112400,
+                                unitText: "MONTH",
                             },
-                            {
-                                "@type": "GovernmentOrganization",
-                                name: "Uttarakhand Subordinate Service Selection Commission",
-                                sameAs: "https://sssc.uk.gov.in",
-                            },
-                        ],
+                        },
+
                         jobLocation: [
                             {
                                 "@type": "Place",
