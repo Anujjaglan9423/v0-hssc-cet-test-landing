@@ -17,12 +17,21 @@ interface SearchResult {
   categoryRank: number;
 }
 
+interface SearchError {
+  error: string;
+  availableSample?: Array<{
+    registrationNumber: string;
+    rollNumber: string;
+  }>;
+}
+
 export default function HSSSCResultsPage() {
   const [searchType, setSearchType] = useState<'registration' | 'roll'>('registration');
   const [searchValue, setSearchValue] = useState('');
   const [result, setResult] = useState<SearchResult | null>(null);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [sampleData, setSampleData] = useState<Array<{registrationNumber: string; rollNumber: string}> | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -42,8 +51,11 @@ export default function HSSSCResultsPage() {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json() as SearchError;
         setError(errorData.error || 'No results found');
+        if (errorData.availableSample) {
+          setSampleData(errorData.availableSample);
+        }
         setIsLoading(false);
         return;
       }
@@ -111,6 +123,7 @@ export default function HSSSCResultsPage() {
                     setSearchValue('');
                     setResult(null);
                     setError('');
+                    setSampleData(null);
                   }}
                   className={`p-4 rounded-lg border-2 transition-all ${
                     searchType === 'registration'
@@ -262,6 +275,7 @@ export default function HSSSCResultsPage() {
                     setSearchValue('');
                     setResult(null);
                     setError('');
+                    setSampleData(null);
                   }}
                   variant="outline"
                   className="flex-1"
@@ -274,6 +288,42 @@ export default function HSSSCResultsPage() {
                   </Button>
                 </Link>
               </div>
+            </div>
+          </Card>
+        )}
+
+        {/* Sample Data Section */}
+        {error && sampleData && (
+          <Card className="p-6 bg-blue-50 border-2 border-blue-200 mt-8">
+            <h3 className="text-lg font-bold text-blue-900 mb-4">Sample Test Data</h3>
+            <p className="text-sm text-blue-800 mb-4">
+              No results found. Here are some test numbers you can try:
+            </p>
+            <div className="space-y-2">
+              {sampleData.map((sample, index) => (
+                <div key={index} className="flex gap-4 p-3 bg-white rounded-lg border border-blue-200">
+                  <button
+                    onClick={() => {
+                      setSearchType('registration');
+                      setSearchValue(sample.registrationNumber);
+                    }}
+                    className="flex-1 text-left hover:bg-blue-50 p-2 rounded transition-colors"
+                  >
+                    <span className="text-xs text-gray-500">Registration:</span>
+                    <p className="text-sm font-semibold text-blue-600 font-mono">{sample.registrationNumber}</p>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSearchType('roll');
+                      setSearchValue(sample.rollNumber);
+                    }}
+                    className="flex-1 text-left hover:bg-blue-50 p-2 rounded transition-colors"
+                  >
+                    <span className="text-xs text-gray-500">Roll No:</span>
+                    <p className="text-sm font-semibold text-blue-600 font-mono">{sample.rollNumber}</p>
+                  </button>
+                </div>
+              ))}
             </div>
           </Card>
         )}

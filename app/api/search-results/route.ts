@@ -36,18 +36,31 @@ export async function GET(request: NextRequest) {
     const resultsData = fs.readFileSync(filePath, 'utf-8');
     const results: HSSSCResult[] = JSON.parse(resultsData);
 
-    // Search based on type
+    // Search based on type (case-insensitive and trim whitespace)
+    const trimmedValue = searchValue.trim().toLowerCase();
     let foundResult = null;
 
     if (searchType === 'registration') {
-      foundResult = results.find(r => r.registrationNumber === searchValue);
+      foundResult = results.find(r => 
+        r.registrationNumber.trim().toLowerCase() === trimmedValue
+      );
     } else if (searchType === 'roll') {
-      foundResult = results.find(r => r.rollNumber === searchValue);
+      foundResult = results.find(r => 
+        r.rollNumber.trim().toLowerCase() === trimmedValue
+      );
     }
 
     if (!foundResult) {
+      console.log(`[v0] Search not found - Type: ${searchType}, Value: ${trimmedValue}`);
+      console.log(`[v0] Available data sample:`, results.slice(0, 3));
       return NextResponse.json(
-        { error: 'No results found for the provided search criteria' },
+        { 
+          error: 'No results found for the provided search criteria. Please check your registration or roll number and try again.',
+          availableSample: results.slice(0, 3).map(r => ({
+            registrationNumber: r.registrationNumber,
+            rollNumber: r.rollNumber
+          }))
+        },
         { status: 404 }
       );
     }
