@@ -435,5 +435,49 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'daily',
         priority: 0.9,
       },
+
+      // Current Affairs Pages
+      {
+        url: `${baseUrl}/current-affairs`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/current-affairs/january-2026`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/current-affairs/february-2026`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/current-affairs/march-2026`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/current-affairs/october-2025`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/current-affairs/november-2025`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/current-affairs/december-2025`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.9,
+      },
   ]
 }

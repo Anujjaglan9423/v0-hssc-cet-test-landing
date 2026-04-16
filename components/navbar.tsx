@@ -16,6 +16,7 @@ export default function Navbar() {
     { name: "Mock Test", href: "/mock-test" },
     // { name: "Test Series", href: "#test-series" },
     { name: "Haryana GK", href: "/haryana-gk" },
+    { name: "Current Affairs", href: "/current-affairs" },
     { name: "Features", href: "#features" },
     // { name: "Pricing", href: "#pricing" },
     { name: "FAQs", href: "#faq" },

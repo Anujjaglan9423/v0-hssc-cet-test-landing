@@ -17,8 +17,9 @@ const footerLinks = {
     ],
     syllabus: [
         { name: "Syllabus", href: "/syllabus" },
-        { name: "HSSC Syllabus", href: "/haryana-exam-syllabus" },
-        { name: "UKSSSC Syllabus", href: "/uksssc-exam-syllabus" },
+        { name: "Current Affairs", href: "/current-affairs" },
+        // { name: "HSSC Syllabus", href: "/haryana-exam-syllabus" },
+        // { name: "UKSSSC Syllabus", href: "/uksssc-exam-syllabus" },
         // { name: "Haryana GK Study Material", href: "/haryana-gk" },
         // { name: "UKSSSC Police Constable Syllabus", href: "/uksssc-police-constable-syllabus" },
         // { name: "UKSSSC VDO Syllabus", href: "/uksssc-vdo-syllabus" },

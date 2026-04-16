@@ -14,6 +14,7 @@ export default function FooterLinkNavbar() {
         { name: "Study Material", href: "/study-materials" },
         { name: "Mock Test", href: "/mock-test" },
         { name: "Haryana GK", href: "/haryana-gk" },
+        { name: "Current Affairs", href: "/current-affairs" },
         { name: "About", href: "/about" },
         { name: "Contact", href: "/contact" },
         { name: "Blog", href: "/blog" },
