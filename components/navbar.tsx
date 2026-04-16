@@ -11,6 +11,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
+    { name: "Results", href: "/hssc-results" },
     { name: "Exams", href: "#exams" },
     { name: "Daily Quiz", href: "#daily-quiz" },
     { name: "Mock Test", href: "/mock-test" },

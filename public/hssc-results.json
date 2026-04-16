@@ -1,0 +1,72 @@
+[
+  {
+    "registrationNumber": "1001234567",
+    "rollNumber": "10001",
+    "name": "Raj Kumar",
+    "overallRank": 45,
+    "categoryRank": 8
+  },
+  {
+    "registrationNumber": "1001234568",
+    "rollNumber": "10002",
+    "name": "Priya Singh",
+    "overallRank": 127,
+    "categoryRank": 23
+  },
+  {
+    "registrationNumber": "1001234569",
+    "rollNumber": "10003",
+    "name": "Amit Sharma",
+    "overallRank": 89,
+    "categoryRank": 15
+  },
+  {
+    "registrationNumber": "1001234570",
+    "rollNumber": "10004",
+    "name": "Deepa Verma",
+    "overallRank": 234,
+    "categoryRank": 42
+  },
+  {
+    "registrationNumber": "1001234571",
+    "rollNumber": "10005",
+    "name": "Vikram Patel",
+    "overallRank": 156,
+    "categoryRank": 28
+  },
+  {
+    "registrationNumber": "1001234572",
+    "rollNumber": "10006",
+    "name": "Anjali Gupta",
+    "overallRank": 78,
+    "categoryRank": 12
+  },
+  {
+    "registrationNumber": "1001234573",
+    "rollNumber": "10007",
+    "name": "Sanjay Kumar",
+    "overallRank": 342,
+    "categoryRank": 61
+  },
+  {
+    "registrationNumber": "1001234574",
+    "rollNumber": "10008",
+    "name": "Neha Reddy",
+    "overallRank": 93,
+    "categoryRank": 17
+  },
+  {
+    "registrationNumber": "1001234575",
+    "rollNumber": "10009",
+    "name": "Arjun Desai",
+    "overallRank": 201,
+    "categoryRank": 35
+  },
+  {
+    "registrationNumber": "1001234576",
+    "rollNumber": "10010",
+    "name": "Meena Chopra",
+    "overallRank": 67,
+    "categoryRank": 11
+  }
+]
