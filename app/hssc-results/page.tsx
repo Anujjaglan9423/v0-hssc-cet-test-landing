@@ -12,7 +12,11 @@ import { ArrowLeft, Search, AlertCircle, CheckCircle2, Trophy, Award } from 'luc
 interface SearchResult {
   registrationNumber: string;
   rollNumber: string;
-  name: string;
+  name?: string;
+  category?: string;
+  subCategory?: string;
+  pwd?: boolean;
+  marks: number;
   overallRank: number;
   categoryRank: number;
 }
@@ -217,11 +221,17 @@ export default function HSSSCResultsPage() {
                 </div>
                 <div>
                   <p className="text-sm text-green-600 font-semibold">Result Found</p>
-                  <p className="text-lg font-bold text-slate-900">{result.name}</p>
+                  <p className="text-lg font-bold text-slate-900">{result.registrationNumber}</p>
                 </div>
               </div>
 
-              {/* Result Details Grid */}
+              {/* Marks Section */}
+              <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg p-6 border-2 border-orange-200">
+                <p className="text-sm text-slate-600 font-medium mb-2">Total Marks Scored</p>
+                <p className="text-4xl font-bold text-orange-600">{result.marks}</p>
+              </div>
+
+              {/* Ranks Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Overall Rank */}
                 <div className="bg-white rounded-lg p-6 border-2 border-blue-200">
@@ -232,6 +242,7 @@ export default function HSSSCResultsPage() {
                     <p className="text-sm text-slate-600 font-medium">Overall Rank</p>
                   </div>
                   <p className="text-3xl font-bold text-blue-600">{result.overallRank}</p>
+                  <p className="text-xs text-slate-500 mt-2">Among all candidates</p>
                 </div>
 
                 {/* Category Rank */}
@@ -243,10 +254,11 @@ export default function HSSSCResultsPage() {
                     <p className="text-sm text-slate-600 font-medium">Category Rank</p>
                   </div>
                   <p className="text-3xl font-bold text-purple-600">{result.categoryRank}</p>
+                  <p className="text-xs text-slate-500 mt-2">{result.category || 'General'} category</p>
                 </div>
               </div>
 
-              {/* Registration and Roll Details */}
+              {/* Candidate Details */}
               <div className="bg-white rounded-lg p-6 space-y-4 border border-slate-200">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -266,6 +278,48 @@ export default function HSSSCResultsPage() {
                     </p>
                   </div>
                 </div>
+                
+                {/* Category and Sub-category */}
+                {(result.category || result.subCategory) && (
+                  <div className="pt-4 border-t border-slate-200 grid grid-cols-2 gap-4">
+                    {result.category && (
+                      <div>
+                        <p className="text-xs text-slate-500 font-semibold uppercase tracking-wide mb-1">
+                          Category
+                        </p>
+                        <p className="text-base font-semibold text-slate-900">
+                          {result.category}
+                        </p>
+                      </div>
+                    )}
+                    {result.subCategory && (
+                      <div>
+                        <p className="text-xs text-slate-500 font-semibold uppercase tracking-wide mb-1">
+                          Sub Category
+                        </p>
+                        <p className="text-base font-semibold text-slate-900">
+                          {result.subCategory}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* PWD Status */}
+                {result.pwd !== undefined && (
+                  <div className="pt-2">
+                    <p className="text-xs text-slate-500 font-semibold uppercase tracking-wide mb-1">
+                      PWD Status
+                    </p>
+                    <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
+                      result.pwd 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-slate-100 text-slate-800'
+                    }`}>
+                      {result.pwd ? 'Yes' : 'No'}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Action Buttons */}

@@ -5,7 +5,11 @@ import path from 'path';
 interface HSSSCResult {
   registrationNumber: string;
   rollNumber: string;
-  name: string;
+  name?: string;
+  category?: string;
+  subCategory?: string;
+  pwd?: boolean;
+  marks: number;
   overallRank: number;
   categoryRank: number;
 }

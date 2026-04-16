@@ -2,71 +2,101 @@
   {
     "registrationNumber": "1001234567",
     "rollNumber": "10001",
-    "name": "Raj Kumar",
-    "overallRank": 45,
-    "categoryRank": 8
+    "category": "General",
+    "subCategory": "N/A",
+    "pwd": false,
+    "marks": 92.5,
+    "overallRank": 1,
+    "categoryRank": 1
   },
   {
     "registrationNumber": "1001234568",
     "rollNumber": "10002",
-    "name": "Priya Singh",
-    "overallRank": 127,
-    "categoryRank": 23
+    "category": "OBC",
+    "subCategory": "N/A",
+    "pwd": false,
+    "marks": 89.75,
+    "overallRank": 2,
+    "categoryRank": 1
   },
   {
     "registrationNumber": "1001234569",
     "rollNumber": "10003",
-    "name": "Amit Sharma",
-    "overallRank": 89,
-    "categoryRank": 15
+    "category": "SC",
+    "subCategory": "N/A",
+    "pwd": false,
+    "marks": 87.25,
+    "overallRank": 3,
+    "categoryRank": 1
   },
   {
     "registrationNumber": "1001234570",
     "rollNumber": "10004",
-    "name": "Deepa Verma",
-    "overallRank": 234,
-    "categoryRank": 42
+    "category": "General",
+    "subCategory": "N/A",
+    "pwd": false,
+    "marks": 85.5,
+    "overallRank": 4,
+    "categoryRank": 2
   },
   {
     "registrationNumber": "1001234571",
     "rollNumber": "10005",
-    "name": "Vikram Patel",
-    "overallRank": 156,
-    "categoryRank": 28
+    "category": "OBC",
+    "subCategory": "N/A",
+    "pwd": false,
+    "marks": 83.0,
+    "overallRank": 5,
+    "categoryRank": 2
   },
   {
     "registrationNumber": "1001234572",
     "rollNumber": "10006",
-    "name": "Anjali Gupta",
-    "overallRank": 78,
-    "categoryRank": 12
+    "category": "ST",
+    "subCategory": "N/A",
+    "pwd": true,
+    "marks": 81.25,
+    "overallRank": 6,
+    "categoryRank": 1
   },
   {
     "registrationNumber": "1001234573",
     "rollNumber": "10007",
-    "name": "Sanjay Kumar",
-    "overallRank": 342,
-    "categoryRank": 61
+    "category": "SC",
+    "subCategory": "N/A",
+    "pwd": false,
+    "marks": 78.5,
+    "overallRank": 7,
+    "categoryRank": 2
   },
   {
     "registrationNumber": "1001234574",
     "rollNumber": "10008",
-    "name": "Neha Reddy",
-    "overallRank": 93,
-    "categoryRank": 17
+    "category": "General",
+    "subCategory": "N/A",
+    "pwd": true,
+    "marks": 76.75,
+    "overallRank": 8,
+    "categoryRank": 3
   },
   {
     "registrationNumber": "1001234575",
     "rollNumber": "10009",
-    "name": "Arjun Desai",
-    "overallRank": 201,
-    "categoryRank": 35
+    "category": "OBC",
+    "subCategory": "N/A",
+    "pwd": false,
+    "marks": 75.0,
+    "overallRank": 9,
+    "categoryRank": 3
   },
   {
     "registrationNumber": "1001234576",
     "rollNumber": "10010",
-    "name": "Meena Chopra",
-    "overallRank": 67,
-    "categoryRank": 11
+    "category": "ST",
+    "subCategory": "N/A",
+    "pwd": false,
+    "marks": 73.25,
+    "overallRank": 10,
+    "categoryRank": 2
   }
 ]
