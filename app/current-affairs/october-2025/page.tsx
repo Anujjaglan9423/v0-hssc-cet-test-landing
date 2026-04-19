@@ -339,10 +339,10 @@ export default function OctoberCurrentAffairsPage() {
                         <Button size="lg" className="cursor-pointer gap-2" onClick={() => document.getElementById("syllabus-content")?.scrollIntoView({ behavior: "smooth" })}>
                             {language === "en" ? "Read Full Digest" : "पूरा डाइजेस्ट पढ़ें"} <ChevronRight className="w-4 h-4" />
                         </Button>
-                        <Button variant="outline" size="lg" className="cursor-pointer gap-2">
+                        {/* <Button variant="outline" size="lg" className="cursor-pointer gap-2">
                             <Download className="w-4 h-4" />
                             {language === "en" ? "Download PDF" : "पीडीएफ डाउनलोड करें"}
-                        </Button>
+                        </Button> */}
                     </div>
                 </div>
             </section>
@@ -381,8 +381,8 @@ export default function OctoberCurrentAffairsPage() {
                                 key={cat.id}
                                 onClick={() => setActiveCategory(cat.id)}
                                 className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all cursor-pointer ${activeCategory === cat.id
-                                        ? "bg-primary text-white shadow-md"
-                                        : "bg-muted hover:bg-muted/80 text-muted-foreground"
+                                    ? "bg-primary text-white shadow-md"
+                                    : "bg-muted hover:bg-muted/80 text-muted-foreground"
                                     }`}
                             >
                                 {cat.icon}
@@ -526,7 +526,7 @@ export default function OctoberCurrentAffairsPage() {
                             </div>
 
                             {/* Download Card */}
-                            <div className="rounded-xl border bg-card p-5 text-center">
+                            {/* <div className="rounded-xl border bg-card p-5 text-center">
                                 <Download className="w-8 h-8 text-primary mx-auto mb-3" />
                                 <h3 className="font-bold mb-2">{language === "en" ? "Download PDF" : "पीडीएफ डाउनलोड करें"}</h3>
                                 <p className="text-xs text-muted-foreground mb-3">
@@ -536,7 +536,7 @@ export default function OctoberCurrentAffairsPage() {
                                     <Download className="w-4 h-4" />
                                     {language === "en" ? "Download Now" : "अभी डाउनलोड करें"}
                                 </Button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

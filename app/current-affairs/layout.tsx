@@ -80,9 +80,6 @@ export const metadata: Metadata = {
     },
     category: "current-affairs",
     classification: "Competitive Exam Current Affairs Resource - Bilingual",
-    verification: {
-        google: "your-google-verification-code", // Add your verification code
-    },
 }
 
 export default function CurrentAffairsLayout({
@@ -176,7 +173,7 @@ export default function CurrentAffairsLayout({
                         "@type": "ItemList",
                         name: "Monthly Current Affairs 2026",
                         description: "Complete collection of monthly current affairs digests for competitive exam preparation",
-                        numberOfItems: 12,
+                        numberOfItems: 15,
                         itemListElement: [
                             {
                                 "@type": "ListItem",
@@ -266,14 +263,14 @@ export default function CurrentAffairsLayout({
                                 "@type": "ListItem",
                                 position: 15,
                                 name: "December 2025 Current Affairs",
-                                url: "https://cettest.site/current-affairs/december-2026",
+                                url: "https://cettest.site/current-affairs/december-2025",
                             },
                         ],
                     }),
                 }}
             />
 
-            {/* ==================== FAQ SCHEMA - BILINGUAL ==================== */}
+            {/* ==================== MAIN FAQ SCHEMA - SINGLE INSTANCE ==================== */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -329,20 +326,6 @@ export default function CurrentAffairsLayout({
                                     text: "Absolutely! Our digests cover both national and state-level news. We include state-specific current affairs, government schemes, and important regional developments for Haryana and Uttarakhand exams.",
                                 },
                             },
-                        ],
-                    }),
-                }}
-            />
-
-            {/* ==================== HINDI FAQ SCHEMA ==================== */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "FAQPage",
-                        inLanguage: "hi",
-                        mainEntity: [
                             {
                                 "@type": "Question",
                                 name: "प्रतियोगी परीक्षाओं के लिए करेंट अफेयर्स की तैयारी कैसे करें?",
@@ -418,8 +401,8 @@ export default function CurrentAffairsLayout({
                         description: "Complete monthly current affairs resource for competitive examinations. Available in English and Hindi with exam-oriented analysis, static GK, important days, and practice questions.",
                         url: "https://cettest.site/current-affairs",
                         inLanguage: ["en", "hi"],
-                        datePublished: "2026-01-01",
-                        dateModified: new Date().toISOString().split('T')[0],
+                        datePublished: "2026-01-01T00:00:00+05:30",
+                        dateModified: new Date().toISOString().replace('Z', '+05:30'),
                         primaryImageOfPage: {
                             "@type": "ImageObject",
                             url: "https://cettest.site/og-current-affairs.jpg",
@@ -509,31 +492,26 @@ export default function CurrentAffairsLayout({
                                 "@type": "HowToStep",
                                 name: "Read Monthly Digests",
                                 text: "Read our comprehensive monthly current affairs digests covering all important events with exam-oriented analysis.",
-                                image: "https://cettest.site/images/step1.jpg",
                             },
                             {
                                 "@type": "HowToStep",
                                 name: "Focus on State-Specific News",
                                 text: "For state exams like HSSC and UKSSSC, pay special attention to state government schemes, history, culture, and current developments.",
-                                image: "https://cettest.site/images/step2.jpg",
                             },
                             {
                                 "@type": "HowToStep",
                                 name: "Practice MCQs Regularly",
                                 text: "Take our topic-wise and full-length current affairs quizzes to test your knowledge and improve speed.",
-                                image: "https://cettest.site/images/step3.jpg",
                             },
                             {
                                 "@type": "HowToStep",
                                 name: "Review Static GK Connections",
                                 text: "Connect current events with static GK topics like geography, history, polity, and economy for better retention.",
-                                image: "https://cettest.site/images/step4.jpg",
                             },
                             {
                                 "@type": "HowToStep",
                                 name: "Revise Important Days",
                                 text: "Memorize important national and international days with their themes and historical significance.",
-                                image: "https://cettest.site/images/step5.jpg",
                             },
                         ],
                         tool: [
@@ -550,7 +528,7 @@ export default function CurrentAffairsLayout({
                 }}
             />
 
-            {/* ==================== VIDEO SCHEMA (Optional - Add if you have videos) ==================== */}
+            {/* ==================== VIDEO SCHEMA - WITH PROPER TIMEZONE ==================== */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -560,7 +538,7 @@ export default function CurrentAffairsLayout({
                         name: "How to Prepare Current Affairs for Competitive Exams",
                         description: "Expert tips and strategies for mastering current affairs for UPSC, SSC, Banking, HSSC, and UKSSSC exams",
                         thumbnailUrl: "https://cettest.site/video-thumbnail.jpg",
-                        uploadDate: "2026-01-01",
+                        uploadDate: "2026-01-01T10:00:00+05:30",
                         duration: "PT15M",
                         embedUrl: "https://www.youtube.com/embed/your-video-id",
                         interactionStatistic: {
