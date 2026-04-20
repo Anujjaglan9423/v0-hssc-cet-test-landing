@@ -297,6 +297,7 @@ export default function FullscreenTestPage() {
       const result = await submitTest(testId, answers, isMockTest)
       if (result.success) {
         setLastAttemptId(result.attemptId)
+        setShowSubmitDialog(false)
         // Exit fullscreen before showing results
         if (document.fullscreenElement) {
           await document.exitFullscreen()
@@ -515,6 +516,17 @@ export default function FullscreenTestPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      {isSubmitting && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+          <div className="bg-card rounded-lg p-6 flex flex-col items-center gap-4 max-w-sm mx-4">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <p className="text-foreground font-medium">Submitting your test...</p>
+            <p className="text-sm text-muted-foreground text-center">
+              Please wait, this may take a moment
+            </p>
+          </div>
+        </div>
+      )}
       {showPauseOverlay && (
         <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm flex items-center justify-center">
           <Card className="p-8 max-w-md w-full mx-4 text-center space-y-6">
@@ -644,7 +656,7 @@ export default function FullscreenTestPage() {
 
       <div className="max-w-7xl mx-auto p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-6 gap-3 lg:gap-4">
         {/* Main Question Section - Takes 3 columns on desktop */}
-        <div className="lg:col-span-4 space-y-3 lg:space-y-4">
+        <div className="lg:col-span-4 space-y-3 lg:space-y-4 md:max-h-[calc(100vh-100px)] md:overflow-y-auto">
           {/* Progress Section */}
           <div className="bg-card rounded-lg border border-border p-3 lg:p-4 space-y-2">
             <div className="flex justify-between items-center text-xs lg:text-sm">
@@ -745,54 +757,58 @@ export default function FullscreenTestPage() {
             </div>
 
             {/* Navigation Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-4 lg:pt-6 border-t border-border/50">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentQuestion((prev) => Math.max(0, prev - 1))}
-                disabled={currentQuestion === 0}
-                className="w-full sm:w-auto gap-1.5 cursor-pointer"
-              >
-                <ChevronLeft className="w-4 h-4" />
-                <span className="hidden lg:inline">Previous</span>
-              </Button>
+            {/* <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-4 lg:pt-6 border-t border-border/50"> */}
 
-              <div className="flex gap-2 w-full sm:w-auto">
+            <footer className="sticky bottom-0 bg-card border-t border-border px-2 sm:px-4 py-2 sm:py-3 mt-4">
+              <div className="md:max-w-7xl mx-auto flex md:flex-row flex-col items-center justify-between gap-2">
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => {
-                    const { [question.id]: _, ...rest } = answers
-                    setAnswers(rest)
-                  }}
-                  disabled={!answers[question.id]}
-                  className="flex-1 sm:flex-none text-xs lg:text-sm cursor-pointer"
+                  onClick={() => setCurrentQuestion((prev) => Math.max(0, prev - 1))}
+                  disabled={currentQuestion === 0}
+                  className="w-full sm:w-auto gap-1.5 cursor-pointer"
                 >
-                  Clear
+                  <ChevronLeft className="w-4 h-4" />
+                  <span className="hidden lg:inline">Previous</span>
+                </Button>
+
+                <div className="flex gap-2 w-full sm:w-auto">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const { [question.id]: _, ...rest } = answers
+                      setAnswers(rest)
+                    }}
+                    disabled={!answers[question.id]}
+                    className="flex-1 sm:flex-none text-xs lg:text-sm cursor-pointer"
+                  >
+                    Clear
+                  </Button>
+                </div>
+
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={() => {
+                    if (currentQuestion < test.questions.length - 1) {
+                      setCurrentQuestion((prev) => prev + 1)
+                    }
+                  }}
+                  disabled={currentQuestion === test.questions.length - 1}
+                  className="w-full sm:w-auto gap-1.5 cursor-pointer"
+                >
+                  <span className="hidden lg:inline">Next</span>
+                  <span className="lg:hidden">Next Q</span>
+                  <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>
-
-              <Button
-                variant="default"
-                size="sm"
-                onClick={() => {
-                  if (currentQuestion < test.questions.length - 1) {
-                    setCurrentQuestion((prev) => prev + 1)
-                  }
-                }}
-                disabled={currentQuestion === test.questions.length - 1}
-                className="w-full sm:w-auto gap-1.5 cursor-pointer"
-              >
-                <span className="hidden lg:inline">Next</span>
-                <span className="lg:hidden">Next Q</span>
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            </div>
+            </footer>
           </Card>
         </div>
 
         {/* Right Sidebar - Question Navigator */}
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 md:max-h-[calc(100vh-100px)] md:overflow-y-auto">
           <Card className="p-4 lg:p-5 sticky top-32 lg:top-28 border border-border rounded-xl">
             <h3 className="font-bold text-foreground mb-4 text-sm lg:text-base flex items-center gap-2">
               <Target className="w-4 h-4 text-primary" />

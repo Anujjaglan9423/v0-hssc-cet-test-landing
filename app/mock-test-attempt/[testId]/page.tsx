@@ -20,7 +20,7 @@ import {
   Target,
   ArrowLeft,
 } from "lucide-react"
-import { getTestById, submitFreeMockTest, submitMockTest } from "@/lib/actions/student" // Declare submitMockTest
+import { getTestById, submitFreeMockTest, submitMockTest } from "@/lib/actions/student"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -129,30 +129,28 @@ export default function MockTestAttemptPage() {
     setIsSubmitting(true)
 
     try {
-      // console.log("[v0] Mock test handleSubmit called with testId:", testId)
-      // console.log("[v0] Test title:", test.title)
-      // console.log("[v0] Answers:", answers)
-
       const result = await submitFreeMockTest(testId, test.title, answers, test.questions)
-      // console.log("[v0] submitFreeMockTest result:", result)
 
       if (result.success) {
         // Store result data in sessionStorage
         sessionStorage.setItem(`mock-test-result-${result.resultId}`, JSON.stringify(result.data))
-        // console.log("[v0] Result stored in sessionStorage, redirecting to:", `/mock-test-results/${result.resultId}`)
+
+        // Close modal first
+        setShowSubmitDialog(false)
 
         // Redirect to results page
         setTimeout(() => {
           router.push(`/mock-test-results/${result.resultId}`)
         }, 500)
       } else {
-        console.error("[v0] Submit failed:", result.error)
+        console.error("Submit failed:", result.error)
         alert("Failed to submit test. Please try again.")
+        setIsSubmitting(false)
+        setShowSubmitDialog(false)
       }
     } catch (error) {
-      console.error("[v0] Error in handleSubmit:", error)
+      console.error("Error in handleSubmit:", error)
       alert("Error submitting test")
-    } finally {
       setIsSubmitting(false)
       setShowSubmitDialog(false)
     }
@@ -260,7 +258,7 @@ export default function MockTestAttemptPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <AlertDialog open={showSubmitDialog} onOpenChange={setShowSubmitDialog}>
+      <AlertDialog open={showSubmitDialog && !isSubmitting} onOpenChange={(open) => !isSubmitting && setShowSubmitDialog(open)}>
         <AlertDialogContent className="w-[95vw] sm:w-full">
           <AlertDialogHeader>
             <AlertDialogTitle>Submit Test?</AlertDialogTitle>
@@ -269,17 +267,35 @@ export default function MockTestAttemptPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isSubmitting}>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={handleSubmit} disabled={isSubmitting}>
-              {isSubmitting ? "Submitting..." : "Submit"}
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Submitting...
+                </>
+              ) : (
+                "Submit"
+              )}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
+      {/* Loading overlay when submitting */}
+      {isSubmitting && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+          <div className="bg-card rounded-lg p-6 flex flex-col items-center gap-4">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <p className="text-foreground font-medium">Submitting your test...</p>
+            <p className="text-sm text-muted-foreground">Please wait, this may take a moment</p>
+          </div>
+        </div>
+      )}
+
       <FeedbackModal open={showFeedbackModal} onClose={handleFeedbackClose} attemptId={lastAttemptId} isMockTest={true} />
 
-      <header className="sticky top-0 z-50 bg-card border-b border-border px-2 sm:px-4 py-2 sm:py-3">
+      <header className="sticky top-0 z-40 bg-card border-b border-border px-2 sm:px-4 py-2 sm:py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
           <div className="min-w-0 flex-1">
             <h1 className="text-xs sm:text-base lg:text-lg font-semibold text-foreground truncate">{test.title}</h1>
@@ -303,7 +319,14 @@ export default function MockTestAttemptPage() {
               size="sm"
               className="text-xs sm:text-sm"
             >
-              Submit
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1 animate-spin" />
+                  Submitting...
+                </>
+              ) : (
+                "Submit"
+              )}
             </Button>
           </div>
         </div>
@@ -349,6 +372,7 @@ export default function MockTestAttemptPage() {
                 size="sm"
                 className="flex-1 bg-transparent text-xs sm:text-sm"
                 onClick={() => toggleFlag(question.id)}
+                disabled={isSubmitting}
               >
                 <Flag className={`w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 ${flagged.has(question.id) ? "fill-current" : ""}`} />
                 {flagged.has(question.id) ? "Flagged" : "Flag"}
@@ -365,15 +389,16 @@ export default function MockTestAttemptPage() {
               {test.questions.map((q, idx) => (
                 <button
                   key={q.id}
-                  onClick={() => setCurrentQuestion(idx)}
+                  onClick={() => !isSubmitting && setCurrentQuestion(idx)}
                   className={`aspect-square rounded text-xs font-medium transition-all ${idx === currentQuestion
-                      ? "bg-primary text-primary-foreground"
-                      : answers[q.id]
-                        ? "bg-green-500/20 text-green-600 hover:bg-green-500/30"
-                        : flagged.has(q.id)
-                          ? "bg-amber-500/20 text-amber-600 hover:bg-amber-500/30"
-                          : "bg-muted hover:bg-muted/80"
-                    }`}
+                    ? "bg-primary text-primary-foreground"
+                    : answers[q.id]
+                      ? "bg-green-500/20 text-green-600 hover:bg-green-500/30"
+                      : flagged.has(q.id)
+                        ? "bg-amber-500/20 text-amber-600 hover:bg-amber-500/30"
+                        : "bg-muted hover:bg-muted/80"
+                    } ${isSubmitting ? "cursor-not-allowed opacity-50" : ""}`}
+                  disabled={isSubmitting}
                 >
                   {idx + 1}
                 </button>
@@ -406,7 +431,7 @@ export default function MockTestAttemptPage() {
             variant="outline"
             size="sm"
             onClick={() => currentQuestion > 0 && setCurrentQuestion(currentQuestion - 1)}
-            disabled={currentQuestion === 0}
+            disabled={currentQuestion === 0 || isSubmitting}
             className="bg-transparent text-xs sm:text-sm"
           >
             <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
@@ -421,7 +446,7 @@ export default function MockTestAttemptPage() {
             variant="outline"
             size="sm"
             onClick={() => currentQuestion < test.questions.length - 1 && setCurrentQuestion(currentQuestion + 1)}
-            disabled={currentQuestion === test.questions.length - 1}
+            disabled={currentQuestion === test.questions.length - 1 || isSubmitting}
             className="bg-transparent text-xs sm:text-sm"
           >
             Next

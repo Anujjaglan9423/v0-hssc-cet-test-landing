@@ -56,7 +56,7 @@ export default function StudentPracticePage() {
     }
     loadSubjects()
   }, [])
-
+  console.log(subjects)
   const toggleTopic = (topicId: string) => {
     setSelectedTopics((prev) => (prev.includes(topicId) ? prev.filter((t) => t !== topicId) : [...prev, topicId]))
   }
@@ -119,16 +119,14 @@ export default function StudentPracticePage() {
                       setSelectedSubject(subject.id)
                       setSelectedTopics([])
                     }}
-                    className={`p-4 lg:p-6 rounded-xl border-2 transition-all duration-300 text-left ${
-                      selectedSubject === subject.id
-                        ? "border-primary bg-primary/10"
-                        : "border-border hover:border-primary/50 bg-card"
-                    }`}
+                    className={`p-4 lg:p-6 rounded-xl border-2 transition-all duration-300 text-left ${selectedSubject === subject.id
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:border-primary/50 bg-card"
+                      }`}
                   >
                     <IconComponent
-                      className={`w-6 h-6 lg:w-8 lg:h-8 mb-2 lg:mb-3 ${
-                        selectedSubject === subject.id ? "text-primary" : "text-muted-foreground"
-                      }`}
+                      className={`w-6 h-6 lg:w-8 lg:h-8 mb-2 lg:mb-3 ${selectedSubject === subject.id ? "text-primary" : "text-muted-foreground"
+                        }`}
                     />
                     <p className="font-medium text-foreground text-sm lg:text-base">{subject.name}</p>
                     <p className="text-xs text-muted-foreground mt-1">
@@ -202,11 +200,10 @@ export default function StudentPracticePage() {
                 <button
                   key={topic.id}
                   onClick={() => toggleTopic(topic.id)}
-                  className={`px-3 lg:px-4 py-1.5 lg:py-2 rounded-full border transition-all duration-300 text-sm ${
-                    selectedTopics.includes(topic.id)
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border hover:border-primary bg-card text-foreground"
-                  }`}
+                  className={`px-3 lg:px-4 py-1.5 lg:py-2 rounded-full border transition-all duration-300 text-sm ${selectedTopics.includes(topic.id)
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border hover:border-primary bg-card text-foreground"
+                    }`}
                 >
                   {topic.name} ({topic.questionCount})
                 </button>
@@ -296,17 +293,20 @@ export default function StudentPracticePage() {
       </div>
 
       {/* Start Button */}
-      <div className="flex justify-center">
-        <Button
-          size="lg"
-          className="gap-2 px-8 lg:px-12 py-5 lg:py-6 text-base lg:text-lg w-full sm:w-auto"
-          onClick={startPractice}
-          disabled={!selectedSubject || isStarting}
-        >
-          {isStarting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Play className="w-5 h-5" />}
-          Start Practice
-        </Button>
-      </div>
+
+      <footer className="sticky bottom-0 bg-card border-t border-border px-2 sm:px-4 py-2 sm:py-3 mt-4">
+        <div className="flex justify-center">
+          <Button
+            size="lg"
+            className="gap-2 px-8 lg:px-12 py-5 lg:py-6 text-base lg:text-lg w-full sm:w-auto"
+            onClick={startPractice}
+            disabled={!selectedSubject || isStarting}
+          >
+            {isStarting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Play className="w-5 h-5" />}
+            Start Practice
+          </Button>
+        </div>
+      </footer>
     </div>
   )
 }
