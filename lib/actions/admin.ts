@@ -1006,3 +1006,177 @@ export async function deleteTopic(id: string) {
   revalidatePath("/admin/manage")
   return { success: true }
 }
+
+// Get exams with their subjects
+export async function getExamsWithSubjects() {
+  const supabase = await createClient()
+
+  const { data: exams, error: examsError } = await supabase
+    .from("exams")
+    .select("*")
+    .order("name", { ascending: true })
+
+  if (examsError) {
+    console.error("Error fetching exams:", examsError)
+    return []
+  }
+
+  // For each exam, fetch its subjects
+  const examsWithSubjects = await Promise.all(
+    (exams || []).map(async (exam) => {
+      const { data: subjects } = await supabase
+        .from("subjects")
+        .select("id, name")
+        .eq("exam_id", exam.id)
+        .order("name", { ascending: true })
+
+      return {
+        ...exam,
+        subjects: subjects || [],
+      }
+    }),
+  )
+
+  return examsWithSubjects
+}
+
+// Create exam-based mock test with subject-wise distribution
+export async function createExamBasedMockTest(testData: {
+  title: string
+  exam_id: string
+  percentages: Record<string, number>
+  total_questions: number
+  duration: number
+  has_negative_marking: boolean
+  negative_marking_percent: number
+}) {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+
+  if (!user) {
+    return { success: false, error: "Not authenticated" }
+  }
+
+  // Fetch all questions from tests that have this exam and are subject-based
+  const { data: testResults } = await supabase
+    .from("tests")
+    .select(`
+      id,
+      subject:subjects (id, name),
+      questions (
+        id,
+        question_text,
+        option_a,
+        option_b,
+        option_c,
+        option_d,
+        correct_answer,
+        explanation,
+        exam_source
+      )
+    `)
+    .eq("exam_id", testData.exam_id)
+    .not("subject_id", "is", null)
+    .order("created_at", { ascending: false })
+
+  if (!testResults || testResults.length === 0) {
+    return { success: false, error: "No questions available for selected exam" }
+  }
+
+  // Group questions by subject
+  const questionsBySubject: Record<string, any[]> = {}
+  const validAnswers = ["a", "b", "c", "d"]
+
+  testResults.forEach((test: any) => {
+    const subjectName = test.subject?.name || "General"
+    if (!questionsBySubject[subjectName]) {
+      questionsBySubject[subjectName] = []
+    }
+
+    test.questions?.forEach((q: any) => {
+      const lowerAnswer = q.correct_answer?.toLowerCase() || ""
+      if (validAnswers.includes(lowerAnswer)) {
+        questionsBySubject[subjectName].push(q)
+      }
+    })
+  })
+
+  // Select questions according to percentages
+  const selectedQuestions: any[] = []
+  Object.entries(testData.percentages).forEach(([subject, percentage]) => {
+    if (percentage === 0) return
+
+    const targetCount = Math.round((percentage / 100) * testData.total_questions)
+    const subjectQuestions = questionsBySubject[subject] || []
+
+    if (subjectQuestions.length === 0) {
+      return
+    }
+
+    // Randomly shuffle and select
+    const shuffled = [...subjectQuestions].sort(() => Math.random() - 0.5)
+    const selected = shuffled.slice(0, Math.min(targetCount, shuffled.length))
+    selectedQuestions.push(...selected)
+  })
+
+  // Shuffle final questions
+  const finalQuestions = selectedQuestions.sort(() => Math.random() - 0.5).slice(0, testData.total_questions)
+
+  if (finalQuestions.length < testData.total_questions) {
+    return {
+      success: false,
+      error: `Only ${finalQuestions.length} questions available with valid answers, need ${testData.total_questions}`,
+    }
+  }
+
+  // Create test
+  const { data: test, error: testError } = await supabase
+    .from("tests")
+    .insert({
+      title: testData.title,
+      description: `${testData.title} - ${Object.entries(testData.percentages)
+        .filter(([, p]) => p > 0)
+        .map(([s, p]) => `${s}: ${p}%`)
+        .join(", ")}`,
+      test_type: "full",
+      exam_id: testData.exam_id,
+      duration: testData.duration,
+      difficulty: "medium",
+      total_questions: finalQuestions.length,
+      has_negative_marking: testData.has_negative_marking,
+      negative_marking_percent: testData.negative_marking_percent,
+      created_by: user.id,
+    })
+    .select()
+    .single()
+
+  if (testError) {
+    console.error("Error creating test:", testError)
+    return { success: false, error: testError.message }
+  }
+
+  // Create questions in the test
+  const questions = finalQuestions.map((q, index) => ({
+    test_id: test.id,
+    question_order: index + 1,
+    question_text: q.question_text,
+    option_a: q.option_a,
+    option_b: q.option_b,
+    option_c: q.option_c,
+    option_d: q.option_d,
+    correct_answer: q.correct_answer.toLowerCase(),
+    explanation: q.explanation || null,
+    exam_source: q.exam_source || null,
+  }))
+
+  const { error: questionsError } = await supabase.from("questions").insert(questions)
+
+  if (questionsError) {
+    console.error("Error creating questions:", questionsError)
+    await supabase.from("tests").delete().eq("id", test.id)
+    return { success: false, error: questionsError.message }
+  }
+
+  revalidatePath("/admin/tests")
+  return { success: true, test, questionsCount: finalQuestions.length }
+}
