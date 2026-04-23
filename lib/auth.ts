@@ -150,7 +150,7 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
   }
 }
 
-export async function signupUser(name: string, email: string, password: string): Promise<AuthResult> {
+export async function signupUser(name: string, email: string, password: string, phone?: string): Promise<AuthResult> {
   const supabase = await createClient()
 
   // Check if admin email
@@ -176,6 +176,7 @@ export async function signupUser(name: string, email: string, password: string):
       email: email.toLowerCase(),
       password_hash: password,
       full_name: name,
+      phone: phone || null,
       role: "student",
     })
     .select()
