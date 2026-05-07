@@ -1,309 +1,468 @@
 "use client"
 
-import { useState } from "react"
+import { DialogDescription } from "@/components/ui/dialog"
+import type React from "react"
+import { useState, useEffect, useRef } from "react"
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog"
+  Upload,
+  FileText,
+  CheckCircle,
+  AlertCircle,
+  ChevronRight,
+  ChevronLeft,
+  Download,
+  Trash2,
+  Edit,
+  Save,
+  Loader2,
+  Plus,
+  X,
+} from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import {
-  Loader2,
-  Upload,
-  AlertCircle,
-  CheckCircle2,
-  Edit2,
-  Trash2,
-  X,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react"
-import { createSectionWiseTest, uploadSectionCSV } from "@/lib/actions/admin"
-import Papa from "papaparse"
+import { cn } from "@/lib/utils"
+import { createSectionWiseTest, uploadSectionCSV, getExamsSubjectsTopics } from "@/lib/actions/admin"
 
 interface Question {
-  question_text: string
-  option_a: string
-  option_b: string
-  option_c: string
-  option_d: string
-  correct_answer: string
+  id: string
+  questionText: string
+  optionA: string
+  optionB: string
+  optionC: string
+  optionD: string
+  correctAnswer: string
   explanation?: string
-  exam_source?: string
-  error?: string
+  examSource?: string
 }
 
-type Step = "basic" | "sections" | "upload" | "preview" | "success"
-
-export function SectionWiseCSVUploadModal({
-  open,
-  onOpenChange,
-  onTestCreated,
-}: {
+interface SectionWiseCSVUploadModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  onTestCreated?: () => void
-}) {
-  const [step, setStep] = useState<Step>("basic")
-  const [isLoading, setIsLoading] = useState(false)
+  onTestCreated: () => void
+}
 
-  // Step 1: Basic Info
-  const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
-  const [difficulty, setDifficulty] = useState("medium")
-  const [negativeMarking, setNegativeMarking] = useState(false)
-  const [negativePercent, setNegativePercent] = useState(0)
+export function SectionWiseCSVUploadModal({ open, onOpenChange, onTestCreated }: SectionWiseCSVUploadModalProps) {
+  const [step, setStep] = useState<"testConfig" | "sections" | "upload" | "preview">("testConfig")
+  const [file, setFile] = useState<File | null>(null)
+  const [questions, setQuestions] = useState<Question[]>([])
+  const [parseError, setParseError] = useState<string | null>(null)
+  const [isDragging, setIsDragging] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [isCreating, setIsCreating] = useState(false)
 
-  // Step 2: Sections
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Data from database
+  const [categories, setCategories] = useState<any[]>([])
+  const [exams, setExams] = useState<any[]>([])
+  const [subjects, setSubjects] = useState<any[]>([])
+  const [topics, setTopics] = useState<any[]>([])
+
+  // Configuration state - STEP 1: Test Config
+  const [testTitle, setTestTitle] = useState("")
+  const [selectedCategoryId, setSelectedCategoryId] = useState("")
+  const [selectedExamId, setSelectedExamId] = useState("")
+  const [testType, setTestType] = useState<"exam" | "subject" | "topic">("exam")
+  const [selectedSubjectId, setSelectedSubjectId] = useState("")
+  const [selectedTopicId, setSelectedTopicId] = useState("")
+  const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard">("medium")
+  const [hasNegativeMarking, setHasNegativeMarking] = useState(false)
+  const [negativeMarkingPercent, setNegativeMarkingPercent] = useState("25")
+
+  // STEP 2: Section Config
   const [numSections, setNumSections] = useState(1)
-  const [sections, setSections] = useState<Array<{ name: string; duration: number }>>([
-    { name: "", duration: 0 },
-  ])
-  const [isSectionTimed, setIsSectionTimed] = useState(false)
-  const [combinedDuration, setCombinedDuration] = useState(0)
-
-  // Step 3: Upload
+  const [sections, setSections] = useState<Array<{ name: string; duration: number }>>([])
+  const [isPerSectionTiming, setIsPerSectionTiming] = useState(true)
+  const [combinedDuration, setCombinedDuration] = useState("120")
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0)
-  const [uploadedQuestions, setUploadedQuestions] = useState<Record<number, Question[]>>({})
+  const [testId, setTestId] = useState<string | null>(null)
 
-  // Step 4: Preview & Edit
-  const [editingQuestion, setEditingQuestion] = useState<{
-    sectionIndex: number
-    questionIndex: number
-  } | null>(null)
-  const [createdTestId, setCreatedTestId] = useState("")
+  // Preview state
+  const [currentPage, setCurrentPage] = useState(1)
+  const [editingQuestion, setEditingQuestion] = useState<Question | null>(null)
+  const [showEditModal, setShowEditModal] = useState(false)
+  const questionsPerPage = 5
 
-  const handleNumSectionsChange = (num: number) => {
-    setNumSections(num)
-    const newSections = Array.from({ length: num }).map((_, i) => sections[i] || { name: "", duration: 0 })
-    setSections(newSections)
-    setUploadedQuestions({})
-  }
+  // Load exams, subjects, topics
+  useEffect(() => {
+    if (open) {
+      loadData()
+    }
+  }, [open])
 
-  const validateQuestion = (q: Question): string | null => {
-    if (!q.question_text?.trim()) return "Question text required"
-    if (!q.option_a?.trim()) return "Option A required"
-    if (!q.option_b?.trim()) return "Option B required"
-    if (!q.option_c?.trim()) return "Option C required"
-    if (!q.option_d?.trim()) return "Option D required"
-
-    const validAnswers = ["a", "b", "c", "d"]
-    const answer = q.correct_answer?.toLowerCase().trim()
-    if (!validAnswers.includes(answer)) return `Answer must be A/B/C/D (got: ${q.correct_answer})`
-
-    return null
-  }
-
-  const handleCSVUpload = (file: File) => {
-    Papa.parse(file, {
-      header: true,
-      skipEmptyLines: true,
-      complete: (result: any) => {
-        const parsed: Question[] = result.data.map((row: any) => ({
-          question_text: row.question_text || row["Question"] || "",
-          option_a: row.option_a || row["Option A"] || "",
-          option_b: row.option_b || row["Option B"] || "",
-          option_c: row.option_c || row["Option C"] || "",
-          option_d: row.option_d || row["Option D"] || "",
-          correct_answer: row.correct_answer || row["Correct Answer"] || "",
-          explanation: row.explanation || row["Explanation"] || "",
-          exam_source: row.exam_source || row["Source"] || "",
-        }))
-
-        const withErrors = parsed.map((q) => ({
-          ...q,
-          error: validateQuestion(q),
-        }))
-
-        setUploadedQuestions((prev) => ({
-          ...prev,
-          [currentSectionIndex]: withErrors,
-        }))
-      },
-      error: (error: any) => {
-        alert(`CSV Error: ${error.message}`)
-      },
-    })
-  }
-
-  const updateQuestion = (sectionIndex: number, questionIndex: number, updates: Partial<Question>) => {
-    setUploadedQuestions((prev) => {
-      const questions = [...(prev[sectionIndex] || [])]
-      const updated = { ...questions[questionIndex], ...updates }
-      updated.error = validateQuestion(updated)
-      questions[questionIndex] = updated
-      return { ...prev, [sectionIndex]: questions }
-    })
-  }
-
-  const deleteQuestion = (sectionIndex: number, questionIndex: number) => {
-    setUploadedQuestions((prev) => {
-      const questions = (prev[sectionIndex] || []).filter((_, i) => i !== questionIndex)
-      return { ...prev, [sectionIndex]: questions }
-    })
-  }
-
-  const countErrors = (sectionIndex: number) => {
-    return (uploadedQuestions[sectionIndex] || []).filter((q) => q.error).length
-  }
-
-  const handleCreateTest = async () => {
-    setIsLoading(true)
+  async function loadData() {
     try {
-      const testResult = await createSectionWiseTest({
-        title,
-        description,
-        difficulty: difficulty as "easy" | "medium" | "hard",
-        has_negative_marking: negativeMarking,
-        negative_marking_percent: negativePercent,
-        duration: isSectionTimed ? 0 : combinedDuration,
-        is_section_timed: isSectionTimed,
-        sections: sections.map((s) => ({
-          name: s.name,
-          duration: isSectionTimed ? s.duration : undefined,
-        })),
-      })
+      const data = await getExamsSubjectsTopics()
+      setCategories(data.categories || [])
+      setExams(data.exams)
+      setSubjects(data.subjects)
+      setTopics(data.topics)
+    } catch (error) {
+      console.error("Error loading data:", error)
+    }
+  }
 
-      if (!testResult.success) {
-        alert(`Error: ${testResult.error}`)
-        return
+  const resetState = () => {
+    setStep("testConfig")
+    setFile(null)
+    setQuestions([])
+    setParseError(null)
+    setTestTitle("")
+    setSelectedCategoryId("")
+    setSelectedExamId("")
+    setTestType("exam")
+    setSelectedSubjectId("")
+    setSelectedTopicId("")
+    setDifficulty("medium")
+    setHasNegativeMarking(false)
+    setNegativeMarkingPercent("25")
+    setNumSections(1)
+    setSections([])
+    setIsPerSectionTiming(true)
+    setCombinedDuration("120")
+    setCurrentSectionIndex(0)
+    setTestId(null)
+    setCurrentPage(1)
+  }
+
+  const filteredExams = exams.filter((e) => !selectedCategoryId || e.category_id === selectedCategoryId)
+  const filteredSubjects = subjects.filter((s) => !selectedExamId || s.exam_id === selectedExamId)
+  const filteredTopics = topics.filter((t) => !selectedSubjectId || t.subject_id === selectedSubjectId)
+
+  const parseCSV = (text: string): Question[] => {
+    const lines = text.split("\n").filter((line) => line.trim())
+    if (lines.length < 2) throw new Error("CSV file is empty or has no data rows")
+
+    const headers = lines[0].split(",").map((h) => h.trim().toLowerCase().replace(/['"]/g, ""))
+
+    const questionIdx = headers.findIndex((h) => h.includes("question") && h.includes("text"))
+    const optionsIdx = headers.findIndex((h) => h === "options" || h.includes("option"))
+    const examDetailsIdx = headers.findIndex((h) => h.includes("exam") && h.includes("detail"))
+    const answerIdx = headers.findIndex((h) => h.includes("correct") || h.includes("answer"))
+    const explanationIdx = headers.findIndex((h) => h.includes("explanation"))
+
+    const parsedQuestions: Question[] = []
+
+    for (let i = 1; i < lines.length; i++) {
+      const line = lines[i]
+      if (!line.trim()) continue
+
+      const values: string[] = []
+      let current = ""
+      let inQuotes = false
+
+      for (let j = 0; j < line.length; j++) {
+        const char = line[j]
+        if (char === '"') {
+          inQuotes = !inQuotes
+        } else if (char === "," && !inQuotes) {
+          values.push(current.trim())
+          current = ""
+        } else {
+          current += char
+        }
+      }
+      values.push(current.trim())
+
+      const questionText = questionIdx >= 0 ? values[questionIdx]?.replace(/^"|"$/g, "") : ""
+      if (!questionText) continue
+
+      let optionA = ""
+      let optionB = ""
+      let optionC = ""
+      let optionD = ""
+
+      const optionsText = optionsIdx >= 0 ? values[optionsIdx]?.replace(/^"|"$/g, "") : ""
+
+      if (optionsText) {
+        const optionSplitRegex = /[(][a-e][)]/gi
+        const parts = optionsText.split(optionSplitRegex)
+        const letterMatches = optionsText.match(optionSplitRegex) || []
+
+        const optionsMap: Record<string, string> = {}
+        for (let k = 0; k < letterMatches.length; k++) {
+          const letter = letterMatches[k].toLowerCase().replace(/[()]/g, "")
+          const text = parts[k + 1]?.trim() || ""
+          optionsMap[letter] = text
+        }
+
+        optionA = optionsMap["a"] || ""
+        optionB = optionsMap["b"] || ""
+        optionC = optionsMap["c"] || ""
+        optionD = optionsMap["d"] || ""
       }
 
-      const testId = testResult.test.id
-
-      for (let i = 0; i < numSections; i++) {
-        const questions = uploadedQuestions[i] || []
-        const validQuestions = questions.filter((q) => !q.error)
-
-        if (validQuestions.length > 0) {
-          const uploadResult = await uploadSectionCSV(testId, sections[i].name, validQuestions)
-          if (!uploadResult.success) {
-            alert(`Error uploading ${sections[i].name}: ${uploadResult.error}`)
-            return
+      let correctAnswer = "a"
+      const answerText = answerIdx >= 0 ? values[answerIdx]?.replace(/^"|"$/g, "").trim() : ""
+      if (answerText) {
+        const answerWithParenRegex = /[(]([a-d])[)]/i
+        const answerMatch = answerText.match(answerWithParenRegex)
+        if (answerMatch && answerMatch[1]) {
+          correctAnswer = answerMatch[1].toLowerCase()
+        } else {
+          const letterMatch = answerText.match(/[^a-z]([a-d])$/i) || answerText.match(/^([a-d])$/i)
+          if (letterMatch && letterMatch[1]) {
+            correctAnswer = letterMatch[1].toLowerCase()
           }
         }
       }
 
-      setCreatedTestId(testId)
-      setStep("success")
-      setTimeout(() => {
-        onTestCreated?.()
-        resetModal()
-      }, 2000)
+      const explanation = explanationIdx >= 0 ? values[explanationIdx]?.replace(/^"|"$/g, "") : ""
+      const examSource = examDetailsIdx >= 0 ? values[examDetailsIdx]?.replace(/^"|"$/g, "") : ""
+
+      parsedQuestions.push({
+        id: `q-${i}`,
+        questionText,
+        optionA,
+        optionB,
+        optionC,
+        optionD,
+        correctAnswer,
+        explanation,
+        examSource,
+      })
+    }
+
+    if (parsedQuestions.length === 0) {
+      throw new Error("No valid questions found in CSV")
+    }
+
+    return parsedQuestions
+  }
+
+  const handleFileChange = async (selectedFile: File) => {
+    setFile(selectedFile)
+    setParseError(null)
+    setIsProcessing(true)
+
+    try {
+      const text = await selectedFile.text()
+      const parsed = parseCSV(text)
+      setQuestions(parsed)
     } catch (error) {
-      console.error("Error:", error)
-      alert("Error creating test")
+      setParseError(error instanceof Error ? error.message : "Failed to parse CSV")
     } finally {
-      setIsLoading(false)
+      setIsProcessing(false)
     }
   }
 
-  const resetModal = () => {
-    setStep("basic")
-    setTitle("")
-    setDescription("")
-    setDifficulty("medium")
-    setNegativeMarking(false)
-    setNegativePercent(0)
-    setNumSections(1)
-    setSections([{ name: "", duration: 0 }])
-    setIsSectionTimed(false)
-    setCombinedDuration(0)
-    setCurrentSectionIndex(0)
-    setUploadedQuestions({})
-    setEditingQuestion(null)
-    onOpenChange(false)
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
+    const droppedFile = e.dataTransfer.files[0]
+    if (droppedFile) {
+      handleFileChange(droppedFile)
+    }
   }
 
-  const allUploaded = Array.from({ length: numSections }).every((_, i) => (uploadedQuestions[i] || []).length > 0)
-  const allValid = Object.entries(uploadedQuestions).every(([_, questions]) => questions.every((q) => !q.error))
+  const handleDeleteQuestion = (id: string) => {
+    setQuestions((prev) => prev.filter((q) => q.id !== id))
+  }
+
+  const handleEditQuestion = (question: Question) => {
+    setEditingQuestion({ ...question })
+    setShowEditModal(true)
+  }
+
+  const handleSaveEdit = () => {
+    if (!editingQuestion) return
+    setQuestions((prev) => prev.map((q) => (q.id === editingQuestion.id ? editingQuestion : q)))
+    setShowEditModal(false)
+    setEditingQuestion(null)
+  }
+
+  const handleCreateTest = async () => {
+    if (!testTitle || sections.length === 0) return
+
+    setIsCreating(true)
+    try {
+      const result = await createSectionWiseTest({
+        title: testTitle,
+        exam_id: selectedExamId || undefined,
+        subject_id: selectedSubjectId || undefined,
+        difficulty,
+        has_negative_marking: hasNegativeMarking,
+        negative_marking_percent: hasNegativeMarking ? Number.parseFloat(negativeMarkingPercent) : 0,
+        duration: !isPerSectionTiming ? Number.parseInt(combinedDuration) : undefined,
+        is_section_timed: isPerSectionTiming,
+        sections,
+      })
+
+      if (result.success && result.test) {
+        setTestId(result.test.id)
+        setStep("upload")
+      } else {
+        setParseError(result.error || "Failed to create test")
+      }
+    } catch (error) {
+      setParseError("Failed to create test")
+    } finally {
+      setIsCreating(false)
+    }
+  }
+
+  const handleUploadSectionQuestions = async () => {
+    if (!testId || questions.length === 0) return
+
+    setIsCreating(true)
+    try {
+      const currentSection = sections[currentSectionIndex]
+      const result = await uploadSectionCSV(testId, currentSection.name, questions.map((q) => ({
+        question_text: q.questionText,
+        option_a: q.optionA,
+        option_b: q.optionB,
+        option_c: q.optionC,
+        option_d: q.optionD,
+        correct_answer: q.correctAnswer,
+        explanation: q.explanation,
+        exam_source: q.examSource,
+      })))
+
+      if (result.success) {
+        if (currentSectionIndex < sections.length - 1) {
+          // Move to next section
+          setCurrentSectionIndex(currentSectionIndex + 1)
+          setQuestions([])
+          setFile(null)
+          setParseError(null)
+        } else {
+          // All sections uploaded
+          onTestCreated()
+          onOpenChange(false)
+          resetState()
+        }
+      } else {
+        setParseError(result.error || "Failed to upload questions")
+      }
+    } catch (error) {
+      setParseError("Failed to upload questions")
+    } finally {
+      setIsCreating(false)
+    }
+  }
+
+  const downloadSampleCSV = () => {
+    const sample = `"Q. No.","Question Text","Options","Exam Details","Correct Answer","Explanation Summary"
+"1","भारत की राजधानी क्या है?","(a) मुंबई (b) दिल्ली (c) कोलकाता (d) चेन्नई","HSSC CET 2023","Ans. (b)","दिल्ली भारत की राजधानी है"
+"2","What is 2+2?","(a) 3 (b) 4 (c) 5 (d) 6","Sample","Ans. (b)","Basic addition"`
+    const blob = new Blob([sample], { type: "text/csv" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "sample_questions.csv"
+    a.click()
+  }
+
+  const totalPages = Math.ceil(questions.length / questionsPerPage)
+  const paginatedQuestions = questions.slice((currentPage - 1) * questionsPerPage, currentPage * questionsPerPage)
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Add Section-wise Test</DialogTitle>
           <DialogDescription>
-            {step === "basic" && "Step 1 of 5: Basic Information"}
-            {step === "sections" && "Step 2 of 5: Define Sections"}
-            {step === "upload" && "Step 3 of 5: Upload CSV Files"}
-            {step === "preview" && "Step 4 of 5: Review Questions"}
-            {step === "success" && "Step 5 of 5: Success!"}
+            {step === "testConfig" && "Step 1: Configure test details"}
+            {step === "sections" && "Step 2: Define sections"}
+            {step === "upload" && `Step 3: Upload questions for ${sections[currentSectionIndex]?.name}`}
+            {step === "preview" && "Step 4: Preview questions"}
           </DialogDescription>
         </DialogHeader>
 
-        {/* STEP 1: BASIC */}
-        {step === "basic" && (
+        {/* STEP 1: TEST CONFIGURATION */}
+        {step === "testConfig" && (
           <div className="space-y-4">
             <div>
-              <Label>Test Title *</Label>
-              <Input placeholder="e.g., HSSC CET 2024" value={title} onChange={(e) => setTitle(e.target.value)} />
-            </div>
-
-            <div>
-              <Label>Description</Label>
-              <Textarea
-                placeholder="Optional description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                rows={2}
+              <Label>Test Title</Label>
+              <Input
+                value={testTitle}
+                onChange={(e) => setTestTitle(e.target.value)}
+                placeholder="Enter test name"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Difficulty</Label>
-                <Select value={difficulty} onValueChange={setDifficulty}>
+                <Label>Category</Label>
+                <Select value={selectedCategoryId} onValueChange={setSelectedCategoryId}>
                   <SelectTrigger>
-                    <SelectValue />
+                    <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="easy">Easy</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="hard">Hard</SelectItem>
+                    {categories.map((cat) => (
+                      <SelectItem key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
 
-              <div className="flex items-end">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={negativeMarking}
-                    onChange={(e) => setNegativeMarking(e.target.checked)}
-                  />
-                  <span className="text-sm">Negative Marking</span>
-                </label>
+              <div>
+                <Label>Exam</Label>
+                <Select value={selectedExamId} onValueChange={setSelectedExamId}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select exam" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {filteredExams.map((exam) => (
+                      <SelectItem key={exam.id} value={exam.id}>
+                        {exam.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
-            {negativeMarking && (
-              <div>
-                <Label>Negative Marking Percent</Label>
+            <div>
+              <Label>Difficulty</Label>
+              <Select value={difficulty} onValueChange={(v: any) => setDifficulty(v)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="easy">Easy</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="hard">Hard</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={hasNegativeMarking}
+                  onChange={(e) => setHasNegativeMarking(e.target.checked)}
+                />
+                Enable Negative Marking
+              </Label>
+              {hasNegativeMarking && (
                 <Input
                   type="number"
-                  min="0"
-                  max="100"
-                  value={negativePercent}
-                  onChange={(e) => setNegativePercent(parseFloat(e.target.value) || 0)}
+                  value={negativeMarkingPercent}
+                  onChange={(e) => setNegativeMarkingPercent(e.target.value)}
+                  placeholder="Percentage (%)"
                 />
-              </div>
-            )}
+              )}
+            </div>
+
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => onOpenChange(false)}>
+                Cancel
+              </Button>
+              <Button
+                onClick={() => setStep("sections")}
+                disabled={!testTitle || !selectedExamId}
+              >
+                Next: Define Sections <ChevronRight className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
         )}
 
@@ -311,389 +470,306 @@ export function SectionWiseCSVUploadModal({
         {step === "sections" && (
           <div className="space-y-4">
             <div>
-              <Label>Number of Sections *</Label>
+              <Label>Number of Sections</Label>
               <Input
                 type="number"
                 min="1"
                 max="10"
                 value={numSections}
-                onChange={(e) => handleNumSectionsChange(parseInt(e.target.value) || 1)}
+                onChange={(e) => {
+                  const num = Math.max(1, Math.min(10, Number.parseInt(e.target.value) || 1))
+                  setNumSections(num)
+                  setSections(Array.from({ length: num }, (_, i) => sections[i] || { name: `Section ${i + 1}`, duration: 30 }))
+                }}
               />
             </div>
 
             <div className="space-y-3">
-              {sections.map((section, i) => (
-                <Card key={i}>
-                  <CardContent className="pt-4 space-y-2">
-                    <Label className="text-xs">Section {i + 1} Name</Label>
-                    <Input
-                      placeholder="e.g., English, Math, General Awareness"
-                      value={section.name}
-                      onChange={(e) => {
-                        const newSections = [...sections]
-                        newSections[i].name = e.target.value
-                        setSections(newSections)
-                      }}
-                    />
-                  </CardContent>
-                </Card>
+              {Array.from({ length: numSections }).map((_, i) => (
+                <div key={i} className="flex gap-2">
+                  <Input
+                    value={sections[i]?.name || `Section ${i + 1}`}
+                    onChange={(e) => {
+                      const newSections = [...sections]
+                      if (!newSections[i]) newSections[i] = { name: "", duration: 30 }
+                      newSections[i].name = e.target.value
+                      setSections(newSections)
+                    }}
+                    placeholder={`Section ${i + 1} name (e.g., English)`}
+                  />
+                  <Input
+                    type="number"
+                    min="1"
+                    value={sections[i]?.duration || 30}
+                    onChange={(e) => {
+                      const newSections = [...sections]
+                      if (!newSections[i]) newSections[i] = { name: `Section ${i + 1}`, duration: 30 }
+                      newSections[i].duration = Number.parseInt(e.target.value) || 30
+                      setSections(newSections)
+                    }}
+                    placeholder="Duration (min)"
+                    className="w-24"
+                  />
+                </div>
               ))}
             </div>
 
-            <div className="border-t pt-4">
-              <Label className="block mb-3">Duration Configuration</Label>
-
-              <label className="flex items-center gap-2 mb-3 cursor-pointer">
+            <div className="space-y-2">
+              <Label className="flex items-center gap-2">
                 <input
-                  type="radio"
-                  checked={!isSectionTimed}
-                  onChange={() => setIsSectionTimed(false)}
+                  type="checkbox"
+                  checked={isPerSectionTiming}
+                  onChange={(e) => setIsPerSectionTiming(e.target.checked)}
                 />
-                <span className="text-sm">Combined timing for all sections</span>
-              </label>
-
-              {!isSectionTimed && (
+                Per-Section Timing
+              </Label>
+              {!isPerSectionTiming && (
                 <Input
                   type="number"
-                  placeholder="Total minutes"
                   value={combinedDuration}
-                  onChange={(e) => setCombinedDuration(parseInt(e.target.value) || 0)}
-                  className="ml-6 mb-3"
+                  onChange={(e) => setCombinedDuration(e.target.value)}
+                  placeholder="Combined duration (minutes)"
                 />
               )}
+            </div>
 
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  checked={isSectionTimed}
-                  onChange={() => setIsSectionTimed(true)}
-                />
-                <span className="text-sm">Separate timing per section</span>
-              </label>
-
-              {isSectionTimed && (
-                <div className="ml-6 mt-3 space-y-2">
-                  {sections.map((section, i) => (
-                    <div key={i}>
-                      <Label className="text-xs">{section.name || `Section ${i + 1}`}</Label>
-                      <Input
-                        type="number"
-                        placeholder="Minutes"
-                        value={section.duration}
-                        onChange={(e) => {
-                          const newSections = [...sections]
-                          newSections[i].duration = parseInt(e.target.value) || 0
-                          setSections(newSections)
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setStep("testConfig")}>
+                <ChevronLeft className="w-4 h-4" /> Back
+              </Button>
+              <Button
+                onClick={handleCreateTest}
+                disabled={sections.length === 0 || sections.some((s) => !s.name)}
+                loading={isCreating}
+              >
+                Create Test <ChevronRight className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         )}
 
-        {/* STEP 3: UPLOAD */}
+        {/* STEP 3: UPLOAD CSV */}
         {step === "upload" && (
           <div className="space-y-4">
-            <div className="flex gap-2 overflow-x-auto pb-2">
-              {sections.map((section, i) => (
-                <Button
-                  key={i}
-                  variant={currentSectionIndex === i ? "default" : "outline"}
-                  onClick={() => setCurrentSectionIndex(i)}
-                  className="whitespace-nowrap"
-                >
-                  {section.name || `Section ${i + 1}`}
-                  {uploadedQuestions[i]?.length > 0 && (
-                    <Badge variant="secondary" className="ml-2">
-                      {uploadedQuestions[i].length}
-                    </Badge>
-                  )}
-                </Button>
-              ))}
+            <div className="text-sm text-muted-foreground">
+              Uploading questions for: <strong>{sections[currentSectionIndex]?.name}</strong>
+              <span className="ml-2">({currentSectionIndex + 1} of {sections.length})</span>
             </div>
 
-            <Card className="border-2 border-dashed">
-              <CardContent className="pt-6">
-                <div
-                  className="p-8 text-center cursor-pointer hover:bg-gray-50 transition"
-                  onDragOver={(e) => e.preventDefault()}
-                  onDrop={(e) => {
-                    e.preventDefault()
-                    const file = e.dataTransfer.files[0]
-                    if (file) handleCSVUpload(file)
-                  }}
-                >
-                  <input
-                    type="file"
-                    accept=".csv"
-                    onChange={(e) => {
-                      if (e.target.files?.[0]) handleCSVUpload(e.target.files[0])
-                    }}
-                    className="hidden"
-                    id="csv-file"
-                  />
-                  <label htmlFor="csv-file" className="cursor-pointer block">
-                    <Upload className="w-12 h-12 mx-auto mb-2 text-muted-foreground" />
-                    <p className="font-medium">Upload CSV for {sections[currentSectionIndex].name}</p>
-                    <p className="text-xs text-muted-foreground mt-1">Drop CSV or click to browse</p>
-                  </label>
-                </div>
-              </CardContent>
-            </Card>
+            <div
+              className={cn(
+                "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
+                isDragging ? "border-primary bg-primary/5" : "border-muted-foreground/25 hover:border-muted-foreground/50",
+              )}
+              onDragOver={(e) => {
+                e.preventDefault()
+                setIsDragging(true)
+              }}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+              <p className="font-medium">Drag CSV file here or click to browse</p>
+              <p className="text-sm text-muted-foreground">Required format: Question Text, Options, Answer, Explanation</p>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".csv"
+                onChange={(e) => e.target.files?.[0] && handleFileChange(e.target.files[0])}
+                className="hidden"
+              />
+            </div>
 
-            {uploadedQuestions[currentSectionIndex]?.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-sm">
-                    Questions: {uploadedQuestions[currentSectionIndex].length}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="max-h-[250px] overflow-y-auto space-y-2">
-                  {uploadedQuestions[currentSectionIndex].map((q, i) => (
-                    <div key={i} className="text-xs p-2 bg-muted rounded flex justify-between items-start gap-2">
-                      <div className="flex-1">
-                        <p className="font-medium line-clamp-1">{q.question_text}</p>
-                        <p className="text-muted-foreground">Ans: {q.correct_answer}</p>
-                      </div>
-                      {q.error && <Badge variant="destructive">Error</Badge>}
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
+            {parseError && (
+              <div className="flex gap-2 p-3 rounded-lg bg-destructive/10 text-destructive">
+                <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                <div>{parseError}</div>
+              </div>
             )}
+
+            {file && !parseError && (
+              <div className="p-3 rounded-lg bg-primary/10 text-primary flex items-center gap-2">
+                <CheckCircle className="w-5 h-5" />
+                <span>{file.name} ({questions.length} questions)</span>
+              </div>
+            )}
+
+            <Button variant="outline" size="sm" onClick={downloadSampleCSV}>
+              <Download className="w-4 h-4 mr-2" />
+              Download Sample CSV
+            </Button>
+
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setStep("sections")}>
+                <ChevronLeft className="w-4 h-4" /> Back
+              </Button>
+              <Button
+                onClick={() => questions.length > 0 ? setStep("preview") : null}
+                disabled={questions.length === 0}
+              >
+                Preview Questions <ChevronRight className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
         )}
 
         {/* STEP 4: PREVIEW */}
         {step === "preview" && (
           <div className="space-y-4">
-            <Card className="bg-blue-50 dark:bg-blue-950">
-              <CardContent className="pt-4">
-                <p className="text-sm font-medium">
-                  Total Questions:{" "}
-                  {Object.values(uploadedQuestions).reduce((sum, q) => sum + q.length, 0)}
-                </p>
-              </CardContent>
-            </Card>
-
-            <div className="flex gap-2 overflow-x-auto pb-2">
-              {sections.map((section, i) => {
-                const errors = countErrors(i)
-                return (
-                  <Button
-                    key={i}
-                    variant={editingQuestion?.sectionIndex === i ? "default" : "outline"}
-                    onClick={() =>
-                      setEditingQuestion({ sectionIndex: i, questionIndex: 0 })
-                    }
-                    className="whitespace-nowrap"
-                  >
-                    {section.name}
-                    <Badge
-                      variant={errors > 0 ? "destructive" : "secondary"}
-                      className="ml-2"
-                    >
-                      {errors > 0 ? `${errors} err` : uploadedQuestions[i]?.length || 0}
-                    </Badge>
-                  </Button>
-                )
-              })}
+            <div className="text-sm text-muted-foreground">
+              Total: {questions.length} questions | Page {currentPage} of {totalPages}
             </div>
 
-            {editingQuestion && uploadedQuestions[editingQuestion.sectionIndex] && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-sm">
-                    Q{editingQuestion.questionIndex + 1} /{" "}
-                    {uploadedQuestions[editingQuestion.sectionIndex].length}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  {(() => {
-                    const q = uploadedQuestions[editingQuestion.sectionIndex][editingQuestion.questionIndex]
-                    return (
-                      <>
-                        {q.error && (
-                          <div className="p-2 bg-red-50 border border-red-200 rounded flex gap-2">
-                            <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-                            <span className="text-xs text-red-700">{q.error}</span>
-                          </div>
-                        )}
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {paginatedQuestions.map((question, idx) => (
+                <div key={question.id} className="p-3 border rounded-lg">
+                  <div className="font-medium mb-2">Q{(currentPage - 1) * questionsPerPage + idx + 1}. {question.questionText}</div>
+                  <div className="grid grid-cols-2 gap-2 text-sm mb-2">
+                    <div>A) {question.optionA}</div>
+                    <div>B) {question.optionB}</div>
+                    <div>C) {question.optionC}</div>
+                    <div>D) {question.optionD}</div>
+                  </div>
+                  <div className="text-xs text-muted-foreground mb-2">
+                    Answer: <strong>{question.correctAnswer.toUpperCase()}</strong>
+                  </div>
+                  {question.explanation && (
+                    <div className="text-xs mb-2">
+                      Explanation: <span className="text-muted-foreground">{question.explanation}</span>
+                    </div>
+                  )}
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => handleEditQuestion(question)}
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-destructive"
+                      onClick={() => handleDeleteQuestion(question.id)}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-                        <div>
-                          <Label className="text-xs">Question *</Label>
-                          <Textarea
-                            value={q.question_text}
-                            onChange={(e) =>
-                              updateQuestion(editingQuestion.sectionIndex, editingQuestion.questionIndex, {
-                                question_text: e.target.value,
-                              })
-                            }
-                            rows={2}
-                          />
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-2">
-                          {(["option_a", "option_b", "option_c", "option_d"] as const).map((opt) => (
-                            <div key={opt}>
-                              <Label className="text-xs">{opt.toUpperCase()}</Label>
-                              <Input
-                                value={q[opt]}
-                                onChange={(e) =>
-                                  updateQuestion(editingQuestion.sectionIndex, editingQuestion.questionIndex, {
-                                    [opt]: e.target.value,
-                                  })
-                                }
-                              />
-                            </div>
-                          ))}
-                        </div>
-
-                        <div>
-                          <Label className="text-xs">Correct Answer *</Label>
-                          <Select
-                            value={q.correct_answer.toUpperCase()}
-                            onValueChange={(value) =>
-                              updateQuestion(editingQuestion.sectionIndex, editingQuestion.questionIndex, {
-                                correct_answer: value.toLowerCase(),
-                              })
-                            }
-                          >
-                            <SelectTrigger>
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="A">A</SelectItem>
-                              <SelectItem value="B">B</SelectItem>
-                              <SelectItem value="C">C</SelectItem>
-                              <SelectItem value="D">D</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-
-                        <div>
-                          <Label className="text-xs">Explanation</Label>
-                          <Textarea
-                            value={q.explanation || ""}
-                            onChange={(e) =>
-                              updateQuestion(editingQuestion.sectionIndex, editingQuestion.questionIndex, {
-                                explanation: e.target.value,
-                              })
-                            }
-                            rows={2}
-                            placeholder="Why is this answer correct?"
-                          />
-                        </div>
-
-                        <div className="flex gap-2 pt-2 border-t">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            disabled={editingQuestion.questionIndex === 0}
-                            onClick={() => {
-                              setEditingQuestion({
-                                ...editingQuestion,
-                                questionIndex: editingQuestion.questionIndex - 1,
-                              })
-                            }}
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            disabled={
-                              editingQuestion.questionIndex >=
-                              (uploadedQuestions[editingQuestion.sectionIndex]?.length || 0) - 1
-                            }
-                            onClick={() => {
-                              setEditingQuestion({
-                                ...editingQuestion,
-                                questionIndex: editingQuestion.questionIndex + 1,
-                              })
-                            }}
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() =>
-                              deleteQuestion(editingQuestion.sectionIndex, editingQuestion.questionIndex)
-                            }
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </>
-                    )
-                  })()}
-                </CardContent>
-              </Card>
+            {totalPages > 1 && (
+              <div className="flex justify-between items-center">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  disabled={currentPage === 1}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  disabled={currentPage === totalPages}
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
             )}
+
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setStep("upload")}>
+                <ChevronLeft className="w-4 h-4" /> Back
+              </Button>
+              <Button onClick={handleUploadSectionQuestions} loading={isCreating}>
+                {currentSectionIndex === sections.length - 1 ? "Complete" : "Next Section"} <ChevronRight className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
         )}
 
-        {/* STEP 5: SUCCESS */}
-        {step === "success" && (
-          <div className="text-center py-8">
-            <CheckCircle2 className="w-12 h-12 text-green-500 mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Test Created Successfully!</h3>
-            <p className="text-sm text-muted-foreground">ID: {createdTestId}</p>
-          </div>
+        {/* EDIT MODAL */}
+        {showEditModal && editingQuestion && (
+          <Dialog open={showEditModal} onOpenChange={setShowEditModal}>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>Edit Question</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <Label>Question Text</Label>
+                  <Textarea
+                    value={editingQuestion.questionText}
+                    onChange={(e) => setEditingQuestion({ ...editingQuestion, questionText: e.target.value })}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Option A</Label>
+                    <Input
+                      value={editingQuestion.optionA}
+                      onChange={(e) => setEditingQuestion({ ...editingQuestion, optionA: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Option B</Label>
+                    <Input
+                      value={editingQuestion.optionB}
+                      onChange={(e) => setEditingQuestion({ ...editingQuestion, optionB: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Option C</Label>
+                    <Input
+                      value={editingQuestion.optionC}
+                      onChange={(e) => setEditingQuestion({ ...editingQuestion, optionC: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Option D</Label>
+                    <Input
+                      value={editingQuestion.optionD}
+                      onChange={(e) => setEditingQuestion({ ...editingQuestion, optionD: e.target.value })}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label>Correct Answer</Label>
+                  <Select value={editingQuestion.correctAnswer} onValueChange={(v) => setEditingQuestion({ ...editingQuestion, correctAnswer: v })}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="a">A</SelectItem>
+                      <SelectItem value="b">B</SelectItem>
+                      <SelectItem value="c">C</SelectItem>
+                      <SelectItem value="d">D</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Explanation</Label>
+                  <Textarea
+                    value={editingQuestion.explanation || ""}
+                    onChange={(e) => setEditingQuestion({ ...editingQuestion, explanation: e.target.value })}
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={() => setShowEditModal(false)}>
+                    Cancel
+                  </Button>
+                  <Button onClick={handleSaveEdit}>
+                    <Save className="w-4 h-4 mr-2" /> Save
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         )}
-
-        <DialogFooter className="gap-2">
-          <Button
-            variant="outline"
-            onClick={() => {
-              if (step === "basic") onOpenChange(false)
-              else if (step === "sections") setStep("basic")
-              else if (step === "upload") setStep("sections")
-              else if (step === "preview") setStep("upload")
-            }}
-            disabled={isLoading || step === "success"}
-          >
-            {step === "basic" ? "Cancel" : "Back"}
-          </Button>
-
-          <Button
-            onClick={() => {
-              if (step === "basic") {
-                if (!title.trim()) {
-                  alert("Enter test title")
-                  return
-                }
-                setStep("sections")
-              } else if (step === "sections") {
-                if (sections.some((s) => !s.name.trim())) {
-                  alert("Name all sections")
-                  return
-                }
-                setStep("upload")
-              } else if (step === "upload") {
-                if (!allUploaded) {
-                  alert("Upload CSV for all sections")
-                  return
-                }
-                setStep("preview")
-              } else if (step === "preview") {
-                if (!allValid) {
-                  alert("Fix all errors before creating")
-                  return
-                }
-                handleCreateTest()
-              }
-            }}
-            disabled={isLoading || (step === "preview" && !allValid)}
-          >
-            {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-            {step === "preview" ? "Create Test" : step === "success" ? "Done" : "Next"}
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   )
