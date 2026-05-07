@@ -19,6 +19,7 @@ export default function SignupPage() {
     name: "",
     email: "",
     password: "",
+    phone: "",
     agreeTerms: false,
   })
 
@@ -28,7 +29,7 @@ export default function SignupPage() {
     setIsLoading(true)
 
     try {
-      const result = await signupUser(formData.name, formData.email, formData.password)
+      const result = await signupUser(formData.name, formData.email, formData.password, formData.phone)
 
       if (result.success && result.user) {
         window.location.href = "/student"
@@ -181,6 +182,20 @@ export default function SignupPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="phone">Mobile Number</Label>
+              <div className="relative">
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="Enter your mobile number"
+                  className="h-12"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 />
               </div>
             </div>
