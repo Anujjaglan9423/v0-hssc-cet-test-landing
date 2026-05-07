@@ -426,6 +426,72 @@ export async function getTestById(testId: string) {
   return test
 }
 
+// Get section-wise test with sections and questions organized by section
+export async function getSectionWiseTestWithQuestions(testId: string) {
+  const supabase = await createClient()
+
+  const { data: test, error } = await supabase
+    .from("tests")
+    .select(`
+      id,
+      title,
+      duration,
+      has_negative_marking,
+      negative_marking_percent,
+      is_section_wise,
+      is_section_timed,
+      questions (
+        id,
+        question_text,
+        option_a,
+        option_b,
+        option_c,
+        option_d,
+        correct_answer,
+        explanation,
+        image_url,
+        exam_source
+      )
+    `)
+    .eq("id", testId)
+    .maybeSingle()
+
+  if (error) {
+    console.error("Error fetching test:", error)
+    return null
+  }
+
+  if (!test) {
+    return null
+  }
+
+  // If not a section-wise test, return as-is
+  if (!test.is_section_wise) {
+    return test
+  }
+
+  // For section-wise tests, organize questions by section based on exam_source
+  const sections: Record<string, any> = {}
+  
+  test.questions.forEach((question: any) => {
+    const sectionName = question.exam_source ? question.exam_source.split('|')[0] : 'General'
+    if (!sections[sectionName]) {
+      sections[sectionName] = {
+        id: sectionName,
+        name: sectionName,
+        questions: [],
+        section_order: Object.keys(sections).length + 1,
+      }
+    }
+    sections[sectionName].questions.push(question)
+  })
+
+  return {
+    ...test,
+    sections: Object.values(sections),
+  }
+}
+
 // Get detailed result with answers
 export async function getTestResult(attemptId: string) {
   const supabase = await createClient()

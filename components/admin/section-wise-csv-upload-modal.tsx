@@ -329,6 +329,8 @@ export function SectionWiseCSVUploadModal({ open, onOpenChange, onTestCreated }:
           setQuestions([])
           setFile(null)
           setParseError(null)
+          setCurrentPage(1)
+          setStep("upload") // Go back to upload step for next section
         } else {
           // All sections uploaded
           onTestCreated()
