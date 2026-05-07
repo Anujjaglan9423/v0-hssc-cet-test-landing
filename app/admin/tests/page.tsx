@@ -3,19 +3,22 @@
 import { useState, useEffect } from "react"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { DataTable } from "@/components/dashboard/data-table"
-import { getAllTests, deleteTest, getTestWithQuestions } from "@/lib/actions/admin"
+import { getAllTests, deleteTest, getTestWithQuestions, getSectionWiseTests, deleteSectionWiseTest } from "@/lib/actions/admin"
 import { Button } from "@/components/ui/button"
 import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangle, Loader2, Edit } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CSVUploadModal } from "@/components/admin/csv-upload-modal"
 import { CustomMockTestModal } from "@/components/admin/custom-mock-test-modal"
 import { TestEditModal } from "@/components/admin/test-edit-modal"
+import { SectionWiseCSVUploadModal } from "@/components/admin/section-wise-csv-upload-modal"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 export default function AdminTestsPage() {
   const [tests, setTests] = useState<any[]>([])
+  const [sectionWiseTests, setSectionWiseTests] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [showUploadModal, setShowUploadModal] = useState(false)
+  const [showSectionWiseModal, setShowSectionWiseModal] = useState(false)
   const [showCustomMockModal, setShowCustomMockModal] = useState(false)
   const [showSuccessToast, setShowSuccessToast] = useState(false)
   const [newTestTitle, setNewTestTitle] = useState("")
@@ -38,8 +41,12 @@ export default function AdminTestsPage() {
   async function loadTests() {
     setIsLoading(true)
     try {
-      const data = await getAllTests()
+      const [data, sectionData] = await Promise.all([
+        getAllTests(),
+        getSectionWiseTests(),
+      ])
       setTests(data)
+      setSectionWiseTests(sectionData)
     } catch (error) {
       console.error("Error loading tests:", error)
     } finally {
@@ -61,9 +68,11 @@ export default function AdminTestsPage() {
     if (!testToDelete) return
     setIsDeleting(true)
     try {
-      const result = await deleteTest(testToDelete.id)
+      const deleteFunc = testToDelete.is_section_wise ? deleteSectionWiseTest : deleteTest
+      const result = await deleteFunc(testToDelete.id)
       if (result.success) {
         setTests((prev) => prev.filter((t) => t.id !== testToDelete.id))
+        setSectionWiseTests((prev) => prev.filter((t) => t.id !== testToDelete.id))
       }
     } catch (error) {
       console.error("Error deleting test:", error)
@@ -227,6 +236,10 @@ export default function AdminTestsPage() {
             <Upload className="w-4 h-4" />
             Upload CSV
           </Button>
+          <Button variant="outline" className="gap-2 bg-transparent" onClick={() => setShowSectionWiseModal(true)}>
+            <Upload className="w-4 h-4" />
+            Add Section-wise Test
+          </Button>
         </div>
       </div>
 
@@ -268,6 +281,7 @@ export default function AdminTestsPage() {
           <TabsTrigger value="exam">Full Exams ({examTests.length})</TabsTrigger>
           <TabsTrigger value="subject">Subject ({subjectTests.length})</TabsTrigger>
           <TabsTrigger value="topic">Topic ({topicTests.length})</TabsTrigger>
+          <TabsTrigger value="sectionwise">Section-wise ({sectionWiseTests.length})</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all">
@@ -327,9 +341,104 @@ export default function AdminTestsPage() {
             />
           </ChartCard>
         </TabsContent>
+
+        <TabsContent value="sectionwise">
+          <ChartCard title="Section-wise Tests">
+            <DataTable
+              data={sectionWiseTests}
+              searchKey="title"
+              pageSize={10}
+              columns={[
+                { key: "title", header: "Test Name", sortable: true },
+                {
+                  key: "sections_count",
+                  header: "Sections",
+                  render: (test: any) => (
+                    <span className="flex items-center gap-1">
+                      <FileText className="w-4 h-4 text-muted-foreground" />
+                      {test.sections_count}
+                    </span>
+                  ),
+                },
+                {
+                  key: "difficulty",
+                  header: "Difficulty",
+                  render: (test: any) => (
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        test.difficulty === "hard"
+                          ? "bg-destructive/20 text-destructive"
+                          : test.difficulty === "medium"
+                            ? "bg-amber-500/20 text-amber-500"
+                            : "bg-accent/20 text-accent"
+                      }`}
+                    >
+                      {test.difficulty.charAt(0).toUpperCase() + test.difficulty.slice(1)}
+                    </span>
+                  ),
+                },
+                {
+                  key: "questions_count",
+                  header: "Questions",
+                  render: (test: any) => (
+                    <span className="flex items-center gap-1">
+                      <FileText className="w-4 h-4 text-muted-foreground" />
+                      {test.questions_count}
+                    </span>
+                  ),
+                },
+                {
+                  key: "is_section_timed",
+                  header: "Timing",
+                  render: (test: any) => (
+                    <span className="text-xs">
+                      {test.is_section_timed ? "Per Section" : "Combined"}
+                    </span>
+                  ),
+                },
+                {
+                  key: "actions",
+                  header: "Actions",
+                  render: (test: any) => (
+                    <div className="flex items-center gap-1">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-muted-foreground hover:text-primary"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleViewTest(test)
+                        }}
+                      >
+                        <Eye className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setTestToDelete(test)
+                          setShowDeleteModal(true)
+                        }}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          </ChartCard>
+        </TabsContent>
       </Tabs>
 
       <CSVUploadModal open={showUploadModal} onOpenChange={setShowUploadModal} onTestCreated={handleTestCreated} />
+      <SectionWiseCSVUploadModal
+        open={showSectionWiseModal}
+        onOpenChange={setShowSectionWiseModal}
+        onTestCreated={handleTestCreated}
+      />
       <CustomMockTestModal
         isOpen={showCustomMockModal}
         onClose={() => {
