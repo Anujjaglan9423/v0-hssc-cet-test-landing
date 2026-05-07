@@ -1357,9 +1357,168 @@ export async function createExamBasedMockTest(testData: {
 
 // SECTION-WISE TEST FUNCTIONS
 
-// Create section-wise test
 export async function createSectionWiseTest(testData: {
   title: string
   description?: string
   exam_id?: string
   subject_id?: string
+  difficulty: "easy" | "medium" | "hard"
+  has_negative_marking?: boolean
+  negative_marking_percent?: number
+  duration?: number
+  is_section_timed: boolean
+  sections: Array<{
+    name: string
+    duration?: number
+  }>
+}) {
+  const supabase = await createClient()
+
+  const user = await getCurrentUser()
+  if (!user) {
+    return { success: false, error: "Not authenticated" }
+  }
+
+  const sectionMetadata = {
+    is_section_wise: true,
+    is_section_timed: testData.is_section_timed,
+    sections: testData.sections,
+  }
+  
+  const description = testData.description 
+    ? `${testData.description}\n[SECTION_WISE:${JSON.stringify(sectionMetadata)}]`
+    : `[SECTION_WISE:${JSON.stringify(sectionMetadata)}]`
+
+  const { data: test, error: testError } = await supabase
+    .from("tests")
+    .insert({
+      title: testData.title,
+      description,
+      test_type: "full",
+      exam_id: testData.exam_id || null,
+      subject_id: testData.subject_id || null,
+      duration: testData.duration || 0,
+      difficulty: testData.difficulty,
+      total_questions: 0,
+      has_negative_marking: testData.has_negative_marking || false,
+      negative_marking_percent: testData.negative_marking_percent || 0,
+      created_by: user.id,
+    })
+    .select()
+    .single()
+
+  if (testError) {
+    console.error("Error creating section-wise test:", testError)
+    return { success: false, error: testError.message }
+  }
+
+  revalidatePath("/admin/tests")
+  return { success: true, test, sections: testData.sections }
+}
+
+export async function uploadSectionCSV(
+  testId: string,
+  sectionName: string,
+  csvData: Array<{
+    question_text: string
+    option_a: string
+    option_b: string
+    option_c: string
+    option_d: string
+    correct_answer: string
+    explanation?: string
+    exam_source?: string
+  }>,
+) {
+  const supabase = await createClient()
+
+  const { data: existingQuestions, error: fetchError } = await supabase
+    .from("questions")
+    .select("question_order")
+    .eq("test_id", testId)
+    .order("question_order", { ascending: false })
+    .limit(1)
+
+  if (fetchError) {
+    return { success: false, error: fetchError.message }
+  }
+
+  let startOrder = 1
+  if (existingQuestions && existingQuestions.length > 0) {
+    startOrder = (existingQuestions[0].question_order || 0) + 1
+  }
+
+  const questions = csvData.map((q, index) => ({
+    test_id: testId,
+    question_order: startOrder + index,
+    question_text: q.question_text,
+    option_a: q.option_a,
+    option_b: q.option_b,
+    option_c: q.option_c,
+    option_d: q.option_d,
+    correct_answer: q.correct_answer.toLowerCase().trim(),
+    explanation: q.explanation || null,
+    exam_source: q.exam_source ? `${sectionName}|${q.exam_source}` : sectionName,
+  }))
+
+  const { error: insertError } = await supabase.from("questions").insert(questions)
+
+  if (insertError) {
+    console.error("Error uploading questions:", insertError)
+    return { success: false, error: insertError.message }
+  }
+
+  const { data: allQuestions } = await supabase
+    .from("questions")
+    .select("id")
+    .eq("test_id", testId)
+
+  await supabase
+    .from("tests")
+    .update({ total_questions: allQuestions?.length || 0 })
+    .eq("id", testId)
+
+  revalidatePath("/admin/tests")
+  return { success: true, questionsAdded: csvData.length }
+}
+
+export async function getSectionWiseTests() {
+  const supabase = await createClient()
+
+  const { data: tests, error } = await supabase
+    .from("tests")
+    .select(`
+      *,
+      exam:exams (id, name),
+      subject:subjects (id, name),
+      questions (id)
+    `)
+    .ilike("description", "%SECTION_WISE%")
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching section-wise tests:", error)
+    return []
+  }
+
+  return (
+    tests?.map((test) => ({
+      ...test,
+      questions_count: test.questions?.length || 0,
+    })) || []
+  )
+}
+
+export async function deleteSectionWiseTest(testId: string) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.from("tests").delete().eq("id", testId)
+
+  if (error) {
+    console.error("Error deleting test:", error)
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/admin/tests")
+  return { success: true }
+}
