@@ -276,7 +276,16 @@ export function SectionWiseCSVUploadModal({ open, onOpenChange, onTestCreated }:
   }
 
   const handleCreateTest = async () => {
-    if (!testTitle || sections.length === 0) return
+    if (!testTitle || !selectedExamId) {
+      setParseError("Test title and exam are required")
+      return
+    }
+
+    // Calculate total duration from sections if per-section timed
+    let totalDuration = Number.parseInt(combinedDuration)
+    if (isPerSectionTiming) {
+      totalDuration = sections.reduce((sum, section) => sum + (section.duration || 0), 0)
+    }
 
     setIsCreating(true)
     try {
@@ -287,7 +296,7 @@ export function SectionWiseCSVUploadModal({ open, onOpenChange, onTestCreated }:
         difficulty,
         has_negative_marking: hasNegativeMarking,
         negative_marking_percent: hasNegativeMarking ? Number.parseFloat(negativeMarkingPercent) : 0,
-        duration: !isPerSectionTiming ? Number.parseInt(combinedDuration) : undefined,
+        duration: totalDuration > 0 ? totalDuration : 120, // Default to 120 min if not specified
         is_section_timed: isPerSectionTiming,
         sections,
       })
