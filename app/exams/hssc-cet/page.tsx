@@ -522,7 +522,7 @@ export default function HSCSCETPage() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               {haryanaGKTopics.map((topic, idx) => (
-                <Link key={idx} href={`/mock-test}`}>
+                <Link key={idx} href="/mock-test">
                   <Button variant="outline" className="w-full hover:bg-primary hover:text-primary-foreground transition-colors text-sm justify-start gap-2">
                     <span>{topic.icon}</span>
                     <span className="truncate">{topic.name}</span>
