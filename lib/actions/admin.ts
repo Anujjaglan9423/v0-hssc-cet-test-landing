@@ -673,7 +673,7 @@ export async function uploadSectionCSV(
     .from("questions")
     .select("question_order")
     .eq("test_id", testId)
-    .order("question_order", { ascending: false })
+    .order("question_number", { ascending: false })
     .limit(1)
 
   if (fetchError) {
@@ -682,13 +682,13 @@ export async function uploadSectionCSV(
 
   let startOrder = 1
   if (existingQuestions && existingQuestions.length > 0) {
-    startOrder = (existingQuestions[0].question_order || 0) + 1
+    startOrder = (existingQuestions[0].question_number || 0) + 1
   }
 
   // Prepare questions with section marker - ALWAYS set exam_source to sectionName
   const questions = csvData.map((q, index) => ({
     test_id: testId,
-    question_order: startOrder + index,
+    question_number: startOrder + index,
     question_text: q.question_text,
     option_a: q.option_a,
     option_b: q.option_b,
