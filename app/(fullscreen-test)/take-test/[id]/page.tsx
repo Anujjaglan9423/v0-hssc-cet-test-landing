@@ -17,20 +17,20 @@ export default function TestRouterPage() {
       try {
         // Try to get the test
         const test = await getTestById(testId)
-        
+
         if (!test) {
           router.push("/student/tests")
           return
         }
-
+        console.log(test)
         // Check if questions have exam_source field (indicates section-wise test)
         const questionsWithSource = test.questions?.filter((q: any) => q.exam_source && q.exam_source.length > 0) || []
         const uniqueSections = new Set(questionsWithSource.map((q: any) => q.exam_source.split('|')[0]))
-        
+
         // If we have questions with section markers, try to load as section-wise test
         if (uniqueSections.size > 0) {
           const sectionTest = await getSectionWiseTestWithQuestions(testId)
-          
+
           if (sectionTest && sectionTest.sections && sectionTest.sections.length > 0) {
             // Route to section-wise test page
             router.push(`/section-wise-test-attempt/${testId}`)
