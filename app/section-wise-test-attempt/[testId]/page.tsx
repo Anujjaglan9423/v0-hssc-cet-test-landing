@@ -85,6 +85,13 @@ export default function SectionWiseTestAttemptPage() {
     const loadTest = async () => {
       try {
         const data = await getSectionWiseTestWithQuestions(testId)
+        console.log("[v0] Loaded section-wise test data:", { 
+          testId, 
+          hasSections: !!data?.sections, 
+          sectionsCount: data?.sections?.length,
+          questionCount: data?.questions?.length,
+          sections: data?.sections
+        })
         if (data) {
           setTest(data)
           setTimeLeft(data.duration * 60)

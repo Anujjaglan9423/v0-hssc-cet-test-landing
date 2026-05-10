@@ -467,10 +467,21 @@ export async function getSectionWiseTestWithQuestions(testId: string) {
 
   // Check if it's a section-wise test by looking for SECTION_WISE marker in description
   const isSectionWise = test.description?.includes?.("SECTION_WISE") || false
+  console.log("[v0] getSectionWiseTestWithQuestions - checking marker:", { 
+    testId, 
+    isSectionWise, 
+    description: test.description?.substring(0, 100) 
+  })
   
   if (!isSectionWise) {
-    return test
+    console.log("[v0] Not a section-wise test, returning as-is")
+    return {
+      ...test,
+      sections: [],
+    }
   }
+
+  console.log("[v0] Processing as section-wise test with", test.questions?.length || 0, "questions")
 
   // For section-wise tests, organize questions by section based on exam_source
   const sectionsMap: Record<string, any> = {}
@@ -478,6 +489,7 @@ export async function getSectionWiseTestWithQuestions(testId: string) {
   
   test.questions.forEach((question: any) => {
     const sectionName = question.exam_source ? question.exam_source.split('|')[0] : 'General'
+    console.log("[v0] Question exam_source:", question.exam_source, "-> section:", sectionName)
     
     if (!sectionsMap[sectionName]) {
       sectionsMap[sectionName] = {
@@ -496,7 +508,11 @@ export async function getSectionWiseTestWithQuestions(testId: string) {
     section_order: idx + 1,
   }))
 
-  console.log("[v0] Loaded section-wise test with sections:", sections.map(s => ({ name: s.name, questions: s.questions.length })))
+  console.log("[v0] Organized questions into sections:", { 
+    totalQuestions: test.questions.length,
+    totalSections: sections.length,
+    sections: sections.map(s => ({ name: s.name, questionCount: s.questions.length }))
+  })
 
   return {
     ...test,
