@@ -560,7 +560,7 @@ export default function UKSSSCExamSyllabusLayout({
                         baseSalary: {
                             "@type": "MonetaryAmount",
                             currency: "INR",
-                            value: 35400,
+                            value: 35400,  // ✅ Direct number, not object
                             unitText: "MONTH",
                         },
                         occupationalCategory: "Law Enforcement",
@@ -609,7 +609,7 @@ export default function UKSSSCExamSyllabusLayout({
                         baseSalary: {
                             "@type": "MonetaryAmount",
                             currency: "INR",
-                            value: 35400,
+                            value: 35400,  // ✅ Direct number
                             unitText: "MONTH",
                         },
                         occupationalCategory: "Rural Development",
