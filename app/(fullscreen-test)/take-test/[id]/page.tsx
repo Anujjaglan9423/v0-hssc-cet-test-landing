@@ -23,9 +23,28 @@ export default function TestRouterPage() {
           return
         }
 
-        // Check if it's a section-wise test by looking at the description
-        const isSectionWise = test.description?.includes?.("SECTION_WISE") || false
-        console.log("[v0] Test detected:", { testId, title: test.title, isSectionWise })
+        // Check if it's a section-wise test
+        // Method 1: Check for SECTION_WISE marker in description
+        const isSectionWiseMarker = test.description?.includes?.("SECTION_WISE") || false
+        
+        // Method 2: Check if questions have exam_source (indicates section-wise upload)
+        const hasExamSource = test.questions?.some((q: any) => q.exam_source && q.exam_source.length > 0)
+        
+        // Method 3: Check if questions have different exam_source values (multiple sections)
+        const uniqueExamSources = new Set(test.questions?.map((q: any) => q.exam_source?.split('|')[0]).filter(Boolean))
+        const hasMultipleSections = uniqueExamSources.size > 1
+        
+        const isSectionWise = isSectionWiseMarker || hasExamSource || hasMultipleSections
+        
+        console.log("[v0] Test detected:", { 
+          testId, 
+          title: test.title, 
+          isSectionWise,
+          marker: isSectionWiseMarker,
+          hasExamSource,
+          hasSections: hasMultipleSections,
+          uniqueSections: Array.from(uniqueExamSources)
+        })
 
         if (isSectionWise) {
           // Verify it actually has section data by trying to fetch with section parser

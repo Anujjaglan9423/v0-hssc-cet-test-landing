@@ -465,23 +465,24 @@ export async function getSectionWiseTestWithQuestions(testId: string) {
     return null
   }
 
-  // Check if it's a section-wise test by looking for SECTION_WISE marker in description
-  const isSectionWise = test.description?.includes?.("SECTION_WISE") || false
-  console.log("[v0] getSectionWiseTestWithQuestions - checking marker:", { 
+  // Check if it's a section-wise test by looking for exam_source in questions
+  const hasExamSource = test.questions?.some((q: any) => q.exam_source && q.exam_source.length > 0)
+  const uniqueExamSources = new Set(test.questions?.map((q: any) => q.exam_source?.split('|')[0]).filter(Boolean))
+  const isSectionWise = hasExamSource && uniqueExamSources.size > 0
+  
+  console.log("[v0] getSectionWiseTestWithQuestions:", { 
     testId, 
-    isSectionWise, 
-    description: test.description?.substring(0, 100) 
+    isSectionWise,
+    uniqueSections: Array.from(uniqueExamSources),
+    totalQuestions: test.questions?.length
   })
   
   if (!isSectionWise) {
-    console.log("[v0] Not a section-wise test, returning as-is")
     return {
       ...test,
       sections: [],
     }
   }
-
-  console.log("[v0] Processing as section-wise test with", test.questions?.length || 0, "questions")
 
   // For section-wise tests, organize questions by section based on exam_source
   const sectionsMap: Record<string, any> = {}
@@ -489,7 +490,6 @@ export async function getSectionWiseTestWithQuestions(testId: string) {
   
   test.questions.forEach((question: any) => {
     const sectionName = question.exam_source ? question.exam_source.split('|')[0] : 'General'
-    console.log("[v0] Question exam_source:", question.exam_source, "-> section:", sectionName)
     
     if (!sectionsMap[sectionName]) {
       sectionsMap[sectionName] = {
@@ -508,10 +508,9 @@ export async function getSectionWiseTestWithQuestions(testId: string) {
     section_order: idx + 1,
   }))
 
-  console.log("[v0] Organized questions into sections:", { 
-    totalQuestions: test.questions.length,
+  console.log("[v0] Organized into sections:", { 
     totalSections: sections.length,
-    sections: sections.map(s => ({ name: s.name, questionCount: s.questions.length }))
+    sections: sections.map(s => ({ name: s.name, questions: s.questions.length }))
   })
 
   return {
