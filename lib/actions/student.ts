@@ -465,30 +465,42 @@ export async function getSectionWiseTestWithQuestions(testId: string) {
     return null
   }
 
-  // If not a section-wise test, return as-is
-  if (!test.is_section_wise) {
+  // Check if it's a section-wise test by looking for SECTION_WISE marker in description
+  const isSectionWise = test.description?.includes?.("SECTION_WISE") || false
+  
+  if (!isSectionWise) {
     return test
   }
 
   // For section-wise tests, organize questions by section based on exam_source
-  const sections: Record<string, any> = {}
+  const sectionsMap: Record<string, any> = {}
+  const sectionOrder: string[] = []
   
   test.questions.forEach((question: any) => {
     const sectionName = question.exam_source ? question.exam_source.split('|')[0] : 'General'
-    if (!sections[sectionName]) {
-      sections[sectionName] = {
+    
+    if (!sectionsMap[sectionName]) {
+      sectionsMap[sectionName] = {
         id: sectionName,
         name: sectionName,
         questions: [],
-        section_order: Object.keys(sections).length + 1,
       }
+      sectionOrder.push(sectionName)
     }
-    sections[sectionName].questions.push(question)
+    sectionsMap[sectionName].questions.push(question)
   })
+
+  // Sort sections by their order of first appearance and add order index
+  const sections = sectionOrder.map((name, idx) => ({
+    ...sectionsMap[name],
+    section_order: idx + 1,
+  }))
+
+  console.log("[v0] Loaded section-wise test with sections:", sections.map(s => ({ name: s.name, questions: s.questions.length })))
 
   return {
     ...test,
-    sections: Object.values(sections),
+    sections,
   }
 }
 

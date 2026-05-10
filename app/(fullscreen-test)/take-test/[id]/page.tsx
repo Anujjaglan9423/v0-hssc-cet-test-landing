@@ -25,19 +25,23 @@ export default function TestRouterPage() {
 
         // Check if it's a section-wise test by looking at the description
         const isSectionWise = test.description?.includes?.("SECTION_WISE") || false
+        console.log("[v0] Test detected:", { testId, title: test.title, isSectionWise })
 
         if (isSectionWise) {
           // Verify it actually has section data by trying to fetch with section parser
           const sectionTest = await getSectionWiseTestWithQuestions(testId)
+          console.log("[v0] Section test data:", { sections: sectionTest?.sections?.length || 0 })
           
           if (sectionTest && sectionTest.sections && sectionTest.sections.length > 0) {
             // Route to section-wise test page
+            console.log("[v0] Routing to section-wise test page")
             router.push(`/section-wise-test-attempt/${testId}`)
             return
           }
         }
 
         // Otherwise route to regular test page
+        console.log("[v0] Routing to mock test page")
         router.push(`/mock-test-attempt/${testId}`)
       } catch (error) {
         console.error("[v0] Error checking test type:", error)
