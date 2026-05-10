@@ -685,7 +685,7 @@ export async function uploadSectionCSV(
     startOrder = (existingQuestions[0].question_order || 0) + 1
   }
 
-  // Prepare questions with section marker
+  // Prepare questions with section marker - ALWAYS set exam_source to sectionName
   const questions = csvData.map((q, index) => ({
     test_id: testId,
     question_order: startOrder + index,
@@ -696,7 +696,7 @@ export async function uploadSectionCSV(
     option_d: q.option_d,
     correct_answer: q.correct_answer.toLowerCase().trim(),
     explanation: q.explanation || null,
-    exam_source: q.exam_source ? `${sectionName}|${q.exam_source}` : sectionName,
+    exam_source: sectionName, // Always set to section name for section-wise tests
   }))
 
   const { error: insertError } = await supabase.from("questions").insert(questions)

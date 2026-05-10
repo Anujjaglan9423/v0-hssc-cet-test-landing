@@ -327,8 +327,7 @@ export function SectionWiseCSVUploadModal({ open, onOpenChange, onTestCreated }:
         option_c: q.optionC,
         option_d: q.optionD,
         correct_answer: q.correctAnswer,
-        explanation: q.explanation,
-        exam_source: q.examSource,
+        explanation: q.explanation || "",
       })))
 
       if (result.success) {
