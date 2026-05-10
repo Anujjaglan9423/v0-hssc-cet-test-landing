@@ -23,44 +23,22 @@ export default function TestRouterPage() {
           return
         }
 
-        // Check if it's a section-wise test
-        // Method 1: Check for SECTION_WISE marker in description
-        const isSectionWiseMarker = test.description?.includes?.("SECTION_WISE") || false
+        // Check if questions have exam_source field (indicates section-wise test)
+        const questionsWithSource = test.questions?.filter((q: any) => q.exam_source && q.exam_source.length > 0) || []
+        const uniqueSections = new Set(questionsWithSource.map((q: any) => q.exam_source.split('|')[0]))
         
-        // Method 2: Check if questions have exam_source (indicates section-wise upload)
-        const hasExamSource = test.questions?.some((q: any) => q.exam_source && q.exam_source.length > 0)
-        
-        // Method 3: Check if questions have different exam_source values (multiple sections)
-        const uniqueExamSources = new Set(test.questions?.map((q: any) => q.exam_source?.split('|')[0]).filter(Boolean))
-        const hasMultipleSections = uniqueExamSources.size > 1
-        
-        const isSectionWise = isSectionWiseMarker || hasExamSource || hasMultipleSections
-        
-        console.log("[v0] Test detected:", { 
-          testId, 
-          title: test.title, 
-          isSectionWise,
-          marker: isSectionWiseMarker,
-          hasExamSource,
-          hasSections: hasMultipleSections,
-          uniqueSections: Array.from(uniqueExamSources)
-        })
-
-        if (isSectionWise) {
-          // Verify it actually has section data by trying to fetch with section parser
+        // If we have questions with section markers, try to load as section-wise test
+        if (uniqueSections.size > 0) {
           const sectionTest = await getSectionWiseTestWithQuestions(testId)
-          console.log("[v0] Section test data:", { sections: sectionTest?.sections?.length || 0 })
           
           if (sectionTest && sectionTest.sections && sectionTest.sections.length > 0) {
             // Route to section-wise test page
-            console.log("[v0] Routing to section-wise test page")
             router.push(`/section-wise-test-attempt/${testId}`)
             return
           }
         }
 
         // Otherwise route to regular test page
-        console.log("[v0] Routing to mock test page")
         router.push(`/mock-test-attempt/${testId}`)
       } catch (error) {
         console.error("[v0] Error checking test type:", error)
