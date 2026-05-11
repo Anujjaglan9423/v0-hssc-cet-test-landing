@@ -92,7 +92,6 @@ export const metadata: Metadata = {
         canonical: "https://cettest.site/uksssc-vdo-syllabus",
         languages: {
             "en-IN": "https://cettest.site/uksssc-vdo-syllabus",
-            "hi-IN": "https://cettest.site/hi/uksssc-vdo-syllabus",
         },
     },
 

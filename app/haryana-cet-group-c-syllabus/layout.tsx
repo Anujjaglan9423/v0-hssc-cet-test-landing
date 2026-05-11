@@ -91,7 +91,6 @@ export const metadata: Metadata = {
         canonical: "https://cettest.site/haryana-cet-group-c-syllabus",
         languages: {
             "en-IN": "https://cettest.site/haryana-cet-group-c-syllabus",
-            "hi-IN": "https://cettest.site/hi/haryana-cet-group-c-syllabus",
         },
     },
 

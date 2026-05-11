@@ -82,7 +82,6 @@ export const metadata: Metadata = {
     canonical: "https://cettest.site/exams/hssc-cet",
     languages: {
       "en-IN": "https://cettest.site/exams/hssc-cet",
-      "hi-IN": "https://cettest.site/exams/hssc-cet/hi",
     },
   },
 

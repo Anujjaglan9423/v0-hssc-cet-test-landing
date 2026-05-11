@@ -98,8 +98,7 @@ export const metadata: Metadata = {
     canonical: "https://cettest.site/exams/railway-rrb-ntpc",
     languages: {
       "en-IN": "https://cettest.site/exams/railway-rrb-ntpc",
-      "hi-IN": "https://cettest.site/hi/exams/railway-rrb-ntpc",
-    },
+         },
   },
 
   category: "education",

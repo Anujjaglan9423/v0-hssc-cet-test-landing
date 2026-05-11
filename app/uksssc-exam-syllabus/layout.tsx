@@ -92,7 +92,6 @@ export const metadata: Metadata = {
         canonical: "https://cettest.site/uksssc-exam-syllabus",
         languages: {
             "en-IN": "https://cettest.site/uksssc-exam-syllabus",
-            "hi-IN": "https://cettest.site/hi/uksssc-exam-syllabus",
         },
     },
 

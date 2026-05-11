@@ -97,7 +97,6 @@ export const metadata: Metadata = {
         canonical: "https://cettest.site/haryana-gk",
         languages: {
             "en-IN": "https://cettest.site/haryana-gk",
-            "hi-IN": "https://cettest.site/hi/haryana-gk",
         },
     },
 

@@ -98,7 +98,6 @@ export const metadata: Metadata = {
     canonical: "https://cettest.site/exams/railway",
     languages: {
       "en-IN": "https://cettest.site/exams/railway",
-      "hi-IN": "https://cettest.site/hi/exams/railway",
     },
   },
 

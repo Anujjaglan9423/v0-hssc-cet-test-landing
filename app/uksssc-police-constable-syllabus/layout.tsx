@@ -108,7 +108,6 @@ export const metadata: Metadata = {
         canonical: "https://cettest.site/uksssc-police-forest-guard-syllabus",
         languages: {
             "en-IN": "https://cettest.site/uksssc-police-forest-guard-syllabus",
-            "hi-IN": "https://cettest.site/hi/uksssc-police-forest-guard-syllabus",
         },
     },
 
