@@ -78,22 +78,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/blog/hssc-cet-group-d-syllabus-2026`,
       lastModified: now,
       changeFrequency: 'daily',
-      priority: 0.9,
+      priority: 1,
     },
     {
       url: `${baseUrl}/blog/hssc-cet-syllabus-2026`,
       lastModified: now,
       changeFrequency: 'daily',
-      priority: 0.9,
+      priority: 1,
     },
-    {
-      url: `${baseUrl}/blog/pmt-2026-update-hssc-physical-measurement-test-date`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-
-
+   
     // ⚖️ Legal
     {
       url: `${baseUrl}/privacy-policy`,
@@ -189,25 +182,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/haryana-exam-syllabus`,
       lastModified: now,
       changeFrequency: 'daily',
-      priority: 0.9,
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/haryana-cet-group-c-syllabus`,
       lastModified: now,
       changeFrequency: 'daily',
-      priority: 0.9,
+      priority: 1,
     },
     {
       url: `${baseUrl}/haryana-cet-group-d-syllabus`,
       lastModified: now,
       changeFrequency: 'daily',
-      priority: 0.9,
+      priority: 1,
     },
     {
       url: `${baseUrl}/haryana-police-constable-syllabus`,
       lastModified: now,
       changeFrequency: 'daily',
-      priority: 0.9,
+      priority: 1,
     },
 
     // Haryana GK Study Material Pages
@@ -421,19 +414,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/uksssc-exam-syllabus`,
         lastModified: now,
         changeFrequency: 'daily',
-        priority: 0.9,
+        priority: 1,
       },
       {
         url: `${baseUrl}/uksssc-vdo-syllabus`,
         lastModified: now,
         changeFrequency: 'daily',
-        priority: 0.9,
+        priority: 1,
       },
       {
         url: `${baseUrl}/uksssc-police-constable-syllabus`,
         lastModified: now,
         changeFrequency: 'daily',
-        priority: 0.9,
+        priority: 1,
       },
 
       // Current Affairs Pages
@@ -441,7 +434,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/current-affairs`,
         lastModified: now,
         changeFrequency: 'daily',
-        priority: 0.9,
+        priority: 1,
       },
       {
         url: `${baseUrl}/current-affairs/january-2026`,
