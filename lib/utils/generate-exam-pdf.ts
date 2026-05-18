@@ -24,162 +24,267 @@ interface ExamData {
 }
 
 export async function generateExamPDF(examData: ExamData) {
-  const pdf = new jsPDF({
-    orientation: 'portrait',
-    unit: 'mm',
-    format: 'a4',
-    compress: true,
-  });
+  // Create a temporary container to render HTML content
+  const container = document.createElement('div');
+  container.style.width = '210mm';
+  container.style.padding = '0';
+  container.style.margin = '0';
+  container.style.background = '#f5f7fa';
+  container.style.fontFamily = '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif';
 
-  let yPosition = 15;
-  const pageWidth = pdf.internal.pageSize.getWidth();
-  const pageHeight = pdf.internal.pageSize.getHeight();
-  const margin = 12;
-  const contentWidth = pageWidth - 2 * margin;
+  // ============ COVER PAGE ============
+  const coverPage = document.createElement('div');
+  coverPage.style.width = '210mm';
+  coverPage.style.height = '297mm';
+  coverPage.style.padding = '0';
+  coverPage.style.margin = '0';
+  coverPage.style.background = 'linear-gradient(135deg, #0D6EFD 0%, #0B5ED7 100%)';
+  coverPage.style.color = 'white';
+  coverPage.style.display = 'flex';
+  coverPage.style.flexDirection = 'column';
+  coverPage.style.justifyContent = 'center';
+  coverPage.style.alignItems = 'center';
+  coverPage.style.textAlign = 'center';
+  coverPage.style.pageBreakAfter = 'always';
+  coverPage.style.boxSizing = 'border-box';
 
-  // Helper function to add header to each page
-  const addPageHeader = (pageNum: number) => {
-    pdf.setFontSize(8);
-    pdf.setTextColor(150, 150, 150);
-    pdf.text(`Page ${pageNum}`, pageWidth - margin - 15, pageHeight - 8);
-  };
+  const coverTitle = document.createElement('h1');
+  coverTitle.textContent = 'EXAM RESULT REPORT';
+  coverTitle.style.fontSize = '48px';
+  coverTitle.style.fontWeight = 'bold';
+  coverTitle.style.margin = '0 0 40px 0';
+  coverTitle.style.letterSpacing = '2px';
 
-  let pageNum = 1;
+  const testTitle = document.createElement('h2');
+  testTitle.textContent = examData.testTitle;
+  testTitle.style.fontSize = '32px';
+  testTitle.style.fontWeight = '600';
+  testTitle.style.margin = '20px 40px';
+  testTitle.style.wordWrap = 'break-word';
+  testTitle.style.whiteSpace = 'normal';
 
-  // ============ COVER SECTION ============
-  // Background color
-  pdf.setFillColor(13, 110, 253); // Premium blue
-  pdf.rect(0, 0, pageWidth, 70, 'F');
+  const coverDate = document.createElement('p');
+  coverDate.textContent = `Generated on ${new Date().toLocaleString()}`;
+  coverDate.style.fontSize = '16px';
+  coverDate.style.opacity = '0.9';
+  coverDate.style.marginTop = '60px';
 
-  // Title
-  pdf.setFontSize(28);
-  pdf.setTextColor(255, 255, 255);
-  pdf.text('EXAM RESULT REPORT', margin, 25);
+  coverPage.appendChild(coverTitle);
+  coverPage.appendChild(testTitle);
+  coverPage.appendChild(coverDate);
+  container.appendChild(coverPage);
 
-  // Reset to dark background
-  pdf.setFillColor(245, 247, 250);
-  pdf.rect(0, 70, pageWidth, pageHeight - 70, 'F');
+  // ============ SUMMARY PAGE ============
+  const summaryPage = document.createElement('div');
+  summaryPage.style.width = '210mm';
+  summaryPage.style.minHeight = '297mm';
+  summaryPage.style.padding = '20mm';
+  summaryPage.style.margin = '0';
+  summaryPage.style.background = '#f5f7fa';
+  summaryPage.style.pageBreakAfter = 'always';
+  summaryPage.style.boxSizing = 'border-box';
 
-  yPosition = 85;
+  const summaryTitle = document.createElement('h2');
+  summaryTitle.textContent = 'Score Summary';
+  summaryTitle.style.fontSize = '24px';
+  summaryTitle.style.fontWeight = 'bold';
+  summaryTitle.style.color = '#1e1e1e';
+  summaryTitle.style.marginBottom = '30px';
+  summaryTitle.style.borderBottom = '3px solid #0D6EFD';
+  summaryTitle.style.paddingBottom = '10px';
 
-  // Exam Title
-  pdf.setFontSize(14);
-  pdf.setTextColor(30, 30, 30);
-  pdf.setFont(undefined, 'bold');
-  const titleLines = pdf.splitTextToSize(examData.testTitle, contentWidth);
-  pdf.text(titleLines, margin, yPosition);
-  yPosition += titleLines.length * 6 + 5;
+  summaryPage.appendChild(summaryTitle);
 
-  // Generation date
-  pdf.setFontSize(9);
-  pdf.setTextColor(100, 100, 100);
-  pdf.setFont(undefined, 'normal');
-  pdf.text(`Generated on: ${new Date().toLocaleString()}`, margin, yPosition);
-  yPosition += 15;
+  // Summary boxes
+  const summaryBoxes = document.createElement('div');
+  summaryBoxes.style.display = 'grid';
+  summaryBoxes.style.gridTemplateColumns = 'repeat(3, 1fr)';
+  summaryBoxes.style.gap = '20px';
+  summaryBoxes.style.marginBottom = '40px';
 
-  // ============ SCORE SUMMARY CARD ============
-  const summaryBoxes = [
-    { label: 'Score', value: `${examData.score.toFixed(1)}/${examData.totalMarks}`, color: [13, 110, 253] },
-    { label: 'Percentage', value: `${examData.percentage.toFixed(1)}%`, color: [34, 197, 94] },
-    { label: 'Time Taken', value: `${Math.floor(examData.timeTaken / 60)}m ${examData.timeTaken % 60}s`, color: [249, 115, 22] },
+  const boxes = [
+    { label: 'Score', value: `${examData.score.toFixed(1)}/${examData.totalMarks}`, color: '#0D6EFD' },
+    { label: 'Percentage', value: `${examData.percentage.toFixed(1)}%`, color: '#22C55E' },
+    { label: 'Time Taken', value: `${Math.floor(examData.timeTaken / 60)}m ${examData.timeTaken % 60}s`, color: '#F97316' },
   ];
 
-  const boxWidth = (contentWidth - 8) / 3;
-  let boxX = margin;
+  boxes.forEach((box) => {
+    const boxDiv = document.createElement('div');
+    boxDiv.style.background = box.color;
+    boxDiv.style.color = 'white';
+    boxDiv.style.padding = '25px';
+    boxDiv.style.borderRadius = '10px';
+    boxDiv.style.textAlign = 'center';
+    boxDiv.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
 
-  summaryBoxes.forEach((box) => {
-    // Box background
-    pdf.setFillColor(...box.color);
-    pdf.rect(boxX, yPosition, boxWidth, 28, 'F');
+    const label = document.createElement('p');
+    label.textContent = box.label;
+    label.style.fontSize = '14px';
+    label.style.fontWeight = '600';
+    label.style.margin = '0 0 10px 0';
+    label.style.opacity = '0.9';
 
-    // Label
-    pdf.setFontSize(9);
-    pdf.setTextColor(255, 255, 255);
-    pdf.setFont(undefined, 'bold');
-    pdf.text(box.label, boxX + 4, yPosition + 8);
+    const value = document.createElement('p');
+    value.textContent = box.value;
+    value.style.fontSize = '28px';
+    value.style.fontWeight = 'bold';
+    value.style.margin = '0';
 
-    // Value
-    pdf.setFontSize(16);
-    pdf.setFont(undefined, 'bold');
-    const valueLines = pdf.splitTextToSize(box.value, boxWidth - 8);
-    pdf.text(valueLines, boxX + 4, yPosition + 18);
-
-    boxX += boxWidth + 4;
+    boxDiv.appendChild(label);
+    boxDiv.appendChild(value);
+    summaryBoxes.appendChild(boxDiv);
   });
 
-  yPosition += 38;
-  addPageHeader(pageNum);
+  summaryPage.appendChild(summaryBoxes);
 
-  // ============ QUESTION ANALYSIS ============
-  pdf.addPage();
-  pageNum = 1;
-  yPosition = 15;
+  // Statistics section
+  const stats = document.createElement('div');
+  stats.style.background = 'white';
+  stats.style.padding = '25px';
+  stats.style.borderRadius = '10px';
+  stats.style.marginTop = '30px';
 
-  // Section title with underline
-  pdf.setFontSize(14);
-  pdf.setTextColor(30, 30, 30);
-  pdf.setFont(undefined, 'bold');
-  pdf.text('Detailed Question Analysis', margin, yPosition);
+  const statsTitle = document.createElement('h3');
+  statsTitle.textContent = 'Question Statistics';
+  statsTitle.style.fontSize = '18px';
+  statsTitle.style.fontWeight = 'bold';
+  statsTitle.style.color = '#1e1e1e';
+  statsTitle.style.marginBottom = '20px';
 
-  pdf.setDrawColor(13, 110, 253);
-  pdf.setLineWidth(0.5);
-  pdf.line(margin, yPosition + 2, margin + 80, yPosition + 2);
+  stats.appendChild(statsTitle);
 
-  yPosition += 10;
+  const correctCount = examData.questions.filter(q => q.user_answer === q.correct_answer).length;
+  const incorrectCount = examData.questions.filter(q => q.user_answer && q.user_answer !== q.correct_answer).length;
+  const unattemptedCount = examData.questions.filter(q => !q.user_answer).length;
 
-  // ============ QUESTIONS LOOP ============
+  const statItems = [
+    { label: 'Correct Answers', count: correctCount, color: '#22C55E' },
+    { label: 'Incorrect Answers', count: incorrectCount, color: '#EF4444' },
+    { label: 'Unattempted', count: unattemptedCount, color: '#9CA3AF' },
+  ];
+
+  const statGrid = document.createElement('div');
+  statGrid.style.display = 'grid';
+  statGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+  statGrid.style.gap = '20px';
+
+  statItems.forEach((item) => {
+    const statItem = document.createElement('div');
+    statItem.style.textAlign = 'center';
+    statItem.style.padding = '15px';
+    statItem.style.borderLeft = `4px solid ${item.color}`;
+
+    const label = document.createElement('p');
+    label.textContent = item.label;
+    label.style.fontSize = '12px';
+    label.style.color = '#666';
+    label.style.margin = '0 0 5px 0';
+    label.style.fontWeight = '600';
+
+    const count = document.createElement('p');
+    count.textContent = item.count.toString();
+    count.style.fontSize = '28px';
+    count.style.fontWeight = 'bold';
+    count.style.color = item.color;
+    count.style.margin = '0';
+
+    statItem.appendChild(label);
+    statItem.appendChild(count);
+    statGrid.appendChild(statItem);
+  });
+
+  stats.appendChild(statGrid);
+  summaryPage.appendChild(stats);
+
+  container.appendChild(summaryPage);
+
+  // ============ QUESTIONS PAGES ============
   for (let i = 0; i < examData.questions.length; i++) {
     const question = examData.questions[i];
     const isCorrect = question.user_answer === question.correct_answer;
     const isUnattempted = !question.user_answer;
 
-    // Check if we need a new page
-    if (yPosition > pageHeight - 70) {
-      pdf.addPage();
-      pageNum++;
-      yPosition = 15;
+    const questionPage = document.createElement('div');
+    questionPage.style.width = '210mm';
+    questionPage.style.minHeight = '297mm';
+    questionPage.style.padding = '20mm';
+    questionPage.style.margin = '0';
+    questionPage.style.background = '#f5f7fa';
+    if (i < examData.questions.length - 1) {
+      questionPage.style.pageBreakAfter = 'always';
     }
+    questionPage.style.boxSizing = 'border-box';
 
-    // ---- Question Header ----
-    const questionNum = i + 1;
-    let statusText = '';
-    let statusColor = [100, 100, 100];
-    let statusBgColor = [240, 240, 240];
+    // Question header
+    const qHeader = document.createElement('div');
+    qHeader.style.marginBottom = '20px';
+
+    const qNumber = document.createElement('h3');
+    qNumber.style.fontSize = '20px';
+    qNumber.style.fontWeight = 'bold';
+    qNumber.style.margin = '0 0 10px 0';
+    qNumber.style.color = '#1e1e1e';
+    qNumber.textContent = `Question ${i + 1} of ${examData.questions.length}`;
+
+    // Status badge
+    const statusBadge = document.createElement('div');
+    statusBadge.style.display = 'inline-block';
+    statusBadge.style.padding = '8px 16px';
+    statusBadge.style.borderRadius = '6px';
+    statusBadge.style.fontSize = '12px';
+    statusBadge.style.fontWeight = 'bold';
+    statusBadge.style.marginBottom = '15px';
 
     if (isUnattempted) {
-      statusText = 'NOT ATTEMPTED';
-      statusColor = [100, 100, 100];
-      statusBgColor = [240, 240, 240];
+      statusBadge.style.background = '#E5E7EB';
+      statusBadge.style.color = '#6B7280';
+      statusBadge.textContent = '⊘ NOT ATTEMPTED';
     } else if (isCorrect) {
-      statusText = '✓ CORRECT';
-      statusColor = [34, 197, 94];
-      statusBgColor = [220, 252, 231];
+      statusBadge.style.background = '#DCFCE7';
+      statusBadge.style.color = '#166534';
+      statusBadge.textContent = '✓ CORRECT ANSWER';
     } else {
-      statusText = '✗ INCORRECT';
-      statusColor = [239, 68, 68];
-      statusBgColor = [254, 226, 226];
+      statusBadge.style.background = '#FEE2E2';
+      statusBadge.style.color = '#991B1B';
+      statusBadge.textContent = '✗ INCORRECT ANSWER';
     }
 
-    // Question number and status badge
-    pdf.setFillColor(...statusBgColor);
-    pdf.rect(margin, yPosition, contentWidth, 9, 'F');
+    qHeader.appendChild(qNumber);
+    qHeader.appendChild(statusBadge);
+    questionPage.appendChild(qHeader);
 
-    pdf.setFontSize(10);
-    pdf.setTextColor(...statusColor);
-    pdf.setFont(undefined, 'bold');
-    pdf.text(`Q${questionNum}. ${statusText}`, margin + 3, yPosition + 6);
+    // Question text
+    const qText = document.createElement('div');
+    qText.style.background = 'white';
+    qText.style.padding = '20px';
+    qText.style.borderRadius = '8px';
+    qText.style.marginBottom = '20px';
+    qText.style.borderLeft = '4px solid #0D6EFD';
 
-    yPosition += 12;
+    const qLabel = document.createElement('p');
+    qLabel.style.fontSize = '12px';
+    qLabel.style.color = '#0D6EFD';
+    qLabel.style.fontWeight = 'bold';
+    qLabel.style.margin = '0 0 8px 0';
+    qLabel.textContent = 'QUESTION';
 
-    // ---- Question Text ----
-    pdf.setFontSize(10);
-    pdf.setTextColor(30, 30, 30);
-    pdf.setFont(undefined, 'normal');
-    const questionLines = pdf.splitTextToSize(`Question: ${question.question_text}`, contentWidth - 6);
-    pdf.text(questionLines, margin + 3, yPosition);
-    yPosition += questionLines.length * 5.5 + 3;
+    const qContent = document.createElement('p');
+    qContent.style.fontSize = '16px';
+    qContent.style.lineHeight = '1.6';
+    qContent.style.color = '#1e1e1e';
+    qContent.style.margin = '0';
+    qContent.style.wordWrap = 'break-word';
+    qContent.style.whiteSpace = 'normal';
+    qContent.textContent = question.question_text;
 
-    // ---- Options ----
+    qText.appendChild(qLabel);
+    qText.appendChild(qContent);
+    questionPage.appendChild(qText);
+
+    // Options
+    const optionsContainer = document.createElement('div');
+    optionsContainer.style.marginBottom = '20px';
+
     const options = [
       { key: 'A', text: question.option_a },
       { key: 'B', text: question.option_b },
@@ -187,95 +292,130 @@ export async function generateExamPDF(examData: ExamData) {
       { key: 'D', text: question.option_d },
     ];
 
-    pdf.setFontSize(9);
     options.forEach((option) => {
       const isUserAnswer = question.user_answer?.toUpperCase() === option.key;
       const isCorrectAnswer = question.correct_answer?.toUpperCase() === option.key;
 
-      let optionBgColor = [255, 255, 255];
-      let optionTextColor = [50, 50, 50];
-      let borderColor = [200, 200, 200];
-      let indicator = '';
+      const optionDiv = document.createElement('div');
+      optionDiv.style.padding = '15px';
+      optionDiv.style.marginBottom = '12px';
+      optionDiv.style.borderRadius = '8px';
+      optionDiv.style.border = '2px solid #E5E7EB';
+      optionDiv.style.background = 'white';
 
       if (isCorrectAnswer && isUserAnswer) {
-        optionBgColor = [220, 252, 231];
-        optionTextColor = [22, 163, 74];
-        borderColor = [22, 163, 74];
-        indicator = ' ✓ (Your Answer - Correct)';
+        optionDiv.style.background = '#DCFCE7';
+        optionDiv.style.borderColor = '#16A34A';
       } else if (isCorrectAnswer) {
-        optionBgColor = [220, 252, 231];
-        optionTextColor = [22, 163, 74];
-        borderColor = [22, 163, 74];
-        indicator = ' ✓ (Correct Answer)';
+        optionDiv.style.background = '#DCFCE7';
+        optionDiv.style.borderColor = '#16A34A';
       } else if (isUserAnswer) {
-        optionBgColor = [254, 226, 226];
-        optionTextColor = [220, 38, 38];
-        borderColor = [220, 38, 38];
-        indicator = ' ✗ (Your Answer)';
+        optionDiv.style.background = '#FEE2E2';
+        optionDiv.style.borderColor = '#DC2626';
       }
 
-      // Option box
-      pdf.setFillColor(...optionBgColor);
-      pdf.setDrawColor(...borderColor);
-      pdf.setLineWidth(0.3);
-      pdf.rect(margin + 3, yPosition - 3.5, contentWidth - 6, 7, 'FD');
+      const optionText = document.createElement('p');
+      optionText.style.fontSize = '14px';
+      optionText.style.fontWeight = '600';
+      optionText.style.margin = '0 0 5px 0';
+      optionText.style.color = isCorrectAnswer ? '#166534' : isUserAnswer ? '#991B1B' : '#1e1e1e';
+      optionText.style.wordWrap = 'break-word';
+      optionText.style.whiteSpace = 'normal';
 
-      pdf.setTextColor(...optionTextColor);
-      pdf.setFont(undefined, isUserAnswer || isCorrectAnswer ? 'bold' : 'normal');
-      const optionText = `${option.key}. ${option.text}${indicator}`;
-      const optionLines = pdf.splitTextToSize(optionText, contentWidth - 12);
+      let optionLabel = `${option.key}. ${option.text}`;
+      if (isCorrectAnswer && isUserAnswer) {
+        optionLabel += ' ✓ (Your Answer - Correct)';
+      } else if (isCorrectAnswer) {
+        optionLabel += ' ✓ (Correct Answer)';
+      } else if (isUserAnswer) {
+        optionLabel += ' ✗ (Your Answer)';
+      }
+      optionText.textContent = optionLabel;
 
-      pdf.text(optionLines, margin + 5, yPosition + 1);
-      yPosition += optionLines.length * 5 + 2;
+      optionDiv.appendChild(optionText);
+      optionsContainer.appendChild(optionDiv);
     });
 
-    yPosition += 3;
+    questionPage.appendChild(optionsContainer);
 
-    // ---- Explanation ----
+    // Explanation
     if (question.explanation) {
-      if (yPosition > pageHeight - 50) {
-        pdf.addPage();
-        pageNum++;
-        yPosition = 15;
-      }
+      const explanationDiv = document.createElement('div');
+      explanationDiv.style.background = '#EFF6FF';
+      explanationDiv.style.border = '2px solid #0D6EFD';
+      explanationDiv.style.borderRadius = '8px';
+      explanationDiv.style.padding = '15px';
+      explanationDiv.style.marginTop = '20px';
 
-      pdf.setFillColor(240, 248, 255);
-      pdf.setDrawColor(13, 110, 253);
-      pdf.setLineWidth(0.3);
-      pdf.rect(margin + 3, yPosition - 3, contentWidth - 6, 7, 'FD');
+      const explLabel = document.createElement('p');
+      explLabel.style.fontSize = '12px';
+      explLabel.style.fontWeight = 'bold';
+      explLabel.style.color = '#0D6EFD';
+      explLabel.style.margin = '0 0 10px 0';
+      explLabel.textContent = '📖 EXPLANATION';
 
-      pdf.setFontSize(9);
-      pdf.setTextColor(13, 110, 253);
-      pdf.setFont(undefined, 'bold');
-      pdf.text('📖 Explanation:', margin + 5, yPosition + 1);
+      const explContent = document.createElement('p');
+      explContent.style.fontSize = '14px';
+      explContent.style.lineHeight = '1.6';
+      explContent.style.color = '#1e1e1e';
+      explContent.style.margin = '0';
+      explContent.style.wordWrap = 'break-word';
+      explContent.style.whiteSpace = 'normal';
+      explContent.textContent = question.explanation;
 
-      yPosition += 8;
-
-      pdf.setFontSize(8.5);
-      pdf.setTextColor(40, 40, 40);
-      pdf.setFont(undefined, 'normal');
-      const explanationLines = pdf.splitTextToSize(question.explanation, contentWidth - 6);
-      pdf.text(explanationLines, margin + 3, yPosition);
-      yPosition += explanationLines.length * 5 + 4;
+      explanationDiv.appendChild(explLabel);
+      explanationDiv.appendChild(explContent);
+      questionPage.appendChild(explanationDiv);
     }
 
-    yPosition += 6;
-
-    // Divider line
-    pdf.setDrawColor(200, 200, 200);
-    pdf.setLineWidth(0.2);
-    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
-    yPosition += 4;
+    container.appendChild(questionPage);
   }
 
-  // ============ FOOTER ============
-  addPageHeader(pageNum);
-  pdf.setFontSize(8);
-  pdf.setTextColor(150, 150, 150);
-  pdf.text('© HSSC CET Test Series - Exam Result Report', margin, pageHeight - 10);
+  // Append to body temporarily
+  document.body.appendChild(container);
 
-  // Save the PDF
-  const timestamp = new Date().getTime();
-  const testName = examData.testTitle.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 30);
-  pdf.save(`exam-result-${testName}-${timestamp}.pdf`);
+  try {
+    // Convert to canvas using html2canvas
+    const canvas = await html2canvas(container, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      backgroundColor: '#f5f7fa',
+      allowTaint: true,
+    });
+
+    // Create PDF from canvas
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4',
+    });
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth;
+    const imgHeight = (canvas.height * pageWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    // Save the PDF
+    const timestamp = new Date().getTime();
+    const testName = examData.testTitle.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 30);
+    pdf.save(`exam-result-${testName}-${timestamp}.pdf`);
+  } finally {
+    // Remove temporary container
+    document.body.removeChild(container);
+  }
 }
