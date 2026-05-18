@@ -28,80 +28,158 @@ export async function generateExamPDF(examData: ExamData) {
     orientation: 'portrait',
     unit: 'mm',
     format: 'a4',
+    compress: true,
   });
 
-  let yPosition = 20;
+  let yPosition = 15;
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
-  const margin = 15;
+  const margin = 12;
   const contentWidth = pageWidth - 2 * margin;
 
-  // Title and Header
-  pdf.setFontSize(16);
-  pdf.setTextColor(40, 40, 40);
-  pdf.text('Exam Result Report', margin, yPosition);
-  
-  yPosition += 10;
-  pdf.setFontSize(10);
+  // Helper function to add header to each page
+  const addPageHeader = (pageNum: number) => {
+    pdf.setFontSize(8);
+    pdf.setTextColor(150, 150, 150);
+    pdf.text(`Page ${pageNum}`, pageWidth - margin - 15, pageHeight - 8);
+  };
+
+  let pageNum = 1;
+
+  // ============ COVER SECTION ============
+  // Background color
+  pdf.setFillColor(13, 110, 253); // Premium blue
+  pdf.rect(0, 0, pageWidth, 70, 'F');
+
+  // Title
+  pdf.setFontSize(28);
+  pdf.setTextColor(255, 255, 255);
+  pdf.text('EXAM RESULT REPORT', margin, 25);
+
+  // Reset to dark background
+  pdf.setFillColor(245, 247, 250);
+  pdf.rect(0, 70, pageWidth, pageHeight - 70, 'F');
+
+  yPosition = 85;
+
+  // Exam Title
+  pdf.setFontSize(14);
+  pdf.setTextColor(30, 30, 30);
+  pdf.setFont(undefined, 'bold');
+  const titleLines = pdf.splitTextToSize(examData.testTitle, contentWidth);
+  pdf.text(titleLines, margin, yPosition);
+  yPosition += titleLines.length * 6 + 5;
+
+  // Generation date
+  pdf.setFontSize(9);
   pdf.setTextColor(100, 100, 100);
-  pdf.text(`Test: ${examData.testTitle}`, margin, yPosition);
-  
-  yPosition += 8;
-  pdf.text(`Generated: ${new Date().toLocaleDateString()}`, margin, yPosition);
-
-  // Score Summary Box
+  pdf.setFont(undefined, 'normal');
+  pdf.text(`Generated on: ${new Date().toLocaleString()}`, margin, yPosition);
   yPosition += 15;
-  pdf.setFillColor(240, 245, 250);
-  pdf.rect(margin, yPosition - 5, contentWidth, 30, 'F');
-  
-  pdf.setFontSize(12);
-  pdf.setTextColor(40, 40, 40);
-  pdf.text(`Score: ${examData.score} / ${examData.totalMarks}`, margin + 5, yPosition);
-  pdf.text(`Percentage: ${examData.percentage.toFixed(1)}%`, margin + 5, yPosition + 8);
-  pdf.text(`Time Taken: ${Math.floor(examData.timeTaken / 60)} minutes`, margin + 5, yPosition + 16);
 
-  yPosition += 40;
+  // ============ SCORE SUMMARY CARD ============
+  const summaryBoxes = [
+    { label: 'Score', value: `${examData.score.toFixed(1)}/${examData.totalMarks}`, color: [13, 110, 253] },
+    { label: 'Percentage', value: `${examData.percentage.toFixed(1)}%`, color: [34, 197, 94] },
+    { label: 'Time Taken', value: `${Math.floor(examData.timeTaken / 60)}m ${examData.timeTaken % 60}s`, color: [249, 115, 22] },
+  ];
 
-  // Questions Section
-  pdf.setFontSize(11);
-  pdf.setTextColor(40, 40, 40);
-  pdf.text('Question-wise Analysis', margin, yPosition);
+  const boxWidth = (contentWidth - 8) / 3;
+  let boxX = margin;
+
+  summaryBoxes.forEach((box) => {
+    // Box background
+    pdf.setFillColor(...box.color);
+    pdf.rect(boxX, yPosition, boxWidth, 28, 'F');
+
+    // Label
+    pdf.setFontSize(9);
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFont(undefined, 'bold');
+    pdf.text(box.label, boxX + 4, yPosition + 8);
+
+    // Value
+    pdf.setFontSize(16);
+    pdf.setFont(undefined, 'bold');
+    const valueLines = pdf.splitTextToSize(box.value, boxWidth - 8);
+    pdf.text(valueLines, boxX + 4, yPosition + 18);
+
+    boxX += boxWidth + 4;
+  });
+
+  yPosition += 38;
+  addPageHeader(pageNum);
+
+  // ============ QUESTION ANALYSIS ============
+  pdf.addPage();
+  pageNum = 1;
+  yPosition = 15;
+
+  // Section title with underline
+  pdf.setFontSize(14);
+  pdf.setTextColor(30, 30, 30);
+  pdf.setFont(undefined, 'bold');
+  pdf.text('Detailed Question Analysis', margin, yPosition);
+
+  pdf.setDrawColor(13, 110, 253);
+  pdf.setLineWidth(0.5);
+  pdf.line(margin, yPosition + 2, margin + 80, yPosition + 2);
 
   yPosition += 10;
 
+  // ============ QUESTIONS LOOP ============
   for (let i = 0; i < examData.questions.length; i++) {
     const question = examData.questions[i];
     const isCorrect = question.user_answer === question.correct_answer;
     const isUnattempted = !question.user_answer;
 
     // Check if we need a new page
-    if (yPosition > pageHeight - 50) {
+    if (yPosition > pageHeight - 70) {
       pdf.addPage();
-      yPosition = 20;
+      pageNum++;
+      yPosition = 15;
     }
 
-    // Question Number and Status
-    const status = isUnattempted ? 'Unattempted' : isCorrect ? 'Correct ✓' : 'Incorrect ✗';
-    const statusColor = isUnattempted ? [150, 150, 150] : isCorrect ? [34, 197, 94] : [239, 68, 68];
-    
-    pdf.setFillColor(...statusColor);
-    pdf.rect(margin, yPosition - 5, contentWidth, 8, 'F');
-    
+    // ---- Question Header ----
+    const questionNum = i + 1;
+    let statusText = '';
+    let statusColor = [100, 100, 100];
+    let statusBgColor = [240, 240, 240];
+
+    if (isUnattempted) {
+      statusText = 'NOT ATTEMPTED';
+      statusColor = [100, 100, 100];
+      statusBgColor = [240, 240, 240];
+    } else if (isCorrect) {
+      statusText = '✓ CORRECT';
+      statusColor = [34, 197, 94];
+      statusBgColor = [220, 252, 231];
+    } else {
+      statusText = '✗ INCORRECT';
+      statusColor = [239, 68, 68];
+      statusBgColor = [254, 226, 226];
+    }
+
+    // Question number and status badge
+    pdf.setFillColor(...statusBgColor);
+    pdf.rect(margin, yPosition, contentWidth, 9, 'F');
+
     pdf.setFontSize(10);
-    pdf.setTextColor(255, 255, 255);
-    pdf.text(`Q${i + 1}: ${status}`, margin + 3, yPosition + 1);
+    pdf.setTextColor(...statusColor);
+    pdf.setFont(undefined, 'bold');
+    pdf.text(`Q${questionNum}. ${statusText}`, margin + 3, yPosition + 6);
 
     yPosition += 12;
 
-    // Question Text
-    pdf.setFontSize(9);
-    pdf.setTextColor(40, 40, 40);
-    const questionLines = pdf.splitTextToSize(question.question_text, contentWidth - 6);
+    // ---- Question Text ----
+    pdf.setFontSize(10);
+    pdf.setTextColor(30, 30, 30);
+    pdf.setFont(undefined, 'normal');
+    const questionLines = pdf.splitTextToSize(`Question: ${question.question_text}`, contentWidth - 6);
     pdf.text(questionLines, margin + 3, yPosition);
-    yPosition += questionLines.length * 5 + 3;
+    yPosition += questionLines.length * 5.5 + 3;
 
-    // Options
-    pdf.setFontSize(8);
+    // ---- Options ----
     const options = [
       { key: 'A', text: question.option_a },
       { key: 'B', text: question.option_b },
@@ -109,70 +187,95 @@ export async function generateExamPDF(examData: ExamData) {
       { key: 'D', text: question.option_d },
     ];
 
+    pdf.setFontSize(9);
     options.forEach((option) => {
-      const isUserAnswer = question.user_answer?.toLowerCase() === option.key.toLowerCase();
-      const isCorrectAnswer = question.correct_answer?.toLowerCase() === option.key.toLowerCase();
+      const isUserAnswer = question.user_answer?.toUpperCase() === option.key;
+      const isCorrectAnswer = question.correct_answer?.toUpperCase() === option.key;
 
-      let bgColor = [255, 255, 255];
-      let textColor = [0, 0, 0];
+      let optionBgColor = [255, 255, 255];
+      let optionTextColor = [50, 50, 50];
+      let borderColor = [200, 200, 200];
+      let indicator = '';
 
-      if (isCorrectAnswer) {
-        bgColor = [220, 252, 231]; // light green
-        textColor = [22, 163, 74]; // dark green
-      } else if (isUserAnswer && !isCorrectAnswer) {
-        bgColor = [254, 226, 226]; // light red
-        textColor = [220, 38, 38]; // dark red
+      if (isCorrectAnswer && isUserAnswer) {
+        optionBgColor = [220, 252, 231];
+        optionTextColor = [22, 163, 74];
+        borderColor = [22, 163, 74];
+        indicator = ' ✓ (Your Answer - Correct)';
+      } else if (isCorrectAnswer) {
+        optionBgColor = [220, 252, 231];
+        optionTextColor = [22, 163, 74];
+        borderColor = [22, 163, 74];
+        indicator = ' ✓ (Correct Answer)';
+      } else if (isUserAnswer) {
+        optionBgColor = [254, 226, 226];
+        optionTextColor = [220, 38, 38];
+        borderColor = [220, 38, 38];
+        indicator = ' ✗ (Your Answer)';
       }
 
-      pdf.setFillColor(...bgColor);
-      pdf.rect(margin + 3, yPosition - 3, contentWidth - 6, 6, 'F');
-      
-      pdf.setTextColor(...textColor);
-      const optionText = `${option.key}. ${option.text}`;
+      // Option box
+      pdf.setFillColor(...optionBgColor);
+      pdf.setDrawColor(...borderColor);
+      pdf.setLineWidth(0.3);
+      pdf.rect(margin + 3, yPosition - 3.5, contentWidth - 6, 7, 'FD');
+
+      pdf.setTextColor(...optionTextColor);
+      pdf.setFont(undefined, isUserAnswer || isCorrectAnswer ? 'bold' : 'normal');
+      const optionText = `${option.key}. ${option.text}${indicator}`;
       const optionLines = pdf.splitTextToSize(optionText, contentWidth - 12);
-      
-      pdf.text(optionLines, margin + 6, yPosition + 1);
-      yPosition += optionLines.length * 4 + 2;
 
-      if (isCorrectAnswer) {
-        pdf.setTextColor(22, 163, 74);
-        pdf.text('(Correct Answer)', contentWidth - margin - 30, yPosition - optionLines.length * 4);
-      }
-      if (isUserAnswer && !isCorrectAnswer) {
-        pdf.setTextColor(220, 38, 38);
-        pdf.text('(Your Answer)', contentWidth - margin - 30, yPosition - optionLines.length * 4);
-      }
+      pdf.text(optionLines, margin + 5, yPosition + 1);
+      yPosition += optionLines.length * 5 + 2;
     });
 
     yPosition += 3;
 
-    // Explanation if available
+    // ---- Explanation ----
     if (question.explanation) {
-      if (yPosition > pageHeight - 40) {
+      if (yPosition > pageHeight - 50) {
         pdf.addPage();
-        yPosition = 20;
+        pageNum++;
+        yPosition = 15;
       }
 
-      pdf.setFillColor(240, 250, 245);
-      pdf.rect(margin, yPosition - 3, contentWidth, 6, 'F');
-      
-      pdf.setFontSize(8);
-      pdf.setTextColor(20, 83, 45);
-      pdf.text('Explanation:', margin + 3, yPosition + 1);
-      
+      pdf.setFillColor(240, 248, 255);
+      pdf.setDrawColor(13, 110, 253);
+      pdf.setLineWidth(0.3);
+      pdf.rect(margin + 3, yPosition - 3, contentWidth - 6, 7, 'FD');
+
+      pdf.setFontSize(9);
+      pdf.setTextColor(13, 110, 253);
+      pdf.setFont(undefined, 'bold');
+      pdf.text('📖 Explanation:', margin + 5, yPosition + 1);
+
       yPosition += 8;
-      
-      pdf.setFontSize(7);
-      pdf.setTextColor(50, 50, 50);
+
+      pdf.setFontSize(8.5);
+      pdf.setTextColor(40, 40, 40);
+      pdf.setFont(undefined, 'normal');
       const explanationLines = pdf.splitTextToSize(question.explanation, contentWidth - 6);
       pdf.text(explanationLines, margin + 3, yPosition);
-      yPosition += explanationLines.length * 4 + 5;
+      yPosition += explanationLines.length * 5 + 4;
     }
 
-    yPosition += 8;
+    yPosition += 6;
+
+    // Divider line
+    pdf.setDrawColor(200, 200, 200);
+    pdf.setLineWidth(0.2);
+    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
+    yPosition += 4;
   }
+
+  // ============ FOOTER ============
+  addPageHeader(pageNum);
+  pdf.setFontSize(8);
+  pdf.setTextColor(150, 150, 150);
+  pdf.text('© HSSC CET Test Series - Exam Result Report', margin, pageHeight - 10);
 
   // Save the PDF
   const timestamp = new Date().getTime();
-  pdf.save(`exam-result-${timestamp}.pdf`);
+  const testName = examData.testTitle.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 30);
+  pdf.save(`exam-result-${testName}-${timestamp}.pdf`);
 }
