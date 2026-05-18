@@ -1,5 +1,4 @@
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 interface Question {
   id: string;
@@ -23,247 +22,10 @@ interface ExamData {
   questions: Question[];
 }
 
-const htmlContent = (examData: ExamData) => {
-  const correctCount = examData.questions.filter(q => q.user_answer === q.correct_answer).length;
-  const incorrectCount = examData.questions.filter(q => q.user_answer && q.user_answer !== q.correct_answer).length;
-  const unattemptedCount = examData.questions.filter(q => !q.user_answer).length;
-
-  let questionsHTML = '';
-  
-  examData.questions.forEach((question, index) => {
-    const isCorrect = question.user_answer === question.correct_answer;
-    const isUnattempted = !question.user_answer;
-    
-    let statusBadge = '';
-    let statusColor = '';
-    
-    if (isUnattempted) {
-      statusBadge = '⊘ NOT ATTEMPTED';
-      statusColor = '#9CA3AF';
-    } else if (isCorrect) {
-      statusBadge = '✓ CORRECT';
-      statusColor = '#16A34A';
-    } else {
-      statusBadge = '✗ INCORRECT';
-      statusColor = '#DC2626';
-    }
-
-    let optionsHTML = '';
-    const options = [
-      { key: 'A', text: question.option_a },
-      { key: 'B', text: question.option_b },
-      { key: 'C', text: question.option_c },
-      { key: 'D', text: question.option_d },
-    ];
-
-    options.forEach(option => {
-      const isUserAnswer = question.user_answer?.toUpperCase() === option.key;
-      const isCorrectAnswer = question.correct_answer?.toUpperCase() === option.key;
-      
-      let bgColor = '#FFFFFF';
-      let borderColor = '#E5E7EB';
-      let textColor = '#1F2937';
-      let indicator = '';
-
-      if (isCorrectAnswer && isUserAnswer) {
-        bgColor = '#DCFCE7';
-        borderColor = '#16A34A';
-        textColor = '#15803D';
-        indicator = ' ✓ (Your Answer - Correct)';
-      } else if (isCorrectAnswer) {
-        bgColor = '#DCFCE7';
-        borderColor = '#16A34A';
-        textColor = '#15803D';
-        indicator = ' ✓ (Correct Answer)';
-      } else if (isUserAnswer) {
-        bgColor = '#FEE2E2';
-        borderColor = '#DC2626';
-        textColor = '#991B1B';
-        indicator = ' ✗ (Your Answer)';
-      }
-
-      optionsHTML += `
-        <div style="background-color: ${bgColor}; border: 2px solid ${borderColor}; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
-          <p style="margin: 0; color: ${textColor}; font-weight: 600; font-size: 14px; word-wrap: break-word; white-space: normal;">
-            ${option.key}. ${option.text}${indicator}
-          </p>
-        </div>
-      `;
-    });
-
-    let explanationHTML = '';
-    if (question.explanation) {
-      explanationHTML = `
-        <div style="background-color: #EFF6FF; border: 2px solid #0D6EFD; border-radius: 8px; padding: 12px; margin-top: 15px;">
-          <p style="margin: 0 0 8px 0; color: #0D6EFD; font-weight: bold; font-size: 12px;">📖 EXPLANATION</p>
-          <p style="margin: 0; color: #1F2937; font-size: 13px; line-height: 1.6; word-wrap: break-word; white-space: normal;">
-            ${question.explanation}
-          </p>
-        </div>
-      `;
-    }
-
-    questionsHTML += `
-      <div style="background-color: #F9FAFB; padding: 20px; margin-bottom: 20px; border-radius: 8px; page-break-inside: avoid;">
-        <div style="margin-bottom: 15px;">
-          <h3 style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold; color: #1F2937;">
-            Question ${index + 1} of ${examData.questions.length}
-          </h3>
-          <div style="display: inline-block; background-color: ${statusColor === '#16A34A' ? '#DCFCE7' : statusColor === '#DC2626' ? '#FEE2E2' : '#E5E7EB'}; color: ${statusColor}; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 11px;">
-            ${statusBadge}
-          </div>
-        </div>
-
-        <div style="background-color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #0D6EFD;">
-          <p style="margin: 0 0 8px 0; color: #0D6EFD; font-weight: bold; font-size: 11px;">QUESTION</p>
-          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #1F2937; word-wrap: break-word; white-space: normal;">
-            ${question.question_text}
-          </p>
-        </div>
-
-        <div style="margin-bottom: 15px;">
-          ${optionsHTML}
-        </div>
-
-        ${explanationHTML}
-      </div>
-    `;
-  });
-
-  return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Exam Result Report</title>
-      <style>
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-        body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          background-color: #f5f7fa;
-          line-height: 1.6;
-        }
-        .page {
-          width: 210mm;
-          height: 297mm;
-          margin: 0 auto;
-          page-break-after: always;
-        }
-        .page:last-child {
-          page-break-after: avoid;
-        }
-        @page {
-          size: A4;
-          margin: 0;
-        }
-      </style>
-    </head>
-    <body>
-      <!-- COVER PAGE -->
-      <div class="page" style="background: linear-gradient(135deg, #0D6EFD 0%, #0B5ED7 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; padding: 40px;">
-        <h1 style="font-size: 48px; font-weight: bold; margin-bottom: 40px; letter-spacing: 2px;">EXAM RESULT REPORT</h1>
-        <h2 style="font-size: 32px; font-weight: 600; margin: 20px 40px; word-wrap: break-word; white-space: normal;">${examData.testTitle}</h2>
-        <p style="font-size: 14px; opacity: 0.9; margin-top: 60px;">Generated on ${new Date().toLocaleString()}</p>
-      </div>
-
-      <!-- SUMMARY PAGE -->
-      <div class="page" style="background-color: #f5f7fa; padding: 30px; display: flex; flex-direction: column;">
-        <h2 style="font-size: 28px; font-weight: bold; color: #1F2937; margin-bottom: 25px; border-bottom: 3px solid #0D6EFD; padding-bottom: 12px;">Score Summary</h2>
-
-        <!-- Score Boxes -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 30px;">
-          <div style="background-color: #0D6EFD; color: white; padding: 25px; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <p style="font-size: 12px; font-weight: 600; margin-bottom: 10px; opacity: 0.9;">SCORE</p>
-            <p style="font-size: 32px; font-weight: bold; margin: 0;">${examData.score.toFixed(1)}/${examData.totalMarks}</p>
-          </div>
-          <div style="background-color: #16A34A; color: white; padding: 25px; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <p style="font-size: 12px; font-weight: 600; margin-bottom: 10px; opacity: 0.9;">PERCENTAGE</p>
-            <p style="font-size: 32px; font-weight: bold; margin: 0;">${examData.percentage.toFixed(1)}%</p>
-          </div>
-          <div style="background-color: #F97316; color: white; padding: 25px; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <p style="font-size: 12px; font-weight: 600; margin-bottom: 10px; opacity: 0.9;">TIME TAKEN</p>
-            <p style="font-size: 32px; font-weight: bold; margin: 0;">${Math.floor(examData.timeTaken / 60)}m ${examData.timeTaken % 60}s</p>
-          </div>
-        </div>
-
-        <!-- Statistics -->
-        <div style="background-color: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-          <h3 style="font-size: 16px; font-weight: bold; color: #1F2937; margin-bottom: 20px;">Question Statistics</h3>
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
-            <div style="text-align: center; padding: 15px; border-left: 4px solid #16A34A;">
-              <p style="font-size: 11px; color: #666; font-weight: 600; margin-bottom: 8px;">CORRECT ANSWERS</p>
-              <p style="font-size: 28px; font-weight: bold; color: #16A34A; margin: 0;">${correctCount}</p>
-            </div>
-            <div style="text-align: center; padding: 15px; border-left: 4px solid #DC2626;">
-              <p style="font-size: 11px; color: #666; font-weight: 600; margin-bottom: 8px;">INCORRECT ANSWERS</p>
-              <p style="font-size: 28px; font-weight: bold; color: #DC2626; margin: 0;">${incorrectCount}</p>
-            </div>
-            <div style="text-align: center; padding: 15px; border-left: 4px solid #9CA3AF;">
-              <p style="font-size: 11px; color: #666; font-weight: 600; margin-bottom: 8px;">UNATTEMPTED</p>
-              <p style="font-size: 28px; font-weight: bold; color: #9CA3AF; margin: 0;">${unattemptedCount}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- QUESTIONS PAGES -->
-      <div class="page" style="background-color: #f5f7fa; padding: 30px;">
-        <h2 style="font-size: 28px; font-weight: bold; color: #1F2937; margin-bottom: 25px; border-bottom: 3px solid #0D6EFD; padding-bottom: 12px;">Question Analysis</h2>
-        ${questionsHTML}
-      </div>
-    </body>
-    </html>
-  `;
-};
-
 export async function generateExamPDF(examData: ExamData) {
   try {
     console.log('[v0] Starting PDF generation');
 
-    // Create iframe to render HTML
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-
-    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
-    if (!iframeDoc) {
-      throw new Error('Cannot access iframe document');
-    }
-
-    iframeDoc.open();
-    iframeDoc.write(htmlContent(examData));
-    iframeDoc.close();
-
-    // Wait for content to load
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
-
-    console.log('[v0] HTML content loaded, starting canvas conversion');
-
-    // Get the body element from iframe
-    const element = iframeDoc.body;
-
-    // Convert to canvas
-    const canvas = await html2canvas(element, {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      backgroundColor: '#f5f7fa',
-      allowTaint: true,
-      windowHeight: element.scrollHeight,
-      windowWidth: element.scrollWidth,
-    });
-
-    console.log('[v0] Canvas created successfully');
-
-    // Create PDF from canvas
-    const imgData = canvas.toDataURL('image/png');
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
@@ -272,34 +34,254 @@ export async function generateExamPDF(examData: ExamData) {
 
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
-    const imgWidth = pageWidth;
-    const imgHeight = (canvas.height * pageWidth) / canvas.width;
+    const margin = 15;
+    const contentWidth = pageWidth - 2 * margin;
 
-    // Add first page
-    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    // ============ PAGE 1: COVER PAGE ============
+    pdf.setFillColor(13, 110, 253);
+    pdf.rect(0, 0, pageWidth, pageHeight, 'F');
 
-    // Add remaining pages
-    let heightLeft = imgHeight - pageHeight;
-    let position = 0;
+    pdf.setFont(undefined, 'bold');
+    pdf.setFontSize(36);
+    pdf.setTextColor(255, 255, 255);
+    pdf.text('EXAM RESULT REPORT', pageWidth / 2, 80, { align: 'center' });
 
-    while (heightLeft > 0) {
-      position = heightLeft - imgHeight;
-      pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
+    pdf.setFontSize(20);
+    pdf.setFont(undefined, 'normal');
+    const testTitleLines = pdf.splitTextToSize(examData.testTitle, contentWidth);
+    pdf.text(testTitleLines, pageWidth / 2, 120, { align: 'center' });
+
+    pdf.setFontSize(12);
+    pdf.setTextColor(220, 220, 220);
+    const dateStr = new Date().toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+    pdf.text(`Generated on ${dateStr}`, pageWidth / 2, 180, { align: 'center' });
+
+    // ============ PAGE 2: SUMMARY PAGE ============
+    pdf.addPage();
+    let yPosition = margin;
+
+    pdf.setFont(undefined, 'bold');
+    pdf.setFontSize(22);
+    pdf.setTextColor(13, 110, 253);
+    pdf.text('Score Summary', margin, yPosition);
+    yPosition += 12;
+
+    pdf.setDrawColor(13, 110, 253);
+    pdf.setLineWidth(0.8);
+    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
+    yPosition += 10;
+
+    // Summary boxes
+    const boxHeight = 20;
+    const boxWidth = (contentWidth - 8) / 3;
+
+    const summaryData = [
+      { 
+        label: 'Score', 
+        value: `${examData.score.toFixed(1)}/${examData.totalMarks}`,
+        color: [13, 110, 253]
+      },
+      { 
+        label: 'Percentage', 
+        value: `${examData.percentage.toFixed(1)}%`,
+        color: [34, 197, 94]
+      },
+      { 
+        label: 'Time Taken', 
+        value: `${Math.floor(examData.timeTaken / 60)}m ${examData.timeTaken % 60}s`,
+        color: [249, 115, 22]
+      },
+    ];
+
+    let boxX = margin;
+    summaryData.forEach((box) => {
+      pdf.setFillColor(...box.color);
+      pdf.rect(boxX, yPosition, boxWidth, boxHeight, 'F');
+
+      pdf.setFont(undefined, 'bold');
+      pdf.setFontSize(10);
+      pdf.setTextColor(255, 255, 255);
+      pdf.text(box.label, boxX + 5, yPosition + 6);
+
+      pdf.setFont(undefined, 'bold');
+      pdf.setFontSize(14);
+      pdf.text(box.value, boxX + 5, yPosition + 15);
+
+      boxX += boxWidth + 4;
+    });
+
+    yPosition += boxHeight + 15;
+
+    // Statistics section
+    pdf.setFillColor(240, 240, 240);
+    pdf.rect(margin, yPosition - 8, contentWidth, 35, 'F');
+
+    pdf.setFont(undefined, 'bold');
+    pdf.setFontSize(12);
+    pdf.setTextColor(30, 30, 30);
+    pdf.text('Question Statistics', margin + 5, yPosition);
+
+    const correctCount = examData.questions.filter(q => q.user_answer === q.correct_answer).length;
+    const incorrectCount = examData.questions.filter(q => q.user_answer && q.user_answer !== q.correct_answer).length;
+    const unattemptedCount = examData.questions.filter(q => !q.user_answer).length;
+
+    yPosition += 8;
+    pdf.setFont(undefined, 'normal');
+    pdf.setFontSize(10);
+
+    pdf.setTextColor(34, 197, 94);
+    pdf.text(`Correct: ${correctCount}`, margin + 10, yPosition);
+    
+    pdf.setTextColor(239, 68, 68);
+    pdf.text(`Incorrect: ${incorrectCount}`, margin + 60, yPosition);
+    
+    pdf.setTextColor(100, 100, 100);
+    pdf.text(`Unattempted: ${unattemptedCount}`, margin + 110, yPosition);
+
+    // ============ PAGE 3+: QUESTIONS ============
+    for (let i = 0; i < examData.questions.length; i++) {
+      const question = examData.questions[i];
+      const isCorrect = question.user_answer === question.correct_answer;
+      const isUnattempted = !question.user_answer;
+
+      if (yPosition > pageHeight - 80) {
+        pdf.addPage();
+        yPosition = margin;
+      }
+
+      // Question header
+      const questionNum = i + 1;
+      let statusText = 'NOT ATTEMPTED';
+      let statusColor = [100, 100, 100];
+      let statusBgColor = [230, 230, 230];
+
+      if (isCorrect) {
+        statusText = 'CORRECT';
+        statusColor = [34, 197, 94];
+        statusBgColor = [220, 252, 231];
+      } else if (!isUnattempted) {
+        statusText = 'INCORRECT';
+        statusColor = [239, 68, 68];
+        statusBgColor = [254, 226, 226];
+      }
+
+      pdf.setFillColor(...statusBgColor);
+      pdf.rect(margin, yPosition - 2, contentWidth, 8, 'F');
+
+      pdf.setFont(undefined, 'bold');
+      pdf.setFontSize(10);
+      pdf.setTextColor(...statusColor);
+      pdf.text(`Q${questionNum}. ${statusText}`, margin + 3, yPosition + 3);
+      yPosition += 11;
+
+      // Question text
+      pdf.setFont(undefined, 'normal');
+      pdf.setFontSize(9);
+      pdf.setTextColor(30, 30, 30);
+      const questionLines = pdf.splitTextToSize(question.question_text, contentWidth - 4);
+      pdf.text(questionLines, margin + 2, yPosition);
+      yPosition += questionLines.length * 4.5 + 3;
+
+      // Options
+      const options = [
+        { key: 'A', text: question.option_a },
+        { key: 'B', text: question.option_b },
+        { key: 'C', text: question.option_c },
+        { key: 'D', text: question.option_d },
+      ];
+
+      pdf.setFontSize(8.5);
+
+      options.forEach((option) => {
+        const isUserAnswer = question.user_answer?.toUpperCase() === option.key;
+        const isCorrectAnswer = question.correct_answer?.toUpperCase() === option.key;
+
+        let optionBgColor = [255, 255, 255];
+        let optionTextColor = [50, 50, 50];
+
+        if (isCorrectAnswer && isUserAnswer) {
+          optionBgColor = [220, 252, 231];
+          optionTextColor = [22, 163, 74];
+        } else if (isCorrectAnswer) {
+          optionBgColor = [220, 252, 231];
+          optionTextColor = [22, 163, 74];
+        } else if (isUserAnswer) {
+          optionBgColor = [254, 226, 226];
+          optionTextColor = [220, 38, 38];
+        }
+
+        pdf.setFillColor(...optionBgColor);
+        pdf.rect(margin + 2, yPosition - 2.5, contentWidth - 4, 6, 'F');
+
+        pdf.setFont(undefined, isUserAnswer || isCorrectAnswer ? 'bold' : 'normal');
+        pdf.setTextColor(...optionTextColor);
+
+        let optionLabel = `${option.key}. ${option.text}`;
+        if (isCorrectAnswer && isUserAnswer) {
+          optionLabel += ' (Your Answer - Correct)';
+        } else if (isCorrectAnswer) {
+          optionLabel += ' (Correct Answer)';
+        } else if (isUserAnswer) {
+          optionLabel += ' (Your Answer)';
+        }
+
+        const optionLines = pdf.splitTextToSize(optionLabel, contentWidth - 8);
+        pdf.text(optionLines, margin + 4, yPosition + 0.5);
+        yPosition += optionLines.length * 4 + 1;
+      });
+
+      yPosition += 2;
+
+      // Explanation
+      if (question.explanation) {
+        if (yPosition > pageHeight - 40) {
+          pdf.addPage();
+          yPosition = margin;
+        }
+
+        pdf.setFillColor(240, 248, 255);
+        pdf.setDrawColor(13, 110, 253);
+        pdf.setLineWidth(0.3);
+        pdf.rect(margin + 2, yPosition - 2, contentWidth - 4, 6, 'FD');
+
+        pdf.setFont(undefined, 'bold');
+        pdf.setFontSize(8.5);
+        pdf.setTextColor(13, 110, 253);
+        pdf.text('Explanation:', margin + 4, yPosition + 1);
+
+        yPosition += 7;
+
+        pdf.setFont(undefined, 'normal');
+        pdf.setFontSize(8);
+        pdf.setTextColor(40, 40, 40);
+        const explanationLines = pdf.splitTextToSize(question.explanation, contentWidth - 6);
+        pdf.text(explanationLines, margin + 3, yPosition);
+        yPosition += explanationLines.length * 3.8 + 2;
+      }
+
+      yPosition += 4;
+
+      pdf.setDrawColor(200, 200, 200);
+      pdf.setLineWidth(0.2);
+      pdf.line(margin + 2, yPosition, pageWidth - margin - 2, yPosition);
+      yPosition += 3;
     }
 
     // Save PDF
     const timestamp = new Date().getTime();
-    const testName = examData.testTitle.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 30);
+    const testName = examData.testTitle
+      .replace(/[^a-zA-Z0-9]/g, '-')
+      .substring(0, 30)
+      .toLowerCase();
     pdf.save(`exam-result-${testName}-${timestamp}.pdf`);
 
-    console.log('[v0] PDF saved successfully');
-
-    // Clean up
-    document.body.removeChild(iframe);
+    console.log('[v0] PDF generated and downloaded successfully');
   } catch (error) {
     console.error('[v0] Error generating PDF:', error);
-    alert('Failed to generate PDF. Please try again. Error: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    alert('Failed to generate PDF. Please try again.');
   }
 }
