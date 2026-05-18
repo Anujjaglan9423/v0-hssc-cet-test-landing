@@ -18,7 +18,9 @@ import {
   ChevronDown,
   ChevronUp,
   Users,
+  Download,
 } from "lucide-react"
+import { generateExamPDF } from "@/lib/utils/generate-exam-pdf"
 import { getTestResult } from "@/lib/actions/student"
 import Link from "next/link"
 import { BilingualText } from "@/components/bilingual-text"
@@ -67,6 +69,7 @@ export default function ResultPage() {
   const [error, setError] = useState<string | null>(null)
   const [expandedQuestions, setExpandedQuestions] = useState<Set<string>>(new Set())
   const [filter, setFilter] = useState<FilterType>("all")
+  const [isDownloading, setIsDownloading] = useState(false)
 
   useEffect(() => {
     async function loadResult() {
@@ -159,6 +162,26 @@ export default function ResultPage() {
     if (result.rank === 2) return "text-slate-400"
     if (result.rank === 3) return "text-amber-600"
     return "text-primary"
+  }
+
+  const handleDownloadPDF = async () => {
+    if (!result) return
+    
+    setIsDownloading(true)
+    try {
+      await generateExamPDF({
+        testTitle: result.test.title,
+        score: result.score,
+        totalMarks: result.total_marks,
+        percentage: result.percentage,
+        timeTaken: result.time_taken,
+        questions: result.questions,
+      })
+    } catch (error) {
+      console.error("Error generating PDF:", error)
+    } finally {
+      setIsDownloading(false)
+    }
   }
 
   return (
@@ -488,7 +511,15 @@ export default function ResultPage() {
         </div>
 
         {/* Actions */}
-        <div className="flex gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
+          <Button 
+            onClick={handleDownloadPDF}
+            disabled={isDownloading}
+            className="flex-1 md:flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+          >
+            <Download className="w-4 h-4 mr-2" />
+            {isDownloading ? "Generating PDF..." : "Download Exam PDF"}
+          </Button>
           <Button variant="outline" asChild className="flex-1 bg-transparent">
             <Link href="/student/tests">Take Another Test</Link>
           </Button>
