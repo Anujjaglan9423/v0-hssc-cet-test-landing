@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   title:
     "UKSSSC & UKPSC Mock Tests 2026 | Uttarakhand Govt Exam Preparation Online | Free Practice",
   description:
-    "Crack UKSSSC & UKPSC 2026 exams with India's #1 free mock test platform. Attempt unlimited mock tests for UK VDO/VPDO, Patwari, Lekhpal, Forest Guard, UK Police Constable, SI, Junior Assistant, RO/ARO, and Group C. Practice latest Uttarakhand GK, previous year papers (PYQs), full-length test series with instant results, detailed solutions, and all-India rank. Start your 100% free preparation today!",
+    "Crack UKSSSC & UKPSC 2026 exams with India's #1 free mock test platform. Attempt unlimited mock tests for UK VDO/VPDO, Patwari, Lekhpal, Forest Guard, UK Police Constable, SI, Junior Assistant (Kanisth Sahayak), RO/ARO, and Group C. Practice latest Uttarakhand GK, previous year papers (PYQs), full-length test series with instant results, detailed solutions, and all-India rank. Start your 100% free preparation today!",
 
   keywords: [
     // Primary UKSSSC Exams
@@ -46,6 +46,15 @@ export const metadata: Metadata = {
     "UKSSSC Group C online test hindi",
     "UKSSSC previous year question papers",
     "UKSSSC syllabus and exam pattern",
+
+    // UKSSSC Junior Assistant
+    "UKSSSC Kanisth Sahayak mock test 2026",
+    "UKSSSC Junior Assistant preparation online",
+    "UKSSSC Junior Assistant practice set",
+    "UKSSSC Kanisth Sahayak previous year papers",
+    "UKSSSC Junior Assistant vacancy 2026",
+    "UKSSSC Kanisth Sahayak exam pattern",
+    "UKSSSC Junior Assistant syllabus",
 
     // UKPSC Exams
     "UKPSC RO ARO mock test 2026",
@@ -74,6 +83,7 @@ export const metadata: Metadata = {
     "what is the age limit for UKSSSC",
     "is UKSSSC easy to crack",
     "how to get government job in Uttarakhand",
+    "what is the salary of UKSSSC Kanisth Sahayak",
 
     // Generic
     "free mock test for Uttarakhand exams",
@@ -89,7 +99,7 @@ export const metadata: Metadata = {
     title:
       "UKSSSC & UKPSC Mock Tests 2026 | Free Uttarakhand Exam Practice | CET TEST",
     description:
-      "Boost your score in UKSSSC 2026 exams. Get unlimited free mock tests for VDO, Patwari, Forest Guard, Police, and UKPSC with detailed solutions, performance analytics, and all-India rank.",
+      "Boost your score in UKSSSC 2026 exams. Get unlimited free mock tests for VDO, Patwari, Forest Guard, Police, Junior Assistant (Kanisth Sahayak), and UKPSC with detailed solutions, performance analytics, and all-India rank.",
     url: "https://cettest.site/exams/uksssc",
     siteName: "CET TEST",
     locale: "en_IN",
@@ -186,6 +196,20 @@ export default function UKSSCSPage() {
       examCode: "Uttarakhand Police",
     },
     {
+      name: "Kanisth Sahayak (Junior Assistant)",
+      description:
+        "Junior Assistant recruitment in Uttarakhand government departments - Group C post",
+      link: "/mock-test",
+      features: [
+        "140+ Mock Tests",
+        "15 Previous Year Papers",
+        "Typing Practice",
+        "Computer Knowledge",
+        "Uttarakhand GK Focus",
+      ],
+      examCode: "UKSSSC Junior Assistant",
+    },
+    {
       name: "UKSSSC Group C",
       description:
         "Various Group C posts including Junior Assistant, Clerk, Accountant",
@@ -222,7 +246,7 @@ export default function UKSSCSPage() {
     name: "CET TEST - UKSSSC Preparation",
     url: `${SITE_URL}/exams/uksssc`,
     description:
-      "Free mock test platform for UKSSSC and UKPSC exams including VDO, Patwari, Forest Guard, Police, and Group C posts.",
+      "Free mock test platform for UKSSSC and UKPSC exams including VDO, Patwari, Forest Guard, Police, Junior Assistant (Kanisth Sahayak), and Group C posts.",
 
     contactPoint: {
       "@type": "ContactPoint",
@@ -260,6 +284,22 @@ export default function UKSSCSPage() {
       },
       {
         "@type": "Question",
+        name: "What is the syllabus for UKSSSC Kanisth Sahayak (Junior Assistant) exam?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "UKSSSC Kanisth Sahayak exam syllabus includes General Hindi, English Language, General Knowledge, Uttarakhand GK, Mathematics, Reasoning, and Computer Knowledge. The exam typically has 100 questions for 100 marks.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the salary of UKSSSC Junior Assistant (Kanisth Sahayak)?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "UKSSSC Kanisth Sahayak (Junior Assistant) salary ranges from ₹29,200 to ₹92,300 (Level 5 pay matrix) plus allowances as per 7th Pay Commission. Additional benefits include DA, HRA, and medical allowances.",
+        },
+      },
+      {
+        "@type": "Question",
         name: "How to crack UKPSC RO ARO exam?",
         acceptedAnswer: {
           "@type": "Answer",
@@ -287,7 +327,7 @@ export default function UKSSCSPage() {
         name: "Is CET TEST really free for UKSSSC preparation?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, CET TEST is 100% free for all UKSSSC and UKPSC exams including VDO, Patwari, Forest Guard, Police, and Group C mock tests.",
+          text: "Yes, CET TEST is 100% free for all UKSSSC and UKPSC exams including VDO, Patwari, Forest Guard, Police, Junior Assistant (Kanisth Sahayak), and Group C mock tests.",
         },
       },
       {
@@ -304,6 +344,14 @@ export default function UKSSCSPage() {
         acceptedAnswer: {
           "@type": "Answer",
           text: "Applications for UKSSSC are submitted online through the official UKSSSC website (uksssc.in). Visit our website for latest notification updates.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the typing speed requirement for UKSSSC Junior Assistant?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "UKSSSC Kanisth Sahayak (Junior Assistant) requires typing speed of 30 words per minute in Hindi or 35 words per minute in English. Typing test is conducted as part of the selection process.",
         },
       },
     ],
@@ -333,25 +381,25 @@ export default function UKSSCSPage() {
               UKSSSC & UKPSC Mock Tests 2026
             </h1>
             <p className="text-xl text-muted-foreground mb-6">
-              Master UK VDO, Patwari, Forest Guard, Police Constable & all Group
-              C exams with unlimited free mock tests, PYQs, and detailed
-              analytics
+              Master UK VDO, Patwari, Forest Guard, Police Constable, Junior
+              Assistant (Kanisth Sahayak) & all Group C exams with unlimited
+              free mock tests, PYQs, and detailed analytics
             </p>
 
             {/* Key Stats */}
             <div className="flex flex-wrap justify-center gap-6 mb-8 text-center">
               <div>
-                <div className="text-2xl font-bold text-primary">6+</div>
+                <div className="text-2xl font-bold text-primary">7+</div>
                 <div className="text-xs text-muted-foreground">
                   Exam Categories
                 </div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-primary">800+</div>
+                <div className="text-2xl font-bold text-primary">900+</div>
                 <div className="text-xs text-muted-foreground">Mock Tests</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-primary">50K+</div>
+                <div className="text-2xl font-bold text-primary">55K+</div>
                 <div className="text-xs text-muted-foreground">
                   Practice Questions
                 </div>
@@ -509,8 +557,12 @@ export default function UKSSCSPage() {
                   a: "Candidate must have a Bachelor's degree from a recognized university and age between 18-42 years. Hindi knowledge up to 10th standard is mandatory.",
                 },
                 {
+                  q: "What is the eligibility for UKSSSC Kanisth Sahayak (Junior Assistant)?",
+                  a: "Candidate must have a Bachelor's degree from a recognized university with knowledge of computer applications. Age limit is 18-42 years. Typing speed of 30 WPM in Hindi or 35 WPM in English is required.",
+                },
+                {
                   q: "How many vacancies are expected for UKSSSC 2026?",
-                  a: "UKSSSC is expected to announce 2000+ vacancies for various Group C posts including VDO, Patwari, Forest Guard, and Junior Assistant in 2026.",
+                  a: "UKSSSC is expected to announce 2000+ vacancies for various Group C posts including VDO, Patwari, Forest Guard, Junior Assistant (Kanisth Sahayak), and other posts in 2026.",
                 },
                 {
                   q: "What is the selection process for UKSSSC Forest Guard?",
@@ -527,6 +579,10 @@ export default function UKSSCSPage() {
                 {
                   q: "Can I attempt UKSSSC mock tests in Hindi?",
                   a: "Yes, CET TEST offers UKSSSC mock tests in both English and Hindi medium. You can choose your preferred language before starting the test.",
+                },
+                {
+                  q: "What is the salary of UKSSSC Kanisth Sahayak (Junior Assistant)?",
+                  a: "UKSSSC Kanisth Sahayak (Junior Assistant) salary ranges from ₹29,200 to ₹92,300 (Level 5 pay matrix) plus DA, HRA, medical allowances, and other benefits as per 7th Pay Commission.",
                 },
               ].map((faq, idx) => (
                 <div key={idx} className="bg-background rounded-lg p-5 border">
