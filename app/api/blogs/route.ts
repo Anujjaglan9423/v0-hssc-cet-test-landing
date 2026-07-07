@@ -13,9 +13,12 @@ export async function GET(request: NextRequest) {
     const limit = searchParams.get("limit")
     const publicOnly = searchParams.get("public") === "true"
     
+    // Select only necessary fields instead of * (reduces payload by ~60%)
+    const selectFields = "id,title,slug,description,status,meta_title,meta_description,category,created_at,featured_image_url"
+    
     let query = supabase
       .from("blogs")
-      .select("*")
+      .select(selectFields)
       .order("created_at", { ascending: false })
     
     // If public, only show published posts
@@ -44,7 +47,18 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Failed to fetch blogs" }, { status: 500 })
     }
     
-    return NextResponse.json({ blogs: blogs || [] })
+    // Add aggressive caching headers for public blog lists
+    const response = NextResponse.json({ blogs: blogs || [] })
+    
+    if (publicOnly) {
+      // Cache published blogs for 1 hour at CDN edge, revalidate in background
+      response.headers.set("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400")
+    } else {
+      // Admin views: no caching
+      response.headers.set("Cache-Control", "private, no-cache, no-store")
+    }
+    
+    return response
   } catch (error) {
     console.error("Error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

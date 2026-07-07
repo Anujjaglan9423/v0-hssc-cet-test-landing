@@ -43,6 +43,7 @@ interface PageProps {
 async function getBlog(slug: string): Promise<Blog | null> {
   const supabase = await createClient()
 
+  // Full blog detail needs all fields
   const { data: blog, error } = await supabase
     .from("blogs")
     .select("*")
@@ -60,23 +61,25 @@ async function getBlog(slug: string): Promise<Blog | null> {
 async function getRelatedBlogs(category: string, currentSlug: string): Promise<Blog[]> {
   const supabase = await createClient()
 
+  // Related blogs - only need listing fields
   const { data: blogs } = await supabase
     .from("blogs")
-    .select("*")
+    .select("id,title,slug,description,category,created_at,featured_image_url")
     .eq("status", "publish")
     .eq("category", category)
     .neq("slug", currentSlug)
     .limit(3)
 
-  return blogs || []
+  return blogs as Blog[] || []
 }
 
 async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
   const supabase = await createClient()
 
+  // Recent blogs - only need listing fields
   const { data: blogs } = await supabase
     .from("blogs")
-    .select("*")
+    .select("id,title,slug,description,category,created_at,featured_image_url")
     .eq("status", "publish")
     .neq("slug", currentSlug)
     .order("created_at", { ascending: false })
@@ -84,6 +87,9 @@ async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
 
   return blogs || []
 }
+
+// Revalidate blog pages every 1 hour - cached at CDN for 1 hour, stale for 24h
+export const revalidate = 3600
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
