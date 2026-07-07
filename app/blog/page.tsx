@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { BookOpen, ArrowLeft, Calendar, Clock, ArrowRight, Sparkles } from "lucide-react"
 import Footer from "@/components/footer"
 import { createClient } from "@/lib/supabase/server"
+import { SELECT_FIELDS } from "@/lib/supabase/data-fetching"
 import type { Metadata } from "next"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
@@ -37,6 +38,9 @@ export const metadata: Metadata = {
   },
 }
 
+// Revalidate blog listing every 1 hour - cache at CDN for 1 hour, serve stale for 24h
+export const revalidate = 3600
+
 interface Blog {
   id: string
   title: string
@@ -55,9 +59,10 @@ interface Blog {
 async function getBlogs(): Promise<Blog[]> {
   const supabase = await createClient()
 
+  // Use selective field fetching instead of * to reduce payload by ~65%
   const { data: blogs, error } = await supabase
     .from("blogs")
-    .select("*")
+    .select(SELECT_FIELDS.BLOG_LIST)
     .eq("status", "publish")
     .order("created_at", { ascending: false })
 

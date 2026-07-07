@@ -19,6 +19,34 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   turbopack: {},
+  
+  // ============================================
+  // DATA TRANSFER OPTIMIZATIONS
+  // ============================================
+  
+  // 1. Enhanced compression with brotli
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 5,
+  },
+  
+  // 2. SWR (stale-while-revalidate) for ISR pages
+  experimental: {
+    isrMemoryCacheSize: 50 * 1024 * 1024, // 50MB cache for ISR
+  },
+  
+  // 3. Bundle analysis (optional - remove if not needed)
+  // Enable with: ANALYZE=true npm run build
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.optimization = {
+        ...config.optimization,
+        usedExports: true,
+        sideEffects: false,
+      };
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

@@ -730,6 +730,99 @@ export async function createCustomMockTest(
   return { success: true, test, questionsCount: finalQuestions.length }
 }
 
+// Get paginated test results with optimized data transfer
+export async function getPaginatedTestResults(
+  page: number = 1,
+  pageSize: number = 10,
+  filters?: {
+    searchTerm?: string
+    testType?: string
+    sortBy?: string
+  }
+) {
+  const supabase = await createClient()
+
+  // Calculate offset for pagination
+  const offset = (page - 1) * pageSize
+
+  // Build the query with selective fields to reduce data transfer
+  let query = supabase
+    .from("test_results")
+    .select(
+      `
+      id,
+      score,
+      total_questions,
+      time_taken,
+      created_at,
+      user:users (
+        id,
+        full_name,
+        email
+      ),
+      test:tests (
+        id,
+        title,
+        test_type,
+        subject:subjects (name),
+        topic:topics (name)
+      )
+    `,
+      { count: "exact" }
+    )
+
+  // Apply filters if provided
+  if (filters?.testType && filters.testType !== "all") {
+    query = query.eq("test.test_type", filters.testType)
+  }
+
+  // Order by date descending
+  const orderBy = filters?.sortBy || "created_at"
+  query = query.order(orderBy, {
+    ascending: orderBy === "created_at" ? false : false,
+    foreignTable: undefined,
+  })
+
+  // Apply limit and offset for pagination
+  query = query.range(offset, offset + pageSize - 1)
+
+  const { data: results, error, count } = await query
+
+  if (error) {
+    console.error("Error fetching paginated test results:", error)
+    return { results: [], totalCount: 0, page, pageSize, totalPages: 0 }
+  }
+
+  const formattedResults =
+    results?.map((result) => ({
+      id: result.id,
+      studentName: (result.user as any)?.full_name || "Unknown",
+      studentEmail: (result.user as any)?.email || "Unknown",
+      studentId: (result.user as any)?.id,
+      testTitle: (result.test as any)?.title || "Unknown Test",
+      testType: (result.test as any)?.test_type || "full",
+      subject: (result.test as any)?.subject?.name || "-",
+      topic: (result.test as any)?.topic?.name || "-",
+      score: result.score || 0,
+      totalQuestions: result.total_questions || 0,
+      percentage:
+        result.total_questions > 0 ? Math.round(((result.score || 0) / result.total_questions) * 100) : 0,
+      timeTaken: result.time_taken || 0,
+      completedAt: result.created_at,
+    })) || []
+
+  const totalCount = count || 0
+  const totalPages = Math.ceil(totalCount / pageSize)
+
+  return {
+    results: formattedResults,
+    totalCount,
+    page,
+    pageSize,
+    totalPages,
+  }
+}
+
 export async function getAllTestResults() {
   const supabase = await createClient()
 

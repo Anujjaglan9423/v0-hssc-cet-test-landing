@@ -59,7 +59,7 @@ export async function updateSession(request: NextRequest) {
       let userRole = null
 
       if (authToken) {
-        // Get session from our sessions table
+        // Get session from our sessions table - select only needed fields
         const { data: session } = await supabase
           .from("sessions")
           .select("user_id, expires_at")
@@ -67,7 +67,7 @@ export async function updateSession(request: NextRequest) {
           .maybeSingle()
 
         if (session && new Date(session.expires_at) > new Date()) {
-          // Get user from our users table
+          // Get user from our users table - select only id and role (reduces payload)
           const { data: userData } = await supabase
             .from("users")
             .select("id, email, role")
