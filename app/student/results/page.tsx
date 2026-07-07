@@ -1,23 +1,24 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { ChartCard } from "@/components/dashboard/chart-card"
-import { DataTable } from "@/components/dashboard/data-table"
-import { getStudentResults } from "@/lib/actions/student"
+import { getPaginatedStudentResults } from "@/lib/actions/student"
 import { Button } from "@/components/ui/button"
 import { Trophy, Target, Clock, TrendingUp, Eye, CheckCircle, XCircle, MinusCircle, Loader2, FileUser } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
 import Link from "next/link"
+import { StudentResultsPagination } from "@/components/student/results-pagination"
 
 const COLORS = ["#10b981", "#ef4444", "#6b7280"]
+const PAGE_SIZE = 10
 
 interface TestResultItem {
   id: string
   test_id: string
   attempt_id: string
   score: number
-  percentage: number
+  percentage?: number
   correct_answers: number
   wrong_answers: number
   unanswered: number
@@ -29,37 +30,41 @@ interface TestResultItem {
     title: string
     test_type: string
     duration: number
-    subject?: { name: string }
-    topic?: { name: string }
   }
 }
 
 export default function StudentResultsPage() {
   const [results, setResults] = useState<TestResultItem[]>([])
+  const [allResults, setAllResults] = useState<TestResultItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectedResult, setSelectedResult] = useState<TestResultItem | null>(null)
-  const [visibleCount, setVisibleCount] = useState(10);
-  const [search, setSearch] = useState("");
-  const filteredResults = results.filter((r) =>
-    (r.test?.title || "Unknown Test")
-      .toLowerCase()
-      .includes(search.toLowerCase())
-  );
+  const [search, setSearch] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
 
-  const visibleResults = filteredResults.slice(0, visibleCount);
+  const loadResults = useCallback(async () => {
+    setIsLoading(true)
+    const data = await getPaginatedStudentResults(currentPage, PAGE_SIZE)
+    setResults(data.results || [])
+    setTotalPages(data.totalPages)
+    setTotalCount(data.totalCount)
+    setAllResults(data.results || [])
+    setIsLoading(false)
+  }, [currentPage])
+
   useEffect(() => {
-    async function loadResults() {
-      try {
-        const data = await getStudentResults()
-        setResults(data || [])
-      } catch (error) {
-        console.error("Error loading results:", error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
     loadResults()
-  }, [])
+  }, [loadResults])
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const filteredResults = results.filter((r) =>
+    (r.test?.title || "Unknown Test").toLowerCase().includes(search.toLowerCase())
+  )
 
   if (isLoading) {
     return (
@@ -69,10 +74,15 @@ export default function StudentResultsPage() {
     )
   }
 
-  const avgScore =
-    results.length > 0 ? Math.round(results.reduce((acc, r) => acc + (r.score || 0), 0) / results.length) : 0
-  const bestScore = results.length > 0 ? Math.max(...results.map((r) => r.score || 0)) : 0
-  const totalTime = results.reduce((acc, r) => acc + (r.time_taken || 0), 0)
+  // Calculate stats for total attempts (capped at 1000 for display)
+  const displayCount = Math.min(totalCount, 1000)
+  const displayMessage = totalCount > 1000 ? ` (1000 of ${totalCount})` : ""
+
+  // Calculate stats from current page results
+  const pageAvgScore =
+    filteredResults.length > 0 ? Math.round(filteredResults.reduce((acc, r) => acc + (r.score || 0), 0) / filteredResults.length) : 0
+  const pageBestScore = filteredResults.length > 0 ? Math.max(...filteredResults.map((r) => r.score || 0)) : 0
+  const pageTime = filteredResults.reduce((acc, r) => acc + (r.time_taken || 0), 0)
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -92,118 +102,101 @@ export default function StudentResultsPage() {
         {/* STATS */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
 
-          {/* CARD 1 */}
+          {/* CARD 1 - Total Tests */}
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
             <div className="flex items-center gap-4">
-
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Target className="w-5 h-5 text-primary" />
               </div>
-
               <div>
                 <p className="text-2xl font-semibold text-foreground">
-                  {results.length}
+                  {displayCount}{displayMessage !== "" && displayCount === 1000 ? "*" : ""}
                 </p>
+                {displayMessage && <p className="text-xs text-muted-foreground">{totalCount} total</p>}
                 <p className="text-sm text-muted-foreground">
                   Tests Taken
                 </p>
               </div>
-
             </div>
           </div>
 
-          {/* CARD 2 */}
+          {/* CARD 2 - Avg Score (Page) */}
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
             <div className="flex items-center gap-4">
-
               <div className="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-emerald-500" />
               </div>
-
               <div>
                 <p className="text-2xl font-semibold text-emerald-600">
-                  {avgScore}
+                  {pageAvgScore}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Avg Marks
+                  Avg (Page)
                 </p>
               </div>
-
             </div>
           </div>
 
-          {/* CARD 3 */}
+          {/* CARD 3 - Best Score (Page) */}
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
             <div className="flex items-center gap-4">
-
               <div className="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center">
                 <Trophy className="w-5 h-5 text-amber-500" />
               </div>
-
               <div>
                 <p className="text-2xl font-semibold text-amber-600">
-                  {bestScore}
+                  {pageBestScore}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Best Marks
+                  Best (Page)
                 </p>
               </div>
-
             </div>
           </div>
 
-          {/* CARD 4 */}
+          {/* CARD 4 - Total Time (Page) */}
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
             <div className="flex items-center gap-4">
-
               <div className="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
                 <Clock className="w-5 h-5 text-red-500" />
               </div>
-
               <div>
                 <p className="text-2xl font-semibold text-foreground">
-                  {Math.floor(totalTime / 60)}m
+                  {Math.floor(pageTime / 60)}m
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Total Time
+                  Total (Page)
                 </p>
               </div>
-
             </div>
           </div>
 
         </div>
       </div>
 
-      <ChartCard title="All Test Results">
+      <ChartCard title={`All Test Results - Page ${currentPage} (${filteredResults.length} entries)`}>
         <div className="flex items-center justify-start mb-4">
           <input
             type="text"
             placeholder="Search test..."
             value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              setVisibleCount(10); // reset pagination on search
-            }}
+            onChange={(e) => setSearch(e.target.value)}
             className="w-full md:w-80 px-4 py-2 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
           />
         </div>
-        {results.length > 0 ? (
+        {filteredResults.length > 0 ? (
           <>
-            <div className=" grid grid-cols-1 lg:grid-cols-2 gap-4">
-
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* CARDS */}
-              {visibleResults.map((result) => {
-                const percentage = (result.score / result.total_questions) * 100;
+              {filteredResults.map((result) => {
+                const percentage = (result.score / result.total_questions) * 100
 
                 return (
                   <div
                     key={result.id}
                     className="rounded-xl border border-border bg-card p-5 hover:shadow-md transition"
                   >
-
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
                       {/* LEFT */}
                       <div className="space-y-2">
                         <h3 className="font-semibold text-foreground">
@@ -216,15 +209,9 @@ export default function StudentResultsPage() {
 
                         {/* STATS */}
                         <div className="flex flex-wrap gap-4 text-sm mt-2">
-
                           {/* Score */}
                           <span
-                            className={`font-semibold ${percentage >= 80
-                              ? "text-emerald-600"
-                              : percentage >= 60
-                                ? "text-amber-500"
-                                : "text-red-500"
-                              }`}
+                            className={`font-semibold ${percentage >= 80 ? "text-emerald-600" : percentage >= 60 ? "text-amber-500" : "text-red-500"}`}
                           >
                             Score: {result.score}/{result.total_questions}
                           </span>
@@ -249,7 +236,6 @@ export default function StudentResultsPage() {
 
                       {/* RIGHT ACTIONS */}
                       <div className="flex items-center gap-2">
-
                         <Button
                           variant="outline"
                           size="sm"
@@ -267,27 +253,19 @@ export default function StudentResultsPage() {
                           </Link>
                         </Button>
                       </div>
-
                     </div>
                   </div>
-                );
+                )
               })}
-
-              {/* LOAD MORE BUTTON */}
-
-
             </div>
-            {visibleCount < results.length && (
-              <div className="flex justify-center pt-4">
-                <Button
-                  variant="outline"
-                  onClick={() => setVisibleCount((prev) => prev + 10)}
-                  className="cursor-pointer"
-                >
-                  Load More
-                </Button>
-              </div>
-            )}
+
+            {/* Pagination */}
+            <StudentResultsPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+              isLoading={isLoading}
+            />
           </>
         ) : (
           <div className="text-center py-12">

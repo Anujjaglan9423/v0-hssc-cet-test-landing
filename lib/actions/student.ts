@@ -325,6 +325,61 @@ export async function completeTest(attemptId: string, timeTaken: number) {
 }
 
 // Get student's test results
+// Get paginated student results (10 per page)
+export async function getPaginatedStudentResults(page: number = 1, pageSize: number = 10) {
+  const supabase = await createClient()
+
+  const user = await getCurrentUser()
+  if (!user) return { results: [], totalCount: 0, page, pageSize, totalPages: 0 }
+
+  const offset = (page - 1) * pageSize
+
+  // Selective field fetching to reduce data transfer
+  const { data: results, error, count } = await supabase
+    .from("test_results")
+    .select(
+      `
+      id,
+      attempt_id,
+      test_id,
+      score,
+      total_questions,
+      correct_answers,
+      wrong_answers,
+      unanswered,
+      time_taken,
+      rank,
+      percentage,
+      created_at,
+      test:tests (
+        title,
+        test_type,
+        duration
+      )
+    `,
+      { count: "exact" }
+    )
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false })
+    .range(offset, offset + pageSize - 1)
+
+  if (error) {
+    console.error("Error fetching paginated results:", error)
+    return { results: [], totalCount: 0, page, pageSize, totalPages: 0 }
+  }
+
+  const totalCount = count || 0
+  const totalPages = Math.ceil(totalCount / pageSize)
+
+  return {
+    results: results || [],
+    totalCount,
+    page,
+    pageSize,
+    totalPages,
+  }
+}
+
 export async function getStudentResults() {
   const supabase = await createClient()
 
