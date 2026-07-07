@@ -1,13 +1,14 @@
 "use client"
 
-import { Suspense, useEffect, useState } from "react"
-import { getAllTestResults } from "@/lib/actions/admin"
+import { Suspense, useEffect, useState, useCallback } from "react"
+import { getPaginatedTestResults } from "@/lib/actions/admin"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Search, Trophy, Clock, User, FileText, Filter, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ResultsPagination } from "@/components/admin/results-pagination"
 
 interface TestResult {
   id: string
@@ -25,30 +26,42 @@ interface TestResult {
   completedAt: string
 }
 
+const PAGE_SIZE = 10
+
 function ResultsContent() {
   const [results, setResults] = useState<TestResult[]>([])
-  const [filteredResults, setFilteredResults] = useState<TestResult[]>([])
+  const [allResults, setAllResults] = useState<TestResult[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState("")
   const [testTypeFilter, setTestTypeFilter] = useState("all")
   const [sortBy, setSortBy] = useState("date")
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
+
+  const loadResults = useCallback(async () => {
+    setLoading(true)
+    const data = await getPaginatedTestResults(currentPage, PAGE_SIZE, {
+      testType: testTypeFilter !== "all" ? testTypeFilter : undefined,
+      sortBy: sortBy === "date" ? "created_at" : sortBy,
+    })
+    setResults(data.results)
+    setTotalPages(data.totalPages)
+    setTotalCount(data.totalCount)
+    setLoading(false)
+  }, [currentPage, testTypeFilter, sortBy])
 
   useEffect(() => {
     loadResults()
-  }, [])
+  }, [loadResults])
 
-  useEffect(() => {
-    filterAndSortResults()
-  }, [results, searchTerm, testTypeFilter, sortBy])
-
-  const loadResults = async () => {
-    setLoading(true)
-    const data = await getAllTestResults()
-    setResults(data)
-    setLoading(false)
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  const filterAndSortResults = () => {
+  // Apply client-side filtering for search (server-side would require additional params)
+  const applyClientFilters = () => {
     let filtered = [...results]
 
     if (searchTerm) {
@@ -62,27 +75,10 @@ function ResultsContent() {
       )
     }
 
-    if (testTypeFilter !== "all") {
-      filtered = filtered.filter((r) => r.testType === testTypeFilter)
-    }
-
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case "date":
-          return new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime()
-        case "score":
-          return b.percentage - a.percentage
-        case "student":
-          return a.studentName.localeCompare(b.studentName)
-        case "test":
-          return a.testTitle.localeCompare(b.testTitle)
-        default:
-          return 0
-      }
-    })
-
-    setFilteredResults(filtered)
+    return filtered
   }
+
+  const displayedResults = applyClientFilters()
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -121,7 +117,7 @@ function ResultsContent() {
       "Time Taken",
       "Completed At",
     ]
-    const csvData = filteredResults.map((r) => [
+    const csvData = displayedResults.map((r) => [
       r.studentName,
       r.studentEmail,
       r.testTitle,
@@ -140,15 +136,20 @@ function ResultsContent() {
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
-    a.download = `test-results-${new Date().toISOString().split("T")[0]}.csv`
+    a.download = `test-results-page-${currentPage}-${new Date().toISOString().split("T")[0]}.csv`
     a.click()
   }
 
-  const totalAttempts = filteredResults.length
-  const avgPercentage =
-    totalAttempts > 0 ? Math.round(filteredResults.reduce((sum, r) => sum + r.percentage, 0) / totalAttempts) : 0
-  const passCount = filteredResults.filter((r) => r.percentage >= 60).length
-  const passRate = totalAttempts > 0 ? Math.round((passCount / totalAttempts) * 100) : 0
+  // Summary stats for current page only (not exceeding 1000 attempts or showing filtered results)
+  const pageAttempts = displayedResults.length
+  const pageAvgPercentage =
+    pageAttempts > 0 ? Math.round(displayedResults.reduce((sum, r) => sum + r.percentage, 0) / pageAttempts) : 0
+  const pagePassCount = displayedResults.filter((r) => r.percentage >= 60).length
+  const pagePassRate = pageAttempts > 0 ? Math.round((pagePassCount / pageAttempts) * 100) : 0
+
+  // Overall stats capped at 1000 for display, but actual total shown
+  const displayAttempts = Math.min(totalCount, 1000)
+  const displayMessage = totalCount > 1000 ? ` (showing 1000 of ${totalCount})` : ""
 
   if (loading) {
     return (
@@ -176,7 +177,8 @@ function ResultsContent() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Total Attempts</p>
-                <p className="text-2xl font-bold text-foreground">{totalAttempts}</p>
+                <p className="text-2xl font-bold text-foreground">{displayAttempts}{displayMessage !== "" && displayAttempts === 1000 ? "*" : ""}</p>
+                {displayMessage && <p className="text-xs text-muted-foreground">{totalCount} total</p>}
               </div>
             </div>
           </CardContent>
@@ -189,8 +191,8 @@ function ResultsContent() {
                 <Trophy className="w-5 h-5 text-green-600" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Avg Score</p>
-                <p className="text-2xl font-bold text-foreground">{avgPercentage}%</p>
+                <p className="text-sm text-muted-foreground">Avg Score (Page)</p>
+                <p className="text-2xl font-bold text-foreground">{pageAvgPercentage}%</p>
               </div>
             </div>
           </CardContent>
@@ -203,8 +205,8 @@ function ResultsContent() {
                 <User className="w-5 h-5 text-amber-600" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Pass Rate</p>
-                <p className="text-2xl font-bold text-foreground">{passRate}%</p>
+                <p className="text-sm text-muted-foreground">Pass Rate (Page)</p>
+                <p className="text-2xl font-bold text-foreground">{pagePassRate}%</p>
               </div>
             </div>
           </CardContent>
@@ -217,9 +219,9 @@ function ResultsContent() {
                 <Clock className="w-5 h-5 text-purple-600" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Passed</p>
+                <p className="text-sm text-muted-foreground">Passed (Page)</p>
                 <p className="text-2xl font-bold text-foreground">
-                  {passCount}/{totalAttempts}
+                  {pagePassCount}/{pageAttempts}
                 </p>
               </div>
             </div>
@@ -279,70 +281,80 @@ function ResultsContent() {
       {/* Results Table */}
       <Card>
         <CardHeader>
-          <CardTitle>All Test Results ({filteredResults.length})</CardTitle>
+          <CardTitle>Test Results - Page {currentPage} ({displayedResults.length} entries)</CardTitle>
         </CardHeader>
         <CardContent>
-          {filteredResults.length === 0 ? (
+          {displayedResults.length === 0 ? (
             <div className="text-center py-12">
               <Trophy className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground">No test results found</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-border">
-                    <th className="text-left py-3 px-4 font-medium text-muted-foreground">Student</th>
-                    <th className="text-left py-3 px-4 font-medium text-muted-foreground">Test</th>
-                    <th className="text-left py-3 px-4 font-medium text-muted-foreground">Subject/Topic</th>
-                    <th className="text-center py-3 px-4 font-medium text-muted-foreground">Score</th>
-                    <th className="text-center py-3 px-4 font-medium text-muted-foreground">Percentage</th>
-                    <th className="text-center py-3 px-4 font-medium text-muted-foreground">Time</th>
-                    <th className="text-center py-3 px-4 font-medium text-muted-foreground">Status</th>
-                    <th className="text-left py-3 px-4 font-medium text-muted-foreground">Completed</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredResults.map((result) => (
-                    <tr key={result.id} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
-                      <td className="py-4 px-4">
-                        <div>
-                          <p className="font-medium text-foreground">{result.studentName}</p>
-                          <p className="text-sm text-muted-foreground">{result.studentEmail}</p>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4">
-                        <div>
-                          <p className="font-medium text-foreground">{result.testTitle}</p>
-                          <Badge variant="outline" className="mt-1 text-xs capitalize">
-                            {result.testType}
-                          </Badge>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4">
-                        <div>
-                          <p className="text-sm text-foreground">{result.subject}</p>
-                          {result.topic !== "-" && <p className="text-xs text-muted-foreground">{result.topic}</p>}
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-center">
-                        <span className="font-bold text-foreground">
-                          {result.score}/{result.totalQuestions}
-                        </span>
-                      </td>
-                      <td className="py-4 px-4 text-center">
-                        <span className={`font-bold ${result.percentage >= 60 ? "text-green-600" : "text-red-500"}`}>
-                          {result.percentage}%
-                        </span>
-                      </td>
-                      <td className="py-4 px-4 text-center text-muted-foreground">{formatTime(result.timeTaken)}</td>
-                      <td className="py-4 px-4 text-center">{getScoreBadge(result.percentage)}</td>
-                      <td className="py-4 px-4 text-sm text-muted-foreground">{formatDate(result.completedAt)}</td>
+            <>
+              <div className="overflow-x-auto -mx-6 px-6 lg:overflow-visible lg:mx-0 lg:px-0">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-3 px-3 font-medium text-muted-foreground">Student</th>
+                      <th className="text-left py-3 px-3 font-medium text-muted-foreground">Test</th>
+                      <th className="text-left py-3 px-3 font-medium text-muted-foreground">Subject</th>
+                      <th className="text-center py-3 px-3 font-medium text-muted-foreground">Score</th>
+                      <th className="text-center py-3 px-3 font-medium text-muted-foreground">%</th>
+                      <th className="text-center py-3 px-3 font-medium text-muted-foreground">Time</th>
+                      <th className="text-center py-3 px-3 font-medium text-muted-foreground">Status</th>
+                      <th className="text-left py-3 px-3 font-medium text-muted-foreground">Completed</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {displayedResults.map((result) => (
+                      <tr key={result.id} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                        <td className="py-3 px-3">
+                          <div>
+                            <p className="font-medium text-foreground text-xs lg:text-sm">{result.studentName}</p>
+                            <p className="text-xs text-muted-foreground truncate">{result.studentEmail}</p>
+                          </div>
+                        </td>
+                        <td className="py-3 px-3">
+                          <div>
+                            <p className="font-medium text-foreground text-xs lg:text-sm truncate">{result.testTitle}</p>
+                            <Badge variant="outline" className="mt-1 text-xs capitalize">
+                              {result.testType}
+                            </Badge>
+                          </div>
+                        </td>
+                        <td className="py-3 px-3">
+                          <div>
+                            <p className="text-xs lg:text-sm text-foreground">{result.subject}</p>
+                            {result.topic !== "-" && <p className="text-xs text-muted-foreground">{result.topic}</p>}
+                          </div>
+                        </td>
+                        <td className="py-3 px-3 text-center">
+                          <span className="font-bold text-foreground text-xs lg:text-sm">
+                            {result.score}/{result.totalQuestions}
+                          </span>
+                        </td>
+                        <td className="py-3 px-3 text-center">
+                          <span className={`font-bold text-xs lg:text-sm ${result.percentage >= 60 ? "text-green-600" : "text-red-500"}`}>
+                            {result.percentage}%
+                          </span>
+                        </td>
+                        <td className="py-3 px-3 text-center text-muted-foreground text-xs lg:text-sm">{formatTime(result.timeTaken)}</td>
+                        <td className="py-3 px-3 text-center">{getScoreBadge(result.percentage)}</td>
+                        <td className="py-3 px-3 text-xs lg:text-sm text-muted-foreground whitespace-nowrap">{formatDate(result.completedAt)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Pagination */}
+              <ResultsPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                isLoading={loading}
+              />
+            </>
           )}
         </CardContent>
       </Card>
