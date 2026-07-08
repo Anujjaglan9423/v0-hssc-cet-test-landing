@@ -2,26 +2,10 @@
 
 import { useEffect, useState } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
-import { ChartCard } from "@/components/dashboard/chart-card"
 import { DataTable } from "@/components/dashboard/data-table"
-import { getAdminStats, getAllStudents, getAdminAnalytics } from "@/lib/actions/admin"
+import { MonthlySignupsChart, TestAttemptsByCategoryChart, SubjectPerformanceChart } from "@/components/dashboard/lazy-charts"
+import { batchAdminRequests } from "@/lib/actions/batch"
 import { Users, FileText, DollarSign, Activity, Loader2 } from "lucide-react"
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Area,
-  AreaChart,
-} from "recharts"
-
-const COLORS = ["#10b981", "#3b82f6", "#f59e0b", "#ef4444"]
 
 interface AdminStats {
   totalStudents: number
@@ -53,15 +37,20 @@ export default function AdminDashboard() {
       setIsLoading(true)
       setError(null)
       try {
-        const [statsData, studentsData, analyticsData] = await Promise.all([
-          getAdminStats(),
-          getAllStudents(),
-          getAdminAnalytics(),
+        // Use batch endpoint to combine all three requests into one
+        const batchedData = await batchAdminRequests([
+          { key: "stats", type: "stats" },
+          { key: "students", type: "students" },
+          { key: "analytics", type: "analytics" },
         ])
-        // console.log("[v0] Admin data loaded:", { statsData, studentsData: studentsData.length, analyticsData })
-        setStats(statsData)
-        setStudents(studentsData)
-        setAnalytics(analyticsData)
+
+        const statsResult = batchedData.stats
+        const studentsResult = batchedData.students
+        const analyticsResult = batchedData.analytics
+
+        if (statsResult?.success) setStats(statsResult.data)
+        if (studentsResult?.success) setStudents(studentsResult.data)
+        if (analyticsResult?.success) setAnalytics(analyticsResult.data)
       } catch (error) {
         console.error("[v0] Error loading admin data:", error)
         setError(error instanceof Error ? error.message : "Failed to load data")
@@ -147,60 +136,11 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-        <ChartCard title="Monthly Signups">
-          <ResponsiveContainer width="100%" height={250}>
-            <AreaChart data={stats?.monthlySignups || []}>
-              <defs>
-                <linearGradient id="colorSignups" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis dataKey="month" stroke="#888" fontSize={12} />
-              <YAxis stroke="#888" fontSize={12} />
-              <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
-              <Area type="monotone" dataKey="count" stroke="#10b981" strokeWidth={2} fill="url(#colorSignups)" />
-            </AreaChart>
-          </ResponsiveContainer>
-        </ChartCard>
-
-        <ChartCard title="Test Attempts by Category">
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={testAttemptsByCategory}
-                cx="50%"
-                cy="50%"
-                innerRadius={50}
-                outerRadius={80}
-                paddingAngle={5}
-                dataKey="attempts"
-                nameKey="category"
-                label={({ category, percent }) => `${(percent * 100).toFixed(0)}%`}
-              >
-                {testAttemptsByCategory.map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
-            </PieChart>
-          </ResponsiveContainer>
-        </ChartCard>
+        <MonthlySignupsChart data={stats?.monthlySignups || []} />
+        <TestAttemptsByCategoryChart data={testAttemptsByCategory} />
       </div>
 
-      {/* Subject Performance */}
-      <ChartCard title="Subject-wise Performance">
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={subjectPerformance} layout="vertical">
-            <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-            <XAxis type="number" domain={[0, 100]} stroke="#888" fontSize={12} />
-            <YAxis dataKey="subject" type="category" width={100} stroke="#888" fontSize={11} />
-            <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
-            <Bar dataKey="avgScore" fill="#10b981" radius={[0, 4, 4, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-      </ChartCard>
+      <SubjectPerformanceChart data={subjectPerformance} />
 
       <ChartCard title="Recent Students">
         <div className="overflow-x-auto -mx-4 lg:mx-0">
