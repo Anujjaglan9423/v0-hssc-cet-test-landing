@@ -97,8 +97,8 @@ export default function FeaturesSection() {
               style={{ transitionDelay: `${index * 50}ms` }}
             >
               <div className="flex items-start gap-4">
-                <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-1">
-                  <feature.icon className="w-4 h-4 text-foreground" />
+                <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                  <feature.icon className="w-4 h-4 text-primary-foreground" />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-2">{feature.title}</h3>

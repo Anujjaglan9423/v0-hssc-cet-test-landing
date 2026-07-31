@@ -63,8 +63,8 @@ export default function ExamsSection() {
             return (
               <Link key={idx} href={exam.link}>
                 <div className="group h-full rounded-xl border border-border bg-card overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  {/* Orange Top Border */}
-                  <div className="h-1 bg-accent" />
+                  {/* Primary Blue Top Border */}
+                  <div className="h-1 bg-primary" />
                   
                   {/* Content */}
                   <div className="p-6 flex flex-col h-full">
@@ -74,7 +74,7 @@ export default function ExamsSection() {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition">
+                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition">
                       {exam.name}
                     </h3>
 
@@ -84,7 +84,7 @@ export default function ExamsSection() {
                     </p>
 
                     {/* Link */}
-                    <div className="text-sm font-semibold text-accent group-hover:translate-x-1 transition-transform">
+                    <div className="text-sm font-semibold text-primary group-hover:translate-x-1 transition-transform">
                       Explore tests <ArrowRight className="w-4 h-4 inline ml-1" />
                     </div>
                   </div>

@@ -195,7 +195,7 @@ export default function DailyQuizSection() {
                 onClick={loadQuestion}
                 disabled={state.loading}
                 size="lg"
-                className="cursor-pointer bg-accent hover:bg-accent/90 text-foreground font-semibold"
+                className="cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
               >
                 {state.loading ? 'Generating...' : 'Start today\'s quiz'}
               </Button>
@@ -308,7 +308,7 @@ export default function DailyQuizSection() {
                 <Button
                   onClick={loadQuestion}
                   disabled={state.loading || !state.answered}
-                  className="flex-1 bg-accent hover:bg-accent/90 text-foreground font-semibold"
+                  className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" />
                   {state.language === 'en' ? 'Next Question' : 'अगला प्रश्न'}

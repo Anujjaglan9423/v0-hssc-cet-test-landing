@@ -60,12 +60,12 @@ export default function PricingSection() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-2xl bg-card border transition-all duration-300 hover:shadow-xl ${plan.popular ? "border-accent shadow-lg md:scale-105" : "border-border hover:-translate-y-2"
+              className={`relative rounded-2xl bg-card border transition-all duration-300 hover:shadow-xl ${plan.popular ? "border-primary shadow-lg md:scale-105" : "border-border hover:-translate-y-2"
                 }`}
             >
               {plan.popular && (
                 <div className="absolute -top-3 right-6">
-                  <Badge className="bg-accent text-foreground px-3 py-1 font-bold text-xs">Most popular</Badge>
+                  <Badge className="bg-primary text-primary-foreground px-3 py-1 font-bold text-xs">Most popular</Badge>
                 </div>
               )}
 
@@ -85,7 +85,7 @@ export default function PricingSection() {
                 <Link href="/signup">
                   <Button
                     className={`w-full font-semibold ${plan.popular
-                        ? "bg-accent hover:bg-accent/90 text-foreground"
+                        ? "bg-primary hover:bg-primary/90 text-primary-foreground"
                         : "bg-card text-foreground hover:bg-muted border border-border"
                       }`}
                   >
@@ -99,7 +99,7 @@ export default function PricingSection() {
                   {plan.features.map((feature) => (
                     <li key={feature.name} className="flex items-center gap-3 text-sm">
                       {feature.included ? (
-                        <Check className="w-5 h-5 text-accent flex-shrink-0" />
+                        <Check className="w-5 h-5 text-primary flex-shrink-0" />
                       ) : (
                         <X className="w-5 h-5 text-muted-foreground flex-shrink-0" />
                       )}

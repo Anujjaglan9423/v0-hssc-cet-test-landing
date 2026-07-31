@@ -60,8 +60,8 @@ export default function TestSeriesSection() {
               key={series.title}
               className="group bg-card rounded-xl border border-border overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
-              {/* Orange Top Border */}
-              <div className="h-1 bg-accent" />
+              {/* Primary Blue Top Border */}
+              <div className="h-1 bg-primary" />
 
               {/* Card Body */}
               <div className="p-6 space-y-4">
@@ -69,7 +69,7 @@ export default function TestSeriesSection() {
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="text-lg font-bold text-foreground">{series.title}</h3>
                     {series.popular && (
-                      <Badge className="bg-accent text-foreground px-2 py-1 text-xs font-bold">
+                      <Badge className="bg-primary text-primary-foreground px-2 py-1 text-xs font-bold">
                         Popular
                       </Badge>
                     )}
@@ -97,7 +97,7 @@ export default function TestSeriesSection() {
                 </div>
 
                 <Link href="/signup" className="block">
-                  <Button className={`w-full group/btn font-semibold cursor-pointer ${series.popular ? "bg-accent hover:bg-accent/90 text-foreground" : "bg-foreground text-background hover:bg-foreground/90"}`}>
+                  <Button className={`w-full group/btn font-semibold cursor-pointer ${series.popular ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-foreground text-background hover:bg-foreground/90"}`}>
                     Start practicing
                   </Button>
                 </Link>
