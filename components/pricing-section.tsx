@@ -42,73 +42,51 @@ const plans = [
 ]
 
 export default function PricingSection() {
-  const [isYearly, setIsYearly] = useState(true)
-
   return (
-    <section id="pricing" className="py-20 bg-muted/30 scroll-mt-20">
+    <section id="pricing" className="py-20 bg-background scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Pricing
+            PRICING
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
-            Simple, Transparent Pricing
+            Simple, transparent pricing
           </h2>
-          <p className="text-lg text-muted-foreground">Choose the plan that fits your preparation needs</p>
-        </div>
-
-        {/* Toggle */}
-        <div className="flex items-center justify-center gap-8 mb-12">
-          <span className={`text-sm font-medium ${!isYearly ? "text-foreground" : "text-muted-foreground"}`}>
-            Monthly
-          </span>
-          <button
-            onClick={() => setIsYearly(!isYearly)}
-            className={`relative w-14 h-7 rounded-full transition-colors ${isYearly ? "bg-primary" : "bg-muted"}`}
-          >
-            <span
-              className={`absolute top-1 w-5 h-5 rounded-full bg-background shadow transition-transform ${isYearly ? "translate-x-8" : "translate-x-1"
-                }`}
-            />
-          </button>
-          <span className={`text-sm font-medium ${isYearly ? "text-foreground" : "text-muted-foreground"}`}>
-            Yearly
-          </span>
-          {isYearly && <Badge className="bg-accent text-accent-foreground">Save 30%</Badge>}
+          <p className="text-lg text-muted-foreground">Choose the plan that fits your preparation needs.</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-2xl bg-card border transition-all duration-300 hover:shadow-xl ${plan.popular ? "border-primary shadow-lg scale-105" : "border-border hover:-translate-y-2"
+              className={`relative rounded-2xl bg-card border transition-all duration-300 hover:shadow-xl ${plan.popular ? "border-accent shadow-lg md:scale-105" : "border-border hover:-translate-y-2"
                 }`}
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <Badge className="bg-primary text-primary-foreground px-4 py-1">Most Popular</Badge>
+                <div className="absolute -top-3 right-6">
+                  <Badge className="bg-accent text-foreground px-3 py-1 font-bold text-xs">Most popular</Badge>
                 </div>
               )}
 
               <div className="p-6">
-                <h3 className="text-xl font-bold text-foreground mb-2">{plan.name}</h3>
-                <p className="text-muted-foreground text-sm mb-4">{plan.description}</p>
+                <h3 className="text-2xl font-bold text-foreground mb-1">{plan.name}</h3>
+                <p className="text-muted-foreground text-sm mb-6">{plan.description}</p>
 
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-foreground">
-                    ₹{isYearly ? plan.price.yearly : plan.price.monthly}
+                  <span className="text-5xl font-bold text-foreground">
+                    ₹{plan.price.yearly}
                   </span>
-                  {plan.price.monthly > 0 && (
-                    <span className="text-muted-foreground">/{isYearly ? "year" : "month"}</span>
+                  {plan.price.yearly > 0 && (
+                    <span className="text-muted-foreground text-sm">/year</span>
                   )}
                 </div>
 
                 <Link href="/signup">
                   <Button
-                    className={`w-full ${plan.popular
-                        ? "bg-primary hover:bg-primary/90"
-                        : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                    className={`w-full font-semibold ${plan.popular
+                        ? "bg-accent hover:bg-accent/90 text-foreground"
+                        : "bg-card text-foreground hover:bg-muted border border-border"
                       }`}
                   >
                     {plan.cta}

@@ -70,37 +70,41 @@ export default function FeaturesSection() {
   }, [])
 
   return (
-    <section id="features" className="py-20 scroll-mt-20">
+    <section id="features" className="py-20 bg-background scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={sectionRef}>
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Features
+            EVERYTHING ON THE SYLLABUS, NOTHING EXTRA
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
-            Everything You Need to Succeed
+            Built like the actual exam paper
           </h2>
           <p className="text-lg text-muted-foreground">
-            Our platform is designed with one goal in mind - to help you crack HSSC CET on your first attempt.
+            Every section below mirrors what you&apos;ll face on exam day — pattern, timing and marking included.
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Features Grid - 2x3 */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto border border-border rounded-2xl overflow-hidden divide-y md:divide-y-0 md:divide-x">
           {features.map((feature, index) => (
             <div
               key={feature.title}
               data-index={index}
-              className={`group p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 ${
+              className={`p-6 md:p-8 transition-all duration-500 ${
                 visibleItems.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
               style={{ transitionDelay: `${index * 50}ms` }}
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                <feature.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+              <div className="flex items-start gap-4">
+                <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-1">
+                  <feature.icon className="w-4 h-4 text-foreground" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
             </div>
           ))}
         </div>

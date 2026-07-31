@@ -143,26 +143,45 @@ export default function DailyQuizSection() {
   )
 
   return (
-    <section id="daily-quiz" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 mb-4">
-            <Sparkles className="w-4 h-4 text-blue-600" />
-            <span className="text-sm font-semibold text-blue-600">
-              Daily Challenge
-            </span>
+    <section id="daily-quiz" className="py-20 px-4 sm:px-6 lg:px-8 bg-foreground">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        {/* Left Side - Content */}
+        <div>
+          {/* Header */}
+          <div className="mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/20 border border-accent/40 mb-4">
+              <span className="text-sm font-medium text-accent">DAILY CHALLENGE</span>
+            </div>
+            <h2 className="text-4xl font-bold text-background mb-3">
+              AI-powered daily quiz
+            </h2>
+            <p className="text-background/70 text-lg leading-relaxed">
+              A fresh, India-focused question every day on current affairs, reasoning, maths and GK — bilingual, so you can practice in the language you&apos;ll actually think in during the exam.
+            </p>
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-3">
-            AI-Powered Daily Quiz
-          </h2>
-          <p className="text-gray-600 text-lg">
-            Challenge yourself with India-focused questions on Current Affairs, Reasoning, Maths & GK
-          </p>
+
+          {/* Features List */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-3 text-background">
+              <div className="w-2 h-2 rounded-full bg-accent" />
+              <span className="text-sm">India focused</span>
+            </div>
+            <div className="flex items-center gap-3 text-background">
+              <div className="w-2 h-2 rounded-full bg-accent" />
+              <span className="text-sm">EN & HI bilingual</span>
+            </div>
+            <div className="flex items-center gap-3 text-background">
+              <div className="w-2 h-2 rounded-full bg-accent" />
+              <span className="text-sm">AI powered</span>
+            </div>
+          </div>
         </div>
 
-        {/* Quiz Card */}
-        <Card className="p-8 shadow-xl border-0">
+        {/* Right Side - Quiz Card */}
+        <div>
+
+        <Card className="p-8 shadow-xl border-0 bg-background rounded-2xl">
           {!state.question ? (
             <div className="text-center py-12">
               <Sparkles className="w-16 h-16 text-indigo-500 mx-auto mb-6 opacity-20" />
@@ -176,17 +195,17 @@ export default function DailyQuizSection() {
                 onClick={loadQuestion}
                 disabled={state.loading}
                 size="lg"
-                className="cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
+                className="cursor-pointer bg-accent hover:bg-accent/90 text-foreground font-semibold"
               >
-                {state.loading ? 'Generating...' : 'Start Quiz'}
+                {state.loading ? 'Generating...' : 'Start today\'s quiz'}
               </Button>
             </div>
           ) : (
             <div>
               {/* Language Toggle */}
               <div className="flex items-center justify-between mb-6">
-                <div className="text-sm font-semibold text-indigo-600">
-                  {state.question.category}
+                <div className="text-sm font-semibold text-muted-foreground">
+                  {state.language === 'en' ? 'TODAY\'S QUESTION' : 'आज का सवाल'}
                 </div>
                 <div className="flex gap-2 bg-gray-100 rounded-lg p-1">
                   <button
@@ -289,7 +308,7 @@ export default function DailyQuizSection() {
                 <Button
                   onClick={loadQuestion}
                   disabled={state.loading || !state.answered}
-                  className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
+                  className="flex-1 bg-accent hover:bg-accent/90 text-foreground font-semibold"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" />
                   {state.language === 'en' ? 'Next Question' : 'अगला प्रश्न'}
@@ -297,7 +316,7 @@ export default function DailyQuizSection() {
                 <Button
                   onClick={resetQuiz}
                   variant="outline"
-                  className="flex-1"
+                  className="flex-1 text-foreground"
                 >
                   {state.language === 'en' ? 'Exit Quiz' : 'बाहर निकलें'}
                 </Button>
@@ -305,21 +324,7 @@ export default function DailyQuizSection() {
             </div>
           )}
         </Card>
-
-        {/* Stats Bar */}
-        <div className="grid grid-cols-3 gap-4 mt-8 text-center">
-          <div className="bg-white rounded-lg p-4 shadow">
-            <div className="text-2xl font-bold text-indigo-600">India</div>
-            <div className="text-sm text-gray-600">Focused</div>
-          </div>
-          <div className="bg-white rounded-lg p-4 shadow">
-            <div className="text-2xl font-bold text-blue-600">Bilingual</div>
-            <div className="text-sm text-gray-600">EN & HI</div>
-          </div>
-          <div className="bg-white rounded-lg p-4 shadow">
-            <div className="text-2xl font-bold text-indigo-600">AI</div>
-            <div className="text-sm text-gray-600">Powered</div>
-          </div>
+        </div>
         </div>
       </div>
     </section>
