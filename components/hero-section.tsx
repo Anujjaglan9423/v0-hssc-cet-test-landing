@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Zap, CheckCircle2, Sparkles, BookOpen } from "lucide-react"
+import { ArrowRight, Zap, CheckCircle2, Sparkles, BookOpen, Rocket } from "lucide-react"
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -13,113 +13,96 @@ export default function HeroSection() {
     return () => clearTimeout(timer)
   }, [])
 
-  const features = ["10,000+ Practice Questions", "Detailed Solutions & Analytics", "Topic-wise & Full Length Tests"]
+  const features = ["10,000+ Practice Questions", "Real-time Analytics", "Personalized Learning Path"]
 
   return (
-    <section className="pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden relative">
-      {/* Background Elements */}
+    <section className="pt-24 pb-16 md:pt-40 md:pb-32 overflow-hidden relative">
+      {/* Premium Gradient Background */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float-delay" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/20 via-primary/5 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-accent/20 via-accent/5 to-transparent rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <div
             className={`space-y-8 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
               }`}
           >
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">#1 Test Series Platform in India</span>
+            {/* Premium Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
+              <Rocket className="w-4 h-4 text-primary" />
+              <span className="text-xs font-semibold text-primary">TRUSTED BY 50K+ STUDENTS</span>
             </div>
 
-            {/* Heading */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-balance">
-              Master Your{" "}
-              <span className="text-primary relative">
-                Competitive Exam
-                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                  <path
-                    d="M2 10C50 4 150 4 198 10"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    className="text-primary/40"
-                  />
-                </svg>
-              </span>{" "}
-              with Confidence
-            </h1>
+            {/* Heading - Modern & Bold */}
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight text-balance tracking-tight">
+                Ace Your
+                <br />
+                <span className="bg-gradient-to-r from-primary via-purple-600 to-accent bg-clip-text text-transparent">
+                  Competitive Exams
+                </span>
+              </h1>
+            </div>
 
             {/* Description */}
-            <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-              India's most comprehensive test series platform for competitive exam preparation. Prepare for Haryana
-              exams, SSC, Railway, Uttarakhand, and more with real exam patterns and boost your success rate.
+            <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
+              Master Haryana exams, SSC, Railway, and more. Comprehensive prep with 10,000+ questions, real exam patterns, and AI-powered insights.
             </p>
 
-            {/* Features List */}
-            <div className="flex flex-wrap gap-4">
-              {features.map((feature, index) => (
+            {/* Modern Features List */}
+            <div className="grid grid-cols-2 gap-3">
+              {features.map((feature) => (
                 <div
                   key={feature}
-                  className="flex items-center gap-2 text-sm text-muted-foreground"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="flex items-start gap-2"
                 >
-                  <CheckCircle2 className="w-5 h-5 text-accent" />
-                  <span>{feature}</span>
+                  <div className="mt-0.5 w-5 h-5 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="w-3 h-3 text-white" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">{feature}</span>
                 </div>
               ))}
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4">
+            {/* CTA Buttons - Premium Style */}
+            <div className="flex flex-wrap gap-4 pt-4">
               <Link href="/signup">
                 <Button
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 group animate-pulse-glow cursor-pointer"
+                  className="bg-gradient-to-r from-primary to-purple-600 hover:shadow-lg hover:shadow-primary/30 text-primary-foreground px-8 h-14 text-base font-semibold group transition-all cursor-pointer"
                 >
                   Start Free Trial
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/mock-test">
-                <Button size="lg" variant="outline" className="px-8 group border-border hover:bg-muted cursor-pointer bg-transparent">
-                  <Zap className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                <Button size="lg" variant="outline" className="px-8 h-14 text-base font-semibold border-2 border-primary/30 hover:border-primary/60 hover:bg-primary/5 cursor-pointer bg-transparent group">
+                  <Zap className="w-4 h-4 mr-2" />
                   Try Free Mock Test
                 </Button>
               </Link>
             </div>
 
-            {/* Trust Badges */}
-            <div className="flex items-center gap-6 pt-4">
+            {/* Trust Stats */}
+            <div className="flex items-center gap-8 pt-4">
               <div className="flex -space-x-3">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-muted overflow-hidden flex-shrink-0">
-                    <Image
-                      src="/indian-student-avatar-.jpg"
-                      alt="Student"
-                      width={40}
-                      height={40}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="w-10 h-10 rounded-full border-3 border-background bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0 text-white font-bold text-xs">
+                    {i}
                   </div>
                 ))}
               </div>
               <div>
                 <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((i) => (
-                    <svg key={i} className="w-4 h-4 text-yellow-500 fill-current" viewBox="0 0 20 20">
-                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                    </svg>
+                    <span key={i} className="text-accent text-lg">★</span>
                   ))}
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">50,000+</span> students trust us
+                <p className="text-sm font-medium text-foreground">
+                  <span className="text-primary font-bold">4.9/5</span> from 50K+ reviews
                 </p>
               </div>
             </div>
@@ -130,42 +113,42 @@ export default function HeroSection() {
             className={`relative transition-all duration-1000 delay-300 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
               }`}
           >
-            <div className="relative">
-              {/* Main Card */}
-              <div className="bg-card rounded-3xl shadow-2xl border border-border p-6 relative z-10">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-muted">
+            <div className="relative h-full">
+              {/* Premium Main Card */}
+              <div className="bg-card rounded-3xl shadow-2xl border border-border/50 p-8 relative z-10 backdrop-blur-sm">
+                <div className="aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 border border-border/30">
                   <Image
                     src="/students-studying-online-exam-preparation-india.jpg"
                     alt="Students preparing for exam"
                     width={600}
-                    height={450}
+                    height={400}
                     className="w-full h-full object-cover"
                     priority
                   />
                 </div>
 
-                {/* Floating Stats Card */}
-                <div className="absolute -bottom-6 -left-6 bg-card rounded-2xl shadow-xl border border-border p-4 animate-float">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                      <CheckCircle2 className="w-6 h-6 text-accent" />
+                {/* Floating Stat Card 1 */}
+                <div className="absolute -bottom-8 -left-8 bg-gradient-to-br from-accent to-cyan-500 rounded-2xl shadow-2xl p-5 animate-float text-white border border-accent/30">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                      <span className="text-2xl font-bold">98%</span>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-foreground">98%</p>
-                      <p className="text-sm text-muted-foreground">Success Rate</p>
+                      <p className="text-sm font-semibold opacity-90">Success Rate</p>
+                      <p className="text-xs opacity-75">Among Our Students</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Floating Questions Card */}
-                <div className="absolute -top-4 -right-4 bg-card rounded-2xl shadow-xl border border-border p-4 animate-float-delay">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <BookOpen className="w-6 h-6 text-primary" />
+                {/* Floating Stat Card 2 */}
+                <div className="absolute -top-6 -right-6 bg-gradient-to-br from-primary to-purple-600 rounded-2xl shadow-2xl p-5 animate-float-delay text-white border border-primary/30">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                      <BookOpen className="w-7 h-7" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-foreground">10K+</p>
-                      <p className="text-sm text-muted-foreground">Questions</p>
+                      <p className="text-sm font-semibold opacity-90">10K+ Questions</p>
+                      <p className="text-xs opacity-75">Comprehensive Bank</p>
                     </div>
                   </div>
                 </div>

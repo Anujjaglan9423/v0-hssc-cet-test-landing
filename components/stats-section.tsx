@@ -78,26 +78,31 @@ function StatCard({ stat, index }: { stat: (typeof stats)[0]; index: number }) {
   return (
     <div
       ref={ref}
-      className={`text-center p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+      className={`group relative p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 overflow-hidden ${
         isVisible ? "animate-count-up" : "opacity-0"
       }`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-        <stat.icon className="w-7 h-7 text-primary" />
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      
+      <div className="relative z-10 text-center">
+        <div className="w-16 h-16 mx-auto mb-6 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center group-hover:from-primary group-hover:to-accent group-hover:scale-110 transition-all">
+          <stat.icon className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
+        </div>
+        <p className="text-4xl md:text-5xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
+          {count.toLocaleString()}
+          {stat.suffix}
+        </p>
+        <p className="text-muted-foreground font-semibold">{stat.label}</p>
       </div>
-      <p className="text-3xl md:text-4xl font-bold text-foreground mb-1">
-        {count.toLocaleString()}
-        {stat.suffix}
-      </p>
-      <p className="text-muted-foreground">{stat.label}</p>
     </div>
   )
 }
 
 export default function StatsSection() {
   return (
-    <section className="py-16 bg-muted/30">
+    <section className="py-24 bg-gradient-to-b from-background via-primary/5 to-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) => (

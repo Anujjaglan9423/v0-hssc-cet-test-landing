@@ -23,9 +23,9 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/70 backdrop-blur-xl border-b border-border/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <Image
@@ -54,12 +54,14 @@ export default function Navbar() {
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
             <Link href="/login">
-              <Button variant="ghost" className="text-sm cursor-pointer">
+              <Button variant="ghost" className="text-sm font-semibold hover:bg-primary/10 cursor-pointer">
                 Log in
               </Button>
             </Link>
             <Link href="/signup">
-              <Button className="text-sm bg-primary hover:bg-primary/90 cursor-pointer">Sign up</Button>
+              <Button className="text-sm font-semibold bg-gradient-to-r from-primary to-purple-600 hover:shadow-lg hover:shadow-primary/20 cursor-pointer text-white">
+                Sign up
+              </Button>
             </Link>
           </div>
 

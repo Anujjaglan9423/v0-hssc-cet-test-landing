@@ -70,18 +70,18 @@ export default function FeaturesSection() {
   }, [])
 
   return (
-    <section id="features" className="py-20 scroll-mt-20">
+    <section id="features" className="py-24 scroll-mt-20 bg-gradient-to-b from-transparent via-primary/5 to-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={sectionRef}>
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Features
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 text-primary text-xs font-bold mb-4">
+            PREMIUM FEATURES
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
-            Everything You Need to Succeed
+          <h2 className="text-4xl md:text-5xl font-black text-foreground mb-6 text-balance leading-tight">
+            Everything Built for Your Success
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Our platform is designed with one goal in mind - to help you crack HSSC CET on your first attempt.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Advanced tools and features designed specifically to help you master competitive exams with confidence and precision.
           </p>
         </div>
 
@@ -91,16 +91,21 @@ export default function FeaturesSection() {
             <div
               key={feature.title}
               data-index={index}
-              className={`group p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 ${
+              className={`group relative p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 overflow-hidden ${
                 visibleItems.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
               style={{ transitionDelay: `${index * 50}ms` }}
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                <feature.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+              {/* Gradient Background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              <div className="relative z-10">
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mb-6 group-hover:from-primary group-hover:to-accent group-hover:scale-110 transition-all">
+                  <feature.icon className="w-7 h-7 text-primary group-hover:text-white transition-colors" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground mb-3">{feature.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
             </div>
           ))}
         </div>
