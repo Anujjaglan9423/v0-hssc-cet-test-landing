@@ -204,7 +204,7 @@ export default function MockTestDashboard() {
                 </div>
 
                 {/* Action Button */}
-                <Link href="/test-results" className="block">
+                <Link href="/tests" className="block">
                   <Button
                     className={`w-full font-semibold h-10 ${
                       test.status === "completed"
@@ -223,7 +223,7 @@ export default function MockTestDashboard() {
 
         {/* View More CTA */}
         <div className="mt-12 text-center">
-          <Link href="/test-results">
+          <Link href="/tests">
             <Button className="px-8 py-3 bg-primary text-white font-bold hover:bg-primary/90">
               View All Tests (250+ Available)
             </Button>

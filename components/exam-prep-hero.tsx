@@ -56,7 +56,7 @@ export default function ExamPrepHero() {
               <p className="text-sm font-semibold text-foreground">Choose Your Target Exam</p>
               <div className="flex flex-wrap gap-2">
                 {exams.map((exam) => (
-                  <Link key={exam} href="/test-results">
+                  <Link key={exam} href="/tests">
                     <button className="px-4 py-2 rounded-lg font-medium border-2 border-primary/30 hover:border-primary bg-primary/5 text-foreground hover:bg-primary/10 transition-all">
                       {exam}
                     </button>
@@ -76,7 +76,7 @@ export default function ExamPrepHero() {
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Link href="/test-results">
+              <Link href="/tests">
                 <Button className="px-8 h-14 text-base font-semibold border-2 border-primary/30 hover:border-primary hover:bg-primary/5 cursor-pointer bg-transparent group rounded-lg transition-all text-foreground">
                   <Zap className="w-4 h-4 mr-2 inline" />
                   Try Mock Test
@@ -157,12 +157,12 @@ export default function ExamPrepHero() {
 
               {/* Action Buttons */}
               <div className="space-y-2">
-                <Link href="/test-results" className="block">
+                <Link href="/tests" className="block">
                   <button className="w-full px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors">
                     View Solutions
                   </button>
                 </Link>
-                <Link href="/test-results" className="block">
+                <Link href="/tests" className="block">
                   <button className="w-full px-4 py-2 border border-border rounded-lg font-semibold hover:bg-muted transition-colors">
                     Take Another Test
                   </button>
