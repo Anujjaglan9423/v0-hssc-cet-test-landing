@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function GET(
   request: Request,
-  { params }: { params: { testId: string } }
+  { params }: { params: Promise<{ testId: string }> }
 ) {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -17,12 +17,14 @@ export async function GET(
       )
     }
 
+    const { testId } = await params
+
     const supabase = createClient(supabaseUrl, supabaseKey)
 
     const { data: results, error } = await supabase
       .from('test_results')
       .select('*')
-      .eq('test_id', params.testId)
+      .eq('test_id', testId)
       .order('score', { ascending: false })
       .order('time_taken', { ascending: true })
       .limit(100)

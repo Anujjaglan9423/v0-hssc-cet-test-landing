@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function GET(
   request: Request,
-  { params }: { params: { testId: string } }
+  { params }: { params: Promise<{ testId: string }> }
 ) {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -17,23 +17,28 @@ export async function GET(
       )
     }
 
+    const { testId } = await params
+
     const supabase = createClient(supabaseUrl, supabaseKey)
+
+    console.log('[v0] Fetching questions for test:', testId)
 
     const { data: questions, error } = await supabase
       .from('questions')
-      .select('*')
-      .eq('test_id', params.testId)
+      .select('id, question_text, option_a, option_b, option_c, option_d, correct_answer, explanation, question_order')
+      .eq('test_id', testId)
       .order('question_order', { ascending: true })
 
     if (error) {
       console.error('[v0] Error fetching questions:', error)
       return NextResponse.json(
-        { error: 'Failed to fetch questions' },
+        { error: 'Failed to fetch questions', details: error },
         { status: 500 }
       )
     }
 
-    return NextResponse.json({ questions })
+    console.log('[v0] Questions found:', questions?.length || 0)
+    return NextResponse.json({ questions: questions || [] })
   } catch (error) {
     console.error('[v0] API Error:', error)
     return NextResponse.json(

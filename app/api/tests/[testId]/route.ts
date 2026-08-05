@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function GET(
   request: Request,
-  { params }: { params: { testId: string } }
+  { params }: { params: Promise<{ testId: string }> }
 ) {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -17,33 +17,35 @@ export async function GET(
       )
     }
 
+    const { testId } = await params
+
     const supabase = createClient(supabaseUrl, supabaseKey)
 
-    const { data: test, error } = await supabase
+    console.log('[v0] Fetching test with ID:', testId)
+
+    const { data: tests, error } = await supabase
       .from('tests')
-      .select(`
-        id,
-        title,
-        description,
-        total_questions,
-        duration,
-        difficulty,
-        test_type,
-        exam_id,
-        exams(name, slug, category_id, exam_categories(name, slug))
-      `)
-      .eq('id', params.testId)
-      .single()
+      .select('id, title, description, total_questions, duration, difficulty, test_type, exam_id')
+      .eq('id', testId)
 
     if (error) {
       console.error('[v0] Error fetching test:', error)
+      return NextResponse.json(
+        { error: 'Test not found', details: error },
+        { status: 404 }
+      )
+    }
+
+    if (!tests || tests.length === 0) {
+      console.error('[v0] Test not found with ID:', testId)
       return NextResponse.json(
         { error: 'Test not found' },
         { status: 404 }
       )
     }
 
-    return NextResponse.json({ test })
+    console.log('[v0] Test found:', tests[0])
+    return NextResponse.json({ test: tests[0] })
   } catch (error) {
     console.error('[v0] API Error:', error)
     return NextResponse.json(
