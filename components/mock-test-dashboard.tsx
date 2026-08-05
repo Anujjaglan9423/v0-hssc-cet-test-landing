@@ -1,6 +1,7 @@
 "use client"
-import { Clock, Users, TrendingUp, Star } from "lucide-react"
+import { Clock, Users, TrendingUp, Star, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 interface MockTest {
   id: string
@@ -203,16 +204,18 @@ export default function MockTestDashboard() {
                 </div>
 
                 {/* Action Button */}
-                <Button
-                  className={`w-full font-semibold h-10 ${
-                    test.status === "completed"
-                      ? "bg-primary/10 text-primary hover:bg-primary/20"
-                      : "bg-primary text-white hover:bg-primary/90"
-                  }`}
-                >
-                  {test.status === "completed" ? "Retake Test" : "Start Test"}
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
+                <Link href="/test-results" className="block">
+                  <Button
+                    className={`w-full font-semibold h-10 ${
+                      test.status === "completed"
+                        ? "bg-primary/10 text-primary hover:bg-primary/20"
+                        : "bg-primary text-white hover:bg-primary/90"
+                    }`}
+                  >
+                    {test.status === "completed" ? "Retake Test" : "Start Test"}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
               </div>
             </div>
           ))}
@@ -220,15 +223,13 @@ export default function MockTestDashboard() {
 
         {/* View More CTA */}
         <div className="mt-12 text-center">
-          <button className="px-8 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors">
-            View All Tests (250+ Available)
-          </button>
+          <Link href="/test-results">
+            <Button className="px-8 py-3 bg-primary text-white font-bold hover:bg-primary/90">
+              View All Tests (250+ Available)
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
   )
-}
-
-function ArrowRight({ className }: { className: string }) {
-  return <span className={className}>→</span>
 }

@@ -1,6 +1,7 @@
 "use client"
 import { Clock, Flame, Trophy, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function DailyChallengeWidget() {
   return (
@@ -59,10 +60,12 @@ export default function DailyChallengeWidget() {
                 <p className="text-xs text-muted-foreground mt-1">out of 5,234 today</p>
               </div>
 
-              <Button className="w-full bg-primary hover:bg-primary/90 text-white text-lg h-14 font-bold">
-                Attempt Challenge
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
+              <Link href="/test-results" className="block">
+                <Button className="w-full bg-primary hover:bg-primary/90 text-white text-lg h-14 font-bold">
+                  Attempt Challenge
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
             </div>
           </div>
 
