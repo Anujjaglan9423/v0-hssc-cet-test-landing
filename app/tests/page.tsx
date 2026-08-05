@@ -13,6 +13,14 @@ interface Test {
   duration: number
   difficulty: string
   test_type: string
+  exams?: {
+    name: string
+    slug: string
+    exam_categories?: {
+      name: string
+      slug: string
+    }
+  }
 }
 
 export default function TestsPage() {
@@ -35,6 +43,16 @@ export default function TestsPage() {
 
     fetchTests()
   }, [])
+
+  // Group tests by exam category
+  const testsByCategory = tests.reduce((acc, test) => {
+    const categoryName = test.exams?.exam_categories?.name || 'Other'
+    if (!acc[categoryName]) {
+      acc[categoryName] = []
+    }
+    acc[categoryName].push(test)
+    return acc
+  }, {} as Record<string, Test[]>)
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty?.toLowerCase()) {
@@ -79,8 +97,12 @@ export default function TestsPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tests.map((test) => (
+          <div className="space-y-12">
+            {Object.entries(testsByCategory).map(([category, categoryTests]) => (
+              <div key={category}>
+                <h2 className="text-2xl font-bold mb-6 text-foreground">{category}</h2>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {categoryTests.map((test) => (
               <div
                 key={test.id}
                 className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-all hover:border-primary/50"
@@ -133,6 +155,9 @@ export default function TestsPage() {
                     View Leaderboard
                   </Button>
                 </Link>
+              </div>
+            ))}
+                </div>
               </div>
             ))}
           </div>

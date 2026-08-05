@@ -43,21 +43,21 @@ export default function TestPage() {
   useEffect(() => {
     const fetchTestData = async () => {
       try {
-        // Fetch test
-        const testRes = await fetch('/api/tests')
+        // Fetch test details
+        const testRes = await fetch(`/api/tests/${testId}`)
         const testData = await testRes.json()
-        const foundTest = testData.tests?.find((t: Test) => t.id === testId)
-        setTest(foundTest)
+        console.log('[v0] Test data:', testData)
+        
+        if (testData.test) {
+          setTest(testData.test)
+          setTimeRemaining(testData.test.duration * 60)
+        }
 
-        // Fetch questions
+        // Fetch questions for this test
         const questionsRes = await fetch(`/api/tests/${testId}/questions`)
         const questionsData = await questionsRes.json()
+        console.log('[v0] Questions data:', questionsData)
         setQuestions(questionsData.questions || [])
-
-        // Set timer
-        if (foundTest) {
-          setTimeRemaining(foundTest.duration * 60)
-        }
       } catch (error) {
         console.error('[v0] Error fetching test:', error)
       } finally {
@@ -65,7 +65,9 @@ export default function TestPage() {
       }
     }
 
-    fetchTestData()
+    if (testId) {
+      fetchTestData()
+    }
   }, [testId])
 
   // Timer countdown
