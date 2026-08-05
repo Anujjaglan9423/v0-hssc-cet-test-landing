@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Clock, BookOpen, TrendingUp, ArrowRight } from 'lucide-react'
+import { Clock, BookOpen, TrendingUp, ArrowRight, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 
 interface Test {
@@ -26,6 +26,7 @@ interface Test {
 export default function TestsPage() {
   const [tests, setTests] = useState<Test[]>([])
   const [loading, setLoading] = useState(true)
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
     const fetchTests = async () => {
@@ -97,12 +98,35 @@ export default function TestsPage() {
             </Link>
           </div>
         ) : (
-          <div className="space-y-12">
+          <div className="space-y-4">
             {Object.entries(testsByCategory).map(([category, categoryTests]) => (
-              <div key={category}>
-                <h2 className="text-2xl font-bold mb-6 text-foreground">{category}</h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {categoryTests.map((test) => (
+              <div key={category} className="border border-border rounded-lg bg-card overflow-hidden">
+                <button
+                  onClick={() =>
+                    setExpandedCategories((prev) => ({
+                      ...prev,
+                      [category]: !prev[category],
+                    }))
+                  }
+                  className="w-full px-6 py-4 hover:bg-muted/50 transition-colors flex items-center justify-between"
+                >
+                  <h2 className="text-xl font-bold text-foreground text-left">{category}</h2>
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
+                      {categoryTests.length} tests
+                    </span>
+                    <ChevronDown
+                      className={`w-5 h-5 text-muted-foreground transition-transform ${
+                        expandedCategories[category] ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </div>
+                </button>
+                
+                {expandedCategories[category] && (
+                  <div className="px-6 py-4 border-t border-border bg-muted/30">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {categoryTests.map((test) => (
               <div
                 key={test.id}
                 className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-all hover:border-primary/50"
@@ -157,7 +181,9 @@ export default function TestsPage() {
                 </Link>
               </div>
             ))}
-                </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
