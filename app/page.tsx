@@ -1,13 +1,12 @@
 import Navbar from "@/components/navbar"
-import HeroSection from "@/components/hero-section"
-import StatsSection from "@/components/stats-section"
-import FeaturesSection from "@/components/features-section"
-import ExamsSection from "@/components/exams-section"
-import DailyQuizSection from "@/components/daily-quiz-section"
-import TestSeriesSection from "@/components/test-series-section"
+import ExamPrepHero from "@/components/exam-prep-hero"
+import ExamTabsSection from "@/components/exam-tabs-section"
+import DailyChallengeWidget from "@/components/daily-challenge-widget"
+import LearningPathSection from "@/components/learning-path-section"
+import PerformancePreviewSection from "@/components/performance-preview-section"
+import TopicMasteryCards from "@/components/topic-mastery-cards"
+import MockTestDashboard from "@/components/mock-test-dashboard"
 import TestimonialsSection from "@/components/testimonials-section"
-import PricingSection from "@/components/pricing-section"
-import FAQSection from "@/components/faq-section"
 import CTASection from "@/components/cta-section"
 import Footer from "@/components/footer"
 
@@ -15,15 +14,14 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
-      <HeroSection />
-      <StatsSection />
-      <FeaturesSection />
-      <ExamsSection />
-      <DailyQuizSection />
-      <TestSeriesSection />
+      <ExamPrepHero />
+      <ExamTabsSection />
+      <DailyChallengeWidget />
+      <MockTestDashboard />
+      <LearningPathSection />
+      <PerformancePreviewSection />
+      <TopicMasteryCards />
       <TestimonialsSection />
-      <PricingSection />
-      <FAQSection />
       <CTASection />
       <Footer />
     </main>
