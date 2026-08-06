@@ -2,203 +2,33 @@
 
 import Link from "next/link"
 import useSWR from "swr"
-import {
-  Activity,
-  ArrowRight,
-  BrainCircuit,
-  CalendarDays,
-  CheckCircle2,
-  ChevronRight,
-  CircleAlert,
-  Clock3,
-  FileCheck2,
-  Lightbulb,
-  RefreshCw,
-  Sparkles,
-  Target,
-  TrendingDown,
-  TrendingUp,
-} from "lucide-react"
+import { ArrowRight, BrainCircuit, CalendarDays, CheckCircle2, ChevronDown, CircleAlert, Clock3, FileCheck2, Lightbulb, RefreshCw, Sparkles, Target, Timer, XCircle } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Skeleton } from "@/components/ui/skeleton"
 
-interface Attempt {
-  id: string
-  testId: string
-  title: string
-  testType: string
-  subject: string
-  topic: string
-  score: number
-  percentage: number
-  totalQuestions: number
-  correct: number
-  wrong: number
-  unanswered: number
-  timeTakenSeconds: number
-  completedAt: string
-}
+type Priority = "high" | "medium" | "low"
+interface QuestionInsight { questionNumber: number; questionId: string; topic: string; selectedAnswer: string | null; correctAnswer: string; status: "correct" | "incorrect" | "unanswered"; timeSpentSeconds: number; explanation: string; coaching: string }
+interface TopicInsight { topic: string; total: number; correct: number; wrong: number; unanswered: number; accuracy: number; priority: Priority }
+interface Attempt { testId: string; resultId: string; title: string; subject: string; topic: string; completedAt: string; percentage: number; score: number; totalQuestions: number; correct: number; wrong: number; unanswered: number; timeTakenSeconds: number; averageTimePerQuestion: number; paceLabel: "fast" | "balanced" | "slow" | "not enough data"; negativeMarking: boolean; scoreImpact: string; topicBreakdown: TopicInsight[]; mistakePatterns: string[]; strengths: string[]; recommendations: string[]; questions: QuestionInsight[] }
+interface Report { overallSummary: string; readinessScore: number; trend: "improving" | "steady" | "needs attention"; strengths: string[]; focusAreas: string[]; studyPlan: { title: string; action: string; duration: string }[]; attempts: Attempt[] }
 
-interface Report {
-  overallSummary: string
-  readinessScore: number
-  trend: "improving" | "steady" | "needs attention"
-  strengths: string[]
-  focusAreas: string[]
-  studyPlan: { title: string; action: string; duration: string }[]
-  testInsights: { testId: string; diagnosis: string; recommendation: string; priority: "high" | "medium" | "low" }[]
-  attempts?: Attempt[]
-}
+async function fetchInsights(url: string): Promise<Report> { const response = await fetch(url, { cache: "no-store" }); const payload = await response.json(); if (!response.ok) throw new Error(payload.error || "Unable to load insights"); return payload }
+function formatDate(value: string) { return new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value)) }
+function duration(seconds: number) { if (!seconds) return "Not recorded"; return `${Math.floor(seconds / 60)}m ${seconds % 60}s` }
+function priorityLabel(priority: Priority) { return priority === "high" ? "Needs attention" : priority === "medium" ? "Review soon" : "Strength" }
+function priorityVariant(priority: Priority) { return priority === "high" ? "destructive" as const : priority === "medium" ? "secondary" as const : "outline" as const }
 
-async function fetchInsights(url: string): Promise<Report> {
-  const response = await fetch(url, { cache: "no-store" })
-  const payload = await response.json()
-  if (!response.ok) throw new Error(payload.error || "Unable to load insights")
-  return payload
-}
+function ReportSkeleton() { return <div className="flex flex-col gap-6"><Skeleton className="h-32 w-full rounded-2xl" /><div className="grid gap-4 sm:grid-cols-3">{[1, 2, 3].map((item) => <Skeleton key={item} className="h-28 rounded-xl" />)}</div><Skeleton className="h-96 rounded-2xl" /></div> }
 
-function formatDate(value: string) {
-  return new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value))
-}
+function Metric({ label, value, detail, icon: Icon }: { label: string; value: string; detail: string; icon: typeof Target }) { return <Card><CardContent className="flex items-center gap-3 p-4"><div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"><Icon className="size-5" aria-hidden="true" /></div><div className="min-w-0"><p className="text-xs text-muted-foreground">{label}</p><p className="text-xl font-bold">{value}</p><p className="truncate text-xs text-muted-foreground">{detail}</p></div></CardContent></Card> }
 
-function formatDuration(seconds: number) {
-  if (!seconds) return "—"
-  const minutes = Math.floor(seconds / 60)
-  return `${minutes} min`
-}
+function TopicTable({ topics }: { topics: TopicInsight[] }) { return <div className="flex flex-col gap-3">{topics.map((topic) => <div key={topic.topic} className="rounded-xl border border-border p-3"><div className="flex flex-wrap items-center justify-between gap-2"><div className="flex items-center gap-2"><span className="font-medium">{topic.topic}</span><Badge variant={priorityVariant(topic.priority)}>{priorityLabel(topic.priority)}</Badge></div><span className="text-sm font-bold">{topic.accuracy}%</span></div><Progress value={topic.accuracy} className="mt-2" aria-label={`${topic.topic} accuracy ${topic.accuracy}%`} /><div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground"><span>{topic.correct} correct</span><span>{topic.wrong} wrong</span><span>{topic.unanswered} unanswered</span><span>{topic.total} questions</span></div></div>)}</div> }
 
-function ReportSkeleton() {
-  return (
-    <div className="flex flex-col gap-6">
-      <Skeleton className="h-32 w-full rounded-2xl" />
-      <div className="grid gap-4 sm:grid-cols-3">
-        {[1, 2, 3].map((item) => <Skeleton key={item} className="h-28 rounded-xl" />)}
-      </div>
-      <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-        <Skeleton className="h-64 rounded-2xl" />
-        <Skeleton className="h-64 rounded-2xl" />
-      </div>
-    </div>
-  )
-}
+function QuestionReview({ questions }: { questions: QuestionInsight[] }) { if (!questions.length) return <p className="text-sm text-muted-foreground">Question-level answer data is not available for this attempt. The topic and score analysis above is still available.</p>; return <div className="flex flex-col gap-2">{questions.map((question) => <details key={question.questionId} className="group rounded-xl border border-border"><summary className="flex cursor-pointer list-none items-center gap-3 p-3"><span className={`flex size-7 shrink-0 items-center justify-center rounded-full ${question.status === "correct" ? "bg-primary/10 text-primary" : question.status === "incorrect" ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground"}`}>{question.status === "correct" ? <CheckCircle2 className="size-4" /> : question.status === "incorrect" ? <XCircle className="size-4" /> : <CircleAlert className="size-4" />}</span><span className="flex-1 text-sm font-medium">Question {question.questionNumber} · {question.topic}</span><span className="text-xs text-muted-foreground">{question.status}</span><ChevronDown className="size-4 transition-transform group-open:rotate-180" /></summary><div className="flex flex-col gap-3 border-t border-border p-4 text-sm"><div className="grid gap-2 sm:grid-cols-3"><span>Your answer: <strong>{question.selectedAnswer?.toUpperCase() ?? "Not answered"}</strong></span><span>Correct answer: <strong>{question.correctAnswer.toUpperCase()}</strong></span><span>Time: <strong>{duration(question.timeSpentSeconds)}</strong></span></div><p className="leading-6 text-muted-foreground"><strong className="text-foreground">Why this matters:</strong> {question.explanation}</p><p className="rounded-lg bg-primary/5 p-3 leading-6"><strong>AI coaching:</strong> {question.coaching}</p></div></details>)}</div> }
 
-function PriorityBadge({ priority }: { priority: "high" | "medium" | "low" }) {
-  const label = priority === "high" ? "High priority" : priority === "medium" ? "Medium priority" : "On track"
-  return <Badge variant={priority === "high" ? "destructive" : priority === "medium" ? "secondary" : "outline"}>{label}</Badge>
-}
+function TestReport({ attempt }: { attempt: Attempt }) { return <Card className="overflow-hidden"><CardHeader className="border-b border-border bg-muted/20"><div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between"><div className="flex flex-col gap-2"><div className="flex flex-wrap items-center gap-2"><Badge variant="secondary">Individual test report</Badge><Badge variant={attempt.percentage < 60 ? "destructive" : attempt.percentage < 80 ? "secondary" : "outline"}>{Math.round(attempt.percentage)}%</Badge></div><CardTitle className="text-xl">{attempt.title}</CardTitle><CardDescription className="flex flex-wrap items-center gap-x-3 gap-y-1"><span>{attempt.subject} · {attempt.topic}</span><span className="flex items-center gap-1"><CalendarDays className="size-3.5" />{formatDate(attempt.completedAt)}</span></CardDescription></div><Button asChild variant="outline" size="sm"><Link href={`/student/results/${attempt.resultId}`}>Open result <ArrowRight data-icon="inline-end" /></Link></Button></div></CardHeader><CardContent className="flex flex-col gap-6 p-5"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><Metric label="Accuracy" value={`${Math.round(attempt.percentage)}%`} detail={`${attempt.correct}/${attempt.totalQuestions} correct`} icon={Target} /><Metric label="Mistakes" value={String(attempt.wrong)} detail={`${attempt.unanswered} unanswered`} icon={XCircle} /><Metric label="Pace" value={attempt.paceLabel} detail={`${attempt.averageTimePerQuestion || "—"} sec/question`} icon={Timer} /><Metric label="Time" value={duration(attempt.timeTakenSeconds)} detail={attempt.scoreImpact} icon={Clock3} /></div><section className="grid gap-6 lg:grid-cols-2"><div className="flex flex-col gap-3"><div><h4 className="font-semibold">Topic-by-topic diagnosis</h4><p className="text-sm text-muted-foreground">This is where AI goes beyond the normal score: the weakest topic is explicitly identified.</p></div><TopicTable topics={attempt.topicBreakdown} /></div><div className="flex flex-col gap-3"><div><h4 className="font-semibold">Mistake pattern analysis</h4><p className="text-sm text-muted-foreground">Interpretation of what your result means and what to do next.</p></div>{attempt.mistakePatterns.map((pattern) => <div key={pattern} className="flex gap-2 rounded-xl bg-muted/40 p-3 text-sm leading-6"><Lightbulb className="mt-1 size-4 shrink-0 text-primary" />{pattern}</div>)}<div className="rounded-xl border border-primary/20 bg-primary/5 p-4"><p className="mb-2 text-sm font-semibold">Recommended next actions</p><ul className="flex flex-col gap-2 text-sm leading-6">{attempt.recommendations.map((recommendation) => <li key={recommendation} className="flex gap-2"><ArrowRight className="mt-1 size-4 shrink-0 text-primary" />{recommendation}</li>)}</ul></div></div></section><details className="group"><summary className="flex cursor-pointer list-none items-center justify-between rounded-xl border border-border p-4 font-semibold">Question-by-question coaching <ChevronDown className="size-4 transition-transform group-open:rotate-180" /></summary><div className="pt-3"><QuestionReview questions={attempt.questions} /></div></details></CardContent></Card> }
 
-export default function StudentInsightsPage() {
-  const { data, error, isLoading, isValidating, mutate } = useSWR<Report>("/api/student/insights", fetchInsights, {
-    revalidateOnFocus: false,
-  })
-
-  const attempts = data?.attempts ?? []
-  const average = attempts.length ? Math.round(attempts.reduce((sum, attempt) => sum + attempt.percentage, 0) / attempts.length) : 0
-  const trendIcon = data?.trend === "improving" ? TrendingUp : data?.trend === "needs attention" ? TrendingDown : Activity
-  const TrendIcon = trendIcon
-  const insightById = new Map((data?.testInsights ?? []).map((insight) => [insight.testId, insight]))
-
-  if (isLoading) return <ReportSkeleton />
-
-  if (error) {
-    return (
-      <Card className="mx-auto flex max-w-xl flex-col items-center gap-4 p-8 text-center">
-        <CircleAlert className="size-10 text-destructive" aria-hidden="true" />
-        <div className="flex flex-col gap-1">
-          <CardTitle>Insights are temporarily unavailable</CardTitle>
-          <CardDescription>{error.message}</CardDescription>
-        </div>
-        <Button onClick={() => void mutate()} disabled={isValidating}>
-          <RefreshCw data-icon="inline-start" className={isValidating ? "animate-spin" : ""} /> Try again
-        </Button>
-      </Card>
-    )
-  }
-
-  if (!data || attempts.length === 0) {
-    return (
-      <div className="flex flex-col gap-6">
-        <header className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 text-primary"><Sparkles className="size-5" aria-hidden="true" /><span className="text-sm font-semibold">AI-powered coaching</span></div>
-          <h1 className="text-balance text-3xl font-bold tracking-tight text-foreground">AI Study Insights</h1>
-          <p className="max-w-2xl text-pretty text-muted-foreground">Your test history becomes a focused study plan. Take a test to generate your first report.</p>
-        </header>
-        <Card className="border-primary/20 bg-primary/5">
-          <CardContent className="flex flex-col items-center gap-5 p-8 text-center sm:p-12">
-            <div className="flex size-16 items-center justify-center rounded-2xl bg-primary/10 text-primary"><BrainCircuit className="size-8" aria-hidden="true" /></div>
-            <div className="flex flex-col gap-2"><h2 className="text-xl font-semibold">Your learning report starts here</h2><p className="max-w-md text-sm leading-6 text-muted-foreground">Complete any mock, subject, or topic test and we&apos;ll surface your strengths, weak areas, and the next best study action.</p></div>
-            <Button asChild><Link href="/student/tests">Browse test series <ArrowRight data-icon="inline-end" /></Link></Button>
-          </CardContent>
-        </Card>
-        <PreviewBlock />
-      </div>
-    )
-  }
-
-  return (
-    <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 text-primary"><Sparkles className="size-5" aria-hidden="true" /><span className="text-sm font-semibold">Personalized for your preparation</span></div>
-          <h1 className="text-balance text-3xl font-bold tracking-tight text-foreground">AI Study Insights</h1>
-          <p className="max-w-2xl text-pretty text-muted-foreground">A clear read on every attempt, so you always know what to revise next.</p>
-        </div>
-        <Button variant="outline" onClick={() => void mutate()} disabled={isValidating} aria-label="Refresh AI study insights">
-          <RefreshCw data-icon="inline-start" className={isValidating ? "animate-spin" : ""} /> Refresh report
-        </Button>
-      </header>
-
-      <Card className="overflow-hidden border-primary/20 bg-primary/5">
-        <CardContent className="flex flex-col gap-6 p-5 sm:flex-row sm:items-center sm:p-6">
-          <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground"><BrainCircuit className="size-7" aria-hidden="true" /></div>
-          <div className="flex flex-1 flex-col gap-2"><div className="flex flex-wrap items-center gap-2"><Badge variant="secondary">Latest report</Badge><span className="text-xs text-muted-foreground">Based on {attempts.length} completed {attempts.length === 1 ? "test" : "tests"}</span></div><p className="max-w-3xl text-pretty text-sm leading-6 text-foreground">{data.overallSummary}</p></div>
-          <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground"><TrendIcon className="size-4 text-primary" aria-hidden="true" /> {data.trend}</div>
-        </CardContent>
-      </Card>
-
-      <div className="grid gap-4 sm:grid-cols-3">
-        <MetricCard icon={Target} label="Readiness score" value={`${Math.round(data.readinessScore)}%`} detail="AI estimate from your history" />
-        <MetricCard icon={FileCheck2} label="Tests analyzed" value={String(attempts.length)} detail="Every completed attempt" />
-        <MetricCard icon={Activity} label="Average score" value={`${average}%`} detail="Across your test history" />
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-        <Card>
-          <CardHeader><CardTitle className="flex items-center gap-2"><CheckCircle2 className="size-5 text-primary" aria-hidden="true" /> What you&apos;re doing well</CardTitle><CardDescription>Patterns your recent attempts show as strengths.</CardDescription></CardHeader>
-          <CardContent className="flex flex-col gap-3">{data.strengths.map((strength) => <div key={strength} className="flex items-start gap-3 rounded-xl bg-primary/5 p-3 text-sm leading-6"><CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" /><span>{strength}</span></div>)}</CardContent>
-        </Card>
-        <Card>
-          <CardHeader><CardTitle className="flex items-center gap-2"><Target className="size-5 text-primary" aria-hidden="true" /> Focus next</CardTitle><CardDescription>High-value areas to strengthen now.</CardDescription></CardHeader>
-          <CardContent className="flex flex-col gap-3">{data.focusAreas.map((area) => <div key={area} className="flex items-start gap-3 rounded-xl border border-border p-3 text-sm leading-6"><ChevronRight className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" /><span>{area}</span></div>)}</CardContent>
-        </Card>
-      </div>
-
-      <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2"><Lightbulb className="size-5 text-primary" aria-hidden="true" /> Your next study plan</CardTitle><CardDescription>Simple actions generated from your performance patterns.</CardDescription></CardHeader>
-        <CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{data.studyPlan.map((step, index) => <div key={`${step.title}-${index}`} className="flex gap-3 rounded-xl border border-border p-4"><div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-sm font-bold text-primary">{index + 1}</div><div className="flex min-w-0 flex-col gap-1"><div className="flex items-center justify-between gap-2"><p className="font-semibold text-foreground">{step.title}</p><Badge variant="outline">{step.duration}</Badge></div><p className="text-sm leading-6 text-muted-foreground">{step.action}</p></div></div>)}</CardContent>
-      </Card>
-
-      <PreviewBlock />
-
-      <section className="flex flex-col gap-4" aria-labelledby="test-intelligence-heading">
-        <div><h2 id="test-intelligence-heading" className="text-xl font-semibold tracking-tight">Test-by-test intelligence</h2><p className="text-sm text-muted-foreground">A useful takeaway from every completed attempt.</p></div>
-        <div className="flex flex-col gap-4">{attempts.map((attempt) => { const insight = insightById.get(attempt.testId) ?? { diagnosis: `You scored ${Math.round(attempt.percentage)}% on this attempt.`, recommendation: "Review missed questions and retry after focused practice.", priority: "medium" as const }; return <Card key={attempt.id} className="overflow-hidden"><CardContent className="flex flex-col gap-5 p-5 lg:flex-row lg:items-start lg:justify-between"><div className="flex min-w-0 flex-1 flex-col gap-4"><div className="flex flex-wrap items-start justify-between gap-3"><div className="flex min-w-0 flex-col gap-1"><h3 className="truncate font-semibold text-foreground">{attempt.title}</h3><div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground"><span className="flex items-center gap-1"><CalendarDays className="size-3.5" aria-hidden="true" /> {formatDate(attempt.completedAt)}</span><span className="flex items-center gap-1"><Clock3 className="size-3.5" aria-hidden="true" /> {formatDuration(attempt.timeTakenSeconds)}</span><span>{attempt.subject} · {attempt.topic}</span></div></div><PriorityBadge priority={insight.priority} /></div><div className="flex flex-col gap-2"><p className="text-sm leading-6 text-foreground">{insight.diagnosis}</p><p className="flex items-start gap-2 text-sm leading-6 text-muted-foreground"><ArrowRight className="mt-1 size-4 shrink-0 text-primary" aria-hidden="true" /> {insight.recommendation}</p></div></div><div className="flex w-full flex-col gap-2 lg:w-40 lg:items-end"><div className="flex items-center justify-between text-sm lg:w-full"><span className="text-muted-foreground">Score</span><span className="font-bold text-foreground">{Math.round(attempt.percentage)}%</span></div><Progress value={attempt.percentage} aria-label={`${attempt.title} score ${Math.round(attempt.percentage)} percent`} /><p className="text-xs text-muted-foreground">{attempt.correct}/{attempt.totalQuestions} correct</p></div></CardContent></Card> })}</div>
-      </section>
-    </div>
-  )
-}
-
-function MetricCard({ icon: Icon, label, value, detail }: { icon: typeof Target; label: string; value: string; detail: string }) {
-  return <Card><CardContent className="flex items-center gap-4 p-5"><div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"><Icon className="size-5" aria-hidden="true" /></div><div className="min-w-0"><p className="text-sm text-muted-foreground">{label}</p><p className="text-2xl font-bold tracking-tight text-foreground">{value}</p><p className="truncate text-xs text-muted-foreground">{detail}</p></div></CardContent></Card>
-}
-
-function PreviewBlock() {
-  return <Card className="border-border/70 bg-muted/30"><CardHeader className="pb-3"><CardTitle className="text-base">Why this report matters</CardTitle><CardDescription>Turn raw scores into a smarter preparation loop.</CardDescription></CardHeader><CardContent className="grid gap-3 md:grid-cols-3"><PreviewItem icon={FileCheck2} title="Every test analyzed" text="See the story across full, subject, and topic tests." /><PreviewItem icon={Target} title="Weak areas surfaced" text="Find the concepts that deserve your next revision block." /><PreviewItem icon={ArrowRight} title="Next study action" text="Leave each report with a practical step, not just a score." /></CardContent></Card>
-}
-
-function PreviewItem({ icon: Icon, title, text }: { icon: typeof FileCheck2; title: string; text: string }) {
-  return <div className="flex gap-3 rounded-xl bg-background p-3"><Icon className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" /><div className="flex flex-col gap-1"><p className="text-sm font-semibold">{title}</p><p className="text-xs leading-5 text-muted-foreground">{text}</p></div></div>
-}
+export default function StudentInsightsPage() { const { data, error, isLoading, isValidating, mutate } = useSWR<Report>("/api/student/insights", fetchInsights, { revalidateOnFocus: false }); if (isLoading) return <ReportSkeleton />; if (error) return <Card className="mx-auto flex max-w-xl flex-col items-center gap-4 p-8 text-center"><CircleAlert className="size-10 text-destructive" /><CardTitle>Detailed insights are unavailable</CardTitle><CardDescription>{error.message}</CardDescription><Button onClick={() => void mutate()} disabled={isValidating}><RefreshCw data-icon="inline-start" className={isValidating ? "animate-spin" : ""} />Try again</Button></Card>; const attempts = data?.attempts ?? []; if (!data || !attempts.length) return <div className="flex flex-col gap-6"><header className="flex flex-col gap-2"><div className="flex items-center gap-2 text-primary"><Sparkles className="size-5" /><span className="text-sm font-semibold">AI-powered diagnostic coaching</span></div><h1 className="text-3xl font-bold tracking-tight">AI Study Insights</h1><p className="max-w-2xl leading-6 text-muted-foreground">Complete a test to unlock topic weaknesses, question-level coaching, pacing analysis, and a separate report for every attempt.</p></header><Card className="border-primary/20 bg-primary/5"><CardContent className="flex flex-col items-center gap-5 p-10 text-center"><BrainCircuit className="size-12 text-primary" /><div className="flex flex-col gap-2"><h2 className="text-xl font-semibold">Your first diagnostic report starts here</h2><p className="max-w-md text-sm leading-6 text-muted-foreground">This report does more than repeat your score. It explains which topic is poor, why marks were lost, and what to practise next.</p></div><Button asChild><Link href="/student/tests">Browse test series <ArrowRight data-icon="inline-end" /></Link></Button></CardContent></Card></div>; const average = Math.round(attempts.reduce((sum, attempt) => sum + attempt.percentage, 0) / attempts.length); return <div className="flex flex-col gap-6"><header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div className="flex flex-col gap-2"><div className="flex items-center gap-2 text-primary"><Sparkles className="size-5" /><span className="text-sm font-semibold">Evidence-based AI coaching</span></div><h1 className="text-3xl font-bold tracking-tight">Detailed AI Study Insights</h1><p className="max-w-3xl leading-6 text-muted-foreground">Separate, full-detail reports for every test: weak topics, mistake patterns, pace, negative-marking impact, and question-by-question coaching.</p></div><Button variant="outline" onClick={() => void mutate()} disabled={isValidating}><RefreshCw data-icon="inline-start" className={isValidating ? "animate-spin" : ""} />Refresh reports</Button></header><Card className="border-primary/20 bg-primary/5"><CardContent className="flex flex-col gap-3 p-5"><div className="flex items-center gap-2"><BrainCircuit className="size-5 text-primary" /><Badge variant="secondary">Across all tests</Badge></div><p className="text-sm leading-6">{data.overallSummary}</p></CardContent></Card><div className="grid gap-4 sm:grid-cols-3"><Metric label="Tests with reports" value={String(attempts.length)} detail="Every completed attempt" icon={FileCheck2} /><Metric label="Average score" value={`${average}%`} detail="Across separate reports" icon={Target} /><Metric label="Weak topics found" value={String(new Set(attempts.flatMap((attempt) => attempt.topicBreakdown.filter((topic) => topic.priority !== "low").map((topic) => topic.topic))).size)} detail="Prioritized for revision" icon={BrainCircuit} /></div><section className="flex flex-col gap-4"><div><h2 className="text-xl font-semibold">Every test, separately analyzed</h2><p className="text-sm text-muted-foreground">Open each section to understand exactly what happened in that attempt.</p></div>{attempts.map((attempt) => <TestReport key={attempt.resultId} attempt={attempt} />)}</section><Card><CardHeader><CardTitle className="flex items-center gap-2"><Lightbulb className="size-5 text-primary" />Cross-test study plan</CardTitle><CardDescription>Actions based on recurring weaknesses, not just your average.</CardDescription></CardHeader><CardContent className="grid gap-3 md:grid-cols-3">{data.studyPlan.map((step, index) => <div key={`${step.title}-${index}`} className="rounded-xl border border-border p-4"><div className="mb-2 flex items-center justify-between"><span className="flex size-7 items-center justify-center rounded-lg bg-primary/10 text-sm font-bold text-primary">{index + 1}</span><Badge variant="outline">{step.duration}</Badge></div><p className="font-semibold">{step.title}</p><p className="mt-1 text-sm leading-6 text-muted-foreground">{step.action}</p></div>)}</CardContent></Card></div> }
