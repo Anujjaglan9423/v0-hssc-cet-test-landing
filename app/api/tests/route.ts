@@ -30,7 +30,7 @@ export async function GET() {
         exam_id,
         exams(name, slug, category_id, exam_categories(name, slug))
       `)
-      .neq('test_type', 'full_test')
+      .neq('test_type', 'full')
       .eq('is_active', true)
       .order('created_at', { ascending: false })
 
