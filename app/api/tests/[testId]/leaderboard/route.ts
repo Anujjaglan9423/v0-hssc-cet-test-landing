@@ -21,42 +21,70 @@ export async function GET(
 
     const supabase = createClient(supabaseUrl, supabaseKey)
 
+    console.log('[v0] Fetching leaderboard for test:', testId)
+
+    // Fetch all test results for this test, ordered by score
     const { data: results, error } = await supabase
       .from('test_results')
       .select('*')
       .eq('test_id', testId)
-      .order('score', { ascending: false })
+      .order('percentage', { ascending: false })
       .order('time_taken', { ascending: true })
       .limit(100)
 
     if (error) {
-      console.error('[v0] Error fetching leaderboard:', error)
+      console.error('[v0] Error fetching leaderboard results:', error)
       return NextResponse.json(
         { error: 'Failed to fetch leaderboard' },
         { status: 500 }
       )
     }
 
-    // Join with contacts to get user names
-    const enrichedResults = await Promise.all(
-      results.map(async (result) => {
-        // Get the latest contact that matches this result timing
-        const { data: contact } = await supabase
-          .from('contacts')
-          .select('first_name, email, phone')
-          .eq('email', result.user_id || 'anonymous')
-          .order('created_at', { ascending: false })
-          .limit(1)
+    console.log('[v0] Found test results:', results?.length || 0)
 
-        return {
-          ...result,
-          name: contact?.[0]?.first_name || 'Anonymous',
-          email: contact?.[0]?.email || '',
-          phone: contact?.[0]?.phone || ''
+    // Get contacts that match by email (user_id is stored as email)
+    const enrichedResults = await Promise.all(
+      (results || []).map(async (result) => {
+        try {
+          // Match contact by email stored in user_id field
+          const { data: contacts } = await supabase
+            .from('contacts')
+            .select('first_name, email, phone')
+            .eq('email', result.user_id)
+            .eq('status', 'completed')
+            .limit(1)
+
+          const contact = contacts?.[0]
+
+          console.log('[v0] Matched contact for email:', result.user_id, 'Found:', !!contact)
+
+          return {
+            id: result.id,
+            score: result.score,
+            percentage: result.percentage,
+            time_taken: result.time_taken,
+            created_at: result.created_at,
+            name: contact?.first_name || 'Anonymous',
+            email: contact?.email || result.user_id || 'N/A',
+            phone: contact?.phone || 'N/A'
+          }
+        } catch (err) {
+          console.error('[v0] Error enriching result:', err)
+          return {
+            id: result.id,
+            score: result.score,
+            percentage: result.percentage,
+            time_taken: result.time_taken,
+            created_at: result.created_at,
+            name: 'Anonymous',
+            email: result.user_id || 'N/A',
+            phone: 'N/A'
+          }
         }
       })
     )
 
+    console.log('[v0] Enriched leaderboard results:', enrichedResults.length)
     return NextResponse.json({ leaderboard: enrichedResults })
   } catch (error) {
     console.error('[v0] API Error:', error)

@@ -26,8 +26,10 @@ export async function POST(request: NextRequest) {
 
     const supabase = createClient(supabaseUrl, serviceRoleKey)
 
-    // Save user info to contacts table
-    const { error: contactError } = await supabase
+    console.log('[v0] Saving test result for user:', name, 'Email:', email)
+
+    // Save user info to contacts table first
+    const { data: contactData, error: contactError } = await supabase
       .from('contacts')
       .insert([
         {
@@ -39,10 +41,13 @@ export async function POST(request: NextRequest) {
           status: 'completed'
         }
       ])
+      .select()
 
     if (contactError) {
       console.error('[v0] Contact error:', contactError)
     }
+
+    console.log('[v0] Contact saved:', contactData)
 
     // Save test result to test_results table
     const { data: resultData, error: resultError } = await supabase
@@ -50,7 +55,7 @@ export async function POST(request: NextRequest) {
       .insert([
         {
           test_id: testId,
-          user_id: null,
+          user_id: email, // Store email as user_id for matching
           score,
           percentage,
           time_taken: timeTaken,
@@ -65,10 +70,12 @@ export async function POST(request: NextRequest) {
     if (resultError) {
       console.error('[v0] Result error:', resultError)
       return NextResponse.json(
-        { error: 'Failed to save result' },
+        { error: 'Failed to save result: ' + (resultError.message || 'Unknown error') },
         { status: 500 }
       )
     }
+
+    console.log('[v0] Result saved:', resultData)
 
     return NextResponse.json({
       success: true,

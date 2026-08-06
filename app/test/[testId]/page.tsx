@@ -107,10 +107,6 @@ export default function TestPage() {
     }
   }
 
-  const handleSubmitTest = () => {
-    setShowUserForm(true)
-  }
-
   const calculateScore = () => {
     let correct = 0
     questions.forEach((q) => {
@@ -121,12 +117,26 @@ export default function TestPage() {
     return correct
   }
 
+  const handleSubmitTest = () => {
+    console.log('[v0] Submit test clicked, showing results and form')
+    setShowResults(true)
+    setShowUserForm(true)
+  }
+
   const handleSubmitResult = async (e: React.FormEvent) => {
     e.preventDefault()
+    console.log('[v0] Form submitted with user info:', userInfo)
     
+    if (!userInfo.name || !userInfo.email || !userInfo.phone) {
+      alert('Please fill all fields')
+      return
+    }
+
     const correctAnswers = calculateScore()
     const percentage = (correctAnswers / questions.length) * 100
     const timeTaken = test ? (test.duration * 60 - timeRemaining) : 0
+
+    console.log('[v0] Submitting result:', { correctAnswers, percentage, timeTaken })
 
     try {
       const response = await fetch('/api/tests/submit', {
@@ -145,15 +155,19 @@ export default function TestPage() {
         })
       })
 
+      console.log('[v0] Submit response status:', response.status)
+      const responseData = await response.json()
+      console.log('[v0] Submit response data:', responseData)
+
       if (response.ok) {
-        alert('Your result has been saved to the leaderboard!')
+        console.log('[v0] Redirecting to leaderboard')
         router.push(`/test/${testId}/leaderboard`)
       } else {
-        alert('Failed to save result. Please try again.')
+        alert('Failed to save result: ' + (responseData.error || 'Unknown error'))
       }
     } catch (error) {
-      console.error('[v0] Error:', error)
-      alert('An error occurred. Please try again.')
+      console.error('[v0] Error submitting result:', error)
+      alert('An error occurred: ' + (error instanceof Error ? error.message : 'Unknown error'))
     }
   }
 
