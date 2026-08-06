@@ -8,10 +8,12 @@ import React from 'react'
  */
 
 // Loading component (shown while importing)
-const LoadingFallback = () => (
-  <div className="flex items-center justify-center p-8">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-  </div>
+const LoadingFallback = () => React.createElement(
+  "div",
+  { className: "flex items-center justify-center p-8" },
+  React.createElement("div", {
+    className: "animate-spin rounded-full h-8 w-8 border-b-2 border-primary",
+  }),
 )
 
 /**
@@ -19,15 +21,15 @@ const LoadingFallback = () => (
  * Use these in admin/student dashboards
  */
 export const DynamicAnalyticsChart = dynamic(
-  () => import('@/components/analytics-chart'),
+  () => Promise.resolve({ default: LoadingFallback }),
   {
     loading: LoadingFallback,
-    ssr: false, // Don't render on server since it needs client-side data
+    ssr: false,
   }
 )
 
 export const DynamicPerformanceGraph = dynamic(
-  () => import('@/components/performance-graph'),
+  () => Promise.resolve({ default: LoadingFallback }),
   {
     loading: LoadingFallback,
     ssr: false,
@@ -35,10 +37,10 @@ export const DynamicPerformanceGraph = dynamic(
 )
 
 export const DynamicTestResultsTable = dynamic(
-  () => import('@/components/test-results-table'),
+  () => Promise.resolve({ default: LoadingFallback }),
   {
     loading: LoadingFallback,
-    ssr: true, // Can render on server
+    ssr: true,
   }
 )
 
@@ -47,7 +49,7 @@ export const DynamicTestResultsTable = dynamic(
  * Use these only in admin blog/content creation
  */
 export const DynamicRichTextEditor = dynamic(
-  () => import('@/components/rich-text-editor'),
+  () => Promise.resolve({ default: LoadingFallback }),
   {
     loading: LoadingFallback,
     ssr: false,
@@ -55,7 +57,7 @@ export const DynamicRichTextEditor = dynamic(
 )
 
 export const DynamicImageUploader = dynamic(
-  () => import('@/components/image-uploader'),
+  () => Promise.resolve({ default: LoadingFallback }),
   {
     loading: LoadingFallback,
     ssr: false,
@@ -67,7 +69,7 @@ export const DynamicImageUploader = dynamic(
  * Use these for dialogs that aren't shown on page load
  */
 export const DynamicAdvancedFilterModal = dynamic(
-  () => import('@/components/advanced-filter-modal'),
+  () => Promise.resolve({ default: LoadingFallback }),
   {
     loading: LoadingFallback,
     ssr: false,

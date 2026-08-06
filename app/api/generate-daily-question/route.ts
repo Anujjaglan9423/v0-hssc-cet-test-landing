@@ -66,7 +66,7 @@ RESPOND WITH ONLY A VALID JSON OBJECT (no markdown, no backticks, no comments):
       model: 'openai/gpt-4o-mini',
       prompt,
       temperature: 0.85,
-      maxTokens: 600,
+      maxOutputTokens: 600,
     })
 
     // Parse the JSON response
@@ -95,7 +95,7 @@ RESPOND WITH ONLY A VALID JSON OBJECT (no markdown, no backticks, no comments):
       // Keep only last 20 questions in memory
       if (recentQuestions.size > 20) {
         const firstItem = recentQuestions.values().next().value
-        recentQuestions.delete(firstItem)
+        if (firstItem) recentQuestions.delete(firstItem)
       }
       
       return Response.json(validated, {

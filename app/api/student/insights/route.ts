@@ -101,7 +101,7 @@ ${JSON.stringify(attempts)}`
       model: "openai/gpt-4o-mini",
       prompt,
       temperature: 0.35,
-      maxTokens: 1800,
+      maxOutputTokens: 1800,
     })
 
     const parsed = insightSchema.parse(JSON.parse(cleanJson(generated.text)))

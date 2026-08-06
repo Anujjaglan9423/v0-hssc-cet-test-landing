@@ -70,7 +70,15 @@ async function getRelatedBlogs(category: string, currentSlug: string): Promise<B
     .neq("slug", currentSlug)
     .limit(3)
 
-  return blogs as Blog[] || []
+  return (blogs || []).map((blog) => ({
+    ...blog,
+    status: "publish",
+    meta_title: blog.title,
+    meta_description: blog.description,
+    focus_keyword: "",
+    tags: [],
+    updated_at: blog.created_at,
+  }))
 }
 
 async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
@@ -85,7 +93,15 @@ async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
     .order("created_at", { ascending: false })
     .limit(4)
 
-  return blogs || []
+  return (blogs || []).map((blog) => ({
+    ...blog,
+    status: "publish",
+    meta_title: blog.title,
+    meta_description: blog.description,
+    focus_keyword: "",
+    tags: [],
+    updated_at: blog.created_at,
+  }))
 }
 
 // Revalidate blog pages every 1 hour - cached at CDN for 1 hour, stale for 24h

@@ -135,7 +135,7 @@ function ManageContent() {
           })
           break
         case "exams":
-          result = await createExam(formData.name, formData.description, formData.categoryId || undefined)
+          result = await createExam(formData.name, formData.categoryId || undefined)
           break
         case "subjects":
           result = await createSubject(formData.name, formData.examId)

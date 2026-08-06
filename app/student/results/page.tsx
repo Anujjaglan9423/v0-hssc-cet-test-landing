@@ -46,10 +46,14 @@ export default function StudentResultsPage() {
   const loadResults = useCallback(async () => {
     setIsLoading(true)
     const data = await getPaginatedStudentResults(currentPage, PAGE_SIZE)
-    setResults(data.results || [])
+    const normalizedResults = (data.results || []).map((result: any) => ({
+      ...result,
+      test: Array.isArray(result.test) ? result.test[0] ?? null : result.test,
+    })) as TestResultItem[]
+    setResults(normalizedResults)
     setTotalPages(data.totalPages)
     setTotalCount(data.totalCount)
-    setAllResults(data.results || [])
+    setAllResults(normalizedResults)
     setIsLoading(false)
   }, [currentPage])
 

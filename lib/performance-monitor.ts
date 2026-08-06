@@ -19,15 +19,15 @@ export async function trackWebVitals() {
   if (typeof window === 'undefined') return
 
   // Dynamic import to avoid blocking page load
-  const { getCLS, getFID, getFCP, getLCP, getTTFB } = await import(
+  const { onCLS, onFCP, onLCP, onTTFB, onINP } = await import(
     'web-vitals'
   )
 
-  getCLS(sendVitalMetric)
-  getFID(sendVitalMetric)
-  getFCP(sendVitalMetric)
-  getLCP(sendVitalMetric)
-  getTTFB(sendVitalMetric)
+  onCLS(sendVitalMetric)
+  onFCP(sendVitalMetric)
+  onLCP(sendVitalMetric)
+  onTTFB(sendVitalMetric)
+  onINP(sendVitalMetric)
 }
 
 /**

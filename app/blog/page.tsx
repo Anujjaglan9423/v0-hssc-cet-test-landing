@@ -71,7 +71,14 @@ async function getBlogs(): Promise<Blog[]> {
     return []
   }
 
-  return blogs || []
+  return (blogs || []).map((blog) => ({
+    ...blog,
+    status: "publish",
+    meta_title: blog.title,
+    meta_description: blog.description,
+    focus_keyword: "",
+    tags: [],
+  }))
 }
 
 function calculateReadTime(content: string): string {
