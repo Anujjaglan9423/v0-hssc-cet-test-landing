@@ -26,6 +26,7 @@ import {
   BookOpen,
   Library,
   PenSquare,
+  Sparkles,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -56,6 +57,7 @@ const studentLinks = [
   { href: "/student/practice", icon: Target, label: "Practice" },
   { href: "/student/results", icon: Trophy, label: "Results" },
   { href: "/student/analytics", icon: BarChart3, label: "My Analytics" },
+  { href: "/student/insights", icon: Sparkles, label: "AI Insights" },
 ]
 
 export function Sidebar({ type, user }: SidebarProps) {
