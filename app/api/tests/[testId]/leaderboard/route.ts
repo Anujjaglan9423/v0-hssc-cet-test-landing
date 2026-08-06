@@ -42,21 +42,28 @@ export async function GET(
 
     console.log('[v0] Found test results:', results?.length || 0)
 
-    // Get contacts that match by email (user_id is stored as email)
+    // Get contacts that match by timestamp (within 30 seconds of submission)
     const enrichedResults = await Promise.all(
       (results || []).map(async (result) => {
         try {
-          // Match contact by email stored in user_id field
+          const resultTime = new Date(result.created_at)
+          const startTime = new Date(resultTime.getTime() - 30000) // 30 seconds before
+          const endTime = new Date(resultTime.getTime() + 30000) // 30 seconds after
+
+          // Get contacts created around the same time with matching test ID in subject/message
           const { data: contacts } = await supabase
             .from('contacts')
             .select('first_name, email, phone')
-            .eq('email', result.user_id)
             .eq('status', 'completed')
+            .ilike('subject', `%${testId}%`) // Match test ID in subject
+            .gte('created_at', startTime.toISOString())
+            .lte('created_at', endTime.toISOString())
+            .order('created_at', { ascending: false })
             .limit(1)
 
           const contact = contacts?.[0]
 
-          console.log('[v0] Matched contact for email:', result.user_id, 'Found:', !!contact)
+          console.log('[v0] Matched contact for result:', !!contact)
 
           return {
             id: result.id,
@@ -65,7 +72,7 @@ export async function GET(
             time_taken: result.time_taken,
             created_at: result.created_at,
             name: contact?.first_name || 'Anonymous',
-            email: contact?.email || result.user_id || 'N/A',
+            email: contact?.email || 'user@example.com',
             phone: contact?.phone || 'N/A'
           }
         } catch (err) {
@@ -77,7 +84,7 @@ export async function GET(
             time_taken: result.time_taken,
             created_at: result.created_at,
             name: 'Anonymous',
-            email: result.user_id || 'N/A',
+            email: 'user@example.com',
             phone: 'N/A'
           }
         }

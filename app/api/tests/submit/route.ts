@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     console.log('[v0] Saving test result for user:', name, 'Email:', email)
 
-    // Save user info to contacts table first
+    // Save user info to contacts table with unique identifier
     const { data: contactData, error: contactError } = await supabase
       .from('contacts')
       .insert([
@@ -36,8 +36,8 @@ export async function POST(request: NextRequest) {
           first_name: name,
           email,
           phone,
-          subject: `Test Result - Score: ${score}`,
-          message: `Test ID: ${testId}, Time Taken: ${timeTaken}s`,
+          subject: `Test ${testId} - Score: ${score}`,
+          message: `Time Taken: ${timeTaken}s`,
           status: 'completed'
         }
       ])
@@ -45,17 +45,21 @@ export async function POST(request: NextRequest) {
 
     if (contactError) {
       console.error('[v0] Contact error:', contactError)
+      return NextResponse.json(
+        { error: 'Failed to save contact: ' + (contactError.message || 'Unknown error') },
+        { status: 500 }
+      )
     }
 
     console.log('[v0] Contact saved:', contactData)
 
-    // Save test result to test_results table
+    // Save test result to test_results table with null user_id (no auth required)
     const { data: resultData, error: resultError } = await supabase
       .from('test_results')
       .insert([
         {
           test_id: testId,
-          user_id: email, // Store email as user_id for matching
+          user_id: null, // No auth required for anonymous submissions
           score,
           percentage,
           time_taken: timeTaken,
