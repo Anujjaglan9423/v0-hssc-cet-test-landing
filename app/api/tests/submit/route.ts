@@ -28,16 +28,30 @@ export async function POST(request: NextRequest) {
 
     console.log('[v0] Saving test result for user:', name, 'Email:', email)
 
-    // Save user info to contacts table with unique identifier
+    // Split name into first and last name
+    const trimmedName = (name || '').trim()
+    if (!trimmedName) {
+      return NextResponse.json(
+        { error: 'Name cannot be empty' },
+        { status: 400 }
+      )
+    }
+    
+    const nameParts = trimmedName.split(' ')
+    const firstName = nameParts[0] || 'User'
+    const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : 'User'
+
+    // Save user info to contacts table with all required fields
     const { data: contactData, error: contactError } = await supabase
       .from('contacts')
       .insert([
         {
-          first_name: name,
+          first_name: firstName,
+          last_name: lastName,
           email,
-          phone,
-          subject: `Test ${testId} - Score: ${score}`,
-          message: `Time Taken: ${timeTaken}s`,
+          phone: phone || 'N/A',
+          subject: `Test Submission - Score: ${score}/${totalQuestions}`,
+          message: `Test ID: ${testId}, Time Taken: ${timeTaken}s, Percentage: ${percentage}%`,
           status: 'completed'
         }
       ])
