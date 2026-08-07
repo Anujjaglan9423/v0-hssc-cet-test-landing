@@ -1,176 +1,65 @@
-import { generateText } from "ai"
-import { z } from "zod"
 import { getCurrentUser } from "@/lib/auth"
 import { createClient } from "@/lib/supabase/server"
 
 export const dynamic = "force-dynamic"
-
 type Priority = "high" | "medium" | "low"
+type QuestionInsight = { questionNumber: number; questionId: string; topic: string; selectedAnswer: string | null; correctAnswer: string; status: "correct" | "incorrect" | "unanswered"; timeSpentSeconds: number; explanation: string; coaching: string }
+type TopicInsight = { topic: string; total: number; correct: number; wrong: number; unanswered: number; accuracy: number; priority: Priority; questionNumbers: number[]; reason: string }
+type TestReport = { testId: string; resultId: string; title: string; subject: string; topic: string; completedAt: string; percentage: number; accuracy: number; score: number; totalQuestions: number; correct: number; wrong: number; unanswered: number; timeTakenSeconds: number; averageTimePerQuestion: number; paceLabel: "fast" | "balanced" | "slow" | "not enough data"; negativeMarking: boolean; scoreImpact: string; topicBreakdown: TopicInsight[]; focusTopics: TopicInsight[]; mistakePatterns: string[]; strengths: string[]; recommendations: string[]; questions: QuestionInsight[] }
+const emptyReport = { overallSummary: "Complete your first test to unlock a detailed AI study report.", readinessScore: 0, trend: "steady" as const, strengths: [], focusAreas: [], studyPlan: [], testInsights: [], attempts: [] }
+function first(value: any) { return Array.isArray(value) ? value[0] ?? null : value ?? null }
+function priorityFor(accuracy: number): Priority { return accuracy < 60 ? "high" : accuracy < 80 ? "medium" : "low" }
 
-type QuestionInsight = {
-  questionNumber: number
-  questionId: string
-  topic: string
-  selectedAnswer: string | null
-  correctAnswer: string
-  status: "correct" | "incorrect" | "unanswered"
-  timeSpentSeconds: number
-  explanation: string
-  coaching: string
-}
-
-type TestReport = {
-  testId: string
-  resultId: string
-  title: string
-  subject: string
-  topic: string
-  completedAt: string
-  percentage: number
-  accuracy: number
-  score: number
-  totalQuestions: number
-  correct: number
-  wrong: number
-  unanswered: number
-  timeTakenSeconds: number
-  averageTimePerQuestion: number
-  paceLabel: "fast" | "balanced" | "slow" | "not enough data"
-  negativeMarking: boolean
-  scoreImpact: string
-  topicBreakdown: { topic: string; total: number; correct: number; wrong: number; unanswered: number; accuracy: number; priority: Priority }[]
-  mistakePatterns: string[]
-  strengths: string[]
-  recommendations: string[]
-  questions: QuestionInsight[]
-}
-
-const insightSchema = z.object({
-  overallSummary: z.string(),
-  readinessScore: z.number().min(0).max(100),
-  trend: z.enum(["improving", "steady", "needs attention"]),
-  strengths: z.array(z.string()),
-  focusAreas: z.array(z.string()),
-  studyPlan: z.array(z.object({ title: z.string(), action: z.string(), duration: z.string() })),
-  testInsights: z.array(z.object({ testId: z.string(), diagnosis: z.string(), recommendation: z.string(), priority: z.enum(["high", "medium", "low"]) })),
-})
-
-const emptyReport = {
-  overallSummary: "Complete your first test to unlock a detailed AI study report.",
-  readinessScore: 0,
-  trend: "steady" as const,
-  strengths: [],
-  focusAreas: [],
-  studyPlan: [],
-  testInsights: [],
-  attempts: [],
-}
-
-function firstRelation(value: unknown): any {
-  return Array.isArray(value) ? value[0] ?? null : value ?? null
-}
-
-function cleanJson(text: string) {
-  return text.trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "")
-}
-
-function priorityFor(accuracy: number): Priority {
-  return accuracy < 60 ? "high" : accuracy < 80 ? "medium" : "low"
-}
-
-function createTestReport(result: any): TestReport {
-  const test = firstRelation(result.test)
-  const attempt = firstRelation(result.attempt)
-  const answerRows = Array.isArray(attempt?.user_answers) ? attempt.user_answers : []
-  const questions = answerRows
-    .map((row: any, index: number): QuestionInsight => {
-      const question = firstRelation(row.question) ?? row.question ?? {}
-      const selected = row.selected_answer ?? null
-      const correct = question.correct_answer ?? ""
-      const status: QuestionInsight["status"] = !selected ? "unanswered" : row.is_correct === true || selected === correct ? "correct" : "incorrect"
-      const questionNumber = Number(question.question_number ?? index + 1)
-      return {
-        questionNumber,
-        questionId: String(row.question_id ?? question.id ?? questionNumber),
-        topic: question.topic?.name ?? question.topic ?? test?.topic?.name ?? test?.topic ?? "General",
-        selectedAnswer: selected,
-        correctAnswer: correct,
-        status,
-        timeSpentSeconds: Number(row.time_spent ?? 0),
-        explanation: question.explanation ?? "Review the question and compare your selected option with the correct answer.",
-        coaching: status === "correct" ? "Keep this concept active with spaced revision." : status === "unanswered" ? "Practice recall and use a time checkpoint before moving on." : "Relearn the concept, then solve two similar questions without looking at the answer.",
-      }
-    })
-    .sort((a: QuestionInsight, b: QuestionInsight) => a.questionNumber - b.questionNumber)
-
+function createTestReport(result: any, test: any, questionsData: any[], answerRows: any[]): TestReport {
+  const byQuestion = new Map(answerRows.map((row) => [String(row.question_id), row]))
+  const questions: QuestionInsight[] = questionsData.map((question: any, index: number) => {
+    const row = byQuestion.get(String(question.id))
+    const selected = row?.selected_answer ?? null
+    const correct = String(question.correct_answer ?? "")
+    const status: QuestionInsight["status"] = !selected ? "unanswered" : row?.is_correct === true || String(selected).toLowerCase() === correct.toLowerCase() ? "correct" : "incorrect"
+    const number = Number(question.question_number ?? question.question_order ?? index + 1)
+    const topic = first(question.topic)?.name ?? question.topic?.name ?? test?.topic?.name ?? test?.topic ?? "General"
+    return { questionNumber: number, questionId: String(question.id), topic, selectedAnswer: selected, correctAnswer: correct, status, timeSpentSeconds: Number(row?.time_spent ?? 0), explanation: question.explanation ?? "Compare the correct answer with the concept tested and review the related notes.", coaching: status === "correct" ? "Keep this concept active with spaced revision." : status === "unanswered" ? "This topic needs recall practice and a time checkpoint before moving on." : "Treat this as a concept-revision task: learn the rule, then solve two similar questions." }
+  }).sort((a, b) => a.questionNumber - b.questionNumber)
   const totalQuestions = Number(result.total_questions ?? questions.length)
-  const correct = Number(result.correct_answers ?? questions.filter((q: QuestionInsight) => q.status === "correct").length)
-  const wrong = Number(result.wrong_answers ?? questions.filter((q: QuestionInsight) => q.status === "incorrect").length)
-  const unanswered = Number(result.unattempted ?? result.unanswered ?? Math.max(0, totalQuestions - correct - wrong))
+  const correct = Number(result.correct_answers ?? questions.filter((q) => q.status === "correct").length)
+  const wrong = Number(result.wrong_answers ?? questions.filter((q) => q.status === "incorrect").length)
+  const unanswered = Number(result.unanswered ?? Math.max(0, totalQuestions - correct - wrong))
   const score = Number(result.score ?? correct)
-  const percentage = Math.max(0, Math.min(100, Number(result.percentage ?? (totalQuestions ? (correct / totalQuestions) * 100 : score))))
-  const timeTakenSeconds = Number(result.time_taken ?? attempt?.time_taken ?? 0)
+  const percentage = Math.max(0, Math.min(100, Number(result.percentage ?? (totalQuestions ? correct / totalQuestions * 100 : 0))))
+  const timeTakenSeconds = Number(result.time_taken ?? 0)
   const averageTimePerQuestion = totalQuestions ? Math.round(timeTakenSeconds / totalQuestions) : 0
-  const topicMap = new Map<string, { total: number; correct: number; wrong: number; unanswered: number }>()
-  questions.forEach((question: QuestionInsight) => {
-    const current = topicMap.get(question.topic) ?? { total: 0, correct: 0, wrong: 0, unanswered: 0 }
-    current.total += 1
-    if (question.status === "correct") current.correct += 1
-    else if (question.status === "incorrect") current.wrong += 1
-    else current.unanswered += 1
-    topicMap.set(question.topic, current)
-  })
-  if (!topicMap.size) topicMap.set(test?.topic?.name ?? test?.topic ?? "General", { total: totalQuestions, correct, wrong, unanswered })
-  const topicBreakdown = [...topicMap.entries()].map(([topic, values]) => {
-    const accuracy = values.total ? Math.round((values.correct / values.total) * 100) : 0
-    return { topic, ...values, accuracy, priority: priorityFor(accuracy) }
-  })
-  const incorrectTopics = topicBreakdown.filter((topic) => topic.priority !== "low").map((topic) => `${topic.topic}: ${topic.accuracy}% accuracy (${topic.wrong} wrong, ${topic.unanswered} unanswered).`)
-  const mistakePatterns = [
-    wrong ? `${wrong} incorrect answers indicate concepts to relearn before the next attempt.` : "No incorrect answers recorded in this attempt.",
-    unanswered ? `${unanswered} unanswered questions may indicate recall gaps or time pressure.` : "You attempted every question.",
-    averageTimePerQuestion > 90 ? "Your average time per question is high; practise timed elimination and move-on checkpoints." : averageTimePerQuestion > 0 ? "Your pace is usable; review whether the slowest questions were from one topic." : "Question timing was not recorded for this attempt.",
-  ]
-  return {
-    testId: String(result.test_id), resultId: String(result.id), title: test?.title ?? "Untitled test", subject: test?.subject?.name ?? test?.subject ?? "General", topic: test?.topic?.name ?? test?.topic ?? "General", completedAt: result.created_at ?? new Date().toISOString(),     percentage, accuracy: Math.round(percentage), score, totalQuestions, correct, wrong, unanswered, timeTakenSeconds, averageTimePerQuestion, paceLabel: !averageTimePerQuestion ? "not enough data" : averageTimePerQuestion > 90 ? "slow" : averageTimePerQuestion < 35 ? "fast" : "balanced", negativeMarking: Boolean(test?.has_negative_marking), scoreImpact: Boolean(test?.has_negative_marking) ? "Wrong answers may have reduced your score because negative marking is enabled." : "No negative-marking penalty was applied to this test.", topicBreakdown, mistakePatterns, strengths: topicBreakdown.filter((topic) => topic.priority === "low").map((topic) => `${topic.topic} is a relative strength at ${topic.accuracy}% accuracy.`), recommendations: [incorrectTopics[0] ? `Start with ${incorrectTopics[0]}` : "Revisit the most difficult questions even when your score is high.", unanswered ? "Use a final-review checkpoint to attempt questions left blank." : "Maintain full attempts while protecting accuracy.", "After revision, take a timed practice set from the weakest topic."], questions,
-  }
+  const topicMap = new Map<string, { total: number; correct: number; wrong: number; unanswered: number; questionNumbers: number[] }>()
+  questions.forEach((question) => { const current = topicMap.get(question.topic) ?? { total: 0, correct: 0, wrong: 0, unanswered: 0, questionNumbers: [] }; current.total += 1; current.questionNumbers.push(question.questionNumber); if (question.status === "correct") current.correct += 1; else if (question.status === "incorrect") current.wrong += 1; else current.unanswered += 1; topicMap.set(question.topic, current) })
+  if (!topicMap.size) topicMap.set(test?.topic?.name ?? test?.topic ?? "General", { total: totalQuestions, correct, wrong, unanswered, questionNumbers: [] })
+  const topicBreakdown = [...topicMap.entries()].map(([topic, values]) => { const accuracy = values.total ? Math.round(values.correct / values.total * 100) : 0; const priority = priorityFor(accuracy); const reason = values.unanswered > values.wrong ? "Mostly unanswered: likely recall gaps or time pressure." : values.wrong > 0 ? "Wrong answers: concept or application needs revision." : "Strong topic: maintain with spaced practice."; return { topic, ...values, accuracy, priority, reason } }).sort((a, b) => a.accuracy - b.accuracy || (b.wrong + b.unanswered) - (a.wrong + a.unanswered))
+  const focusTopics = topicBreakdown.filter((topic) => topic.wrong + topic.unanswered > 0).slice(0, 5)
+  const mistakePatterns = [wrong ? `${wrong} wrong answers were found; revise the concepts behind those questions.` : "No wrong answers were recorded.", unanswered ? `${unanswered} unanswered questions were found; check these topics first for recall gaps or time pressure.` : "Every question was attempted.", averageTimePerQuestion > 90 ? "The average pace is slow; use timed checkpoints and move on when stuck." : averageTimePerQuestion ? "Compare slow questions with the focus topics to identify time-pressure patterns." : "Timing was not recorded for this attempt."]
+  const recommendations = focusTopics.length ? focusTopics.slice(0, 3).map((topic) => `Focus on ${topic.topic}: ${topic.wrong} wrong and ${topic.unanswered} unanswered out of ${topic.total}. Review questions ${topic.questionNumbers.join(", ") || "from this topic"}.`) : ["Review the hardest questions and maintain this performance with spaced revision."]
+  return { testId: String(result.test_id), resultId: String(result.id), title: test?.title ?? "Untitled test", subject: first(test?.subject)?.name ?? test?.subject ?? "General", topic: first(test?.topic)?.name ?? test?.topic ?? "General", completedAt: result.created_at ?? new Date().toISOString(), percentage, accuracy: Math.round(percentage), score, totalQuestions, correct, wrong, unanswered, timeTakenSeconds, averageTimePerQuestion, paceLabel: !averageTimePerQuestion ? "not enough data" : averageTimePerQuestion > 90 ? "slow" : averageTimePerQuestion < 35 ? "fast" : "balanced", negativeMarking: Boolean(test?.has_negative_marking), scoreImpact: Boolean(test?.has_negative_marking) ? "Negative marking is enabled; careless wrong answers have extra impact." : "No negative-marking penalty was applied.", topicBreakdown, focusTopics, mistakePatterns, strengths: topicBreakdown.filter((topic) => topic.priority === "low").slice(0, 3).map((topic) => `${topic.topic} is a strength at ${topic.accuracy}% accuracy.`), recommendations, questions }
 }
-
-function localReport(attempts: TestReport[]) {
-  const average = attempts.length ? attempts.reduce((sum, attempt) => sum + attempt.percentage, 0) / attempts.length : 0
-  const recent = attempts.slice(-3)
-  const recentAverage = recent.length ? recent.reduce((sum, attempt) => sum + attempt.percentage, 0) / recent.length : average
-  const previous = attempts.slice(0, -3)
-  const previousAverage = previous.length ? previous.reduce((sum, attempt) => sum + attempt.percentage, 0) / previous.length : average
-  const trend = recentAverage > previousAverage + 4 ? "improving" as const : recentAverage < previousAverage - 4 ? "needs attention" as const : "steady" as const
-  const weakest = [...attempts].sort((a, b) => a.percentage - b.percentage)[0]
-  return {
-    overallSummary: `Your detailed report covers ${attempts.length} completed ${attempts.length === 1 ? "test" : "tests"}. Average performance is ${Math.round(average)}%, with topic-level weaknesses and question patterns shown below.`,
-    readinessScore: Math.round(average), trend,
-    strengths: attempts.flatMap((attempt) => attempt.strengths).slice(0, 5),
-    focusAreas: attempts.flatMap((attempt) => attempt.topicBreakdown.filter((topic) => topic.priority !== "low").map((topic) => `${attempt.title}: improve ${topic.topic} (${topic.accuracy}% accuracy).`)).slice(0, 5),
-    studyPlan: [{ title: "Repair the weakest topic", action: `Start with ${weakest?.topic || "the lowest-scoring topic"}, review explanations, and solve a focused practice set.`, duration: "45 min" }, { title: "Review mistake patterns", action: "Classify each wrong answer as concept gap, careless error, or time pressure.", duration: "30 min" }, { title: "Retest under pressure", action: "Take a timed mixed test and compare topic accuracy and pace.", duration: "60 min" }],
-    testInsights: attempts.map((attempt) => ({ testId: attempt.testId, diagnosis: `${attempt.title}: ${Math.round(attempt.percentage)}% overall; ${attempt.topicBreakdown.filter((topic) => topic.priority === "high").length} high-priority topic(s) identified.`, recommendation: attempt.recommendations[0], priority: attempt.percentage < 60 ? "high" as const : attempt.percentage < 80 ? "medium" as const : "low" as const })),
-  }
-}
+function localReport(attempts: TestReport[]) { const average = attempts.length ? attempts.reduce((sum, a) => sum + a.percentage, 0) / attempts.length : 0; const weakest = [...attempts].sort((a, b) => a.percentage - b.percentage)[0]; return { overallSummary: `AI analytics interprets why marks were lost, not only what score was achieved. Across ${attempts.length} completed ${attempts.length === 1 ? "test" : "tests"}, average performance is ${Math.round(average)}%.`, readinessScore: Math.round(average), trend: "steady" as const, strengths: attempts.flatMap((a) => a.strengths).slice(0, 5), focusAreas: attempts.flatMap((a) => a.focusTopics.map((t) => `${a.title}: focus on ${t.topic} (${t.wrong} wrong, ${t.unanswered} unanswered).`)).slice(0, 8), studyPlan: [{ title: "Repair the weakest topic", action: `Start with ${weakest?.focusTopics[0]?.topic ?? weakest?.topic ?? "your weakest topic"}; review explanations and solve a focused set.`, duration: "45 min" }, { title: "Review wrong and blank answers", action: "Classify each miss as concept gap, careless error, or time pressure, then revise accordingly.", duration: "30 min" }, { title: "Retest under time pressure", action: "Take a timed test and compare topic accuracy, unanswered count, and pace.", duration: "60 min" }], testInsights: attempts.map((a) => ({ testId: a.testId, diagnosis: `${a.title}: ${a.correct} correct, ${a.wrong} wrong, ${a.unanswered} unanswered.`, recommendation: a.recommendations[0], priority: a.focusTopics.some((t) => t.priority === "high") ? "high" as const : a.percentage < 80 ? "medium" as const : "low" as const })) } }
 
 export async function GET() {
   const user = await getCurrentUser()
   if (!user || user.role !== "student") return Response.json({ error: "Unauthorized" }, { status: 401 })
   try {
     const supabase = await createClient()
-    const { data: results, error } = await supabase.from("test_results").select(`*, test:tests (id, title, test_type, has_negative_marking, negative_marking_percent, subject:subjects (name), topic:topics (name)), attempt:test_attempts (id, time_taken, user_answers (question_id, selected_answer, is_correct, time_spent, question:questions (id, question_text, correct_answer, explanation)))`).eq("user_id", user.id).order("created_at", { ascending: true })
-    if (error) { console.error("[v0] Detailed insights query failed:", error); return Response.json({ error: "Unable to load your detailed test history." }, { status: 500 }) }
-    const attempts = (results ?? []).map(createTestReport)
-    if (!attempts.length) return Response.json(emptyReport, { headers: { "Cache-Control": "no-store" } })
-    const baseReport = localReport(attempts)
-    let report = baseReport
-    try {
-      const generated = await generateText({ model: "openai/gpt-4o-mini", prompt: `Improve this student's study summary using the detailed reports. Return only valid JSON with keys overallSummary, readinessScore, trend, strengths, focusAreas, studyPlan, testInsights. Do not remove detail from the reports: ${JSON.stringify(attempts)}`, temperature: 0.3, maxOutputTokens: 1800 })
-      const parsed = insightSchema.parse(JSON.parse(cleanJson(generated.text)))
-      const byId = new Map(parsed.testInsights.map((insight) => [insight.testId, insight]))
-      report = { ...baseReport, ...parsed, testInsights: attempts.map((attempt) => byId.get(attempt.testId) ?? baseReport.testInsights.find((item) => item.testId === attempt.testId)!) }
-    } catch (error) { console.warn("[v0] AI summary unavailable; detailed local report returned:", error instanceof Error ? error.message : "unknown error") }
-    return Response.json({ ...report, attempts }, { headers: { "Cache-Control": "no-store" } })
+    const { data: results, error } = await supabase.from("test_results").select("*").eq("user_id", user.id).order("created_at", { ascending: true })
+    if (error) throw error
+    if (!results?.length) return Response.json(emptyReport, { headers: { "Cache-Control": "no-store" } })
+    const testIds = [...new Set(results.map((r: any) => r.test_id).filter(Boolean))]
+    const attemptIds = [...new Set(results.map((r: any) => r.attempt_id).filter(Boolean))]
+    const [{ data: tests }, { data: attempts }, { data: answerRows }] = await Promise.all([supabase.from("tests").select("id, title, has_negative_marking, subject:subjects(name), topic:topics(name)").in("id", testIds), supabase.from("test_attempts").select("id, time_taken").in("id", attemptIds), supabase.from("user_answers").select("attempt_id, question_id, selected_answer, is_correct, time_spent").in("attempt_id", attemptIds)])
+    const { data: questions } = await supabase.from("questions").select("id, test_id, question_text, correct_answer, explanation, question_order").in("test_id", testIds).order("question_order", { ascending: true })
+    const testMap = new Map((tests ?? []).map((test: any) => [String(test.id), test]))
+    const attemptMap = new Map((attempts ?? []).map((attempt: any) => [String(attempt.id), attempt]))
+    const answersByAttempt = new Map<string, any[]>()
+    for (const row of answerRows ?? []) { const key = String(row.attempt_id); answersByAttempt.set(key, [...(answersByAttempt.get(key) ?? []), row]) }
+    const questionsByTest = new Map<string, any[]>()
+    for (const question of questions ?? []) { const key = String(question.test_id); questionsByTest.set(key, [...(questionsByTest.get(key) ?? []), question]) }
+    const reportAttempts = results.map((result: any) => createTestReport(result, testMap.get(String(result.test_id)), questionsByTest.get(String(result.test_id)) ?? [], answersByAttempt.get(String(result.attempt_id)) ?? []))
+    const baseReport = localReport(reportAttempts)
+    return Response.json({ ...baseReport, attempts: reportAttempts }, { headers: { "Cache-Control": "no-store" } })
   } catch (error) { console.error("[v0] Detailed insights generation failed:", error); return Response.json({ error: "Your report could not be generated right now. Please try again." }, { status: 503 }) }
 }
