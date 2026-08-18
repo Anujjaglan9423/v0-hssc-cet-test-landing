@@ -20,19 +20,23 @@ export async function getAdminStats() {
   const sixMonthsAgo = new Date()
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
 
-  const { data: signups } = await supabase
-    .from("users")
-    .select("created_at")
-    .eq("role", "student")
-    .gte("created_at", sixMonthsAgo.toISOString())
+  const signups = await fetchAllPages((from, to) =>
+    supabase
+      .from("users")
+      .select("created_at")
+      .eq("role", "student")
+      .gte("created_at", sixMonthsAgo.toISOString())
+      .order("created_at", { ascending: true })
+      .range(from, to),
+  )
 
-  // Group signups by month
-  const monthlySignups =
-    signups?.reduce((acc: Record<string, number>, item) => {
-      const month = new Date(item.created_at).toLocaleString("default", { month: "short" })
-      acc[month] = (acc[month] || 0) + 1
-      return acc
-    }, {}) || {}
+  // Group signups by year and month so months from different years are not merged.
+  const monthlySignups = signups.reduce((acc: Record<string, number>, item: any) => {
+    const date = new Date(item.created_at)
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
+    acc[key] = (acc[key] || 0) + 1
+    return acc
+  }, {})
 
   return {
     totalStudents: totalStudents || 0,
@@ -40,7 +44,12 @@ export async function getAdminStats() {
     totalTests: totalTests || 0,
     totalAttempts: totalAttempts || 0,
     recentStudents: recentStudents || [],
-    monthlySignups: Object.entries(monthlySignups).map(([month, count]) => ({ month, count })),
+    monthlySignups: Object.entries(monthlySignups)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, count]) => ({
+        month: new Date(`${key}-01T00:00:00`).toLocaleString("default", { month: "short", year: "numeric" }),
+        count,
+      })),
   }
 }
 
@@ -48,27 +57,32 @@ export async function getAdminStats() {
 export async function getAllStudents() {
   const supabase = await createClient()
 
-  const { data: students, error } = await supabase
-    .from("users")
-    .select(`
-      *,
-      test_results (
-        score,
-        total_questions,
-        time_taken,
-        created_at
-      )
-    `)
-    .eq("role", "student")
-    .order("created_at", { ascending: false })
+  let students: any[]
 
-  if (error) {
+  try {
+    students = await fetchAllPages((from, to) =>
+      supabase
+        .from("users")
+        .select(`
+          *,
+          test_results (
+            score,
+            total_questions,
+            time_taken,
+            created_at
+          )
+        `)
+        .eq("role", "student")
+        .order("created_at", { ascending: false })
+        .range(from, to),
+    )
+  } catch (error) {
     console.error("Error fetching students:", error)
     return []
   }
 
   return (
-    students?.map((student) => {
+    students.map((student) => {
       const results = student.test_results || []
       const testsAttempted = results.length
       const averageScore =
@@ -463,6 +477,27 @@ export async function createTopic(name: string, subjectId: string) {
   return { success: true, data }
 }
 
+const ADMIN_PAGE_SIZE = 1000
+
+async function fetchAllPages<T>(fetchPage: (from: number, to: number) => Promise<{ data: T[] | null; error: any }>) {
+  const rows: T[] = []
+
+  for (let from = 0; ; from += ADMIN_PAGE_SIZE) {
+    const { data, error } = await fetchPage(from, from + ADMIN_PAGE_SIZE - 1)
+
+    if (error) {
+      throw error
+    }
+
+    const page = data || []
+    rows.push(...page)
+
+    if (page.length < ADMIN_PAGE_SIZE) {
+      return rows
+    }
+  }
+}
+
 // Helper function
 function formatTimeAgo(dateString: string) {
   const date = new Date(dateString)
@@ -552,16 +587,20 @@ export async function getAdminAnalytics() {
   }))
 
   // Monthly signups
-  const { data: users } = await supabase
-    .from("users")
-    .select("created_at")
-    .eq("role", "student")
-    .order("created_at", { ascending: true })
+  const users = await fetchAllPages((from, to) =>
+    supabase
+      .from("users")
+      .select("created_at")
+      .eq("role", "student")
+      .order("created_at", { ascending: true })
+      .range(from, to),
+  )
 
   const monthlySignups: Record<string, number> = {}
-  users?.forEach((u) => {
-    const month = new Date(u.created_at).toLocaleString("default", { month: "short" })
-    monthlySignups[month] = (monthlySignups[month] || 0) + 1
+  users.forEach((u: any) => {
+    const date = new Date(u.created_at)
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
+    monthlySignups[key] = (monthlySignups[key] || 0) + 1
   })
 
   // Test attempts by category
@@ -581,7 +620,12 @@ export async function getAdminAnalytics() {
     weeklyActivity,
     scoreDistribution: scoreRanges.map((r) => ({ range: r.range, count: r.count })),
     subjectPerformance,
-    monthlySignups: Object.entries(monthlySignups).map(([month, count]) => ({ month, count })),
+    monthlySignups: Object.entries(monthlySignups)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, count]) => ({
+        month: new Date(`${key}-01T00:00:00`).toLocaleString("default", { month: "short", year: "numeric" }),
+        count,
+      })),
     testAttemptsByCategory: [
       { category: "Full Exams", attempts: categoryAttempts.Full },
       { category: "Subject Tests", attempts: categoryAttempts.Subject },
@@ -742,76 +786,96 @@ export async function getPaginatedTestResults(
 ) {
   const supabase = await createClient()
 
-  // Calculate offset for pagination
-  const offset = (page - 1) * pageSize
+  const filteredMode = Boolean(filters?.searchTerm?.trim()) || Boolean(filters?.testType && filters.testType !== "all")
+  const selectClause = `
+    id, score, total_questions, time_taken, created_at,
+    user:users (id, full_name, email),
+    test:tests (id, title, test_type, subject:subjects (name), topic:topics (name))
+  `
 
-  // Build the query with selective fields to reduce data transfer
-  let query = supabase
-    .from("test_results")
-    .select(
-      `
-      id,
-      score,
-      total_questions,
-      time_taken,
-      created_at,
-      user:users (
-        id,
-        full_name,
-        email
-      ),
-      test:tests (
-        id,
-        title,
-        test_type,
-        subject:subjects (name),
-        topic:topics (name)
-      )
-    `,
-      { count: "exact" }
-    )
+  // Filtering is intentionally done after loading every result. Supabase's default
+  // response cap must not make search/filter results depend on the current page.
+  let query = supabase.from("test_results").select(selectClause)
+  if (!filteredMode) {
+    query = query.range((page - 1) * pageSize, page * pageSize - 1)
+  }
+  query = query.order("created_at", { ascending: false })
 
-  // Apply filters if provided
-  if (filters?.testType && filters.testType !== "all") {
-    query = query.eq("test.test_type", filters.testType)
+  let rawResults: any[] = []
+  if (filteredMode) {
+    for (let from = 0; ; from += ADMIN_PAGE_SIZE) {
+      const { data, error } = await supabase
+        .from("test_results")
+        .select(selectClause)
+        .order("created_at", { ascending: false })
+        .range(from, from + ADMIN_PAGE_SIZE - 1)
+      if (error) {
+        console.error("Error fetching filtered test results:", error)
+        return { results: [], totalCount: 0, page, pageSize, totalPages: 0 }
+      }
+      rawResults.push(...(data || []))
+      if (!data || data.length < ADMIN_PAGE_SIZE) break
+    }
+  } else {
+    const { data, error } = await query
+    if (error) {
+      console.error("Error fetching paginated test results:", error)
+      return { results: [], totalCount: 0, page, pageSize, totalPages: 0 }
+    }
+    rawResults = data || []
   }
 
-  // Order by date descending
-  const orderBy = filters?.sortBy || "created_at"
-  query = query.order(orderBy, {
-    ascending: orderBy === "created_at" ? false : false,
-    foreignTable: undefined,
+  let formattedResults = rawResults.map((result) => ({
+    id: result.id,
+    studentName: result.user?.full_name || "Unknown",
+    studentEmail: result.user?.email || "Unknown",
+    studentId: result.user?.id,
+    testTitle: result.test?.title || "Unknown Test",
+    testType: result.test?.test_type || "full",
+    subject: result.test?.subject?.name || "-",
+    topic: result.test?.topic?.name || "-",
+    score: result.score || 0,
+    totalQuestions: result.total_questions || 0,
+    percentage: result.total_questions > 0 ? Math.round(((result.score || 0) / result.total_questions) * 100) : 0,
+    timeTaken: result.time_taken || 0,
+    completedAt: result.created_at,
+  }))
+
+  if (filters?.testType && filters.testType !== "all") {
+    formattedResults = formattedResults.filter((result) => result.testType === filters.testType)
+  }
+  if (filters?.searchTerm?.trim()) {
+    const term = filters.searchTerm.trim().toLowerCase()
+    formattedResults = formattedResults.filter((result) =>
+      [result.studentName, result.studentEmail, result.testTitle, result.subject, result.topic]
+        .join(" ")
+        .toLowerCase()
+        .includes(term),
+    )
+  }
+
+  const sortValue = filters?.sortBy || "created_at"
+  formattedResults.sort((a, b) => {
+    if (sortValue === "score") return b.percentage - a.percentage
+    if (sortValue === "student") return a.studentName.localeCompare(b.studentName)
+    if (sortValue === "test") return a.testTitle.localeCompare(b.testTitle)
+    return new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime()
   })
 
-  // Apply limit and offset for pagination
-  query = query.range(offset, offset + pageSize - 1)
-
-  const { data: results, error, count } = await query
-
-  if (error) {
-    console.error("Error fetching paginated test results:", error)
-    return { results: [], totalCount: 0, page, pageSize, totalPages: 0 }
+  let totalCount = formattedResults.length
+  if (!filteredMode) {
+    const { count, error: countError } = await supabase
+      .from("test_results")
+      .select("id", { count: "exact", head: true })
+    if (countError) {
+      console.error("Error counting test results:", countError)
+    } else {
+      totalCount = count || 0
+    }
   }
-
-  const formattedResults =
-    results?.map((result) => ({
-      id: result.id,
-      studentName: (result.user as any)?.full_name || "Unknown",
-      studentEmail: (result.user as any)?.email || "Unknown",
-      studentId: (result.user as any)?.id,
-      testTitle: (result.test as any)?.title || "Unknown Test",
-      testType: (result.test as any)?.test_type || "full",
-      subject: (result.test as any)?.subject?.name || "-",
-      topic: (result.test as any)?.topic?.name || "-",
-      score: result.score || 0,
-      totalQuestions: result.total_questions || 0,
-      percentage:
-        result.total_questions > 0 ? Math.round(((result.score || 0) / result.total_questions) * 100) : 0,
-      timeTaken: result.time_taken || 0,
-      completedAt: result.created_at,
-    })) || []
-
-  const totalCount = count || 0
+  if (!filteredMode) {
+    formattedResults = formattedResults.slice(0, pageSize)
+  }
   const totalPages = Math.ceil(totalCount / pageSize)
 
   return {
