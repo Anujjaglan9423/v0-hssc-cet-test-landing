@@ -50,7 +50,7 @@ function ResultsContent() {
     setTotalPages(data.totalPages)
     setTotalCount(data.totalCount)
     setLoading(false)
-  }, [currentPage, testTypeFilter, sortBy])
+  }, [currentPage, searchTerm, testTypeFilter, sortBy])
 
   useEffect(() => {
     setCurrentPage(1)
@@ -67,25 +67,8 @@ function ResultsContent() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  // Apply client-side filtering for search (server-side would require additional params)
-  const applyClientFilters = () => {
-    let filtered = [...results]
-
-    if (searchTerm) {
-      const term = searchTerm.toLowerCase()
-      filtered = filtered.filter(
-        (r) =>
-          r.studentName.toLowerCase().includes(term) ||
-          r.studentEmail.toLowerCase().includes(term) ||
-          r.testTitle.toLowerCase().includes(term) ||
-          r.subject.toLowerCase().includes(term),
-      )
-    }
-
-    return filtered
-  }
-
-  const displayedResults = applyClientFilters()
+  // Filtering is performed server-side across the complete result set.
+  const displayedResults = results
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
