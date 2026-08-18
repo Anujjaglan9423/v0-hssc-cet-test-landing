@@ -33,6 +33,7 @@ function ResultsContent() {
   const [allResults, setAllResults] = useState<TestResult[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState("")
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("")
   const [testTypeFilter, setTestTypeFilter] = useState("all")
   const [sortBy, setSortBy] = useState("date")
   const [currentPage, setCurrentPage] = useState(1)
@@ -42,7 +43,7 @@ function ResultsContent() {
   const loadResults = useCallback(async () => {
     setLoading(true)
     const data = await getPaginatedTestResults(currentPage, PAGE_SIZE, {
-      searchTerm: searchTerm || undefined,
+      searchTerm: debouncedSearchTerm || undefined,
       testType: testTypeFilter !== "all" ? testTypeFilter : undefined,
       sortBy: sortBy === "date" ? "created_at" : sortBy,
     })
@@ -50,17 +51,25 @@ function ResultsContent() {
     setTotalPages(data.totalPages)
     setTotalCount(data.totalCount)
     setLoading(false)
-  }, [currentPage, searchTerm, testTypeFilter, sortBy])
+  }, [currentPage, debouncedSearchTerm, testTypeFilter, sortBy])
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm)
+    }, 500)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [searchTerm])
 
   useEffect(() => {
     setCurrentPage(1)
-  }, [searchTerm, testTypeFilter, sortBy])
+  }, [debouncedSearchTerm, testTypeFilter, sortBy])
 
   useEffect(() => {
     loadResults()
   }, [loadResults])
 
-  const hasActiveFilter = Boolean(searchTerm.trim()) || testTypeFilter !== "all"
+  const hasActiveFilter = Boolean(debouncedSearchTerm.trim()) || testTypeFilter !== "all"
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
