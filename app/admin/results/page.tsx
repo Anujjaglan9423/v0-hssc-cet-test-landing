@@ -42,6 +42,7 @@ function ResultsContent() {
   const loadResults = useCallback(async () => {
     setLoading(true)
     const data = await getPaginatedTestResults(currentPage, PAGE_SIZE, {
+      searchTerm: searchTerm || undefined,
       testType: testTypeFilter !== "all" ? testTypeFilter : undefined,
       sortBy: sortBy === "date" ? "created_at" : sortBy,
     })
@@ -52,8 +53,14 @@ function ResultsContent() {
   }, [currentPage, testTypeFilter, sortBy])
 
   useEffect(() => {
+    setCurrentPage(1)
+  }, [searchTerm, testTypeFilter, sortBy])
+
+  useEffect(() => {
     loadResults()
   }, [loadResults])
+
+  const hasActiveFilter = Boolean(searchTerm.trim()) || testTypeFilter !== "all"
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
@@ -281,7 +288,9 @@ function ResultsContent() {
       {/* Results Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Test Results - Page {currentPage} ({displayedResults.length} entries)</CardTitle>
+          <CardTitle className="text-base sm:text-lg">
+            Test Results {hasActiveFilter ? "(Filtered)" : `- Page ${currentPage}`} ({displayedResults.length} entries)
+          </CardTitle>
         </CardHeader>
         <CardContent>
           {displayedResults.length === 0 ? (
@@ -291,8 +300,8 @@ function ResultsContent() {
             </div>
           ) : (
             <>
-              <div className="overflow-x-auto -mx-6 px-6 lg:overflow-visible lg:mx-0 lg:px-0">
-                <table className="w-full text-sm">
+              <div className="w-full overflow-x-auto rounded-md border border-border/60">
+                <table className="min-w-[980px] w-full text-sm table-fixed">
                   <thead>
                     <tr className="border-b border-border">
                       <th className="text-left py-3 px-3 font-medium text-muted-foreground">Student</th>
@@ -347,13 +356,14 @@ function ResultsContent() {
                 </table>
               </div>
 
-              {/* Pagination */}
-              <ResultsPagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-                isLoading={loading}
-              />
+              {!hasActiveFilter && totalPages > 1 && (
+                <ResultsPagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                  isLoading={loading}
+                />
+              )}
             </>
           )}
         </CardContent>
