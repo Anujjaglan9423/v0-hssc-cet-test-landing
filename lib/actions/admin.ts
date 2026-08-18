@@ -20,19 +20,23 @@ export async function getAdminStats() {
   const sixMonthsAgo = new Date()
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
 
-  const { data: signups } = await supabase
-    .from("users")
-    .select("created_at")
-    .eq("role", "student")
-    .gte("created_at", sixMonthsAgo.toISOString())
+  const signups = await fetchAllPages((from, to) =>
+    supabase
+      .from("users")
+      .select("created_at")
+      .eq("role", "student")
+      .gte("created_at", sixMonthsAgo.toISOString())
+      .order("created_at", { ascending: true })
+      .range(from, to),
+  )
 
-  // Group signups by month
-  const monthlySignups =
-    signups?.reduce((acc: Record<string, number>, item) => {
-      const month = new Date(item.created_at).toLocaleString("default", { month: "short" })
-      acc[month] = (acc[month] || 0) + 1
-      return acc
-    }, {}) || {}
+  // Group signups by year and month so months from different years are not merged.
+  const monthlySignups = signups.reduce((acc: Record<string, number>, item: any) => {
+    const date = new Date(item.created_at)
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
+    acc[key] = (acc[key] || 0) + 1
+    return acc
+  }, {})
 
   return {
     totalStudents: totalStudents || 0,
@@ -40,7 +44,12 @@ export async function getAdminStats() {
     totalTests: totalTests || 0,
     totalAttempts: totalAttempts || 0,
     recentStudents: recentStudents || [],
-    monthlySignups: Object.entries(monthlySignups).map(([month, count]) => ({ month, count })),
+    monthlySignups: Object.entries(monthlySignups)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, count]) => ({
+        month: new Date(`${key}-01T00:00:00`).toLocaleString("default", { month: "short", year: "numeric" }),
+        count,
+      })),
   }
 }
 
@@ -48,27 +57,32 @@ export async function getAdminStats() {
 export async function getAllStudents() {
   const supabase = await createClient()
 
-  const { data: students, error } = await supabase
-    .from("users")
-    .select(`
-      *,
-      test_results (
-        score,
-        total_questions,
-        time_taken,
-        created_at
-      )
-    `)
-    .eq("role", "student")
-    .order("created_at", { ascending: false })
+  let students: any[]
 
-  if (error) {
+  try {
+    students = await fetchAllPages((from, to) =>
+      supabase
+        .from("users")
+        .select(`
+          *,
+          test_results (
+            score,
+            total_questions,
+            time_taken,
+            created_at
+          )
+        `)
+        .eq("role", "student")
+        .order("created_at", { ascending: false })
+        .range(from, to),
+    )
+  } catch (error) {
     console.error("Error fetching students:", error)
     return []
   }
 
   return (
-    students?.map((student) => {
+    students.map((student) => {
       const results = student.test_results || []
       const testsAttempted = results.length
       const averageScore =
@@ -463,6 +477,27 @@ export async function createTopic(name: string, subjectId: string) {
   return { success: true, data }
 }
 
+const ADMIN_PAGE_SIZE = 1000
+
+async function fetchAllPages<T>(fetchPage: (from: number, to: number) => Promise<{ data: T[] | null; error: any }>) {
+  const rows: T[] = []
+
+  for (let from = 0; ; from += ADMIN_PAGE_SIZE) {
+    const { data, error } = await fetchPage(from, from + ADMIN_PAGE_SIZE - 1)
+
+    if (error) {
+      throw error
+    }
+
+    const page = data || []
+    rows.push(...page)
+
+    if (page.length < ADMIN_PAGE_SIZE) {
+      return rows
+    }
+  }
+}
+
 // Helper function
 function formatTimeAgo(dateString: string) {
   const date = new Date(dateString)
@@ -552,16 +587,20 @@ export async function getAdminAnalytics() {
   }))
 
   // Monthly signups
-  const { data: users } = await supabase
-    .from("users")
-    .select("created_at")
-    .eq("role", "student")
-    .order("created_at", { ascending: true })
+  const users = await fetchAllPages((from, to) =>
+    supabase
+      .from("users")
+      .select("created_at")
+      .eq("role", "student")
+      .order("created_at", { ascending: true })
+      .range(from, to),
+  )
 
   const monthlySignups: Record<string, number> = {}
-  users?.forEach((u) => {
-    const month = new Date(u.created_at).toLocaleString("default", { month: "short" })
-    monthlySignups[month] = (monthlySignups[month] || 0) + 1
+  users.forEach((u: any) => {
+    const date = new Date(u.created_at)
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
+    monthlySignups[key] = (monthlySignups[key] || 0) + 1
   })
 
   // Test attempts by category
@@ -581,7 +620,12 @@ export async function getAdminAnalytics() {
     weeklyActivity,
     scoreDistribution: scoreRanges.map((r) => ({ range: r.range, count: r.count })),
     subjectPerformance,
-    monthlySignups: Object.entries(monthlySignups).map(([month, count]) => ({ month, count })),
+    monthlySignups: Object.entries(monthlySignups)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, count]) => ({
+        month: new Date(`${key}-01T00:00:00`).toLocaleString("default", { month: "short", year: "numeric" }),
+        count,
+      })),
     testAttemptsByCategory: [
       { category: "Full Exams", attempts: categoryAttempts.Full },
       { category: "Subject Tests", attempts: categoryAttempts.Subject },
