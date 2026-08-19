@@ -4,6 +4,7 @@ import { Geist_Mono, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
 import Script from "next/script"
+import { GoogleAnalytics } from "@/components/google-analytics"
 import "./globals.css"
 
 const geistMono = Geist_Mono({
@@ -29,6 +30,7 @@ const INSTAGRAM_URL = `https://instagram.com/${INSTAGRAM_HANDLE}`
 const SUPPORT_EMAIL = "anujjaglan9423@gmail.com"
 const SUPPORT_PHONE = "+917291849546"
 const SUPPORT_PHONE_DISPLAY = "7291849546"
+const GA_MEASUREMENT_ID = "G-W5ZGFTDCTP"
 
 // ============================================
 // SEO, AEO & GEO OPTIMIZED METADATA
@@ -544,6 +546,24 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="preconnect" href="https://vercel.live" />
 
+        {/* ===== GOOGLE ANALYTICS 4 ===== */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });
+            `,
+          }}
+        />
+
         {/* ===== STRUCTURED DATA (JSON-LD) FOR SEO/AEO ===== */}
         <Script
           id="structured-data-main"
@@ -574,6 +594,8 @@ export default function RootLayout({
         {children}
         {/* PWA Install Prompt */}
         <PWAInstallPrompt />
+        {/* Google Analytics page tracking */}
+        <GoogleAnalytics />
         {/* Vercel Analytics */}
         <Analytics />
       </body>
