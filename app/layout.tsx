@@ -517,8 +517,9 @@ export default function RootLayout({
         <meta name="exams-covered" content="SSC CGL, SSC CHSL, SSC MTS, RRB NTPC, Railway Group D, Haryana CET, HSSC CET, Police Constable, UKSSSC, IBPS PO, SBI PO, CTET, HTET, NDA, CDS, TET, UPSSSC, BPSC, MPPSC, REET, UPTET, DSSSB, KVS, NVS, LIC, GIC, FCI, ESIC, AIIMS, and more" />
         <meta name="features" content="free mock tests, unlimited attempts, instant results, detailed analytics, all-india rank, previous year papers, performance tracking" />
 
-        {/* ===== ADDITIONAL SEO META ===== */}
+        {/* ===== ADDITIONAL SEO & ADSENSE META ===== */}
         <meta name="google-site-verification" content="lm_5SF7FbX7_uM8Ze3BkTudNFttvMjDieo6Tz0hQqEY" />
+        <meta name="google-adsense-account" content="ca-pub-7892065085240733" />
 
         {/* ===== PWA & APPLE META ===== */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
