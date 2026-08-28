@@ -546,6 +546,14 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="preconnect" href="https://vercel.live" />
 
+        {/* ===== GOOGLE ADSENSE ===== */}
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7892065085240733"
+          strategy="afterInteractive"
+          async
+          crossOrigin="anonymous"
+        />
+
         {/* ===== GOOGLE ANALYTICS 4 ===== */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
