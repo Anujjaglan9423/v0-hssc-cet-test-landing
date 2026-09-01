@@ -112,44 +112,80 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-.gtranslate_wrapper {
+.translator-control {
   position: fixed;
   right: 1rem;
   bottom: 1rem;
-  z-index: 50;
+  z-index: 2147483000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
 }
 
-.gtranslate_wrapper .gt_float_switcher {
-  border: 1px solid var(--border) !important;
-  border-radius: 999px !important;
-  background: var(--primary) !important;
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--foreground) 20%, transparent) !important;
-  font-family: inherit !important;
+.translator-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--foreground) 20%, transparent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 
-.gtranslate_wrapper .gt_float_switcher .gt-selected {
-  padding: 0.7rem 1rem !important;
-  color: var(--primary-foreground) !important;
+.translator-trigger span:first-child {
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
-.gtranslate_wrapper .gt_float_switcher img {
-  width: 1.1rem !important;
-  height: auto !important;
+.translator-menu {
+  display: none;
+  min-width: 9rem;
+  overflow: hidden;
+  padding: 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--foreground) 18%, transparent);
 }
 
-.gtranslate_wrapper .gt_options {
-  border: 1px solid var(--border) !important;
-  border-radius: var(--radius-md) !important;
-  background: var(--card) !important;
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--foreground) 18%, transparent) !important;
+.translator-menu.is-open {
+  display: flex;
+  flex-direction: column;
 }
 
-.gtranslate_wrapper .gt_options a {
-  color: var(--card-foreground) !important;
+.translator-menu button {
+  padding: 0.65rem 0.8rem;
+  border: 0;
+  border-radius: calc(var(--radius-md) - 0.2rem);
+  background: transparent;
+  color: var(--card-foreground);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
 }
 
-.gtranslate_wrapper .gt_options a:hover {
-  background: var(--accent) !important;
+.translator-menu button:hover,
+.translator-menu button:focus-visible {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  outline: none;
+}
+
+.gtranslate_widget {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .goog-te-banner-frame,
