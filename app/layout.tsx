@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
 import Script from "next/script"
 import { GoogleAnalytics } from "@/components/google-analytics"
+import { GoogleTranslator } from "@/components/google-translator"
 import "./globals.css"
 
 const geistMono = Geist_Mono({
@@ -601,6 +602,7 @@ export default function RootLayout({
 
       <body className={`${inter.className} antialiased`}>
         {children}
+        <GoogleTranslator />
         {/* PWA Install Prompt */}
         <PWAInstallPrompt />
         {/* Google Analytics page tracking */}
