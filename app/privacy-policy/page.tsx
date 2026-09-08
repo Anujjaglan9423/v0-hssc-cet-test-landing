@@ -11,7 +11,8 @@ export default function PrivacyPolicyPage() {
       <section className="pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-foreground mb-8">Privacy Policy</h1>
-          <p className="text-muted-foreground mb-8">Last updated: January 1, 2026</p>
+          <p className="text-muted-foreground mb-8">Last updated: September 8, 2026</p>
+          <p className="mb-8 rounded-lg border bg-muted/30 p-4 text-sm leading-6 text-muted-foreground">This policy explains how CET TEST handles account, contact, usage, and advertising-related information. If you use the site, you agree to this policy and should review it when it changes.</p>
 
           <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8">
             <section>
@@ -55,15 +56,22 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">5. Your Rights</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">5. Retention and your choices</h2>
               <p className="text-muted-foreground leading-relaxed">
-                You have the right to access, update, or delete your personal information at any time. You can do this
+                You have the right to ask about, update, or delete eligible personal information. You can do this
                 by logging into your account settings or contacting us directly.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">6. Contact Us</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">6. Cookies, analytics, and advertising</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                The site may use cookies or similar technologies for sign-in, preferences, analytics, security, and advertising. Google and other advertising partners may use cookies to show and measure relevant ads according to their own policies. You can manage cookies through your browser settings and review Google&apos;s advertising controls. We do not promise that every third-party service will be available at all times.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">7. Contact Us</h2>
               <p className="text-muted-foreground leading-relaxed">
                 If you have any questions about this Privacy Policy, please contact us at:
               </p>

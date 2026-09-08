@@ -2,11 +2,12 @@ import { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { BookOpen, Users, Trophy, ArrowRight } from "lucide-react"
+import EditorialStandards, { ExamDisclaimer } from "@/components/editorial-standards"
 
 export const metadata: Metadata = {
-  title: "All Exams Preparation | SSC, Railway, Haryana, Uttarakhand Free Mock Tests",
+  title: "Government Exam Preparation Hub | CET TEST",
   description:
-    "Prepare for all exams with unlimited free mock tests. SSC, Railway, Haryana HSSC, and Uttarakhand UKSSSC exams. Start your free preparation now!",
+    "Browse practice tests and study resources for SSC, Railway, Haryana HSSC, and Uttarakhand UKSSSC exams.",
   keywords: [
     "free mock tests",
     "exam preparation",
@@ -73,7 +74,7 @@ export default function ExamsPage() {
             Complete Exam Preparation Hub
           </h1>
           <p className="text-xl text-muted-foreground mb-8 text-pretty">
-            Prepare for every government exam with unlimited free mock tests, previous year papers, and comprehensive study materials
+            Browse exam-specific practice tests, syllabus guides, and study materials. Use official notices to confirm current eligibility and dates.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/signup">
@@ -124,23 +125,23 @@ export default function ExamsPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="bg-background rounded-lg p-6 border text-center">
               <BookOpen className="w-12 h-12 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">100,000+ Questions</h3>
-              <p className="text-sm text-muted-foreground">Comprehensive question bank covering all topics</p>
+              <h3 className="font-semibold mb-2">Topic-based practice</h3>
+              <p className="text-sm text-muted-foreground">Practice by subject and review the explanation after each attempt.</p>
             </div>
             <div className="bg-background rounded-lg p-6 border text-center">
               <Trophy className="w-12 h-12 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">95% Success Rate</h3>
-              <p className="text-sm text-muted-foreground">Thousands of students cleared their exams</p>
+              <h3 className="font-semibold mb-2">Honest review</h3>
+              <p className="text-sm text-muted-foreground">Use accuracy and timing feedback to plan your next study session.</p>
             </div>
             <div className="bg-background rounded-lg p-6 border text-center">
               <Users className="w-12 h-12 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">Expert Support</h3>
-              <p className="text-sm text-muted-foreground">Get help from experienced educators</p>
+              <h3 className="font-semibold mb-2">Clear scope</h3>
+              <p className="text-sm text-muted-foreground">Each resource explains which exam or topic it is designed for.</p>
             </div>
             <div className="bg-background rounded-lg p-6 border text-center">
               <span className="text-3xl mb-3 block">✨</span>
-              <h3 className="font-semibold mb-2">100% Free</h3>
-              <p className="text-sm text-muted-foreground">No hidden charges, forever free</p>
+              <h3 className="font-semibold mb-2">Learning first</h3>
+              <p className="text-sm text-muted-foreground">Practice resources are presented without promises of selection or rank.</p>
             </div>
           </div>
         </div>
@@ -152,12 +153,12 @@ export default function ExamsPage() {
           <div className="bg-primary text-primary-foreground rounded-lg p-12 md:p-16">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="text-4xl md:text-5xl font-bold mb-2">500K+</div>
-                <p className="text-lg opacity-90">Active Students</p>
+                <div className="text-4xl md:text-5xl font-bold mb-2">4</div>
+                <p className="text-lg opacity-90">Exam category hubs</p>
               </div>
               <div>
-                <div className="text-4xl md:text-5xl font-bold mb-2">10M+</div>
-                <p className="text-lg opacity-90">Tests Completed</p>
+                <div className="text-4xl md:text-5xl font-bold mb-2">Review</div>
+                <p className="text-lg opacity-90">After every attempt</p>
               </div>
               <div>
                 <div className="text-4xl md:text-5xl font-bold mb-2">4</div>
@@ -167,6 +168,9 @@ export default function ExamsPage() {
           </div>
         </div>
       </section>
+
+      <EditorialStandards />
+      <div className="py-10"><ExamDisclaimer /></div>
 
       {/* CTA Section */}
       <section className="py-20 px-4 md:px-6 lg:px-8 bg-muted/30">
