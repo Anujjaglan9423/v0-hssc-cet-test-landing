@@ -11,6 +11,7 @@ import FAQSection from "@/components/faq-section"
 import CTASection from "@/components/cta-section"
 import Footer from "@/components/footer"
 import PreparationGuide, { EditorialNote } from "@/components/preparation-guide"
+import AdPlacement from "@/components/ad-placement"
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <StatsSection />
       <FeaturesSection />
       <ExamsSection />
+      <AdPlacement className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
       <PreparationGuide />
       <DailyQuizSection />
       <TestSeriesSection />
