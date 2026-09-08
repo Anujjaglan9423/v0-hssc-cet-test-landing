@@ -10,6 +10,7 @@ import PricingSection from "@/components/pricing-section"
 import FAQSection from "@/components/faq-section"
 import CTASection from "@/components/cta-section"
 import Footer from "@/components/footer"
+import PreparationGuide, { EditorialNote } from "@/components/preparation-guide"
 
 export default function Home() {
   return (
@@ -19,11 +20,13 @@ export default function Home() {
       <StatsSection />
       <FeaturesSection />
       <ExamsSection />
+      <PreparationGuide />
       <DailyQuizSection />
       <TestSeriesSection />
       <TestimonialsSection />
       <PricingSection />
       <FAQSection />
+      <EditorialNote />
       <CTASection />
       <Footer />
     </main>

@@ -39,124 +39,20 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: "CET TEST - Free Mock Tests for Haryana CET, HSSC, SSC, Railway, UKSSSC & All Govt Exams 2026",
-    template: "%s | CET TEST - India's #1 Free Mock Test Platform"
+    default: "CET TEST | Practice tests and study resources for government exams",
+    template: "%s | CET TEST",
   },
 
-  description: "India's most comprehensive free online mock test platform for Haryana CET, HSSC CET, HSSC Police Constable, HSSSC Group D, SSC CGL, SSC CHSL, SSC MTS, Railway RRB NTPC, Railway Group D, UKSSSC, and all government job exams. Attempt unlimited practice tests with instant results, detailed analytics, all-India rank, previous year papers & performance insights. Start your 100% free preparation today!",
+  description:
+    "CET TEST provides practice tests, exam guidance, study materials, and performance review tools for Haryana CET, HSSC, SSC, Railway, and related competitive exams.",
 
   keywords: [
-    // ===== HARYANA EXAMS =====
-    "Haryana CET mock test 2026",
-    "HSSC CET free online test",
-    "HSSC CET mock test series",
-    "Haryana CET exam preparation",
-    "HSSC Police Constable mock test",
-    "Haryana Police Constable exam 2026",
-    "HSSSC Group D mock test",
-    "Haryana Group D exam preparation",
-    "HSSC CET previous year papers",
-    "Haryana CET online test series",
-    "HSSC CET 2026 free mock test",
-    "HSSC CET syllabus 2026",
-
-    // ===== SSC EXAMS =====
-    "SSC CGL mock test 2026",
-    "SSC CHSL free online test",
-    "SSC MTS practice test 2026",
-    "SSC CPO mock test",
-    "SSC GD constable mock test",
-    "SSC JE online test series",
-    "SSC exam preparation 2026",
-    "SSC CGL previous year papers",
-    "SSC CHSL tier 1 mock test",
-    "SSC free mock test",
-
-    // ===== RAILWAY EXAMS =====
-    "RRB NTPC mock test 2026",
-    "Railway Group D free test",
-    "RRB NTPC exam preparation",
-    "Railway exam online practice",
-    "RRB JE mock test",
-    "RRB ALP practice test",
-    "Railway RRB free mock test",
-    "RRB NTPC previous year paper",
-
-    // ===== UKSSSC EXAMS =====
-    "UKSSSC mock test 2026",
-    "Uttarakhand state exam preparation",
-    "UKSSSC VDO mock test",
-    "UKSSSC Patwari test series",
-    "UKSSSC Forest Guard mock test",
-    "UKSSSC Group C online test",
-    "UKSSSC previous year papers",
-
-    // ===== OTHER STATE EXAMS =====
-    "UPSSSC mock test",
-    "BPSC exam preparation",
-    "MPPSC online test",
-    "Rajasthan CET mock test",
-    "Bihar SSC mock test",
-    "Jharkhand SSC practice test",
-
-    // ===== TEACHING EXAMS =====
-    "CTET mock test 2026",
-    "HTET free online test",
-    "KVS PRT mock test",
-    "NVS teacher exam preparation",
-    "DSSSB TGT mock test",
-    "REET practice test",
-    "UPTET online test series",
-
-    // ===== BANKING EXAMS =====
-    "IBPS PO mock test 2026",
-    "SBI PO free online test",
-    "IBPS Clerk practice test",
-    "RBI assistant mock test",
-    "Bank exam preparation 2026",
-
-    // ===== DEFENCE EXAMS =====
-    "NDA mock test 2026",
-    "CDS free online test",
-    "AFCAT practice test",
-    "Airforce Group X mock test",
-    "Navy SSR online test",
-    "Army GD exam preparation",
-
-    // ===== OTHER GOVT EXAMS =====
-    "LIC AAO mock test",
-    "GIC AM exam preparation",
-    "ESIC SSO online test",
-    "FCI manager mock test",
-    "AIIMS nursing officer exam",
-
-    // ===== AEO (ANSWER ENGINE OPTIMIZATION) - QUESTION BASED =====
-    "how to crack SSC CGL in first attempt",
-    "best strategy for RRB NTPC 2026",
-    "how to prepare for Haryana CET exam",
-    "what is HSSC CET exam pattern",
-    "how many attempts for railway exam",
-    "best free mock test for government exams",
-    "which exam is easy to crack in India",
-    "how to prepare for bank po exam at home",
-    "what is the syllabus of SSC CHSL",
-    "how to get government job without coaching",
-    "best website for competitive exam preparation",
-    "how to check mock test performance",
-    "what is good score in RRB NTPC",
-    "how to improve speed in SSC exam",
-    "how many questions in HSSC CET",
-    "is SSC CGL tough to crack",
-
-    // ===== GENERIC GOVT JOB KEYWORDS =====
-    "government job exam preparation",
-    "competitive exam test series India",
-    "free mock test 2026 all exams",
-    "online practice test for govt jobs",
-    "sarkari exam preparation app",
-    "best mock test website in India",
-    "previous year paper with solution",
-    "exam analysis and rank predictor",
+    "Haryana CET preparation",
+    "HSSC CET practice tests",
+    "government exam study materials",
+    "SSC practice tests",
+    "Railway exam preparation",
+    "Haryana GK notes",
   ],
 
   authors: [{ name: "CET TEST", url: SITE_URL }],

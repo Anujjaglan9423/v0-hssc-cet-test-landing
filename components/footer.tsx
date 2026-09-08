@@ -6,6 +6,7 @@ const footerLinks = {
   product: [
     { name: "Test Series", href: "#test-series" },
     { name: "Study Materials", href: "/study-materials" },
+    { name: "Exam Syllabus", href: "/syllabus" },
     { name: "Features", href: "#features" },
     { name: "Pricing", href: "#pricing" },
     { name: "FAQs", href: "#faq" },

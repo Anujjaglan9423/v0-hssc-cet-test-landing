@@ -34,7 +34,7 @@ export default function HeroSection() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
               <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">#1 Test Series Platform in India</span>
+              <span className="text-sm font-medium text-primary">Practice with a clear study plan</span>
             </div>
 
             {/* Heading */}
@@ -57,8 +57,7 @@ export default function HeroSection() {
 
             {/* Description */}
             <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-              India's most comprehensive test series platform for competitive exam preparation. Prepare for Haryana
-              exams, SSC, Railway, Uttarakhand, and more with real exam patterns and boost your success rate.
+              Use focused practice for Haryana CET, HSSC, SSC, Railway, and Uttarakhand exams. Choose a test, review every explanation, and use your results to decide what to study next.
             </p>
 
             {/* Features List */}
@@ -119,7 +118,7 @@ export default function HeroSection() {
                   ))}
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">50,000+</span> students trust us
+                  Built for independent exam preparation
                 </p>
               </div>
             </div>
@@ -151,8 +150,8 @@ export default function HeroSection() {
                       <CheckCircle2 className="w-6 h-6 text-accent" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-foreground">98%</p>
-                      <p className="text-sm text-muted-foreground">Success Rate</p>
+                      <p className="text-2xl font-bold text-foreground">Review</p>
+                      <p className="text-sm text-muted-foreground">Every answer explained</p>
                     </div>
                   </div>
                 </div>
