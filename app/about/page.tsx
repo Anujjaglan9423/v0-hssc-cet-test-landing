@@ -7,20 +7,14 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-  title: "About CET TEST | Best Free Mock Test Platform for HSSC & Haryana Exams",
+  title: "About CET TEST | Independent exam practice and study resources",
   description:
-    "CET TEST is India's premier exam preparation platform offering free mock tests for Haryana CET (Group C & D), HSSC Police, SSC CGL, Railway RRB NTPC, and UKSSSC. Empowering 50,000+ students with topper-curated questions and real-time analytics.",
+    "Learn how CET TEST creates practice tests and study resources for Haryana CET, HSSC, SSC, Railway, and related competitive exams.",
   keywords: [
-    "About CET TEST platform",
-    "Haryana CET 2026 preparation",
-    "HSSC Group C and D mock tests",
-    "HSSC Police Constable online practice",
-    "best HSSC coaching in Haryana",
-    "Free CET mock test site",
-    "Haryana government job preparation",
-    "SSC CGL free practice tests",
-    "Railway NTPC RRB mock test series",
-    "UKSSSC exam preparation online",
+    "About CET TEST",
+    "Haryana CET preparation",
+    "HSSC practice tests",
+    "government exam study resources",
   ],
   alternates: {
     canonical: "https://cettest.site/about",
@@ -28,9 +22,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About CET TEST - Empowering Aspirants for Haryana & Central Exams",
     description:
-      "Join 50,000+ students on CET TEST. The most trusted platform for HSSC, Haryana CET, SSC, and Railway mock tests with a 95% success rate.",
+      "Learn about CET TEST's approach to independent exam practice, explanations, and study resources.",
     url: "https://cettest.site/about",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "About CET TEST - India's #1 Free Exam Platform" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "About CET TEST exam preparation resources" }],
   },
 }
 
@@ -51,17 +45,17 @@ const values = [
   {
     icon: Target,
     title: "Localized Excellence",
-    description: "Specializing in Haryana state exams (HSSC) with deep-rooted regional expertise.",
+    description: "Starting with Haryana-focused resources and expanding carefully when reliable exam information is available.",
   },
   {
     icon: Award,
     title: "Exam Realism",
-    description: "Every mock test is calibrated to the latest 2026 NTA and HSSC exam patterns.",
+    description: "Practice sets are labelled by exam and topic; current patterns should always be confirmed from official notices.",
   },
   {
     icon: Users,
     title: "Affordable Access",
-    description: "Breaking the barrier of expensive coaching by providing free, high-quality test series.",
+    description: "Making self-study easier with accessible practice material and explanations.",
   },
 ]
 
@@ -80,29 +74,28 @@ export default function AboutPage() {
 
           {/* Badge */}
           <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
-            🚀 Mock Tests for Haryana CET, SSC, Railway & UKSSSC
+            Independent study resources for competitive exams
           </div>
 
           {/* Heading */}
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-            Crack <span className="text-primary">Haryana CET, SSC & Railway Exams</span> <br />
-            with Smart Practice
+            Practice with <span className="text-primary">clear exam resources</span> <br />
+            and honest performance review
           </h1>
 
           {/* Subheading */}
           <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
-            CET TEST is your all-in-one platform to prepare for <strong>HSSC CET (Group C & D)</strong>,
-            <strong> Haryana Police</strong>, <strong>SSC exams (CGL, CHSL, MTS)</strong>,
-            <strong> Railway (RRB)</strong>, and <strong>UKSSSC exams</strong> with free mock tests,
-            previous year questions, and real exam-level practice.
+            CET TEST publishes practice tests, syllabus notes, and exam guidance for <strong>HSSC CET</strong>,
+            <strong> Haryana Police</strong>, <strong>SSC</strong>, <strong>Railway</strong>, and <strong>UKSSSC</strong> learners.
+            Resources are for education and should be checked against current official notices.
           </p>
 
           {/* Trust Points */}
           <div className="flex flex-wrap justify-center gap-4 mb-10 text-sm text-muted-foreground">
-            <span>✔ Haryana CET Special Focus</span>
-            <span>✔ SSC, RRB & UKSSSC Coverage</span>
-            <span>✔ 10,000+ Questions</span>
-            <span>✔ 100% Free Practice</span>
+              <span>Haryana CET and HSSC resources</span>
+            <span>SSC, RRB, and UKSSSC practice</span>
+            <span>Explanations with test review</span>
+            <span>Free resources are clearly labelled</span>
           </div>
 
           {/* CTA Buttons */}
@@ -135,9 +128,9 @@ export default function AboutPage() {
               <div className="mb-3 flex justify-center">
                 <Users className="w-7 h-7 text-blue-600" />
               </div>
-              <div className="text-3xl font-bold text-blue-600 mb-1">50,000+</div>
+              <div className="text-3xl font-bold text-blue-600 mb-1">Practice</div>
               <div className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">
-                Verified Aspirants
+                Topic and full-length tests
               </div>
             </div>
 
@@ -157,9 +150,9 @@ export default function AboutPage() {
               <div className="mb-3 flex justify-center">
                 <Star className="w-7 h-7 text-yellow-500" />
               </div>
-              <div className="text-3xl font-bold text-yellow-500 mb-1">95%</div>
+              <div className="text-3xl font-bold text-yellow-500 mb-1">Review</div>
               <div className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">
-                Recommended Rate
+                Learn from each attempt
               </div>
             </div>
 
@@ -255,10 +248,10 @@ export default function AboutPage() {
           {/* Heading */}
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Why 50,000+ Aspirants Trust CET TEST?
+              Why students use CET TEST for practice
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Built for serious aspirants with high-quality content, real exam experience, and proven results
+              Built around clear practice sessions, answer explanations, and honest performance review
             </p>
           </div>
 
@@ -267,8 +260,8 @@ export default function AboutPage() {
 
             {[
               { t: "Haryana State Specialization", d: "Comprehensive HSSC CET and Police Constable content." },
-              { t: "Topper-Curated Questions", d: "Content designed by candidates who cleared the exams." },
-              { t: "Advanced Analytics", d: "Identify weak areas with AI-driven performance reports." },
+              { t: "Explanations for review", d: "Use answer explanations to identify concepts that need more revision." },
+              { t: "Performance review", d: "Review accuracy, time, and unanswered questions after an attempt." },
               { t: "100% Free Resources", d: "Full-length mock tests at zero cost for all students." },
               { t: "Real Exam Interface", d: "Experience the actual CBT (Computer Based Test) environment." },
               { t: "Regular Updates", d: "Daily Current Affairs and latest 2026 vacancy notifications." },

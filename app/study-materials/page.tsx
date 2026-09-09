@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card"
 import { FileText, Image, Video, Download, ExternalLink, Loader2 } from "lucide-react"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
+import AdPlacement from "@/components/ad-placement"
 
 export default function StudyMaterialsPage() {
   const [materials, setMaterials] = useState<StudyMaterial[]>([])
@@ -66,6 +67,8 @@ export default function StudyMaterialsPage() {
               Access our comprehensive collection of study resources to enhance your exam preparation
             </p>
           </div>
+
+          <AdPlacement className="mb-8" />
 
           {/* Filter Buttons */}
           <div className="flex flex-wrap gap-2 mb-8">

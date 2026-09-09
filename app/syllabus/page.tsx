@@ -62,7 +62,7 @@ export default function SyllabusLandingPage() {
             id: "hssc",
             name: "HSSC",
             fullName: "Haryana Staff Selection Commission",
-            description: "HSSC is the premier recruitment agency for Group B, C, and D posts in the Government of Haryana. It conducts the Common Eligibility Test (CET) as a single-window eligibility test for various state government jobs, with scores valid for 3 years.[citation:7]",
+            description: "HSSC is a Haryana government recruitment commission. It publishes recruitment notices and exam information for eligible candidates. Check hssc.gov.in for current rules, notices, and CET details.",
             established: "1970",
             headquarters: "Panchkula, Haryana",
             officialWebsite: "https://hssc.gov.in",
@@ -95,7 +95,7 @@ export default function SyllabusLandingPage() {
             id: "uksssc",
             name: "UKSSSC",
             fullName: "Uttarakhand Subordinate Service Selection Commission",
-            description: "UKSSSC conducts recruitment examinations for various Group C posts in the Uttarakhand government. The commission focuses heavily on Uttarakhand-specific general knowledge, with state topics carrying up to 40% weightage in many exams.[citation:2]",
+            description: "UKSSSC conducts recruitment examinations for Uttarakhand government posts. The syllabus and marking scheme vary by recruitment, so confirm the current notice at sssc.uk.gov.in before preparing from a guide.",
             established: "2004",
             headquarters: "Dehradun, Uttarakhand",
             officialWebsite: "https://sssc.uk.gov.in",
@@ -171,7 +171,7 @@ export default function SyllabusLandingPage() {
                 <div className="max-w-5xl mx-auto text-center relative z-10">
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium backdrop-blur-sm">
                         <Sparkles className="w-4 h-4" />
-                        Complete Syllabus Resource for State Government Exams
+                        Study guide with official-source reminders
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
@@ -361,7 +361,7 @@ export default function SyllabusLandingPage() {
                         <div className="p-4 bg-muted/20 border-t text-xs text-muted-foreground">
                             <p className="flex items-center gap-1">
                                 <span className="font-medium text-foreground">Note:</span>
-                                Haryana GK carries the highest weightage (25%). CET scores are valid for 3 years. No negative marking for wrong answers, but unattempted questions incur -0.95 marks if 5th option not filled.[citation:5][citation:7]
+                                Haryana GK carries the highest weightage (25%). CET scores are valid for 3 years. No negative marking for wrong answers, but unattempted questions incur -0.95 marks if 5th option not filled.
                             </p>
                         </div>
                     </div>
@@ -402,7 +402,7 @@ export default function SyllabusLandingPage() {
                         <div className="p-4 bg-muted/20 border-t text-xs text-muted-foreground">
                             <p className="flex items-center gap-1">
                                 <span className="font-medium text-foreground">Note:</span>
-                                Uttarakhand GK carries 40% weightage in most UKSSSC exams. Negative marking of -0.25 applies for wrong answers. VDO and Police Constable are the most popular recruitments.[citation:2][citation:4]
+                                Uttarakhand GK carries 40% weightage in most UKSSSC exams. Negative marking of -0.25 applies for wrong answers. VDO and Police Constable are the most popular recruitments.
                             </p>
                         </div>
                     </div>
@@ -435,15 +435,15 @@ export default function SyllabusLandingPage() {
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>CET System:</strong> Single eligibility test valid for 3 years for multiple recruitments[citation:7]</span>
+                                    <span><strong>CET System:</strong> Single eligibility test valid for 3 years for multiple recruitments</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>Haryana GK Focus:</strong> 25% weightage on state-specific topics[citation:5]</span>
+                                    <span><strong>Haryana GK Focus:</strong> 25% weightage on state-specific topics</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>No Negative Marking:</strong> For wrong answers (unattempted have penalty)[citation:1]</span>
+                                    <span><strong>No Negative Marking:</strong> For wrong answers (unattempted have penalty)</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -451,7 +451,7 @@ export default function SyllabusLandingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>Computer Knowledge:</strong> Minimum 10% questions in Police exam[citation:9]</span>
+                                    <span><strong>Computer Knowledge:</strong> Minimum 10% questions in Police exam</span>
                                 </li>
                             </ul>
                         </div>
@@ -467,11 +467,11 @@ export default function SyllabusLandingPage() {
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>State GK Focus:</strong> Uttarakhand topics carry up to 40% weightage[citation:2]</span>
+                                    <span><strong>State GK Focus:</strong> Uttarakhand topics carry up to 40% weightage</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>Negative Marking:</strong> 0.25 marks deducted for each wrong answer[citation:2]</span>
+                                    <span><strong>Negative Marking:</strong> 0.25 marks deducted for each wrong answer</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -479,7 +479,7 @@ export default function SyllabusLandingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>VDO Exam:</strong> No computer section, focus on rural development[citation:4]</span>
+                                    <span><strong>VDO Exam:</strong> No computer section, focus on rural development</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -517,19 +517,19 @@ export default function SyllabusLandingPage() {
                                     <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-orange-600">1</span>
                                     </div>
-                                    <span><strong>Master Haryana GK:</strong> Focus on Haryana history, culture, and government schemes (25% weightage)[citation:5]</span>
+                                    <span><strong>Master Haryana GK:</strong> Focus on Haryana history, culture, and government schemes (25% weightage)</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-orange-600">2</span>
                                     </div>
-                                    <span><strong>Practice Computer Basics:</strong> Minimum 10% questions on computer knowledge in Police exam[citation:9]</span>
+                                    <span><strong>Practice Computer Basics:</strong> Minimum 10% questions on computer knowledge in Police exam</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-orange-600">3</span>
                                     </div>
-                                    <span><strong>Attempt All Questions:</strong> No negative marking for wrong answers, but avoid leaving questions unattempted[citation:1]</span>
+                                    <span><strong>Attempt All Questions:</strong> No negative marking for wrong answers, but avoid leaving questions unattempted</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -551,13 +551,13 @@ export default function SyllabusLandingPage() {
                                     <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-green-600">1</span>
                                     </div>
-                                    <span><strong>Uttarakhand GK is Key:</strong> Study state history, culture, Char Dham, national parks (40% weightage)[citation:2]</span>
+                                    <span><strong>Uttarakhand GK is Key:</strong> Study state history, culture, Char Dham, national parks (40% weightage)</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-green-600">2</span>
                                     </div>
-                                    <span><strong>Avoid Guesswork:</strong> Negative marking of -0.25 makes accuracy crucial[citation:4]</span>
+                                    <span><strong>Avoid Guesswork:</strong> Negative marking of -0.25 makes accuracy crucial</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -595,27 +595,27 @@ export default function SyllabusLandingPage() {
                         {[
                             {
                                 q: "What is the validity of HSSC CET score?",
-                                a: "HSSC CET score is valid for 3 years from the date of result declaration. During this period, candidates can apply for various Group C and Group D posts without reappearing for the CET.[citation:7]"
+                                a: "HSSC CET score is valid for 3 years from the date of result declaration. During this period, candidates can apply for various Group C and Group D posts without reappearing for the CET."
                             },
                             {
                                 q: "Is there negative marking in UKSSSC exams?",
-                                a: "Yes, most UKSSSC exams have negative marking of 0.25 marks for each wrong answer. Candidates should avoid guesswork and focus on accuracy.[citation:2][citation:4]"
+                                a: "Yes, most UKSSSC exams have negative marking of 0.25 marks for each wrong answer. Candidates should avoid guesswork and focus on accuracy."
                             },
                             {
                                 q: "Which state GK has higher weightage - HSSC or UKSSSC?",
-                                a: "UKSSSC gives higher weightage to state GK (up to 40%), while HSSC allocates 25% to Haryana-specific topics. Both require focused preparation on state history, culture, and geography.[citation:2][citation:5]"
+                                a: "UKSSSC gives higher weightage to state GK (up to 40%), while HSSC allocates 25% to Haryana-specific topics. Both require focused preparation on state history, culture, and geography."
                             },
                             {
                                 q: "Is Computer Knowledge included in both exams?",
-                                a: "HSSC includes computer knowledge in many exams (minimum 10% in Police Constable). UKSSSC VDO does NOT include computer section, but other UKSSSC exams may include it depending on the post.[citation:9]"
+                                a: "HSSC includes computer knowledge in many exams (minimum 10% in Police Constable). UKSSSC VDO does NOT include computer section, but other UKSSSC exams may include it depending on the post."
                             },
                             {
                                 q: "What is the duration of these exams?",
-                                a: "HSSC exams are typically 1 hour 45 minutes (105 minutes) for 100 questions. UKSSSC exams are 2 hours (120 minutes) for 100 questions.[citation:1][citation:2]"
+                                a: "HSSC exams are typically 1 hour 45 minutes (105 minutes) for 100 questions. UKSSSC exams are 2 hours (120 minutes) for 100 questions."
                             },
                             {
                                 q: "Can I take these exams in Hindi language?",
-                                a: "Yes, both HSSC and UKSSSC exams are bilingual (Hindi and English) for all sections except language-specific papers.[citation:1]"
+                                a: "Yes, both HSSC and UKSSSC exams are bilingual (Hindi and English) for all sections except language-specific papers."
                             }
                         ].map((faq, idx) => (
                             <div key={idx} className="rounded-xl border bg-card p-5">

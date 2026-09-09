@@ -1,108 +1,25 @@
-"use client"
+import { BookOpen, ChartNoAxesCombined, ClipboardCheck, RotateCcw } from "lucide-react"
 
-import { useEffect, useState, useRef } from "react"
-import { Users, FileText, Award, TrendingUp } from "lucide-react"
-
-const stats = [
-  {
-    icon: Users,
-    value: 50000,
-    suffix: "+",
-    label: "Active Students",
-  },
-  {
-    icon: FileText,
-    value: 10000,
-    suffix: "+",
-    label: "Practice Questions",
-  },
-  {
-    icon: Award,
-    value: 98,
-    suffix: "%",
-    label: "Success Rate",
-  },
-  {
-    icon: TrendingUp,
-    value: 500,
-    suffix: "+",
-    label: "Selections",
-  },
+const highlights = [
+  { icon: ClipboardCheck, title: "Choose a test", description: "Select an exam or topic that matches your current study goal." },
+  { icon: BookOpen, title: "Attempt carefully", description: "Practise with timed questions and read the explanation after submitting." },
+  { icon: ChartNoAxesCombined, title: "Review performance", description: "Use accuracy and time indicators to find topics that need attention." },
+  { icon: RotateCcw, title: "Repeat with purpose", description: "Return to difficult topics and measure progress through another attempt." },
 ]
-
-function useCountUp(target: number, duration = 2000, startCounting: boolean) {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (!startCounting) return
-
-    let startTime: number | null = null
-    const animate = (currentTime: number) => {
-      if (startTime === null) startTime = currentTime
-      const progress = Math.min((currentTime - startTime) / duration, 1)
-      setCount(Math.floor(progress * target))
-
-      if (progress < 1) {
-        requestAnimationFrame(animate)
-      }
-    }
-
-    requestAnimationFrame(animate)
-  }, [target, duration, startCounting])
-
-  return count
-}
-
-function StatCard({ stat, index }: { stat: (typeof stats)[0]; index: number }) {
-  const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  const count = useCountUp(stat.value, 2000, isVisible)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <div
-      ref={ref}
-      className={`text-center p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
-        isVisible ? "animate-count-up" : "opacity-0"
-      }`}
-      style={{ animationDelay: `${index * 100}ms` }}
-    >
-      <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-        <stat.icon className="w-7 h-7 text-primary" />
-      </div>
-      <p className="text-3xl md:text-4xl font-bold text-foreground mb-1">
-        {count.toLocaleString()}
-        {stat.suffix}
-      </p>
-      <p className="text-muted-foreground">{stat.label}</p>
-    </div>
-  )
-}
 
 export default function StatsSection() {
   return (
-    <section className="py-16 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
-            <StatCard key={stat.label} stat={stat} index={index} />
-          ))}
+    <section className="border-y border-border bg-muted/30 py-16" aria-labelledby="practice-cycle-title">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 max-w-2xl">
+          <h2 id="practice-cycle-title" className="text-2xl font-bold text-foreground md:text-3xl">A practice cycle you can follow</h2>
+          <p className="mt-2 text-muted-foreground">Each part of the platform is designed to support a useful study habit, not just another score.</p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {highlights.map((item) => {
+            const Icon = item.icon
+            return <article key={item.title} className="rounded-2xl border border-border bg-card p-5"><div className="mb-4 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><Icon aria-hidden="true" /></div><h3 className="font-semibold text-foreground">{item.title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p></article>
+          })}
         </div>
       </div>
     </section>
