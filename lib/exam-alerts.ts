@@ -8,6 +8,8 @@ export type ExamAlert = {
   category: string | null
   createdAt: string
   sourceUrl: string | null
+  region: "Haryana" | "Uttarakhand"
+  authority: string
 }
 
 export async function getExamAlerts(limit = 20): Promise<ExamAlert[]> {
@@ -25,13 +27,20 @@ export async function getExamAlerts(limit = 20): Promise<ExamAlert[]> {
     return []
   }
 
-  return (data ?? []).map((item) => ({
-    id: item.id,
-    title: item.title,
-    slug: item.slug,
-    description: item.description,
-    category: item.category,
-    createdAt: item.created_at,
-    sourceUrl: item.featured_image_url,
-  }))
+  return (data ?? []).map((item) => {
+    const source = `${item.title} ${item.featured_image_url ?? ""}`.toLowerCase()
+    const region = source.includes("uksssc") || source.includes("ukpsc") || source.includes("uk.gov.in") ? "Uttarakhand" : "Haryana"
+    const authority = source.includes("hpsc") ? "HPSC" : source.includes("hssc") ? "HSSC" : source.includes("uksssc") ? "UKSSSC" : "UKPSC"
+    return {
+      id: item.id,
+      title: item.title,
+      slug: item.slug,
+      description: item.description,
+      category: item.category,
+      createdAt: item.created_at,
+      sourceUrl: item.featured_image_url,
+      region,
+      authority,
+    }
+  })
 }

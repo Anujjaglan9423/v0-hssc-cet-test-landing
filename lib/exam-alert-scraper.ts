@@ -54,7 +54,7 @@ export async function scrapeGovernmentNotices() {
           status: "publish",
           meta_title: `${source.name}: ${title}`,
           meta_description: `Official exam notification discovered on ${source.name}.`,
-          tags: [source.name, "Exam Alert"],
+          tags: [source.name, "Exam Alert", source.name === "HSSC" || source.name === "HPSC" ? "Haryana" : "Uttarakhand"],
         })
         if (insertError) throw new Error(`Database insert failed: ${insertError.message}`)
         inserted += 1
