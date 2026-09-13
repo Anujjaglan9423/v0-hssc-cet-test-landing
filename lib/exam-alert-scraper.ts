@@ -28,7 +28,7 @@ function slugify(value: string) {
 function collectOfficialLinks(value: unknown, links = new Map<string, string>(), context = "SSC notice") {
   if (typeof value === "string") {
     for (const match of value.matchAll(/https?:\/\/[^\s"'<>]+/gi)) {
-      const url = match[0].replace(/[),.;]+$/, "")
+      const url = match[0].replace(/[),.;]+$/, "").replaceAll("\\", "/")
       if (/ssc.gov.in|pdf|notice|notification|result|admit|exam/i.test(url)) links.set(url, context)
     }
   } else if (Array.isArray(value)) {
@@ -36,7 +36,7 @@ function collectOfficialLinks(value: unknown, links = new Map<string, string>(),
   } else if (value && typeof value === "object") {
     const record = value as Record<string, unknown>
     const title = String(record.headline ?? record.title ?? record.name ?? context)
-    const path = typeof record.path === "string" ? record.path.replaceAll("\\\\", "/") : ""
+    const path = typeof record.path === "string" ? record.path.replaceAll("\\", "/") : ""
     if (path) links.set(`https://ssc.gov.in/api/attachment/${path.replace(/^\//, "")}`, title)
     Object.values(record).forEach((item) => collectOfficialLinks(item, links, title))
   }

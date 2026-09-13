@@ -15,7 +15,7 @@ import {
 import { ShareButtons } from "@/components/blog/share-buttons"
 import Footer from "@/components/footer"
 import { notFound } from "next/navigation"
-import { createClient } from "@/lib/supabase/server"
+import { createAdminClient } from "@/lib/supabase/server"
 import type { Metadata } from "next"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
@@ -41,7 +41,7 @@ interface PageProps {
 }
 
 async function getBlog(slug: string): Promise<Blog | null> {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   // Full blog detail needs all fields
   const { data: blog, error } = await supabase
@@ -59,7 +59,7 @@ async function getBlog(slug: string): Promise<Blog | null> {
 }
 
 async function getRelatedBlogs(category: string, currentSlug: string): Promise<Blog[]> {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   // Related blogs - only need listing fields
   const { data: blogs } = await supabase
@@ -74,7 +74,7 @@ async function getRelatedBlogs(category: string, currentSlug: string): Promise<B
 }
 
 async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   // Recent blogs - only need listing fields
   const { data: blogs } = await supabase
@@ -90,6 +90,7 @@ async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
 
 // Revalidate blog pages every 1 hour - cached at CDN for 1 hour, stale for 24h
 export const revalidate = 3600
+export const dynamic = "force-dynamic"
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
@@ -108,7 +109,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: blog.meta_title || blog.title,
       description: blog.meta_description || blog.description?.slice(0, 160),
-      images: blog.featured_image_url ? [blog.featured_image_url] : [],
+      images: blog.featured_image_url && !blog.featured_image_url.includes("gov.in") ? [blog.featured_image_url] : [],
       type: "article",
       publishedTime: blog.created_at,
       modifiedTime: blog.updated_at,
@@ -117,7 +118,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: "summary_large_image",
       title: blog.meta_title || blog.title,
       description: blog.meta_description || blog.description?.slice(0, 160),
-      images: blog.featured_image_url ? [blog.featured_image_url] : [],
+      images: blog.featured_image_url && !blog.featured_image_url.includes("gov.in") ? [blog.featured_image_url] : [],
     },
   }
 }
@@ -149,6 +150,9 @@ export default async function BlogPostPage({ params }: PageProps) {
   const relatedBlogs = blog.category ? await getRelatedBlogs(blog.category, slug) : []
   const recentBlogs = await getRecentBlogs(slug)
   const readTime = calculateReadTime(blog.description)
+  const isExamAlert = blog.category === "Exam Alert"
+  const sourceUrl = isExamAlert && blog.featured_image_url?.startsWith("http") ? blog.featured_image_url : null
+  const authority = blog.tags?.find((tag) => ["HSSC", "HPSC", "UKSSSC", "UKPSC", "SSC", "Railway"].includes(tag)) || "Official recruitment authority"
 
   return (
     <div className="min-h-screen bg-background">
@@ -227,7 +231,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
 
             {/* Featured Image with Overlay */}
-            {blog.featured_image_url && (
+            {blog.featured_image_url && !isExamAlert && (
               <div className="hidden lg:block">
                 <div className="sticky top-24 w-full h-80 relative rounded-xl overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
@@ -243,7 +247,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
 
           {/* Mobile Image - Below Title */}
-          {blog.featured_image_url && (
+          {blog.featured_image_url && !isExamAlert && (
             <div className="lg:hidden mt-8 sm:mt-12">
               <div className="w-full h-64 sm:h-72 relative rounded-lg sm:rounded-xl overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
@@ -254,6 +258,14 @@ export default async function BlogPostPage({ params }: PageProps) {
                 />
                 <div className="absolute inset-0 rounded-lg sm:rounded-xl ring-1 ring-border/50" />
               </div>
+            </div>
+          )}
+          {isExamAlert && (
+            <div className="mt-8 lg:mt-0 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/15 via-card to-card p-5 sm:p-7 shadow-sm">
+              <div className="flex items-center gap-3 text-primary"><BookOpen className="h-5 w-5" /><span className="text-sm font-semibold uppercase tracking-wide">Official exam notice</span></div>
+              <h2 className="mt-4 text-xl font-bold text-foreground sm:text-2xl">{authority} notification details</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">This page summarizes the latest notice published for {authority}. Check the official source for the notification PDF, eligibility, dates, vacancies, syllabus and application instructions.</p>
+              {sourceUrl && <a href={sourceUrl} target="_blank" rel="noreferrer" className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 sm:w-auto">Open official notice <ArrowRight className="h-4 w-4" /></a>}
             </div>
           )}
         </div>
@@ -285,7 +297,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                   prose-ol:my-5 sm:prose-ol:my-6 prose-ol:space-y-2
                   prose-table:my-6 prose-td:px-3 prose-td:py-2 prose-th:px-3 prose-th:py-2 prose-th:font-semibold prose-th:bg-muted/50
                 "
-                dangerouslySetInnerHTML={{ __html: blog.description }}
+                dangerouslySetInnerHTML={{ __html: blog.description || `<h2>${blog.title}</h2><p>This official ${authority} exam notice is listed for candidates preparing for government recruitment examinations.</p><h3>What to check</h3><ul><li>Notification dates and application deadline</li><li>Eligibility, vacancies and selection process</li><li>Official PDF, syllabus and examination instructions</li></ul>${sourceUrl ? `<p><a href="${sourceUrl}">Open the official notice source</a></p>` : ""}` }}
               />
 
               {/* Share Section */}
@@ -328,7 +340,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
             {/* Sidebar */}
             <aside className="lg:col-span-4">
-              <div className="sticky top-24 space-y-6 sm:space-y-8">
+              <div className="space-y-6 sm:space-y-8 lg:sticky lg:top-24">
                 {/* Quick Navigation */}
                 <Card className="border border-border/50 shadow-sm hover:shadow-md transition-shadow">
                   <CardContent className="p-5 sm:p-6">
