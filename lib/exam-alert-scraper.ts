@@ -6,6 +6,8 @@ const SOURCES = [
   { name: "UKSSSC", url: "https://sssc.uk.gov.in/" },
   { name: "UKPSC", url: "https://psc.uk.gov.in/" },
   { name: "HPSC", url: "https://hpsc.gov.in/" },
+  { name: "Railway", url: "https://www.rrbcdg.gov.in/" },
+  { name: "SSC", url: "https://ssc.gov.in/" },
 ] as const
 
 const LINK_PATTERN = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi
@@ -54,7 +56,7 @@ export async function scrapeGovernmentNotices() {
           status: "publish",
           meta_title: `${source.name}: ${title}`,
           meta_description: `Official exam notification discovered on ${source.name}.`,
-          tags: [source.name, "Exam Alert", source.name === "HSSC" || source.name === "HPSC" ? "Haryana" : "Uttarakhand"],
+          tags: [source.name, "Exam Alert", source.name === "HSSC" || source.name === "HPSC" ? "Haryana" : source.name === "UKSSSC" || source.name === "UKPSC" ? "Uttarakhand" : source.name],
         })
         if (insertError) throw new Error(`Database insert failed: ${insertError.message}`)
         inserted += 1
