@@ -41,6 +41,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
 
+    // 🔔 Live exam alerts
+    {
+      url: `${baseUrl}/exam-alerts`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 1.0,
+    },
+
     // 📄 Informational
     {
       url: `${baseUrl}/about`,
