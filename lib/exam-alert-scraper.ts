@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto"
-import { createClient } from "@/lib/supabase/server"
+import { createAdminClient } from "@/lib/supabase/server"
 
 const SOURCES = [
   { name: "HSSC", url: "https://hssc.gov.in/" },
@@ -24,7 +24,7 @@ function slugify(value: string) {
 }
 
 export async function scrapeGovernmentNotices() {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   const results = []
 
   for (const source of SOURCES) {
