@@ -26,6 +26,7 @@ import {
   BookOpen,
   Library,
   PenSquare,
+  BellRing,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -40,6 +41,7 @@ const adminLinks = [
   { href: "/admin/students", icon: Users, label: "Students" },
   { href: "/admin/tests", icon: FileText, label: "Tests" },
   { href: "/admin/manage", icon: FolderTree, label: "Manage" },
+  { href: "/admin/alerts", icon: BellRing, label: "Exam Alerts" },
   { href: "/admin/study-materials", icon: Library, label: "Study Materials" },
   { href: "/admin/blog", icon: PenSquare, label: "Blog" },
   { href: "/admin/payments", icon: BarChart3, label: "Payments" },
