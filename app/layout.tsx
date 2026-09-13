@@ -469,6 +469,27 @@ export default function RootLayout({
           }}
         />
 
+        {/* ===== GTRANSLATE LANGUAGE WIDGET ===== */}
+        <Script
+          id="gtranslate-settings"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.gtranslateSettings = {
+                default_language: "en",
+                languages: ["en", "hi"],
+                globe_color: "#66aaff",
+                wrapper_selector: ".gtranslate_wrapper"
+              };
+            `,
+          }}
+        />
+        <Script
+          id="gtranslate-widget"
+          src="https://cdn.gtranslate.net/widgets/latest/float.js"
+          strategy="afterInteractive"
+        />
+
         {/* ===== STRUCTURED DATA (JSON-LD) FOR SEO/AEO ===== */}
         <Script
           id="structured-data-main"
@@ -497,6 +518,7 @@ export default function RootLayout({
 
       <body className={`${inter.className} antialiased`}>
         {children}
+        <div className="gtranslate_wrapper" aria-label="Website language options" />
         {/* PWA Install Prompt */}
         <PWAInstallPrompt />
         {/* Google Analytics page tracking */}
