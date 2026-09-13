@@ -518,11 +518,7 @@ export default function RootLayout({
 
       <body className={`${inter.className} antialiased`}>
         {children}
-        <aside className="language-widget-bar" aria-label="Website language options">
-          <span className="language-widget-label">Translate:</span>
-  <span>English / हिन्दी</span>
-          <div className="gtranslate_wrapper" />
-        </aside>
+        <div className="gtranslate_wrapper" aria-label="Website language options" />
         {/* PWA Install Prompt */}
         <PWAInstallPrompt />
         {/* Google Analytics page tracking */}
