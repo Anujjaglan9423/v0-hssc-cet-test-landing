@@ -486,7 +486,7 @@ export default function RootLayout({
         />
         <Script
           id="gtranslate-widget"
-          src="https://cdn.gtranslate.net/widgets/latest/globe.js"
+          src="https://cdn.gtranslate.net/widgets/latest/float.js"
           strategy="afterInteractive"
         />
 
@@ -520,12 +520,7 @@ export default function RootLayout({
         {children}
         <aside className="language-widget-bar" aria-label="Website language options">
           <span className="language-widget-label">Translate:</span>
-          <span>English</span>
-          <span>हिन्दी</span>
-          <span>Kumaoni</span>
-          <span>Garhwali</span>
-          <span>Haryanvi</span>
-          <span className="language-widget-note">Local languages use Hindi fallback</span>
+  <span>English / हिन्दी</span>
           <div className="gtranslate_wrapper" />
         </aside>
         {/* PWA Install Prompt */}
