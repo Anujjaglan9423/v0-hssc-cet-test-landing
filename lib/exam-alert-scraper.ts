@@ -51,7 +51,7 @@ export async function scrapeGovernmentNotices() {
           description: `Official update discovered on ${source.name}. Open the source link for the original notice.`,
           category: "Exam Alert",
           featured_image_url: url,
-          status: "published",
+          status: "publish",
           meta_title: `${source.name}: ${title}`,
           meta_description: `Official exam notification discovered on ${source.name}.`,
           tags: [source.name, "Exam Alert"],
