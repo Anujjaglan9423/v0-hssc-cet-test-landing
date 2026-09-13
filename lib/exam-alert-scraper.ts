@@ -2,12 +2,12 @@ import { createHash } from "node:crypto"
 import { createAdminClient } from "@/lib/supabase/server"
 
 const SOURCES = [
-  { name: "HSSC", url: "https://hssc.gov.in/" },
-  { name: "UKSSSC", url: "https://sssc.uk.gov.in/" },
-  { name: "UKPSC", url: "https://psc.uk.gov.in/" },
-  { name: "HPSC", url: "https://hpsc.gov.in/" },
-  { name: "Railway", url: "https://www.rrbcdg.gov.in/" },
-  { name: "SSC", url: "https://ssc.gov.in/" },
+  { name: "HSSC", urls: ["https://hssc.gov.in/"] },
+  { name: "UKSSSC", urls: ["https://sssc.uk.gov.in/"] },
+  { name: "UKPSC", urls: ["https://psc.uk.gov.in/"] },
+  { name: "HPSC", urls: ["https://hpsc.gov.in/"] },
+  { name: "Railway", urls: ["https://rrb.indianrailways.gov.in/", "https://www.rrbcdg.gov.in/", "https://indianrailways.gov.in/"] },
+  { name: "SSC", urls: ["https://ssc.gov.in/", "https://ssc.gov.in/for-candidates"] },
 ] as const
 
 const LINK_PATTERN = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi
@@ -25,6 +25,24 @@ function slugify(value: string) {
   return `${value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}-${createHash("sha1").update(value).digest("hex").slice(0, 8)}`
 }
 
+function collectOfficialLinks(value: unknown, links = new Map<string, string>(), context = "SSC notice") {
+  if (typeof value === "string") {
+    for (const match of value.matchAll(/https?:\/\/[^\s"'<>]+/gi)) {
+      const url = match[0].replace(/[),.;]+$/, "")
+      if (/ssc.gov.in|pdf|notice|notification|result|admit|exam/i.test(url)) links.set(url, context)
+    }
+  } else if (Array.isArray(value)) {
+    value.forEach((item) => collectOfficialLinks(item, links, context))
+  } else if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>
+    const title = String(record.headline ?? record.title ?? record.name ?? context)
+    const path = typeof record.path === "string" ? record.path.replaceAll("\\\\", "/") : ""
+    if (path) links.set(`https://ssc.gov.in/api/attachment/${path.replace(/^\//, "")}`, title)
+    Object.values(record).forEach((item) => collectOfficialLinks(item, links, title))
+  }
+  return links
+}
+
 export async function scrapeGovernmentNotices() {
   const supabase = createAdminClient()
   const results = []
@@ -32,15 +50,34 @@ export async function scrapeGovernmentNotices() {
   for (const source of SOURCES) {
     const startedAt = Date.now()
     try {
-      const response = await fetch(source.url, { headers: { "user-agent": "HSSC-CET-Alert-Bot/1.0 (+https://hssc-cet.com)" }, signal: AbortSignal.timeout(20000), cache: "no-store" })
-      if (!response.ok) throw new Error(`HTTP ${response.status}`)
-      const html = await response.text()
       const notices = new Map<string, string>()
-      for (const match of html.matchAll(LINK_PATTERN)) {
-        const href = absoluteUrl(source.url, match[1])
-        const title = clean(match[2])
-        if (href && title.length >= 8 && (/pdf|notice|notification|recruit|admit|answer|result|exam|vacan|advert/i.test(`${href} ${title}`))) notices.set(href, title)
+      const failures: string[] = []
+      if (source.name === "SSC") {
+        const apiUrl = "https://ssc.gov.in/api/general-website/portal/notice-boards?page=1&limit=50&contentType=notice-boards&key=createdAt&order=DESC&isAttachment=true&language=english&attributes=id,headline,examId,contentType,redirectUrl,startDate,endDate,language,createdAt"
+        try {
+          const response = await fetch(apiUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/json" }, signal: AbortSignal.timeout(20000), cache: "no-store" })
+          if (!response.ok) throw new Error(`HTTP ${response.status}`)
+          collectOfficialLinks(await response.json(), notices)
+        } catch (error) {
+          failures.push(`SSC API: ${error instanceof Error ? error.message : "fetch failed"}`)
+        }
       }
+      for (const sourceUrl of source.urls) {
+        try {
+          const response = await fetch(sourceUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0 (+https://hssc-cet.com)", accept: "text/html,application/xhtml+xml" }, signal: AbortSignal.timeout(20000), cache: "no-store" })
+          if (!response.ok) throw new Error(`HTTP ${response.status}`)
+          const html = await response.text()
+          for (const match of html.matchAll(LINK_PATTERN)) {
+            const href = absoluteUrl(sourceUrl, match[1])
+            const title = clean(match[2])
+            const isNotice = /pdf|notice|notification|recruit|admit|answer|result|exam|vacan|advert|candidate|cgl|chsl|constable|group-d|ntpc/i.test(`${href} ${title}`)
+            if (href && title.length >= 8 && isNotice) notices.set(href, title)
+          }
+        } catch (error) {
+          failures.push(`${sourceUrl}: ${error instanceof Error ? error.message : "fetch failed"}`)
+        }
+      }
+      if (!notices.size && failures.length === source.urls.length) throw new Error(failures.join("; "))
 
       let inserted = 0
       for (const [url, title] of [...notices].slice(0, 100)) {
