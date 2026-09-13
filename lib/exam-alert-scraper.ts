@@ -42,10 +42,22 @@ export async function scrapeGovernmentNotices() {
 
       let inserted = 0
       for (const [url, title] of [...notices].slice(0, 100)) {
-        const { data: exists } = await supabase.from("blogs").select("id").eq("featured_image_url", url).maybeSingle()
+        const { data: exists, error: lookupError } = await supabase.from("blogs").select("id").eq("featured_image_url", url).maybeSingle()
+        if (lookupError) throw new Error(`Database lookup failed: ${lookupError.message}`)
         if (exists) continue
-        const { error } = await supabase.from("blogs").insert({ title: `${source.name}: ${title}`, slug: slugify(`${source.name}-${url}`), description: `Official update discovered on ${source.name}. Open the source link for the original notice.`, category: "Exam Alert", featured_image_url: url, status: "published", tags: [source.name, "Exam Alert"] })
-        if (!error) inserted += 1
+        const { error: insertError } = await supabase.from("blogs").insert({
+          title: `${source.name}: ${title}`,
+          slug: slugify(`${source.name}-${url}`),
+          description: `Official update discovered on ${source.name}. Open the source link for the original notice.`,
+          category: "Exam Alert",
+          featured_image_url: url,
+          status: "published",
+          meta_title: `${source.name}: ${title}`,
+          meta_description: `Official exam notification discovered on ${source.name}.`,
+          tags: [source.name, "Exam Alert"],
+        })
+        if (insertError) throw new Error(`Database insert failed: ${insertError.message}`)
+        inserted += 1
       }
       results.push({ source: source.name, ok: true, discovered: notices.size, inserted, durationMs: Date.now() - startedAt })
     } catch (error) {
