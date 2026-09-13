@@ -8,6 +8,7 @@ import FooterLinkNavbar from "@/components/footer-link-navbar"
 import Footer from "@/components/footer"
 
 export const revalidate = 300
+export const dynamic = "force-dynamic"
 
 const baseKeywords = ["exam alerts 2026", "latest government exam notifications", "Haryana exam alerts", "Uttarakhand exam alerts", "Railway RRB exam alerts", "SSC exam alerts", "HSSC notification", "HPSC notification", "UKSSSC notification", "UKPSC notification", "RRB notification", "SSC notification"]
 
