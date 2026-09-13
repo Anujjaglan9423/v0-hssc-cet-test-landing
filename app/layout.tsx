@@ -469,6 +469,27 @@ export default function RootLayout({
           }}
         />
 
+        {/* ===== GTRANSLATE LANGUAGE WIDGET ===== */}
+        <Script
+          id="gtranslate-settings"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.gtranslateSettings = {
+                default_language: "en",
+                languages: ["en", "hi"],
+                globe_color: "#66aaff",
+                wrapper_selector: ".gtranslate_wrapper"
+              };
+            `,
+          }}
+        />
+        <Script
+          id="gtranslate-widget"
+          src="https://cdn.gtranslate.net/widgets/latest/globe.js"
+          strategy="afterInteractive"
+        />
+
         {/* ===== STRUCTURED DATA (JSON-LD) FOR SEO/AEO ===== */}
         <Script
           id="structured-data-main"
@@ -497,6 +518,16 @@ export default function RootLayout({
 
       <body className={`${inter.className} antialiased`}>
         {children}
+        <aside className="language-widget-bar" aria-label="Website language options">
+          <span className="language-widget-label">Translate:</span>
+          <span>English</span>
+          <span>हिन्दी</span>
+          <span>Kumaoni</span>
+          <span>Garhwali</span>
+          <span>Haryanvi</span>
+          <span className="language-widget-note">Local languages use Hindi fallback</span>
+          <div className="gtranslate_wrapper" />
+        </aside>
         {/* PWA Install Prompt */}
         <PWAInstallPrompt />
         {/* Google Analytics page tracking */}
