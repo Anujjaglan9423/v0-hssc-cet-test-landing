@@ -27,6 +27,7 @@ import {
   Library,
   PenSquare,
   BellRing,
+  MessageCircle,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -54,6 +55,7 @@ const adminLinks = [
 
 const studentLinks = [
   { href: "/student", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/community", icon: MessageCircle, label: "Community" },
   { href: "/student/tests", icon: FileText, label: "Test Series" },
   { href: "/student/practice", icon: Target, label: "Practice" },
   { href: "/student/results", icon: Trophy, label: "Results" },
