@@ -18,6 +18,7 @@ const footerLinks = {
     { name: "Contact", href: "/contact" },
     { name: "Syllabus", href: "/syllabus" },
     { name: "Current Affairs", href: "/current-affairs" },
+    { name: "Exam Alerts", href: "/exam-alerts" },
     // { name: "HSSC Syllabus", href: "/haryana-exam-syllabus" },
     // { name: "UKSSSC Syllabus", href: "/uksssc-exam-syllabus" },
     // { name: "Haryana GK Study Material", href: "/haryana-gk" },
