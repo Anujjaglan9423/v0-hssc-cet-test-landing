@@ -23,7 +23,7 @@ export async function GET() {
   }
   return NextResponse.json((data ?? []).map((item) => ({
     id: item.id, studentId: item.student_id, studentName: userMap.get(item.student_id)?.full_name ?? "Student", studentAvatarUrl: userMap.get(item.student_id)?.avatar_url ?? null,
-    text: item.text, imageUrl: item.image_url, category: item.category, createdAt: item.created_at,
+    text: item.text, imageUrl: item.image_url ? `/api/community/file?pathname=${encodeURIComponent(item.image_url)}` : undefined, category: item.category, createdAt: item.created_at,
     likeCount: (likes ?? []).filter((like) => like.doubt_id === item.id).length, isLikedByCurrentUser: (likes ?? []).some((like) => like.doubt_id === item.id && like.student_id === user.id),
     comments: (comments ?? []).filter((comment) => comment.doubt_id === item.id).map((comment) => ({ id: comment.id, studentId: comment.student_id, studentName: userMap.get(comment.student_id)?.full_name ?? "Student", studentAvatarUrl: userMap.get(comment.student_id)?.avatar_url ?? null, text: comment.text, createdAt: comment.created_at })),
   })))
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   const body = await request.json()
   const text = typeof body.text === "string" ? body.text.trim() : ""
   const category = typeof body.category === "string" ? body.category : "General"
-  const imageUrl = typeof body.imageUrl === "string" && body.imageUrl.startsWith("https://") ? body.imageUrl : null
+  const imageUrl = typeof body.imagePath === "string" && body.imagePath.startsWith(`community/${user.id}/`) ? body.imagePath : null
   if (!text && !imageUrl) return NextResponse.json({ error: "Text or image is required" }, { status: 400 })
   const supabase = createAdminClient()
   const { data, error } = await supabase.from("community_doubts").insert({ student_id: user.id, text, category, image_url: imageUrl }).select().single()
