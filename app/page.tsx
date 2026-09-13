@@ -12,12 +12,14 @@ import CTASection from "@/components/cta-section"
 import Footer from "@/components/footer"
 import PreparationGuide, { EditorialNote } from "@/components/preparation-guide"
 import AdPlacement from "@/components/ad-placement"
+import { LatestAlertBanner } from "@/components/exam-alerts"
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
       <HeroSection />
+      <LatestAlertBanner />
       <StatsSection />
       <FeaturesSection />
       <ExamsSection />

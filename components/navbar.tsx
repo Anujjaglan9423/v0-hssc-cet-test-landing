@@ -18,6 +18,7 @@ export default function Navbar() {
     { name: "Haryana GK", href: "/haryana-gk" },
     { name: "Study Materials", href: "/study-materials" },
     { name: "Current Affairs", href: "/current-affairs" },
+    { name: "Exam Alerts", href: "/alerts" },
     { name: "Features", href: "#features" },
     // { name: "Pricing", href: "#pricing" },
     { name: "FAQs", href: "#faq" },
