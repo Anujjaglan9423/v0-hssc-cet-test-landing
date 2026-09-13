@@ -153,6 +153,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   const isExamAlert = blog.category === "Exam Alert"
   const sourceUrl = isExamAlert && blog.featured_image_url?.startsWith("http") ? blog.featured_image_url : null
   const authority = blog.tags?.find((tag) => ["HSSC", "HPSC", "UKSSSC", "UKPSC", "SSC", "Railway"].includes(tag)) || "Official recruitment authority"
+  const safeImageUrl = blog.featured_image_url && !blog.featured_image_url.includes("gov.in") && !blog.featured_image_url.includes(".pdf") && !isExamAlert ? blog.featured_image_url : "/current-affairs-news.jpg"
 
   return (
     <div className="min-h-screen bg-background">
@@ -231,35 +232,31 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
 
             {/* Featured Image with Overlay */}
-            {blog.featured_image_url && !isExamAlert && (
-              <div className="hidden lg:block">
+            <div className="hidden lg:block">
                 <div className="sticky top-24 w-full h-80 relative rounded-xl overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
                   <img
-                    src={blog.featured_image_url}
+                    src={safeImageUrl}
                     alt={blog.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 rounded-xl ring-1 ring-border/50" />
                 </div>
               </div>
-            )}
           </div>
 
           {/* Mobile Image - Below Title */}
-          {blog.featured_image_url && !isExamAlert && (
-            <div className="lg:hidden mt-8 sm:mt-12">
+          <div className="lg:hidden mt-8 sm:mt-12">
               <div className="w-full h-64 sm:h-72 relative rounded-lg sm:rounded-xl overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
                 <img
-                  src={blog.featured_image_url}
+                  src={safeImageUrl}
                   alt={blog.title}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 rounded-lg sm:rounded-xl ring-1 ring-border/50" />
               </div>
             </div>
-          )}
           {isExamAlert && (
             <div className="mt-8 lg:mt-0 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/15 via-card to-card p-5 sm:p-7 shadow-sm">
               <div className="flex items-center gap-3 text-primary"><BookOpen className="h-5 w-5" /><span className="text-sm font-semibold uppercase tracking-wide">Official exam notice</span></div>
@@ -367,15 +364,13 @@ export default async function BlogPostPage({ params }: PageProps) {
                             className="block group"
                           >
                             <div className="flex gap-3">
-                              {post.featured_image_url && (
-                                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-lg overflow-hidden flex-shrink-0 bg-muted ring-1 ring-border/50">
-                                  <img
-                                    src={post.featured_image_url}
-                                    alt={post.title}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                  />
-                                </div>
-                              )}
+                              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-lg overflow-hidden flex-shrink-0 bg-muted ring-1 ring-border/50">
+                                <img
+                                  src={post.featured_image_url && !post.featured_image_url.includes("gov.in") && !post.featured_image_url.includes(".pdf") ? post.featured_image_url : "/current-affairs-news.jpg"}
+                                  alt={post.title}
+                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                />
+                              </div>
                               <div className="flex-1 min-w-0">
                                 <h4 className="text-sm font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
                                   {post.title}

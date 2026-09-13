@@ -96,6 +96,13 @@ function getExcerpt(html: string, maxLength: number = 150): string {
   return text.slice(0, maxLength).trim() + "..."
 }
 
+function getSafeImageUrl(url: string | null): string {
+  if (!url) return "/current-affairs-news.jpg"
+  const normalized = url.toLowerCase()
+  if (normalized.includes(".pdf") || normalized.includes("gov.in") || normalized.includes("ssc.gov") || normalized.includes("rrb") || normalized.includes("railway")) return "/current-affairs-news.jpg"
+  return url
+}
+
 export default async function BlogPage() {
   const blogs = await getBlogs()
   const categories = [...new Set(blogs.map(blog => blog.category).filter(Boolean))]
@@ -178,17 +185,11 @@ export default async function BlogPage() {
                   <Card className="h-full border border-border/50 bg-card hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden group flex flex-col">
                     {/* Image */}
                     <div className="relative h-52 overflow-hidden bg-muted">
-                      {post.featured_image_url ? (
-                        <img
-                          src={post.featured_image_url}
-                          alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-accent/10">
-                          <BookOpen className="w-12 h-12 text-primary/30" />
-                        </div>
-                      )}
+                      <img
+                        src={getSafeImageUrl(post.featured_image_url)}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
                       {/* Overlay gradient */}
                       <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
