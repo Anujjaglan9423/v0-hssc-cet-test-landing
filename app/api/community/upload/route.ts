@@ -20,11 +20,11 @@ export async function POST(request: Request) {
 
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-").slice(-120)
     const blob = await put(`community/${user.id}/${crypto.randomUUID()}-${safeName}`, file, {
-      access: "private",
+      access: "public",
       addRandomSuffix: false,
       contentType: file.type,
     })
-    return NextResponse.json({ pathname: blob.pathname, url: `/api/community/file?pathname=${encodeURIComponent(blob.pathname)}` })
+    return NextResponse.json({ pathname: blob.pathname, url: blob.url })
   } catch (error) {
     console.error("[community-upload] upload failed", error)
     return NextResponse.json({ error: "Image upload failed. Please try again." }, { status: 500 })
