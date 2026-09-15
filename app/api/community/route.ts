@@ -6,7 +6,11 @@ export async function GET() {
   const user = await getCurrentUser()
   if (!user || user.role !== "student") return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   const supabase = createAdminClient()
-  const { data, error } = await supabase.from("community_doubts").select("*").order("created_at", { ascending: false })
+  const { data, error } = await supabase
+    .from("community_doubts")
+    .select("id,student_id,text,image_url,category,created_at")
+    .order("created_at", { ascending: false })
+    .limit(50)
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   const ids = (data ?? []).map((item) => item.student_id)
   const { data: users } = ids.length ? await supabase.from("users").select("id, full_name, avatar_url").in("id", ids) : { data: [] }

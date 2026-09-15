@@ -10,7 +10,8 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get("search")
     const status = searchParams.get("status")
     const category = searchParams.get("category")
-    const limit = searchParams.get("limit")
+    const requestedLimit = Number.parseInt(searchParams.get("limit") ?? "20", 10)
+    const limit = Number.isFinite(requestedLimit) ? Math.min(Math.max(requestedLimit, 1), 100) : 20
     const publicOnly = searchParams.get("public") === "true"
     
     // Select only necessary fields instead of * (reduces payload by ~60%)
@@ -36,9 +37,7 @@ export async function GET(request: NextRequest) {
       query = query.eq("category", category)
     }
     
-    if (limit) {
-      query = query.limit(parseInt(limit))
-    }
+    query = query.limit(limit)
     
     const { data: blogs, error } = await query
     
