@@ -14,7 +14,7 @@ export async function getStudentDashboard() {
   const { data: results } = await supabase
     .from("test_results")
     .select(`
-      *,
+      id, score, total_questions, time_taken, created_at,
       test:tests (
         title,
         test_type,
@@ -24,6 +24,7 @@ export async function getStudentDashboard() {
     `)
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
+    .limit(100)
 
   const testsAttempted = results?.length || 0
   const averageScore =
@@ -95,7 +96,7 @@ export async function getAvailableTests() {
   const { data: tests, error } = await supabase
     .from("tests")
     .select(`
-      *,
+      id, title, description, test_type, difficulty, duration, total_questions, created_at,
       exam:exams (id, name),
       subject:subjects (id, name),
       topic:topics (id, name),
@@ -105,6 +106,7 @@ export async function getAvailableTests() {
     `)
     .eq("is_active", true)
     .order("created_at", { ascending: false })
+    .limit(100)
 
   if (error) {
     console.error("Error fetching tests:", error)
