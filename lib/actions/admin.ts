@@ -513,6 +513,115 @@ function formatTimeAgo(dateString: string) {
   return date.toLocaleDateString()
 }
 
+// India Standard Time is UTC+5:30. Day boundaries are computed in IST so that
+// "today" matches what the Haryana-based admin sees on their own clock.
+const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000
+
+// Convert a YYYY-MM-DD date (interpreted in IST) into a UTC ISO range [start, end).
+function istDayRange(dateStr: string) {
+  const start = new Date(`${dateStr}T00:00:00.000+05:30`)
+  const end = new Date(start.getTime() + 24 * 60 * 60 * 1000)
+  return { startISO: start.toISOString(), endISO: end.toISOString() }
+}
+
+// Get the YYYY-MM-DD IST calendar day for a UTC timestamp.
+function istDateKey(iso: string) {
+  return new Date(new Date(iso).getTime() + IST_OFFSET_MS).toISOString().slice(0, 10)
+}
+
+// Login + signup activity for a specific day, plus a 14-day trend ending today.
+export async function getLoginSignupStats(dateStr: string) {
+  const supabase = await createClient()
+
+  const { startISO, endISO } = istDayRange(dateStr)
+
+  // Trend window: 14 days ending today (IST).
+  const todayKey = istDateKey(new Date().toISOString())
+  const trendStart = new Date(`${todayKey}T00:00:00.000+05:30`)
+  trendStart.setDate(trendStart.getDate() - 13)
+  const trendStartISO = trendStart.toISOString()
+  const trendEndISO = new Date(new Date(`${todayKey}T00:00:00.000+05:30`).getTime() + 24 * 60 * 60 * 1000).toISOString()
+
+  // Sessions are created on every login and signup, so they represent login events.
+  const [daySessions, daySignups, trendSessions, trendSignups] = await Promise.all([
+    fetchAllPages<{ user_id: string; created_at: string }>((from, to) =>
+      supabase
+        .from("sessions")
+        .select("user_id, created_at")
+        .gte("created_at", startISO)
+        .lt("created_at", endISO)
+        .range(from, to),
+    ),
+    fetchAllPages<{ created_at: string }>((from, to) =>
+      supabase
+        .from("users")
+        .select("created_at")
+        .eq("role", "student")
+        .gte("created_at", startISO)
+        .lt("created_at", endISO)
+        .range(from, to),
+    ),
+    fetchAllPages<{ user_id: string; created_at: string }>((from, to) =>
+      supabase
+        .from("sessions")
+        .select("user_id, created_at")
+        .gte("created_at", trendStartISO)
+        .lt("created_at", trendEndISO)
+        .range(from, to),
+    ),
+    fetchAllPages<{ created_at: string }>((from, to) =>
+      supabase
+        .from("users")
+        .select("created_at")
+        .eq("role", "student")
+        .gte("created_at", trendStartISO)
+        .lt("created_at", trendEndISO)
+        .range(from, to),
+    ),
+  ])
+
+  const uniqueLoginUsers = new Set(daySessions.map((s) => s.user_id)).size
+
+  // Build the 14-day trend map keyed by IST day.
+  const trendMap: Record<string, { loginUsers: Set<string>; loginEvents: number; signups: number }> = {}
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(trendStart.getTime() + i * 24 * 60 * 60 * 1000)
+    const key = istDateKey(d.toISOString())
+    trendMap[key] = { loginUsers: new Set(), loginEvents: 0, signups: 0 }
+  }
+
+  trendSessions.forEach((s) => {
+    const key = istDateKey(s.created_at)
+    if (trendMap[key]) {
+      trendMap[key].loginUsers.add(s.user_id)
+      trendMap[key].loginEvents++
+    }
+  })
+
+  trendSignups.forEach((u) => {
+    const key = istDateKey(u.created_at)
+    if (trendMap[key]) trendMap[key].signups++
+  })
+
+  const trend = Object.entries(trendMap)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([key, value]) => ({
+      date: key,
+      label: new Date(`${key}T00:00:00`).toLocaleDateString("en-IN", { day: "numeric", month: "short" }),
+      logins: value.loginUsers.size,
+      loginEvents: value.loginEvents,
+      signups: value.signups,
+    }))
+
+  return {
+    date: dateStr,
+    logins: uniqueLoginUsers,
+    loginEvents: daySessions.length,
+    signups: daySignups.length,
+    trend,
+  }
+}
+
 export async function getAdminAnalytics() {
   const supabase = await createClient()
 

@@ -28,6 +28,7 @@ import {
   PenSquare,
   BellRing,
   MessageCircle,
+  LogIn,
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -48,6 +49,7 @@ const adminLinks = [
   { href: "/admin/payments", icon: BarChart3, label: "Payments" },
   { href: "/admin/results", icon: Trophy, label: "Results" },
   { href: "/admin/analytics", icon: BarChart3, label: "Analytics" },
+  { href: "/admin/login-activity", icon: LogIn, label: "Login Activity" },
   { href: "/admin/contacts", icon: Mail, label: "Contacts" },
   { href: "/admin/feedback", icon: MessageSquare, label: "Feedback" },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
