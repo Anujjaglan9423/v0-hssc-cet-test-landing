@@ -105,6 +105,17 @@ export default function TermsOfServicePage() {
                   </a>
                 </li>
                 <li>
+                  WhatsApp: {" "}
+                  <a
+                    href="https://wa.me/917291849546"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    Chat with us on WhatsApp
+                  </a>
+                </li>
+                <li>
                   Instagram:{" "}
                   <a
                     href="https://instagram.com/cet__test"
