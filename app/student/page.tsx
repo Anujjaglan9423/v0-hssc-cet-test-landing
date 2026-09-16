@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { cn } from "@/lib/utils"
-import { getStudentDashboard, getAvailableTests } from "@/lib/actions/student"
+import { getStudentDashboardData } from "@/lib/actions/student"
 import { FileText, Trophy, Clock, Target, BookOpen, Zap, Loader2, RotateCcw, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -32,9 +32,9 @@ export default function StudentDashboard() {
     async function loadData() {
       setIsLoading(true)
       try {
-        const [dashboard, availableTests] = await Promise.all([getStudentDashboard(), getAvailableTests()])
-        setDashboardData(dashboard)
-        setTests(availableTests)
+        const data = await getStudentDashboardData()
+        setDashboardData(data?.dashboard ?? null)
+        setTests(data?.tests ?? [])
       } catch (error) {
         console.error("Error loading dashboard:", error)
       } finally {

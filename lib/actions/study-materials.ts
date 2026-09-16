@@ -23,8 +23,9 @@ export async function getActiveStudyMaterials(): Promise<StudyMaterial[]> {
 
   const { data, error } = await supabase
     .from("study_materials")
-    .select("*")
+    .select("id, title, description, content_type, file_url, youtube_url, created_by, created_at, updated_at, is_active")
     .eq("is_active", true)
+    .limit(100)
     .order("created_at", { ascending: false })
 
   if (error) {

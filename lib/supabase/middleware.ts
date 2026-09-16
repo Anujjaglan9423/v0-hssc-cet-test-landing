@@ -23,7 +23,10 @@ export async function updateSession(request: NextRequest) {
     "/demo",
   ]
 
-  const isPublicRoute = publicRoutes.some(route => {
+  // API handlers authenticate requests themselves. Running a database-backed session check here
+  // would add an unnecessary network round trip to every API request.
+  const isApiRoute = pathname.startsWith("/api/")
+  const isPublicRoute = isApiRoute || publicRoutes.some(route => {
     if (route === "/") return pathname === "/"
     if (route === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/")
     if (route === "/demo") return pathname === "/demo" || pathname.startsWith("/demo/")

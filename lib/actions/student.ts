@@ -14,7 +14,7 @@ export async function getStudentDashboard() {
   const { data: results } = await supabase
     .from("test_results")
     .select(`
-      *,
+      id, score, total_questions, time_taken, created_at,
       test:tests (
         title,
         test_type,
@@ -24,6 +24,7 @@ export async function getStudentDashboard() {
     `)
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
+    .limit(100)
 
   const testsAttempted = results?.length || 0
   const averageScore =
@@ -87,6 +88,66 @@ export async function getStudentDashboard() {
   }
 }
 
+// Load the student dashboard in one authenticated server action.
+// This avoids two separate auth lookups and lets the independent database reads run together.
+export async function getStudentDashboardData() {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+  if (!user) return null
+
+  const [dashboardQuery, testsQuery, userResultsQuery] = await Promise.all([
+    supabase
+      .from("test_results")
+      .select("id, score, total_questions, time_taken, created_at, test:tests(title, test_type, subject:subjects(name), topic:topics(name))")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(100),
+    supabase
+      .from("tests")
+      .select("id, title, description, test_type, difficulty, duration, total_questions, created_at, exam:exams(id, name), subject:subjects(id, name), topic:topics(id, name)")
+      .eq("is_active", true)
+      .order("created_at", { ascending: false })
+      .limit(100),
+    supabase
+      .from("test_results")
+      .select("test_id, score, total_questions, percentage, attempt_id")
+      .eq("user_id", user.id),
+  ])
+
+  const results = dashboardQuery.data ?? []
+  const tests = testsQuery.data ?? []
+  const testsAttempted = results.length
+  const averageScore = testsAttempted
+    ? Math.round(results.reduce((sum, result) => sum + (result.total_questions ? (result.score / result.total_questions) * 100 : 0), 0) / testsAttempted)
+    : 0
+  const bestScore = testsAttempted
+    ? Math.max(...results.map((result) => result.total_questions ? (result.score / result.total_questions) * 100 : 0))
+    : 0
+  const totalTime = results.reduce((sum, result) => sum + (result.time_taken || 0), 0)
+  const subjectScores: Record<string, { total: number; count: number }> = {}
+  results.forEach((result) => {
+    const subject = (result.test as any)?.subject?.name || "General"
+    subjectScores[subject] ??= { total: 0, count: 0 }
+    subjectScores[subject].total += result.total_questions ? (result.score / result.total_questions) * 100 : 0
+    subjectScores[subject].count += 1
+  })
+  const userResults: Record<string, any> = {}
+  userResultsQuery.data?.forEach((result) => {
+    if (!userResults[result.test_id] || result.score > userResults[result.test_id].score) userResults[result.test_id] = result
+  })
+
+  return {
+    dashboard: {
+      user,
+      stats: { testsAttempted, averageScore, bestScore, totalTime: `${Math.floor(totalTime / 3600)}h` },
+      recentResults: results.slice(0, 3).map((result) => ({ ...result, marks: result.score, percentage: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0 })),
+      performanceTrend: results.slice(0, 7).reverse().map((result, index) => ({ test: `Test ${index + 1}`, score: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0 })),
+      subjectPerformance: Object.entries(subjectScores).map(([subject, data]) => ({ subject, score: Math.round(data.total / data.count) })),
+    },
+    tests: tests.map((test) => ({ ...test, questions_count: 0, attempts_count: 0, avg_score: 0, user_attempt: userResults[test.id] || null })),
+  }
+}
+
 // Get all available tests for students
 export async function getAvailableTests() {
   const supabase = await createClient()
@@ -95,7 +156,7 @@ export async function getAvailableTests() {
   const { data: tests, error } = await supabase
     .from("tests")
     .select(`
-      *,
+      id, title, description, test_type, difficulty, duration, total_questions, created_at,
       exam:exams (id, name),
       subject:subjects (id, name),
       topic:topics (id, name),
@@ -105,6 +166,7 @@ export async function getAvailableTests() {
     `)
     .eq("is_active", true)
     .order("created_at", { ascending: false })
+    .limit(100)
 
   if (error) {
     console.error("Error fetching tests:", error)
@@ -161,11 +223,11 @@ export async function startTestAttempt(testId: string) {
   // Check for existing in-progress attempt
   const { data: existingAttempt } = await supabase
     .from("test_attempts")
-    .select("*")
+    .select("id, test_id, user_id, status, started_at, answers, flagged, current_question, time_remaining")
     .eq("test_id", testId)
     .eq("user_id", user.id)
     .eq("status", "in_progress")
-    .single()
+    .maybeSingle()
 
   if (existingAttempt) {
     return { success: true, attempt: existingAttempt }
@@ -205,7 +267,7 @@ export async function submitAnswer(attemptId: string, questionId: string, answer
     .select("id")
     .eq("attempt_id", attemptId)
     .eq("question_id", questionId)
-    .single()
+    .maybeSingle()
 
   if (existingAnswer) {
     // Update existing answer
@@ -262,17 +324,17 @@ export async function completeTest(attemptId: string, timeTaken: number) {
   }
 
   // Get all questions for this test
-  const { data: questions } = await supabase.from("questions").select("id").eq("test_id", attempt.test_id)
+  const [{ count: totalQuestions }, { data: answers }] = await Promise.all([
+    supabase.from("questions").select("id", { count: "exact", head: true }).eq("test_id", attempt.test_id),
+    supabase.from("user_answers").select("is_correct, selected_answer").eq("attempt_id", attemptId),
+  ])
 
-  const totalQuestions = questions?.length || 0
-
-  // Get user's answers
-  const { data: answers } = await supabase.from("user_answers").select("*").eq("attempt_id", attemptId)
+  const totalQuestionCount = totalQuestions || 0
 
   const correctAnswers = answers?.filter((a) => a.is_correct).length || 0
   const wrongAnswers = answers?.filter((a) => !a.is_correct && a.selected_answer).length || 0
-  const unattempted = totalQuestions - (answers?.length || 0)
-  const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0
+  const unattempted = totalQuestionCount - (answers?.length || 0)
+  const score = totalQuestionCount > 0 ? Math.round((correctAnswers / totalQuestionCount) * 100) : 0
   const percentage = score
 
   // Update attempt status
@@ -292,7 +354,7 @@ export async function completeTest(attemptId: string, timeTaken: number) {
       attempt_id: attemptId,
       user_id: user.id,
       test_id: attempt.test_id,
-      total_questions: totalQuestions,
+      total_questions: totalQuestionCount,
       correct_answers: correctAnswers,
       wrong_answers: wrongAnswers,
       unanswered: unattempted,
@@ -372,7 +434,10 @@ export async function getPaginatedStudentResults(page: number = 1, pageSize: num
   const totalPages = Math.ceil(totalCount / pageSize)
 
   return {
-    results: results || [],
+    results: (results || []).map((result) => ({
+      ...result,
+      test: Array.isArray(result.test) ? result.test[0] : result.test,
+    })),
     totalCount,
     page,
     pageSize,
@@ -416,18 +481,15 @@ export async function getResultDetails(resultId: string) {
   const { data: result, error } = await supabase
     .from("test_results")
     .select(`
-      *,
+      id, attempt_id, test_id, score, total_questions, correct_answers, wrong_answers, unanswered, time_taken, rank, percentage, created_at,
       test:tests (
         title,
         test_type,
         duration,
-        questions (*)
+        questions (id, question_text, option_a, option_b, option_c, option_d, explanation)
       ),
       attempt:test_attempts (
-        user_answers (
-          *,
-          question:questions (*)
-        )
+        user_answers (id, question_id, selected_answer, is_correct, time_spent, question:questions (id, question_text, option_a, option_b, option_c, option_d, explanation))
       )
     `)
     .eq("id", resultId)
@@ -607,13 +669,10 @@ export async function submitTest(testId: string, answers: Record<string, string>
     // Get test with questions and negative marking settings
     const { data: test } = await supabase
       .from("tests")
-      .select(`
-        id,
-        duration,
-        has_negative_marking,
-        negative_marking_percent,
-        questions (id, correct_answer)
-      `)
+    .select(`
+      id, title, duration, total_questions, has_negative_marking, negative_marking_percent,
+      questions (id, correct_answer)
+    `)
       .eq("id", testId)
       .single()
 
@@ -758,16 +817,12 @@ export async function getStudentAnalytics() {
   const { data: results } = await supabase
     .from("test_results")
     .select(`
-      *,
-      test:tests (
-        title,
-        test_type,
-        subject:subjects (name),
-        topic:topics (name)
-      )
+      score, total_questions, time_taken, created_at,
+      test:tests (title, test_type, subject:subjects (name), topic:topics (name))
     `)
     .eq("user_id", user.id)
     .order("created_at", { ascending: true })
+    .limit(500)
 
   const allResults = results || []
   const totalAttempts = allResults.length

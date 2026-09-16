@@ -235,44 +235,31 @@ export async function getCurrentUser(): Promise<User | null> {
 
     const supabase = await createClient()
 
-    // Get session
-    const { data: session, error: sessionError } = await supabase
-      .from("sessions")
-      .select("user_id, expires_at")
-      .eq("token", token)
-      .maybeSingle()
-
-    if (sessionError || !session) {
-      return null
-    }
-
-    // Check if expired
-    if (new Date(session.expires_at) < new Date()) {
-      await supabase.from("sessions").delete().eq("token", token)
-      cookieStore.delete("auth_token")
-      return null
-    }
-
-    // Get user
+    // Resolve the session and user in one indexed query instead of two sequential round trips.
     const { data: user, error: userError } = await supabase
-      .from("users")
-      .select("*")
-      .eq("id", session.user_id)
+      .from("sessions")
+      .select("expires_at, user:users (id, email, full_name, role, avatar_url, phone, plan, created_at)")
+      .eq("token", token)
+      .gt("expires_at", new Date().toISOString())
       .maybeSingle()
 
-    if (userError || !user) {
+    if (userError || !user?.user) {
+      if (!user) cookieStore.delete("auth_token")
       return null
     }
+
+    const sessionUser = Array.isArray(user.user) ? user.user[0] : user.user
+    if (!sessionUser) return null
 
     return {
-      id: user.id,
-      email: user.email,
-      full_name: user.full_name,
-      role: user.role,
-      avatar_url: user.avatar_url,
-      phone: user.phone,
-      plan: user.plan,
-      created_at: user.created_at,
+      id: sessionUser.id,
+      email: sessionUser.email,
+      full_name: sessionUser.full_name,
+      role: sessionUser.role,
+      avatar_url: sessionUser.avatar_url,
+      phone: sessionUser.phone,
+      plan: sessionUser.plan,
+      created_at: sessionUser.created_at,
     }
   } catch (error) {
     console.error("getCurrentUser error:", error)
