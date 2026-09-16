@@ -33,6 +33,7 @@ interface AnalyticsData {
   totalAttempts: number
   totalSignups: number
   totalLogins: number
+  repeatedUsers: number
   dailyActivity: Array<{ date: string; day: string; signups: number; logins: number; attempts: number }>
   weeklyActivity: Array<{ day: string; attempts: number; users: number }>
   scoreDistribution: Array<{ range: string; count: number }>
@@ -45,12 +46,19 @@ export default function AdminAnalyticsPage() {
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [startDate, setStartDate] = useState(() => {
+    const date = new Date()
+    date.setDate(date.getDate() - 29)
+    return date.toISOString().slice(0, 10)
+  })
+  const [endDate, setEndDate] = useState(() => new Date().toISOString().slice(0, 10))
 
   useEffect(() => {
     async function loadAnalytics() {
       try {
         // console.log("[v0] Loading analytics...")
-        const analytics = await getAdminAnalytics()
+        setIsLoading(true)
+        const analytics = await getAdminAnalytics(startDate, endDate)
         // console.log("[v0] Analytics loaded:", analytics)
         setData(analytics)
       } catch (error) {
@@ -61,7 +69,7 @@ export default function AdminAnalyticsPage() {
       }
     }
     loadAnalytics()
-  }, [])
+  }, [startDate, endDate])
 
   if (isLoading) {
     return (
@@ -95,6 +103,18 @@ export default function AdminAnalyticsPage() {
       <div>
         <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Analytics Dashboard</h1>
         <p className="text-sm lg:text-base text-muted-foreground mt-1">Detailed insights into platform performance</p>
+      </div>
+
+      <div className="flex flex-col sm:flex-row sm:items-end gap-3 rounded-xl border border-border bg-card p-4">
+        <div className="flex-1">
+          <label htmlFor="analytics-start" className="text-xs font-medium text-muted-foreground">From date</label>
+          <input id="analytics-start" type="date" value={startDate} max={endDate} onChange={(event) => setStartDate(event.target.value)} className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm" />
+        </div>
+        <div className="flex-1">
+          <label htmlFor="analytics-end" className="text-xs font-medium text-muted-foreground">To date</label>
+          <input id="analytics-end" type="date" value={endDate} min={startDate} max={new Date().toISOString().slice(0, 10)} onChange={(event) => setEndDate(event.target.value)} className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm" />
+        </div>
+        <p className="text-xs text-muted-foreground sm:pb-2">Cards update for this range. Graphs remain on the last 30 days.</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
@@ -135,7 +155,8 @@ export default function AdminAnalyticsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-6">
         <StatsCard title="User Signups" value={data.totalSignups.toLocaleString()} change="All student accounts" changeType="positive" icon={UserPlus} color="accent" />
         <StatsCard title="User Logins" value={data.totalLogins.toLocaleString()} change="Successful sessions" changeType="neutral" icon={LogIn} color="primary" />
-        <StatsCard title="Test Attempts" value={data.totalAttempts.toLocaleString()} change="All recorded attempts" changeType="neutral" icon={Users} color="warning" />
+        <StatsCard title="Test Attempts" value={data.totalAttempts.toLocaleString()} change="Selected date range" changeType="neutral" icon={Users} color="warning" />
+        <StatsCard title="Repeated Users" value={data.repeatedUsers.toLocaleString()} change="Users with 2+ attempts" changeType="neutral" icon={Users} color="warning" />
       </div>
 
       <ChartCard title="Daily Users & Test Attempts — Last 30 Days">

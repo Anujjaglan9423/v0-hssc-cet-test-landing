@@ -513,8 +513,14 @@ function formatTimeAgo(dateString: string) {
   return date.toLocaleDateString()
 }
 
-export async function getAdminAnalytics() {
+export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   const supabase = await createClient()
+  const rangeStart = startDate ? new Date(`${startDate}T00:00:00.000Z`) : null
+  const rangeEnd = endDate ? new Date(`${endDate}T23:59:59.999Z`) : null
+  const inRange = (value: string) => {
+    const timestamp = new Date(value).getTime()
+    return (!rangeStart || timestamp >= rangeStart.getTime()) && (!rangeEnd || timestamp <= rangeEnd.getTime())
+  }
 
   // Get all test results
   const { data: allResults } = await supabase
@@ -607,16 +613,18 @@ export async function getAdminAnalytics() {
   // Custom auth records signups in users and successful logins in sessions.
   const thirtyDaysAgo = new Date()
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 29)
-
+  const activityStart = rangeStart || thirtyDaysAgo
+  const activityEnd = rangeEnd || new Date()
+  
   const [signupEvents, loginEvents, attemptEvents] = await Promise.all([
     fetchAllPages((from, to) =>
-      supabase.from("users").select("created_at").eq("role", "student").gte("created_at", thirtyDaysAgo.toISOString()).range(from, to),
+      supabase.from("users").select("created_at").eq("role", "student").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to),
     ),
     fetchAllPages((from, to) =>
-      supabase.from("sessions").select("created_at").gte("created_at", thirtyDaysAgo.toISOString()).range(from, to),
+      supabase.from("sessions").select("created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to),
     ),
     fetchAllPages((from, to) =>
-      supabase.from("test_attempts").select("started_at, user_id").gte("started_at", thirtyDaysAgo.toISOString()).range(from, to),
+      supabase.from("test_attempts").select("started_at, user_id").gte("started_at", activityStart.toISOString()).lte("started_at", activityEnd.toISOString()).range(from, to),
     ),
   ])
 
@@ -636,6 +644,15 @@ export async function getAdminAnalytics() {
   })
 
   // Test attempts by category
+  const filteredSignups = signupEvents.filter((event: any) => inRange(event.created_at))
+  const filteredLogins = loginEvents.filter((event: any) => inRange(event.created_at))
+  const filteredAttempts = attemptEvents.filter((event: any) => inRange(event.started_at))
+  const attemptsByUser = filteredAttempts.reduce((counts: Record<string, number>, attempt: any) => {
+    if (attempt.user_id) counts[attempt.user_id] = (counts[attempt.user_id] || 0) + 1
+    return counts
+  }, {})
+  const repeatedUsers = Object.values(attemptsByUser).filter((count) => count > 1).length
+
   const categoryAttempts: Record<string, number> = { Full: 0, Subject: 0, Topic: 0 }
   results.forEach((r) => {
     const type = (r.test as any)?.test_type || "full"
@@ -648,9 +665,10 @@ export async function getAdminAnalytics() {
     averageScore,
     passRate,
     completionRate,
-    totalAttempts,
-    totalSignups: users.length,
-    totalLogins: loginEvents.length,
+    totalAttempts: filteredAttempts.length,
+    totalSignups: filteredSignups.length,
+    totalLogins: filteredLogins.length,
+    repeatedUsers,
     dailyActivity,
     weeklyActivity,
     scoreDistribution: scoreRanges.map((r) => ({ range: r.range, count: r.count })),
