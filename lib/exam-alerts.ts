@@ -14,7 +14,15 @@ export type ExamAlert = {
 }
 
 export async function getExamAlerts(limit = 20): Promise<ExamAlert[]> {
-  const supabase = createAdminClient()
+  let supabase: ReturnType<typeof createAdminClient>
+
+  try {
+    supabase = createAdminClient()
+  } catch (error) {
+    console.error("[v0] Supabase is not configured for exam alerts:", error)
+    return []
+  }
+
   const { data, error } = await supabase
     .from("blogs")
     .select("id,title,slug,description,category,created_at,featured_image_url,tags,status")
