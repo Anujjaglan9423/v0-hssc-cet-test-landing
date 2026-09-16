@@ -13,7 +13,12 @@ export async function getAdminStats() {
       supabase.from("users").select("*", { count: "exact", head: true }).eq("role", "student"),
       supabase.from("tests").select("*", { count: "exact", head: true }),
       supabase.from("test_attempts").select("*", { count: "exact", head: true }),
-      supabase.from("users").select("*").eq("role", "student").order("created_at", { ascending: false }).limit(5),
+      supabase
+        .from("users")
+        .select("id, full_name, email, phone, plan, created_at")
+        .eq("role", "student")
+        .order("created_at", { ascending: false })
+        .limit(5),
     ])
 
   // Get monthly signups
@@ -60,22 +65,22 @@ export async function getAllStudents() {
   let students: any[]
 
   try {
-    students = await fetchAllPages((from, to) =>
-      supabase
-        .from("users")
-        .select(`
-          *,
-          test_results (
-            score,
-            total_questions,
-            time_taken,
-            created_at
-          )
-        `)
-        .eq("role", "student")
-        .order("created_at", { ascending: false })
-        .range(from, to),
-    )
+    const { data, error } = await supabase
+      .from("users")
+      .select(`
+        id,
+        full_name,
+        email,
+        phone,
+        plan,
+        created_at,
+        test_results (score, total_questions, time_taken, created_at)
+      `)
+      .eq("role", "student")
+      .order("created_at", { ascending: false })
+      .range(0, 499)
+    if (error) throw error
+    students = data || []
   } catch (error) {
     console.error("Error fetching students:", error)
     return []
@@ -152,8 +157,8 @@ export async function getAllTests() {
       exam:exams (id, name),
       subject:subjects (id, name),
       topic:topics (id, name),
-      questions (id),
-      test_attempts (id),
+      questions (count),
+      test_attempts (count),
       test_results (score, total_questions)
     `)
     .order("created_at", { ascending: false })

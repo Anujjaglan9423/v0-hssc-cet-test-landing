@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { DataTable } from "@/components/dashboard/data-table"
-import { getAdminStats, getAllStudents, getAdminAnalytics } from "@/lib/actions/admin"
+import { getAdminStats, getAdminAnalytics } from "@/lib/actions/admin"
 import { Users, FileText, DollarSign, Activity, Loader2 } from "lucide-react"
 import {
   BarChart,
@@ -44,7 +44,6 @@ interface AnalyticsData {
 export default function AdminDashboard() {
   const [stats, setStats] = useState<AdminStats | null>(null)
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
-  const [students, setStudents] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -53,14 +52,8 @@ export default function AdminDashboard() {
       setIsLoading(true)
       setError(null)
       try {
-        const [statsData, studentsData, analyticsData] = await Promise.all([
-          getAdminStats(),
-          getAllStudents(),
-          getAdminAnalytics(),
-        ])
-        // console.log("[v0] Admin data loaded:", { statsData, studentsData: studentsData.length, analyticsData })
+        const [statsData, analyticsData] = await Promise.all([getAdminStats(), getAdminAnalytics()])
         setStats(statsData)
-        setStudents(studentsData)
         setAnalytics(analyticsData)
       } catch (error) {
         console.error("[v0] Error loading admin data:", error)
@@ -206,7 +199,7 @@ export default function AdminDashboard() {
         <div className="overflow-x-auto -mx-4 lg:mx-0">
           <div className="min-w-[600px] lg:min-w-0 px-4 lg:px-0">
             <DataTable
-              data={students.slice(0, 5)}
+              data={stats.recentStudents}
               searchKey="name"
               columns={[
                 { key: "name", header: "Name", sortable: true },
