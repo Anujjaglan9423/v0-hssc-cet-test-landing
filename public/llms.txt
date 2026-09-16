@@ -1,0 +1,15 @@
+# CET TEST
+
+> Government exam preparation platform for Haryana, Uttarakhand, Railway and SSC exams — mock tests, study material and live exam alerts.
+
+## Key Pages
+- [Exam Alerts](https://cettest.site/exam-alerts): Live official government exam notifications
+- [Mock Tests](https://cettest.site/mock-test): Free practice tests for HSSC CET, SSC and Railway
+- [Study Materials](https://cettest.site/study-materials): Subject-wise preparation content
+- [HSSC CET Exam Page](https://cettest.site/exams/hssc-cet): Detailed exam pattern, syllabus and FAQs
+
+## Exam alert sources
+Alerts link to official sources including HSSC, HPSC, UKSSSC, UKPSC, Railway Recruitment Boards and SSC.
+
+## Contact
+For questions about an alert, contact CET TEST through the contact details listed on the website.
