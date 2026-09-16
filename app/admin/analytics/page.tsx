@@ -4,7 +4,9 @@ import { useState, useEffect } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { getAdminAnalytics } from "@/lib/actions/admin"
-import { TrendingUp, Target, Award, CheckCircle, Loader2 } from "lucide-react"
+import { TrendingUp, Target, Award, CheckCircle, Loader2, LogIn, UserPlus, RefreshCw } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import {
   BarChart,
   Bar,
@@ -36,29 +38,38 @@ interface AnalyticsData {
   subjectPerformance: Array<{ subject: string; avgScore: number }>
   monthlySignups: Array<{ month: string; count: number }>
   testAttemptsByCategory: Array<{ category: string; attempts: number }>
+  activity: {
+    signupCount: number
+    loginCount: number
+    loginEvents: number
+    dateFrom: string | null
+    dateTo: string | null
+  }
 }
 
 export default function AdminAnalyticsPage() {
   const [data, setData] = useState<AnalyticsData | null>(null)
+  const today = new Date().toISOString().slice(0, 10)
+  const [dateFrom, setDateFrom] = useState(today)
+  const [dateTo, setDateTo] = useState(today)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     async function loadAnalytics() {
       try {
-        // console.log("[v0] Loading analytics...")
-        const analytics = await getAdminAnalytics()
-        // console.log("[v0] Analytics loaded:", analytics)
+        setIsLoading(true)
+        setError(null)
+        const analytics = await getAdminAnalytics(dateFrom, dateTo)
         setData(analytics)
       } catch (error) {
-        // console.error("[v0] Error loading analytics:", error)
         setError(error instanceof Error ? error.message : "Failed to load analytics")
       } finally {
         setIsLoading(false)
       }
     }
-    loadAnalytics()
-  }, [])
+    if (dateFrom && dateTo && dateFrom <= dateTo) loadAnalytics()
+  }, [dateFrom, dateTo])
 
   if (isLoading) {
     return (
@@ -94,7 +105,73 @@ export default function AdminAnalyticsPage() {
         <p className="text-sm lg:text-base text-muted-foreground mt-1">Detailed insights into platform performance</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">User activity by date</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-end">
+          <label className="flex flex-1 flex-col gap-2 text-sm font-medium">
+            From date
+            <input
+              type="date"
+              value={dateFrom}
+              max={dateTo || today}
+              onChange={(event) => setDateFrom(event.target.value)}
+              className="h-10 rounded-md border bg-background px-3 text-sm font-normal"
+            />
+          </label>
+          <label className="flex flex-1 flex-col gap-2 text-sm font-medium">
+            To date
+            <input
+              type="date"
+              value={dateTo}
+              min={dateFrom}
+              max={today}
+              onChange={(event) => setDateTo(event.target.value)}
+              className="h-10 rounded-md border bg-background px-3 text-sm font-normal"
+            />
+          </label>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => {
+              setDateFrom(today)
+              setDateTo(today)
+            }}
+            className="h-10"
+          >
+            <RefreshCw data-icon="inline-start" /> Today
+          </Button>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:gap-6">
+        <StatsCard
+          title="User Logins"
+          value={data.activity.loginCount.toLocaleString()}
+          change={`${data.activity.loginEvents.toLocaleString()} login events`}
+          changeType="positive"
+          icon={LogIn}
+          color="primary"
+        />
+        <StatsCard
+          title="New Signups"
+          value={data.activity.signupCount.toLocaleString()}
+          change="Student accounts created"
+          changeType="positive"
+          icon={UserPlus}
+          color="accent"
+        />
+        <Card>
+          <CardContent className="flex h-full flex-col justify-center gap-1 pt-6">
+            <p className="text-sm text-muted-foreground">Selected period</p>
+            <p className="text-lg font-semibold">{dateFrom === dateTo ? dateFrom : `${dateFrom} to ${dateTo}`}</p>
+            <p className="text-xs text-muted-foreground">Login count shows unique students</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-6">
         <StatsCard
           title="Average Score"
           value={`${Math.min(100, data.averageScore)}%`}

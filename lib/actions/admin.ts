@@ -513,8 +513,26 @@ function formatTimeAgo(dateString: string) {
   return date.toLocaleDateString()
 }
 
-export async function getAdminAnalytics() {
+export async function getAdminAnalytics(dateFrom?: string, dateTo?: string) {
   const supabase = await createClient()
+
+  const startOfDay = dateFrom ? new Date(`${dateFrom}T00:00:00`) : new Date(0)
+  const endOfDay = dateTo ? new Date(`${dateTo}T23:59:59.999`) : new Date()
+  const activityRange = (query: any) =>
+    query.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString())
+
+  const [{ data: signupUsers, error: signupError }, { data: loginSessions, error: loginError }] = await Promise.all([
+    activityRange(supabase.from("users").select("id, created_at").eq("role", "student")),
+    activityRange(supabase.from("sessions").select("user_id, created_at")),
+  ])
+
+  if (signupError) console.error("[v0] Signup activity query failed:", signupError.message)
+  if (loginError) console.error("[v0] Login activity query failed:", loginError.message)
+
+  const uniqueLoginUsers = new Set((loginSessions || []).map((session: any) => session.user_id)).size
+  const signupCount = signupUsers?.length || 0
+
+  // Get all test results
 
   // Get all test results
   const { data: allResults } = await supabase
@@ -617,6 +635,13 @@ export async function getAdminAnalytics() {
     passRate,
     completionRate,
     totalAttempts,
+    activity: {
+      signupCount,
+      loginCount: uniqueLoginUsers,
+      loginEvents: loginSessions?.length || 0,
+      dateFrom: dateFrom || null,
+      dateTo: dateTo || null,
+    },
     weeklyActivity,
     scoreDistribution: scoreRanges.map((r) => ({ range: r.range, count: r.count })),
     subjectPerformance,
