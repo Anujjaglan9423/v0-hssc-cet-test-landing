@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { getAdminAnalytics } from "@/lib/actions/admin"
-import { TrendingUp, Target, Award, CheckCircle, Loader2, Users, UserPlus, LogIn, UserX } from "lucide-react"
+import { TrendingUp, Target, Award, CheckCircle, Loader2, Users, UserPlus, LogIn, UserX, Download, ChevronLeft, ChevronRight } from "lucide-react"
 import {
   BarChart,
   Bar,
@@ -40,7 +40,7 @@ interface AnalyticsData {
   subjectPerformance: Array<{ subject: string; avgScore: number }>
   monthlySignups: Array<{ month: string; count: number }>
   testAttemptsByCategory: Array<{ category: string; attempts: number }>
-  inactiveUsers: Array<{ id: string; name: string; email: string; signupDate: string; lastLogin: string | null }>
+  inactiveUsers: Array<{ id: string; name: string; email: string; phone: string | null; signupDate: string; lastLogin: string | null }>
 }
 
 export default function AdminAnalyticsPage() {
@@ -53,6 +53,8 @@ export default function AdminAnalyticsPage() {
     return date.toISOString().slice(0, 10)
   })
   const [endDate, setEndDate] = useState(() => new Date().toISOString().slice(0, 10))
+  const [inactivePage, setInactivePage] = useState(1)
+  const inactivePageSize = 10
 
   useEffect(() => {
     async function loadAnalytics() {
@@ -62,6 +64,7 @@ export default function AdminAnalyticsPage() {
         const analytics = await getAdminAnalytics(startDate, endDate)
         // console.log("[v0] Analytics loaded:", analytics)
         setData(analytics)
+        setInactivePage(1)
       } catch (error) {
         // console.error("[v0] Error loading analytics:", error)
         setError(error instanceof Error ? error.message : "Failed to load analytics")
@@ -89,6 +92,25 @@ export default function AdminAnalyticsPage() {
         </div>
       </div>
     )
+  }
+
+  const inactiveTotalPages = Math.max(1, Math.ceil((data?.inactiveUsers.length ?? 0) / inactivePageSize))
+  const inactivePageUsers = data?.inactiveUsers.slice((inactivePage - 1) * inactivePageSize, inactivePage * inactivePageSize) ?? []
+
+  function exportInactiveUsers() {
+    if (!data?.inactiveUsers.length) return
+    const escapeCsv = (value: string) => `"${value.replaceAll('"', '""')}"`
+    const rows = [
+      ["Name", "Email", "Mobile number", "Signup date", "Last login"],
+      ...data.inactiveUsers.map((user) => [user.name, user.email, user.phone || "", user.signupDate, user.lastLogin || "Never logged in"]),
+    ]
+    const csv = rows.map((row) => row.map(escapeCsv).join(",")).join("\\n")
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }))
+    const link = document.createElement("a")
+    link.href = url
+    link.download = `inactive-users-${new Date().toISOString().slice(0, 10)}.csv`
+    link.click()
+    URL.revokeObjectURL(url)
   }
 
   if (!data) {
@@ -162,42 +184,58 @@ export default function AdminAnalyticsPage() {
 
       <ChartCard title="Inactive Users — No Login in 10 Days">
         {data.inactiveUsers.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="border-b border-border text-xs text-muted-foreground">
-                <tr>
-                  <th className="px-3 py-3 font-medium">User</th>
-                  <th className="px-3 py-3 font-medium">Signup date</th>
-                  <th className="px-3 py-3 font-medium">Last login</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.inactiveUsers.map((user) => (
-                  <tr key={user.id} className="border-b border-border/60 last:border-0">
-                    <td className="px-3 py-3">
-                      <div className="flex items-center gap-2">
-                        <UserX className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-                        <div>
-                          <p className="font-medium text-foreground">{user.name}</p>
-                          <p className="text-xs text-muted-foreground">{user.email}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-3 py-3 text-muted-foreground">
-                      {new Date(user.signupDate).toLocaleDateString()}
-                    </td>
-                    <td className="px-3 py-3 text-muted-foreground">
-                      {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : "Never logged in"}
-                    </td>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-muted-foreground">{data.inactiveUsers.length} users have not logged in for 10 or more days.</p>
+              <button type="button" onClick={exportInactiveUsers} className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-medium hover:bg-muted" aria-label="Export inactive users as CSV">
+                <Download className="h-4 w-4" aria-hidden="true" />
+                Export CSV
+              </button>
+            </div>
+            <div className="overflow-x-auto rounded-lg border border-border">
+              <table className="w-full min-w-[700px] text-left text-sm">
+                <thead className="border-b border-border bg-muted/40 text-xs text-muted-foreground">
+                  <tr>
+                    <th className="px-3 py-3 font-medium">User</th>
+                    <th className="px-3 py-3 font-medium">Mobile number</th>
+                    <th className="px-3 py-3 font-medium">Signup date</th>
+                    <th className="px-3 py-3 font-medium">Last login</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {inactivePageUsers.map((user) => (
+                    <tr key={user.id} className="border-b border-border/60 last:border-0">
+                      <td className="px-3 py-3">
+                        <div className="flex items-center gap-2">
+                          <UserX className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+                          <div>
+                            <p className="font-medium text-foreground">{user.name}</p>
+                            <p className="text-xs text-muted-foreground">{user.email}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-3 py-3 text-muted-foreground">{user.phone || "Not provided"}</td>
+                      <td className="px-3 py-3 text-muted-foreground">{new Date(user.signupDate).toLocaleDateString()}</td>
+                      <td className="px-3 py-3 text-muted-foreground">{user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : "Never logged in"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="flex items-center justify-between gap-3 text-sm">
+              <p className="text-muted-foreground">Page {inactivePage} of {inactiveTotalPages} · 10 entries per page</p>
+              <div className="flex gap-2">
+                <button type="button" onClick={() => setInactivePage((page) => Math.max(1, page - 1))} disabled={inactivePage === 1} className="inline-flex items-center gap-1 rounded-lg border border-border px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50" aria-label="Previous page">
+                  <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Previous
+                </button>
+                <button type="button" onClick={() => setInactivePage((page) => Math.min(inactiveTotalPages, page + 1))} disabled={inactivePage === inactiveTotalPages} className="inline-flex items-center gap-1 rounded-lg border border-border px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50" aria-label="Next page">
+                  Next <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
           </div>
         ) : (
-          <div className="flex min-h-32 items-center justify-center text-sm text-muted-foreground">
-            No users have been inactive for 10 or more days.
-          </div>
+          <div className="flex min-h-32 items-center justify-center text-sm text-muted-foreground">No users have been inactive for 10 or more days.</div>
         )}
       </ChartCard>
 

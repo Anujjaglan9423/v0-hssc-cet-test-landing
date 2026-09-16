@@ -650,9 +650,10 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
     .map((student: any) => ({
       id: student.id,
       name: student.full_name,
-      email: student.email,
-      signupDate: student.created_at,
-      lastLogin: latestLoginByUser[student.id] || null,
+  email: student.email,
+  phone: student.phone || student.mobile || student.phone_number || null,
+  signupDate: student.created_at,
+  lastLogin: latestLoginByUser[student.id] || null,
     }))
 
   
