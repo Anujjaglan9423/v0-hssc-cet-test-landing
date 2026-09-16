@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { getAdminAnalytics } from "@/lib/actions/admin"
-import { TrendingUp, Target, Award, CheckCircle, Loader2 } from "lucide-react"
+import { TrendingUp, Target, Award, CheckCircle, Loader2, Users, UserPlus, LogIn } from "lucide-react"
 import {
   BarChart,
   Bar,
@@ -31,6 +31,9 @@ interface AnalyticsData {
   passRate: number
   completionRate: number
   totalAttempts: number
+  totalSignups: number
+  totalLogins: number
+  dailyActivity: Array<{ date: string; day: string; signups: number; logins: number; attempts: number }>
   weeklyActivity: Array<{ day: string; attempts: number; users: number }>
   scoreDistribution: Array<{ range: string; count: number }>
   subjectPerformance: Array<{ subject: string; avgScore: number }>
@@ -128,6 +131,26 @@ export default function AdminAnalyticsPage() {
           color="primary"
         />
       </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-6">
+        <StatsCard title="User Signups" value={data.totalSignups.toLocaleString()} change="All student accounts" changeType="positive" icon={UserPlus} color="accent" />
+        <StatsCard title="User Logins" value={data.totalLogins.toLocaleString()} change="Successful sessions" changeType="neutral" icon={LogIn} color="primary" />
+        <StatsCard title="Test Attempts" value={data.totalAttempts.toLocaleString()} change="All recorded attempts" changeType="neutral" icon={Users} color="warning" />
+      </div>
+
+      <ChartCard title="Daily Users & Test Attempts — Last 30 Days">
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={data.dailyActivity} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+            <XAxis dataKey="day" stroke="#888" fontSize={10} interval={4} />
+            <YAxis stroke="#888" fontSize={11} allowDecimals={false} />
+            <Tooltip contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "8px" }} />
+            <Line type="monotone" dataKey="signups" name="Signups" stroke="#10b981" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="logins" name="Logins" stroke="#3b82f6" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="attempts" name="Test attempts" stroke="#f59e0b" strokeWidth={2} dot={false} />
+          </LineChart>
+        </ResponsiveContainer>
+      </ChartCard>
 
       {/* Charts Row 1 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">

@@ -603,6 +603,38 @@ export async function getAdminAnalytics() {
     monthlySignups[key] = (monthlySignups[key] || 0) + 1
   })
 
+  // Date-based activity for the admin analytics view.
+  // Custom auth records signups in users and successful logins in sessions.
+  const thirtyDaysAgo = new Date()
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 29)
+
+  const [signupEvents, loginEvents, attemptEvents] = await Promise.all([
+    fetchAllPages((from, to) =>
+      supabase.from("users").select("created_at").eq("role", "student").gte("created_at", thirtyDaysAgo.toISOString()).range(from, to),
+    ),
+    fetchAllPages((from, to) =>
+      supabase.from("sessions").select("created_at").gte("created_at", thirtyDaysAgo.toISOString()).range(from, to),
+    ),
+    fetchAllPages((from, to) =>
+      supabase.from("test_attempts").select("started_at, user_id").gte("started_at", thirtyDaysAgo.toISOString()).range(from, to),
+    ),
+  ])
+
+  const dailyActivity = Array.from({ length: 30 }, (_, index) => {
+    const date = new Date(thirtyDaysAgo)
+    date.setDate(thirtyDaysAgo.getDate() + index)
+    const key = date.toISOString().slice(0, 10)
+    const day = date.toLocaleDateString("default", { month: "short", day: "numeric" })
+    const countOn = (items: any[], field: string) => items.filter((item) => String(item[field]).slice(0, 10) === key).length
+    return {
+      date: key,
+      day,
+      signups: countOn(signupEvents, "created_at"),
+      logins: countOn(loginEvents, "created_at"),
+      attempts: countOn(attemptEvents, "started_at"),
+    }
+  })
+
   // Test attempts by category
   const categoryAttempts: Record<string, number> = { Full: 0, Subject: 0, Topic: 0 }
   results.forEach((r) => {
@@ -617,6 +649,9 @@ export async function getAdminAnalytics() {
     passRate,
     completionRate,
     totalAttempts,
+    totalSignups: users.length,
+    totalLogins: loginEvents.length,
+    dailyActivity,
     weeklyActivity,
     scoreDistribution: scoreRanges.map((r) => ({ range: r.range, count: r.count })),
     subjectPerformance,
