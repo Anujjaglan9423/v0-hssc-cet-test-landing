@@ -627,7 +627,7 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
       supabase.from("test_attempts").select("started_at, user_id").gte("started_at", activityStart.toISOString()).lte("started_at", activityEnd.toISOString()).range(from, to),
     ),
     fetchAllPages((from, to) =>
-      supabase.from("users").select("id, full_name, email, created_at").eq("role", "student").order("created_at", { ascending: false }).range(from, to),
+      supabase.from("users").select("id, full_name, email, phone, created_at").eq("role", "student").order("created_at", { ascending: false }).range(from, to),
     ),
     fetchAllPages((from, to) =>
       supabase.from("sessions").select("user_id, created_at").order("created_at", { ascending: false }).range(from, to),
