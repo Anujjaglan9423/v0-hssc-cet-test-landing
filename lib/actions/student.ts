@@ -88,6 +88,66 @@ export async function getStudentDashboard() {
   }
 }
 
+// Load the student dashboard in one authenticated server action.
+// This avoids two separate auth lookups and lets the independent database reads run together.
+export async function getStudentDashboardData() {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+  if (!user) return null
+
+  const [dashboardQuery, testsQuery, userResultsQuery] = await Promise.all([
+    supabase
+      .from("test_results")
+      .select("id, score, total_questions, time_taken, created_at, test:tests(title, test_type, subject:subjects(name), topic:topics(name))")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(100),
+    supabase
+      .from("tests")
+      .select("id, title, description, test_type, difficulty, duration, total_questions, created_at, exam:exams(id, name), subject:subjects(id, name), topic:topics(id, name), questions(id), test_attempts(id), test_results(score)")
+      .eq("is_active", true)
+      .order("created_at", { ascending: false })
+      .limit(100),
+    supabase
+      .from("test_results")
+      .select("test_id, score, total_questions, percentage, attempt_id")
+      .eq("user_id", user.id),
+  ])
+
+  const results = dashboardQuery.data ?? []
+  const tests = testsQuery.data ?? []
+  const testsAttempted = results.length
+  const averageScore = testsAttempted
+    ? Math.round(results.reduce((sum, result) => sum + (result.total_questions ? (result.score / result.total_questions) * 100 : 0), 0) / testsAttempted)
+    : 0
+  const bestScore = testsAttempted
+    ? Math.max(...results.map((result) => result.total_questions ? (result.score / result.total_questions) * 100 : 0))
+    : 0
+  const totalTime = results.reduce((sum, result) => sum + (result.time_taken || 0), 0)
+  const subjectScores: Record<string, { total: number; count: number }> = {}
+  results.forEach((result) => {
+    const subject = (result.test as any)?.subject?.name || "General"
+    subjectScores[subject] ??= { total: 0, count: 0 }
+    subjectScores[subject].total += result.total_questions ? (result.score / result.total_questions) * 100 : 0
+    subjectScores[subject].count += 1
+  })
+  const userResults: Record<string, any> = {}
+  userResultsQuery.data?.forEach((result) => {
+    if (!userResults[result.test_id] || result.score > userResults[result.test_id].score) userResults[result.test_id] = result
+  })
+
+  return {
+    dashboard: {
+      user,
+      stats: { testsAttempted, averageScore, bestScore, totalTime: `${Math.floor(totalTime / 3600)}h` },
+      recentResults: results.slice(0, 3).map((result) => ({ ...result, marks: result.score, percentage: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0 })),
+      performanceTrend: results.slice(0, 7).reverse().map((result, index) => ({ test: `Test ${index + 1}`, score: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0 })),
+      subjectPerformance: Object.entries(subjectScores).map(([subject, data]) => ({ subject, score: Math.round(data.total / data.count) })),
+    },
+    tests: tests.map((test) => ({ ...test, questions_count: test.questions?.length || 0, attempts_count: test.test_attempts?.length || 0, avg_score: test.test_results?.length ? Math.round(test.test_results.reduce((sum: number, result: any) => sum + result.score, 0) / test.test_results.length) : 0, user_attempt: userResults[test.id] || null })),
+  }
+}
+
 // Get all available tests for students
 export async function getAvailableTests() {
   const supabase = await createClient()
