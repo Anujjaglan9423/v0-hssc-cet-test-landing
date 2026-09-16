@@ -104,7 +104,7 @@ export async function getStudentDashboardData() {
       .limit(100),
     supabase
       .from("tests")
-      .select("id, title, description, test_type, difficulty, duration, total_questions, created_at, exam:exams(id, name), subject:subjects(id, name), topic:topics(id, name), questions(id), test_attempts(id), test_results(score)")
+      .select("id, title, description, test_type, difficulty, duration, total_questions, created_at, exam:exams(id, name), subject:subjects(id, name), topic:topics(id, name)")
       .eq("is_active", true)
       .order("created_at", { ascending: false })
       .limit(100),
@@ -144,7 +144,7 @@ export async function getStudentDashboardData() {
       performanceTrend: results.slice(0, 7).reverse().map((result, index) => ({ test: `Test ${index + 1}`, score: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0 })),
       subjectPerformance: Object.entries(subjectScores).map(([subject, data]) => ({ subject, score: Math.round(data.total / data.count) })),
     },
-    tests: tests.map((test) => ({ ...test, questions_count: test.questions?.length || 0, attempts_count: test.test_attempts?.length || 0, avg_score: test.test_results?.length ? Math.round(test.test_results.reduce((sum: number, result: any) => sum + result.score, 0) / test.test_results.length) : 0, user_attempt: userResults[test.id] || null })),
+    tests: tests.map((test) => ({ ...test, questions_count: 0, attempts_count: 0, avg_score: 0, user_attempt: userResults[test.id] || null })),
   }
 }
 
