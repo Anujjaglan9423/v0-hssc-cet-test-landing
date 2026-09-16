@@ -223,11 +223,11 @@ export async function startTestAttempt(testId: string) {
   // Check for existing in-progress attempt
   const { data: existingAttempt } = await supabase
     .from("test_attempts")
-    .select("*")
+    .select("id, test_id, user_id, status, started_at, answers, flagged, current_question, time_remaining")
     .eq("test_id", testId)
     .eq("user_id", user.id)
     .eq("status", "in_progress")
-    .single()
+    .maybeSingle()
 
   if (existingAttempt) {
     return { success: true, attempt: existingAttempt }
@@ -267,7 +267,7 @@ export async function submitAnswer(attemptId: string, questionId: string, answer
     .select("id")
     .eq("attempt_id", attemptId)
     .eq("question_id", questionId)
-    .single()
+    .maybeSingle()
 
   if (existingAnswer) {
     // Update existing answer
@@ -324,17 +324,17 @@ export async function completeTest(attemptId: string, timeTaken: number) {
   }
 
   // Get all questions for this test
-  const { data: questions } = await supabase.from("questions").select("id").eq("test_id", attempt.test_id)
+  const [{ count: totalQuestions }, { data: answers }] = await Promise.all([
+    supabase.from("questions").select("id", { count: "exact", head: true }).eq("test_id", attempt.test_id),
+    supabase.from("user_answers").select("is_correct, selected_answer").eq("attempt_id", attemptId),
+  ])
 
-  const totalQuestions = questions?.length || 0
-
-  // Get user's answers
-  const { data: answers } = await supabase.from("user_answers").select("*").eq("attempt_id", attemptId)
+  const totalQuestionCount = totalQuestions || 0
 
   const correctAnswers = answers?.filter((a) => a.is_correct).length || 0
   const wrongAnswers = answers?.filter((a) => !a.is_correct && a.selected_answer).length || 0
-  const unattempted = totalQuestions - (answers?.length || 0)
-  const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0
+  const unattempted = totalQuestionCount - (answers?.length || 0)
+  const score = totalQuestionCount > 0 ? Math.round((correctAnswers / totalQuestionCount) * 100) : 0
   const percentage = score
 
   // Update attempt status
@@ -354,7 +354,7 @@ export async function completeTest(attemptId: string, timeTaken: number) {
       attempt_id: attemptId,
       user_id: user.id,
       test_id: attempt.test_id,
-      total_questions: totalQuestions,
+      total_questions: totalQuestionCount,
       correct_answers: correctAnswers,
       wrong_answers: wrongAnswers,
       unanswered: unattempted,
@@ -478,18 +478,15 @@ export async function getResultDetails(resultId: string) {
   const { data: result, error } = await supabase
     .from("test_results")
     .select(`
-      *,
+      id, attempt_id, test_id, score, total_questions, correct_answers, wrong_answers, unanswered, time_taken, rank, percentage, created_at,
       test:tests (
         title,
         test_type,
         duration,
-        questions (*)
+        questions (id, question_text, option_a, option_b, option_c, option_d, explanation)
       ),
       attempt:test_attempts (
-        user_answers (
-          *,
-          question:questions (*)
-        )
+        user_answers (id, question_id, selected_answer, is_correct, time_spent, question:questions (id, question_text, option_a, option_b, option_c, option_d, explanation))
       )
     `)
     .eq("id", resultId)
@@ -669,13 +666,10 @@ export async function submitTest(testId: string, answers: Record<string, string>
     // Get test with questions and negative marking settings
     const { data: test } = await supabase
       .from("tests")
-      .select(`
-        id,
-        duration,
-        has_negative_marking,
-        negative_marking_percent,
-        questions (id, correct_answer)
-      `)
+    .select(`
+      id, title, description, test_type, difficulty, duration, total_questions, created_at,
+      exam:exams (id, name), subject:subjects (id, name), topic:topics (id, name)
+    `)
       .eq("id", testId)
       .single()
 
@@ -820,16 +814,12 @@ export async function getStudentAnalytics() {
   const { data: results } = await supabase
     .from("test_results")
     .select(`
-      *,
-      test:tests (
-        title,
-        test_type,
-        subject:subjects (name),
-        topic:topics (name)
-      )
+      score, total_questions, time_taken, created_at,
+      test:tests (title, test_type, subject:subjects (name), topic:topics (name))
     `)
     .eq("user_id", user.id)
     .order("created_at", { ascending: true })
+    .limit(500)
 
   const allResults = results || []
   const totalAttempts = allResults.length
