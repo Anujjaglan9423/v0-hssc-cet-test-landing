@@ -281,7 +281,7 @@ export default function JanuaryCurrentAffairsPage() {
                 <div className="max-w-5xl mx-auto text-center relative z-10">
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium backdrop-blur-sm">
                         <Sparkles className="w-4 h-4" />
-                        Chronos Intelligence Hub • Premium Report
+                        CET TEST editorial team • Premium Report
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
@@ -607,7 +607,7 @@ export default function JanuaryCurrentAffairsPage() {
                             : "यह व्यापक करेंट अफेयर्स डाइजेस्ट जनवरी 2026 की सभी महत्वपूर्ण घटनाओं को कवर करता है, जिसमें 16वें वित्त आयोग की अंतरिम रिपोर्ट (41% ऊर्ध्वाधर विकेंद्रीकरण), ब्राजील के राष्ट्रपति को मुख्य अतिथि के रूप में 77वां गणतंत्र दिवस (स्ट्रैटेजिक बायोफ्यूल्स अलायंस 2.0), RBI का ई-रुपया 5 मिलियन दैनिक लेनदेन पार (प्रोग्रामेबल CBDC), ISRO का गगनयान-H1 मिशन (व्योममित्र, अंतिम मानवरहित परीक्षण उड़ान), भारत द्वारा 200 GW गैर-जीवाश्म ईंधन क्षमता (कुल का 45%) हासिल करना, पद्म पुरस्कार 2026 (106 पुरस्कार), और खेलो इंडिया यूथ गेम्स 2026 शामिल हैं। UPSC, SSC, बैंकिंग, रेलवे, HSSC, UKSSSC और सभी राज्य-स्तरीय प्रतियोगी परीक्षाओं के लिए उपयुक्त।"}
                     </p>
                     <p className="text-xs text-muted-foreground mt-3">
-                        {language === "en" ? "Source: Chronos Intelligence Hub • Research Grade Analysis • For Educational Purposes" : "स्रोत: Chronos Intelligence Hub • अनुसंधान-ग्रेड विश्लेषण • शैक्षिक उद्देश्यों के लिए"}
+                        {language === "en" ? "Source: CET TEST editorial team • Research Grade Analysis �� For Educational Purposes" : "स्रोत: CET TEST editorial team • अनुसंधान-ग्रेड विश्लेषण • शैक्षिक उद्देश्यों के लिए"}
                     </p>
                 </div>
             </section>

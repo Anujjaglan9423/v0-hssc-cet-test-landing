@@ -198,7 +198,7 @@ export default function NovemberCurrentAffairsPage() {
             staticGk: [
                 { fact: "ISRO Founded", description: "August 15, 1969", factHi: "ISRO स्थापना", descriptionHi: "15 अगस्त, 1969" },
                 { fact: "Venus as Earth's Twin", description: "Similar size and mass to Earth", factHi: "पृथ्वी के जुड़वां के रूप में शुक्र", descriptionHi: "पृथ्वी के समान आकार और द्रव्यमान" },
-                { fact: "IGMDP", description: "Integrated Guided Missile Development Programme started in 1983", factHi: "IGMDP", descriptionHi: "एकीकृत मार्गदर्शित मिसाइल विकास कार्यक्रम 1983 में शुरू हुआ" },
+                { fact: "IGMDP", description: "Integrated Guided Missile Development Programme started in 1983", factHi: "IGMDP", descriptionHi: "एकीकृत ���ार्गदर्शित मिसाइल विकास कार्यक्रम 1983 में शुरू हुआ" },
                 { fact: "MIRV Technology", description: "First successfully tested by India in Agni-V 'Mission Divyastra' (March 2024)", factHi: "MIRV तकनीक", descriptionHi: "अग्नि-V 'मिशन दिव्यास्त्र' (मार्च 2024) में भारत द्वारा पहली बार सफलतापूर्वक परीक्षण किया गया" }
             ],
             examSignificance: {
@@ -284,7 +284,7 @@ export default function NovemberCurrentAffairsPage() {
                 <div className="max-w-5xl mx-auto text-center relative z-10">
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium backdrop-blur-sm">
                         <Sparkles className="w-4 h-4" />
-                        Chronos Intelligence Hub • Premium Report
+                        CET TEST editorial team • Premium Report
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
@@ -610,7 +610,7 @@ export default function NovemberCurrentAffairsPage() {
                             : "यह व्यापक करेंट अफेयर्स डाइजेस्ट नवंबर 2025 की सभी महत्वपूर्ण घटनाओं को कवर करता है, जिसमें 16वें वित्त आयोग की अंतरिम रिपोर्ट प्रसंस्करण (₹22.4 लाख करोड़ विभाज्य पूल), 22वां भारत-आसियान शिखर सम्मेलन (यूपीआई-लिंकेज प्रस्ताव, AITIGA समीक्षा, त्रिपक्षीय राजमार्ग 92% पूर्ण), दूसरी तिमाही में जीडीपी वृद्धि 6.7% (विनिर्माण 8.4%, जीएनपीए 2.2% 12 साल का निचला स्तर), ग्रीनवाशिंग को रोकने के लिए आरबीआई का ग्रीन डिपॉजिट ढांचा, ISRO का शुक्रयान-1 थर्मल वैक्यूम परीक्षण पूरा, DRDO का अग्नि-VI MIRV तकनीक परीक्षण (7,000+ किमी सीमा), दिल्ली-एनसीआर वायु गुणवत्ता संकट (AQI 500+, GRAP-IV, पराली जलाने में 15% कमी), 56वां IFFI गोवा (एआई के युग में सिनेमा थीम), उत्तराखंड में 39वें राष्ट्रीय खेल (सर्विसेज शीर्ष पर), और संविधान दिवस 76वीं वर्षगांठ डिजिटल संविधान पोर्टल के साथ शामिल हैं। UPSC, SSC, बैंकिंग, रेलवे, HSSC, UKSSSC और सभी राज्य-स्तरीय प्रतियोगी परीक्षाओं के लिए उपयुक्त।"}
                     </p>
                     <p className="text-xs text-muted-foreground mt-3">
-                        {language === "en" ? "Source: Chronos Intelligence Hub • Research Grade Analysis • For Educational Purposes" : "स्रोत: Chronos Intelligence Hub • अनुसंधान-ग्रेड विश्लेषण • शैक्षिक उद्देश्यों के लिए"}
+                        {language === "en" ? "Source: CET TEST editorial team • Research Grade Analysis • For Educational Purposes" : "स्रोत: CET TEST editorial team • अनुसंधान-ग्रेड विश्लेषण • शैक्षिक उद्देश्यों के लिए"}
                     </p>
                 </div>
             </section>

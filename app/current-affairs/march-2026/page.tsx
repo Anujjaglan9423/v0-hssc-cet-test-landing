@@ -168,7 +168,7 @@ export default function MarchCurrentAffairsPage() {
             titleHi: "ISRO ने NISAR उपग्रह का सफल प्रक्षेपण किया",
             category: "science",
             summary: "ISRO in collaboration with NASA successfully launched NISAR (NASA-ISRO Synthetic Aperture Radar) satellite from Sriharikota to map Earth's surface changes.",
-            summaryHi: "ISRO ने NASA के सहयोग से श्रीहरिकोटा से NISAR (NASA-ISRO सिंथेटिक एपर्चर रडार) उपग्रह का सफल प्रक्षेपण किया, जो पृथ्वी की सतह के बदलावों का मानचित्रण करेगा।",
+            summaryHi: "ISRO ने NASA के सहय��ग से श्रीहरिकोटा से NISAR (NASA-ISRO सिंथेटिक एपर्चर रडार) उपग्रह का सफल प्रक्षेपण किया, जो पृथ्वी की सतह के बदलावों का मानचित्रण करेगा।",
             detailedAnalysis: "NISAR is a joint Earth-observing mission between NASA and ISRO, costing approximately $1.5 billion. It utilizes a dual-frequency (L-band and S-band) Synthetic Aperture Radar. ISRO provided the S-band radar, GSLV Mk-II launch vehicle, and spacecraft bus, while NASA provided L-band radar and high-rate data downlink system. The satellite will map the entire globe every 12 days. Its primary mission is to observe changes in Earth's ecosystems, ice mass, vegetation biomass, sea level rise, and natural hazards including earthquakes, tsunamis, volcanoes, and landslides. It can detect surface movements of less than a centimeter, critical for India's 'Deep Ocean Mission' and 'Himalayan Monitoring' to predict glacial lake outburst floods (GLOFs).",
             detailedAnalysisHi: "NISAR NASA और ISRO के बीच एक संयुक्त पृथ्वी-अवलोकन मिशन है, जिसकी लागत लगभग 1.5 बिलियन डॉलर है। यह दोहरी-आवृत्ति (L-band और S-band) सिंथेटिक एपर्चर रडार का उपयोग करता है। ISRO ने S-band रडार, GSLV Mk-II लॉन्च वाहन और अंतरिक्ष यान बस प्रदान की, जबकि NASA ने L-band रडार और उच्च-दर डेटा डाउनलिंक प्रणाली प्रदान की। उपग्रह हर 12 दिनों में पूरे विश्व का मानचित्रण करेगा। इसका प्राथमिक मिशन पृथ्वी के पारिस्थितिक तंत्र, बर्फ द्रव्यमान, वनस्पति बायोमास, समुद्र स्तर में वृद्धि और भूकंप, सुनामी, ज्वालामुखी और भूस्खलन सहित प्राकृतिक खतरों में बदलाव का निरीक्षण करना है। यह एक सेंटीमीटर से भी कम की सतह की हलचल का पता लगा सकता है, जो भारत के 'डीप ओशन मिशन' और हिमनद झील विस्फोट बाढ़ (GLOFs) की भविष्यवाणी के लिए 'हिमालयी निगरानी' के लिए महत्वपूर्ण है।",
             impact: [
@@ -202,7 +202,7 @@ export default function MarchCurrentAffairsPage() {
             summary: "Ministry of Environment announced addition of five new wetlands to Ramsar list, including sites from Ladakh, Andaman & Nicobar, and Western Ghats.",
             summaryHi: "पर्यावरण मंत्रालय ने रामसर सूची में पांच नई आर्द्रभूमियों को शामिल करने की घोषणा की, जिसमें लद्दाख, अंडमान और निकोबार और पश्चिमी घाट के स्थल शामिल हैं।",
             detailedAnalysis: "The five new sites include two from Ladakh, one from Andaman & Nicobar, and two from the Western Ghats. This move is part of the 'Amrit Dharohar' initiative launched to promote wetland conservation. Wetlands are vital for carbon sequestration; the newly added sites in the Western Ghats are estimated to store over 2 million tonnes of carbon. The Ministry emphasized these sites meet rigorous criteria of the Ramsar Convention (1971), particularly in supporting endangered species like the Black-necked Crane and Dugong. The inclusion allows international funding and technical support for 'Wise Use' of these wetlands. India now has the largest number of Ramsar sites in South Asia, covering over 1.5 million hectares.",
-            detailedAnalysisHi: "पांच नए स्थलों में लद्दाख से दो, अंडमान और निकोबार से एक और पश्चिमी घाट से दो स्थल शामिल हैं। यह कदम आर्द्रभूमि संरक्षण को बढ़ावा देने के लिए शुरू की गई 'अमृत धरोहर' पहल का हिस्सा है। आर्द्रभूमियां कार्बन पृथक्करण के लिए महत्वपूर्ण हैं; पश्चिमी घाट में शामिल नए स्थलों के बारे में अनुमान है कि वे 2 मिलियन टन से अधिक कार्बन का भंडारण करते हैं। मंत्रालय ने जोर दिया कि ये स्थल रामसर कन्वेंशन (1971) के कठोर मानदंडों को पूरा करते हैं, विशेष रूप से ब्लैक-नेक्ड क्रेन और डगोंग जैसी लुप्तप्राय प्रजातियों का समर्थन करने में। इस समावेशन से इन आर्द्रभूमियों के 'बुद्धिमान उपयोग' के लिए अंतर्राष्ट्रीय वित्त पोषण और तकनीकी सहायता मिलती है। भारत के पास अब दक्षिण एशिया में रामसर स्थलों की सबसे बड़ी संख्या है, जो 1.5 मिलियन हेक्टेयर से अधिक क्षेत्र को कवर करती है।",
+            detailedAnalysisHi: "पांच नए स्थलों में लद्दाख से दो, अंडमान और निकोबार से एक और पश्चिमी घाट से दो स्थल शामिल हैं। यह कदम आर्द्रभूमि संरक्षण को बढ़ावा देने के लिए शुरू की गई '��मृत धरोहर' पहल का हिस्सा है। आर्द्रभूमियां कार्बन पृथक्करण के लिए महत्वपूर्ण हैं; पश्चिमी घाट में शामिल नए स्थलों के बारे में अनुमान है कि वे 2 मिलियन टन से अधिक कार्बन का भंडारण करते हैं। मंत्रालय ने जोर दिया कि ये स्थल रामसर कन्वेंशन (1971) के कठोर मानदंडों को पूरा करते हैं, विशेष रूप से ब्लैक-नेक्ड क्रेन और डगोंग जैसी लुप्तप्राय प्रजातियों का समर्थन करने में। इस समावेशन से इन आर्द्रभूमियों के 'बुद्धिमान उपयोग' के लिए अंतर्राष्ट्रीय वित्त पोषण और तकनीकी सहायता मिलती है। भारत के पास अब दक्षिण एशिया में रामसर स्थलों की सबसे बड़ी संख्या है, जो 1.5 मिलियन हेक्टेयर से अधिक क्षेत्र को कवर करती है।",
             impact: [
                 "Boosts eco-tourism and protects livelihoods of local fishing communities",
                 "Aligns with India's 'Net Zero 2070' goal by enhancing natural carbon sinks",
@@ -272,7 +272,7 @@ export default function MarchCurrentAffairsPage() {
                 <div className="max-w-5xl mx-auto text-center relative z-10">
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium backdrop-blur-sm">
                         <Sparkles className="w-4 h-4" />
-                        Chronos Intelligence Hub • Premium Report
+                        CET TEST editorial team • Premium Report
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
@@ -596,7 +596,7 @@ export default function MarchCurrentAffairsPage() {
                             : "यह व्यापक करेंट अफेयर्स डाइजेस्ट मार्च 2026 की सभी महत्वपूर्ण घटनाओं को कवर करता है, जिसमें 16वें वित्त आयोग की सिफारिशें, क्वाड शिखर सम्मेलन 2026, RBI का ऑफलाइन डिजिटल रुपया, ISRO का NISAR उपग्रह प्रक्षेपण, भारत के 5 नए रामसर स्थल और प्रमुख खेल आयोजन शामिल हैं। UPSC, SSC, बैंकिंग, रेलवे, HSSC, UKSSSC और सभी राज्य-स्तरीय प्रतियोगी परीक्षाओं के लिए उपयुक्त।"}
                     </p>
                     <p className="text-xs text-muted-foreground mt-3">
-                        {language === "en" ? "Source: Chronos Intelligence Hub • Research Grade Analysis • For Educational Purposes" : "स्रोत: Chronos Intelligence Hub • अनुसंधान-ग्रेड विश्लेषण • शैक्षिक उद्देश्यों के लिए"}
+                        {language === "en" ? "Source: CET TEST editorial team • Research Grade Analysis • For Educational Purposes" : "स्रोत: CET TEST editorial team • अनुसंधान-ग्रेड विश्लेषण • शैक्षिक उद्देश्यों के लिए"}
                     </p>
                 </div>
             </section>

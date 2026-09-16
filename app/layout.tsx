@@ -46,15 +46,6 @@ export const metadata: Metadata = {
   description:
     "CET TEST provides practice tests, exam guidance, study materials, and performance review tools for Haryana CET, HSSC, SSC, Railway, and related competitive exams.",
 
-  keywords: [
-    "Haryana CET preparation",
-    "HSSC CET practice tests",
-    "government exam study materials",
-    "SSC practice tests",
-    "Railway exam preparation",
-    "Haryana GK notes",
-  ],
-
   authors: [{ name: "CET TEST", url: SITE_URL }],
   creator: "CET TEST",
   publisher: "CET TEST",

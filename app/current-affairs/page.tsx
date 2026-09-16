@@ -656,7 +656,7 @@ export default function CurrentAffairsPage() {
                         HSSC (Haryana CET), UKSSSC (Uttarakhand), and all state-level competitive examinations.
                     </p>
                     <p className="text-xs text-muted-foreground mt-3">
-                        © 2025-26 CET TEST | Current affairs content for educational purposes | Source: Chronos Intelligence Hub
+                        © 2025-26 CET TEST | Current affairs content for educational purposes | Source: CET TEST editorial team
                     </p>
                 </div>
             </section>

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         "current affairs with static GK",
         "exam-oriented current affairs"
     ],
-    authors: [{ name: "CET TEST" }, { name: "Chronos Intelligence Hub" }],
+    authors: [{ name: "CET TEST editorial team" }],
     creator: "CET TEST",
     publisher: "CET TEST",
     formatDetection: {

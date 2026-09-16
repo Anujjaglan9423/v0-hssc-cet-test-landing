@@ -120,7 +120,7 @@ export default function FebruaryCurrentAffairsPage() {
             impactHi: [
                 "बेहतर समुद्री सुरक्षा हिंद महासागर में शिपिंग के लिए बीमा प्रीमियम कम करेगी",
                 "6G समझौता क्वाड को चीनी तकनीकी वर्चस्व का प्रत्यक्ष प्रतियोगी बनाता है",
-                "जलवायु डेटा में विस्तार क्वाड के सुरक्षा-केंद्रित समूह से समग्र क्षेत्रीय विकास भागीदार के रूप में विकास को दर्शाता है"
+                "जलवायु डे���ा में विस्तार क्वाड के सुरक्षा-केंद्रित समूह से समग्र क्षेत्रीय विकास भागीदार के रूप में विकास को दर्शाता है"
             ],
             staticGk: [
                 { fact: "QUAD Origin", description: "First mooted by Japanese PM Shinzo Abe in 2007, revived in 2017", factHi: "क्वाड की उत्पत्ति", descriptionHi: "पहली बार 2007 में जापानी प्रधानमंत्री शिंजो अबे द्वारा प्रस्तावित, 2017 में पुनर्जीवित" },
@@ -285,7 +285,7 @@ export default function FebruaryCurrentAffairsPage() {
                 <div className="max-w-5xl mx-auto text-center relative z-10">
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium backdrop-blur-sm">
                         <Sparkles className="w-4 h-4" />
-                        Chronos Intelligence Hub • Premium Report
+                        CET TEST editorial team • Premium Report
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
@@ -326,7 +326,7 @@ export default function FebruaryCurrentAffairsPage() {
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 px-3 py-1.5 rounded-full border">
                             <Calendar className="w-4 h-4 text-primary" />
-                            <span>{language === "en" ? "10 Important Days" : "10 महत्वपूर्ण दिवस"}</span>
+                            <span>{language === "en" ? "10 Important Days" : "10 म��त्वपूर्ण दिवस"}</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 px-3 py-1.5 rounded-full border">
                             <Wallet className="w-4 h-4 text-primary" />
@@ -627,7 +627,7 @@ export default function FebruaryCurrentAffairsPage() {
                             : "यह व्यापक करेंट अफेयर्स डाइजेस्ट फरवरी 2026 की सभी महत्वपूर्ण घटनाओं को कवर करता है, जिसमें केंद्रीय बजट 2026-27 (₹52.4T व्यय, 4.2% राजकोषीय घाटा), क्वाड शिखर सम्मेलन 2026 (6G समझौता, जलवायु डेटा पोर्टल), आरबीआई एमपीसी समीक्षा (रेपो रेट 6.25%, CBDC-रिटेल 2.0), मिलान-कोर्टिना शीतकालीन ओलंपिक 2026 (डिजिटल ट्विन तकनीक, 7 भारतीय एथलीट), विश्व आर्द्रभूमि दिवस (5 नए रामसर स्थल, कुल 85), और प्रमुख पुरस्कार (एम.एस. स्वामीनाथन और रतन टाटा को भारत रत्न) शामिल हैं। UPSC, SSC, बैंकिंग, रेलवे, HSSC, UKSSSC और सभी राज्य-स्तरीय प्रतियोगी परीक्षाओं के लिए उपयुक्त।"}
                     </p>
                     <p className="text-xs text-muted-foreground mt-3">
-                        {language === "en" ? "Source: Chronos Intelligence Hub • Research Grade Analysis • For Educational Purposes" : "स्रोत: Chronos Intelligence Hub • अनुसंधान-ग्रेड विश्लेषण • शैक्षिक उद्देश्यों के लिए"}
+                        {language === "en" ? "Source: CET TEST editorial team • Research Grade Analysis • For Educational Purposes" : "स्रोत: CET TEST editorial team • अनुसंधान-ग्रेड विश्लेषण • शैक्षिक उद्देश्यों के लिए"}
                     </p>
                 </div>
             </section>
