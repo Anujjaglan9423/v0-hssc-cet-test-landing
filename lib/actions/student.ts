@@ -434,7 +434,10 @@ export async function getPaginatedStudentResults(page: number = 1, pageSize: num
   const totalPages = Math.ceil(totalCount / pageSize)
 
   return {
-    results: results || [],
+    results: (results || []).map((result) => ({
+      ...result,
+      test: Array.isArray(result.test) ? result.test[0] : result.test,
+    })),
     totalCount,
     page,
     pageSize,
@@ -667,8 +670,8 @@ export async function submitTest(testId: string, answers: Record<string, string>
     const { data: test } = await supabase
       .from("tests")
     .select(`
-      id, title, description, test_type, difficulty, duration, total_questions, created_at,
-      exam:exams (id, name), subject:subjects (id, name), topic:topics (id, name)
+      id, title, duration, total_questions, has_negative_marking, negative_marking_percent,
+      questions (id, correct_answer)
     `)
       .eq("id", testId)
       .single()
