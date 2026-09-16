@@ -513,8 +513,14 @@ function formatTimeAgo(dateString: string) {
   return date.toLocaleDateString()
 }
 
-export async function getAdminAnalytics() {
+export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   const supabase = await createClient()
+  const rangeStart = startDate ? new Date(`${startDate}T00:00:00.000Z`) : null
+  const rangeEnd = endDate ? new Date(`${endDate}T23:59:59.999Z`) : null
+  const inRange = (value: string) => {
+    const timestamp = new Date(value).getTime()
+    return (!rangeStart || timestamp >= rangeStart.getTime()) && (!rangeEnd || timestamp <= rangeEnd.getTime())
+  }
 
   // Get all test results
   const { data: allResults } = await supabase
@@ -603,7 +609,80 @@ export async function getAdminAnalytics() {
     monthlySignups[key] = (monthlySignups[key] || 0) + 1
   })
 
+  // Date-based activity for the admin analytics view.
+  // Custom auth records signups in users and successful logins in sessions.
+  const thirtyDaysAgo = new Date()
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 29)
+  const activityStart = rangeStart || thirtyDaysAgo
+  const activityEnd = rangeEnd || new Date()
+  
+  const [signupEvents, loginEvents, attemptEvents, studentUsers, sessionHistory] = await Promise.all([
+    fetchAllPages((from, to) =>
+      supabase.from("users").select("created_at").eq("role", "student").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to),
+    ),
+    fetchAllPages((from, to) =>
+      supabase.from("sessions").select("created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to),
+    ),
+    fetchAllPages((from, to) =>
+      supabase.from("test_attempts").select("started_at, user_id").gte("started_at", activityStart.toISOString()).lte("started_at", activityEnd.toISOString()).range(from, to),
+    ),
+    fetchAllPages((from, to) =>
+      supabase.from("users").select("id, full_name, email, phone, created_at").eq("role", "student").order("created_at", { ascending: false }).range(from, to),
+    ),
+    fetchAllPages((from, to) =>
+      supabase.from("sessions").select("user_id, created_at").order("created_at", { ascending: false }).range(from, to),
+    ),
+  ])
+
+  const latestLoginByUser = sessionHistory.reduce((latest: Record<string, string>, session: any) => {
+    if (session.user_id && (!latest[session.user_id] || new Date(session.created_at) > new Date(latest[session.user_id]))) {
+      latest[session.user_id] = session.created_at
+    }
+    return latest
+  }, {})
+  const inactiveCutoff = new Date()
+  inactiveCutoff.setDate(inactiveCutoff.getDate() - 10)
+  const inactiveUsers = studentUsers
+    .filter((student: any) => {
+      const lastLogin = latestLoginByUser[student.id]
+      return !lastLogin || new Date(lastLogin) < inactiveCutoff
+    })
+    .map((student: any) => ({
+      id: student.id,
+      name: student.full_name,
+  email: student.email,
+  phone: student.phone || student.mobile || student.phone_number || null,
+  signupDate: student.created_at,
+  lastLogin: latestLoginByUser[student.id] || null,
+    }))
+
+  
+
+  const dailyActivity = Array.from({ length: 30 }, (_, index) => {
+    const date = new Date(thirtyDaysAgo)
+    date.setDate(thirtyDaysAgo.getDate() + index)
+    const key = date.toISOString().slice(0, 10)
+    const day = date.toLocaleDateString("default", { month: "short", day: "numeric" })
+    const countOn = (items: any[], field: string) => items.filter((item) => String(item[field]).slice(0, 10) === key).length
+    return {
+      date: key,
+      day,
+      signups: countOn(signupEvents, "created_at"),
+      logins: countOn(loginEvents, "created_at"),
+      attempts: countOn(attemptEvents, "started_at"),
+    }
+  })
+
   // Test attempts by category
+  const filteredSignups = signupEvents.filter((event: any) => inRange(event.created_at))
+  const filteredLogins = loginEvents.filter((event: any) => inRange(event.created_at))
+  const filteredAttempts = attemptEvents.filter((event: any) => inRange(event.started_at))
+  const attemptsByUser = filteredAttempts.reduce((counts: Record<string, number>, attempt: any) => {
+    if (attempt.user_id) counts[attempt.user_id] = (counts[attempt.user_id] || 0) + 1
+    return counts
+  }, {})
+  const repeatedUsers = Object.values(attemptsByUser).filter((count) => count > 1).length
+
   const categoryAttempts: Record<string, number> = { Full: 0, Subject: 0, Topic: 0 }
   results.forEach((r) => {
     const type = (r.test as any)?.test_type || "full"
@@ -616,7 +695,12 @@ export async function getAdminAnalytics() {
     averageScore,
     passRate,
     completionRate,
-    totalAttempts,
+    totalAttempts: filteredAttempts.length,
+    totalSignups: filteredSignups.length,
+    totalLogins: filteredLogins.length,
+    repeatedUsers,
+    inactiveUsers,
+    dailyActivity,
     weeklyActivity,
     scoreDistribution: scoreRanges.map((r) => ({ range: r.range, count: r.count })),
     subjectPerformance,
