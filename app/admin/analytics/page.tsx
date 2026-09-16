@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { getAdminAnalytics } from "@/lib/actions/admin"
-import { TrendingUp, Target, Award, CheckCircle, Loader2, Users, UserPlus, LogIn } from "lucide-react"
+import { TrendingUp, Target, Award, CheckCircle, Loader2, Users, UserPlus, LogIn, UserX } from "lucide-react"
 import {
   BarChart,
   Bar,
@@ -40,6 +40,7 @@ interface AnalyticsData {
   subjectPerformance: Array<{ subject: string; avgScore: number }>
   monthlySignups: Array<{ month: string; count: number }>
   testAttemptsByCategory: Array<{ category: string; attempts: number }>
+  inactiveUsers: Array<{ id: string; name: string; email: string; signupDate: string; lastLogin: string | null }>
 }
 
 export default function AdminAnalyticsPage() {
@@ -158,6 +159,47 @@ export default function AdminAnalyticsPage() {
         <StatsCard title="Test Attempts" value={data.totalAttempts.toLocaleString()} change="Selected date range" changeType="neutral" icon={Users} color="warning" />
         <StatsCard title="Repeated Users" value={data.repeatedUsers.toLocaleString()} change="Users with 2+ attempts" changeType="neutral" icon={Users} color="warning" />
       </div>
+
+      <ChartCard title="Inactive Users — No Login in 10 Days">
+        {data.inactiveUsers.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b border-border text-xs text-muted-foreground">
+                <tr>
+                  <th className="px-3 py-3 font-medium">User</th>
+                  <th className="px-3 py-3 font-medium">Signup date</th>
+                  <th className="px-3 py-3 font-medium">Last login</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.inactiveUsers.map((user) => (
+                  <tr key={user.id} className="border-b border-border/60 last:border-0">
+                    <td className="px-3 py-3">
+                      <div className="flex items-center gap-2">
+                        <UserX className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+                        <div>
+                          <p className="font-medium text-foreground">{user.name}</p>
+                          <p className="text-xs text-muted-foreground">{user.email}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-3 py-3 text-muted-foreground">
+                      {new Date(user.signupDate).toLocaleDateString()}
+                    </td>
+                    <td className="px-3 py-3 text-muted-foreground">
+                      {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : "Never logged in"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="flex min-h-32 items-center justify-center text-sm text-muted-foreground">
+            No users have been inactive for 10 or more days.
+          </div>
+        )}
+      </ChartCard>
 
       <ChartCard title="Daily Users & Test Attempts — Last 30 Days">
         <ResponsiveContainer width="100%" height={300}>

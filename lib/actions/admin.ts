@@ -616,7 +616,7 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   const activityStart = rangeStart || thirtyDaysAgo
   const activityEnd = rangeEnd || new Date()
   
-  const [signupEvents, loginEvents, attemptEvents] = await Promise.all([
+  const [signupEvents, loginEvents, attemptEvents, studentUsers, sessionHistory] = await Promise.all([
     fetchAllPages((from, to) =>
       supabase.from("users").select("created_at").eq("role", "student").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to),
     ),
@@ -626,7 +626,36 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
     fetchAllPages((from, to) =>
       supabase.from("test_attempts").select("started_at, user_id").gte("started_at", activityStart.toISOString()).lte("started_at", activityEnd.toISOString()).range(from, to),
     ),
+    fetchAllPages((from, to) =>
+      supabase.from("users").select("id, full_name, email, created_at").eq("role", "student").order("created_at", { ascending: false }).range(from, to),
+    ),
+    fetchAllPages((from, to) =>
+      supabase.from("sessions").select("user_id, created_at").order("created_at", { ascending: false }).range(from, to),
+    ),
   ])
+
+  const latestLoginByUser = sessionHistory.reduce((latest: Record<string, string>, session: any) => {
+    if (session.user_id && (!latest[session.user_id] || new Date(session.created_at) > new Date(latest[session.user_id]))) {
+      latest[session.user_id] = session.created_at
+    }
+    return latest
+  }, {})
+  const inactiveCutoff = new Date()
+  inactiveCutoff.setDate(inactiveCutoff.getDate() - 10)
+  const inactiveUsers = studentUsers
+    .filter((student: any) => {
+      const lastLogin = latestLoginByUser[student.id]
+      return !lastLogin || new Date(lastLogin) < inactiveCutoff
+    })
+    .map((student: any) => ({
+      id: student.id,
+      name: student.full_name,
+      email: student.email,
+      signupDate: student.created_at,
+      lastLogin: latestLoginByUser[student.id] || null,
+    }))
+
+  
 
   const dailyActivity = Array.from({ length: 30 }, (_, index) => {
     const date = new Date(thirtyDaysAgo)
@@ -669,6 +698,7 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
     totalSignups: filteredSignups.length,
     totalLogins: filteredLogins.length,
     repeatedUsers,
+    inactiveUsers,
     dailyActivity,
     weeklyActivity,
     scoreDistribution: scoreRanges.map((r) => ({ range: r.range, count: r.count })),
