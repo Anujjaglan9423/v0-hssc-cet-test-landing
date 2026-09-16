@@ -101,10 +101,10 @@ export default function AdminAnalyticsPage() {
     if (!data?.inactiveUsers.length) return
     const escapeCsv = (value: string) => `"${value.replaceAll('"', '""')}"`
     const rows = [
-      ["Name", "Email", "Mobile number", "Signup date", "Last login"],
-      ...data.inactiveUsers.map((user) => [user.name, user.email, user.phone || "", user.signupDate, user.lastLogin || "Never logged in"]),
+      ["Name", "Email", "Mobile", "Last active date"],
+      ...data.inactiveUsers.map((user) => [user.name, user.email, user.phone || "", user.lastLogin || "Never logged in"]),
     ]
-    const csv = rows.map((row) => row.map(escapeCsv).join(",")).join("\\n")
+    const csv = rows.map((row) => row.map(escapeCsv).join(",")).join("\n")
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }))
     const link = document.createElement("a")
     link.href = url
