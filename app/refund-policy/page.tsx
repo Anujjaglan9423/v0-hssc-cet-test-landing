@@ -135,9 +135,20 @@ export default function RefundPolicyPage() {
                   </a>
                 </li>
                 <li>
-                  Phone:{" "}
-                  <a href="tel:+919896979805" className="text-primary hover:underline">
-                    +91 9896979805
+                  Phone: {" "}
+                  <a href="tel:+917291849546" className="text-primary hover:underline">
+                    +91 7291849546
+                  </a>
+                </li>
+                <li>
+                  WhatsApp: {" "}
+                  <a
+                    href="https://wa.me/917291849546"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    Chat with us on WhatsApp
                   </a>
                 </li>
                 <li>

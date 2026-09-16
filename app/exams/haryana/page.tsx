@@ -233,7 +233,7 @@ export default function HaryanaExamsPage() {
     },
     {
       question: "What is the exam pattern for HSSC CET 2026?",
-      answer: "HSSC CET 2026 pattern: 100 questions (100 marks), exam duration: 2 hours. Subjects include: General Awareness (including Haryana GK), Reasoning, Mathematics, Hindi/English language skills. Negative marking: 0.25 marks per wrong answer. CET TEST mocks follow this exact pattern."
+      answer: "HSSC CET 2026 pattern: 100 questions (100 marks) in 90 minutes. Subjects include: General Awareness (including Haryana GK), Reasoning, Mathematics, Hindi/English language skills. There is no negative marking. CET TEST mocks follow this exact pattern."
     },
     {
       question: "Can I practice HSSC previous year question papers on CET TEST?",
@@ -364,13 +364,13 @@ export default function HaryanaExamsPage() {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Get the most accurate HSSC CET Mock Test Series, Haryana Police Online Tests, and Previous Year Solved Papers for 2026. Trusted by 100,000+ Haryana aspirants.
+              Get the most accurate HSSC CET Mock Test Series, Haryana Police Online Tests, and Previous Year Solved Papers for 2026. Trusted by 50,000+ Haryana aspirants.
             </p>
 
             {/* Key Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">100K+</div>
+                <div className="text-2xl font-bold text-primary">50K+</div>
                 <div className="text-xs text-muted-foreground">Active Aspirants</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
@@ -494,7 +494,7 @@ export default function HaryanaExamsPage() {
                   <Target className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">Latest Exam Pattern</h3>
-                <p className="text-sm text-muted-foreground">Updated for NTA & HSSC 2026 pattern with 100 questions in 2 hours</p>
+                <p className="text-sm text-muted-foreground">Updated for NTA & HSSC 2026 pattern with 100 questions in 90 minutes and no negative marking</p>
               </div>
               <div className="text-center p-4">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -515,7 +515,7 @@ export default function HaryanaExamsPage() {
                   <Trophy className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">All-India Rank</h3>
-                <p className="text-sm text-muted-foreground">Compare your performance with 100K+ Haryana aspirants</p>
+                <p className="text-sm text-muted-foreground">Compare your performance with 50K+ Haryana aspirants</p>
               </div>
             </div>
           </div>
@@ -550,7 +550,7 @@ export default function HaryanaExamsPage() {
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-2xl p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Crack Your Haryana Exam?</h2>
-            <p className="text-lg mb-8 opacity-90">Join 100,000+ Haryana aspirants and start your free preparation today</p>
+            <p className="text-lg mb-8 opacity-90">Join 50,000+ Haryana aspirants and start your free preparation today</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/signup">
                 <Button size="lg" variant="secondary" className="gap-2 cursor-pointer">
