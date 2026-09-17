@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
 import Script from "next/script"
 import { GoogleAnalytics } from "@/components/google-analytics"
+import { ExamAlertsPromo } from "@/components/exam-alerts-promo"
 import "./globals.css"
 
 const geistMono = Geist_Mono({
@@ -519,6 +520,8 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         {children}
         <div className="gtranslate_wrapper" aria-label="Website language options" />
+        {/* Public exam alerts announcement */}
+        <ExamAlertsPromo />
         {/* PWA Install Prompt */}
         <PWAInstallPrompt />
         {/* Google Analytics page tracking */}
