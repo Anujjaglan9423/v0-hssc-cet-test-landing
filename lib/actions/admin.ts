@@ -60,22 +60,29 @@ export async function getAllStudents() {
   let students: any[]
 
   try {
-    students = await fetchAllPages((from, to) =>
-      supabase
-        .from("users")
-        .select(`
-          *,
-          test_results (
-            score,
-            total_questions,
-            time_taken,
-            created_at
-          )
-        `)
-        .eq("role", "student")
+    const { data, error } = await supabase
+      .from("users")
+      .select("id, full_name, email, phone, plan, created_at")
+      .eq("role", "student")
+      .order("created_at", { ascending: false })
+      .range(0, 499)
+    if (error) throw error
+
+    students = data || []
+    if (students.length > 0) {
+      const { data: results, error: resultsError } = await supabase
+        .from("test_results")
+        .select("user_id, score, total_questions, time_taken, created_at")
+        .in("user_id", students.map((student) => student.id))
         .order("created_at", { ascending: false })
-        .range(from, to),
-    )
+      if (resultsError) throw resultsError
+
+      const resultsByUser = (results || []).reduce((groups: Record<string, any[]>, result: any) => {
+        ;(groups[result.user_id] ||= []).push(result)
+        return groups
+      }, {})
+      students = students.map((student) => ({ ...student, test_results: resultsByUser[student.id] || [] }))
+    }
   } catch (error) {
     console.error("Error fetching students:", error)
     return []
@@ -145,39 +152,52 @@ export async function getStudentDetails(studentId: string) {
 export async function getAllTests() {
   const supabase = await createClient()
 
-  const { data: tests, error } = await supabase
-    .from("tests")
-    .select(`
-      *,
-      exam:exams (id, name),
-      subject:subjects (id, name),
-      topic:topics (id, name),
-      questions (id),
-      test_attempts (id),
-      test_results (score, total_questions)
-    `)
-    .order("created_at", { ascending: false })
+  const [{ data: tests, error }, { data: results, error: resultsError }] = await Promise.all([
+    supabase
+      .from("tests")
+      .select(`
+        id, title, description, test_type, exam_id, subject_id, topic_id,
+        duration, difficulty, total_questions, has_negative_marking,
+        negative_marking_percent, created_by, created_at,
+        exam:exams (id, name),
+        subject:subjects (id, name),
+        topic:topics (id, name),
+        questions (id),
+        test_attempts (id)
+      `)
+      .order("created_at", { ascending: false }),
+    supabase.from("test_results").select("test_id, score, total_questions"),
+  ])
 
-  if (error) {
-    console.error("Error fetching tests:", error)
+  if (error || resultsError) {
+    console.error("Error fetching tests:", error || resultsError)
     return []
   }
 
+  const resultsByTest = (results || []).reduce((groups: Record<string, any[]>, result: any) => {
+    ;(groups[result.test_id] ||= []).push(result)
+    return groups
+  }, {})
+
   return (
-    tests?.map((test) => ({
-      ...test,
-      questions_count: test.questions?.length || 0,
-      attempts_count: test.test_attempts?.length || 0,
-      avg_score:
-        test.test_results?.length > 0
-          ? Math.round(
-            test.test_results.reduce(
-              (sum: number, r: any) => sum + ((r.score || 0) / (r.total_questions || 1)) * 100,
-              0,
-            ) / test.test_results.length,
-          )
-          : 0,
-    })) || []
+    tests?.map((test) => {
+      const testResults = resultsByTest[test.id] || []
+      return {
+        ...test,
+        test_results: testResults,
+        questions_count: test.questions?.length || 0,
+        attempts_count: test.test_attempts?.length || 0,
+        avg_score:
+          testResults.length > 0
+            ? Math.round(
+              testResults.reduce(
+                (sum: number, r: any) => sum + ((r.score || 0) / (r.total_questions || 1)) * 100,
+                0,
+              ) / testResults.length,
+            )
+            : 0,
+      }
+    }) || []
   )
 }
 
