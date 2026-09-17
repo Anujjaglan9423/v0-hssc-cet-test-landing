@@ -52,42 +52,70 @@ export async function scrapeGovernmentNotices() {
     try {
       const notices = new Map<string, string>()
       const failures: string[] = []
+      let successfulFetches = 0
+      const fetchTimeout = 10000
+      const fetchJobs: Promise<void>[] = []
       if (source.name === "SSC") {
         const apiUrl = "https://ssc.gov.in/api/general-website/portal/notice-boards?page=1&limit=50&contentType=notice-boards&key=createdAt&order=DESC&isAttachment=true&language=english&attributes=id,headline,examId,contentType,redirectUrl,startDate,endDate,language,createdAt"
-        try {
-          const response = await fetch(apiUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/json" }, signal: AbortSignal.timeout(20000), cache: "no-store" })
-          if (!response.ok) throw new Error(`HTTP ${response.status}`)
-          collectOfficialLinks(await response.json(), notices)
-        } catch (error) {
-          failures.push(`SSC API: ${error instanceof Error ? error.message : "fetch failed"}`)
-        }
+        fetchJobs.push((async () => {
+          try {
+            const response = await fetch(apiUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/json" }, signal: AbortSignal.timeout(fetchTimeout), cache: "no-store" })
+            if (!response.ok) throw new Error(`HTTP ${response.status}`)
+            successfulFetches += 1
+            collectOfficialLinks(await response.json(), notices)
+          } catch (error) {
+            failures.push(`SSC API: ${error instanceof Error ? error.message : "fetch failed"}`)
+          }
+        })())
       }
       for (const sourceUrl of source.urls) {
-        try {
-          const response = await fetch(sourceUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0 (+https://hssc-cet.com)", accept: "text/html,application/xhtml+xml" }, signal: AbortSignal.timeout(20000), cache: "no-store" })
-          if (!response.ok) throw new Error(`HTTP ${response.status}`)
-          const html = await response.text()
-          for (const match of html.matchAll(LINK_PATTERN)) {
-            const href = absoluteUrl(sourceUrl, match[1])
-            const title = clean(match[2])
-            const isNotice = /pdf|notice|notification|recruit|admit|answer|result|exam|vacan|advert|candidate|cgl|chsl|constable|group-d|ntpc/i.test(`${href} ${title}`)
-            if (href && title.length >= 8 && isNotice) notices.set(href, title)
+        fetchJobs.push((async () => {
+          try {
+            const response = await fetch(sourceUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0 (+https://hssc-cet.com)", accept: "text/html,application/xhtml+xml" }, signal: AbortSignal.timeout(fetchTimeout), cache: "no-store" })
+            if (!response.ok) throw new Error(`HTTP ${response.status}`)
+            successfulFetches += 1
+            const html = await response.text()
+            for (const match of html.matchAll(LINK_PATTERN)) {
+              const href = absoluteUrl(sourceUrl, match[1])
+              const title = clean(match[2])
+              const matchIndex = match.index ?? 0
+              const context = clean(html.slice(Math.max(0, matchIndex - 700), Math.min(html.length, matchIndex + match[0].length + 700)))
+              const details = context.match(/(?:opening date|start date|application start|last date|closing date|end date|application fee|exam fee|fee|notice date|published|important dates?)\s*[:\-]?\s*([^|;]{1,80})/gi)?.join("; ")
+              const noticeDate = context.match(/\b(?:0?[1-9]|[12]\d|3[01])[/-](?:0?[1-9]|1[0-2])[/-](?:20\d{2})\b|\b20\d{2}[/-](?:0?[1-9]|1[0-2])[/-](?:0?[1-9]|[12]\d|3[01])\b/gi)?.[0]
+              const isNotice = /pdf|notice|notification|recruit|admit|answer|result|exam|vacan|advert|candidate|cgl|chsl|constable|group-d|ntpc/i.test(`${href} ${title}`)
+              if (href && title.length >= 8 && isNotice) notices.set(href, [title, noticeDate ? `Notice date: ${noticeDate}` : "", details ?? ""].filter(Boolean).join("\n"))
+            }
+          } catch (error) {
+            failures.push(`${sourceUrl}: ${error instanceof Error ? error.message : "fetch failed"}`)
           }
-        } catch (error) {
-          failures.push(`${sourceUrl}: ${error instanceof Error ? error.message : "fetch failed"}`)
-        }
+        })())
       }
-      if (!notices.size && failures.length === source.urls.length) throw new Error(failures.join("; "))
+      await Promise.all(fetchJobs)
+      if (successfulFetches === 0) {
+        throw new Error(failures.join("; ") || "All official sources failed")
+      }
 
       let inserted = 0
-      for (const [url, title] of [...notices].slice(0, 100)) {
-        const { data: exists, error: lookupError } = await supabase.from("blogs").select("id").eq("featured_image_url", url).maybeSingle()
+      for (const [url, noticeText] of [...notices].slice(0, 100)) {
+        const [noticeTitle, ...detailLines] = noticeText.split("\n").map((line) => line.trim()).filter(Boolean)
+        const details = detailLines.filter((line) => !/^Notice date:\s*$/i.test(line))
+        const detailHtml = details.length
+          ? `<h2>Important information</h2><ul>${details.map((detail) => `<li>${detail.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</li>`).join("")}</ul>`
+          : ""
+        const description = `${detailHtml}<p>This update was discovered from the official ${source.name} notice. Verify the complete notification, eligibility, dates, vacancies, fees and application instructions in the official source.</p>`
+        const { data: exists, error: lookupError } = await supabase.from("blogs").select("id,description,title").eq("featured_image_url", url).maybeSingle()
         if (lookupError) throw new Error(`Database lookup failed: ${lookupError.message}`)
-        if (exists) continue
+        if (exists) {
+          if (!exists.description || /Official update discovered on/i.test(exists.description)) {
+            const { error: updateError } = await supabase.from("blogs").update({ description, title: `${source.name}: ${noticeTitle}` }).eq("id", exists.id)
+            if (updateError) throw new Error(`Database update failed: ${updateError.message}`)
+          }
+          continue
+        }
         const { error: insertError } = await supabase.from("blogs").insert({
-          title: `${source.name}: ${title}`,
+          title: `${source.name}: ${noticeTitle}`,
           slug: slugify(`${source.name}-${url}`),
-          description: `Official update discovered on ${source.name}. Open the source link for the original notice.`,
+          description,
           category: "Exam Alert",
           featured_image_url: url,
           status: "publish",
@@ -98,7 +126,14 @@ export async function scrapeGovernmentNotices() {
         if (insertError) throw new Error(`Database insert failed: ${insertError.message}`)
         inserted += 1
       }
-      results.push({ source: source.name, ok: true, discovered: notices.size, inserted, durationMs: Date.now() - startedAt })
+      results.push({
+        source: source.name,
+        ok: true,
+        discovered: notices.size,
+        inserted,
+        warnings: failures.length ? failures : undefined,
+        durationMs: Date.now() - startedAt,
+      })
     } catch (error) {
       results.push({ source: source.name, ok: false, error: error instanceof Error ? error.message : "Unknown scraper error", durationMs: Date.now() - startedAt })
     }

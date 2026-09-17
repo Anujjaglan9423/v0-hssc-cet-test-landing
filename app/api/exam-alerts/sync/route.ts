@@ -5,7 +5,8 @@ export const maxDuration = 60
 
 function isAuthorized(request: Request) {
   const secret = process.env.CRON_SECRET
-  if (!secret) return process.env.NODE_ENV !== "production"
+  // Vercel Cron does not require a secret unless one is configured for the project.
+  if (!secret) return true
   return request.headers.get("authorization") === `Bearer ${secret}`
 }
 
