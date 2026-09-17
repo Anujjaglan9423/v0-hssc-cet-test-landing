@@ -53,6 +53,33 @@ export async function getAdminStats() {
   }
 }
 
+// Fetch only the rows required by the dashboard preview. The full student
+// report intentionally remains separate because it includes every test result.
+export async function getRecentStudents() {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from("users")
+    .select("id, email, full_name, plan, created_at")
+    .eq("role", "student")
+    .order("created_at", { ascending: false })
+    .limit(5)
+
+  if (error) {
+    console.error("Error fetching recent students:", error)
+    return []
+  }
+
+  return (data || []).map((student) => ({
+    ...student,
+    name: student.full_name,
+    testsAttempted: 0,
+    averageScore: 0,
+    totalTime: "0h 0m",
+    lastActive: formatTimeAgo(student.created_at),
+    progress: 0,
+  }))
+}
+
 // Get all students with stats
 export async function getAllStudents() {
   const supabase = await createClient()
