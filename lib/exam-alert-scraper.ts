@@ -2,12 +2,12 @@ import { createHash } from "node:crypto"
 import { createAdminClient } from "@/lib/supabase/server"
 
 const SOURCES = [
+  { name: "SSC", urls: ["https://ssc.gov.in/", "https://ssc.gov.in/for-candidates"] },
   { name: "HSSC", urls: ["https://hssc.gov.in/"] },
+  { name: "HPSC", urls: ["https://hpsc.gov.in/en-us/Announcement", "https://hpsc.gov.in/", "https://hpsc.gov.in/Exams/Results"] },
   { name: "UKSSSC", urls: ["https://sssc.uk.gov.in/"] },
   { name: "UKPSC", urls: ["https://psc.uk.gov.in/"] },
-  { name: "HPSC", urls: ["https://hpsc.gov.in/"] },
-  { name: "Railway", urls: ["https://rrb.indianrailways.gov.in/", "https://www.rrbcdg.gov.in/", "https://indianrailways.gov.in/"] },
-  { name: "SSC", urls: ["https://ssc.gov.in/", "https://ssc.gov.in/for-candidates"] },
+  { name: "Railway RRB", urls: ["https://rrb.indianrailways.gov.in/", "https://www.rrbcdg.gov.in/", "https://indianrailways.gov.in/"] },
 ] as const
 
 const LINK_PATTERN = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi
@@ -119,9 +119,9 @@ export async function scrapeGovernmentNotices() {
           category: "Exam Alert",
           featured_image_url: url,
           status: "publish",
-          meta_title: `${source.name}: ${title}`,
+          meta_title: `${source.name}: ${noticeTitle}`,
           meta_description: `Official exam notification discovered on ${source.name}.`,
-          tags: [source.name, "Exam Alert", source.name === "HSSC" || source.name === "HPSC" ? "Haryana" : source.name === "UKSSSC" || source.name === "UKPSC" ? "Uttarakhand" : source.name],
+          tags: [source.name, "Exam Alert", source.name.startsWith("Haryana") ? "Haryana" : source.name.startsWith("Uttarakhand") ? "Uttarakhand" : source.name],
         })
         if (insertError) throw new Error(`Database insert failed: ${insertError.message}`)
         inserted += 1
