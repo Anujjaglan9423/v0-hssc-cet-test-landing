@@ -96,14 +96,26 @@ export async function scrapeGovernmentNotices() {
       }
 
       let inserted = 0
-      for (const [url, title] of [...notices].slice(0, 100)) {
-        const { data: exists, error: lookupError } = await supabase.from("blogs").select("id").eq("featured_image_url", url).maybeSingle()
+      for (const [url, noticeText] of [...notices].slice(0, 100)) {
+        const [noticeTitle, ...detailLines] = noticeText.split("\n").map((line) => line.trim()).filter(Boolean)
+        const details = detailLines.filter((line) => !/^Notice date:\s*$/i.test(line))
+        const detailHtml = details.length
+          ? `<h2>Important information</h2><ul>${details.map((detail) => `<li>${detail.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</li>`).join("")}</ul>`
+          : ""
+        const description = `${detailHtml}<p>This update was discovered from the official ${source.name} notice. Verify the complete notification, eligibility, dates, vacancies, fees and application instructions in the official source.</p>`
+        const { data: exists, error: lookupError } = await supabase.from("blogs").select("id,description,title").eq("featured_image_url", url).maybeSingle()
         if (lookupError) throw new Error(`Database lookup failed: ${lookupError.message}`)
-        if (exists) continue
+        if (exists) {
+          if (!exists.description || /Official update discovered on/i.test(exists.description)) {
+            const { error: updateError } = await supabase.from("blogs").update({ description, title: `${source.name}: ${noticeTitle}` }).eq("id", exists.id)
+            if (updateError) throw new Error(`Database update failed: ${updateError.message}`)
+          }
+          continue
+        }
         const { error: insertError } = await supabase.from("blogs").insert({
-          title: `${source.name}: ${title}`,
+          title: `${source.name}: ${noticeTitle}`,
           slug: slugify(`${source.name}-${url}`),
-          description: `Official update discovered on ${source.name}. Open the source link for the original notice.`,
+          description,
           category: "Exam Alert",
           featured_image_url: url,
           status: "publish",
