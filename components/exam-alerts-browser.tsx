@@ -30,15 +30,15 @@ function CategoryColumn({ name, alerts }: { name: string; alerts: ExamAlert[] })
   const visibleAlerts = expanded ? alerts : alerts.slice(0, 12)
 
   return (
-    <section className="flex min-w-0 flex-col border border-primary bg-white" aria-labelledby={`category-${name}`}>
-      <h2 id={`category-${name}`} className="bg-primary px-3 py-2 text-center text-lg font-normal text-primary-foreground sm:text-xl">
+    <section className="flex min-w-0 flex-col border border-[#d9445f] bg-white" aria-labelledby={`category-${name}`}>
+      <h2 id={`category-${name}`} className="bg-[#c90000] px-3 py-2 text-center text-lg font-normal text-white sm:text-xl">
         {name}
       </h2>
       <div className="flex flex-1 flex-col px-5 py-4">
         <ul className="flex flex-col gap-4 text-[15px] leading-[1.2] text-[#0000b8] sm:text-base">
           {visibleAlerts.map((alert) => (
             <li key={alert.id} className="list-disc pl-0 marker:text-black">
-              <Link href={`/blog/${alert.slug}`} className="underline decoration-1 underline-offset-1 hover:text-primary focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+              <Link href={`/blog/${alert.slug}`} className="underline decoration-1 underline-offset-1 hover:text-[#c90000] focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
                 {titleFor(alert)}
               </Link>
             </li>
@@ -72,7 +72,7 @@ export default function ExamAlertsBrowser({ alerts }: { alerts: ExamAlert[] }) {
     })
   }, [alerts])
 
-  if (!categories.length) return <p className="border border-primary bg-white p-6 text-center text-slate-700">No exam notifications are available right now.</p>
+  if (!categories.length) return <p className="border border-[#d9445f] bg-white p-6 text-center text-slate-700">No exam notifications are available right now.</p>
 
   return <div className="grid items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3">{categories.map(([name, categoryAlerts]) => <CategoryColumn key={name} name={name} alerts={categoryAlerts} />)}</div>
 }
