@@ -10,9 +10,9 @@ export async function getAdminStats() {
 
   const [{ count: totalStudents }, { count: totalTests }, { count: totalAttempts }, { data: recentStudents }] =
     await Promise.all([
-      supabase.from("users").select("id", { count: "exact", head: true }).eq("role", "student"),
-      supabase.from("tests").select("id", { count: "exact", head: true }),
-      supabase.from("test_attempts").select("id", { count: "exact", head: true }),
+      supabase.from("users").select("*", { count: "exact", head: true }).eq("role", "student"),
+      supabase.from("tests").select("*", { count: "exact", head: true }),
+      supabase.from("test_attempts").select("*", { count: "exact", head: true }),
       supabase
         .from("users")
         .select("id, full_name, email, phone, plan, created_at")
@@ -171,8 +171,8 @@ export async function getAllTests() {
   return (
     tests?.map((test) => ({
       ...test,
-      questions_count: test.questions?.[0]?.count || 0,
-      attempts_count: test.test_attempts?.[0]?.count || 0,
+      questions_count: test.questions?.length || 0,
+      attempts_count: test.test_attempts?.length || 0,
       avg_score:
         test.test_results?.length > 0
           ? Math.round(
