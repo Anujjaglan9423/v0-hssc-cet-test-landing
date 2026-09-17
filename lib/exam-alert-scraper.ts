@@ -119,7 +119,7 @@ export async function scrapeGovernmentNotices() {
           category: "Exam Alert",
           featured_image_url: url,
           status: "publish",
-          meta_title: `${source.name}: ${title}`,
+          meta_title: `${source.name}: ${noticeTitle}`,
           meta_description: `Official exam notification discovered on ${source.name}.`,
           tags: [source.name, "Exam Alert", source.name === "HSSC" || source.name === "HPSC" ? "Haryana" : source.name === "UKSSSC" || source.name === "UKPSC" ? "Uttarakhand" : source.name],
         })
