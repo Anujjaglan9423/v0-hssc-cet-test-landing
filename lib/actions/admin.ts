@@ -68,7 +68,10 @@ export async function getRecentStudents() {
   const supabase = await createClient()
   const { data, error } = await supabase
     .from("users")
-    .select("id, email, full_name, plan, created_at")
+    .select(`
+      id, email, full_name, plan, created_at,
+      test_results (score, total_questions, time_taken, created_at)
+    `)
     .eq("role", "student")
     .order("created_at", { ascending: false })
     .limit(5)
@@ -78,15 +81,27 @@ export async function getRecentStudents() {
     return []
   }
 
-  return (data || []).map((student) => ({
-    ...student,
-    name: student.full_name,
-    testsAttempted: 0,
-    averageScore: 0,
-    totalTime: "0h 0m",
-    lastActive: formatTimeAgo(student.created_at),
-    progress: 0,
-  }))
+  return (data || []).map((student) => {
+    const results = student.test_results || []
+    const testsAttempted = results.length
+    const averageScore = testsAttempted > 0
+      ? Math.round(results.reduce((sum: number, result: any) => sum + ((result.score || 0) / (result.total_questions || 1)) * 100, 0) / testsAttempted)
+      : 0
+    const totalTime = results.reduce((sum: number, result: any) => sum + (result.time_taken || 0), 0)
+    const lastActive = results.length > 0
+      ? results.reduce((latest: any, result: any) => new Date(result.created_at) > new Date(latest.created_at) ? result : latest).created_at
+      : student.created_at
+
+    return {
+      ...student,
+      name: student.full_name,
+      testsAttempted,
+      averageScore,
+      totalTime: `${Math.floor(totalTime / 3600)}h ${Math.floor((totalTime % 3600) / 60)}m`,
+      lastActive: formatTimeAgo(lastActive),
+      progress: Math.min(100, testsAttempted * 5),
+    }
+  })
 }
 
 // Get all students with stats
