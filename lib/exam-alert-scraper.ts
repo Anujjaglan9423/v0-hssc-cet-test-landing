@@ -1,5 +1,8 @@
 import { createHash } from "node:crypto"
 import { createAdminClient } from "@/lib/supabase/server"
+import { generateObject, gateway } from "ai"
+import { z } from "zod"
+import { PDFParse } from "pdf-parse"
 
 const SOURCES = [
   { name: "HSSC", urls: ["https://hssc.gov.in/"] },
@@ -23,6 +26,30 @@ function clean(value: string) {
 
 function slugify(value: string) {
   return `${value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}-${createHash("sha1").update(value).digest("hex").slice(0, 8)}`
+}
+
+async function extractNoticePoints(url: string, title: string) {
+  if (!/\.pdf(?:$|[?#])/i.test(url) && !/attachment/i.test(url)) return []
+
+  try {
+    const response = await fetch(url, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0" }, signal: AbortSignal.timeout(15000), cache: "no-store" })
+    if (!response.ok) return []
+    const buffer = Buffer.from(await response.arrayBuffer())
+    const parser = new PDFParse({ data: buffer })
+    const parsed = await parser.getText()
+    await parser.destroy()
+    const text = parsed.text.replace(/\\s+/g, " ").trim().slice(0, 50000)
+    if (text.length < 100) return []
+
+    const { object } = await generateObject({
+      model: gateway("openai/gpt-oss-20b"),
+      schema: z.object({ points: z.array(z.string().min(8)).max(12) }),
+      prompt: `Read the official government recruitment notice text below. Extract only important facts explicitly present in the notice. Return concise points covering the post/exam name, vacancies, eligibility, age limit, application dates, fee, selection process, exam date, salary, and official instructions when available. Never guess or infer missing facts. Each point must be self-contained and mention the exact value. Notice title: ${title}.\\n\\nOfficial PDF text:\\n${text}`,
+    })
+    return object.points
+  } catch {
+    return []
+  }
 }
 
 function collectOfficialLinks(value: unknown, links = new Map<string, string>(), context = "SSC notice") {
@@ -111,10 +138,13 @@ export async function scrapeGovernmentNotices() {
       for (const [url, noticeText] of [...notices].slice(0, 100)) {
         const [noticeTitle, ...detailLines] = noticeText.split("\n").map((line) => line.trim()).filter(Boolean)
         const details = detailLines.filter((line) => !/^Notice date:\s*$/i.test(line))
-        const detailHtml = details.length
-          ? `<h2>Important information</h2><ul>${details.map((detail) => `<li>${detail.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</li>`).join("")}</ul>`
+        const extractedPoints = await extractNoticePoints(url, noticeTitle)
+        const allDetails = [...new Set([...details, ...extractedPoints])]
+        const escapeHtml = (value: string) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+        const detailHtml = allDetails.length
+          ? `<h2>Important information</h2><ul>${allDetails.map((detail) => `<li>${escapeHtml(detail)}</li>`).join("")}</ul>`
           : ""
-        const description = `${detailHtml}<p>This update was discovered from the official ${source.name} notice. Verify the complete notification, eligibility, dates, vacancies, fees and application instructions in the official source.</p>`
+        const description = `${detailHtml}<p>This summary is extracted from the official ${source.name} notification. Verify the complete notification and follow its instructions before applying.</p>`
         const { data: exists, error: lookupError } = await supabase.from("blogs").select("id,description,title").eq("featured_image_url", url).maybeSingle()
         if (lookupError) throw new Error(`Database lookup failed: ${lookupError.message}`)
         if (exists) {
