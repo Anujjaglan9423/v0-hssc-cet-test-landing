@@ -40,7 +40,7 @@ export function ExamAlertsPromo() {
   return (
     <aside
       aria-label="Exam alerts announcement"
-      className="fixed bottom-4 right-4 z-40 w-[min(20rem,calc(100vw-2rem))] max-w-xs rounded-2xl border border-primary/20 bg-card p-4 text-card-foreground shadow-2xl shadow-primary/10 ring-1 ring-black/5 sm:bottom-6 sm:right-6"
+      className="fixed bottom-4 right-4 z-40 w-[min(24rem,calc(100vw-2rem))] max-w-sm rounded-2xl border border-primary/20 bg-card p-4 text-card-foreground shadow-2xl shadow-primary/10 ring-1 ring-black/5 sm:bottom-6 sm:right-6"
     >
       <button
         type="button"
