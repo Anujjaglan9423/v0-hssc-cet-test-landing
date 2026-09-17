@@ -11,6 +11,7 @@ import {
   ChevronRight,
   Tag,
   ArrowRight,
+  FileText,
 } from "lucide-react"
 import { ShareButtons } from "@/components/blog/share-buttons"
 import Footer from "@/components/footer"
@@ -139,6 +140,32 @@ function formatDate(dateString: string): string {
   })
 }
 
+function extractNoticeHighlights(description: string) {
+  const text = description
+    .replace(/<br\s*\/?\s*>/gi, "\n")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/\s+/g, " ")
+    .trim()
+
+  const patterns = [
+    ["Important dates", /(important date|application date|last date|exam date)[^.!?]*(?:[.!?]|$)/i],
+    ["Eligibility", /(eligib(?:ility|le)|educational qualification)[^.!?]*(?:[.!?]|$)/i],
+    ["Age limit", /(age limit|minimum age|maximum age)[^.!?]*(?:[.!?]|$)/i],
+    ["Application fee", /(application fee|exam fee|fee details)[^.!?]*(?:[.!?]|$)/i],
+    ["Selection process", /(selection process|exam pattern|written exam)[^.!?]*(?:[.!?]|$)/i],
+    ["Vacancies", /(total vacancies|number of vacancies|vacancy details)[^.!?]*(?:[.!?]|$)/i],
+  ] as const
+
+  return patterns
+    .map(([label, pattern]) => {
+      const match = text.match(pattern)
+      return match ? { label, value: match[0].trim() } : null
+    })
+    .filter((item): item is { label: string; value: string } => Boolean(item))
+}
+
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params
   const blog = await getBlog(slug)
@@ -151,6 +178,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   const recentBlogs = await getRecentBlogs(slug)
   const readTime = calculateReadTime(blog.description)
   const isExamAlert = blog.category === "Exam Alert"
+  const noticeHighlights = isExamAlert ? extractNoticeHighlights(blog.description || "") : []
   const sourceUrl = isExamAlert && blog.featured_image_url?.startsWith("http") ? blog.featured_image_url : null
   const authority = blog.tags?.find((tag) => ["HSSC", "HPSC", "UKSSSC", "UKPSC", "SSC", "Railway"].includes(tag)) || "Official recruitment authority"
   const safeImageUrl = blog.featured_image_url && !blog.featured_image_url.includes("gov.in") && !blog.featured_image_url.includes(".pdf") && !isExamAlert ? blog.featured_image_url : "/current-affairs-news.jpg"
@@ -314,6 +342,26 @@ export default async function BlogPostPage({ params }: PageProps) {
                   <p className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-6 text-foreground">
                     Important: CET TEST provides this easy-to-read summary for convenience. The official recruiting authority&apos;s notification is the final source for dates, vacancies, eligibility, fees and application instructions.
                   </p>
+                </section>
+              )}
+
+              {isExamAlert && noticeHighlights.length > 0 && (
+                <section className="mb-10 rounded-2xl border border-border/60 bg-card p-5 shadow-sm sm:p-7" aria-labelledby="notice-highlights">
+                  <div className="flex items-center gap-3">
+                    <FileText className="h-5 w-5 text-primary" aria-hidden="true" />
+                    <h2 id="notice-highlights" className="text-2xl font-bold text-foreground">Notice details without downloading</h2>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                    Important details found in the published notice are shown below in a quick, readable format.
+                  </p>
+                  <dl className="mt-6 grid gap-3 sm:grid-cols-2">
+                    {noticeHighlights.map(({ label, value }) => (
+                      <div key={label} className="rounded-xl border border-border/60 bg-muted/40 p-4">
+                        <dt className="text-xs font-semibold uppercase tracking-wide text-primary">{label}</dt>
+                        <dd className="mt-1.5 text-sm leading-6 text-foreground">{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
                 </section>
               )}
 
