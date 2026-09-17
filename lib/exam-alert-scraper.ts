@@ -2,42 +2,12 @@ import { createHash } from "node:crypto"
 import { createAdminClient } from "@/lib/supabase/server"
 
 const SOURCES = [
-  // Central recruiting agencies
   { name: "SSC", urls: ["https://ssc.gov.in/", "https://ssc.gov.in/for-candidates"] },
-  { name: "UPSC", urls: ["https://upsc.gov.in/", "https://upsconline.nic.in/"] },
+  { name: "HSSC", urls: ["https://hssc.gov.in/"] },
+  { name: "HPSC", urls: ["https://hpsc.gov.in/"] },
+  { name: "UKSSSC", urls: ["https://sssc.uk.gov.in/"] },
+  { name: "UKPSC", urls: ["https://psc.uk.gov.in/"] },
   { name: "Railway RRB", urls: ["https://rrb.indianrailways.gov.in/", "https://www.rrbcdg.gov.in/", "https://indianrailways.gov.in/"] },
-  { name: "IBPS", urls: ["https://www.ibps.in/"] },
-  { name: "NTA", urls: ["https://www.nta.ac.in/", "https://exams.nta.ac.in/"] },
-  { name: "India Post", urls: ["https://www.indiapost.gov.in/"] },
-  { name: "DRDO", urls: ["https://www.drdo.gov.in/"] },
-  { name: "LIC", urls: ["https://licindia.in/careers"] },
-  // State public service commissions and staff selection boards
-  { name: "Haryana HSSC", urls: ["https://hssc.gov.in/"] },
-  { name: "Haryana HPSC", urls: ["https://hpsc.gov.in/"] },
-  { name: "Uttarakhand UKSSSC", urls: ["https://sssc.uk.gov.in/"] },
-  { name: "Uttarakhand UKPSC", urls: ["https://psc.uk.gov.in/"] },
-  { name: "Uttar Pradesh UPPSC", urls: ["https://uppsc.up.nic.in/"] },
-  { name: "Uttar Pradesh UPSSSC", urls: ["https://upsssc.gov.in/"] },
-  { name: "Bihar BPSC", urls: ["https://www.bpsc.bih.nic.in/"] },
-  { name: "Bihar BTSC", urls: ["https://btsc.bihar.gov.in/"] },
-  { name: "Rajasthan RPSC", urls: ["https://rpsc.rajasthan.gov.in/"] },
-  { name: "Rajasthan RSSB", urls: ["https://rssb.rajasthan.gov.in/"] },
-  { name: "Madhya Pradesh MPPSC", urls: ["https://mppsc.mp.gov.in/"] },
-  { name: "Madhya Pradesh ESB", urls: ["https://esb.mp.gov.in/"] },
-  { name: "Maharashtra MPSC", urls: ["https://mpsc.gov.in/"] },
-  { name: "Gujarat GPSC", urls: ["https://gpsc.gujarat.gov.in/"] },
-  { name: "West Bengal WBPSC", urls: ["https://psc.wb.gov.in/"] },
-  { name: "Jharkhand JPSC", urls: ["https://www.jpsc.gov.in/"] },
-  { name: "Chhattisgarh CGPSC", urls: ["https://psc.cg.gov.in/"] },
-  { name: "Odisha OPSC", urls: ["https://www.opsc.gov.in/"] },
-  { name: "Punjab PPSC", urls: ["https://ppsc.gov.in/"] },
-  { name: "Himachal HPPSC", urls: ["https://hppsc.hp.gov.in/"] },
-  { name: "Andhra Pradesh APPSC", urls: ["https://psc.ap.gov.in/"] },
-  { name: "Telangana TSPSC", urls: ["https://websitenew.tspsc.gov.in/"] },
-  { name: "Karnataka KPSC", urls: ["https://kpsc.kar.nic.in/"] },
-  { name: "Tamil Nadu TNPSC", urls: ["https://www.tnpsc.gov.in/"] },
-  { name: "Kerala PSC", urls: ["https://www.keralapsc.gov.in/"] },
-  { name: "Assam APSC", urls: ["https://apsc.nic.in/"] },
 ] as const
 
 const LINK_PATTERN = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi
