@@ -53,33 +53,40 @@ export async function scrapeGovernmentNotices() {
       const notices = new Map<string, string>()
       const failures: string[] = []
       let successfulFetches = 0
+      const fetchTimeout = 10000
+      const fetchJobs: Promise<void>[] = []
       if (source.name === "SSC") {
         const apiUrl = "https://ssc.gov.in/api/general-website/portal/notice-boards?page=1&limit=50&contentType=notice-boards&key=createdAt&order=DESC&isAttachment=true&language=english&attributes=id,headline,examId,contentType,redirectUrl,startDate,endDate,language,createdAt"
-        try {
-          const response = await fetch(apiUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/json" }, signal: AbortSignal.timeout(20000), cache: "no-store" })
-          if (!response.ok) throw new Error(`HTTP ${response.status}`)
-          successfulFetches += 1
-          collectOfficialLinks(await response.json(), notices)
-        } catch (error) {
-          failures.push(`SSC API: ${error instanceof Error ? error.message : "fetch failed"}`)
-        }
+        fetchJobs.push((async () => {
+          try {
+            const response = await fetch(apiUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/json" }, signal: AbortSignal.timeout(fetchTimeout), cache: "no-store" })
+            if (!response.ok) throw new Error(`HTTP ${response.status}`)
+            successfulFetches += 1
+            collectOfficialLinks(await response.json(), notices)
+          } catch (error) {
+            failures.push(`SSC API: ${error instanceof Error ? error.message : "fetch failed"}`)
+          }
+        })())
       }
       for (const sourceUrl of source.urls) {
-        try {
-          const response = await fetch(sourceUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0 (+https://hssc-cet.com)", accept: "text/html,application/xhtml+xml" }, signal: AbortSignal.timeout(20000), cache: "no-store" })
-          if (!response.ok) throw new Error(`HTTP ${response.status}`)
-          successfulFetches += 1
-          const html = await response.text()
-          for (const match of html.matchAll(LINK_PATTERN)) {
-            const href = absoluteUrl(sourceUrl, match[1])
-            const title = clean(match[2])
-            const isNotice = /pdf|notice|notification|recruit|admit|answer|result|exam|vacan|advert|candidate|cgl|chsl|constable|group-d|ntpc/i.test(`${href} ${title}`)
-            if (href && title.length >= 8 && isNotice) notices.set(href, title)
+        fetchJobs.push((async () => {
+          try {
+            const response = await fetch(sourceUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0 (+https://hssc-cet.com)", accept: "text/html,application/xhtml+xml" }, signal: AbortSignal.timeout(fetchTimeout), cache: "no-store" })
+            if (!response.ok) throw new Error(`HTTP ${response.status}`)
+            successfulFetches += 1
+            const html = await response.text()
+            for (const match of html.matchAll(LINK_PATTERN)) {
+              const href = absoluteUrl(sourceUrl, match[1])
+              const title = clean(match[2])
+              const isNotice = /pdf|notice|notification|recruit|admit|answer|result|exam|vacan|advert|candidate|cgl|chsl|constable|group-d|ntpc/i.test(`${href} ${title}`)
+              if (href && title.length >= 8 && isNotice) notices.set(href, title)
+            }
+          } catch (error) {
+            failures.push(`${sourceUrl}: ${error instanceof Error ? error.message : "fetch failed"}`)
           }
-        } catch (error) {
-          failures.push(`${sourceUrl}: ${error instanceof Error ? error.message : "fetch failed"}`)
-        }
+        })())
       }
+      await Promise.all(fetchJobs)
       if (successfulFetches === 0) {
         throw new Error(failures.join("; ") || "All official sources failed")
       }
