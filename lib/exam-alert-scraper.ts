@@ -52,11 +52,13 @@ export async function scrapeGovernmentNotices() {
     try {
       const notices = new Map<string, string>()
       const failures: string[] = []
+      let successfulFetches = 0
       if (source.name === "SSC") {
         const apiUrl = "https://ssc.gov.in/api/general-website/portal/notice-boards?page=1&limit=50&contentType=notice-boards&key=createdAt&order=DESC&isAttachment=true&language=english&attributes=id,headline,examId,contentType,redirectUrl,startDate,endDate,language,createdAt"
         try {
           const response = await fetch(apiUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/json" }, signal: AbortSignal.timeout(20000), cache: "no-store" })
           if (!response.ok) throw new Error(`HTTP ${response.status}`)
+          successfulFetches += 1
           collectOfficialLinks(await response.json(), notices)
         } catch (error) {
           failures.push(`SSC API: ${error instanceof Error ? error.message : "fetch failed"}`)
@@ -66,6 +68,7 @@ export async function scrapeGovernmentNotices() {
         try {
           const response = await fetch(sourceUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0 (+https://hssc-cet.com)", accept: "text/html,application/xhtml+xml" }, signal: AbortSignal.timeout(20000), cache: "no-store" })
           if (!response.ok) throw new Error(`HTTP ${response.status}`)
+          successfulFetches += 1
           const html = await response.text()
           for (const match of html.matchAll(LINK_PATTERN)) {
             const href = absoluteUrl(sourceUrl, match[1])
@@ -77,7 +80,9 @@ export async function scrapeGovernmentNotices() {
           failures.push(`${sourceUrl}: ${error instanceof Error ? error.message : "fetch failed"}`)
         }
       }
-      if (!notices.size && failures.length === source.urls.length) throw new Error(failures.join("; "))
+      if (successfulFetches === 0) {
+        throw new Error(failures.join("; ") || "All official sources failed")
+      }
 
       let inserted = 0
       for (const [url, title] of [...notices].slice(0, 100)) {
@@ -98,7 +103,14 @@ export async function scrapeGovernmentNotices() {
         if (insertError) throw new Error(`Database insert failed: ${insertError.message}`)
         inserted += 1
       }
-      results.push({ source: source.name, ok: true, discovered: notices.size, inserted, durationMs: Date.now() - startedAt })
+      results.push({
+        source: source.name,
+        ok: true,
+        discovered: notices.size,
+        inserted,
+        warnings: failures.length ? failures : undefined,
+        durationMs: Date.now() - startedAt,
+      })
     } catch (error) {
       results.push({ source: source.name, ok: false, error: error instanceof Error ? error.message : "Unknown scraper error", durationMs: Date.now() - startedAt })
     }
