@@ -78,8 +78,12 @@ export async function scrapeGovernmentNotices() {
             for (const match of html.matchAll(LINK_PATTERN)) {
               const href = absoluteUrl(sourceUrl, match[1])
               const title = clean(match[2])
+              const matchIndex = match.index ?? 0
+              const context = clean(html.slice(Math.max(0, matchIndex - 700), Math.min(html.length, matchIndex + match[0].length + 700)))
+              const details = context.match(/(?:opening date|start date|application start|last date|closing date|end date|application fee|exam fee|fee|notice date|published|important dates?)\s*[:\-]?\s*([^|;]{1,80})/gi)?.join("; ")
+              const noticeDate = context.match(/\b(?:0?[1-9]|[12]\d|3[01])[/-](?:0?[1-9]|1[0-2])[/-](?:20\d{2})\b|\b20\d{2}[/-](?:0?[1-9]|1[0-2])[/-](?:0?[1-9]|[12]\d|3[01])\b/gi)?.[0]
               const isNotice = /pdf|notice|notification|recruit|admit|answer|result|exam|vacan|advert|candidate|cgl|chsl|constable|group-d|ntpc/i.test(`${href} ${title}`)
-              if (href && title.length >= 8 && isNotice) notices.set(href, title)
+              if (href && title.length >= 8 && isNotice) notices.set(href, [title, noticeDate ? `Notice date: ${noticeDate}` : "", details ?? ""].filter(Boolean).join("\n"))
             }
           } catch (error) {
             failures.push(`${sourceUrl}: ${error instanceof Error ? error.message : "fetch failed"}`)
