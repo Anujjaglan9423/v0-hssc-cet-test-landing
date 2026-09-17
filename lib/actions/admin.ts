@@ -574,20 +574,21 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   }
 
   // Get all test results
-  const { data: allResults } = await supabase
-    .from("test_results")
-    .select(`
-      score,
-      total_questions,
-      created_at,
-      test:tests (
-        test_type,
-        subject:subjects (name)
-      )
-    `)
-    .order("created_at", { ascending: false })
-
-  const results = allResults || []
+  const results = await fetchAllPages(async (from, to) =>
+    supabase
+      .from("test_results")
+      .select(`
+        score,
+        total_questions,
+        created_at,
+        test:tests (
+          test_type,
+          subject:subjects (name)
+        )
+      `)
+      .order("created_at", { ascending: false })
+      .range(from, to),
+  )
   const totalAttempts = results.length
 
   const percentages = results.map((r) => ((r.score || 0) / (r.total_questions || 1)) * 100)
@@ -663,18 +664,13 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   const activityStart = rangeStart || thirtyDaysAgo
   const activityEnd = rangeEnd || new Date()
   
-  const [signupResponse, loginResponse, attemptResponse, studentResponse, sessionResponse] = await Promise.all([
-    supabase.from("users").select("created_at").eq("role", "student").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).limit(5000),
-    supabase.from("sessions").select("created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).limit(5000),
-    supabase.from("test_attempts").select("started_at, user_id").gte("started_at", activityStart.toISOString()).lte("started_at", activityEnd.toISOString()).limit(5000),
-    supabase.from("users").select("id, full_name, email, phone, created_at").eq("role", "student").order("created_at", { ascending: false }).limit(5000),
-    supabase.from("sessions").select("user_id, created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).order("created_at", { ascending: false }).limit(5000),
+  const [signupEvents, loginEvents, attemptEvents, studentUsers, sessionHistory] = await Promise.all([
+    fetchAllPages(async (from, to) => supabase.from("users").select("created_at").eq("role", "student").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to)),
+    fetchAllPages(async (from, to) => supabase.from("sessions").select("created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to)),
+    fetchAllPages(async (from, to) => supabase.from("test_attempts").select("started_at, user_id").gte("started_at", activityStart.toISOString()).lte("started_at", activityEnd.toISOString()).range(from, to)),
+    fetchAllPages(async (from, to) => supabase.from("users").select("id, full_name, email, phone, created_at").eq("role", "student").order("created_at", { ascending: false }).range(from, to)),
+    fetchAllPages(async (from, to) => supabase.from("sessions").select("user_id, created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).order("created_at", { ascending: false }).range(from, to)),
   ])
-  const signupEvents = signupResponse.data || []
-  const loginEvents = loginResponse.data || []
-  const attemptEvents = attemptResponse.data || []
-  const studentUsers = studentResponse.data || []
-  const sessionHistory = sessionResponse.data || []
 
   const latestLoginByUser = sessionHistory.reduce((latest: Record<string, string>, session: any) => {
     if (session.user_id && (!latest[session.user_id] || new Date(session.created_at) > new Date(latest[session.user_id]))) {
