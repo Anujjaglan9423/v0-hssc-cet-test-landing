@@ -8,27 +8,25 @@ import { getCurrentUser } from "@/lib/auth"
 export async function getAdminStats() {
   const supabase = await createClient()
 
-  const [{ count: totalStudents }, { count: totalTests }, { count: totalAttempts }, { data: recentStudents }] =
+  const [{ count: totalStudents }, { count: totalTests }, { count: totalAttempts }] =
     await Promise.all([
-      supabase.from("users").select("*", { count: "exact", head: true }).eq("role", "student"),
-      supabase.from("tests").select("*", { count: "exact", head: true }),
-      supabase.from("test_attempts").select("*", { count: "exact", head: true }),
-      supabase.from("users").select("*").eq("role", "student").order("created_at", { ascending: false }).limit(5),
+      supabase.from("users").select("id", { count: "exact", head: true }).eq("role", "student"),
+      supabase.from("tests").select("id", { count: "exact", head: true }),
+      supabase.from("test_attempts").select("id", { count: "exact", head: true }),
     ])
 
   // Get monthly signups
   const sixMonthsAgo = new Date()
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
 
-  const signups = await fetchAllPages((from, to) =>
-    supabase
-      .from("users")
-      .select("created_at")
-      .eq("role", "student")
-      .gte("created_at", sixMonthsAgo.toISOString())
-      .order("created_at", { ascending: true })
-      .range(from, to),
-  )
+  const { data: signupsData } = await supabase
+    .from("users")
+    .select("created_at")
+    .eq("role", "student")
+    .gte("created_at", sixMonthsAgo.toISOString())
+    .order("created_at", { ascending: true })
+    .limit(5000)
+  const signups = signupsData || []
 
   // Group signups by year and month so months from different years are not merged.
   const monthlySignups = signups.reduce((acc: Record<string, number>, item: any) => {
@@ -43,7 +41,7 @@ export async function getAdminStats() {
     activeStudents: Math.floor((totalStudents || 0) * 0.7),
     totalTests: totalTests || 0,
     totalAttempts: totalAttempts || 0,
-    recentStudents: recentStudents || [],
+    recentStudents: [],
     monthlySignups: Object.entries(monthlySignups)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([key, count]) => ({
@@ -87,7 +85,7 @@ export async function getAllStudents() {
   let students: any[]
 
   try {
-    students = await fetchAllPages((from, to) =>
+    students = await fetchAllPages(async (from, to) =>
       supabase
         .from("users")
         .select(`
@@ -620,14 +618,16 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   }))
 
   // Monthly signups
-  const users = await fetchAllPages((from, to) =>
-    supabase
-      .from("users")
-      .select("created_at")
-      .eq("role", "student")
-      .order("created_at", { ascending: true })
-      .range(from, to),
-  )
+  const monthlySignupStart = new Date()
+  monthlySignupStart.setMonth(monthlySignupStart.getMonth() - 6)
+  const { data: usersData } = await supabase
+    .from("users")
+    .select("created_at")
+    .eq("role", "student")
+    .gte("created_at", monthlySignupStart.toISOString())
+    .order("created_at", { ascending: true })
+    .limit(5000)
+  const users = usersData || []
 
   const monthlySignups: Record<string, number> = {}
   users.forEach((u: any) => {
@@ -643,23 +643,18 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   const activityStart = rangeStart || thirtyDaysAgo
   const activityEnd = rangeEnd || new Date()
   
-  const [signupEvents, loginEvents, attemptEvents, studentUsers, sessionHistory] = await Promise.all([
-    fetchAllPages((from, to) =>
-      supabase.from("users").select("created_at").eq("role", "student").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to),
-    ),
-    fetchAllPages((from, to) =>
-      supabase.from("sessions").select("created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to),
-    ),
-    fetchAllPages((from, to) =>
-      supabase.from("test_attempts").select("started_at, user_id").gte("started_at", activityStart.toISOString()).lte("started_at", activityEnd.toISOString()).range(from, to),
-    ),
-    fetchAllPages((from, to) =>
-      supabase.from("users").select("id, full_name, email, phone, created_at").eq("role", "student").order("created_at", { ascending: false }).range(from, to),
-    ),
-    fetchAllPages((from, to) =>
-      supabase.from("sessions").select("user_id, created_at").order("created_at", { ascending: false }).range(from, to),
-    ),
+  const [signupResponse, loginResponse, attemptResponse, studentResponse, sessionResponse] = await Promise.all([
+    supabase.from("users").select("created_at").eq("role", "student").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).limit(5000),
+    supabase.from("sessions").select("created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).limit(5000),
+    supabase.from("test_attempts").select("started_at, user_id").gte("started_at", activityStart.toISOString()).lte("started_at", activityEnd.toISOString()).limit(5000),
+    supabase.from("users").select("id, full_name, email, phone, created_at").eq("role", "student").order("created_at", { ascending: false }).limit(5000),
+    supabase.from("sessions").select("user_id, created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).order("created_at", { ascending: false }).limit(5000),
   ])
+  const signupEvents = signupResponse.data || []
+  const loginEvents = loginResponse.data || []
+  const attemptEvents = attemptResponse.data || []
+  const studentUsers = studentResponse.data || []
+  const sessionHistory = sessionResponse.data || []
 
   const latestLoginByUser = sessionHistory.reduce((latest: Record<string, string>, session: any) => {
     if (session.user_id && (!latest[session.user_id] || new Date(session.created_at) > new Date(latest[session.user_id]))) {
