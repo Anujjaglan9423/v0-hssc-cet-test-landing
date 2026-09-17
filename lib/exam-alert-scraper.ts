@@ -2,25 +2,19 @@ import { createHash } from "node:crypto"
 import { createAdminClient } from "@/lib/supabase/server"
 
 const SOURCES = [
-  // Central recruiting agencies. SSC, HSSC and UKSSSC were already synced and are intentionally not fetched again.
+  // Central recruiting agencies
+  { name: "SSC", urls: ["https://ssc.gov.in/", "https://ssc.gov.in/for-candidates"] },
   { name: "UPSC", urls: ["https://upsc.gov.in/", "https://upsconline.nic.in/"] },
   { name: "Railway RRB", urls: ["https://rrb.indianrailways.gov.in/", "https://www.rrbcdg.gov.in/", "https://indianrailways.gov.in/"] },
   { name: "IBPS", urls: ["https://www.ibps.in/"] },
   { name: "NTA", urls: ["https://www.nta.ac.in/", "https://exams.nta.ac.in/"] },
   { name: "India Post", urls: ["https://www.indiapost.gov.in/"] },
   { name: "DRDO", urls: ["https://www.drdo.gov.in/"] },
-  { name: "ISRO", urls: ["https://www.isro.gov.in/Careers.html"] },
-  { name: "BARC", urls: ["https://recruit.barc.gov.in/"] },
-  { name: "AIIMS", urls: ["https://aiimsexams.ac.in/"] },
-  { name: "RBI", urls: ["https://opportunities.rbi.org.in/"] },
-  { name: "NABARD", urls: ["https://www.nabard.org/careers-notices.aspx"] },
-  { name: "SEBI", urls: ["https://www.sebi.gov.in/jobs.html"] },
   { name: "LIC", urls: ["https://licindia.in/careers"] },
-  { name: "EPFO", urls: ["https://www.epfindia.gov.in/site_en/Careers.php"] },
-  { name: "ESIC", urls: ["https://www.esic.gov.in/recruitments"] },
-  { name: "FCI", urls: ["https://fci.gov.in/careers"] },
   // State public service commissions and staff selection boards
+  { name: "Haryana HSSC", urls: ["https://hssc.gov.in/"] },
   { name: "Haryana HPSC", urls: ["https://hpsc.gov.in/"] },
+  { name: "Uttarakhand UKSSSC", urls: ["https://sssc.uk.gov.in/"] },
   { name: "Uttarakhand UKPSC", urls: ["https://psc.uk.gov.in/"] },
   { name: "Uttar Pradesh UPPSC", urls: ["https://uppsc.up.nic.in/"] },
   { name: "Uttar Pradesh UPSSSC", urls: ["https://upsssc.gov.in/"] },
@@ -44,17 +38,6 @@ const SOURCES = [
   { name: "Tamil Nadu TNPSC", urls: ["https://www.tnpsc.gov.in/"] },
   { name: "Kerala PSC", urls: ["https://www.keralapsc.gov.in/"] },
   { name: "Assam APSC", urls: ["https://apsc.nic.in/"] },
-  { name: "Goa GPSC", urls: ["https://gpsc.goa.gov.in/"] },
-  { name: "Sikkim PSC", urls: ["https://spsc.sikkim.gov.in/"] },
-  { name: "Tripura PSC", urls: ["https://tpsc.tripura.gov.in/"] },
-  { name: "Manipur PSC", urls: ["https://mpscmanipur.gov.in/"] },
-  { name: "Meghalaya PSC", urls: ["https://mpsc.nic.in/"] },
-  { name: "Mizoram PSC", urls: ["https://mpsc.mizoram.gov.in/"] },
-  { name: "Nagaland PSC", urls: ["https://npsc.nagaland.gov.in/"] },
-  { name: "Arunachal Pradesh PSC", urls: ["https://appsc.gov.in/"] },
-  { name: "DSSSB", urls: ["https://dsssb.delhi.gov.in/"] },
-  { name: "Jammu Kashmir PSC", urls: ["https://jkpsc.nic.in/"] },
-  { name: "Jammu Kashmir SSB", urls: ["https://jkssb.nic.in/"] },
 ] as const
 
 const LINK_PATTERN = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi
@@ -72,6 +55,24 @@ function slugify(value: string) {
   return `${value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}-${createHash("sha1").update(value).digest("hex").slice(0, 8)}`
 }
 
+function collectOfficialLinks(value: unknown, links = new Map<string, string>(), context = "SSC notice") {
+  if (typeof value === "string") {
+    for (const match of value.matchAll(/https?:\/\/[^\s"'<>]+/gi)) {
+      const url = match[0].replace(/[),.;]+$/, "").replaceAll("\\", "/")
+      if (/ssc.gov.in|pdf|notice|notification|result|admit|exam/i.test(url)) links.set(url, context)
+    }
+  } else if (Array.isArray(value)) {
+    value.forEach((item) => collectOfficialLinks(item, links, context))
+  } else if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>
+    const title = String(record.headline ?? record.title ?? record.name ?? context)
+    const path = typeof record.path === "string" ? record.path.replaceAll("\\", "/") : ""
+    if (path) links.set(`https://ssc.gov.in/api/attachment/${path.replace(/^\//, "")}`, title)
+    Object.values(record).forEach((item) => collectOfficialLinks(item, links, title))
+  }
+  return links
+}
+
 export async function scrapeGovernmentNotices() {
   const supabase = createAdminClient()
   const results = []
@@ -84,6 +85,19 @@ export async function scrapeGovernmentNotices() {
       let successfulFetches = 0
       const fetchTimeout = 10000
       const fetchJobs: Promise<void>[] = []
+      if (source.name === "SSC") {
+        const apiUrl = "https://ssc.gov.in/api/general-website/portal/notice-boards?page=1&limit=50&contentType=notice-boards&key=createdAt&order=DESC&isAttachment=true&language=english&attributes=id,headline,examId,contentType,redirectUrl,startDate,endDate,language,createdAt"
+        fetchJobs.push((async () => {
+          try {
+            const response = await fetch(apiUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/json" }, signal: AbortSignal.timeout(fetchTimeout), cache: "no-store" })
+            if (!response.ok) throw new Error(`HTTP ${response.status}`)
+            successfulFetches += 1
+            collectOfficialLinks(await response.json(), notices)
+          } catch (error) {
+            failures.push(`SSC API: ${error instanceof Error ? error.message : "fetch failed"}`)
+          }
+        })())
+      }
       for (const sourceUrl of source.urls) {
         fetchJobs.push((async () => {
           try {
