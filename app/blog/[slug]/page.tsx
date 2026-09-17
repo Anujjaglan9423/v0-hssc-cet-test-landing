@@ -152,7 +152,10 @@ export default async function BlogPostPage({ params }: PageProps) {
   const readTime = calculateReadTime(blog.description)
   const isExamAlert = blog.category === "Exam Alert"
   const sourceUrl = isExamAlert && blog.featured_image_url?.startsWith("http") ? blog.featured_image_url : null
-  const authority = blog.tags?.find((tag) => ["HSSC", "HPSC", "UKSSSC", "UKPSC", "SSC", "Railway"].includes(tag)) || "Official recruitment authority"
+  const alertSummary = blog.description
+    ?.replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
   const safeImageUrl = blog.featured_image_url && !blog.featured_image_url.includes("gov.in") && !blog.featured_image_url.includes(".pdf") && !isExamAlert ? blog.featured_image_url : "/current-affairs-news.jpg"
 
   return (
@@ -258,12 +261,36 @@ export default async function BlogPostPage({ params }: PageProps) {
               </div>
             </div>
           {isExamAlert && (
-            <div className="mt-8 lg:mt-0 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/15 via-card to-card p-5 sm:p-7 shadow-sm">
-              <div className="flex items-center gap-3 text-primary"><BookOpen className="h-5 w-5" /><span className="text-sm font-semibold uppercase tracking-wide">Official exam notice</span></div>
-              <h2 className="mt-4 text-xl font-bold text-foreground sm:text-2xl">{authority} notification details</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">This page summarizes the latest notice published for {authority}. Check the official source for the notification PDF, eligibility, dates, vacancies, syllabus and application instructions.</p>
-              {sourceUrl && <a href={sourceUrl} target="_blank" rel="noreferrer" className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 sm:w-auto">Open official notice <ArrowRight className="h-4 w-4" /></a>}
-            </div>
+            <Card className="mt-8 lg:mt-0 border-primary/20 bg-gradient-to-br from-primary/15 via-card to-card shadow-sm">
+              <CardContent className="p-5 sm:p-7">
+                <div className="flex items-center gap-3 text-primary">
+                  <BookOpen className="h-5 w-5" aria-hidden="true" />
+                  <span className="text-sm font-semibold uppercase tracking-wide">Exam alert overview</span>
+                </div>
+                <h2 className="mt-4 text-xl font-bold text-foreground sm:text-2xl">Before you open this notification</h2>
+                {alertSummary ? (
+                  <p className="mt-3 line-clamp-4 text-sm leading-6 text-muted-foreground">{alertSummary}</p>
+                ) : (
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">This alert does not include a summary. Open the source to view the complete notification.</p>
+                )}
+                <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-border/60 pt-5 text-sm">
+                  <div>
+                    <dt className="text-muted-foreground">Category</dt>
+                    <dd className="mt-1 font-medium text-foreground">{blog.category}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Published</dt>
+                    <dd className="mt-1 font-medium text-foreground">{formatDate(blog.created_at)}</dd>
+                  </div>
+                </dl>
+                {blog.tags && blog.tags.length > 0 && (
+                  <div className="mt-4 flex flex-wrap gap-2" aria-label="Notification topics">
+                    {blog.tags.map((tag) => <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>)}
+                  </div>
+                )}
+                {sourceUrl && <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 sm:w-auto">Open official notice <ArrowRight className="h-4 w-4" aria-hidden="true" /></a>}
+              </CardContent>
+            </Card>
           )}
         </div>
       </section>
@@ -294,7 +321,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                   prose-ol:my-5 sm:prose-ol:my-6 prose-ol:space-y-2
                   prose-table:my-6 prose-td:px-3 prose-td:py-2 prose-th:px-3 prose-th:py-2 prose-th:font-semibold prose-th:bg-muted/50
                 "
-                dangerouslySetInnerHTML={{ __html: blog.description || `<h2>${blog.title}</h2><p>This official ${authority} exam notice is listed for candidates preparing for government recruitment examinations.</p><h3>What to check</h3><ul><li>Notification dates and application deadline</li><li>Eligibility, vacancies and selection process</li><li>Official PDF, syllabus and examination instructions</li></ul>${sourceUrl ? `<p><a href="${sourceUrl}">Open the official notice source</a></p>` : ""}` }}
+                dangerouslySetInnerHTML={{ __html: blog.description || "" }}
               />
 
               {/* Share Section */}
