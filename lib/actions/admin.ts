@@ -4,23 +4,44 @@ import { createClient } from "@/lib/supabase/server"
 import { revalidatePath } from "next/cache"
 import { getCurrentUser } from "@/lib/auth"
 
+function buildMonthlySignupSeries(signups: Array<{ created_at: string }>, months = 7) {
+  const counts = new Map<string, number>()
+  const now = new Date()
+  const start = new Date(now.getFullYear(), now.getMonth() - (months - 1), 1)
+
+  for (let index = 0; index < months; index++) {
+    const date = new Date(start.getFullYear(), start.getMonth() + index, 1)
+    counts.set(`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`, 0)
+  }
+
+  for (const signup of signups) {
+    const date = new Date(signup.created_at)
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
+    if (counts.has(key)) counts.set(key, (counts.get(key) || 0) + 1)
+  }
+
+  return Array.from(counts, ([key, count]) => ({
+    month: new Date(`${key}-01T00:00:00`).toLocaleString("default", { month: "short", year: "numeric" }),
+    count,
+  }))
+}
+
 // Get admin dashboard stats
 export async function getAdminStats() {
   const supabase = await createClient()
 
-  const [{ count: totalStudents }, { count: totalTests }, { count: totalAttempts }, { data: recentStudents }] =
+  const [{ count: totalStudents }, { count: totalTests }, { count: totalAttempts }] =
     await Promise.all([
-      supabase.from("users").select("*", { count: "exact", head: true }).eq("role", "student"),
-      supabase.from("tests").select("*", { count: "exact", head: true }),
-      supabase.from("test_attempts").select("*", { count: "exact", head: true }),
-      supabase.from("users").select("*").eq("role", "student").order("created_at", { ascending: false }).limit(5),
+      supabase.from("users").select("id", { count: "exact", head: true }).eq("role", "student"),
+      supabase.from("tests").select("id", { count: "exact", head: true }),
+      supabase.from("test_attempts").select("id", { count: "exact", head: true }),
     ])
 
   // Get monthly signups
   const sixMonthsAgo = new Date()
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
 
-  const signups = await fetchAllPages((from, to) =>
+  const signups = await fetchAllPages<{ created_at: string }>(async (from, to) =>
     supabase
       .from("users")
       .select("created_at")
@@ -31,26 +52,56 @@ export async function getAdminStats() {
   )
 
   // Group signups by year and month so months from different years are not merged.
-  const monthlySignups = signups.reduce((acc: Record<string, number>, item: any) => {
-    const date = new Date(item.created_at)
-    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
-    acc[key] = (acc[key] || 0) + 1
-    return acc
-  }, {})
-
   return {
     totalStudents: totalStudents || 0,
     activeStudents: Math.floor((totalStudents || 0) * 0.7),
     totalTests: totalTests || 0,
     totalAttempts: totalAttempts || 0,
-    recentStudents: recentStudents || [],
-    monthlySignups: Object.entries(monthlySignups)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([key, count]) => ({
-        month: new Date(`${key}-01T00:00:00`).toLocaleString("default", { month: "short", year: "numeric" }),
-        count,
-      })),
+    recentStudents: [],
+    monthlySignups: buildMonthlySignupSeries(signups),
   }
+}
+
+// Fetch only the rows required by the dashboard preview. The full student
+// report intentionally remains separate because it includes every test result.
+export async function getRecentStudents() {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from("users")
+    .select(`
+      id, email, full_name, plan, created_at,
+      test_results (score, total_questions, time_taken, created_at)
+    `)
+    .eq("role", "student")
+    .order("created_at", { ascending: false })
+    .limit(5)
+
+  if (error) {
+    console.error("Error fetching recent students:", error)
+    return []
+  }
+
+  return (data || []).map((student) => {
+    const results = student.test_results || []
+    const testsAttempted = results.length
+    const averageScore = testsAttempted > 0
+      ? Math.round(results.reduce((sum: number, result: any) => sum + ((result.score || 0) / (result.total_questions || 1)) * 100, 0) / testsAttempted)
+      : 0
+    const totalTime = results.reduce((sum: number, result: any) => sum + (result.time_taken || 0), 0)
+    const lastActive = results.length > 0
+      ? results.reduce((latest: any, result: any) => new Date(result.created_at) > new Date(latest.created_at) ? result : latest).created_at
+      : student.created_at
+
+    return {
+      ...student,
+      name: student.full_name,
+      testsAttempted,
+      averageScore,
+      totalTime: `${Math.floor(totalTime / 3600)}h ${Math.floor((totalTime % 3600) / 60)}m`,
+      lastActive: formatTimeAgo(lastActive),
+      progress: Math.min(100, testsAttempted * 5),
+    }
+  })
 }
 
 // Get all students with stats
@@ -60,7 +111,7 @@ export async function getAllStudents() {
   let students: any[]
 
   try {
-    students = await fetchAllPages((from, to) =>
+    students = await fetchAllPages(async (from, to) =>
       supabase
         .from("users")
         .select(`
@@ -523,20 +574,21 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   }
 
   // Get all test results
-  const { data: allResults } = await supabase
-    .from("test_results")
-    .select(`
-      score,
-      total_questions,
-      created_at,
-      test:tests (
-        test_type,
-        subject:subjects (name)
-      )
-    `)
-    .order("created_at", { ascending: false })
-
-  const results = allResults || []
+  const results = await fetchAllPages(async (from, to) =>
+    supabase
+      .from("test_results")
+      .select(`
+        score,
+        total_questions,
+        created_at,
+        test:tests (
+          test_type,
+          subject:subjects (name)
+        )
+      `)
+      .order("created_at", { ascending: false })
+      .range(from, to),
+  )
   const totalAttempts = results.length
 
   const percentages = results.map((r) => ((r.score || 0) / (r.total_questions || 1)) * 100)
@@ -593,21 +645,17 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   }))
 
   // Monthly signups
-  const users = await fetchAllPages((from, to) =>
+  const monthlySignupStart = new Date()
+  monthlySignupStart.setMonth(monthlySignupStart.getMonth() - 6)
+  const users = await fetchAllPages<{ created_at: string }>(async (from, to) =>
     supabase
       .from("users")
       .select("created_at")
       .eq("role", "student")
+      .gte("created_at", monthlySignupStart.toISOString())
       .order("created_at", { ascending: true })
       .range(from, to),
   )
-
-  const monthlySignups: Record<string, number> = {}
-  users.forEach((u: any) => {
-    const date = new Date(u.created_at)
-    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
-    monthlySignups[key] = (monthlySignups[key] || 0) + 1
-  })
 
   // Date-based activity for the admin analytics view.
   // Custom auth records signups in users and successful logins in sessions.
@@ -617,21 +665,11 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   const activityEnd = rangeEnd || new Date()
   
   const [signupEvents, loginEvents, attemptEvents, studentUsers, sessionHistory] = await Promise.all([
-    fetchAllPages((from, to) =>
-      supabase.from("users").select("created_at").eq("role", "student").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to),
-    ),
-    fetchAllPages((from, to) =>
-      supabase.from("sessions").select("created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to),
-    ),
-    fetchAllPages((from, to) =>
-      supabase.from("test_attempts").select("started_at, user_id").gte("started_at", activityStart.toISOString()).lte("started_at", activityEnd.toISOString()).range(from, to),
-    ),
-    fetchAllPages((from, to) =>
-      supabase.from("users").select("id, full_name, email, phone, created_at").eq("role", "student").order("created_at", { ascending: false }).range(from, to),
-    ),
-    fetchAllPages((from, to) =>
-      supabase.from("sessions").select("user_id, created_at").order("created_at", { ascending: false }).range(from, to),
-    ),
+    fetchAllPages(async (from, to) => supabase.from("users").select("created_at").eq("role", "student").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to)),
+    fetchAllPages(async (from, to) => supabase.from("sessions").select("created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).range(from, to)),
+    fetchAllPages(async (from, to) => supabase.from("test_attempts").select("started_at, user_id").gte("started_at", activityStart.toISOString()).lte("started_at", activityEnd.toISOString()).range(from, to)),
+    fetchAllPages(async (from, to) => supabase.from("users").select("id, full_name, email, phone, created_at").eq("role", "student").order("created_at", { ascending: false }).range(from, to)),
+    fetchAllPages(async (from, to) => supabase.from("sessions").select("user_id, created_at").gte("created_at", activityStart.toISOString()).lte("created_at", activityEnd.toISOString()).order("created_at", { ascending: false }).range(from, to)),
   ])
 
   const latestLoginByUser = sessionHistory.reduce((latest: Record<string, string>, session: any) => {
@@ -704,12 +742,7 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
     weeklyActivity,
     scoreDistribution: scoreRanges.map((r) => ({ range: r.range, count: r.count })),
     subjectPerformance,
-    monthlySignups: Object.entries(monthlySignups)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([key, count]) => ({
-        month: new Date(`${key}-01T00:00:00`).toLocaleString("default", { month: "short", year: "numeric" }),
-        count,
-      })),
+    monthlySignups: buildMonthlySignupSeries(users),
     testAttemptsByCategory: [
       { category: "Full Exams", attempts: categoryAttempts.Full },
       { category: "Subject Tests", attempts: categoryAttempts.Subject },

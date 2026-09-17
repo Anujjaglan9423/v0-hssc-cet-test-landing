@@ -31,7 +31,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import { FeedbackModal } from "@/components/student/feedback-modal"
 
 interface Question {
   id: string
@@ -293,7 +292,6 @@ export default function MockTestAttemptPage() {
         </div>
       )}
 
-      <FeedbackModal open={showFeedbackModal} onClose={handleFeedbackClose} attemptId={lastAttemptId} isMockTest={true} />
 
       <header className="sticky top-0 z-40 bg-card border-b border-border px-2 sm:px-4 py-2 sm:py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { DataTable } from "@/components/dashboard/data-table"
-import { getAdminStats, getAllStudents, getAdminAnalytics } from "@/lib/actions/admin"
+import { getAdminStats, getRecentStudents, getAdminAnalytics } from "@/lib/actions/admin"
 import { Users, FileText, DollarSign, Activity, Loader2 } from "lucide-react"
 import {
   BarChart,
@@ -55,7 +55,7 @@ export default function AdminDashboard() {
       try {
         const [statsData, studentsData, analyticsData] = await Promise.all([
           getAdminStats(),
-          getAllStudents(),
+          getRecentStudents(),
           getAdminAnalytics(),
         ])
         // console.log("[v0] Admin data loaded:", { statsData, studentsData: studentsData.length, analyticsData })

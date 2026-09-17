@@ -46,11 +46,11 @@ interface Blog {
   title: string
   slug: string
   description: string
-  status: string
-  meta_title: string
-  meta_description: string
-  focus_keyword: string
-  tags: string[]
+  status?: string
+  meta_title?: string
+  meta_description?: string
+  focus_keyword?: string
+  tags?: string[]
   category: string
   featured_image_url: string | null
   created_at: string
