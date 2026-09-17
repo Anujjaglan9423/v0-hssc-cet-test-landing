@@ -37,8 +37,20 @@ function collectOfficialLinks(value: unknown, links = new Map<string, string>(),
     const record = value as Record<string, unknown>
     const title = String(record.headline ?? record.title ?? record.name ?? context)
     const path = typeof record.path === "string" ? record.path.replaceAll("\\", "/") : ""
-    if (path) links.set(`https://ssc.gov.in/api/attachment/${path.replace(/^\//, "")}`, title)
-    Object.values(record).forEach((item) => collectOfficialLinks(item, links, title))
+    const facts = [
+      ["Notice date", record.createdAt],
+      ["Application starts", record.startDate],
+      ["Application ends", record.endDate],
+    ]
+      .filter(([, fact]) => fact)
+      .map(([label, fact]) => `${label}: ${String(fact)}`)
+      .join("; ")
+    const noticeContext = facts ? `${title}; ${facts}` : title
+    if (path) links.set(`https://ssc.gov.in/api/attachment/${path.replace(/^\//, "")}`, noticeContext)
+    if (typeof record.redirectUrl === "string" && record.redirectUrl) {
+      links.set(record.redirectUrl, noticeContext)
+    }
+    Object.values(record).forEach((item) => collectOfficialLinks(item, links, noticeContext))
   }
   return links
 }
@@ -119,7 +131,7 @@ export async function scrapeGovernmentNotices() {
           category: "Exam Alert",
           featured_image_url: url,
           status: "publish",
-          meta_title: `${source.name}: ${title}`,
+          meta_title: `${source.name}: ${noticeTitle}`,
           meta_description: `Official exam notification discovered on ${source.name}.`,
           tags: [source.name, "Exam Alert", source.name === "HSSC" || source.name === "HPSC" ? "Haryana" : source.name === "UKSSSC" || source.name === "UKPSC" ? "Uttarakhand" : source.name],
         })

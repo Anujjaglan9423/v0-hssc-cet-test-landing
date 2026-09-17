@@ -139,6 +139,14 @@ function formatDate(dateString: string): string {
   })
 }
 
+function getNoticeFacts(description: string): string[] {
+  const facts = [...description.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)]
+    .map((match) => match[1].replace(/<[^>]*>/g, " ").replace(/&nbsp;|&amp;/gi, (value) => value.toLowerCase() === "&amp;" ? "&" : " ").replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+
+  return [...new Set(facts)]
+}
+
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params
   const blog = await getBlog(slug)
@@ -156,6 +164,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     ?.replace(/<[^>]*>/g, " ")
     .replace(/\s+/g, " ")
     .trim()
+  const noticeFacts = getNoticeFacts(blog.description || "")
   const safeImageUrl = blog.featured_image_url && !blog.featured_image_url.includes("gov.in") && !blog.featured_image_url.includes(".pdf") && !isExamAlert ? blog.featured_image_url : "/current-affairs-news.jpg"
 
   return (
@@ -268,10 +277,16 @@ export default async function BlogPostPage({ params }: PageProps) {
                   <span className="text-sm font-semibold uppercase tracking-wide">Exam alert overview</span>
                 </div>
                 <h2 className="mt-4 text-xl font-bold text-foreground sm:text-2xl">Before you open this notification</h2>
-                {alertSummary ? (
+                {noticeFacts.length > 0 ? (
+                  <ul className="mt-4 grid gap-3 text-sm text-muted-foreground">
+                    {noticeFacts.map((fact) => (
+                      <li key={fact} className="rounded-lg border border-border/60 bg-background/60 px-3 py-2 leading-6">{fact}</li>
+                    ))}
+                  </ul>
+                ) : alertSummary ? (
                   <p className="mt-3 line-clamp-4 text-sm leading-6 text-muted-foreground">{alertSummary}</p>
                 ) : (
-                  <p className="mt-3 text-sm leading-6 text-muted-foreground">This alert does not include a summary. Open the source to view the complete notification.</p>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">No structured details were provided in this notification. Open the official source to read the complete notice.</p>
                 )}
                 <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-border/60 pt-5 text-sm">
                   <div>
