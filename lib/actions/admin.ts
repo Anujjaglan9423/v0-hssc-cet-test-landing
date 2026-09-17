@@ -41,14 +41,15 @@ export async function getAdminStats() {
   const sixMonthsAgo = new Date()
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
 
-  const { data: signupsData } = await supabase
-    .from("users")
-    .select("created_at")
-    .eq("role", "student")
-    .gte("created_at", sixMonthsAgo.toISOString())
-    .order("created_at", { ascending: true })
-    .limit(5000)
-  const signups = signupsData || []
+  const signups = await fetchAllPages<{ created_at: string }>(async (from, to) =>
+    supabase
+      .from("users")
+      .select("created_at")
+      .eq("role", "student")
+      .gte("created_at", sixMonthsAgo.toISOString())
+      .order("created_at", { ascending: true })
+      .range(from, to),
+  )
 
   // Group signups by year and month so months from different years are not merged.
   return {
@@ -630,14 +631,15 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
   // Monthly signups
   const monthlySignupStart = new Date()
   monthlySignupStart.setMonth(monthlySignupStart.getMonth() - 6)
-  const { data: usersData } = await supabase
-    .from("users")
-    .select("created_at")
-    .eq("role", "student")
-    .gte("created_at", monthlySignupStart.toISOString())
-    .order("created_at", { ascending: true })
-    .limit(5000)
-  const users = usersData || []
+  const users = await fetchAllPages<{ created_at: string }>(async (from, to) =>
+    supabase
+      .from("users")
+      .select("created_at")
+      .eq("role", "student")
+      .gte("created_at", monthlySignupStart.toISOString())
+      .order("created_at", { ascending: true })
+      .range(from, to),
+  )
 
   // Date-based activity for the admin analytics view.
   // Custom auth records signups in users and successful logins in sessions.
