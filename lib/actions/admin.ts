@@ -4,6 +4,28 @@ import { createClient } from "@/lib/supabase/server"
 import { revalidatePath } from "next/cache"
 import { getCurrentUser } from "@/lib/auth"
 
+function buildMonthlySignupSeries(signups: Array<{ created_at: string }>, months = 7) {
+  const counts = new Map<string, number>()
+  const now = new Date()
+  const start = new Date(now.getFullYear(), now.getMonth() - (months - 1), 1)
+
+  for (let index = 0; index < months; index++) {
+    const date = new Date(start.getFullYear(), start.getMonth() + index, 1)
+    counts.set(`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`, 0)
+  }
+
+  for (const signup of signups) {
+    const date = new Date(signup.created_at)
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
+    if (counts.has(key)) counts.set(key, (counts.get(key) || 0) + 1)
+  }
+
+  return Array.from(counts, ([key, count]) => ({
+    month: new Date(`${key}-01T00:00:00`).toLocaleString("default", { month: "short", year: "numeric" }),
+    count,
+  }))
+}
+
 // Get admin dashboard stats
 export async function getAdminStats() {
   const supabase = await createClient()
@@ -29,25 +51,13 @@ export async function getAdminStats() {
   const signups = signupsData || []
 
   // Group signups by year and month so months from different years are not merged.
-  const monthlySignups = signups.reduce((acc: Record<string, number>, item: any) => {
-    const date = new Date(item.created_at)
-    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
-    acc[key] = (acc[key] || 0) + 1
-    return acc
-  }, {})
-
   return {
     totalStudents: totalStudents || 0,
     activeStudents: Math.floor((totalStudents || 0) * 0.7),
     totalTests: totalTests || 0,
     totalAttempts: totalAttempts || 0,
     recentStudents: [],
-    monthlySignups: Object.entries(monthlySignups)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([key, count]) => ({
-        month: new Date(`${key}-01T00:00:00`).toLocaleString("default", { month: "short", year: "numeric" }),
-        count,
-      })),
+    monthlySignups: buildMonthlySignupSeries(signups),
   }
 }
 
@@ -629,13 +639,6 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
     .limit(5000)
   const users = usersData || []
 
-  const monthlySignups: Record<string, number> = {}
-  users.forEach((u: any) => {
-    const date = new Date(u.created_at)
-    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
-    monthlySignups[key] = (monthlySignups[key] || 0) + 1
-  })
-
   // Date-based activity for the admin analytics view.
   // Custom auth records signups in users and successful logins in sessions.
   const thirtyDaysAgo = new Date()
@@ -726,12 +729,7 @@ export async function getAdminAnalytics(startDate?: string, endDate?: string) {
     weeklyActivity,
     scoreDistribution: scoreRanges.map((r) => ({ range: r.range, count: r.count })),
     subjectPerformance,
-    monthlySignups: Object.entries(monthlySignups)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([key, count]) => ({
-        month: new Date(`${key}-01T00:00:00`).toLocaleString("default", { month: "short", year: "numeric" }),
-        count,
-      })),
+    monthlySignups: buildMonthlySignupSeries(users),
     testAttemptsByCategory: [
       { category: "Full Exams", attempts: categoryAttempts.Full },
       { category: "Subject Tests", attempts: categoryAttempts.Subject },
