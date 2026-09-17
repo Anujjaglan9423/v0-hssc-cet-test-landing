@@ -158,12 +158,10 @@ function extractNoticeHighlights(description: string) {
     ["Vacancies", /(total vacancies|number of vacancies|vacancy details)[^.!?]*(?:[.!?]|$)/i],
   ] as const
 
-  return patterns
-    .map(([label, pattern]) => {
-      const match = text.match(pattern)
-      return match ? { label, value: match[0].trim() } : null
-    })
-    .filter((item): item is { label: string; value: string } => Boolean(item))
+  return patterns.flatMap(([label, pattern]) => {
+    const match = text.match(pattern)
+    return match ? [{ label, value: match[0].trim() }] : []
+  })
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
@@ -180,7 +178,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   const isExamAlert = blog.category === "Exam Alert"
   const noticeHighlights = isExamAlert ? extractNoticeHighlights(blog.description || "") : []
   const sourceUrl = isExamAlert && blog.featured_image_url?.startsWith("http") ? blog.featured_image_url : null
-  const authority = blog.tags?.find((tag) => ["HSSC", "HPSC", "UKSSSC", "UKPSC", "SSC", "Railway"].includes(tag)) || "Official recruitment authority"
+  const authority = blog.tags?.find((tag) => ["HSSC", "HPSC", "UKSSSC", "UKPSC", "SSC", "Railway", "NTA", "UPSC", "UPSSSC", "DSSSB"].includes(tag)) || "Official recruitment authority"
   const safeImageUrl = blog.featured_image_url && !blog.featured_image_url.includes("gov.in") && !blog.featured_image_url.includes(".pdf") && !isExamAlert ? blog.featured_image_url : "/current-affairs-news.jpg"
 
   return (
