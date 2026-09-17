@@ -103,6 +103,17 @@ function getSafeImageUrl(url: string | null): string {
   return url
 }
 
+type NoticeGroup = "Results" | "Admit Cards" | "Latest Jobs"
+
+function getNoticeGroup(title: string): NoticeGroup {
+  const normalized = title.toLowerCase()
+  if (/result|merit list|score card|cut.?off|answer key/.test(normalized)) return "Results"
+  if (/admit card|hall ticket|call letter|exam date|schedule|pet|skill test/.test(normalized)) return "Admit Cards"
+  return "Latest Jobs"
+}
+
+const noticeGroups: NoticeGroup[] = ["Results", "Admit Cards", "Latest Jobs"]
+
 export default async function BlogPage() {
   const blogs = await getBlogs()
   const categories = [...new Set(blogs.map(blog => blog.category).filter(Boolean))]
@@ -163,6 +174,48 @@ export default async function BlogPage() {
         </div>
       </section>
 
+      {/* Notice board: each official alert opens its own full detail page */}
+      {blogs.some((blog) => blog.category === "Exam Alert") && (
+        <section className="border-y border-border/60 bg-muted/20 px-4 py-10 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">Latest exam notices</h2>
+                <p className="mt-1 text-sm text-muted-foreground">Select a notice to read its complete information and official source.</p>
+              </div>
+              <Badge variant="secondary" className="w-fit">{blogs.filter((blog) => blog.category === "Exam Alert").length} notices</Badge>
+            </div>
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+              {noticeGroups.map((group) => {
+                const notices = blogs.filter((blog) => blog.category === "Exam Alert" && getNoticeGroup(blog.title) === group).slice(0, 10)
+                return (
+                  <Card key={group} className="overflow-hidden border-border/70 bg-card">
+                    <div className="border-b border-border/60 bg-primary px-4 py-3">
+                      <h3 className="font-semibold text-primary-foreground">{group}</h3>
+                    </div>
+                    {notices.length > 0 ? (
+                      <ul className="divide-y divide-border/60">
+                        {notices.map((notice) => (
+                          <li key={notice.id}>
+                            <Link href={`/blog/${notice.slug}`} className="group flex items-start gap-3 px-4 py-3 text-sm leading-5 text-foreground transition-colors hover:bg-primary/5 hover:text-primary">
+                              <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary/70" aria-hidden="true" />
+                              <span className="line-clamp-3">{notice.title}</span>
+                              <ArrowRight className="mt-1 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="px-4 py-6 text-sm text-muted-foreground">No notices in this section.</p>
+                    )}
+                  </Card>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* All Articles Grid */}
       {blogs.length > 0 && (
         <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
@@ -180,7 +233,7 @@ export default async function BlogPage() {
 
             {/* Articles Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {blogs.map((post, index) => (
+              {blogs.filter((post) => post.category !== "Exam Alert").map((post, index) => (
                 <Link key={post.id} href={`/blog/${post.slug}`}>
                   <Card className="h-full border border-border/50 bg-card hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden group flex flex-col">
                     {/* Image */}
