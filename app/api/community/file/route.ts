@@ -10,5 +10,5 @@ export async function GET(request: Request) {
 
   const result = await get(pathname, { access: "private" })
   if (!result) return new NextResponse("Not found", { status: 404 })
-  return new NextResponse(result.stream, { headers: { "Content-Type": result.blob.contentType, ETag: result.blob.etag, "Cache-Control": "private, no-cache" } })
+  return new NextResponse(result.stream, { headers: { "Content-Type": result.blob.contentType || "application/octet-stream", ETag: result.blob.etag, "Cache-Control": "private, no-cache" } })
 }

@@ -232,7 +232,7 @@ export default function DailyQuizSection() {
                           ? 'border-green-500 bg-green-50 text-green-900'
                           : 'border-red-500 bg-red-50 text-red-900'
                         : state.answered &&
-                          index === state.question.correct
+                          index === state.question?.correct
                           ? 'border-green-500 bg-green-50 text-green-900'
                           : 'border-gray-200 bg-white text-gray-800 hover:border-indigo-300 hover:bg-indigo-50 cursor-pointer'
                       } ${state.answered ? 'cursor-default' : ''}`}
@@ -247,7 +247,7 @@ export default function DailyQuizSection() {
                           <XCircle className="w-5 h-5 text-red-600" />
                         ))}
                       {state.answered &&
-                        index === state.question.correct &&
+                        index === state.question?.correct &&
                         state.userAnswer !== index && (
                           <CheckCircle2 className="w-5 h-5 text-green-600" />
                         )}
