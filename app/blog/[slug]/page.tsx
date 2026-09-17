@@ -258,11 +258,29 @@ export default async function BlogPostPage({ params }: PageProps) {
               </div>
             </div>
           {isExamAlert && (
-            <div className="mt-8 lg:mt-0 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/15 via-card to-card p-5 sm:p-7 shadow-sm">
-              <div className="flex items-center gap-3 text-primary"><BookOpen className="h-5 w-5" /><span className="text-sm font-semibold uppercase tracking-wide">Official exam notice</span></div>
+            <div className="mt-8 lg:mt-0 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/15 via-card to-card p-5 shadow-sm sm:p-7">
+              <div className="flex items-center gap-3 text-primary">
+                <BookOpen className="h-5 w-5" aria-hidden="true" />
+                <span className="text-sm font-semibold uppercase tracking-wide">Official exam notice</span>
+              </div>
               <h2 className="mt-4 text-xl font-bold text-foreground sm:text-2xl">{authority} notification details</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">This page summarizes the latest notice published for {authority}. Check the official source for the notification PDF, eligibility, dates, vacancies, syllabus and application instructions.</p>
-              {sourceUrl && <a href={sourceUrl} target="_blank" rel="noreferrer" className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 sm:w-auto">Open official notice <ArrowRight className="h-4 w-4" /></a>}
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                This dedicated page explains the important points candidates should review before opening or downloading the official notification.
+              </p>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {[
+                  ["Notice", blog.title],
+                  ["Authority", authority],
+                  ["Category", blog.category || "Government exam update"],
+                  ["Published", formatDate(blog.created_at)],
+                ].map(([label, value]) => (
+                  <div key={label} className="rounded-xl border border-border/60 bg-background/70 p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</p>
+                    <p className="mt-1 text-sm font-medium text-foreground">{value}</p>
+                  </div>
+                ))}
+              </div>
+              {sourceUrl && <a href={sourceUrl} target="_blank" rel="noreferrer" className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 sm:w-auto">Open official notice <ArrowRight className="h-4 w-4" aria-hidden="true" /></a>}
             </div>
           )}
         </div>
@@ -274,6 +292,31 @@ export default async function BlogPostPage({ params }: PageProps) {
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-16">
             {/* Main Content */}
             <div className="lg:col-span-8">
+              {isExamAlert && (
+                <section className="mb-10 rounded-2xl border border-border/60 bg-card p-5 shadow-sm sm:p-7" aria-labelledby="notification-summary">
+                  <h2 id="notification-summary" className="text-2xl font-bold text-foreground">Important information at a glance</h2>
+                  <p className="mt-3 leading-7 text-muted-foreground">
+                    This {authority} update is relevant to candidates looking for the latest government exam information. Use the details below as a quick guide, then confirm every requirement in the official notice before applying.
+                  </p>
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                    {[
+                      ["Read the eligibility", "Check educational qualification, age limit, category relaxations and any experience requirement."],
+                      ["Check important dates", "Review the opening date, last date, fee deadline, correction window and examination schedule."],
+                      ["Understand selection", "Look for the written exam, skill or physical test, document verification and final merit process."],
+                      ["Keep documents ready", "Prepare a photo, signature, identity proof, certificates and other documents in the required format."],
+                    ].map(([heading, text]) => (
+                      <div key={heading} className="rounded-xl bg-muted/50 p-4">
+                        <h3 className="font-semibold text-foreground">{heading}</h3>
+                        <p className="mt-1.5 text-sm leading-6 text-muted-foreground">{text}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-6 text-foreground">
+                    Important: CET TEST provides this easy-to-read summary for convenience. The official recruiting authority&apos;s notification is the final source for dates, vacancies, eligibility, fees and application instructions.
+                  </p>
+                </section>
+              )}
+
               {/* Article Content */}
               <div
                 className="prose prose-base sm:prose-lg max-w-none 
