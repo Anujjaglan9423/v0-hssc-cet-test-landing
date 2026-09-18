@@ -817,7 +817,7 @@ export async function getStudentAnalytics() {
   const { data: results } = await supabase
     .from("test_results")
     .select(`
-  test_id, attempt_id, score, total_questions, time_taken, created_at,
+  id, test_id, attempt_id, score, percentage, correct_answers, wrong_answers, unanswered, total_questions, time_taken, created_at,
   test:tests (title, test_type, subject:subjects (name), topic:topics (name))
     `)
     .eq("user_id", user.id)
@@ -833,7 +833,7 @@ export async function getStudentAnalytics() {
       ? supabase.from("user_answers").select("attempt_id, question_id, selected_answer, is_correct, time_spent, question:questions(id, question_text, correct_answer, explanation, topic:topics(name), subject:subjects(name))").in("attempt_id", attemptIds)
       : Promise.resolve({ data: [] }),
     testIds.length
-      ? createAdminClient().from("test_results").select("test_id, score, user_id").in("test_id", testIds)
+      ? createAdminClient().from("test_results").select("test_id, score, percentage, user_id").in("test_id", testIds)
       : Promise.resolve({ data: [] }),
   ])
   const answerStats = { attempted: 0, correct: 0, wrong: 0, skipped: 0 }
@@ -845,21 +845,25 @@ export async function getStudentAnalytics() {
       else answerStats.wrong++
     } else answerStats.skipped++
   })
-  const rankByTest = new Map<string, { rank: number; total: number; percentile: number }>()
-  testIds.forEach((testId) => {
-    const scores = (peerResults || []).filter((result) => result.test_id === testId).map((result) => result.score).sort((a, b) => b - a)
-    const mine = allResults.find((result) => result.test_id === testId)?.score ?? 0
-    const rank = scores.findIndex((score) => score <= mine) + 1 || scores.length + 1
-    rankByTest.set(testId, { rank, total: scores.length, percentile: scores.length ? Math.round(((scores.length - rank) / scores.length) * 1000) / 10 : 0 })
+  const rankByAttempt = new Map<string, { rank: number; total: number; percentile: number }>()
+  allResults.forEach((result: any) => {
+    const peerScores = (peerResults || [])
+      .filter((peer: any) => peer.test_id === result.test_id)
+      .map((peer: any) => Number(peer.percentage ?? peer.score ?? 0))
+      .sort((a: number, b: number) => b - a)
+    const mine = Number(result.percentage ?? result.score ?? 0)
+    const rank = peerScores.findIndex((score: number) => score <= mine) + 1 || peerScores.length + 1
+    rankByAttempt.set(result.attempt_id, { rank, total: peerScores.length, percentile: peerScores.length ? Math.round(((peerScores.length - rank) / peerScores.length) * 1000) / 10 : 0 })
   })
   const testRankings = allResults.map((result) => ({
     test: (result.test as any)?.title || "Test",
     testId: result.test_id,
     attemptId: result.attempt_id,
+    resultId: result.id,
     date: result.created_at,
     timeTaken: result.time_taken || 0,
-    score: result.total_questions > 0 ? Math.round(((result.score ?? 0) / result.total_questions) * 100) : 0,
-    ...(rankByTest.get(result.test_id) || { rank: 0, total: 0, percentile: 0 }),
+    score: Math.max(0, Math.min(100, Number(result.percentage ?? result.score ?? 0))),
+    ...(rankByAttempt.get(result.attempt_id) || { rank: 0, total: 0, percentile: 0 }),
   }))
   const totalCorrectFromAnswers = answerStats.correct
   const totalAttemptedFromAnswers = answerStats.attempted
@@ -885,16 +889,12 @@ export async function getStudentAnalytics() {
   }
 
   // Calculate stats
-  const overallScore = Math.round(
-    allResults.reduce((sum, r) => {
-      const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
-      return sum + percentage
-    }, 0) / totalAttempts,
-  )
+  const resultPercentage = (r: any) => Math.max(0, Math.min(100, Number(r.percentage ?? r.score ?? 0)))
+  const overallScore = Math.round(allResults.reduce((sum, r) => sum + resultPercentage(r), 0) / totalAttempts)
 
-  const totalCorrect = totalCorrectFromAnswers || allResults.reduce((sum, r) => sum + r.score, 0)
-  const totalQuestions = allResults.reduce((sum, r) => sum + r.total_questions, 0)
-  const accuracyDenominator = answerTotal || totalQuestions
+  const totalCorrect = totalCorrectFromAnswers || allResults.reduce((sum, r) => sum + Number(r.correct_answers ?? 0), 0)
+  const totalQuestions = allResults.reduce((sum, r) => sum + Number(r.total_questions ?? 0), 0)
+  const accuracyDenominator = totalAttemptedFromAnswers || allResults.reduce((sum, r) => sum + Number(r.correct_answers ?? 0) + Number(r.wrong_answers ?? 0), 0)
   const accuracyRate = accuracyDenominator > 0 ? Math.round((totalCorrect / accuracyDenominator) * 100) : 0
   const accuracyDisplay = `${totalCorrect}/${accuracyDenominator}`
 
@@ -946,7 +946,7 @@ export async function getStudentAnalytics() {
     const correct = relatedAnswers.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "" && answer.is_correct).length
     return {
       week: `Test ${i + 1}`,
-      score: r.total_questions > 0 ? Math.round(((r.score ?? 0) / r.total_questions) * 100) : 0,
+      score: resultPercentage(r),
       accuracy: attempted > 0 ? Math.round((correct / attempted) * 100) : 0,
       time: Math.round((r.time_taken || 0) / Math.max(1, attempted)),
       date: r.created_at,
