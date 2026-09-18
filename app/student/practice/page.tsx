@@ -18,7 +18,10 @@ interface Topic {
 
 interface Subject {
   id: string
+  subjectId: string
   name: string
+  examId: string | null
+  examName: string
   topics: Topic[]
   questionCount: number
 }
@@ -36,6 +39,7 @@ export default function StudentPracticePage() {
   const router = useRouter()
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [selectedExam, setSelectedExam] = useState("all")
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null)
   const [selectedTopics, setSelectedTopics] = useState<string[]>([])
   const [questionCount, setQuestionCount] = useState([20])
@@ -56,7 +60,12 @@ export default function StudentPracticePage() {
     }
     loadSubjects()
   }, [])
-  console.log(subjects)
+
+  const exams = Array.from(
+    new Map(subjects.filter((subject) => subject.examId).map((subject) => [subject.examId, subject.examName])).entries(),
+  )
+  const visibleSubjects = selectedExam === "all" ? subjects : subjects.filter((subject) => subject.examId === selectedExam)
+
   const toggleTopic = (topicId: string) => {
     setSelectedTopics((prev) => (prev.includes(topicId) ? prev.filter((t) => t !== topicId) : [...prev, topicId]))
   }
@@ -69,7 +78,7 @@ export default function StudentPracticePage() {
     setIsStarting(true)
     try {
       const practiceSettings = {
-        subjectId: selectedSubject,
+        subjectId: selectedSubjectData?.subjectId || selectedSubject,
         topicIds: selectedTopics,
         questionCount: questionCount[0],
         difficulty,
@@ -109,8 +118,36 @@ export default function StudentPracticePage() {
               <p className="text-xs lg:text-sm">Ask admin to create tests with subjects.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
-              {subjects.map((subject) => {
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filter subjects by exam">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={selectedExam === "all"}
+                  onClick={() => setSelectedExam("all")}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${selectedExam === "all" ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}
+                >
+                  All exams
+                </button>
+                {exams.map(([examId, examName]) => (
+                  <button
+                    key={examId}
+                    type="button"
+                    role="tab"
+                    aria-selected={selectedExam === examId}
+                    onClick={() => {
+                      setSelectedExam(examId as string)
+                      setSelectedSubject(null)
+                      setSelectedTopics([])
+                    }}
+                    className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${selectedExam === examId ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}
+                  >
+                    {examName}
+                  </button>
+                ))}
+              </div>
+              <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
+              {visibleSubjects.map((subject) => {
                 const IconComponent = subjectIcons[subject.name] || BookOpen
                 return (
                   <button
@@ -128,6 +165,9 @@ export default function StudentPracticePage() {
                       className={`w-6 h-6 lg:w-8 lg:h-8 mb-2 lg:mb-3 ${selectedSubject === subject.id ? "text-primary" : "text-muted-foreground"
                         }`}
                     />
+                    <span className="mb-2 inline-flex max-w-full truncate rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                      {subject.examName}
+                    </span>
                     <p className="font-medium text-foreground text-sm lg:text-base">{subject.name}</p>
                     <p className="text-xs text-muted-foreground mt-1">
                       {subject.questionCount} questions
@@ -136,6 +176,7 @@ export default function StudentPracticePage() {
                   </button>
                 )
               })}
+              </div>
             </div>
           )}
         </ChartCard>
@@ -181,7 +222,7 @@ export default function StudentPracticePage() {
                 className="mt-3 bg-transparent"
                 onClick={() => {
                   const practiceSettings = {
-                    subjectId: selectedSubject,
+                    subjectId: selectedSubjectData?.subjectId || selectedSubject,
                     topicIds: [],
                     questionCount: questionCount[0],
                     difficulty,
