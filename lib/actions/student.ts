@@ -830,13 +830,14 @@ export async function getStudentAnalytics() {
   const testIds = [...new Set(allResults.map((result) => result.test_id).filter(Boolean))]
   const [{ data: answers }, { data: peerResults }] = await Promise.all([
     attemptIds.length
-      ? supabase.from("user_answers").select("attempt_id, selected_answer, is_correct").in("attempt_id", attemptIds)
+      ? supabase.from("user_answers").select("attempt_id, question_id, selected_answer, is_correct, time_spent, question:questions(id, question_text, correct_answer, explanation, topic:topics(name), subject:subjects(name))").in("attempt_id", attemptIds)
       : Promise.resolve({ data: [] }),
     testIds.length
       ? createAdminClient().from("test_results").select("test_id, score, user_id").in("test_id", testIds)
       : Promise.resolve({ data: [] }),
   ])
   const answerStats = { attempted: 0, correct: 0, wrong: 0, skipped: 0 }
+  const answerRows = answers || []
   ;(answers || []).forEach((answer) => {
     if (answer.selected_answer) {
       answerStats.attempted++
@@ -936,11 +937,18 @@ export async function getStudentAnalytics() {
   })
 
   // Performance trend (last 7 tests)
-  const performanceTrend = allResults.slice(-7).map((r, i) => ({
-    week: `Test ${i + 1}`,
-    score: r.total_questions > 0 ? Math.round((r.score / r.total_questions) * 100) : 0,
-    time: Math.round((r.time_taken || 0) / r.total_questions),
-  }))
+  const performanceTrend = allResults.slice(-7).map((r, i) => {
+    const relatedAnswers = answerRows.filter((answer: any) => answer.attempt_id === r.attempt_id)
+    const attempted = relatedAnswers.filter((answer: any) => answer.selected_answer).length
+    const correct = relatedAnswers.filter((answer: any) => answer.selected_answer && answer.is_correct).length
+    return {
+      week: `Test ${i + 1}`,
+      score: r.total_questions > 0 ? Math.round((r.score / r.total_questions) * 100) : 0,
+      accuracy: attempted > 0 ? Math.round((correct / attempted) * 100) : 0,
+      time: Math.round((r.time_taken || 0) / Math.max(1, r.total_questions)),
+      date: r.created_at,
+    }
+  })
 
   // Subject performance - Clamp to 0-100%
   const subjectScores: Record<string, { total: number; count: number }> = {}
@@ -973,13 +981,40 @@ export async function getStudentAnalytics() {
   })
 
   const topicStrengths = Object.entries(topicScores)
-    .map(([topic, data]) => ({
-      topic,
-      strength: Math.round(Math.min(100, data.total / data.count)),
-      testId: data.testId,
-    }))
-    .sort((a, b) => b.strength - a.strength)
+  .map(([topic, data]) => ({
+  topic,
+  strength: Math.round(Math.min(100, data.total / data.count)),
+  testId: data.testId,
+  }))
+  .sort((a, b) => b.strength - a.strength)
 
+  const mistakeReview = answerRows
+    .filter((answer: any) => answer.selected_answer && !answer.is_correct)
+    .slice(-20)
+    .reverse()
+    .map((answer: any) => ({
+      id: answer.question_id,
+      topic: answer.question?.topic?.name || answer.question?.subject?.name || "General",
+      question: answer.question?.question_text || "Question from your recent test",
+      selectedAnswer: answer.selected_answer,
+      correctAnswer: answer.question?.correct_answer || "See solution",
+      explanation: answer.question?.explanation || "Review the solution to understand this mistake.",
+    }))
+
+  const attemptRate = totalQuestions > 0 ? Math.round((totalAttemptedFromAnswers / totalQuestions) * 100) : 0
+  const testRankingsWithDetails = testRankings.map((item, index) => ({
+    ...item,
+    date: allResults.find((result) => result.test_id === item.testId)?.created_at,
+    timeTaken: allResults.find((result) => result.test_id === item.testId)?.time_taken || 0,
+    accuracy: (() => {
+      const result = allResults.find((entry) => entry.test_id === item.testId)
+      const related = answerRows.filter((answer: any) => answer.attempt_id === result?.attempt_id)
+      const attempted = related.filter((answer: any) => answer.selected_answer).length
+      const correct = related.filter((answer: any) => answer.selected_answer && answer.is_correct).length
+      return attempted ? Math.round((correct / attempted) * 100) : 0
+    })(),
+  }))
+  
   return {
     overallScore: Math.min(overallScore, 100),
     accuracyRate,
@@ -990,7 +1025,11 @@ export async function getStudentAnalytics() {
     performanceTrend,
     subjectPerformance,
   topicStrengths,
-  testRankings,
+  testRankings: testRankingsWithDetails,
+  testsCompleted: totalAttempts,
+  attemptRate,
+  totalQuestions,
+  mistakeReview,
   totalCorrect,
   totalWrong,
   totalAttempted: totalAttemptedFromAnswers || totalQuestions,
