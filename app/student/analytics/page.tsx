@@ -15,9 +15,6 @@ import {
   BarChart,
   Bar,
   LabelList,
-  PieChart,
-  Pie,
-  Cell,
 } from "recharts"
 import { TrendingUp, Target, BookOpen, Zap, Loader2, ArrowRight, Trophy } from "lucide-react"
 
@@ -27,7 +24,6 @@ export default function StudentAnalyticsPage() {
   const [error, setError] = useState<any | null>(null)
   const [showAllTopics, setShowAllTopics] = useState(false)
   const topicList = useMemo(() => analytics?.topicStrengths || [], [analytics])
-  const breakdownColors = ["#22c55e", "#ef4444", "#94a3b8"]
 
   useEffect(() => {
     const loadData = async () => {
@@ -169,10 +165,24 @@ export default function StudentAnalyticsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card><CardHeader><CardTitle>Answer breakdown</CardTitle><CardDescription>Attempted, skipped, and wrong across your tests</CardDescription></CardHeader><CardContent><div className="flex flex-col items-center gap-4 sm:flex-row"><ResponsiveContainer width="100%" height={220}><PieChart><Pie data={analytics.answerBreakdown || []} dataKey="value" nameKey="name" innerRadius={58} outerRadius={86} paddingAngle={3}>{(analytics.answerBreakdown || []).map((entry: any, index: number) => <Cell key={entry.name} fill={breakdownColors[index]} />)}</Pie><Tooltip /></PieChart></ResponsiveContainer><div className="grid w-full gap-2">{(analytics.answerBreakdown || []).map((entry: any, index: number) => <div key={entry.name} className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-2 text-sm"><span className="flex items-center gap-2"><span className="size-2 rounded-full" style={{ backgroundColor: breakdownColors[index] }} />{entry.name}</span><strong>{entry.value}</strong></div>)}</div></div></CardContent></Card>
-        <Card><CardHeader><CardTitle className="flex items-center gap-2"><Trophy className="size-5 text-amber-500" />All-India rank & percentile</CardTitle><CardDescription>Your position among attempts for each test</CardDescription></CardHeader><CardContent><div className="flex max-h-[250px] flex-col gap-2 overflow-y-auto pr-1">{(analytics.testRankings || []).map((item: any, index: number) => <div key={`${item.test}-${index}`} className="flex items-center justify-between gap-3 rounded-lg border border-border px-3 py-2 text-sm"><span className="min-w-0 truncate">{item.test}</span><span className="shrink-0 text-right"><strong>#{item.rank}</strong><span className="ml-2 text-muted-foreground">{item.percentile}th percentile</span></span></div>)}</div></CardContent></Card>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2"><Trophy className="size-5 text-amber-500" />All-India rank & percentile</CardTitle>
+          <CardDescription>Your position among attempts for each test</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto rounded-lg border border-border">
+            <table className="w-full min-w-[640px] text-sm">
+              <thead className="bg-muted/50 text-left text-muted-foreground">
+                <tr><th className="px-4 py-3 font-medium">Test</th><th className="px-4 py-3 font-medium">Score</th><th className="px-4 py-3 font-medium">All-India Rank</th><th className="px-4 py-3 font-medium">Percentile</th><th className="px-4 py-3 font-medium">Participants</th></tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {(analytics.testRankings || []).map((item: any, index: number) => <tr key={`${item.test}-${index}`} className="hover:bg-muted/30"><td className="max-w-[280px] truncate px-4 py-3 font-medium text-foreground">{item.test}</td><td className="px-4 py-3 text-muted-foreground">{item.score}%</td><td className="px-4 py-3 font-semibold text-foreground">#{item.rank}</td><td className="px-4 py-3 text-muted-foreground">{item.percentile}th</td><td className="px-4 py-3 text-muted-foreground">{item.total}</td></tr>)}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Performance Trend Chart */}
       {analytics.performanceTrend && analytics.performanceTrend.length > 0 && (
