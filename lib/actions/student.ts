@@ -1094,6 +1094,8 @@ export async function getSubjectsAndTopics() {
     .select(`
       subject_id,
       topic_id,
+      exam_id,
+      exam:exams (id, name),
       subject:subjects (id, name),
       topic:topics (id, name),
       questions (id)
@@ -1102,12 +1104,16 @@ export async function getSubjectsAndTopics() {
 
   if (!testsWithQuestions) return []
 
-  // Build subjects map with only those that have questions
+  // Build subjects map keyed by exam + subject so the same subject name across
+  // different exams stays separated (e.g. SSC English vs HSSC English)
   const subjectsMap: Record<
     string,
     {
       id: string
+      subjectId: string
       name: string
+      examId: string | null
+      examName: string
       topics: Map<string, { id: string; name: string; questionCount: number }>
       questionCount: number
     }
@@ -1120,25 +1126,33 @@ export async function getSubjectsAndTopics() {
     const subject = test.subject as any
     if (!subject) return
 
-    if (!subjectsMap[subject.id]) {
-      subjectsMap[subject.id] = {
-        id: subject.id,
+    const exam = test.exam as any
+    const examId: string | null = exam?.id ?? null
+    const examName: string = exam?.name ?? "General"
+    const key = `${examId ?? "none"}::${subject.id}`
+
+    if (!subjectsMap[key]) {
+      subjectsMap[key] = {
+        id: key,
+        subjectId: subject.id,
         name: subject.name,
+        examId,
+        examName,
         topics: new Map(),
         questionCount: 0,
       }
     }
 
-    subjectsMap[subject.id].questionCount += questionsCount
+    subjectsMap[key].questionCount += questionsCount
 
     // Add topic if exists
     const topic = test.topic as any
     if (topic) {
-      const existingTopic = subjectsMap[subject.id].topics.get(topic.id)
+      const existingTopic = subjectsMap[key].topics.get(topic.id)
       if (existingTopic) {
         existingTopic.questionCount += questionsCount
       } else {
-        subjectsMap[subject.id].topics.set(topic.id, {
+        subjectsMap[key].topics.set(topic.id, {
           id: topic.id,
           name: topic.name,
           questionCount: questionsCount,
@@ -1150,20 +1164,37 @@ export async function getSubjectsAndTopics() {
   // Convert to array format
   const subjects = Object.values(subjectsMap).map((subject) => ({
     id: subject.id,
+    subjectId: subject.subjectId,
     name: subject.name,
+    examId: subject.examId,
+    examName: subject.examName,
     questionCount: subject.questionCount,
     topics: Array.from(subject.topics.values()),
   }))
 
-  return subjects.sort((a, b) => a.name.localeCompare(b.name))
+  // Sort by exam name first, then subject name
+  return subjects.sort(
+    (a, b) => a.examName.localeCompare(b.examName) || a.name.localeCompare(b.name),
+  )
 }
 
 // Fetch questions from tests correctly
-export async function getPracticeQuestions(subjectId: string, topicIds: string[], count: number, difficulty: string) {
+export async function getPracticeQuestions(
+  subjectId: string,
+  topicIds: string[],
+  count: number,
+  difficulty: string,
+  examId?: string | null,
+) {
   const supabase = await createClient()
 
   // First get tests that match subject and optionally topics
   let testsQuery = supabase.from("tests").select("id").eq("subject_id", subjectId)
+
+  // Scope to the selected exam so shared subject names return the right content
+  if (examId) {
+    testsQuery = testsQuery.eq("exam_id", examId)
+  }
 
   if (topicIds.length > 0) {
     testsQuery = testsQuery.in("topic_id", topicIds)
