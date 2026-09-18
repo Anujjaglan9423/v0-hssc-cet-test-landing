@@ -855,7 +855,10 @@ export async function getStudentAnalytics() {
   const testRankings = allResults.map((result) => ({
     test: (result.test as any)?.title || "Test",
     testId: result.test_id,
-    score: result.total_questions > 0 ? Math.round((result.score / result.total_questions) * 100) : 0,
+    attemptId: result.attempt_id,
+    date: result.created_at,
+    timeTaken: result.time_taken || 0,
+    score: result.total_questions > 0 ? Math.round(((result.score ?? 0) / result.total_questions) * 100) : 0,
     ...(rankByTest.get(result.test_id) || { rank: 0, total: 0, percentile: 0 }),
   }))
   const totalCorrectFromAnswers = answerStats.correct
@@ -939,54 +942,60 @@ export async function getStudentAnalytics() {
   // Performance trend (last 7 tests)
   const performanceTrend = allResults.slice(-7).map((r, i) => {
     const relatedAnswers = answerRows.filter((answer: any) => answer.attempt_id === r.attempt_id)
-    const attempted = relatedAnswers.filter((answer: any) => answer.selected_answer).length
-    const correct = relatedAnswers.filter((answer: any) => answer.selected_answer && answer.is_correct).length
+    const attempted = relatedAnswers.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "").length
+    const correct = relatedAnswers.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "" && answer.is_correct).length
     return {
       week: `Test ${i + 1}`,
-      score: r.total_questions > 0 ? Math.round((r.score / r.total_questions) * 100) : 0,
+      score: r.total_questions > 0 ? Math.round(((r.score ?? 0) / r.total_questions) * 100) : 0,
       accuracy: attempted > 0 ? Math.round((correct / attempted) * 100) : 0,
-      time: Math.round((r.time_taken || 0) / Math.max(1, r.total_questions)),
+      time: Math.round((r.time_taken || 0) / Math.max(1, attempted)),
       date: r.created_at,
+      testId: r.test_id,
+      attemptId: r.attempt_id,
     }
   })
 
   // Subject performance - Clamp to 0-100%
-  const subjectScores: Record<string, { total: number; count: number }> = {}
-  allResults.forEach((r) => {
-    const subjectName = (r.test as any)?.subject?.name || "General"
-    if (!subjectScores[subjectName]) {
-      subjectScores[subjectName] = { total: 0, count: 0 }
+  const subjectScores: Record<string, { correct: number; attempted: number; time: number }> = {}
+  answerRows.forEach((answer: any) => {
+    const subjectName = answer.question?.subject?.name || "General"
+    subjectScores[subjectName] ??= { correct: 0, attempted: 0, time: 0 }
+    const attempted = answer.selected_answer !== null && answer.selected_answer !== ""
+    if (attempted) {
+      subjectScores[subjectName].attempted++
+      if (answer.is_correct) subjectScores[subjectName].correct++
+      subjectScores[subjectName].time += answer.time_spent || 0
     }
-    const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
-    subjectScores[subjectName].total += percentage
-    subjectScores[subjectName].count++
   })
 
   const subjectPerformance = Object.entries(subjectScores).map(([subject, data]) => ({
     subject,
-    score: Math.round(Math.min(100, data.total / data.count)),
-    tests: data.count,
+    accuracy: data.attempted ? Math.round((data.correct / data.attempted) * 100) : 0,
+    attempted: data.attempted,
+    avgTime: data.attempted ? Math.round(data.time / data.attempted) : 0,
   }))
 
   // Topic strengths - Clamp to 0-100%
-  const topicScores: Record<string, { total: number; count: number; testId: string }> = {}
-  allResults.forEach((r) => {
-    const topicName = (r.test as any)?.topic?.name || (r.test as any)?.subject?.name || "General"
-    if (!topicScores[topicName]) {
-      topicScores[topicName] = { total: 0, count: 0, testId: r.test_id }
+  const topicScores: Record<string, { correct: number; attempted: number; wrong: number; testId: string }> = {}
+  answerRows.forEach((answer: any) => {
+    const topicName = answer.question?.topic?.name || answer.question?.subject?.name || "General"
+    topicScores[topicName] ??= { correct: 0, attempted: 0, wrong: 0, testId: allResults.find((result) => result.attempt_id === answer.attempt_id)?.test_id || "" }
+    if (answer.selected_answer !== null && answer.selected_answer !== "") {
+      topicScores[topicName].attempted++
+      if (answer.is_correct) topicScores[topicName].correct++
+      else topicScores[topicName].wrong++
     }
-    const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
-    topicScores[topicName].total += percentage
-    topicScores[topicName].count++
   })
 
   const topicStrengths = Object.entries(topicScores)
-  .map(([topic, data]) => ({
-  topic,
-  strength: Math.round(Math.min(100, data.total / data.count)),
-  testId: data.testId,
-  }))
-  .sort((a, b) => b.strength - a.strength)
+    .map(([topic, data]) => ({
+      topic,
+      strength: data.attempted ? Math.round((data.correct / data.attempted) * 100) : 0,
+      attempted: data.attempted,
+      wrong: data.wrong,
+      testId: data.testId,
+    }))
+    .sort((a, b) => a.strength - b.strength || b.wrong - a.wrong)
 
   const mistakeReview = answerRows
     .filter((answer: any) => answer.selected_answer && !answer.is_correct)
@@ -1002,15 +1011,12 @@ export async function getStudentAnalytics() {
     }))
 
   const attemptRate = totalQuestions > 0 ? Math.round((totalAttemptedFromAnswers / totalQuestions) * 100) : 0
-  const testRankingsWithDetails = testRankings.map((item, index) => ({
+  const testRankingsWithDetails = testRankings.map((item) => ({
     ...item,
-    date: allResults.find((result) => result.test_id === item.testId)?.created_at,
-    timeTaken: allResults.find((result) => result.test_id === item.testId)?.time_taken || 0,
     accuracy: (() => {
-      const result = allResults.find((entry) => entry.test_id === item.testId)
-      const related = answerRows.filter((answer: any) => answer.attempt_id === result?.attempt_id)
-      const attempted = related.filter((answer: any) => answer.selected_answer).length
-      const correct = related.filter((answer: any) => answer.selected_answer && answer.is_correct).length
+      const related = answerRows.filter((answer: any) => answer.attempt_id === item.attemptId)
+      const attempted = related.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "").length
+      const correct = related.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "" && answer.is_correct).length
       return attempted ? Math.round((correct / attempted) * 100) : 0
     })(),
   }))
@@ -1032,7 +1038,7 @@ export async function getStudentAnalytics() {
   mistakeReview,
   totalCorrect,
   totalWrong,
-  totalAttempted: totalAttemptedFromAnswers || totalQuestions,
+    totalAttempted: totalAttemptedFromAnswers,
   totalSkipped: totalSkippedFromAnswers,
   totalWrongFromAnswers: totalWrongFromAnswers,
   answerBreakdown: [
