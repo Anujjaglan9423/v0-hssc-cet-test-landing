@@ -853,6 +853,7 @@ export async function getStudentAnalytics() {
   })
   const testRankings = allResults.map((result) => ({
     test: (result.test as any)?.title || "Test",
+    testId: result.test_id,
     score: result.total_questions > 0 ? Math.round((result.score / result.total_questions) * 100) : 0,
     ...(rankByTest.get(result.test_id) || { rank: 0, total: 0, percentile: 0 }),
   }))
@@ -960,11 +961,11 @@ export async function getStudentAnalytics() {
   }))
 
   // Topic strengths - Clamp to 0-100%
-  const topicScores: Record<string, { total: number; count: number }> = {}
+  const topicScores: Record<string, { total: number; count: number; testId: string }> = {}
   allResults.forEach((r) => {
     const topicName = (r.test as any)?.topic?.name || (r.test as any)?.subject?.name || "General"
     if (!topicScores[topicName]) {
-      topicScores[topicName] = { total: 0, count: 0 }
+      topicScores[topicName] = { total: 0, count: 0, testId: r.test_id }
     }
     const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
     topicScores[topicName].total += percentage
@@ -975,9 +976,9 @@ export async function getStudentAnalytics() {
     .map(([topic, data]) => ({
       topic,
       strength: Math.round(Math.min(100, data.total / data.count)),
+      testId: data.testId,
     }))
     .sort((a, b) => b.strength - a.strength)
-    .slice(0, 6)
 
   return {
     overallScore: Math.min(overallScore, 100),
