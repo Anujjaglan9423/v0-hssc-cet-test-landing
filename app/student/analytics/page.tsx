@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { getStudentAnalytics } from "@/lib/actions/student"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -15,13 +15,19 @@ import {
   BarChart,
   Bar,
   LabelList,
+  PieChart,
+  Pie,
+  Cell,
 } from "recharts"
-import { TrendingUp, Target, BookOpen, Zap, Loader2 } from "lucide-react"
+import { TrendingUp, Target, BookOpen, Zap, Loader2, ArrowRight, Trophy } from "lucide-react"
 
 export default function StudentAnalyticsPage() {
   const [analytics, setAnalytics] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<any | null>(null)
+  const [showAllTopics, setShowAllTopics] = useState(false)
+  const topicList = useMemo(() => analytics?.topicStrengths || [], [analytics])
+  const breakdownColors = ["#22c55e", "#ef4444", "#94a3b8"]
 
   useEffect(() => {
     const loadData = async () => {
@@ -110,6 +116,14 @@ export default function StudentAnalyticsPage() {
             </div>
           </div>
 
+          {/* Accuracy is attempted-correct ratio and intentionally separate from score. */}
+          <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
+            <div className="flex items-center gap-4">
+              <div className="size-12 rounded-lg bg-emerald-500/10 flex items-center justify-center"><Target className="size-5 text-emerald-500" /></div>
+              <div><h3 className="text-sm font-medium text-muted-foreground">Accuracy</h3><p className="text-2xl font-semibold text-foreground">{analytics.accuracyRate || 0}%</p><p className="text-sm text-muted-foreground">{analytics.accuracyDisplay || "0/0"} attempted correct</p></div>
+            </div>
+          </div>
+
           {/* CARD 2 */}
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
             <div className="flex items-center gap-4">
@@ -153,6 +167,11 @@ export default function StudentAnalyticsPage() {
           </div>
 
         </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card><CardHeader><CardTitle>Answer breakdown</CardTitle><CardDescription>Attempted, skipped, and wrong across your tests</CardDescription></CardHeader><CardContent><div className="flex flex-col items-center gap-4 sm:flex-row"><ResponsiveContainer width="100%" height={220}><PieChart><Pie data={analytics.answerBreakdown || []} dataKey="value" nameKey="name" innerRadius={58} outerRadius={86} paddingAngle={3}>{(analytics.answerBreakdown || []).map((entry: any, index: number) => <Cell key={entry.name} fill={breakdownColors[index]} />)}</Pie><Tooltip /></PieChart></ResponsiveContainer><div className="grid w-full gap-2">{(analytics.answerBreakdown || []).map((entry: any, index: number) => <div key={entry.name} className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-2 text-sm"><span className="flex items-center gap-2"><span className="size-2 rounded-full" style={{ backgroundColor: breakdownColors[index] }} />{entry.name}</span><strong>{entry.value}</strong></div>)}</div></div></CardContent></Card>
+        <Card><CardHeader><CardTitle className="flex items-center gap-2"><Trophy className="size-5 text-amber-500" />All-India rank & percentile</CardTitle><CardDescription>Your position among attempts for each test</CardDescription></CardHeader><CardContent><div className="flex max-h-[250px] flex-col gap-2 overflow-y-auto pr-1">{(analytics.testRankings || []).map((item: any, index: number) => <div key={`${item.test}-${index}`} className="flex items-center justify-between gap-3 rounded-lg border border-border px-3 py-2 text-sm"><span className="min-w-0 truncate">{item.test}</span><span className="shrink-0 text-right"><strong>#{item.rank}</strong><span className="ml-2 text-muted-foreground">{item.percentile}th percentile</span></span></div>)}</div></CardContent></Card>
       </div>
 
       {/* Performance Trend Chart */}
@@ -310,7 +329,8 @@ export default function StudentAnalyticsPage() {
             </CardHeader>
 
             <CardContent className="space-y-5">
-              {analytics.topicStrengths.map((topic: any) => {
+              <div className="max-h-[360px] space-y-5 overflow-y-auto pr-2">
+              {topicList.slice(0, showAllTopics ? topicList.length : 6).map((topic: any) => {
                 const strength = Math.min(100, topic.strength)
                 const isStrong = strength >= 70
 
@@ -345,6 +365,8 @@ export default function StudentAnalyticsPage() {
                   </div>
                 )
               })}
+              </div>
+              {topicList.length > 6 && <button type="button" onClick={() => setShowAllTopics((value) => !value)} className="text-sm font-medium text-primary hover:underline">{showAllTopics ? "Show fewer" : `View all ${topicList.length} topics`}</button>}
             </CardContent>
           </Card>
         )}
@@ -379,6 +401,7 @@ export default function StudentAnalyticsPage() {
                         <p className="text-xs text-amber-700 dark:text-amber-300 mt-1">
                           Current: {Math.min(100, topic.strength)}% — Needs practice
                         </p>
+                        <a href={`/student/tests?topic=${encodeURIComponent(topic.topic)}`} className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-amber-700 hover:underline dark:text-amber-300">Practice {topic.topic} <ArrowRight className="size-3" /></a>
                       </div>
                     ))}
                 </div>
