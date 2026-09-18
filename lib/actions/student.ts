@@ -1094,6 +1094,8 @@ export async function getSubjectsAndTopics() {
     .select(`
       subject_id,
       topic_id,
+      exam_id,
+      exam:exams (id, name),
       subject:subjects (id, name),
       topic:topics (id, name),
       questions (id)
@@ -1108,6 +1110,8 @@ export async function getSubjectsAndTopics() {
     {
       id: string
       name: string
+      examId: string | null
+      examName: string
       topics: Map<string, { id: string; name: string; questionCount: number }>
       questionCount: number
     }
@@ -1118,27 +1122,31 @@ export async function getSubjectsAndTopics() {
     if (questionsCount === 0) return // Skip tests without questions
 
     const subject = test.subject as any
+    const exam = test.exam as any
     if (!subject) return
 
-    if (!subjectsMap[subject.id]) {
-      subjectsMap[subject.id] = {
+    const subjectKey = `${subject.id}:${exam?.id || "no-exam"}`
+    if (!subjectsMap[subjectKey]) {
+      subjectsMap[subjectKey] = {
         id: subject.id,
         name: subject.name,
+        examId: exam?.id || null,
+        examName: exam?.name || "General Practice",
         topics: new Map(),
         questionCount: 0,
       }
     }
 
-    subjectsMap[subject.id].questionCount += questionsCount
+    subjectsMap[subjectKey].questionCount += questionsCount
 
     // Add topic if exists
     const topic = test.topic as any
     if (topic) {
-      const existingTopic = subjectsMap[subject.id].topics.get(topic.id)
+      const existingTopic = subjectsMap[subjectKey].topics.get(topic.id)
       if (existingTopic) {
         existingTopic.questionCount += questionsCount
       } else {
-        subjectsMap[subject.id].topics.set(topic.id, {
+        subjectsMap[subjectKey].topics.set(topic.id, {
           id: topic.id,
           name: topic.name,
           questionCount: questionsCount,
@@ -1149,8 +1157,11 @@ export async function getSubjectsAndTopics() {
 
   // Convert to array format
   const subjects = Object.values(subjectsMap).map((subject) => ({
-    id: subject.id,
+    id: `${subject.id}:${subject.examId || "no-exam"}`,
+    subjectId: subject.id,
     name: subject.name,
+    examId: subject.examId,
+    examName: subject.examName,
     questionCount: subject.questionCount,
     topics: Array.from(subject.topics.values()),
   }))
