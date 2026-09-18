@@ -41,7 +41,6 @@ interface Question {
 
 interface PracticeSettings {
   subjectId: string
-  examId?: string | null
   topicIds: string[]
   questionCount: number
   difficulty: string
@@ -82,7 +81,6 @@ export default function PracticeStartPage() {
           parsedSettings.topicIds,
           parsedSettings.questionCount,
           parsedSettings.difficulty,
-          parsedSettings.examId,
         )
         if (qs.length === 0) {
           alert("No questions available for selected criteria")

@@ -18,10 +18,7 @@ interface Topic {
 
 interface Subject {
   id: string
-  subjectId: string
   name: string
-  examId: string | null
-  examName: string
   topics: Topic[]
   questionCount: number
 }
@@ -39,7 +36,6 @@ export default function StudentPracticePage() {
   const router = useRouter()
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [selectedExam, setSelectedExam] = useState<string>("all")
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null)
   const [selectedTopics, setSelectedTopics] = useState<string[]>([])
   const [questionCount, setQuestionCount] = useState([20])
@@ -60,29 +56,20 @@ export default function StudentPracticePage() {
     }
     loadSubjects()
   }, [])
-
+  console.log(subjects)
   const toggleTopic = (topicId: string) => {
     setSelectedTopics((prev) => (prev.includes(topicId) ? prev.filter((t) => t !== topicId) : [...prev, topicId]))
   }
 
   const selectedSubjectData = subjects.find((s) => s.id === selectedSubject)
 
-  // Distinct exams present in the available subjects, for the exam selector
-  const examOptions = Array.from(
-    new Map(subjects.map((s) => [s.examName, { id: s.examName, name: s.examName }])).values(),
-  ).sort((a, b) => a.name.localeCompare(b.name))
-
-  const filteredSubjects =
-    selectedExam === "all" ? subjects : subjects.filter((s) => s.examName === selectedExam)
-
   const startPractice = async () => {
-    if (!selectedSubject || !selectedSubjectData) return
+    if (!selectedSubject) return
 
     setIsStarting(true)
     try {
       const practiceSettings = {
-        subjectId: selectedSubjectData.subjectId,
-        examId: selectedSubjectData.examId,
+        subjectId: selectedSubject,
         topicIds: selectedTopics,
         questionCount: questionCount[0],
         difficulty,
@@ -122,76 +109,33 @@ export default function StudentPracticePage() {
               <p className="text-xs lg:text-sm">Ask admin to create tests with subjects.</p>
             </div>
           ) : (
-            <div className="space-y-4">
-              {/* Exam selector */}
-              {examOptions.length > 1 && (
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground mb-2">Filter by exam</p>
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      onClick={() => {
-                        setSelectedExam("all")
-                        setSelectedSubject(null)
-                        setSelectedTopics([])
-                      }}
-                      className={`px-3 py-1.5 rounded-full border text-xs lg:text-sm transition-colors ${selectedExam === "all"
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border hover:border-primary bg-card text-foreground"
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
+              {subjects.map((subject) => {
+                const IconComponent = subjectIcons[subject.name] || BookOpen
+                return (
+                  <button
+                    key={subject.id}
+                    onClick={() => {
+                      setSelectedSubject(subject.id)
+                      setSelectedTopics([])
+                    }}
+                    className={`p-4 lg:p-6 rounded-xl border-2 transition-all duration-300 text-left ${selectedSubject === subject.id
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:border-primary/50 bg-card"
+                      }`}
+                  >
+                    <IconComponent
+                      className={`w-6 h-6 lg:w-8 lg:h-8 mb-2 lg:mb-3 ${selectedSubject === subject.id ? "text-primary" : "text-muted-foreground"
                         }`}
-                    >
-                      All Exams
-                    </button>
-                    {examOptions.map((exam) => (
-                      <button
-                        key={exam.id}
-                        onClick={() => {
-                          setSelectedExam(exam.name)
-                          setSelectedSubject(null)
-                          setSelectedTopics([])
-                        }}
-                        className={`px-3 py-1.5 rounded-full border text-xs lg:text-sm transition-colors ${selectedExam === exam.name
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border hover:border-primary bg-card text-foreground"
-                          }`}
-                      >
-                        {exam.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
-                {filteredSubjects.map((subject) => {
-                  const IconComponent = subjectIcons[subject.name] || BookOpen
-                  return (
-                    <button
-                      key={subject.id}
-                      onClick={() => {
-                        setSelectedSubject(subject.id)
-                        setSelectedTopics([])
-                      }}
-                      className={`relative p-4 lg:p-6 rounded-xl border-2 transition-all duration-300 text-left ${selectedSubject === subject.id
-                        ? "border-primary bg-primary/10"
-                        : "border-border hover:border-primary/50 bg-card"
-                        }`}
-                    >
-                      <span className="absolute top-2 right-2 max-w-[60%] truncate rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-secondary-foreground">
-                        {subject.examName}
-                      </span>
-                      <IconComponent
-                        className={`w-6 h-6 lg:w-8 lg:h-8 mb-2 lg:mb-3 ${selectedSubject === subject.id ? "text-primary" : "text-muted-foreground"
-                          }`}
-                      />
-                      <p className="font-medium text-foreground text-sm lg:text-base">{subject.name}</p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {subject.questionCount} questions
-                        {subject.topics?.length > 0 && ` • ${subject.topics.length} topics`}
-                      </p>
-                    </button>
-                  )
-                })}
-              </div>
+                    />
+                    <p className="font-medium text-foreground text-sm lg:text-base">{subject.name}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {subject.questionCount} questions
+                      {subject.topics?.length > 0 && ` • ${subject.topics.length} topics`}
+                    </p>
+                  </button>
+                )
+              })}
             </div>
           )}
         </ChartCard>
@@ -230,16 +174,14 @@ export default function StudentPracticePage() {
           {selectedSubjectData.topics?.length === 0 ? (
             <div className="text-center py-4">
               <p className="text-muted-foreground text-sm lg:text-base">
-                No specific topics available. Questions will be drawn from all {selectedSubjectData.name} (
-                {selectedSubjectData.examName}) tests.
+                No specific topics available. Questions will be drawn from all {selectedSubjectData.name} tests.
               </p>
               <Button
                 variant="outline"
                 className="mt-3 bg-transparent"
                 onClick={() => {
                   const practiceSettings = {
-                    subjectId: selectedSubjectData.subjectId,
-                    examId: selectedSubjectData.examId,
+                    subjectId: selectedSubject,
                     topicIds: [],
                     questionCount: questionCount[0],
                     difficulty,
@@ -249,7 +191,7 @@ export default function StudentPracticePage() {
                   router.push("/student/practice/start")
                 }}
               >
-                Practice All {selectedSubjectData.name} ({selectedSubjectData.examName}) Questions
+                Practice All {selectedSubjectData.name} Questions
               </Button>
             </div>
           ) : (
