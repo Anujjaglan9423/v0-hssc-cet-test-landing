@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { getStudentAnalytics } from "@/lib/actions/student"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -16,12 +16,19 @@ import {
   Bar,
   LabelList,
 } from "recharts"
-import { TrendingUp, Target, BookOpen, Zap, Loader2 } from "lucide-react"
+import { TrendingUp, Target, BookOpen, Zap, Loader2, ArrowRight, Trophy } from "lucide-react"
 
 export default function StudentAnalyticsPage() {
   const [analytics, setAnalytics] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<any | null>(null)
+  const [showAllTopics, setShowAllTopics] = useState(false)
+  const [rankPage, setRankPage] = useState(1)
+  const topicList = useMemo(() => analytics?.topicStrengths || [], [analytics])
+  const rankings = analytics?.testRankings || []
+  const rankPageSize = 10
+  const rankPageCount = Math.max(1, Math.ceil(rankings.length / rankPageSize))
+  const visibleRankings = rankings.slice((rankPage - 1) * rankPageSize, rankPage * rankPageSize)
 
   useEffect(() => {
     const loadData = async () => {
@@ -110,6 +117,14 @@ export default function StudentAnalyticsPage() {
             </div>
           </div>
 
+          {/* Accuracy is attempted-correct ratio and intentionally separate from score. */}
+          <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
+            <div className="flex items-center gap-4">
+              <div className="size-12 rounded-lg bg-emerald-500/10 flex items-center justify-center"><Target className="size-5 text-emerald-500" /></div>
+              <div><h3 className="text-sm font-medium text-muted-foreground">Accuracy</h3><p className="text-2xl font-semibold text-foreground">{analytics.accuracyRate || 0}%</p><p className="text-sm text-muted-foreground">{analytics.accuracyDisplay || "0/0"} attempted correct</p></div>
+            </div>
+          </div>
+
           {/* CARD 2 */}
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
             <div className="flex items-center gap-4">
@@ -154,6 +169,26 @@ export default function StudentAnalyticsPage() {
 
         </div>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2"><Trophy className="size-5 text-amber-500" />All-India rank & percentile</CardTitle>
+          <CardDescription>Your position among attempts for each test</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto rounded-lg border border-border">
+            <table className="w-full min-w-[640px] text-sm">
+              <thead className="bg-muted/50 text-left text-muted-foreground">
+                <tr><th className="px-4 py-3 font-medium">Test</th><th className="px-4 py-3 font-medium">Score</th><th className="px-4 py-3 font-medium">All-India Rank</th><th className="px-4 py-3 font-medium">Percentile</th><th className="px-4 py-3 font-medium">Participants</th></tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {visibleRankings.map((item: any, index: number) => <tr key={`${item.test}-${index}`} className="hover:bg-muted/30"><td className="max-w-[280px] truncate px-4 py-3 font-medium text-foreground">{item.test}</td><td className="px-4 py-3 text-muted-foreground">{item.score}%</td><td className="px-4 py-3 font-semibold text-foreground">#{item.rank}</td><td className="px-4 py-3 text-muted-foreground">{item.percentile}th</td><td className="px-4 py-3 text-muted-foreground">{item.total}</td></tr>)}
+              </tbody>
+            </table>
+          </div>
+          {rankings.length > rankPageSize && <div className="mt-4 flex items-center justify-between gap-3 text-sm"><span className="text-muted-foreground">Showing {(rankPage - 1) * rankPageSize + 1}-{Math.min(rankPage * rankPageSize, rankings.length)} of {rankings.length}</span><div className="flex items-center gap-2"><button type="button" disabled={rankPage === 1} onClick={() => setRankPage((page) => Math.max(1, page - 1))} className="rounded-md border border-border px-3 py-1.5 disabled:cursor-not-allowed disabled:opacity-50">Previous</button><span className="text-muted-foreground">Page {rankPage} of {rankPageCount}</span><button type="button" disabled={rankPage === rankPageCount} onClick={() => setRankPage((page) => Math.min(rankPageCount, page + 1))} className="rounded-md border border-border px-3 py-1.5 disabled:cursor-not-allowed disabled:opacity-50">Next</button></div></div>}
+        </CardContent>
+      </Card>
 
       {/* Performance Trend Chart */}
       {analytics.performanceTrend && analytics.performanceTrend.length > 0 && (
@@ -310,7 +345,8 @@ export default function StudentAnalyticsPage() {
             </CardHeader>
 
             <CardContent className="space-y-5">
-              {analytics.topicStrengths.map((topic: any) => {
+              <div className="max-h-[360px] space-y-5 overflow-y-auto pr-2">
+              {topicList.slice(0, showAllTopics ? topicList.length : 6).map((topic: any) => {
                 const strength = Math.min(100, topic.strength)
                 const isStrong = strength >= 70
 
@@ -345,6 +381,8 @@ export default function StudentAnalyticsPage() {
                   </div>
                 )
               })}
+              </div>
+              {topicList.length > 6 && <button type="button" onClick={() => setShowAllTopics((value) => !value)} className="text-sm font-medium text-primary hover:underline">{showAllTopics ? "Show fewer" : `View all ${topicList.length} topics`}</button>}
             </CardContent>
           </Card>
         )}
@@ -379,6 +417,7 @@ export default function StudentAnalyticsPage() {
                         <p className="text-xs text-amber-700 dark:text-amber-300 mt-1">
                           Current: {Math.min(100, topic.strength)}% — Needs practice
                         </p>
+                        {topic.testId ? <a href={`/student/test/${topic.testId}`} className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-amber-700 hover:underline dark:text-amber-300">Practice this test <ArrowRight className="size-3" /></a> : <a href={`/student/tests?topic=${encodeURIComponent(topic.topic)}`} className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-amber-700 hover:underline dark:text-amber-300">Find {topic.topic} tests <ArrowRight className="size-3" /></a>}
                       </div>
                     ))}
                 </div>
