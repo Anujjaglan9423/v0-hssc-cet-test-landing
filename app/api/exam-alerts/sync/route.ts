@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server"
+import { getCurrentUser } from "@/lib/auth"
 import { scrapeGovernmentNotices } from "@/lib/exam-alert-scraper"
 
 export const maxDuration = 60
 
-function isAuthorized(request: Request) {
+async function isAuthorized(request: Request) {
   const secret = process.env.CRON_SECRET
-  // Vercel Cron does not require a secret unless one is configured for the project.
-  if (!secret) return true
-  return request.headers.get("authorization") === `Bearer ${secret}`
+  if (secret && request.headers.get("authorization") === `Bearer ${secret}`) return true
+  if (secret) return (await getCurrentUser())?.role === "admin"
+  return (await getCurrentUser())?.role === "admin"
 }
 
 export async function GET(request: Request) {
-  if (!isAuthorized(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  if (!(await isAuthorized(request))) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   try {
     const result = await scrapeGovernmentNotices()
     return NextResponse.json(result)
