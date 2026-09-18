@@ -1014,23 +1014,22 @@ export async function getStudentAnalytics() {
 
   allResults.forEach((result: any) => {
     const topicName = result.test?.topic?.name || result.test?.subject?.name || "General"
-    topicScores[topicName] ??= { correct: 0, attempted: 0, wrong: 0, testId: result.test_id }
-    if (topicScores[topicName].attempted === 0) {
-      topicScores[topicName].correct += Number(result.correct_answers ?? 0)
-      topicScores[topicName].attempted += resultAttempted(result)
-      topicScores[topicName].wrong += Number(result.wrong_answers ?? 0)
-    }
+  topicScores[topicName] ??= { correct: 0, attempted: 0, wrong: 0, testId: result.test_id }
+  topicScores[topicName].correct += Number(result.correct_answers ?? 0)
+  topicScores[topicName].attempted += resultAttempted(result)
+  topicScores[topicName].wrong += Number(result.wrong_answers ?? 0)
   })
 
   const topicStrengths = Object.entries(topicScores)
-    .map(([topic, data]) => ({
-      topic,
-      strength: data.attempted ? Math.round((data.correct / data.attempted) * 100) : 0,
-      attempted: data.attempted,
-      wrong: data.wrong,
-      testId: data.testId,
-    }))
-    .sort((a, b) => a.strength - b.strength || b.wrong - a.wrong)
+  .filter(([, data]) => data.attempted > 0)
+  .map(([topic, data]) => ({
+  topic,
+  strength: Math.round((data.correct / data.attempted) * 100),
+  attempted: data.attempted,
+  wrong: data.wrong,
+  testId: data.testId,
+  }))
+  .sort((a, b) => b.strength - a.strength || b.attempted - a.attempted || a.topic.localeCompare(b.topic))
 
   const mistakeReview = answerRows
     .filter((answer: any) => answer.selected_answer && !answer.is_correct)

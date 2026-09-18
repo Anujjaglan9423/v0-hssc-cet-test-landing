@@ -25,9 +25,9 @@ export default function StudentAnalyticsPage() {
     getStudentAnalytics().then(setAnalytics).catch((err) => setError(err instanceof Error ? err.message : "Failed to load analytics")).finally(() => setLoading(false))
   }, [])
 
-  const topics = analytics?.topicStrengths || []
-  const weakTopics = useMemo(() => [...topics].sort((a, b) => a.strength - b.strength).slice(0, 3), [topics])
-  const strongTopics = useMemo(() => [...topics].sort((a, b) => b.strength - a.strength).slice(0, 3), [topics])
+  const topics = useMemo(() => (analytics?.topicStrengths || []).filter((topic: any) => Number(topic.attempted) > 0), [analytics?.topicStrengths])
+  const weakTopics = useMemo(() => [...topics].sort((a, b) => a.strength - b.strength || b.wrong - a.wrong).slice(0, 3), [topics])
+  const strongTopics = useMemo(() => [...topics].sort((a, b) => b.strength - a.strength || b.attempted - a.attempted).slice(0, 3), [topics])
   const rankings = analytics?.testRankings || []
   const visibleRankings = rankings.slice((rankPage - 1) * rankPageSize, rankPage * rankPageSize)
   const pageCount = Math.max(1, Math.ceil(rankings.length / rankPageSize))
