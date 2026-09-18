@@ -824,8 +824,16 @@ export async function getStudentAnalytics() {
     .order("created_at", { ascending: true })
     .limit(500)
 
-  const allResults = results || []
+  const allResults = (results || []).map((result: any) => ({
+    ...result,
+    test: Array.isArray(result.test) ? result.test[0] : result.test,
+  }))
   const totalAttempts = allResults.length
+  const resultAttempted = (result: any) => Number(result.correct_answers ?? 0) + Number(result.wrong_answers ?? 0)
+  const resultAccuracy = (result: any) => {
+    const attempted = resultAttempted(result)
+    return attempted > 0 ? Math.round((Number(result.correct_answers ?? 0) / attempted) * 100) : 0
+  }
   const attemptIds = allResults.map((result) => result.attempt_id).filter(Boolean)
   const testIds = [...new Set(allResults.map((result) => result.test_id).filter(Boolean))]
   const [{ data: answers }, { data: peerResults }] = await Promise.all([
@@ -837,8 +845,13 @@ export async function getStudentAnalytics() {
       : Promise.resolve({ data: [] }),
   ])
   const answerStats = { attempted: 0, correct: 0, wrong: 0, skipped: 0 }
-  const answerRows = answers || []
-  ;(answers || []).forEach((answer) => {
+  // Supabase returns nested relationship records as arrays for some schemas.
+  // Normalize them once so analytics never silently falls back to zeros or General.
+  const answerRows = (answers || []).map((answer: any) => ({
+    ...answer,
+    question: Array.isArray(answer.question) ? answer.question[0] : answer.question,
+  }))
+  ;(answerRows || []).forEach((answer) => {
     if (answer.selected_answer) {
       answerStats.attempted++
       if (answer.is_correct) answerStats.correct++
@@ -894,14 +907,15 @@ export async function getStudentAnalytics() {
 
   const totalCorrect = totalCorrectFromAnswers || allResults.reduce((sum, r) => sum + Number(r.correct_answers ?? 0), 0)
   const totalQuestions = allResults.reduce((sum, r) => sum + Number(r.total_questions ?? 0), 0)
-  const accuracyDenominator = totalAttemptedFromAnswers || allResults.reduce((sum, r) => sum + Number(r.correct_answers ?? 0) + Number(r.wrong_answers ?? 0), 0)
+  const resultAttemptedTotal = allResults.reduce((sum, r) => sum + resultAttempted(r), 0)
+  const accuracyDenominator = totalAttemptedFromAnswers || resultAttemptedTotal
   const accuracyRate = accuracyDenominator > 0 ? Math.round((totalCorrect / accuracyDenominator) * 100) : 0
   const accuracyDisplay = `${totalCorrect}/${accuracyDenominator}`
 
   const totalTime = allResults.reduce((sum, r) => sum + (r.time_taken || 0), 0)
-  const totalWrong = totalWrongFromAnswers || Math.max(0, totalQuestions - totalCorrect)
-
-  const avgTimePerQuestion = totalQuestions > 0 ? Math.round(totalTime / totalQuestions) : 0
+  const resultWrongTotal = allResults.reduce((sum, r) => sum + Number(r.wrong_answers ?? 0), 0)
+  const totalWrong = totalWrongFromAnswers || resultWrongTotal
+  const avgTimePerQuestion = accuracyDenominator > 0 ? Math.round(totalTime / accuracyDenominator) : 0
 
   // Calculate streak
   let currentStreak = 0
@@ -947,7 +961,7 @@ export async function getStudentAnalytics() {
     return {
       week: `Test ${i + 1}`,
       score: resultPercentage(r),
-      accuracy: attempted > 0 ? Math.round((correct / attempted) * 100) : 0,
+      accuracy: attempted > 0 ? Math.round((correct / attempted) * 100) : resultAccuracy(r),
       time: Math.round((r.time_taken || 0) / Math.max(1, attempted)),
       date: r.created_at,
       testId: r.test_id,
@@ -968,6 +982,17 @@ export async function getStudentAnalytics() {
     }
   })
 
+  // When answer rows are unavailable because of RLS, retain useful subject data from results.
+  allResults.forEach((result: any) => {
+    const subjectName = result.test?.subject?.name || "General"
+    subjectScores[subjectName] ??= { correct: 0, attempted: 0, time: 0 }
+    if (subjectScores[subjectName].attempted === 0) {
+      subjectScores[subjectName].correct += Number(result.correct_answers ?? 0)
+      subjectScores[subjectName].attempted += resultAttempted(result)
+      subjectScores[subjectName].time += Number(result.time_taken ?? 0)
+    }
+  })
+
   const subjectPerformance = Object.entries(subjectScores).map(([subject, data]) => ({
     subject,
     accuracy: data.attempted ? Math.round((data.correct / data.attempted) * 100) : 0,
@@ -984,6 +1009,16 @@ export async function getStudentAnalytics() {
       topicScores[topicName].attempted++
       if (answer.is_correct) topicScores[topicName].correct++
       else topicScores[topicName].wrong++
+    }
+  })
+
+  allResults.forEach((result: any) => {
+    const topicName = result.test?.topic?.name || result.test?.subject?.name || "General"
+    topicScores[topicName] ??= { correct: 0, attempted: 0, wrong: 0, testId: result.test_id }
+    if (topicScores[topicName].attempted === 0) {
+      topicScores[topicName].correct += Number(result.correct_answers ?? 0)
+      topicScores[topicName].attempted += resultAttempted(result)
+      topicScores[topicName].wrong += Number(result.wrong_answers ?? 0)
     }
   })
 
@@ -1010,14 +1045,15 @@ export async function getStudentAnalytics() {
       explanation: answer.question?.explanation || "Review the solution to understand this mistake.",
     }))
 
-  const attemptRate = totalQuestions > 0 ? Math.round((totalAttemptedFromAnswers / totalQuestions) * 100) : 0
+  const totalAttempted = totalAttemptedFromAnswers || resultAttemptedTotal
+  const attemptRate = totalQuestions > 0 ? Math.round((totalAttempted / totalQuestions) * 100) : 0
   const testRankingsWithDetails = testRankings.map((item) => ({
     ...item,
     accuracy: (() => {
       const related = answerRows.filter((answer: any) => answer.attempt_id === item.attemptId)
       const attempted = related.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "").length
       const correct = related.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "" && answer.is_correct).length
-      return attempted ? Math.round((correct / attempted) * 100) : 0
+      return attempted ? Math.round((correct / attempted) * 100) : resultAccuracy(allResults.find((result: any) => result.attempt_id === item.attemptId) || {})
     })(),
   }))
   
@@ -1038,7 +1074,7 @@ export async function getStudentAnalytics() {
   mistakeReview,
   totalCorrect,
   totalWrong,
-    totalAttempted: totalAttemptedFromAnswers,
+    totalAttempted,
   totalSkipped: totalSkippedFromAnswers,
   totalWrongFromAnswers: totalWrongFromAnswers,
   answerBreakdown: [
