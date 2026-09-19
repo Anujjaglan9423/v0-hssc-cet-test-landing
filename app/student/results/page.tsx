@@ -248,10 +248,12 @@ export default function StudentResultsPage() {
                           <span className="block lg:hidden xl:block">Quick View</span>
                         </Button>
 
-                        <Button size="sm" variant="secondary" className="cursor-pointer" title="View leaderboard" onClick={() => setSelectedLeaderboard(result)}>
-                          <BarChart3 className="w-4 h-4 mr-1" />
-                          <span className="hidden xl:block">Leaderboard</span>
-                        </Button>
+                        {(result.test?.test_type === "subject" || result.test?.test_type === "topic") && (
+                          <Button size="sm" variant="secondary" className="cursor-pointer" title="View leaderboard" onClick={() => setSelectedLeaderboard(result)}>
+                            <BarChart3 className="w-4 h-4 mr-1" />
+                            <span className="hidden xl:block">Leaderboard</span>
+                          </Button>
+                        )}
                         <Button size="sm" asChild className="cursor-pointer">
                           <Link href={`/student/results/${result.attempt_id}`}>
                             <FileUser className="w-4 h-4 mr-1 lg:block hidden xl:hidden" />
