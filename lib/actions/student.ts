@@ -490,10 +490,12 @@ export async function getPracticeLeaderboard(examId?: string) {
   const weekStartDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - daysSinceMonday))
   const weekStart = weekStartDate.toISOString()
 
+  // Practice sessions save their score in test_results against the source test.
+  // The tests table only supports full/subject/topic types, so filtering for a
+  // non-existent "practice" type makes every leaderboard query return no rows.
   let leaderboardQuery = supabase
     .from("test_results")
-    .select("user_id, correct_answers, created_at, user:users(full_name), test:tests!inner(test_type, exam_id)")
-    .eq("test.test_type", "practice")
+    .select("user_id, correct_answers, created_at, user:users(full_name), test:tests!inner(exam_id)")
     .gte("created_at", weekStart)
 
   if (examId && examId !== "all") {
