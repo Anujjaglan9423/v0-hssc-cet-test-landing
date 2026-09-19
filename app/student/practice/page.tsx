@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Zap, BookOpen, Clock, Play, Shuffle, Target, Brain, Loader2 } from "lucide-react"
-import { getSubjectsAndTopics } from "@/lib/actions/student"
+import { Zap, BookOpen, Clock, Play, Shuffle, Target, Brain, Loader2, Trophy } from "lucide-react"
+import { getPracticeLeaderboard, getSubjectsAndTopics } from "@/lib/actions/student"
 
 interface Topic {
   id: string
@@ -46,19 +46,23 @@ export default function StudentPracticePage() {
   const [difficulty, setDifficulty] = useState("medium")
   const [timeLimit, setTimeLimit] = useState("timed")
   const [isStarting, setIsStarting] = useState(false)
+  const [leaderboard, setLeaderboard] = useState<{ topResults: Array<{ rank: number; userId: string; name: string; correctAnswers: number }>; currentStudent: { rank: number; userId: string; correctAnswers: number } | null }>({ topResults: [], currentStudent: null })
+  const [isLeaderboardLoading, setIsLeaderboardLoading] = useState(true)
 
   useEffect(() => {
-    async function loadSubjects() {
+    async function loadPracticeData() {
       try {
-        const data = await getSubjectsAndTopics()
-        setSubjects(data)
+        const [subjectData, leaderboardData] = await Promise.all([getSubjectsAndTopics(), getPracticeLeaderboard()])
+        setSubjects(subjectData)
+        setLeaderboard(leaderboardData)
       } catch (error) {
-        console.error("Error loading subjects:", error)
+        console.error("Error loading practice data:", error)
       } finally {
         setIsLoading(false)
+        setIsLeaderboardLoading(false)
       }
     }
-    loadSubjects()
+    loadPracticeData()
   }, [])
 
   const exams = Array.from(
@@ -107,6 +111,41 @@ export default function StudentPracticePage() {
         <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Practice Zone</h1>
         <p className="text-sm lg:text-base text-muted-foreground mt-1">Customize your practice session</p>
       </div>
+
+      <ChartCard title="Weekly Practice Leaderboard" className="overflow-hidden">
+        <div className="mb-4 flex flex-col gap-3 rounded-xl bg-primary/10 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="rounded-full bg-primary/15 p-2 text-primary"><Trophy className="size-5" /></div>
+            <div>
+              <p className="font-semibold text-foreground">Top 50 this week</p>
+              <p className="text-xs text-muted-foreground">Ranked by total correct answers in all practice tests</p>
+            </div>
+          </div>
+          {leaderboard.currentStudent && (
+            <div className="rounded-lg border border-primary/20 bg-background/70 px-3 py-2 text-sm">
+              Your rank: <span className="font-bold text-primary">#{leaderboard.currentStudent.rank}</span>
+              <span className="ml-2 text-muted-foreground">({leaderboard.currentStudent.correctAnswers} correct)</span>
+            </div>
+          )}
+        </div>
+        {isLeaderboardLoading ? (
+          <div className="flex items-center justify-center py-8 text-muted-foreground"><Loader2 className="size-5 animate-spin" /></div>
+        ) : leaderboard.topResults.length === 0 ? (
+          <p className="py-6 text-center text-sm text-muted-foreground">No practice attempts recorded this week yet.</p>
+        ) : (
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {leaderboard.topResults.map((student) => (
+              <div key={student.userId} className={`flex items-center justify-between rounded-lg border px-3 py-2 ${student.userId === leaderboard.currentStudent?.userId ? "border-primary bg-primary/10" : "border-border bg-card"}`}>
+                <div className="flex min-w-0 items-center gap-3">
+                  <span className="w-7 text-center text-sm font-bold text-muted-foreground">#{student.rank}</span>
+                  <span className="truncate text-sm font-medium text-foreground">{student.name}</span>
+                </div>
+                <span className="shrink-0 text-xs font-semibold text-primary">{student.correctAnswers} correct</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </ChartCard>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
         {/* Subject Selection */}

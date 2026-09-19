@@ -479,7 +479,51 @@ export async function getPaginatedStudentResults(page: number = 1, pageSize: num
   }
 }
 
-  export async function getStudentResults() {
+export async function getPracticeLeaderboard() {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+  if (!user) return { topResults: [], currentStudent: null, weekStart: null }
+
+  const now = new Date()
+  const day = now.getUTCDay()
+  const daysSinceMonday = day === 0 ? 6 : day - 1
+  const weekStartDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - daysSinceMonday))
+  const weekStart = weekStartDate.toISOString()
+
+  const { data, error } = await supabase
+    .from("test_results")
+    .select("user_id, correct_answers, created_at, user:users(full_name), test:tests!inner(test_type)")
+    .eq("test.test_type", "practice")
+    .gte("created_at", weekStart)
+
+  if (error) {
+    console.error("Error fetching practice leaderboard:", error)
+    return { topResults: [], currentStudent: null, weekStart }
+  }
+
+  const totals = new Map<string, { userId: string; name: string; correctAnswers: number }>()
+  for (const result of data || []) {
+    const profile = Array.isArray(result.user) ? result.user[0] : result.user
+    const existing = totals.get(result.user_id)
+    totals.set(result.user_id, {
+      userId: result.user_id,
+      name: profile?.full_name || "Student",
+      correctAnswers: (existing?.correctAnswers || 0) + (result.correct_answers || 0),
+    })
+  }
+
+  const rankedResults = Array.from(totals.values())
+    .sort((a, b) => b.correctAnswers - a.correctAnswers || a.name.localeCompare(b.name))
+    .map((result, index) => ({ ...result, rank: index + 1 }))
+
+  return {
+    topResults: rankedResults.slice(0, 50),
+    currentStudent: rankedResults.find((result) => result.userId === user.id) || null,
+    weekStart,
+  }
+}
+
+export async function getStudentResults() {
   const supabase = await createClient()
 
   const user = await getCurrentUser()
