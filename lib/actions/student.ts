@@ -1281,6 +1281,7 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
     .from("questions")
     .select(`
       id,
+      test_id,
       question_text,
       option_a,
       option_b,
