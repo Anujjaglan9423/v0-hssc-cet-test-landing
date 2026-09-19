@@ -1,14 +1,6 @@
 "use client"
 
-import type { Metadata } from "next"
 import { useEffect, useState } from "react"
-
-export const metadata: Metadata = {
-  title: "Free Haryana CET Study Materials and Exam Notes",
-  description:
-    "Use structured study notes, practice resources, and revision guidance for Haryana CET, HSSC, SSC, and Railway exam preparation. Check official notices for final eligibility and dates.",
-  alternates: { canonical: "https://cettest.site/study-materials" },
-}
 
 const studyGuidance = [
   {
@@ -48,6 +40,7 @@ export default function StudyMaterialsPage() {
       setMaterials(data)
     } catch (error) {
       console.error("Error loading materials:", error)
+      setMaterials([])
     } finally {
       setLoading(false)
     }

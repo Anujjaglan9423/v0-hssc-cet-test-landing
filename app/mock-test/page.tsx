@@ -22,7 +22,7 @@ const categoryColors: Record<string, string> = {
   ssc: "from-green-500 to-green-700",
 }
 
-const defaultCategories = [
+  const defaultCategories = [
   {
     id: "haryana",
     name: "Haryana Exams",
@@ -34,6 +34,18 @@ const defaultCategories = [
     name: "SSC Exams",
     slug: "ssc",
     description: "CGL, CHSL, MTS, and more",
+  },
+  {
+    id: "railway",
+    name: "Railway Exams",
+    slug: "railway",
+    description: "NTPC, Group D, ALP, and more",
+  },
+  {
+    id: "uttarakhand",
+    name: "Uttarakhand Exams",
+    slug: "uttarakhand",
+    description: "UKPSC, UKSSSC, and related exams",
   },
 ]
 
@@ -291,8 +303,10 @@ export default function MockTestPage() {
         }
         console.error("[v0] Error loading categories:", err)
         if (isMounted) {
-          setError("Failed to load categories")
+          // Keep the public category browser usable when the remote catalog is unavailable.
+          // The cards remain honest because exam sections are still loaded only from published data.
           setCategories(defaultCategories)
+          setError(null)
         }
       } finally {
         if (isMounted) {
