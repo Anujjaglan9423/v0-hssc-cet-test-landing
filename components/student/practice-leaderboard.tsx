@@ -8,7 +8,7 @@ import { getPracticeTests, getPracticeLeaderboards } from "@/lib/actions/student
 interface Test { id: string; title: string; exam?: { id: string; name: string } | null }
 interface Entry { name: string; score: number; totalQuestions: number; percentage: number }
 
-export function PracticeLeaderboard({ requestedTestId }: { requestedTestId?: string | null }) {
+export function PracticeLeaderboard({ requestedTestId, compact = false }: { requestedTestId?: string | null; compact?: boolean }) {
   const [tests, setTests] = useState<Test[]>([])
   const [leaderboards, setLeaderboards] = useState<Record<string, Entry[]>>({})
   const [isLoading, setIsLoading] = useState(true)
@@ -32,19 +32,19 @@ export function PracticeLeaderboard({ requestedTestId }: { requestedTestId?: str
   if (isLoading) return <div className="flex h-48 items-center justify-center"><Loader2 className="h-7 w-7 animate-spin text-primary" /></div>
 
   return (
-    <div className="space-y-6">
-      <div>
+    <div className={compact ? "space-y-4" : "space-y-6"}>
+      {!compact && <div>
         <h2 className="text-2xl font-bold text-foreground">Practice Leaderboards</h2>
         <p className="mt-1 text-sm text-muted-foreground">See the top performers for every available test.</p>
-      </div>
+      </div>}
       {tests.length === 0 ? (
         <ChartCard title="No tests available"><p className="py-8 text-center text-sm text-muted-foreground">Leaderboards will appear when practice tests have questions.</p></ChartCard>
       ) : (
         <>
-        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filter leaderboards by exam">
+        {!compact && <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filter leaderboards by exam">
           <button type="button" role="tab" aria-selected={selectedExam === "all"} onClick={() => setSelectedExam("all")} className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${selectedExam === "all" ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}>All exams</button>
           {exams.map(([examId, examName]) => <button key={examId} type="button" role="tab" aria-selected={selectedExam === examId} onClick={() => setSelectedExam(examId)} className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${selectedExam === examId ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}>{examName}</button>)}
-        </div>
+        </div>}
         <div className="grid gap-4 lg:grid-cols-2">
           {visibleTests.map((test) => {
             const entries = leaderboards[test.id] || []

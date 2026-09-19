@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
 import Link from "next/link"
 import { StudentResultsPagination } from "@/components/student/results-pagination"
+import { PracticeLeaderboard } from "@/components/student/practice-leaderboard"
 
 const COLORS = ["#10b981", "#ef4444", "#6b7280"]
 const PAGE_SIZE = 10
@@ -38,6 +39,7 @@ export default function StudentResultsPage() {
   const [allResults, setAllResults] = useState<TestResultItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectedResult, setSelectedResult] = useState<TestResultItem | null>(null)
+  const [selectedLeaderboard, setSelectedLeaderboard] = useState<TestResultItem | null>(null)
   const [search, setSearch] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
@@ -246,11 +248,9 @@ export default function StudentResultsPage() {
                           <span className="block lg:hidden xl:block">Quick View</span>
                         </Button>
 
-                        <Button size="sm" variant="secondary" asChild className="cursor-pointer" title="View leaderboard">
-                          <Link href={`/student/practice?tab=leaderboard&testId=${result.test_id}`}>
-                            <BarChart3 className="w-4 h-4 mr-1" />
-                            <span className="hidden xl:block">Leaderboard</span>
-                          </Link>
+                        <Button size="sm" variant="secondary" className="cursor-pointer" title="View leaderboard" onClick={() => setSelectedLeaderboard(result)}>
+                          <BarChart3 className="w-4 h-4 mr-1" />
+                          <span className="hidden xl:block">Leaderboard</span>
                         </Button>
                         <Button size="sm" asChild className="cursor-pointer">
                           <Link href={`/student/results/${result.attempt_id}`}>
@@ -444,6 +444,15 @@ export default function StudentResultsPage() {
             </>
           )}
 
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!selectedLeaderboard} onOpenChange={(open) => !open && setSelectedLeaderboard(null)}>
+        <DialogContent className="max-h-[85vh] max-w-3xl overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{selectedLeaderboard?.test?.title} Leaderboard</DialogTitle>
+          </DialogHeader>
+          {selectedLeaderboard && <PracticeLeaderboard requestedTestId={selectedLeaderboard.test_id} compact />}
         </DialogContent>
       </Dialog>
     </div>
