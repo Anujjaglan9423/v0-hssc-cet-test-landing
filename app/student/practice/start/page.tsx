@@ -103,11 +103,13 @@ export default function PracticeStartPage() {
 
   useEffect(() => {
     if (!showResults || practiceResultSaved || questions.length === 0) return
-    setPracticeResultSaved(true)
     savePracticeResult(
       questions.map(({ id, test_id, correct_answer }) => ({ id, test_id, correct_answer })),
       answers,
-    ).catch((error) => console.error("Error saving practice result:", error))
+    ).then((result) => {
+      if (result.success) setPracticeResultSaved(true)
+      else console.error("Error saving practice result:", result.error)
+    }).catch((error) => console.error("Error saving practice result:", error))
   }, [showResults, practiceResultSaved, questions, answers])
 
   // Timer
@@ -425,6 +427,29 @@ export default function PracticeStartPage() {
           <div className="mt-6 p-4 bg-muted/50 rounded-lg">
             <p className="text-sm font-medium text-foreground mb-1">Explanation:</p>
             <p className="text-sm text-muted-foreground">{currentQuestion.explanation}</p>
+          </div>
+        )}
+
+        {showAnswer && (
+          <div className="mt-6 flex items-center justify-between gap-3 border-t pt-4">
+            <Button
+              variant="outline"
+              onClick={() => goToQuestion(currentIndex - 1)}
+              disabled={currentIndex === 0}
+            >
+              <ChevronLeft className="w-4 h-4 mr-2" />
+              Previous
+            </Button>
+            <span className="text-sm text-muted-foreground">
+              {currentIndex + 1} of {questions.length}
+            </span>
+            <Button
+              onClick={() => goToQuestion(currentIndex + 1)}
+              disabled={currentIndex === questions.length - 1}
+            >
+              Next
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </Button>
           </div>
         )}
       </Card>

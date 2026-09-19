@@ -1355,7 +1355,7 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
 
     const { data: attempt, error: attemptError } = await supabase
       .from("test_attempts")
-      .insert({ test_id: testId, user_id: user.id, status: "practice_completed", completed_at: new Date().toISOString() })
+      .insert({ test_id: testId, user_id: user.id, status: "completed", completed_at: new Date().toISOString() })
       .select("id")
       .single()
     if (attemptError) return { success: false, error: attemptError.message }
