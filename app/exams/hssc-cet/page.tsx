@@ -22,7 +22,7 @@ const SUPPORT_PHONE_DISPLAY = "7291849546"
 // ============================================
 export const metadata: Metadata = {
   title: "HSSC CET Mock Test 2026 | Free Haryana CET Group C & D Practice Sets | NTA Pattern & PYQs",
-  description: "Crack HSSC CET 2026 with India's #1 free mock test platform. Attempt unlimited tests for Haryana CET Group C & D with NTA pattern, Haryana GK, previous year papers (PYQs), detailed solutions, and all-India rank. Start your 100% free preparation today!",
+  description: "Prepare for HSSC CET with practice tests, Haryana GK revision, previous-paper style questions, explanations, and performance review. Confirm current dates, eligibility, and pattern in the latest official notice.",
 
   keywords: [
     // ===== PRIMARY HSSC CET KEYWORDS =====

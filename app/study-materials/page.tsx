@@ -1,6 +1,29 @@
 "use client"
 
+import type { Metadata } from "next"
 import { useEffect, useState } from "react"
+
+export const metadata: Metadata = {
+  title: "Free Haryana CET Study Materials and Exam Notes",
+  description:
+    "Use structured study notes, practice resources, and revision guidance for Haryana CET, HSSC, SSC, and Railway exam preparation. Check official notices for final eligibility and dates.",
+  alternates: { canonical: "https://cettest.site/study-materials" },
+}
+
+const studyGuidance = [
+  {
+    title: "How to use these resources",
+    text: "Start with the syllabus for your target exam, choose one topic at a time, and finish a short practice set after reading. Record incorrect answers and revisit the underlying concept instead of memorising an answer key.",
+  },
+  {
+    title: "A practical weekly revision routine",
+    text: "Reserve five days for topic study and question practice, one day for a timed mixed test, and one day for error review. Keep a dated notebook of formulas, Haryana facts, vocabulary, and questions that you repeatedly miss.",
+  },
+  {
+    title: "Use official information for decisions",
+    text: "Study notes are for preparation. Exam dates, vacancies, eligibility, syllabus changes, fees, and application instructions can change, so confirm them on the relevant HSSC, NTA, SSC, RRB, or UKSSSC website before applying.",
+  },
+]
 import { getActiveStudyMaterials, StudyMaterial } from "@/lib/actions/study-materials"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -69,6 +92,22 @@ export default function StudyMaterialsPage() {
           </div>
 
           <AdPlacement className="mb-8" />
+
+          <section className="mb-12 grid gap-6 md:grid-cols-3" aria-label="Study guidance">
+            {studyGuidance.map((item) => (
+              <article key={item.title} className="rounded-xl border bg-card p-6 shadow-sm">
+                <h2 className="mb-3 text-lg font-semibold text-foreground">{item.title}</h2>
+                <p className="text-sm leading-6 text-muted-foreground">{item.text}</p>
+              </article>
+            ))}
+          </section>
+
+          <section className="mb-12 rounded-xl border bg-muted/30 p-6">
+            <h2 className="mb-3 text-2xl font-semibold text-foreground">What you will find here</h2>
+            <p className="max-w-3xl leading-7 text-muted-foreground">
+              This library is intended to complement—not replace—the official notification and syllabus for your examination. Materials may include topic notes, revision PDFs, diagrams, and explanatory videos. Each item should state its topic and purpose clearly so you can choose the right resource for your current stage of preparation.
+            </p>
+          </section>
 
           {/* Filter Buttons */}
           <div className="flex flex-wrap gap-2 mb-8">

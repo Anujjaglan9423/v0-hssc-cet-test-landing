@@ -170,7 +170,7 @@ export default function RootLayout({
     name: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/icon-512.png`,
-    description: "India's largest free online mock test platform for all government job competitive exams including SSC, Railway, Banking, Teaching, Defence, Haryana CET, UKSSSC, and state-level exams.",
+    description: "CET TEST is an independent educational platform offering practice tests, revision resources, and study guidance for Haryana CET, HSSC, SSC, Railway, UKSSSC, and related competitive exams.",
 
     // Contact Information
     contactPoint: {
