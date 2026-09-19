@@ -237,24 +237,31 @@ export async function getPracticeLeaderboards(testIds: string[]) {
   const supabase = await createClient()
   const { data, error } = await supabase
     .from("test_results")
-    .select("test_id, score, total_questions, created_at, user:profiles(full_name)")
+    .select("user_id, test_id, score, total_questions, percentage, created_at")
     .in("test_id", testIds)
     .order("score", { ascending: false })
-    .limit(Math.min(testIds.length * 10, 100))
+    .order("created_at", { ascending: false })
+    .limit(1000)
 
   if (error) {
     console.error("Error fetching practice leaderboards:", error)
     return {}
   }
 
+  const userIds = Array.from(new Set((data || []).map((result: any) => result.user_id).filter(Boolean)))
+  const admin = createAdminClient()
+  const { data: users, error: usersError } = await admin.from("users").select("id, full_name").in("id", userIds)
+  if (usersError) console.error("Error fetching leaderboard user names:", usersError)
+  const names = new Map((users || []).map((user: any) => [user.id, user.full_name]))
+
   return (data || []).reduce<Record<string, any[]>>((leaderboards, result: any) => {
     const entries = leaderboards[result.test_id] || []
     if (entries.length < 10) {
       entries.push({
-        name: result.user?.full_name || "Student",
+        name: names.get(result.user_id) || "Student",
         score: result.score,
         totalQuestions: result.total_questions,
-        percentage: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0,
+        percentage: result.percentage ?? (result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0),
         createdAt: result.created_at,
       })
       leaderboards[result.test_id] = entries
