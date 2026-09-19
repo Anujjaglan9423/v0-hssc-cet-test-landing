@@ -21,19 +21,24 @@ export interface StudyMaterial {
 export async function getActiveStudyMaterials(): Promise<StudyMaterial[]> {
   const supabase = await createClient()
 
-  const { data, error } = await supabase
-    .from("study_materials")
-    .select("id, title, description, content_type, file_url, youtube_url, created_by, created_at, updated_at, is_active")
-    .eq("is_active", true)
-    .limit(100)
-    .order("created_at", { ascending: false })
+  const query = () =>
+    supabase
+      .from("study_materials")
+      .select("id, title, description, content_type, file_url, youtube_url, created_by, created_at, updated_at, is_active")
+      .eq("is_active", true)
+      .limit(100)
+      .order("created_at", { ascending: false })
 
-  if (error) {
-    console.error("Error fetching study materials:", error)
-    return []
+  let lastError: { message: string } | null = null
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const { data, error } = await query()
+    if (!error) return data || []
+    lastError = error
+    if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 500 * (attempt + 1)))
   }
 
-  return data || []
+  console.error("Error fetching study materials after retries:", lastError)
+  throw new Error(lastError?.message || "Study materials could not be loaded")
 }
 
 // Get all study materials (for admin view)

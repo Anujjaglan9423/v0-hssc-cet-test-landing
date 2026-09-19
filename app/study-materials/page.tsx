@@ -27,6 +27,7 @@ import AdPlacement from "@/components/ad-placement"
 export default function StudyMaterialsPage() {
   const [materials, setMaterials] = useState<StudyMaterial[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState<string | null>(null)
   const [filter, setFilter] = useState<"all" | "pdf" | "image" | "youtube">("all")
 
   useEffect(() => {
@@ -35,12 +36,14 @@ export default function StudyMaterialsPage() {
 
   async function loadMaterials() {
     setLoading(true)
+    setLoadError(null)
     try {
       const data = await getActiveStudyMaterials()
       setMaterials(data)
     } catch (error) {
       console.error("Error loading materials:", error)
       setMaterials([])
+      setLoadError("The study library is temporarily unavailable. Please try again.")
     } finally {
       setLoading(false)
     }
@@ -150,10 +153,17 @@ export default function StudyMaterialsPage() {
             </div>
           )}
 
+          {loadError && !loading && (
+            <div className="mb-6 rounded-lg border border-destructive/30 bg-destructive/5 p-5 text-center">
+              <p className="text-muted-foreground">{loadError}</p>
+              <Button className="mt-4" variant="outline" onClick={loadMaterials}>Try again</Button>
+            </div>
+          )}
+
           {/* Empty State */}
-          {!loading && filteredMaterials.length === 0 && (
+          {!loading && !loadError && filteredMaterials.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-muted-foreground text-lg">No study materials found.</p>
+              <p className="text-muted-foreground text-lg">No published study materials are available yet.</p>
             </div>
           )}
 
