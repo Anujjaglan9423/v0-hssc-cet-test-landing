@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { ChartCard } from "@/components/dashboard/chart-card"
-import { getPaginatedStudentResults } from "@/lib/actions/student"
+import { getPaginatedStudentResults, getStudentLeaderboard } from "@/lib/actions/student"
 import { Button } from "@/components/ui/button"
-import { Trophy, Target, Clock, TrendingUp, Eye, CheckCircle, XCircle, MinusCircle, Loader2, FileUser } from "lucide-react"
+import { Trophy, Target, Clock, TrendingUp, Eye, CheckCircle, XCircle, MinusCircle, Loader2, FileUser, Medal } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
 import Link from "next/link"
@@ -38,6 +38,9 @@ export default function StudentResultsPage() {
   const [allResults, setAllResults] = useState<TestResultItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectedResult, setSelectedResult] = useState<TestResultItem | null>(null)
+  const [leaderboardResult, setLeaderboardResult] = useState<TestResultItem | null>(null)
+  const [leaderboard, setLeaderboard] = useState<{ topResults: Array<{ rank: number; userId: string; name?: string; score: number; totalQuestions: number; percentage: number }>; currentStudent: { rank: number; userId: string; name?: string; score: number; totalQuestions: number; percentage: number } | null } | null>(null)
+  const [isLeaderboardLoading, setIsLeaderboardLoading] = useState(false)
   const [search, setSearch] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
@@ -60,6 +63,15 @@ export default function StudentResultsPage() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
     window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const handleLeaderboard = async (result: TestResultItem) => {
+    setLeaderboardResult(result)
+    setLeaderboard(null)
+    setIsLeaderboardLoading(true)
+    const data = await getStudentLeaderboard(result.test_id)
+    setLeaderboard(data)
+    setIsLeaderboardLoading(false)
   }
 
   const filteredResults = results.filter((r) =>
@@ -239,6 +251,17 @@ export default function StudentResultsPage() {
                         <Button
                           variant="outline"
                           size="sm"
+                          onClick={() => handleLeaderboard(result)}
+                          className="cursor-pointer"
+                          aria-label={`View leaderboard for ${result.test?.title || "this test"}`}
+                        >
+                          <Medal className="w-4 h-4 mr-1" />
+                          <span className="hidden xl:block">Leaderboard</span>
+                        </Button>
+
+                        <Button
+                          variant="outline"
+                          size="sm"
                           onClick={() => setSelectedResult(result)}
                           className="cursor-pointer"
                         >
@@ -279,6 +302,51 @@ export default function StudentResultsPage() {
           </div>
         )}
       </ChartCard>
+      {/* Leaderboard Modal */}
+      <Dialog open={!!leaderboardResult} onOpenChange={() => setLeaderboardResult(null)}>
+        <DialogContent className="max-w-lg max-h-[85vh] overflow-hidden rounded-2xl p-0">
+          <DialogHeader className="border-b px-6 py-5">
+            <DialogTitle className="flex items-center gap-2">
+              <Trophy className="text-amber-500" />
+              Top 10 Leaderboard
+            </DialogTitle>
+            <p className="text-sm text-muted-foreground">{leaderboardResult?.test?.title}</p>
+          </DialogHeader>
+          <div className="max-h-[60vh] overflow-y-auto px-6 py-5">
+            {isLeaderboardLoading ? (
+              <div className="flex justify-center py-10"><Loader2 className="animate-spin text-primary" /></div>
+            ) : leaderboard ? (
+              <div className="flex flex-col gap-2">
+                {leaderboard.topResults.map((entry) => (
+                  <div key={`${entry.userId}-${entry.rank}`} className={`flex items-center gap-3 rounded-xl border px-3 py-3 ${entry.userId === leaderboard.currentStudent?.userId ? "border-primary bg-primary/10" : "border-border"}`}>
+                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-bold">{entry.rank}</span>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-medium">{entry.name || "Student"}{entry.userId === leaderboard.currentStudent?.userId ? " (You)" : ""}</p>
+                      <p className="text-xs text-muted-foreground">{entry.percentage}% score</p>
+                    </div>
+                    <span className="font-semibold">{entry.score}/{entry.totalQuestions}</span>
+                  </div>
+                ))}
+                {leaderboard.currentStudent && leaderboard.currentStudent.rank > 10 && (
+                  <>
+                    <div className="py-1 text-center text-xs text-muted-foreground">...</div>
+                    <div className="flex items-center gap-3 rounded-xl border border-primary bg-primary/10 px-3 py-3">
+                      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">{leaderboard.currentStudent.rank}</span>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium">{leaderboard.currentStudent.name || "You"} (You)</p>
+                        <p className="text-xs text-muted-foreground">Your rank</p>
+                      </div>
+                      <span className="font-semibold">{leaderboard.currentStudent.score}/{leaderboard.currentStudent.totalQuestions}</span>
+                    </div>
+                  </>
+                )}
+                {!leaderboard.currentStudent && <p className="py-8 text-center text-sm text-muted-foreground">Your rank is not available for this test.</p>}
+              </div>
+            ) : null}
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Result Detail Modal */}
       <Dialog open={!!selectedResult} onOpenChange={() => setSelectedResult(null)}>
 
