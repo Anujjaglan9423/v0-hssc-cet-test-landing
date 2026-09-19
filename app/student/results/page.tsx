@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { getPaginatedStudentResults } from "@/lib/actions/student"
 import { Button } from "@/components/ui/button"
-import { Trophy, Target, Clock, TrendingUp, Eye, CheckCircle, XCircle, MinusCircle, Loader2, FileUser } from "lucide-react"
+import { Trophy, Target, Clock, TrendingUp, Eye, CheckCircle, XCircle, MinusCircle, Loader2, FileUser, BarChart3 } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
 import Link from "next/link"
@@ -246,6 +246,12 @@ export default function StudentResultsPage() {
                           <span className="block lg:hidden xl:block">Quick View</span>
                         </Button>
 
+                        <Button size="sm" variant="secondary" asChild className="cursor-pointer" title="View leaderboard">
+                          <Link href={`/student/practice?tab=leaderboard&testId=${result.test_id}`}>
+                            <BarChart3 className="w-4 h-4 mr-1" />
+                            <span className="hidden xl:block">Leaderboard</span>
+                          </Link>
+                        </Button>
                         <Button size="sm" asChild className="cursor-pointer">
                           <Link href={`/student/results/${result.attempt_id}`}>
                             <FileUser className="w-4 h-4 mr-1 lg:block hidden xl:hidden" />

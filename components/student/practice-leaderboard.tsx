@@ -8,7 +8,7 @@ import { getPracticeTests, getPracticeLeaderboards } from "@/lib/actions/student
 interface Test { id: string; title: string; exam?: { id: string; name: string } | null }
 interface Entry { name: string; score: number; totalQuestions: number; percentage: number }
 
-export function PracticeLeaderboard() {
+export function PracticeLeaderboard({ requestedTestId }: { requestedTestId?: string | null }) {
   const [tests, setTests] = useState<Test[]>([])
   const [leaderboards, setLeaderboards] = useState<Record<string, Entry[]>>({})
   const [isLoading, setIsLoading] = useState(true)
@@ -25,7 +25,9 @@ export function PracticeLeaderboard() {
   }, [])
 
   const exams = Array.from(new Map(tests.filter((test) => test.exam).map((test) => [test.exam!.id, test.exam!.name])).entries())
-  const visibleTests = selectedExam === "all" ? tests : tests.filter((test) => test.exam?.id === selectedExam)
+  const visibleTests = requestedTestId
+    ? tests.filter((test) => test.id === requestedTestId)
+    : selectedExam === "all" ? tests : tests.filter((test) => test.exam?.id === selectedExam)
 
   if (isLoading) return <div className="flex h-48 items-center justify-center"><Loader2 className="h-7 w-7 animate-spin text-primary" /></div>
 

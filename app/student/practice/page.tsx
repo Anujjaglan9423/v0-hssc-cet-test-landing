@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
@@ -38,6 +38,7 @@ const subjectIcons: Record<string, any> = {
 
 export default function StudentPracticePage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectedExam, setSelectedExam] = useState("all")
@@ -48,6 +49,11 @@ export default function StudentPracticePage() {
   const [timeLimit, setTimeLimit] = useState("timed")
   const [isStarting, setIsStarting] = useState(false)
   const [activeTab, setActiveTab] = useState<"practice" | "leaderboard">("practice")
+  const requestedTestId = searchParams.get("testId")
+
+  useEffect(() => {
+    if (searchParams.get("tab") === "leaderboard") setActiveTab("leaderboard")
+  }, [searchParams])
 
   useEffect(() => {
     async function loadSubjects() {
@@ -115,7 +121,7 @@ export default function StudentPracticePage() {
         <button type="button" role="tab" aria-selected={activeTab === "leaderboard"} onClick={() => setActiveTab("leaderboard")} className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors ${activeTab === "leaderboard" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>Leaderboards</button>
       </div>
 
-      {activeTab === "leaderboard" ? <PracticeLeaderboard /> : <>
+      {activeTab === "leaderboard" ? <PracticeLeaderboard requestedTestId={requestedTestId} /> : <>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
         {/* Subject Selection */}
         <ChartCard title="1. Select Subject" className="lg:col-span-2">
