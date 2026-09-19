@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Zap, BookOpen, Clock, Play, Shuffle, Target, Brain, Loader2 } from "lucide-react"
 import { getSubjectsAndTopics } from "@/lib/actions/student"
+import { PracticeLeaderboard } from "@/components/student/practice-leaderboard"
 
 interface Topic {
   id: string
@@ -46,6 +47,7 @@ export default function StudentPracticePage() {
   const [difficulty, setDifficulty] = useState("medium")
   const [timeLimit, setTimeLimit] = useState("timed")
   const [isStarting, setIsStarting] = useState(false)
+  const [activeTab, setActiveTab] = useState<"practice" | "leaderboard">("practice")
 
   useEffect(() => {
     async function loadSubjects() {
@@ -108,6 +110,12 @@ export default function StudentPracticePage() {
         <p className="text-sm lg:text-base text-muted-foreground mt-1">Customize your practice session</p>
       </div>
 
+      <div className="flex w-full max-w-md rounded-lg border border-border bg-card p-1" role="tablist" aria-label="Practice sections">
+        <button type="button" role="tab" aria-selected={activeTab === "practice"} onClick={() => setActiveTab("practice")} className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors ${activeTab === "practice" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>Practice Setup</button>
+        <button type="button" role="tab" aria-selected={activeTab === "leaderboard"} onClick={() => setActiveTab("leaderboard")} className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors ${activeTab === "leaderboard" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>Leaderboards</button>
+      </div>
+
+      {activeTab === "leaderboard" ? <PracticeLeaderboard /> : <>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
         {/* Subject Selection */}
         <ChartCard title="1. Select Subject" className="lg:col-span-2">
@@ -348,6 +356,7 @@ export default function StudentPracticePage() {
           </Button>
         </div>
       </footer>
+      </>}
     </div>
   )
 }

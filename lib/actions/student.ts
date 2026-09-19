@@ -211,6 +211,39 @@ export async function getAvailableTests() {
   )
 }
 
+// Get the best performers for each practice test.
+export async function getPracticeLeaderboards(testIds: string[]) {
+  if (testIds.length === 0) return {}
+
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from("test_results")
+    .select("test_id, score, total_questions, created_at, user:profiles(full_name)")
+    .in("test_id", testIds)
+    .order("score", { ascending: false })
+    .limit(Math.min(testIds.length * 10, 100))
+
+  if (error) {
+    console.error("Error fetching practice leaderboards:", error)
+    return {}
+  }
+
+  return (data || []).reduce<Record<string, any[]>>((leaderboards, result: any) => {
+    const entries = leaderboards[result.test_id] || []
+    if (entries.length < 10) {
+      entries.push({
+        name: result.user?.full_name || "Student",
+        score: result.score,
+        totalQuestions: result.total_questions,
+        percentage: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0,
+        createdAt: result.created_at,
+      })
+      leaderboards[result.test_id] = entries
+    }
+    return leaderboards
+  }, {})
+}
+
 // Start a test attempt
 export async function startTestAttempt(testId: string) {
   const supabase = await createClient()
