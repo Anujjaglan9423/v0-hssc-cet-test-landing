@@ -479,7 +479,7 @@ export async function getPaginatedStudentResults(page: number = 1, pageSize: num
   }
 }
 
-export async function getPracticeLeaderboard() {
+export async function getPracticeLeaderboard(examId?: string) {
   const supabase = await createClient()
   const user = await getCurrentUser()
   if (!user) return { topResults: [], currentStudent: null, weekStart: null }
@@ -490,11 +490,18 @@ export async function getPracticeLeaderboard() {
   const weekStartDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - daysSinceMonday))
   const weekStart = weekStartDate.toISOString()
 
-  const { data, error } = await supabase
+  let leaderboardQuery = supabase
     .from("test_results")
-    .select("user_id, correct_answers, created_at, user:users(full_name), test:tests!inner(test_type)")
+    .select("user_id, correct_answers, created_at, user:users(full_name), test:tests!inner(test_type, exam_id)")
     .eq("test.test_type", "practice")
     .gte("created_at", weekStart)
+
+  if (examId && examId !== "all") {
+    leaderboardQuery = leaderboardQuery.eq("test.exam_id", examId)
+  }
+
+  const { data, error } = await leaderboardQuery
+
 
   if (error) {
     console.error("Error fetching practice leaderboard:", error)

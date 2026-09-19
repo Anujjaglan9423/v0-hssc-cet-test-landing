@@ -40,6 +40,8 @@ export default function StudentPracticePage() {
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectedExam, setSelectedExam] = useState("all")
+  const [activeTab, setActiveTab] = useState<"practice" | "leaderboard">("practice")
+  const [leaderboardExam, setLeaderboardExam] = useState("all")
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null)
   const [selectedTopics, setSelectedTopics] = useState<string[]>([])
   const [questionCount, setQuestionCount] = useState([20])
@@ -52,18 +54,29 @@ export default function StudentPracticePage() {
   useEffect(() => {
     async function loadPracticeData() {
       try {
-        const [subjectData, leaderboardData] = await Promise.all([getSubjectsAndTopics(), getPracticeLeaderboard()])
-        setSubjects(subjectData)
-        setLeaderboard(leaderboardData)
+        setSubjects(await getSubjectsAndTopics())
       } catch (error) {
         console.error("Error loading practice data:", error)
       } finally {
         setIsLoading(false)
-        setIsLeaderboardLoading(false)
       }
     }
     loadPracticeData()
   }, [])
+
+  useEffect(() => {
+    async function loadLeaderboard() {
+      setIsLeaderboardLoading(true)
+      try {
+        setLeaderboard(await getPracticeLeaderboard(leaderboardExam))
+      } catch (error) {
+        console.error("Error loading practice leaderboard:", error)
+      } finally {
+        setIsLeaderboardLoading(false)
+      }
+    }
+    loadLeaderboard()
+  }, [leaderboardExam])
 
   const exams = Array.from(
     new Map(subjects.filter((subject) => subject.examId).map((subject) => [subject.examId, subject.examName])).entries(),
@@ -112,40 +125,38 @@ export default function StudentPracticePage() {
         <p className="text-sm lg:text-base text-muted-foreground mt-1">Customize your practice session</p>
       </div>
 
-      <ChartCard title="Weekly Practice Leaderboard" className="overflow-hidden">
-        <div className="mb-4 flex flex-col gap-3 rounded-xl bg-primary/10 p-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3">
-            <div className="rounded-full bg-primary/15 p-2 text-primary"><Trophy className="size-5" /></div>
-            <div>
-              <p className="font-semibold text-foreground">Top 50 this week</p>
-              <p className="text-xs text-muted-foreground">Ranked by total correct answers in all practice tests</p>
-            </div>
-          </div>
-          {leaderboard.currentStudent && (
-            <div className="rounded-lg border border-primary/20 bg-background/70 px-3 py-2 text-sm">
-              Your rank: <span className="font-bold text-primary">#{leaderboard.currentStudent.rank}</span>
-              <span className="ml-2 text-muted-foreground">({leaderboard.currentStudent.correctAnswers} correct)</span>
-            </div>
-          )}
-        </div>
-        {isLeaderboardLoading ? (
-          <div className="flex items-center justify-center py-8 text-muted-foreground"><Loader2 className="size-5 animate-spin" /></div>
-        ) : leaderboard.topResults.length === 0 ? (
-          <p className="py-6 text-center text-sm text-muted-foreground">No practice attempts recorded this week yet.</p>
-        ) : (
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {leaderboard.topResults.map((student) => (
-              <div key={student.userId} className={`flex items-center justify-between rounded-lg border px-3 py-2 ${student.userId === leaderboard.currentStudent?.userId ? "border-primary bg-primary/10" : "border-border bg-card"}`}>
-                <div className="flex min-w-0 items-center gap-3">
-                  <span className="w-7 text-center text-sm font-bold text-muted-foreground">#{student.rank}</span>
-                  <span className="truncate text-sm font-medium text-foreground">{student.name}</span>
-                </div>
-                <span className="shrink-0 text-xs font-semibold text-primary">{student.correctAnswers} correct</span>
+      <div className="flex rounded-xl border border-border bg-muted/40 p-1" role="tablist" aria-label="Practice navigation">
+        <button type="button" role="tab" aria-selected={activeTab === "practice"} onClick={() => setActiveTab("practice")} className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors ${activeTab === "practice" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+          Practice Zone
+        </button>
+        <button type="button" role="tab" aria-selected={activeTab === "leaderboard"} onClick={() => setActiveTab("leaderboard")} className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors ${activeTab === "leaderboard" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+          Leaderboard
+        </button>
+      </div>
+
+      {activeTab === "leaderboard" && (
+        <ChartCard title="Weekly Practice Leaderboard" className="overflow-hidden">
+          <div className="mb-4 flex flex-col gap-3 rounded-xl bg-primary/10 p-4">
+            <div className="flex items-center gap-3">
+              <div className="rounded-full bg-primary/15 p-2 text-primary"><Trophy className="size-5" /></div>
+              <div>
+                <p className="font-semibold text-foreground">Top 50 this week</p>
+                <p className="text-xs text-muted-foreground">Ranked by total correct answers in practice tests</p>
               </div>
-            ))}
+            </div>
+            <div className="flex flex-wrap gap-2" role="tablist" aria-label="Leaderboard exam filter">
+              <button type="button" role="tab" aria-selected={leaderboardExam === "all"} onClick={() => setLeaderboardExam("all")} className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${leaderboardExam === "all" ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}>All exams</button>
+              {exams.map(([examId, examName]) => (
+                <button key={examId} type="button" role="tab" aria-selected={leaderboardExam === examId} onClick={() => setLeaderboardExam(examId as string)} className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${leaderboardExam === examId ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}>
+                  {examName}
+                </button>
+              ))}
+            </div>
+            {leaderboard.currentStudent && <div className="rounded-lg border border-primary/20 bg-background/70 px-3 py-2 text-sm">Your rank: <span className="font-bold text-primary">#{leaderboard.currentStudent.rank}</span><span className="ml-2 text-muted-foreground">({leaderboard.currentStudent.correctAnswers} correct)</span></div>}
           </div>
-        )}
-      </ChartCard>
+          {isLeaderboardLoading ? <div className="flex items-center justify-center py-8 text-muted-foreground"><Loader2 className="size-5 animate-spin" /></div> : leaderboard.topResults.length === 0 ? <p className="py-6 text-center text-sm text-muted-foreground">No practice attempts recorded this week yet.</p> : <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{leaderboard.topResults.map((student) => <div key={student.userId} className={`flex items-center justify-between rounded-lg border px-3 py-2 ${student.userId === leaderboard.currentStudent?.userId ? "border-primary bg-primary/10" : "border-border bg-card"}`}><div className="flex min-w-0 items-center gap-3"><span className="w-7 text-center text-sm font-bold text-muted-foreground">#{student.rank}</span><span className="truncate text-sm font-medium text-foreground">{student.name}</span></div><span className="shrink-0 text-xs font-semibold text-primary">{student.correctAnswers} correct</span></div>)}</div>}
+        </ChartCard>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
         {/* Subject Selection */}
