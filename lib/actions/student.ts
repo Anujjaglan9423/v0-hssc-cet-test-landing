@@ -492,8 +492,8 @@ export async function getPracticeLeaderboard(examId?: string) {
 
   let leaderboardQuery = supabase
     .from("test_results")
-    .select("user_id, test_id, correct_answers, created_at, user:users(full_name), test:tests!inner(test_type, exam_id)")
-    .eq("test.test_type", "practice")
+    .select("user_id, test_id, correct_answers, created_at, user:users(full_name), test:tests!inner(exam_id), attempt:test_attempts!inner(status)")
+    .eq("attempt.status", "practice_completed")
     .gte("created_at", weekStart)
 
   if (examId && examId !== "all") {
@@ -1299,6 +1299,7 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
     .from("questions")
     .select(`
       id,
+      test_id,
       question_text,
       option_a,
       option_b,
@@ -1315,9 +1316,51 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
   const shuffled = questions.sort(() => Math.random() - 0.5)
 
   return shuffled.slice(0, count)
-}
+  }
 
-// Save test progress
+  export async function savePracticeResult(
+    questions: Array<{ id: string; test_id: string; correct_answer: string }>,
+    answers: Record<string, string>,
+  ) {
+    const supabase = await createClient()
+    const user = await getCurrentUser()
+    if (!user || questions.length === 0) return { success: false, error: "Not authenticated" }
+
+    const testId = questions[0].test_id
+    const correctAnswers = questions.reduce(
+      (total, question) => total + (answers[question.id]?.toLowerCase() === question.correct_answer.toLowerCase() ? 1 : 0),
+      0,
+    )
+    const wrongAnswers = questions.reduce(
+      (total, question) => total + (answers[question.id] && answers[question.id].toLowerCase() !== question.correct_answer.toLowerCase() ? 1 : 0),
+      0,
+    )
+
+    const { data: attempt, error: attemptError } = await supabase
+      .from("test_attempts")
+      .insert({ test_id: testId, user_id: user.id, status: "practice_completed", completed_at: new Date().toISOString() })
+      .select("id")
+      .single()
+    if (attemptError) return { success: false, error: attemptError.message }
+
+    const { error: resultError } = await supabase.from("test_results").insert({
+      attempt_id: attempt.id,
+      user_id: user.id,
+      test_id: testId,
+      total_questions: questions.length,
+      correct_answers: correctAnswers,
+      wrong_answers: wrongAnswers,
+      unanswered: questions.length - correctAnswers - wrongAnswers,
+      score: correctAnswers,
+      percentage: Math.round((correctAnswers / questions.length) * 100),
+    })
+    if (resultError) return { success: false, error: resultError.message }
+
+    revalidatePath("/student/practice")
+    return { success: true }
+  }
+
+  // Save test progress
 export async function saveTestProgress(
   testId: string,
   answers: Record<string, string>,

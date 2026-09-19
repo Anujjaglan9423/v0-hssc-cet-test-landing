@@ -26,10 +26,11 @@ import {
   HelpCircle,
   ArrowLeft,
 } from "lucide-react"
-import { getPracticeQuestions } from "@/lib/actions/student"
+import { getPracticeQuestions, savePracticeResult } from "@/lib/actions/student"
 
 interface Question {
   id: string
+  test_id: string
   question_text: string
   option_a: string
   option_b: string
@@ -59,6 +60,7 @@ export default function PracticeStartPage() {
   const [timeRemaining, setTimeRemaining] = useState(0)
   const [showExitDialog, setShowExitDialog] = useState(false)
   const [showAnswer, setShowAnswer] = useState(false)
+  const [practiceResultSaved, setPracticeResultSaved] = useState(false)
 
   useEffect(() => {
     const savedSettings = sessionStorage.getItem("practiceSettings")
@@ -98,6 +100,15 @@ export default function PracticeStartPage() {
 
     loadQuestions()
   }, [router])
+
+  useEffect(() => {
+    if (!showResults || practiceResultSaved || questions.length === 0) return
+    setPracticeResultSaved(true)
+    savePracticeResult(
+      questions.map(({ id, test_id, correct_answer }) => ({ id, test_id, correct_answer })),
+      answers,
+    ).catch((error) => console.error("Error saving practice result:", error))
+  }, [showResults, practiceResultSaved, questions, answers])
 
   // Timer
   useEffect(() => {
