@@ -490,10 +490,12 @@ export async function getPracticeLeaderboard(examId?: string) {
   const weekStartDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - daysSinceMonday))
   const weekStart = weekStartDate.toISOString()
 
+  // Practice sessions save their score in test_results against the source test.
+  // The tests table only supports full/subject/topic types, so filtering for a
+  // non-existent "practice" type makes every leaderboard query return no rows.
   let leaderboardQuery = supabase
     .from("test_results")
-    .select("user_id, correct_answers, created_at, user:users(full_name), test:tests!inner(test_type, exam_id)")
-    .eq("test.test_type", "practice")
+    .select("user_id, correct_answers, created_at, user:users(full_name), test:tests!inner(exam_id)")
     .gte("created_at", weekStart)
 
   if (examId && examId !== "all") {
@@ -601,8 +603,9 @@ export async function getTestById(testId: string) {
       has_negative_marking,
       negative_marking_percent,
       questions (
-        id,
-        question_text,
+  id,
+  test_id,
+  question_text,
         option_a,
         option_b,
         option_c,
@@ -1280,6 +1283,7 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
     .from("questions")
     .select(`
       id,
+      test_id,
       question_text,
       option_a,
       option_b,
@@ -1296,6 +1300,44 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
   const shuffled = questions.sort(() => Math.random() - 0.5)
 
   return shuffled.slice(0, count)
+}
+
+export async function submitPracticeResult(input: {
+  testId: string
+  totalQuestions: number
+  correctAnswers: number
+  wrongAnswers: number
+  unanswered: number
+  timeTaken: number
+}) {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+  if (!user) return { success: false, error: "Not authenticated" }
+
+  const percentage = input.totalQuestions > 0
+    ? Math.round((input.correctAnswers / input.totalQuestions) * 100)
+    : 0
+
+  const { data, error } = await supabase.from("test_results").insert({
+    user_id: user.id,
+    test_id: input.testId,
+    total_questions: input.totalQuestions,
+    correct_answers: input.correctAnswers,
+    wrong_answers: input.wrongAnswers,
+    unanswered: input.unanswered,
+    score: input.correctAnswers,
+    percentage,
+    time_taken: input.timeTaken,
+  }).select().single()
+
+  if (error) {
+    console.error("Error saving practice result:", error)
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath("/student/practice")
+  revalidatePath("/student/results")
+  return { success: true, result: data }
 }
 
 // Save test progress

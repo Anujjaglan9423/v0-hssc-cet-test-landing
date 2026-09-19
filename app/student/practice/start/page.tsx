@@ -26,10 +26,11 @@ import {
   HelpCircle,
   ArrowLeft,
 } from "lucide-react"
-import { getPracticeQuestions } from "@/lib/actions/student"
+import { getPracticeQuestions, submitPracticeResult } from "@/lib/actions/student"
 
 interface Question {
   id: string
+  test_id: string
   question_text: string
   option_a: string
   option_b: string
@@ -59,6 +60,8 @@ export default function PracticeStartPage() {
   const [timeRemaining, setTimeRemaining] = useState(0)
   const [showExitDialog, setShowExitDialog] = useState(false)
   const [showAnswer, setShowAnswer] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [startedAt] = useState(() => Date.now())
 
   useEffect(() => {
     const savedSettings = sessionStorage.getItem("practiceSettings")
@@ -144,6 +147,25 @@ export default function PracticeStartPage() {
   const goToQuestion = (index: number) => {
     setCurrentIndex(index)
     setShowAnswer(false)
+  }
+
+  const finishPractice = async () => {
+    if (isSubmitting || questions.length === 0) return
+    setIsSubmitting(true)
+    const results = calculateResults()
+    const saved = await submitPracticeResult({
+      testId: questions[0].test_id,
+      totalQuestions: questions.length,
+      correctAnswers: results.correct,
+      wrongAnswers: results.incorrect,
+      unanswered: results.unattempted,
+      timeTaken: Math.max(0, Math.round((Date.now() - startedAt) / 1000)),
+    })
+    if (!saved.success) {
+      alert(saved.error || "Unable to save practice result")
+    }
+    setShowResults(true)
+    setIsSubmitting(false)
   }
 
   const calculateResults = () => {
@@ -320,9 +342,6 @@ export default function PracticeStartPage() {
             <span className="font-mono font-bold">{formatTime(timeRemaining)}</span>
           </div>
         )}
-        <Button variant="outline" onClick={() => setShowResults(true)}>
-          Finish Practice
-        </Button>
       </div>
 
       {/* Progress */}
@@ -416,6 +435,24 @@ export default function PracticeStartPage() {
             <p className="text-sm text-muted-foreground">{currentQuestion.explanation}</p>
           </div>
         )}
+
+        <div className="mt-8 flex items-center justify-between border-t border-border pt-6">
+          <Button variant="outline" onClick={() => goToQuestion(currentIndex - 1)} disabled={currentIndex === 0}>
+            <ChevronLeft className="w-4 h-4 mr-2" />
+            Previous
+          </Button>
+          {currentIndex === questions.length - 1 ? (
+            <Button onClick={finishPractice} disabled={isSubmitting}>
+              {isSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
+              {isSubmitting ? "Saving..." : "Finish Practice"}
+            </Button>
+          ) : (
+            <Button onClick={() => goToQuestion(currentIndex + 1)}>
+              Next
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </Button>
+          )}
+        </div>
       </Card>
 
       {/* Question Navigator */}
@@ -445,18 +482,6 @@ export default function PracticeStartPage() {
           })}
         </div>
       </Card>
-
-      {/* Navigation */}
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={() => goToQuestion(currentIndex - 1)} disabled={currentIndex === 0}>
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          Previous
-        </Button>
-        <Button onClick={() => goToQuestion(currentIndex + 1)} disabled={currentIndex === questions.length - 1}>
-          Next
-          <ChevronRight className="w-4 h-4 ml-2" />
-        </Button>
-      </div>
 
       {/* Exit Dialog */}
       <AlertDialog open={showExitDialog} onOpenChange={setShowExitDialog}>
