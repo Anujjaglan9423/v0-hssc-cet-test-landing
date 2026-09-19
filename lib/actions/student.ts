@@ -211,6 +211,25 @@ export async function getAvailableTests() {
   )
 }
 
+// Return only tests that power the Practice tab: tests with questions and a subject.
+export async function getPracticeTests() {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from("tests")
+    .select("id, title, exam:exams(id, name), subject:subjects(id, name), questions(id)")
+    .not("subject_id", "is", null)
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching practice tests:", error)
+    return []
+  }
+
+  return (data || [])
+    .filter((test: any) => (test.questions?.length || 0) > 0)
+    .map(({ questions, ...test }: any) => test)
+}
+
 // Get the best performers for each practice test.
 export async function getPracticeLeaderboards(testIds: string[]) {
   if (testIds.length === 0) return {}

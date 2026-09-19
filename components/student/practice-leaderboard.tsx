@@ -3,25 +3,29 @@
 import { useEffect, useState } from "react"
 import { Award, Loader2, Trophy } from "lucide-react"
 import { ChartCard } from "@/components/dashboard/chart-card"
-import { getAvailableTests, getPracticeLeaderboards } from "@/lib/actions/student"
+import { getPracticeTests, getPracticeLeaderboards } from "@/lib/actions/student"
 
-interface Test { id: string; title: string; exam?: { name: string } | null }
+interface Test { id: string; title: string; exam?: { id: string; name: string } | null }
 interface Entry { name: string; score: number; totalQuestions: number; percentage: number }
 
 export function PracticeLeaderboard() {
   const [tests, setTests] = useState<Test[]>([])
   const [leaderboards, setLeaderboards] = useState<Record<string, Entry[]>>({})
   const [isLoading, setIsLoading] = useState(true)
+  const [selectedExam, setSelectedExam] = useState("all")
 
   useEffect(() => {
     async function load() {
-      const availableTests = (await getAvailableTests()) as Test[]
-      setTests(availableTests)
-      setLeaderboards(await getPracticeLeaderboards(availableTests.map((test) => test.id)))
+      const practiceTests = (await getPracticeTests()) as Test[]
+      setTests(practiceTests)
+      setLeaderboards(await getPracticeLeaderboards(practiceTests.map((test) => test.id)))
       setIsLoading(false)
     }
     load()
   }, [])
+
+  const exams = Array.from(new Map(tests.filter((test) => test.exam).map((test) => [test.exam!.id, test.exam!.name])).entries())
+  const visibleTests = selectedExam === "all" ? tests : tests.filter((test) => test.exam?.id === selectedExam)
 
   if (isLoading) return <div className="flex h-48 items-center justify-center"><Loader2 className="h-7 w-7 animate-spin text-primary" /></div>
 
@@ -32,10 +36,15 @@ export function PracticeLeaderboard() {
         <p className="mt-1 text-sm text-muted-foreground">See the top performers for every available test.</p>
       </div>
       {tests.length === 0 ? (
-        <ChartCard title="No tests available"><p className="py-8 text-center text-sm text-muted-foreground">Leaderboards will appear when tests are published.</p></ChartCard>
+        <ChartCard title="No tests available"><p className="py-8 text-center text-sm text-muted-foreground">Leaderboards will appear when practice tests have questions.</p></ChartCard>
       ) : (
+        <>
+        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filter leaderboards by exam">
+          <button type="button" role="tab" aria-selected={selectedExam === "all"} onClick={() => setSelectedExam("all")} className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${selectedExam === "all" ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}>All exams</button>
+          {exams.map(([examId, examName]) => <button key={examId} type="button" role="tab" aria-selected={selectedExam === examId} onClick={() => setSelectedExam(examId)} className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${selectedExam === examId ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}>{examName}</button>)}
+        </div>
         <div className="grid gap-4 lg:grid-cols-2">
-          {tests.map((test) => {
+          {visibleTests.map((test) => {
             const entries = leaderboards[test.id] || []
             return (
               <ChartCard key={test.id} title={test.title}>
@@ -52,6 +61,7 @@ export function PracticeLeaderboard() {
             )
           })}
         </div>
+        </>
       )}
     </div>
   )
