@@ -445,7 +445,41 @@ export async function getPaginatedStudentResults(page: number = 1, pageSize: num
   }
 }
 
-export async function getStudentResults() {
+  export async function getStudentLeaderboard(testId: string) {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+  if (!user) return { topResults: [], currentStudent: null }
+
+  const { data, error } = await supabase
+    .from("test_results")
+    .select("user_id, score, total_questions, percentage, created_at, user:users(full_name)")
+    .eq("test_id", testId)
+    .order("score", { ascending: false })
+    .order("created_at", { ascending: true })
+
+  if (error) {
+    console.error("Error fetching leaderboard:", error)
+    return { topResults: [], currentStudent: null }
+  }
+
+  const rankedResults = (data || []).map((result, index) => ({
+    rank: index + 1,
+    userId: result.user_id,
+    name: Array.isArray(result.user) ? result.user[0]?.full_name : (result.user as any)?.full_name,
+    score: result.score,
+    totalQuestions: result.total_questions,
+    percentage: result.percentage ?? (result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0),
+  }))
+
+  const currentStudent = rankedResults.find((result) => result.userId === user.id) || null
+
+  return {
+    topResults: rankedResults.slice(0, 10),
+    currentStudent,
+  }
+}
+
+  export async function getStudentResults() {
   const supabase = await createClient()
 
   const user = await getCurrentUser()
