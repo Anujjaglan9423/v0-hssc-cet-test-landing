@@ -158,8 +158,10 @@ export default function StudentPracticePage() {
         </ChartCard>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
-        {/* Subject Selection */}
+      {activeTab === "practice" && (
+        <>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+            {/* Subject Selection */}
         <ChartCard title="1. Select Subject" className="lg:col-span-2">
           {subjects.length === 0 ? (
             <div className="text-center py-6 lg:py-8 text-muted-foreground">
@@ -398,6 +400,8 @@ export default function StudentPracticePage() {
           </Button>
         </div>
       </footer>
+        </>
+      )}
     </div>
   )
 }
