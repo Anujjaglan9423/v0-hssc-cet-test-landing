@@ -490,18 +490,35 @@ export async function getPracticeLeaderboard(examId?: string) {
   const weekStartDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - daysSinceMonday))
   const weekStart = weekStartDate.toISOString()
 
-  let leaderboardQuery = supabase
-    .from("test_results")
-    .select("user_id, test_id, correct_answers, created_at, user:users(full_name), test:tests!inner(exam_id), attempt:test_attempts!inner(status)")
-    .eq("attempt.status", "practice_completed")
-    .gte("created_at", weekStart)
+  // Practice submissions create a dedicated completed attempt. Resolve those
+  // attempt ids first instead of relying on a nested PostgREST relationship,
+  // which can silently return no rows when the relationship alias/status differs.
+  let attemptsQuery = supabase
+    .from("test_attempts")
+    .select("id, user_id, test_id, completed_at")
+    .eq("status", "practice_completed")
+    .gte("completed_at", weekStart)
 
   if (examId && examId !== "all") {
-    leaderboardQuery = leaderboardQuery.eq("test.exam_id", examId)
+    const { data: examTests } = await supabase.from("tests").select("id").eq("exam_id", examId)
+    const examTestIds = (examTests || []).map((test) => test.id)
+    if (examTestIds.length === 0) return { topResults: [], currentStudent: null, weekStart }
+    attemptsQuery = attemptsQuery.in("test_id", examTestIds)
   }
 
-  const { data, error } = await leaderboardQuery
+  const { data: attempts, error: attemptsError } = await attemptsQuery
+  if (attemptsError) {
+    console.error("Error fetching practice attempts:", attemptsError)
+    return { topResults: [], currentStudent: null, weekStart }
+  }
 
+  const attemptIds = (attempts || []).map((attempt) => attempt.id)
+  if (attemptIds.length === 0) return { topResults: [], currentStudent: null, weekStart }
+
+  const { data, error } = await supabase
+    .from("test_results")
+    .select("user_id, test_id, attempt_id, correct_answers, created_at, user:users(full_name), test:tests!inner(exam_id)")
+    .in("attempt_id", attemptIds)
 
   if (error) {
     console.error("Error fetching practice leaderboard:", error)
