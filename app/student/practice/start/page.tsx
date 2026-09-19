@@ -26,10 +26,11 @@ import {
   HelpCircle,
   ArrowLeft,
 } from "lucide-react"
-import { getPracticeQuestions } from "@/lib/actions/student"
+import { completeTest, getPracticeQuestions, startTestAttempt, submitAnswer } from "@/lib/actions/student"
 
 interface Question {
   id: string
+  test_id: string
   question_text: string
   option_a: string
   option_b: string
@@ -59,6 +60,9 @@ export default function PracticeStartPage() {
   const [timeRemaining, setTimeRemaining] = useState(0)
   const [showExitDialog, setShowExitDialog] = useState(false)
   const [showAnswer, setShowAnswer] = useState(false)
+  const [attemptId, setAttemptId] = useState<string | null>(null)
+  const [isSavingResult, setIsSavingResult] = useState(false)
+  const [resultSaved, setResultSaved] = useState(false)
 
   useEffect(() => {
     const savedSettings = sessionStorage.getItem("practiceSettings")
@@ -88,6 +92,12 @@ export default function PracticeStartPage() {
           return
         }
         setQuestions(qs)
+        const firstTestId = qs[0]?.test_id
+        if (firstTestId) {
+          const attemptResult = await startTestAttempt(firstTestId)
+          if (attemptResult.success && attemptResult.attempt?.id) setAttemptId(attemptResult.attempt.id)
+          else throw new Error(attemptResult.error || "Could not start practice attempt")
+        }
       } catch (error) {
         console.error("Error loading questions:", error)
         router.push("/student/practice")
@@ -145,6 +155,29 @@ export default function PracticeStartPage() {
     setCurrentIndex(index)
     setShowAnswer(false)
   }
+
+  useEffect(() => {
+    if (!showResults || !attemptId || resultSaved || isSavingResult) return
+
+    async function savePracticeResult() {
+      setIsSavingResult(true)
+      try {
+        const activeAttemptId = attemptId
+        if (!activeAttemptId) return
+        for (const question of questions) {
+          await submitAnswer(activeAttemptId, question.id, answers[question.id] || null, 0)
+        }
+        const saved = await completeTest(activeAttemptId, settings?.timeLimit === "timed" ? settings.questionCount * 60 - timeRemaining : 0, questions.map((question) => question.id))
+        if (saved.success) setResultSaved(true)
+      } catch (error) {
+        console.error("Error saving practice result:", error)
+      } finally {
+        setIsSavingResult(false)
+      }
+    }
+
+    savePracticeResult()
+  }, [showResults, attemptId, resultSaved, isSavingResult, questions, answers, settings, timeRemaining])
 
   const calculateResults = () => {
     let correct = 0
@@ -320,8 +353,8 @@ export default function PracticeStartPage() {
             <span className="font-mono font-bold">{formatTime(timeRemaining)}</span>
           </div>
         )}
-        <Button variant="outline" onClick={() => setShowResults(true)}>
-          Finish Practice
+            <Button variant="outline" onClick={() => setShowResults(true)} disabled={isSavingResult}>
+          {isSavingResult ? "Saving..." : "Finish Practice"}
         </Button>
       </div>
 

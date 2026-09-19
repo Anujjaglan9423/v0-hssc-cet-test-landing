@@ -304,7 +304,7 @@ export async function submitAnswer(attemptId: string, questionId: string, answer
 }
 
 // Complete test and calculate results
-export async function completeTest(attemptId: string, timeTaken: number) {
+export async function completeTest(attemptId: string, timeTaken: number, questionIds?: string[]) {
   const supabase = await createClient()
 
   const user = await getCurrentUser()
@@ -325,7 +325,9 @@ export async function completeTest(attemptId: string, timeTaken: number) {
 
   // Get all questions for this test
   const [{ count: totalQuestions }, { data: answers }] = await Promise.all([
-    supabase.from("questions").select("id", { count: "exact", head: true }).eq("test_id", attempt.test_id),
+    questionIds?.length
+      ? supabase.from("questions").select("id", { count: "exact", head: true }).in("id", questionIds)
+      : supabase.from("questions").select("id", { count: "exact", head: true }).eq("test_id", attempt.test_id),
     supabase.from("user_answers").select("is_correct, selected_answer").eq("attempt_id", attemptId),
   ])
 
@@ -1259,7 +1261,7 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
   const supabase = await createClient()
 
   // First get tests that match subject and optionally topics
-  let testsQuery = supabase.from("tests").select("id").eq("subject_id", subjectId)
+  let testsQuery = supabase.from("tests").select("id").eq("subject_id", subjectId).eq("test_type", "practice")
 
   if (topicIds.length > 0) {
     testsQuery = testsQuery.in("topic_id", topicIds)
@@ -1278,9 +1280,10 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
   // Get questions from these tests
   const { data: questions } = await supabase
     .from("questions")
-    .select(`
-      id,
-      question_text,
+  .select(`
+  id,
+  test_id,
+  question_text,
       option_a,
       option_b,
       option_c,
