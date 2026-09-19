@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Free Mock Tests | Haryana CET, HSSC, SSC & Railway Online Practice 2026",
+  title: "Online Mock Tests and Practice Questions | CET TEST",
   description:
-    "Attempt free online mock tests for Haryana CET, HSSC CET, HSSC Police Constable, HSSSC Group D, SSC CGL, RRB NTPC & UKSSSC. Real exam pattern, instant results, no signup required for first test!",
+    "Practice with online mock tests and timed question sets for Haryana CET, HSSC, SSC, Railway, and related competitive exams. Review explanations and confirm official exam details before applying.",
   keywords: [
     "free mock test Haryana CET 2026",
     "HSSC CET free practice test",

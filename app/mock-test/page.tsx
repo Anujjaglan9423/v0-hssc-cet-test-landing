@@ -256,10 +256,10 @@ export default function MockTestPage() {
   const [error, setError] = useState<string | null>(null)
   const [mockTestsTaken, setMockTestsTaken] = useState<Record<string, string>>({})
   const stats = [
-    { label: "Exam Categories", value: "4+", icon: <BookOpen className="w-4 h-4" /> },
-    { label: "Mock Tests", value: "100+", icon: <Target className="w-4 h-4" /> },
-    { label: "Practice Questions", value: "10000+", icon: <Sparkles className="w-4 h-4" /> },
-    { label: "Free Access", value: "Unlimited", icon: <Award className="w-4 h-4" /> }
+    { label: "Practice format", value: "Timed", icon: <Clock className="w-4 h-4" /> },
+    { label: "Question review", value: "Included", icon: <BookOpen className="w-4 h-4" /> },
+    { label: "Progress tracking", value: "Available", icon: <BarChart3 className="w-4 h-4" /> },
+    { label: "Access", value: "Free options", icon: <Award className="w-4 h-4" /> }
   ]
   // Load categories
   useEffect(() => {
@@ -435,8 +435,8 @@ export default function MockTestPage() {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
-              Experience real exam-level mock tests for
-              <strong className="text-foreground"> HSSC, UKSSSC, Teaching, and other state exams</strong> — completely free
+              Practice timed question sets for
+              <strong className="text-foreground"> HSSC, UKSSSC, Teaching, and other state exams</strong> with review tools and free options
             </p>
 
             <div className="flex flex-wrap justify-center gap-6 mb-10">
@@ -465,7 +465,22 @@ export default function MockTestPage() {
         </section>
 
         {/* How It Works Section */}
-        <section className=" px-4 sm:px-6 lg:px-8">
+        <section className="px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto py-10 grid gap-6 md:grid-cols-3">
+            <article className="rounded-xl border bg-card p-5">
+              <h2 className="font-semibold mb-2">Use tests after studying</h2>
+              <p className="text-sm leading-6 text-muted-foreground">A mock test is a practice tool, not an official exam paper. Read the syllabus first, then use timed questions to find topics that need revision.</p>
+            </article>
+            <article className="rounded-xl border bg-card p-5">
+              <h2 className="font-semibold mb-2">Review every attempt</h2>
+              <p className="text-sm leading-6 text-muted-foreground">After submitting, compare your answers with the available explanations. Keep an error log and revisit the relevant concept before taking another test.</p>
+            </article>
+            <article className="rounded-xl border bg-card p-5">
+              <h2 className="font-semibold mb-2">Check official notices</h2>
+              <p className="text-sm leading-6 text-muted-foreground">Patterns, eligibility, dates, vacancies, and marking rules can change. Confirm current information on the relevant official recruiting body&apos;s website.</p>
+            </article>
+          </div>
+
           <div className="max-w-4xl mx-auto">
             <div className="relative group">
               {/* Glow Effect */}
@@ -486,7 +501,7 @@ export default function MockTestPage() {
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Select a category, choose an exam section (CET, Police, Group D, etc.), and start instantly.
                     You can attempt one free mock test per section without signup.
-                    Locked tests reveal unlock options on hover. Create a free account for unlimited access.
+                    Locked tests reveal their access requirements. Create an account if you need features beyond the free options.
                   </p>
                 </div>
               </div>
@@ -891,9 +906,12 @@ export default function MockTestPage() {
               <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
                 <FileText className="w-10 h-10 text-muted-foreground" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">No Tests Available</h3>
-              <p className="text-muted-foreground mb-6">
-                Tests for this section are coming soon. Please check back later.
+              <h3 className="text-xl font-semibold mb-2">Practice sets are not published yet</h3>
+              <p className="text-muted-foreground max-w-xl mx-auto mb-4">
+                We are reviewing and publishing questions for this section. Until a set appears here, use the study materials and syllabus pages to prepare the relevant topics.
+              </p>
+              <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-6">
+                This page only displays tests that are currently available in our question library; it does not represent an official exam schedule or guarantee that a test will be published.
               </p>
               <Button onClick={() => setSelectedExam(null)} variant="outline" className="cursor-pointer">
                 <ArrowLeft className="w-4 h-4 mr-2" />
