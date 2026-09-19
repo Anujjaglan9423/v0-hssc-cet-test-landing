@@ -216,7 +216,8 @@ export async function getPracticeTests() {
   const supabase = await createClient()
   const { data, error } = await supabase
     .from("tests")
-    .select("id, title, exam:exams(id, name), subject:subjects(id, name), questions(id)")
+    .select("id, title, test_type, exam:exams(id, name), subject:subjects(id, name), questions(id)")
+    .in("test_type", ["subject", "topic"])
     .not("subject_id", "is", null)
     .order("created_at", { ascending: false })
 
@@ -1233,7 +1234,7 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
   const supabase = await createClient()
 
   // First get tests that match subject and optionally topics
-  let testsQuery = supabase.from("tests").select("id").eq("subject_id", subjectId)
+  let testsQuery = supabase.from("tests").select("id").in("test_type", ["subject", "topic"]).eq("subject_id", subjectId)
 
   if (topicIds.length > 0) {
     testsQuery = testsQuery.in("topic_id", topicIds)
@@ -1254,6 +1255,7 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
     .from("questions")
     .select(`
       id,
+      test_id,
       question_text,
       option_a,
       option_b,
@@ -1270,6 +1272,30 @@ export async function getPracticeQuestions(subjectId: string, topicIds: string[]
   const shuffled = questions.sort(() => Math.random() - 0.5)
 
   return shuffled.slice(0, count)
+}
+
+// Save a completed custom practice session to the practice leaderboard.
+export async function savePracticeResult(testId: string, result: { score: number; percentage: number; correctAnswers: number; wrongAnswers: number; unanswered: number; totalQuestions: number }) {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+  if (!user) return { success: false, error: "Not authenticated" }
+
+  const { error } = await supabase.from("test_results").insert({
+    user_id: user.id,
+    test_id: testId,
+    score: result.score,
+    percentage: result.percentage,
+    correct_answers: result.correctAnswers,
+    wrong_answers: result.wrongAnswers,
+    unanswered: result.unanswered,
+    total_questions: result.totalQuestions,
+  })
+
+  if (error) {
+    console.error("Error saving practice result:", error)
+    return { success: false, error: error.message }
+  }
+  return { success: true }
 }
 
 // Save test progress

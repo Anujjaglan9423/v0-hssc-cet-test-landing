@@ -26,10 +26,11 @@ import {
   HelpCircle,
   ArrowLeft,
 } from "lucide-react"
-import { getPracticeQuestions } from "@/lib/actions/student"
+import { getPracticeQuestions, savePracticeResult } from "@/lib/actions/student"
 
 interface Question {
   id: string
+  test_id: string
   question_text: string
   option_a: string
   option_b: string
@@ -59,6 +60,7 @@ export default function PracticeStartPage() {
   const [timeRemaining, setTimeRemaining] = useState(0)
   const [showExitDialog, setShowExitDialog] = useState(false)
   const [showAnswer, setShowAnswer] = useState(false)
+  const [practiceResultSaved, setPracticeResultSaved] = useState(false)
 
   useEffect(() => {
     const savedSettings = sessionStorage.getItem("practiceSettings")
@@ -123,6 +125,21 @@ export default function PracticeStartPage() {
   }, [])
 
   const currentQuestion = questions[currentIndex]
+
+  useEffect(() => {
+    if (!showResults || practiceResultSaved || questions.length === 0) return
+    const sourceTestId = questions[0].test_id
+    if (!sourceTestId) return
+    const result = calculateResults()
+    savePracticeResult(sourceTestId, {
+      score: result.score,
+      percentage: result.percentage,
+      correctAnswers: result.correct,
+      wrongAnswers: result.incorrect,
+      unanswered: result.unattempted,
+      totalQuestions: questions.length,
+    }).then(() => setPracticeResultSaved(true))
+  }, [showResults, practiceResultSaved, questions])
 
   const handleAnswer = (answer: string) => {
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: answer }))
