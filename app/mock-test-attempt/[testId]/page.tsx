@@ -20,7 +20,7 @@ import {
   Target,
   ArrowLeft,
 } from "lucide-react"
-import { getTestById, submitFreeMockTest, submitMockTest } from "@/lib/actions/student"
+import { hardcodedMockTests } from "@/lib/mock-tests"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -68,20 +68,10 @@ export default function MockTestAttemptPage() {
   const [lastAttemptId, setLastAttemptId] = useState<string | null>(null)
 
   useEffect(() => {
-    const loadTest = async () => {
-      try {
-        const data = await getTestById(testId)
-        if (data) {
-          setTest(data)
-          setTimeLeft(data.duration * 60)
-        }
-      } catch (error) {
-        console.error("Error loading test:", error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    loadTest()
+    const data = hardcodedMockTests[testId]
+    setTest(data || null)
+    setTimeLeft(data ? data.duration * 60 : 0)
+    setIsLoading(false)
   }, [testId])
 
   useEffect(() => {
@@ -128,25 +118,22 @@ export default function MockTestAttemptPage() {
     setIsSubmitting(true)
 
     try {
-      const result = await submitFreeMockTest(testId, test.title, answers, test.questions)
-
-      if (result.success) {
-        // Store result data in sessionStorage
-        sessionStorage.setItem(`mock-test-result-${result.resultId}`, JSON.stringify(result.data))
-
-        // Close modal first
-        setShowSubmitDialog(false)
-
-        // Redirect to results page
-        setTimeout(() => {
-          router.push(`/mock-test-results/${result.resultId}`)
-        }, 500)
-      } else {
-        console.error("Submit failed:", result.error)
-        alert("Failed to submit test. Please try again.")
-        setIsSubmitting(false)
-        setShowSubmitDialog(false)
+      const resultId = `${testId}-${Date.now()}`
+      const correctAnswers = test.questions.filter((question) => answers[question.id] === question.correct_answer).length
+      const resultData = {
+        testId,
+        testTitle: test.title,
+        totalQuestions: test.questions.length,
+        attempted: Object.keys(answers).length,
+        correct: correctAnswers,
+        incorrect: Object.keys(answers).length - correctAnswers,
+        score: correctAnswers,
+        answers,
+        questions: test.questions,
       }
+      sessionStorage.setItem(`mock-test-result-${resultId}`, JSON.stringify(resultData))
+      setShowSubmitDialog(false)
+      setTimeout(() => router.push(`/mock-test-results/${resultId}`), 300)
     } catch (error) {
       console.error("Error in handleSubmit:", error)
       alert("Error submitting test")

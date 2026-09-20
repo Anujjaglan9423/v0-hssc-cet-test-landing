@@ -268,8 +268,8 @@ export default function MockTestPage() {
 
   const hardcodedTests: Record<string, any[]> = Object.fromEntries(
     Object.entries(hardcodedExamSections).flatMap(([, exams]) => exams.map((exam) => [exam.id, [
-      { id: `${exam.id}-practice-1`, title: `${exam.name} Practice Test 1`, description: "A balanced starter set to understand the exam sections and improve accuracy.", total_questions: 25, duration: 20, marks_per_question: 1, negative_marking: 0.25, difficulty: "Moderate" },
-      { id: `${exam.id}-practice-2`, title: `${exam.name} Revision Test 2`, description: "Revise core topics with a second timed practice set and review your mistakes.", total_questions: 25, duration: 20, marks_per_question: 1, negative_marking: 0.25, difficulty: "Difficult" },
+      { id: `${exam.id}-practice-1`, title: `${exam.name} Practice Test 1`, description: "A balanced starter set to understand the exam sections and improve accuracy.", total_questions: 5, duration: 10, marks_per_question: 1, negative_marking: 0.25, difficulty: "Moderate" },
+      { id: `${exam.id}-practice-2`, title: `${exam.name} Revision Test 2`, description: "Revise core topics with a second timed practice set and review your mistakes.", total_questions: 5, duration: 10, marks_per_question: 1, negative_marking: 0.25, difficulty: "Difficult" },
     ]]))
   )
   const [mockTestsTaken, setMockTestsTaken] = useState<Record<string, string>>({})

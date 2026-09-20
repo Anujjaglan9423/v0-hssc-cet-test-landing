@@ -15,7 +15,8 @@ import {
 import { ShareButtons } from "@/components/blog/share-buttons"
 import Footer from "@/components/footer"
 import { notFound } from "next/navigation"
-import { createAdminClient } from "@/lib/supabase/server"
+// Dynamic Supabase import intentionally disabled while editorial content is static.
+// import { createAdminClient } from "@/lib/supabase/server"
 import type { Metadata } from "next"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
@@ -25,6 +26,7 @@ interface Blog {
   title: string
   slug: string
   description: string
+  content?: string
   status?: string
   meta_title?: string
   meta_description?: string
@@ -40,57 +42,49 @@ interface PageProps {
   params: Promise<{ slug: string }>
 }
 
-async function getBlog(slug: string): Promise<Blog | null> {
-  const supabase = createAdminClient()
+const staticBlogs: Blog[] = [
+  {
+    id: "cet-preparation-plan",
+    title: "How to build a practical Haryana CET preparation plan",
+    slug: "haryana-cet-preparation-plan",
+    description: "A subject-wise plan for steady preparation.",
+    content: `<h2>Start with the official syllabus</h2><p>Before choosing a mock test, read the latest official notification and syllabus. Make a checklist of subjects, note the marking scheme, and confirm the examination language and eligibility requirements.</p><h2>Use a weekly study cycle</h2><p>Divide your week between concept learning, Haryana GK, quantitative practice, reasoning, language revision, and one timed mock test. Keep one session for reviewing mistakes rather than only attempting new questions.</p><h2>Review every test</h2><p>After a test, classify each mistake as a knowledge gap, calculation error, reading error, or time-management issue. Revisit the relevant topic and attempt similar questions after a short interval.</p><h2>A realistic daily routine</h2><ul><li>Read one focused topic and make brief notes.</li><li>Attempt 20 to 30 practice questions without guessing blindly.</li><li>Record incorrect answers in a revision notebook.</li><li>End the session by revising yesterday's notes.</li></ul><p>Consistency and honest review are more useful than collecting many unfinished resources.</p>`,
+    category: "Haryana CET", featured_image_url: "/current-affairs-news.jpg", created_at: "2026-09-10T00:00:00.000Z", tags: ["HSSC", "Study Strategy"],
+  },
+  {
+    id: "mock-test-mistakes",
+    title: "Five common mock-test mistakes and how to correct them",
+    slug: "common-mock-test-mistakes",
+    description: "Learn how to turn practice tests into focused revision.",
+    content: `<h2>Why mock-test review matters</h2><p>A score is only one part of a practice test. The real value comes from understanding why an answer was wrong and what action will prevent the same mistake.</p><h2>Common mistakes</h2><ol><li><strong>Starting without instructions:</strong> check the time limit, marks, and negative marking before you begin.</li><li><strong>Spending too long on one question:</strong> mark it for review and protect time for questions you can solve confidently.</li><li><strong>Guessing without a reason:</strong> attempt only when you can eliminate options or the official marking scheme supports it.</li><li><strong>Ignoring incorrect answers:</strong> write the correct method and revise the underlying topic.</li><li><strong>Taking tests without a plan:</strong> schedule tests after topic study so the result has a clear learning purpose.</li></ol><h2>Build a mistake log</h2><p>Write the question topic, your selected answer, the correct answer, and the reason for the error. Review this log every few days.</p>`,
+    category: "Study Strategy", featured_image_url: "/current-affairs-news.jpg", created_at: "2026-09-07T00:00:00.000Z", tags: ["Practice", "Revision"],
+  },
+  {
+    id: "haryana-gk-revision",
+    title: "Haryana GK revision checklist for competitive exams",
+    slug: "haryana-gk-revision-checklist",
+    description: "Organise Haryana history, geography, culture, administration, economy, and current affairs.",
+    content: `<h2>Build your Haryana GK checklist</h2><p>Organise your notes into fixed sections instead of reading disconnected facts. This makes revision measurable and helps you identify missing areas.</p><h2>Core sections</h2><ul><li>History, important sites, movements, and personalities.</li><li>Districts, rivers, soils, agriculture, climate, and geography.</li><li>Folk traditions, festivals, language, sports, and cultural institutions.</li><li>State administration, constitutional offices, schemes, and public institutions.</li><li>Economy, industries, crops, transport, and major development projects.</li><li>Recent state appointments, awards, schemes, and official announcements.</li></ul><h2>How to revise</h2><p>Study one section, answer a short practice set, and then explain the topic in your own words. Always verify changing facts against an official source before relying on them.</p>`,
+    category: "Haryana GK", featured_image_url: "/current-affairs-news.jpg", created_at: "2026-09-03T00:00:00.000Z", tags: ["Haryana", "GK"],
+  },
+]
 
-  // Full blog detail needs all fields
-  const { data: blog, error } = await supabase
-    .from("blogs")
-    .select("*")
-    .eq("slug", slug)
-    .eq("status", "publish")
-    .single()
-
-  if (error || !blog) {
-    return null
-  }
-
-  return blog
+function getBlog(slug: string): Blog | null {
+  return staticBlogs.find((blog) => blog.slug === slug) || null
 }
 
-async function getRelatedBlogs(category: string, currentSlug: string): Promise<Blog[]> {
-  const supabase = createAdminClient()
-
-  // Related blogs - only need listing fields
-  const { data: blogs } = await supabase
-    .from("blogs")
-    .select("id,title,slug,description,category,created_at,featured_image_url")
-    .eq("status", "publish")
-    .eq("category", category)
-    .neq("slug", currentSlug)
-    .limit(3)
-
-  return blogs as Blog[] || []
+function getRelatedBlogs(category: string, currentSlug: string): Blog[] {
+  return staticBlogs.filter((blog) => blog.category === category && blog.slug !== currentSlug).slice(0, 3)
 }
 
-async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
-  const supabase = createAdminClient()
-
-  // Recent blogs - only need listing fields
-  const { data: blogs } = await supabase
-    .from("blogs")
-    .select("id,title,slug,description,category,created_at,featured_image_url")
-    .eq("status", "publish")
-    .neq("slug", currentSlug)
-    .order("created_at", { ascending: false })
-    .limit(4)
-
-  return blogs || []
+function getRecentBlogs(currentSlug: string): Blog[] {
+  return staticBlogs.filter((blog) => blog.slug !== currentSlug).slice(0, 4)
 }
 
 // Revalidate blog pages every 1 hour - cached at CDN for 1 hour, stale for 24h
 export const revalidate = 3600
-export const dynamic = "force-dynamic"
+// Dynamic rendering is not needed while blog articles are hardcoded.
+export const dynamic = "force-static"
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
@@ -149,7 +143,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const relatedBlogs = blog.category ? await getRelatedBlogs(blog.category, slug) : []
   const recentBlogs = await getRecentBlogs(slug)
-  const readTime = calculateReadTime(blog.description)
+  const readTime = calculateReadTime(blog.content || blog.description)
   const isExamAlert = blog.category === "Exam Alert"
   const sourceUrl = isExamAlert && blog.featured_image_url?.startsWith("http") ? blog.featured_image_url : null
   const authority = blog.tags?.find((tag) => ["HSSC", "HPSC", "UKSSSC", "UKPSC", "SSC", "Railway"].includes(tag)) || "Official recruitment authority"
@@ -294,7 +288,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                   prose-ol:my-5 sm:prose-ol:my-6 prose-ol:space-y-2
                   prose-table:my-6 prose-td:px-3 prose-td:py-2 prose-th:px-3 prose-th:py-2 prose-th:font-semibold prose-th:bg-muted/50
                 "
-                dangerouslySetInnerHTML={{ __html: blog.description || `<h2>${blog.title}</h2><p>This official ${authority} exam notice is listed for candidates preparing for government recruitment examinations.</p><h3>What to check</h3><ul><li>Notification dates and application deadline</li><li>Eligibility, vacancies and selection process</li><li>Official PDF, syllabus and examination instructions</li></ul>${sourceUrl ? `<p><a href="${sourceUrl}">Open the official notice source</a></p>` : ""}` }}
+                dangerouslySetInnerHTML={{ __html: blog.content || `<h2>${blog.title}</h2><p>${blog.description}</p>` }}
               />
 
               {/* Share Section */}
