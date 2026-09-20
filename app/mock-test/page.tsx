@@ -22,18 +22,11 @@ const categoryColors: Record<string, string> = {
 }
 
 const defaultCategories = [
-  {
-    id: "haryana",
-    name: "Haryana Exams",
-    slug: "haryana",
-    description: "CET, Police, Group D, and more",
-  },
-  {
-    id: "ssc",
-    name: "SSC Exams",
-    slug: "ssc",
-    description: "CGL, CHSL, MTS, and more",
-  },
+  { id: "haryana", name: "Haryana Exams", slug: "haryana", description: "CET, Police, Group D, and more" },
+  { id: "ssc", name: "SSC Exams", slug: "ssc", description: "CGL, CHSL, MTS, and more" },
+  { id: "uksssc", name: "UKSSSC Exams", slug: "uksssc", description: "VDO, Forest Guard, and state recruitment exams" },
+  { id: "bank", name: "Banking Exams", slug: "bank", description: "Clerk, PO, reasoning, quant, and banking awareness" },
+  { id: "railway", name: "Railway Exams", slug: "railway", description: "RRB NTPC, Group D, and railway recruitment exams" },
 ]
 
 function ExamSectionCard({ exam, onClick }: { exam: any; onClick: () => void }) {
@@ -255,21 +248,17 @@ export default function MockTestPage() {
   const [error, setError] = useState<string | null>(null)
 
   const hardcodedExamSections: Record<string, any[]> = {
-    haryana: [
-      { id: "haryana-cet", name: "Haryana CET Group C & D", slug: "haryana-cet", description: "General awareness, Haryana GK, reasoning, maths, Hindi, and English practice." },
-      { id: "haryana-police", name: "Haryana Police", slug: "haryana-police", description: "Practice questions for Haryana Police recruitment preparation." },
-      { id: "haryana-group-d", name: "Haryana Group D", slug: "haryana-group-d", description: "Foundational practice for Group D subjects and Haryana knowledge." },
-    ],
-    ssc: [
-      { id: "ssc-cgl", name: "SSC CGL", slug: "ssc-cgl", description: "Quantitative aptitude, reasoning, English, and general awareness." },
-      { id: "ssc-chsl", name: "SSC CHSL", slug: "ssc-chsl", description: "Build speed and accuracy with CHSL-style practice." },
-    ],
+    haryana: [{ id: "haryana-cet", name: "Haryana CET Group C & D", slug: "haryana-cet", description: "Haryana GK, reasoning, maths, Hindi, and English questions from the Haryana bank." }],
+    ssc: [{ id: "ssc-cgl", name: "SSC CGL", slug: "ssc-cgl", description: "Quantitative aptitude, reasoning, English, and general awareness from the SSC bank." }],
+    uksssc: [{ id: "uksssc-vdo", name: "UKSSSC VDO & State Exams", slug: "uksssc-vdo", description: "Uttarakhand GK, language, reasoning, and general studies from the UKSSSC bank." }],
+    bank: [{ id: "bank-clerk-po", name: "Bank Clerk & PO", slug: "bank-clerk-po", description: "Banking reasoning, quant, data interpretation, and awareness from the bank question bank." }],
+    railway: [{ id: "railway-rrb", name: "RRB NTPC & Group D", slug: "railway-rrb", description: "Railway mathematics, science, reasoning, and general awareness from the railway bank." }],
   }
 
   const hardcodedTests: Record<string, any[]> = Object.fromEntries(
     Object.entries(hardcodedExamSections).flatMap(([, exams]) => exams.map((exam) => [exam.id, [
-      { id: `${exam.id}-practice-1`, title: `${exam.name} Practice Test 1`, description: "A balanced starter set to understand the exam sections and improve accuracy.", total_questions: 5, duration: 10, marks_per_question: 1, negative_marking: 0.25, difficulty: "Moderate" },
-      { id: `${exam.id}-practice-2`, title: `${exam.name} Revision Test 2`, description: "Revise core topics with a second timed practice set and review your mistakes.", total_questions: 5, duration: 10, marks_per_question: 1, negative_marking: 0.25, difficulty: "Difficult" },
+      { id: `${exam.id}-practice-1`, title: `${exam.name} Mock Test 1`, description: "25 questions selected from the matching category question bank. Attempt the complete paper under timed conditions.", total_questions: 25, duration: 25, marks_per_question: 1, negative_marking: 0.25, difficulty: "Moderate" },
+      { id: `${exam.id}-practice-2`, title: `${exam.name} Mock Test 2`, description: "A second 25-question category-specific paper for revision, speed, and mistake analysis.", total_questions: 25, duration: 25, marks_per_question: 1, negative_marking: 0.25, difficulty: "Difficult" },
     ]]))
   )
   const [mockTestsTaken, setMockTestsTaken] = useState<Record<string, string>>({})
