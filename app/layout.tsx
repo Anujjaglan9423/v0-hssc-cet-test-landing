@@ -74,8 +74,8 @@ export const metadata: Metadata = {
     locale: "en_IN",
     alternateLocale: ["hi_IN"],
     url: SITE_URL,
-    title: "CET TEST - Free Mock Tests for Haryana CET, HSSC, SSC, Railway, UKSSSC & All Govt Exams 2026",
-    description: "India's #1 free mock test platform for all government job exams including SSC, Railway, Banking, Teaching, Defence, State PSC & more. Unlimited practice tests with instant results, all-India rank & detailed analytics.",
+    title: "CET TEST - Independent practice tests and study resources for government exams",
+    description: "Independent practice tests, syllabus notes, current-affairs reading, and performance review tools for Haryana CET, HSSC, SSC, Railway, and related competitive exams.",
     siteName: SITE_NAME,
     images: [
       {
@@ -92,8 +92,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "CET TEST - Free Mock Tests for All Government Exams 2026 | SSC, Railway, Banking, Haryana CET",
-    description: "Unlimited free mock tests for SSC CGL, RRB NTPC, Haryana CET, Banking, Teaching, Defence & more. Get instant results, all-India rank & performance analytics.",
+    title: "CET TEST - Practice tests and study resources for Haryana CET, HSSC, SSC and Railway exams",
+    description: "Practice tests, syllabus notes, current-affairs reading, and performance review tools for Haryana CET, HSSC, SSC, Railway, and related competitive exams.",
     images: ["/og-image.png"],
     site: INSTAGRAM_URL,
     creator: INSTAGRAM_HANDLE,
@@ -170,7 +170,7 @@ export default function RootLayout({
     name: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/icon-512.png`,
-    description: "India's largest free online mock test platform for all government job competitive exams including SSC, Railway, Banking, Teaching, Defence, Haryana CET, UKSSSC, and state-level exams.",
+    description: "An independent online practice platform for government-job competitive exams including SSC, Railway, Haryana CET, UKSSSC, and state-level exams.",
 
     // Contact Information
     contactPoint: {

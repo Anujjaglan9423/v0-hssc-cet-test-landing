@@ -13,6 +13,7 @@ const footerLinks = {
   ],
   company: [
     { name: "About Us", href: "/about" },
+    { name: "Editorial Policy", href: "/editorial-policy" },
     // { name: "Careers", href: "/careers" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
@@ -49,7 +50,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-muted-foreground text-sm mb-4">
-              India's leading test series platform for competitive exam preparation.
+              An independent study platform for practice tests, syllabus notes, and exam preparation resources.
             </p>
             <div className="space-y-2">
               <a
