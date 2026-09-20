@@ -27,6 +27,8 @@ export default function StudentDashboard() {
   const [dashboardData, setDashboardData] = useState<any>(null)
   const [tests, setTests] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [weeklyGoal, setWeeklyGoal] = useState(5)
+  const [isEditingGoal, setIsEditingGoal] = useState(false)
 
   useEffect(() => {
     async function loadData() {
@@ -111,8 +113,6 @@ export default function StudentDashboard() {
   const weekStart = new Date(today)
   weekStart.setDate(today.getDate() - ((today.getDay() + 6) % 7))
   const practicedThisWeek = activityDays.filter((day) => day.date >= weekStart && day.date <= today && day.count > 0).length
-  const [weeklyGoal, setWeeklyGoal] = useState(5)
-  const [isEditingGoal, setIsEditingGoal] = useState(false)
   const reviewQueue = (dashboardData?.recentResults || []).slice(0, 3).map((result: any, index: number) => ({
     title: result.test?.title || `Revision set ${index + 1}`,
     due: index === 0 ? "Due today" : index === 1 ? "Due tomorrow" : "Due in 3 days",
@@ -223,7 +223,7 @@ export default function StudentDashboard() {
             </div>
             <div>
               <p className="text-2xl font-bold text-foreground">{currentStreak} days</p>
-              <p className="text-sm text-muted-foreground">Keep the momentum going</p>
+              <p className="text-sm text-muted-foreground">Keep your momentum going</p>
             </div>
           </div>
         </ChartCard>
