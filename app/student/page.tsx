@@ -5,7 +5,7 @@ import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { cn } from "@/lib/utils"
 import { getStudentDashboardData } from "@/lib/actions/student"
-import { FileText, Trophy, Clock, Target, BookOpen, Zap, Loader2, RotateCcw, CheckCircle2, CalendarDays } from "lucide-react"
+import { FileText, Trophy, Clock, Target, BookOpen, Zap, Loader2, RotateCcw, CheckCircle2, CalendarDays, Flame, BrainCircuit, Settings2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import {
@@ -101,6 +101,23 @@ export default function StudentDashboard() {
   const activeDays = activityDays.filter((day) => day.count > 0).length
   const totalPractice = activityDays.reduce((sum, day) => sum + day.count, 0)
   const activityLevel = (count: number) => count === 0 ? "bg-muted/60" : count === 1 ? "bg-primary/30" : count <= 3 ? "bg-primary/60" : "bg-primary"
+  const activeDates = new Set(activityDays.filter((day) => day.count > 0).map((day) => day.key))
+  let currentStreak = 0
+  const streakCursor = new Date(today)
+  while (activeDates.has(streakCursor.toISOString().slice(0, 10))) {
+    currentStreak += 1
+    streakCursor.setDate(streakCursor.getDate() - 1)
+  }
+  const weekStart = new Date(today)
+  weekStart.setDate(today.getDate() - ((today.getDay() + 6) % 7))
+  const practicedThisWeek = activityDays.filter((day) => day.date >= weekStart && day.date <= today && day.count > 0).length
+  const [weeklyGoal, setWeeklyGoal] = useState(5)
+  const [isEditingGoal, setIsEditingGoal] = useState(false)
+  const reviewQueue = (dashboardData?.recentResults || []).slice(0, 3).map((result: any, index: number) => ({
+    title: result.test?.title || `Revision set ${index + 1}`,
+    due: index === 0 ? "Due today" : index === 1 ? "Due tomorrow" : "Due in 3 days",
+    tone: index === 0 ? "text-destructive" : "text-muted-foreground",
+  }))
 
 
   return (
@@ -197,6 +214,55 @@ export default function StudentDashboard() {
           </div>
         </div>
       </ChartCard>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+        <ChartCard title="Daily streak">
+          <div className="flex items-center gap-4">
+            <div className="flex size-12 items-center justify-center rounded-xl bg-orange-500/10 text-orange-500">
+              <Flame className="size-6" aria-hidden="true" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-foreground">{currentStreak} days</p>
+              <p className="text-sm text-muted-foreground">Keep the momentum going</p>
+            </div>
+          </div>
+        </ChartCard>
+
+        <ChartCard title="This week&apos;s goal">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-2xl font-bold text-foreground">{practicedThisWeek}/{weeklyGoal}</p>
+              <p className="text-sm text-muted-foreground">practice days completed</p>
+            </div>
+            <Button variant="ghost" size="icon" aria-label="Edit weekly goal" onClick={() => setIsEditingGoal((value) => !value)}>
+              <Settings2 className="size-4" aria-hidden="true" />
+            </Button>
+          </div>
+          <div className="mt-4 h-2 overflow-hidden rounded-full bg-muted" aria-label={`${practicedThisWeek} of ${weeklyGoal} practice days completed`}>
+            <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${Math.min(100, (practicedThisWeek / Math.max(1, weeklyGoal)) * 100)}%` }} />
+          </div>
+          {isEditingGoal && (
+            <div className="mt-3 flex items-center gap-2">
+              <label htmlFor="weekly-goal" className="text-xs text-muted-foreground">Target days</label>
+              <input id="weekly-goal" type="number" min={1} max={7} value={weeklyGoal} onChange={(event) => setWeeklyGoal(Math.min(7, Math.max(1, Number(event.target.value) || 1)))} className="h-8 w-16 rounded-md border border-input bg-background px-2 text-sm" />
+            </div>
+          )}
+        </ChartCard>
+
+        <ChartCard title="Smart revision">
+          <div className="flex flex-col gap-3">
+            {reviewQueue.length > 0 ? reviewQueue.map((item: any) => (
+              <div key={item.title} className="flex items-center gap-3 text-sm">
+                <BrainCircuit className="size-4 shrink-0 text-primary" aria-hidden="true" />
+                <span className="min-w-0 flex-1 truncate text-foreground">{item.title}</span>
+                <span className={cn("text-xs", item.tone)}>{item.due}</span>
+              </div>
+            )) : (
+              <p className="text-sm text-muted-foreground">Complete a test to build your revision queue.</p>
+            )}
+          </div>
+        </ChartCard>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <ChartCard title="Performance Trend">
