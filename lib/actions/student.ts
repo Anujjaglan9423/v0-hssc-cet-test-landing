@@ -136,10 +136,17 @@ export async function getStudentDashboardData() {
     if (!userResults[result.test_id] || result.score > userResults[result.test_id].score) userResults[result.test_id] = result
   })
 
+  const activityByDate: Record<string, number> = {}
+  results.forEach((result) => {
+    const date = result.created_at?.slice(0, 10)
+    if (date) activityByDate[date] = (activityByDate[date] || 0) + 1
+  })
+
   return {
     dashboard: {
       user,
       stats: { testsAttempted, averageScore, bestScore, totalTime: `${Math.floor(totalTime / 3600)}h` },
+      activityByDate,
       recentResults: results.slice(0, 3).map((result) => ({ ...result, marks: result.score, percentage: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0 })),
       performanceTrend: results.slice(0, 7).reverse().map((result, index) => ({ test: `Test ${index + 1}`, score: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0 })),
       subjectPerformance: Object.entries(subjectScores).map(([subject, data]) => ({ subject, score: Math.round(data.total / data.count) })),

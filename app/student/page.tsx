@@ -5,7 +5,7 @@ import { StatsCard } from "@/components/dashboard/stats-card"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { cn } from "@/lib/utils"
 import { getStudentDashboardData } from "@/lib/actions/student"
-import { FileText, Trophy, Clock, Target, BookOpen, Zap, Loader2, RotateCcw, CheckCircle2 } from "lucide-react"
+import { FileText, Trophy, Clock, Target, BookOpen, Zap, Loader2, RotateCcw, CheckCircle2, CalendarDays } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import {
@@ -76,11 +76,32 @@ export default function StudentDashboard() {
       ]
 
   const recentResults = dashboardData?.recentResults || []
+  const activityByDate = dashboardData?.activityByDate || {}
   const recommendedTests = tests.slice(0, 3)
 
   const fullTests = tests.filter((t) => t.test_type === "full")
   const subjectTests = tests.filter((t) => t.test_type === "subject")
   const topicTests = tests.filter((t) => t.test_type === "topic")
+  const today = new Date()
+  const calendarStart = new Date(today)
+  calendarStart.setDate(today.getDate() - 364)
+  calendarStart.setDate(calendarStart.getDate() - calendarStart.getDay())
+  const activityDays = Array.from({ length: 371 }, (_, index) => {
+    const date = new Date(calendarStart)
+    date.setDate(calendarStart.getDate() + index)
+    const key = date.toISOString().slice(0, 10)
+    return { key, date, count: activityByDate[key] || 0 }
+  })
+  const activityWeeks = Array.from({ length: 53 }, (_, weekIndex) => activityDays.slice(weekIndex * 7, weekIndex * 7 + 7))
+  const monthLabels = activityWeeks.reduce<{ label: string; weekIndex: number }[]>((labels, week, weekIndex) => {
+    const month = week[0]?.date.toLocaleDateString("en-IN", { month: "short" })
+    if (month && labels[labels.length - 1]?.label !== month) labels.push({ label: month, weekIndex })
+    return labels
+  }, [])
+  const activeDays = activityDays.filter((day) => day.count > 0).length
+  const totalPractice = activityDays.reduce((sum, day) => sum + day.count, 0)
+  const activityLevel = (count: number) => count === 0 ? "bg-muted/60" : count === 1 ? "bg-primary/30" : count <= 3 ? "bg-primary/60" : "bg-primary"
+
 
   return (
     <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -124,6 +145,58 @@ export default function StudentDashboard() {
           color="primary"
         />
       </div>
+
+      <ChartCard title="Study Calendar">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <p className="text-sm text-muted-foreground">Your daily practice activity</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                <span className="font-semibold text-foreground">{totalPractice}</span> practices across <span className="font-semibold text-foreground">{activeDays}</span> active days
+              </p>
+            </div>
+            <CalendarDays className="size-5 text-primary" aria-hidden="true" />
+          </div>
+          <div className="overflow-x-auto pb-1" aria-label="Study activity for the last year">
+            <div className="min-w-[650px]">
+              <div className="grid grid-cols-[38px_minmax(0,1fr)] gap-x-3" aria-label="Study activity for the last year">
+                <div aria-hidden="true" />
+                <div className="relative grid grid-cols-[repeat(53,minmax(12px,1fr))] gap-1 h-6 text-[11px] text-muted-foreground">
+                  {monthLabels.map(({ label, weekIndex }) => (
+                    <span key={`${label}-${weekIndex}`} className="absolute top-0 whitespace-nowrap" style={{ left: `calc(${weekIndex} * (100% / 53))` }}>
+                      {label}
+                    </span>
+                  ))}
+                </div>
+                <div className="grid grid-rows-7 gap-1 text-[11px] text-muted-foreground" aria-hidden="true">
+                  {["", "Mon", "", "Wed", "", "Fri", ""].map((label, index) => (
+                    <span key={index} className="flex items-center justify-end pr-1 leading-none">{label}</span>
+                  ))}
+                </div>
+                <div className="grid grid-flow-col grid-rows-7 grid-cols-[repeat(53,minmax(12px,1fr))] gap-1" role="grid" aria-label="Study activity heatmap">
+                  {activityWeeks.flatMap((week) => week.map((day) => (
+                    <div
+                      key={day.key}
+                      role="gridcell"
+                      title={`${day.date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}: ${day.count} practice${day.count === 1 ? "" : "s"}`}
+                      aria-label={`${day.key}: ${day.count} practices`}
+                      className={cn("aspect-square w-full max-w-4 rounded-[3px] transition-colors hover:ring-2 hover:ring-primary/40", activityLevel(day.count))}
+                    />
+                  )))}
+                </div>
+              </div>
+              <div className="flex items-center justify-end gap-2 mt-3 text-[11px] text-muted-foreground">
+                <span>Less</span>
+                <span className="size-3 rounded-[3px] bg-muted/60" />
+                <span className="size-3 rounded-[3px] bg-primary/30" />
+                <span className="size-3 rounded-[3px] bg-primary/60" />
+                <span className="size-3 rounded-[3px] bg-primary" />
+                <span>More</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ChartCard>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <ChartCard title="Performance Trend">
