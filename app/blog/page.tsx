@@ -4,8 +4,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { BookOpen, ArrowLeft, Calendar, Clock, ArrowRight, Sparkles } from "lucide-react"
 import Footer from "@/components/footer"
-import { createClient } from "@/lib/supabase/server"
-import { SELECT_FIELDS } from "@/lib/supabase/data-fetching"
+// import { createClient } from "@/lib/supabase/server"
+// import { SELECT_FIELDS } from "@/lib/supabase/data-fetching"
 import type { Metadata } from "next"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
@@ -56,23 +56,49 @@ interface Blog {
   created_at: string
 }
 
+/* Dynamic blog loading is intentionally commented out for now.
 async function getBlogs(): Promise<Blog[]> {
   const supabase = await createClient()
-
-  // Use selective field fetching instead of * to reduce payload by ~65%
   const { data: blogs, error } = await supabase
     .from("blogs")
     .select(SELECT_FIELDS.BLOG_LIST)
     .eq("status", "publish")
     .order("created_at", { ascending: false })
-
-  if (error) {
-    console.error("Error fetching blogs:", error)
-    return []
-  }
-
+  if (error) return []
   return blogs || []
 }
+*/
+
+const blogs: Blog[] = [
+  {
+    id: "cet-preparation-plan",
+    title: "How to build a practical Haryana CET preparation plan",
+    slug: "haryana-cet-preparation-plan",
+    description: "A simple subject-wise routine for combining syllabus reading, timed mock tests, Haryana GK revision, and mistake analysis.",
+    category: "Haryana CET",
+    featured_image_url: "/current-affairs-news.jpg",
+    created_at: "2026-09-10T00:00:00.000Z",
+  },
+  {
+    id: "mock-test-mistakes",
+    title: "Five common mock-test mistakes and how to correct them",
+    slug: "common-mock-test-mistakes",
+    description: "Learn how to review incorrect answers, manage time, avoid guesswork, and turn every practice test into a focused revision session.",
+    category: "Study Strategy",
+    featured_image_url: "/current-affairs-news.jpg",
+    created_at: "2026-09-07T00:00:00.000Z",
+  },
+  {
+    id: "haryana-gk-revision",
+    title: "Haryana GK revision checklist for competitive exams",
+    slug: "haryana-gk-revision-checklist",
+    description: "Use this checklist to organise Haryana history, geography, culture, administration, economy, and current-affairs revision.",
+    category: "Haryana GK",
+    featured_image_url: "/current-affairs-news.jpg",
+    created_at: "2026-09-03T00:00:00.000Z",
+  },
+]
+
 
 function calculateReadTime(content: string): string {
   const wordsPerMinute = 200
@@ -103,8 +129,7 @@ function getSafeImageUrl(url: string | null): string {
   return url
 }
 
-export default async function BlogPage() {
-  const blogs = await getBlogs()
+export default function BlogPage() {
   const categories = [...new Set(blogs.map(blog => blog.category).filter(Boolean))]
 
   return (

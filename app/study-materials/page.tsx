@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { getActiveStudyMaterials, StudyMaterial } from "@/lib/actions/study-materials"
+import type { StudyMaterial } from "@/lib/actions/study-materials"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { FileText, Image, Video, Download, ExternalLink, Loader2 } from "lucide-react"
@@ -18,16 +18,12 @@ export default function StudyMaterialsPage() {
     loadMaterials()
   }, [])
 
-  async function loadMaterials() {
-    setLoading(true)
-    try {
-      const data = await getActiveStudyMaterials()
-      setMaterials(data)
-    } catch (error) {
-      console.error("Error loading materials:", error)
-    } finally {
-      setLoading(false)
-    }
+  function loadMaterials() {
+    // Dynamic Supabase loading is intentionally disabled while the editorial library is being prepared.
+    // const data = await getActiveStudyMaterials()
+    // setMaterials(data)
+    setMaterials([])
+    setLoading(false)
   }
 
   const curatedMaterials: StudyMaterial[] = [

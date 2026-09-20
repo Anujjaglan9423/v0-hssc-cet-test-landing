@@ -2,7 +2,6 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import { supabase } from "@/lib/supabase"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -247,13 +246,32 @@ function TestCard({ test, isFree, isTestTaken }: { test: any; isFree: boolean; i
 
 export default function MockTestPage() {
   const router = useRouter()
-  const [categories, setCategories] = useState<any[]>([])
+  const [categories, setCategories] = useState<any[]>(defaultCategories)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedExam, setSelectedExam] = useState<string | null>(null)
   const [examSections, setExamSections] = useState<any[]>([])
   const [tests, setTests] = useState<any[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const hardcodedExamSections: Record<string, any[]> = {
+    haryana: [
+      { id: "haryana-cet", name: "Haryana CET Group C & D", slug: "haryana-cet", description: "General awareness, Haryana GK, reasoning, maths, Hindi, and English practice." },
+      { id: "haryana-police", name: "Haryana Police", slug: "haryana-police", description: "Practice questions for Haryana Police recruitment preparation." },
+      { id: "haryana-group-d", name: "Haryana Group D", slug: "haryana-group-d", description: "Foundational practice for Group D subjects and Haryana knowledge." },
+    ],
+    ssc: [
+      { id: "ssc-cgl", name: "SSC CGL", slug: "ssc-cgl", description: "Quantitative aptitude, reasoning, English, and general awareness." },
+      { id: "ssc-chsl", name: "SSC CHSL", slug: "ssc-chsl", description: "Build speed and accuracy with CHSL-style practice." },
+    ],
+  }
+
+  const hardcodedTests: Record<string, any[]> = Object.fromEntries(
+    Object.entries(hardcodedExamSections).flatMap(([, exams]) => exams.map((exam) => [exam.id, [
+      { id: `${exam.id}-practice-1`, title: `${exam.name} Practice Test 1`, description: "A balanced starter set to understand the exam sections and improve accuracy.", total_questions: 25, duration: 20, marks_per_question: 1, negative_marking: 0.25, difficulty: "Moderate" },
+      { id: `${exam.id}-practice-2`, title: `${exam.name} Revision Test 2`, description: "Revise core topics with a second timed practice set and review your mistakes.", total_questions: 25, duration: 20, marks_per_question: 1, negative_marking: 0.25, difficulty: "Difficult" },
+    ]]))
+  )
   const [mockTestsTaken, setMockTestsTaken] = useState<Record<string, string>>({})
   const stats = [
     { label: "Exam Categories", value: "4+", icon: <BookOpen className="w-4 h-4" /> },
@@ -261,7 +279,7 @@ export default function MockTestPage() {
     { label: "Practice Questions", value: "10000+", icon: <Sparkles className="w-4 h-4" /> },
     { label: "Free Access", value: "Unlimited", icon: <Award className="w-4 h-4" /> }
   ]
-  // Load categories
+  /* Dynamic Supabase loading is intentionally disabled for now.
   useEffect(() => {
     let isMounted = true
 
@@ -402,6 +420,17 @@ export default function MockTestPage() {
     return () => {
       isMounted = false
     }
+  }, [selectedExam])
+  */
+
+  useEffect(() => {
+    setExamSections(selectedCategory ? hardcodedExamSections[selectedCategory] || [] : [])
+    setSelectedExam(null)
+    setTests([])
+  }, [selectedCategory])
+
+  useEffect(() => {
+    setTests(selectedExam ? hardcodedTests[selectedExam] || [] : [])
   }, [selectedExam])
 
   if (isLoading && !selectedCategory) {
