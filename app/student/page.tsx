@@ -92,9 +92,16 @@ export default function StudentDashboard() {
     const key = date.toISOString().slice(0, 10)
     return { key, date, count: activityByDate[key] || 0 }
   })
+  const activityWeeks = Array.from({ length: 53 }, (_, weekIndex) => activityDays.slice(weekIndex * 7, weekIndex * 7 + 7))
+  const monthLabels = activityWeeks.reduce<{ label: string; weekIndex: number }[]>((labels, week, weekIndex) => {
+    const month = week[0]?.date.toLocaleDateString("en-IN", { month: "short" })
+    if (month && labels[labels.length - 1]?.label !== month) labels.push({ label: month, weekIndex })
+    return labels
+  }, [])
   const activeDays = activityDays.filter((day) => day.count > 0).length
   const totalPractice = activityDays.reduce((sum, day) => sum + day.count, 0)
   const activityLevel = (count: number) => count === 0 ? "bg-muted/60" : count === 1 ? "bg-primary/30" : count <= 3 ? "bg-primary/60" : "bg-primary"
+
 
   return (
     <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -152,16 +159,31 @@ export default function StudentDashboard() {
           </div>
           <div className="overflow-x-auto pb-1" aria-label="Study activity for the last year">
             <div className="min-w-[650px]">
-              <div className="grid grid-flow-col grid-rows-7 gap-1" role="grid" aria-label="Study activity heatmap">
-                {activityDays.map((day) => (
-                  <div
-                    key={day.key}
-                    role="gridcell"
-                    title={`${day.date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}: ${day.count} practice${day.count === 1 ? "" : "s"}`}
-                    aria-label={`${day.key}: ${day.count} practices`}
-                    className={cn("size-3 rounded-[3px] transition-colors hover:ring-2 hover:ring-primary/40", activityLevel(day.count))}
-                  />
-                ))}
+              <div className="grid grid-cols-[38px_minmax(0,1fr)] gap-x-3" aria-label="Study activity for the last year">
+                <div aria-hidden="true" />
+                <div className="relative grid grid-cols-[repeat(53,minmax(12px,1fr))] gap-1 h-6 text-[11px] text-muted-foreground">
+                  {monthLabels.map(({ label, weekIndex }) => (
+                    <span key={`${label}-${weekIndex}`} className="absolute top-0 whitespace-nowrap" style={{ left: `calc(${weekIndex} * (100% / 53))` }}>
+                      {label}
+                    </span>
+                  ))}
+                </div>
+                <div className="grid grid-rows-7 gap-1 text-[11px] text-muted-foreground" aria-hidden="true">
+                  {["", "Mon", "", "Wed", "", "Fri", ""].map((label, index) => (
+                    <span key={index} className="flex items-center justify-end pr-1 leading-none">{label}</span>
+                  ))}
+                </div>
+                <div className="grid grid-flow-col grid-rows-7 grid-cols-[repeat(53,minmax(12px,1fr))] gap-1" role="grid" aria-label="Study activity heatmap">
+                  {activityWeeks.flatMap((week) => week.map((day) => (
+                    <div
+                      key={day.key}
+                      role="gridcell"
+                      title={`${day.date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}: ${day.count} practice${day.count === 1 ? "" : "s"}`}
+                      aria-label={`${day.key}: ${day.count} practices`}
+                      className={cn("aspect-square w-full max-w-4 rounded-[3px] transition-colors hover:ring-2 hover:ring-primary/40", activityLevel(day.count))}
+                    />
+                  )))}
+                </div>
               </div>
               <div className="flex items-center justify-end gap-2 mt-3 text-[11px] text-muted-foreground">
                 <span>Less</span>
