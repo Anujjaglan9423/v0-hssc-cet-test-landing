@@ -148,6 +148,41 @@ export async function getStudentDashboardData() {
   }
 }
 
+// Get every wrong answer from the student's completed attempts.
+export async function getStudentMistakes() {
+  const supabase = await createClient()
+  const user = await getCurrentUser()
+  if (!user) return { mistakes: [], total: 0, tests: 0 }
+
+  const { data, error } = await supabase
+    .from("user_answers")
+    .select(`
+      id, selected_answer, is_correct, created_at,
+      question:questions (id, question_text, option_a, option_b, option_c, option_d, correct_answer, explanation, image_url),
+      attempt:test_attempts!inner (user_id, test:tests (id, title, test_type))
+    `)
+    .eq("attempt.user_id", user.id)
+    .eq("is_correct", false)
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching mistake notebook:", error)
+    return { mistakes: [], total: 0, tests: 0 }
+  }
+
+  const mistakes = (data ?? []).map((item: any) => ({
+    ...item,
+    test: item.attempt?.test,
+    question: item.question,
+  }))
+
+  return {
+    mistakes,
+    total: mistakes.length,
+    tests: new Set(mistakes.map((item: any) => item.test?.id).filter(Boolean)).size,
+  }
+}
+
 // Get all available tests for students
 export async function getAvailableTests() {
   const supabase = await createClient()
