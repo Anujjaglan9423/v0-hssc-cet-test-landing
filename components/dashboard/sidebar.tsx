@@ -16,6 +16,7 @@ import {
   GraduationCap,
   Target,
   Trophy,
+  NotebookPen,
   ChevronLeft,
   ChevronRight,
   Menu,
@@ -59,6 +60,7 @@ const studentLinks = [
   { href: "/student/tests", icon: FileText, label: "Test Series" },
   { href: "/student/practice", icon: Target, label: "Practice" },
   { href: "/student/results", icon: Trophy, label: "Results" },
+  { href: "/student/mistakes", icon: NotebookPen, label: "Mistake Notebook" },
   { href: "/student/analytics", icon: BarChart3, label: "My Analytics" },
 ]
 
