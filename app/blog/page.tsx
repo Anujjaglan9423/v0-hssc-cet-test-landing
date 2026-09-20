@@ -229,23 +229,35 @@ export default async function BlogPage() {
         </section>
       )}
 
-      {/* Empty State */}
+      {/* Useful evergreen resources keep the page helpful even while new articles are being reviewed. */}
       {blogs.length === 0 && (
-        <section className="py-24 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mx-auto mb-8">
-              <BookOpen className="w-12 h-12 text-primary/50" />
+        <section className="py-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-3xl mb-10">
+              <p className="text-sm font-semibold uppercase tracking-wide text-primary mb-3">Start here</p>
+              <h2 className="text-3xl font-bold text-foreground mb-4">Exam preparation resources</h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Our editorial team is building a reviewed article library. Until then, use these structured resources for syllabus planning, topic revision, and current-affairs practice.
+              </p>
             </div>
-            <h2 className="text-3xl font-bold text-foreground mb-4">No articles yet</h2>
-            <p className="text-muted-foreground text-lg mb-10 leading-relaxed">
-              We are working on creating helpful content for your exam preparation. Check back soon!
-            </p>
-            <Link href="/">
-              <Button size="lg" className="gap-2">
-                <ArrowLeft className="w-4 h-4" />
-                Back to Home
-              </Button>
-            </Link>
+            <div className="grid gap-6 md:grid-cols-3">
+              {[
+                { title: "Haryana exam syllabus", text: "Break the syllabus into subjects and create a realistic revision plan.", href: "/haryana-exam-syllabus" },
+                { title: "Haryana GK notes", text: "Study topic-wise notes on history, geography, administration, culture, and economy.", href: "/haryana-gk" },
+                { title: "Monthly current affairs", text: "Revise recent national and state developments from the monthly archive.", href: "/current-affairs" },
+              ].map((resource) => (
+                <Card key={resource.href} className="h-full border-border/60">
+                  <CardContent className="p-6 flex h-full flex-col">
+                    <BookOpen className="w-8 h-8 text-primary mb-5" />
+                    <h3 className="text-xl font-semibold text-foreground mb-3">{resource.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed mb-6 flex-1">{resource.text}</p>
+                    <Link href={resource.href} className="inline-flex items-center gap-2 font-medium text-primary hover:underline">
+                      Explore resource <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </section>
       )}

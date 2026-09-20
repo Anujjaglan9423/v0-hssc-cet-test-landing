@@ -813,10 +813,15 @@ export default function MockTestPage() {
                 <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
                   <FileText className="w-10 h-10 text-muted-foreground" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">No Tests Available</h3>
-                <p className="text-muted-foreground mb-6">
-                  Tests for this category are coming soon. Please check back later.
-                </p>
+  <h3 className="text-xl font-semibold mb-2">Practice resources for this category</h3>
+  <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+  The test list is being reviewed and updated. You can continue preparing with the syllabus, Haryana GK notes, and current-affairs resources while new question sets are published.
+  </p>
+  <div className="flex flex-wrap justify-center gap-3">
+  <Button asChild variant="outline"><Link href="/syllabus">View syllabus</Link></Button>
+  <Button asChild variant="outline"><Link href="/haryana-gk">Read Haryana GK</Link></Button>
+  <Button asChild variant="outline"><Link href="/current-affairs">Read current affairs</Link></Button>
+  </div>
                 <Button onClick={() => {
                   setSelectedCategory(null)
                   setExamSections([])

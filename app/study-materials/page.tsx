@@ -30,8 +30,48 @@ export default function StudyMaterialsPage() {
     }
   }
 
+  const curatedMaterials: StudyMaterial[] = [
+    {
+      id: "haryana-cet-syllabus-guide",
+      title: "Haryana CET syllabus and preparation guide",
+      description: "Review the main subjects, question areas, and a practical weekly plan before starting your mock-test practice.",
+      content_type: "pdf",
+      file_url: "/haryana-exam-syllabus",
+      youtube_url: null,
+      created_by: null,
+      created_at: "2026-09-01T00:00:00.000Z",
+      updated_at: "2026-09-01T00:00:00.000Z",
+      is_active: true,
+    },
+    {
+      id: "haryana-gk-notes",
+      title: "Haryana GK study notes",
+      description: "Read topic-wise notes on Haryana history, geography, administration, culture, and economy for revision.",
+      content_type: "image",
+      file_url: "/haryana-gk",
+      youtube_url: null,
+      created_by: null,
+      created_at: "2026-09-01T00:00:00.000Z",
+      updated_at: "2026-09-01T00:00:00.000Z",
+      is_active: true,
+    },
+    {
+      id: "current-affairs-reading",
+      title: "Monthly current affairs reading",
+      description: "Use the monthly current-affairs archive to revise important national, state, and exam-relevant developments.",
+      content_type: "youtube",
+      file_url: "/current-affairs",
+      youtube_url: null,
+      created_by: null,
+      created_at: "2026-09-01T00:00:00.000Z",
+      updated_at: "2026-09-01T00:00:00.000Z",
+      is_active: true,
+    },
+  ]
+
+  const availableMaterials = materials.length > 0 ? materials : curatedMaterials
   const filteredMaterials =
-    filter === "all" ? materials : materials.filter((m) => m.content_type === filter)
+    filter === "all" ? availableMaterials : availableMaterials.filter((m) => m.content_type === filter)
 
   const getIcon = (type: "pdf" | "image" | "youtube") => {
     switch (type) {
@@ -64,7 +104,7 @@ export default function StudyMaterialsPage() {
           <div className="mb-12">
             <h1 className="text-4xl font-bold text-foreground mb-4">Study Materials</h1>
             <p className="text-xl text-muted-foreground">
-              Access our comprehensive collection of study resources to enhance your exam preparation
+              Read topic-wise notes, syllabus guidance, and revision resources for Haryana CET, HSSC, SSC, Railway, and related competitive exams. New resources are added as they are reviewed.
             </p>
           </div>
 
@@ -165,7 +205,7 @@ export default function StudyMaterialsPage() {
                         variant="default"
                         className="w-full gap-2"
                       >
-                        <a href={material.youtube_url} target="_blank" rel="noopener noreferrer">
+                        <a href={material.youtube_url || material.file_url || "#"} target={material.youtube_url ? "_blank" : undefined} rel={material.youtube_url ? "noopener noreferrer" : undefined}>
                           <ExternalLink className="w-4 h-4" />
                           Watch Video
                         </a>
@@ -176,7 +216,7 @@ export default function StudyMaterialsPage() {
                         variant="default"
                         className="w-full gap-2"
                       >
-                        <a href={material.file_url} target="_blank" rel="noopener noreferrer">
+                        <a href={material.file_url || "#"} target={material.file_url?.startsWith("http") ? "_blank" : undefined} rel={material.file_url?.startsWith("http") ? "noopener noreferrer" : undefined}>
                           <Download className="w-4 h-4" />
                           Download
                         </a>
