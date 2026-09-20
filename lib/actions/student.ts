@@ -422,6 +422,9 @@ export async function getPaginatedStudentResults(page: number = 1, pageSize: num
       { count: "exact" }
     )
     .eq("user_id", user.id)
+    // Practice sessions do not have a test ID and should not appear here.
+    .not("test_id", "is", null)
+    .neq("test_id", "")
     .order("created_at", { ascending: false })
     .range(offset, offset + pageSize - 1)
 
