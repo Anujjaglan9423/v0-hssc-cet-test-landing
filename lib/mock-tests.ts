@@ -24,19 +24,19 @@ const questions = (prefix: string): HardcodedQuestion[] => [
   { id: `${prefix}-q5`, question_text: "Which document should candidates check for the latest exam eligibility and dates?", option_a: "An unofficial post", option_b: "A forwarded message", option_c: "The official notification", option_d: "An old answer key", correct_answer: "C", explanation: "The recruiting authority's official notification is the reliable source for current requirements." },
   ...Array.from({ length: 20 }, (_, index) => ({
     id: `${prefix}-q${index + 6}`,
-    question_text: `Category question ${index + 6}: revise the same exam-bank skill with a timed application question.`,
-    option_a: "Option A",
-    option_b: "Option B",
-    option_c: "Option C",
-    option_d: "Option D",
+    question_text: `Question ${index + 6}: Which source should be used to verify the latest examination syllabus and marking scheme?`,
+    option_a: "The latest official notification",
+    option_b: "An old social-media post",
+    option_c: "An unverified message",
+    option_d: "A coaching advertisement",
     correct_answer: "A",
-    explanation: "Review the corresponding category question-bank topic and the official solution before moving on.",
+    explanation: "Always verify the syllabus and marking scheme from the latest official notification issued by the recruiting authority.",
   })),
 ]
 
 export const hardcodedMockTests: Record<string, HardcodedMockTest> = Object.fromEntries(
   ["haryana-cet", "haryana-police", "haryana-group-d", "ssc-cgl", "ssc-chsl", "uksssc-vdo", "bank-clerk-po", "railway-rrb"].flatMap((examId) => [
-    [`${examId}-practice-1`, { id: `${examId}-practice-1`, title: `${examId.replaceAll("-", " ").toUpperCase()} Practice Test 1`, duration: 10, questions: questions(`${examId}-practice-1`) }],
-    [`${examId}-practice-2`, { id: `${examId}-practice-2`, title: `${examId.replaceAll("-", " ").toUpperCase()} Revision Test 2`, duration: 10, questions: questions(`${examId}-practice-2`) }],
+    [`${examId}-practice-1`, { id: `${examId}-practice-1`, title: `${examId.replaceAll("-", " ").toUpperCase()} 25-Question Mock Test 1`, duration: 25, questions: questions(`${examId}-practice-1`) }],
+    [`${examId}-practice-2`, { id: `${examId}-practice-2`, title: `${examId.replaceAll("-", " ").toUpperCase()} 25-Question Mock Test 2`, duration: 25, questions: questions(`${examId}-practice-2`) }],
   ])
 )
