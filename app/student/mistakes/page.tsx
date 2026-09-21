@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { StatsCard } from "@/components/dashboard/stats-card"
 
 const optionLabels = { a: "A", b: "B", c: "C", d: "D" } as const
 
@@ -57,12 +58,12 @@ export default function StudentMistakesPage() {
       </header>
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-        <Card><CardContent className="flex items-center gap-3 p-4"><div className="flex size-10 items-center justify-center rounded-xl bg-destructive/10 text-destructive"><XCircle className="size-5" /></div><div><p className="text-2xl font-semibold">{mistakes.length}</p><p className="text-xs text-muted-foreground">Wrong answers</p></div></CardContent></Card>
-        <Card><CardContent className="flex items-center gap-3 p-4"><div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary"><Target className="size-5" /></div><div><p className="text-2xl font-semibold">{tests.length}</p><p className="text-xs text-muted-foreground">Tests to revisit</p></div></CardContent></Card>
-        <Card className="col-span-2 md:col-span-1"><CardContent className="flex items-center gap-3 p-4"><div className="flex size-10 items-center justify-center rounded-xl bg-accent/10 text-accent"><CheckCircle2 className="size-5" /></div><div><p className="text-2xl font-semibold">Review</p><p className="text-xs text-muted-foreground">One mistake at a time</p></div></CardContent></Card>
+        <StatsCard title="Wrong answers" value={mistakes.length} change="Review and improve" icon={XCircle} color="destructive" />
+        <StatsCard title="Tests to revisit" value={tests.length} change="Targeted revision" icon={Target} color="primary" />
+        <StatsCard title="Review plan" value="Ready" change="One mistake at a time" icon={CheckCircle2} color="accent" />
       </div>
 
-      <Card>
+      <Card className="rounded-2xl border-border/60 bg-background/80 shadow-sm">
         <CardHeader className="gap-4 pb-4"><div><CardTitle className="text-lg">Your revision list</CardTitle><CardDescription>Wrong answers ko filter karke targeted revision karo.</CardDescription></div><div className="flex flex-col gap-3 md:flex-row"><div className="relative flex-1"><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search question or test..." className="pl-9" /></div><div className="relative md:w-56"><Filter className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><select aria-label="Filter by test" value={testFilter} onChange={(event) => setTestFilter(event.target.value)} className="h-10 w-full appearance-none rounded-md border border-input bg-background pl-9 pr-8 text-sm text-foreground"><option value="all">All tests</option>{tests.map(([id, title]) => <option key={id} value={id}>{title}</option>)}</select><ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /></div></div></CardHeader>
         <CardContent className="space-y-3">
           {filteredMistakes.length === 0 ? <div className="rounded-xl border border-dashed border-border px-6 py-14 text-center"><BookOpenCheck className="mx-auto mb-3 size-8 text-muted-foreground" /><p className="font-medium">{mistakes.length === 0 ? "No mistakes yet" : "No matching mistakes"}</p><p className="mt-1 text-sm text-muted-foreground">{mistakes.length === 0 ? "Complete a test and your wrong answers will appear here." : "Try a different search or test filter."}</p></div> : filteredMistakes.map((item, index) => {
