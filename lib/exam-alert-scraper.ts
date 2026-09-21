@@ -24,20 +24,20 @@ function slugify(value: string) {
   return `${value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}-${createHash("sha1").update(value).digest("hex").slice(0, 8)}`
 }
 
-function collectOfficialLinks(value: unknown, links = new Map<string, string>(), context = "SSC notice") {
+function collectOfficialLinks(value: unknown, links = new Map<string, string>(), context = "official notice", allowedHosts: string[] = ["ssc.gov.in"], attachmentBase = "https://ssc.gov.in/api/attachment/") {
   if (typeof value === "string") {
     for (const match of value.matchAll(/https?:\/\/[^\s"'<>]+/gi)) {
       const url = match[0].replace(/[),.;]+$/, "").replaceAll("\\", "/")
-      if (/ssc.gov.in|pdf|notice|notification|result|admit|exam/i.test(url)) links.set(url, context)
+      if (allowedHosts.some((host) => url.includes(host)) && /pdf|notice|notification|result|admit|exam/i.test(url)) links.set(url, context)
     }
   } else if (Array.isArray(value)) {
-    value.forEach((item) => collectOfficialLinks(item, links, context))
+    value.forEach((item) => collectOfficialLinks(item, links, context, allowedHosts, attachmentBase))
   } else if (value && typeof value === "object") {
     const record = value as Record<string, unknown>
     const title = String(record.headline ?? record.title ?? record.name ?? context)
     const path = typeof record.path === "string" ? record.path.replaceAll("\\", "/") : ""
-    if (path) links.set(`https://ssc.gov.in/api/attachment/${path.replace(/^\//, "")}`, title)
-    Object.values(record).forEach((item) => collectOfficialLinks(item, links, title))
+    if (path) links.set(`${attachmentBase}${path.replace(/^\//, "")}`, title)
+    Object.values(record).forEach((item) => collectOfficialLinks(item, links, title, allowedHosts, attachmentBase))
   }
   return links
 }
@@ -61,7 +61,9 @@ export async function scrapeGovernmentNotices() {
             const response = await fetch(apiUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/json" }, signal: AbortSignal.timeout(fetchTimeout), cache: "no-store" })
             if (!response.ok) throw new Error(`HTTP ${response.status}`)
             successfulFetches += 1
-            collectOfficialLinks(await response.json(), notices)
+            const sourceUrl = source.urls[0]
+            const sourceHost = new URL(sourceUrl).hostname.replace(/^www\./, "")
+            collectOfficialLinks(await response.json(), notices, `${source.name} notice`, [sourceHost], `${sourceUrl.replace(/\/$/, "")}/api/attachment/`)
           } catch (error) {
             failures.push(`SSC API: ${error instanceof Error ? error.message : "fetch failed"}`)
           }
