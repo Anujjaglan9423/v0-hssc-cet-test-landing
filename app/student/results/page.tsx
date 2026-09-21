@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
 import Link from "next/link"
 import { StudentResultsPagination } from "@/components/student/results-pagination"
+import { StatsCard } from "@/components/dashboard/stats-card"
 
 const COLORS = ["#10b981", "#ef4444", "#6b7280"]
 const PAGE_SIZE = 10
@@ -113,76 +114,10 @@ export default function StudentResultsPage() {
 
         {/* STATS */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4 md:gap-6">
-
-          {/* CARD 1 - Total Tests */}
-          <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Target className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-2xl font-semibold text-foreground">
-                  {displayCount}{displayMessage !== "" && displayCount === 1000 ? "*" : ""}
-                </p>
-                {displayMessage && <p className="text-xs text-muted-foreground">{totalCount} total</p>}
-                <p className="text-sm text-muted-foreground">
-                  Tests Taken
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 2 - Avg Score (Page) */}
-          <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-emerald-500" />
-              </div>
-              <div>
-                <p className="text-2xl font-semibold text-emerald-600">
-                  {pageAvgScore}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Avg (Page)
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 3 - Best Score (Page) */}
-          <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                <Trophy className="w-5 h-5 text-amber-500" />
-              </div>
-              <div>
-                <p className="text-2xl font-semibold text-amber-600">
-                  {pageBestScore}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Best (Page)
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 4 - Total Time (Page) */}
-          <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-red-500" />
-              </div>
-              <div>
-                <p className="text-2xl font-semibold text-foreground">
-                  {Math.floor(pageTime / 60)}m
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Total (Page)
-                </p>
-              </div>
-            </div>
-          </div>
-
+          <StatsCard title="Tests taken" value={`${displayCount}${displayMessage !== "" && displayCount === 1000 ? "*" : ""}`} change={displayMessage ? `${totalCount} total` : "Keep practicing"} icon={Target} color="primary" />
+          <StatsCard title="Average score" value={pageAvgScore} change="Current page" icon={TrendingUp} color="accent" />
+          <StatsCard title="Best score" value={pageBestScore} change="Current page" icon={Trophy} color="warning" />
+          <StatsCard title="Total time" value={`${Math.floor(pageTime / 60)}m`} change="Current page" icon={Clock} color="destructive" />
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { StatsCard } from "@/components/dashboard/stats-card"
 
 const optionLabels = { a: "A", b: "B", c: "C", d: "D" } as const
 
@@ -57,9 +58,9 @@ export default function StudentMistakesPage() {
       </header>
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-        <Card className="h-full rounded-2xl border-border/60 bg-background/80 shadow-sm transition-shadow hover:shadow-md"><CardContent className="flex items-center gap-3 p-4"><div className="flex size-10 items-center justify-center rounded-xl bg-destructive/10 text-destructive"><XCircle className="size-5" /></div><div><p className="text-2xl font-semibold">{mistakes.length}</p><p className="text-xs text-muted-foreground">Wrong answers</p></div></CardContent></Card>
-        <Card className="h-full rounded-2xl border-border/60 bg-background/80 shadow-sm transition-shadow hover:shadow-md"><CardContent className="flex items-center gap-3 p-4"><div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary"><Target className="size-5" /></div><div><p className="text-2xl font-semibold">{tests.length}</p><p className="text-xs text-muted-foreground">Tests to revisit</p></div></CardContent></Card>
-        <Card className="col-span-2 md:col-span-1"><CardContent className="flex items-center gap-3 p-4"><div className="flex size-10 items-center justify-center rounded-xl bg-accent/10 text-accent"><CheckCircle2 className="size-5" /></div><div><p className="text-2xl font-semibold">Review</p><p className="text-xs text-muted-foreground">One mistake at a time</p></div></CardContent></Card>
+        <StatsCard title="Wrong answers" value={mistakes.length} change="Review and improve" icon={XCircle} color="destructive" />
+        <StatsCard title="Tests to revisit" value={tests.length} change="Targeted revision" icon={Target} color="primary" />
+        <StatsCard title="Review plan" value="Ready" change="One mistake at a time" icon={CheckCircle2} color="accent" />
       </div>
 
       <Card className="rounded-2xl border-border/60 bg-background/80 shadow-sm">
