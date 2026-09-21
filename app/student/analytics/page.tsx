@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
-import { ArrowRight, CheckCircle2, Loader2, Target, TrendingDown, TrendingUp, Trophy } from "lucide-react"
+import { ArrowRight, BookOpen, CheckCircle2, Loader2, Target, TrendingDown, TrendingUp, Trophy, XCircle } from "lucide-react"
 
 const formatTime = (seconds = 0) => `${Math.floor(seconds / 60)}m ${seconds % 60}s`
 const formatDate = (date?: string) => date ? new Date(date).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—"
@@ -26,8 +26,8 @@ export default function StudentAnalyticsPage() {
   }, [])
 
   const topics = useMemo(() => (analytics?.topicStrengths || []).filter((topic: any) => Number(topic.attempted) > 0), [analytics?.topicStrengths])
-  const weakTopics = useMemo(() => [...topics].sort((a, b) => a.strength - b.strength || b.wrong - a.wrong).slice(0, 3), [topics])
-  const strengthTopics = useMemo(() => topics.filter((topic: any) => Number(topic.strength) > 0).sort((a, b) => b.strength - a.strength || b.attempted - a.attempted), [topics])
+  const weakTopics = useMemo(() => [...topics].sort((a: any, b: any) => a.strength - b.strength || b.wrong - a.wrong).slice(0, 3), [topics])
+  const strengthTopics = useMemo(() => topics.filter((topic: any) => Number(topic.strength) > 0).sort((a: any, b: any) => b.strength - a.strength || b.attempted - a.attempted), [topics])
   const strongTopics = strengthTopics.slice(0, 3)
   const rankings = analytics?.testRankings || []
   const latestAttemptId = rankings[0]?.attemptId
