@@ -1,7 +1,13 @@
 import webpush from "web-push"
 import { createAdminClient } from "@/lib/supabase/server"
 
-export async function notifyExamAlert(title: string, url = "/exam-alerts") {
+type PushMessage = {
+  title: string
+  body: string
+  url: string
+}
+
+async function sendPushMessage(message: PushMessage) {
   const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
   const privateKey = process.env.VAPID_PRIVATE_KEY
   const subject = process.env.VAPID_SUBJECT
@@ -12,7 +18,10 @@ export async function notifyExamAlert(title: string, url = "/exam-alerts") {
   let sent = 0
   for (const subscription of subscriptions ?? []) {
     try {
-      await webpush.sendNotification({ endpoint: subscription.endpoint, keys: { p256dh: subscription.p256dh, auth: subscription.auth } }, JSON.stringify({ title: "New exam alert", body: title, url }))
+      await webpush.sendNotification(
+        { endpoint: subscription.endpoint, keys: { p256dh: subscription.p256dh, auth: subscription.auth } },
+        JSON.stringify(message),
+      )
       sent += 1
     } catch (error: unknown) {
       const statusCode = (error as { statusCode?: number })?.statusCode
@@ -21,5 +30,19 @@ export async function notifyExamAlert(title: string, url = "/exam-alerts") {
     }
   }
   return { sent, skipped: false }
+}
+
+export function notifyExamAlert(title: string, url = "/exam-alerts") {
+  return sendPushMessage({ title: "New exam alert", body: title, url })
+}
+
+export function notifyDailyPractice(latestAlert?: string) {
+  return sendPushMessage({
+    title: latestAlert ? "New exam alert + आज का practice test" : "आज का CET practice test तैयार है",
+    body: latestAlert
+      ? `${latestAlert} पढ़ें और फिर 10 सवालों का free mock test शुरू करें।`
+      : "10 सवाल हल करें और अपनी तैयारी को मजबूत बनाएं। अभी free mock test शुरू करें।",
+    url: latestAlert ? "/exam-alerts" : "/mock-test",
+  })
 }
                     
