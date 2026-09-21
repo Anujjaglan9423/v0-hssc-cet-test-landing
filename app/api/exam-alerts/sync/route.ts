@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { getCurrentUser } from "@/lib/auth"
 import { scrapeGovernmentNotices } from "@/lib/exam-alert-scraper"
+import { notifyExamAlert } from "@/lib/push-notifications"
 
 export const maxDuration = 60
 
@@ -15,7 +16,9 @@ export async function GET(request: Request) {
   if (!(await isAuthorized(request))) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   try {
     const result = await scrapeGovernmentNotices()
-    return NextResponse.json(result)
+    const newest = result.results?.[0]
+    const notification = newest ? await notifyExamAlert(newest.title, newest.href || "/exam-alerts") : { sent: 0, skipped: true }
+    return NextResponse.json({ ...result, notification })
   } catch (error) {
     console.error("[v0] Exam alert sync failed:", error)
     return NextResponse.json({ error: error instanceof Error ? error.message : "Sync failed" }, { status: 500 })

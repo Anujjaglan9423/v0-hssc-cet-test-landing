@@ -16,6 +16,7 @@ export default function TermsOfServicePage() {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-foreground mb-8">Terms of Service</h1>
           <p className="text-muted-foreground mb-8">Last updated: January 1, 2026</p>
+          <section className="mb-8 rounded-xl border border-primary/20 bg-primary/[0.04] p-5"><h2 className="text-xl font-semibold text-foreground">Exam alert notifications</h2><p className="mt-2 text-muted-foreground leading-relaxed">You may give permission to receive browser push notifications about newly published exam alerts. Notifications are optional, may depend on browser and device support, and can be disabled from your browser settings at any time.</p></section>
 
           <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8">
             <section>
