@@ -112,7 +112,7 @@ export default function StudentResultsPage() {
         </div>
 
         {/* STATS */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4 md:gap-6">
 
           {/* CARD 1 - Total Tests */}
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition">
@@ -198,7 +198,7 @@ export default function StudentResultsPage() {
         </div>
         {filteredResults.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
               {/* CARDS */}
               {filteredResults.map((result) => {
                 const percentage = (result.score / result.total_questions) * 100
@@ -206,7 +206,7 @@ export default function StudentResultsPage() {
                 return (
                   <div
                     key={result.id}
-                    className="rounded-xl border border-border bg-card p-5 hover:shadow-md transition"
+                    className="flex h-full flex-col rounded-2xl border border-border/60 bg-background/80 p-5 shadow-sm transition-shadow hover:shadow-md"
                   >
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                       {/* LEFT */}
@@ -247,7 +247,7 @@ export default function StudentResultsPage() {
                       </div>
 
                       {/* RIGHT ACTIONS */}
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center justify-end gap-2">
                         <Button
                           variant="outline"
                           size="sm"
