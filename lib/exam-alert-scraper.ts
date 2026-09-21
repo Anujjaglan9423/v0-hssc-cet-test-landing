@@ -4,10 +4,9 @@ import { createAdminClient } from "@/lib/supabase/server"
 const SOURCES = [
   { name: "SSC", urls: ["https://ssc.gov.in/", "https://ssc.gov.in/for-candidates"] },
   { name: "HSSC", urls: ["https://hssc.gov.in/"] },
-  { name: "HPSC", urls: ["https://hpsc.gov.in/en-us/Announcement", "https://hpsc.gov.in/", "https://hpsc.gov.in/Exams/Results"] },
   { name: "UKSSSC", urls: ["https://sssc.uk.gov.in/"] },
   { name: "UKPSC", urls: ["https://psc.uk.gov.in/"] },
-  { name: "Railway RRB", urls: ["https://rrb.indianrailways.gov.in/", "https://www.rrbcdg.gov.in/", "https://indianrailways.gov.in/"] },
+  { name: "RRB", urls: ["https://rrb.indianrailways.gov.in/", "https://www.rrbcdg.gov.in/", "https://indianrailways.gov.in/"] },
 ] as const
 
 const LINK_PATTERN = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi
