@@ -27,7 +27,7 @@ export async function getExamAlerts(limit = 20): Promise<ExamAlert[]> {
     .from("blogs")
     .select("id,title,slug,description,category,created_at,featured_image_url,tags,status")
     .eq("status", "publish")
-    .or("featured_image_url.ilike.%hssc.gov.in%,featured_image_url.ilike.%hpsc.gov.in%,featured_image_url.ilike.%sssc.uk.gov.in%,featured_image_url.ilike.%psc.uk.gov.in%,featured_image_url.ilike.%rrb.indianrailways.gov.in%,featured_image_url.ilike.%rrbcdg.gov.in%,featured_image_url.ilike.%indianrailways.gov.in%,featured_image_url.ilike.%ssc.gov.in%")
+    .eq("category", "Exam Alert")
     .order("created_at", { ascending: false })
     .limit(limit)
 
