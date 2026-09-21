@@ -27,7 +27,8 @@ export async function getExamAlerts(limit = 20): Promise<ExamAlert[]> {
     .from("blogs")
     .select("id,title,slug,description,category,created_at,featured_image_url,tags,status")
     .eq("status", "publish")
-    .or("featured_image_url.ilike.%hssc.gov.in%,featured_image_url.ilike.%hpsc.gov.in%,featured_image_url.ilike.%sssc.uk.gov.in%,featured_image_url.ilike.%psc.uk.gov.in%,featured_image_url.ilike.%rrb.indianrailways.gov.in%,featured_image_url.ilike.%rrbcdg.gov.in%,featured_image_url.ilike.%indianrailways.gov.in%,featured_image_url.ilike.%ssc.gov.in%")
+    .eq("category", "Exam Alert")
+    .or("title.ilike.%SSC:%,title.ilike.%HSSC:%,title.ilike.%UKSSSC:%,title.ilike.%UKPSC:%,title.ilike.%RRB:%,featured_image_url.ilike.%ssc.gov.in%,featured_image_url.ilike.%hssc.gov.in%,featured_image_url.ilike.%sssc.uk.gov.in%,featured_image_url.ilike.%psc.uk.gov.in%,featured_image_url.ilike.%indianrailways.gov.in%,featured_image_url.ilike.%rrbcdg.gov.in%")
     .order("created_at", { ascending: false })
     .limit(limit)
 
@@ -38,9 +39,9 @@ export async function getExamAlerts(limit = 20): Promise<ExamAlert[]> {
 
   return (data ?? []).map((item) => {
     const source = `${item.title} ${item.featured_image_url ?? ""} ${Array.isArray(item.tags) ? item.tags.join(" ") : ""}`.toLowerCase()
-    const categoryKey = source.includes("hssc") || source.includes("hpsc") ? "haryana" : source.includes("uksssc") || source.includes("ukpsc") || source.includes("uk.gov.in") ? "uttarakhand" : source.includes("rrb") || source.includes("railway") || source.includes("indianrailways") ? "railway" : source.includes("//ssc.gov.in") || source.includes("staff selection") || /\bssc[:\s]/.test(source) ? "ssc" : "haryana"
+    const categoryKey = source.includes("hssc") ? "haryana" : source.includes("uksssc") || source.includes("ukpsc") || source.includes("uk.gov.in") ? "uttarakhand" : source.includes("rrb") || source.includes("railway") || source.includes("indianrailways") ? "railway" : source.includes("//ssc.gov.in") || source.includes("staff selection") || /\bssc[:\s]/.test(source) ? "ssc" : "haryana"
     const region = categoryKey === "uttarakhand" ? "Uttarakhand" : categoryKey === "railway" ? "Railway" : categoryKey === "ssc" ? "SSC" : "Haryana"
-    const authority = source.includes("hpsc") ? "HPSC" : source.includes("hssc") ? "HSSC" : source.includes("uksssc") ? "UKSSSC" : source.includes("ukpsc") ? "UKPSC" : categoryKey === "railway" ? "RRB" : "SSC"
+    const authority = source.includes("hssc") ? "HSSC" : source.includes("uksssc") ? "UKSSSC" : source.includes("ukpsc") ? "UKPSC" : categoryKey === "railway" ? "RRB" : "SSC"
     return {
       id: item.id,
       title: item.title,

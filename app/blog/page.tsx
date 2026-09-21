@@ -71,7 +71,11 @@ async function getBlogs(): Promise<Blog[]> {
     return []
   }
 
-  return blogs || []
+  return (blogs || []).filter((blog) => {
+    if (blog.category?.toLowerCase() !== "exam alert") return true
+    const source = `${blog.title} ${blog.featured_image_url ?? ""}`.toLowerCase()
+    return /(ssc|hssc|uksssc|ukpsc|rrb|railway|indianrailways)/i.test(source) && !/(hpsc|upsc|bpsc|jpsc|kerala|mpsc|ibps|nielit|nta|neet|ctet)/i.test(source)
+  })
 }
 
 function calculateReadTime(content: string): string {
