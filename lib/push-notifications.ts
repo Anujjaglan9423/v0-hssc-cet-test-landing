@@ -33,16 +33,18 @@ async function sendPushMessage(message: PushMessage) {
 }
 
 export function notifyExamAlert(title: string, url = "/exam-alerts") {
-  return sendPushMessage({ title: "New exam alert", body: title, url })
+  return sendPushMessage({
+    title: "New exam alert",
+    body: `${title}. Tap to read the latest exam update and important dates.`,
+    url,
+  })
 }
 
-export function notifyDailyPractice(latestAlert?: string) {
+export function notifyDailyPractice() {
   return sendPushMessage({
-    title: latestAlert ? "New exam alert + आज का practice test" : "आज का CET practice test तैयार है",
-    body: latestAlert
-      ? `${latestAlert} पढ़ें और फिर 10 सवालों का free mock test शुरू करें।`
-      : "10 सवाल हल करें और अपनी तैयारी को मजबूत बनाएं। अभी free mock test शुरू करें।",
-    url: latestAlert ? "/exam-alerts" : "/mock-test",
+    title: "Your daily CET practice test is ready",
+    body: "Take a quick 10-question mock test today and strengthen your exam preparation.",
+    url: "/mock-test",
   })
 }
                     
