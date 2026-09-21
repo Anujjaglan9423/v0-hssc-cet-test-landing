@@ -12,6 +12,7 @@ export default function PrivacyPolicyPage() {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-foreground mb-8">Privacy Policy</h1>
           <p className="text-muted-foreground mb-8">Last updated: September 8, 2026</p>
+          <section className="mb-8 rounded-xl border border-primary/20 bg-primary/[0.04] p-5"><h2 className="text-xl font-semibold text-foreground">Browser notifications</h2><p className="mt-2 text-muted-foreground leading-relaxed">If you choose to enable exam alerts, your browser provides CET TEST with a push subscription endpoint and encryption keys. We store this technical subscription data in Supabase only to deliver new exam notifications. We do not use it for advertising, and you can revoke permission in your browser settings at any time.</p></section>
           <p className="mb-8 rounded-lg border bg-muted/30 p-4 text-sm leading-6 text-muted-foreground">This policy explains how CET TEST handles account, contact, usage, and advertising-related information. If you use the site, you agree to this policy and should review it when it changes.</p>
 
           <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8">

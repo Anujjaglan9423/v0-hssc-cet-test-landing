@@ -29,6 +29,21 @@ self.addEventListener("activate", (event) => {
   self.clients.claim()
 })
 
+self.addEventListener("push", (event) => {
+  let data = { title: "New exam alert", body: "A new government exam notification is available.", url: "/exam-alerts" }
+  try { if (event.data) data = { ...data, ...event.data.json() } } catch {}
+  event.waitUntil(self.registration.showNotification(data.title, { body: data.body, icon: "/icons/icon-192x192.png", badge: "/icons/icon-192x192.png", data: { url: data.url } }))
+})
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close()
+  const url = event.notification.data?.url || "/exam-alerts"
+  event.waitUntil(clients.matchAll({ type: "window", includeUncontrolled: true }).then((windows) => {
+    const existing = windows.find((client) => "focus" in client)
+    return existing ? existing.focus() : clients.openWindow(url)
+  }))
+})
+
 self.addEventListener("fetch", (event) => {
   // Skip non-GET requests
   if (event.request.method !== "GET") {
