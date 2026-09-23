@@ -1,6 +1,7 @@
 "use server"
 
 import { cookies } from "next/headers"
+import { cache } from "react"
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 
@@ -224,7 +225,7 @@ export async function signupUser(name: string, email: string, password: string, 
   }
 }
 
-export async function getCurrentUser(): Promise<User | null> {
+export const getCurrentUser = cache(async function getCurrentUser(): Promise<User | null> {
   try {
     const cookieStore = await cookies()
     const token = cookieStore.get("auth_token")?.value
@@ -265,7 +266,7 @@ export async function getCurrentUser(): Promise<User | null> {
     console.error("getCurrentUser error:", error)
     return null
   }
-}
+})
 
 export async function logoutUser(): Promise<void> {
   try {
