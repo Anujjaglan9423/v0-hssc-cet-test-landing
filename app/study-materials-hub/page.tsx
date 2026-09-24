@@ -13,6 +13,32 @@ import FooterLinkFooter from "@/components/footer-link-footer"
 import AdPlacement from "@/components/ad-placement"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
+const examGuides = [
+  { name: "HSSC", href: "/exams/hssc-cet" },
+  { name: "SSC", href: "/exams/ssc" },
+  { name: "Railway", href: "/exams/railway" },
+  { name: "UKSSSC", href: "/exams/uksssc" },
+]
+
+const faqItems = [
+  {
+    question: "What exams does the CETTest study material hub cover?",
+    answer: "The hub brings together preparation resources for HSSC, SSC, Railway, UKSSSC, and other government and competitive exams in India.",
+  },
+  {
+    question: "What study material is available for HSSC and other government exams?",
+    answer: "You can find exam syllabi, subject-wise preparation guidance, current affairs, Haryana GK, and links to focused exam resources.",
+  },
+  {
+    question: "Is this study material useful for SSC and Railway exams?",
+    answer: "Yes. The study hub is designed for SSC and Railway aspirants as well as HSSC, UKSSSC, and other government exam candidates.",
+  },
+  {
+    question: "How should I use this government exam study hub?",
+    answer: "Start with your exam syllabus, follow relevant current affairs, strengthen general knowledge, and revise consistently using the linked preparation resources.",
+  },
+]
+
 const studySections = [
   {
     number: "01",
@@ -41,7 +67,42 @@ const studySections = [
 ]
 
 export default function StudyMaterialsHubPage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://cettest.site/study-materials-hub#webpage",
+        url: "https://cettest.site/study-materials-hub",
+        name: "HSSC, SSC, Railway and UKSSSC Study Material",
+        description: "Study material, syllabus, current affairs, and GK resources for government exam preparation in India.",
+        inLanguage: "en-IN",
+        about: examGuides.map((exam) => ({ "@type": "Thing", name: exam.name })),
+      },
+      {
+        "@type": "ItemList",
+        name: "Government exam preparation resources",
+        itemListElement: examGuides.map((exam, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: `${exam.name} exam preparation`,
+          url: `https://cettest.site${exam.href}`,
+        })),
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faqItems.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      },
+    ],
+  }
+
   return (
+    <> 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <div className="min-h-screen bg-background">
       <FooterLinkNavbar />
       <main className="overflow-hidden px-4 pb-20 pt-28 sm:px-6 lg:px-8">
@@ -107,8 +168,31 @@ export default function StudyMaterialsHubPage() {
             })}
           </div>
         </section>
+
+        <section className="mx-auto mt-16 max-w-4xl" aria-labelledby="faq-heading">
+          <div className="mb-8 text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Quick answers</p>
+            <h2 id="faq-heading" className="mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              Government exam preparation FAQs
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              Find clear answers about study material for HSSC, SSC, Railway, UKSSSC, and other government exams.
+            </p>
+          </div>
+          <div className="divide-y divide-border rounded-3xl border border-border/70 bg-card px-6 sm:px-8">
+            {faqItems.map((item) => (
+              <details key={item.question} className="group py-5">
+                <summary className="cursor-pointer list-none pr-8 text-base font-semibold text-foreground marker:hidden [&::-webkit-details-marker]:hidden">
+                  {item.question}
+                </summary>
+                <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
       </main>
       <FooterLinkFooter />
     </div>
+    </>
   )
 }
