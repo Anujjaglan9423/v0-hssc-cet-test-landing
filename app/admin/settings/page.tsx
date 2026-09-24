@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { toast } from "sonner"
 import { ChartCard } from "@/components/dashboard/chart-card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -20,6 +21,19 @@ export default function AdminSettingsPage() {
     weeklyReports: true,
     studentAlerts: true,
   })
+
+  const updateSetting = async (key: keyof typeof settings, checked: boolean) => {
+    if (key === "pushNotifications" && checked && typeof window !== "undefined" && "Notification" in window) {
+      const permission = await Notification.requestPermission()
+      if (permission !== "granted") {
+        toast.error("Browser notifications are not enabled")
+        return
+      }
+    }
+
+    setSettings((current) => ({ ...current, [key]: checked }))
+    toast.success(`${checked ? "Enabled" : "Disabled"} ${key.replace(/([A-Z])/g, " $1").toLowerCase()}`)
+  }
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -80,7 +94,7 @@ export default function AdminSettingsPage() {
               </div>
               <Switch
                 checked={settings.emailNotifications}
-                onCheckedChange={(checked) => setSettings({ ...settings, emailNotifications: checked })}
+                onCheckedChange={(checked) => updateSetting("emailNotifications", checked)}
               />
             </div>
 
@@ -94,7 +108,7 @@ export default function AdminSettingsPage() {
               </div>
               <Switch
                 checked={settings.pushNotifications}
-                onCheckedChange={(checked) => setSettings({ ...settings, pushNotifications: checked })}
+                onCheckedChange={(checked) => updateSetting("pushNotifications", checked)}
               />
             </div>
 
@@ -108,7 +122,7 @@ export default function AdminSettingsPage() {
               </div>
               <Switch
                 checked={settings.weeklyReports}
-                onCheckedChange={(checked) => setSettings({ ...settings, weeklyReports: checked })}
+                onCheckedChange={(checked) => updateSetting("weeklyReports", checked)}
               />
             </div>
 
@@ -122,7 +136,7 @@ export default function AdminSettingsPage() {
               </div>
               <Switch
                 checked={settings.studentAlerts}
-                onCheckedChange={(checked) => setSettings({ ...settings, studentAlerts: checked })}
+                onCheckedChange={(checked) => updateSetting("studentAlerts", checked)}
               />
             </div>
           </div>
