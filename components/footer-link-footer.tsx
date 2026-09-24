@@ -6,7 +6,7 @@ const footerLinks = {
 
     company: [
         { name: "About Us", href: "/about" },
-        { name: "Study Materials", href: "/study-materials" },
+        { name: "Study Materials", href: "/study-materials-hub" },
         { name: "Blog", href: "/blog" },
         { name: "Contact", href: "/contact" },
     ],
