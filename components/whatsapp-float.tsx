@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/lib/auth-context"
 
-const WHATSAPP_URL = "https://wa.me/917291849546"
+const WHATSAPP_URL = "https://wa.me/917291849546?text=I%20want%20to%20start%20preparing%20for%20competitive%20government%20exams."
 
 export function WhatsAppFloat() {
   const { user, isLoading } = useAuth()
