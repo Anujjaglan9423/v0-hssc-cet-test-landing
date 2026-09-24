@@ -13,7 +13,7 @@ const steps = [
     icon: BookOpenCheck,
     title: "Practise in small, regular sessions",
     description: "Begin with topic-wise questions, then move to timed full-length tests. After each attempt, review incorrect and skipped answers.",
-    href: "/study-materials",
+    href: "/study-materials-hub",
     link: "Open study materials",
   },
   {
