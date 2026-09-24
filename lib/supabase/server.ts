@@ -2,6 +2,15 @@ import { createServerClient } from "@supabase/ssr"
 import { createClient as createSupabaseClient } from "@supabase/supabase-js"
 import { cookies } from "next/headers"
 
+const SUPABASE_REQUEST_TIMEOUT_MS = 15_000
+
+function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}) {
+  const timeoutSignal = AbortSignal.timeout(SUPABASE_REQUEST_TIMEOUT_MS)
+  const signal = init.signal ? AbortSignal.any([init.signal, timeoutSignal]) : timeoutSignal
+
+  return fetch(input, { ...init, signal })
+}
+
 export async function createClient() {
   const cookieStore = await cookies()
 
@@ -14,9 +23,12 @@ export async function createClient() {
         try {
           cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options))
         } catch {
-          // The "setAll" method was called from a Server Component.
+          // The `setAll` method was called from a Server Component.
         }
       },
+    },
+    global: {
+      fetch: fetchWithTimeout,
     },
   })
 }
@@ -32,7 +44,7 @@ export function createAdminClient() {
   return createSupabaseClient(supabaseUrl, supabaseKey, {
     auth: { autoRefreshToken: false, persistSession: false },
     global: {
-      fetch: (url, options = {}) => fetch(url, { ...options, cache: "no-store" }),
+      fetch: (url, options = {}) => fetchWithTimeout(url, { ...options, cache: "no-store" }),
     },
   })
 }
