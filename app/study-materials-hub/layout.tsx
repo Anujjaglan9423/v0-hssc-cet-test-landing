@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Study Material Hub | Syllabus, Current Affairs & Haryana GK",
-  description: "Choose syllabus guides, current affairs, or Haryana GK resources for your government exam preparation.",
+  title: "Haryana Government Exam Study Material | Syllabus, Current Affairs & Haryana GK",
+  description: "Focused syllabus, current affairs, and Haryana GK resources for Haryana government exam preparation.",
   alternates: { canonical: "https://cettest.site/study-materials-hub" },
 }
 
