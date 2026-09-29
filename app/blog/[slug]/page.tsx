@@ -1,445 +1,140 @@
+import Image from "next/image"
 import Link from "next/link"
+import type { Metadata } from "next"
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, Clock, User } from "lucide-react"
+import { notFound } from "next/navigation"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import {
-  BookOpen,
-  ArrowLeft,
-  Calendar,
-  Clock,
-  User,
-  ChevronRight,
-  Tag,
-  ArrowRight,
-} from "lucide-react"
-import { ShareButtons } from "@/components/blog/share-buttons"
-import Footer from "@/components/footer"
-import { notFound } from "next/navigation"
-import { createAdminClient } from "@/lib/supabase/server"
-import type { Metadata } from "next"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
+import { getBlogWords, getStaticBlog, staticBlogs } from "@/lib/blog-data"
 
-interface Blog {
-  id: string
-  title: string
-  slug: string
-  description: string
-  status?: string
-  meta_title?: string
-  meta_description?: string
-  focus_keyword?: string
-  tags?: string[]
-  category: string
-  featured_image_url: string | null
-  created_at: string
-  updated_at?: string
+type PageProps = { params: Promise<{ slug: string }> }
+const SITE_URL = "https://cettest.site"
+
+export function generateStaticParams() {
+  return staticBlogs.map((blog) => ({ slug: blog.slug }))
 }
-
-interface PageProps {
-  params: Promise<{ slug: string }>
-}
-
-async function getBlog(slug: string): Promise<Blog | null> {
-  const supabase = createAdminClient()
-
-  // Full blog detail needs all fields
-  const { data: blog, error } = await supabase
-    .from("blogs")
-    .select("*")
-    .eq("slug", slug)
-    .eq("status", "publish")
-    .single()
-
-  if (error || !blog) {
-    return null
-  }
-
-  return blog
-}
-
-async function getRelatedBlogs(category: string, currentSlug: string): Promise<Blog[]> {
-  const supabase = createAdminClient()
-
-  // Related blogs - only need listing fields
-  const { data: blogs } = await supabase
-    .from("blogs")
-    .select("id,title,slug,description,category,created_at,featured_image_url")
-    .eq("status", "publish")
-    .eq("category", category)
-    .neq("slug", currentSlug)
-    .limit(3)
-
-  return blogs as Blog[] || []
-}
-
-async function getRecentBlogs(currentSlug: string): Promise<Blog[]> {
-  const supabase = createAdminClient()
-
-  // Recent blogs - only need listing fields
-  const { data: blogs } = await supabase
-    .from("blogs")
-    .select("id,title,slug,description,category,created_at,featured_image_url")
-    .eq("status", "publish")
-    .neq("slug", currentSlug)
-    .order("created_at", { ascending: false })
-    .limit(4)
-
-  return blogs || []
-}
-
-// Revalidate blog pages every 1 hour - cached at CDN for 1 hour, stale for 24h
-export const revalidate = 3600
-export const dynamic = "force-dynamic"
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params
-  const blog = await getBlog(slug)
-
-  if (!blog) {
-    return {
-      title: "Blog Not Found | CET TEST",
-    }
-  }
+  const blog = getStaticBlog((await params).slug)
+  if (!blog) return { title: "Article Not Found" }
 
   return {
-    title: blog.meta_title || blog.title,
-    description: blog.meta_description || blog.description?.slice(0, 160),
-    keywords: blog.tags?.join(", "),
+    title: blog.title,
+    description: blog.excerpt,
+    keywords: blog.tags,
+    authors: [{ name: blog.author }],
+    category: blog.category,
+    alternates: { canonical: `${SITE_URL}/blog/${blog.slug}` },
     openGraph: {
-      title: blog.meta_title || blog.title,
-      description: blog.meta_description || blog.description?.slice(0, 160),
-      images: blog.featured_image_url && !blog.featured_image_url.includes("gov.in") ? [blog.featured_image_url] : [],
       type: "article",
-      publishedTime: blog.created_at,
-      modifiedTime: blog.updated_at,
+      url: `${SITE_URL}/blog/${blog.slug}`,
+      title: blog.title,
+      description: blog.excerpt,
+      siteName: "CET TEST",
+      locale: "en_IN",
+      publishedTime: blog.date,
+      authors: [blog.author],
+      tags: blog.tags,
+      images: [{ url: blog.image, alt: blog.title }],
     },
-    twitter: {
-      card: "summary_large_image",
-      title: blog.meta_title || blog.title,
-      description: blog.meta_description || blog.description?.slice(0, 160),
-      images: blog.featured_image_url && !blog.featured_image_url.includes("gov.in") ? [blog.featured_image_url] : [],
-    },
+    twitter: { card: "summary_large_image", title: blog.title, description: blog.excerpt, images: [blog.image] },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
   }
-}
-
-function calculateReadTime(content: string): string {
-  const wordsPerMinute = 200
-  const text = content.replace(/<[^>]*>/g, "")
-  const wordCount = text.split(/\s+/).length
-  const readTime = Math.ceil(wordCount / wordsPerMinute)
-  return `${readTime} min read`
-}
-
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = await params
-  const blog = await getBlog(slug)
-
-  if (!blog) {
-    notFound()
+  const blog = getStaticBlog((await params).slug)
+  if (!blog) notFound()
+  const related = staticBlogs.filter((item) => item.slug !== blog.slug).slice(0, 3)
+  const wordCount = getBlogWords(blog)
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: blog.title,
+    description: blog.excerpt,
+    image: [`${SITE_URL}${blog.image}`],
+    author: { "@type": "Organization", name: blog.author, url: SITE_URL },
+    publisher: { "@type": "Organization", name: "CET TEST", url: SITE_URL, logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png` } },
+    datePublished: blog.date,
+    dateModified: blog.date,
+    mainEntityOfPage: `${SITE_URL}/blog/${blog.slug}`,
+    inLanguage: "en-IN",
+    articleSection: blog.category,
+    keywords: blog.tags.join(", "),
+    wordCount,
+    isAccessibleForFree: true,
+    about: { "@type": "Thing", name: `${blog.category} exam preparation` },
+    audience: { "@type": "EducationalAudience", educationalRole: "student" },
+    speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "article p"] },
+  }
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "CET TEST", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Exam Blogs", item: `${SITE_URL}/blog` },
+      { "@type": "ListItem", position: 3, name: blog.title, item: `${SITE_URL}/blog/${blog.slug}` },
+    ],
   }
 
-  const relatedBlogs = blog.category ? await getRelatedBlogs(blog.category, slug) : []
-  const recentBlogs = await getRecentBlogs(slug)
-  const readTime = calculateReadTime(blog.description)
-  const isExamAlert = blog.category === "Exam Alert"
-  const sourceUrl = isExamAlert && blog.featured_image_url?.startsWith("http") ? blog.featured_image_url : null
-  const authority = blog.tags?.find((tag) => ["HSSC", "HPSC", "UKSSSC", "UKPSC", "SSC", "Railway"].includes(tag)) || "Official recruitment authority"
-  const safeImageUrl = blog.featured_image_url && !blog.featured_image_url.includes("gov.in") && !blog.featured_image_url.includes(".pdf") && !isExamAlert ? blog.featured_image_url : "/current-affairs-news.jpg"
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
+    <div className="min-h-screen overflow-x-hidden bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <FooterLinkNavbar />
-
-      {/* Hero Section */}
-      <section className="relative pt-8 sm:pt-12">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            {/* Title Section */}
-            <div>
-              {/* Breadcrumb */}
-              <nav className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
-                <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-                <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                <Link href="/blog" className="hover:text-foreground transition-colors">Blog</Link>
-                {blog.category && (
-                  <>
-                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                    <span className="text-primary font-medium">{blog.category}</span>
-                  </>
-                )}
-              </nav>
-
-              {/* Category Badge */}
-              {blog.category && (
-                <div className="mb-4 sm:mb-6">
-                  <Badge className="bg-gradient-to-r from-primary/20 to-primary/10 text-primary border border-primary/30 text-xs sm:text-sm px-3 sm:px-4 py-1.5 rounded-full font-medium">
-                    {blog.category}
-                  </Badge>
-                </div>
-              )}
-
-              {/* Title */}
-              <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight text-balance mb-6 sm:mb-8">
-                {blog.title}
-              </h1>
-
-              {/* Meta Info */}
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pb-6 sm:pb-8 border-b border-border/50">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center flex-shrink-0">
-                    <User className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">CET TEST Team</p>
-                    <p className="text-xs text-muted-foreground">Author</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-primary/60" />
-                    {formatDate(blog.created_at)}
-                  </div>
-                  <div className="hidden sm:flex items-center gap-1">
-                    <span className="text-border">•</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-primary/60" />
-                    {readTime}
-                  </div>
+      <main>
+        <section className="border-b border-border/60 px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+          <div className="mx-auto max-w-6xl">
+            <Link href="/blog" className="inline-flex max-w-full items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              <ArrowLeft aria-hidden="true" className="size-4 shrink-0" /> <span>Back to all guides</span>
+            </Link>
+            <div className="mt-8 grid min-w-0 gap-8 lg:mt-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-center lg:gap-10">
+              <div className="min-w-0">
+                <Badge className="mb-4">{blog.category}</Badge>
+                <h1 className="max-w-3xl break-words text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl">{blog.title}</h1>
+                <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">{blog.excerpt}</p>
+                <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3 text-xs text-muted-foreground sm:mt-8 sm:gap-5 sm:text-sm">
+                  <span className="inline-flex items-center gap-2"><User aria-hidden="true" className="size-4 shrink-0" /> {blog.author}</span>
+                  <span className="inline-flex items-center gap-2"><Calendar aria-hidden="true" className="size-4 shrink-0" /> {blog.date}</span>
+                  <span className="inline-flex items-center gap-2"><Clock aria-hidden="true" className="size-4 shrink-0" /> {blog.readTime}</span>
                 </div>
               </div>
-
-              {/* Tags */}
-              {blog.tags && blog.tags.length > 0 && (
-                <div className="flex flex-wrap items-center gap-2 mt-6 sm:mt-8">
-                  {blog.tags.map((tag, index) => (
-                    <Badge key={index} variant="secondary" className="text-xs bg-muted/60 hover:bg-muted text-foreground/80 px-2.5 sm:px-3 py-1 rounded-full transition-colors cursor-pointer">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              )}
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-lg sm:aspect-[5/3] lg:aspect-[4/3]">
+                <Image src={blog.image} alt={`${blog.title} cover`} fill sizes="(max-width: 1024px) 100vw, 380px" className="object-cover" priority />
+              </div>
             </div>
-
-            {/* Featured Image with Overlay */}
-            <div className="hidden lg:block">
-                <div className="sticky top-24 w-full h-80 relative rounded-xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
-                  <img
-                    src={safeImageUrl}
-                    alt={blog.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 rounded-xl ring-1 ring-border/50" />
-                </div>
-              </div>
           </div>
+        </section>
 
-          {/* Mobile Image - Below Title */}
-          <div className="lg:hidden mt-8 sm:mt-12">
-              <div className="w-full h-64 sm:h-72 relative rounded-lg sm:rounded-xl overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 z-10" />
-                <img
-                  src={safeImageUrl}
-                  alt={blog.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 rounded-lg sm:rounded-xl ring-1 ring-border/50" />
+        <section className="px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-20">
+          <div className="mx-auto grid max-w-6xl min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12">
+            <article className="min-w-0 max-w-3xl break-words [overflow-wrap:anywhere]">
+              <div className="mb-8 rounded-xl border border-primary/20 bg-primary/5 p-4 sm:mb-10 sm:p-5">
+                <p className="flex items-center gap-2 text-sm font-semibold text-primary"><BookOpen aria-hidden="true" className="size-4" /> In this guide</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">A practical read for aspirants who want a clearer routine, stronger revision and better exam-day decisions.</p>
               </div>
-            </div>
-          {isExamAlert && (
-            <div className="mt-8 lg:mt-0 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/15 via-card to-card p-5 sm:p-7 shadow-sm">
-              <div className="flex items-center gap-3 text-primary"><BookOpen className="h-5 w-5" /><span className="text-sm font-semibold uppercase tracking-wide">Official exam notice</span></div>
-              <h2 className="mt-4 text-xl font-bold text-foreground sm:text-2xl">{authority} notification details</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">This page summarizes the latest notice published for {authority}. Check the official source for the notification PDF, eligibility, dates, vacancies, syllabus and application instructions.</p>
-              {sourceUrl && <a href={sourceUrl} target="_blank" rel="noreferrer" className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 sm:w-auto">Open official notice <ArrowRight className="h-4 w-4" /></a>}
-            </div>
-          )}
-        </div>
-      </section>
+              {blog.sections.map((section) => (
+                <section key={section.heading} className="mb-10 min-w-0 sm:mb-12">
+                  <h2 className="break-words border-l-4 border-primary pl-3 text-xl font-bold leading-snug text-foreground sm:pl-4 sm:text-3xl">{section.heading}</h2>
+                  {section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-[15px] leading-7 text-muted-foreground sm:mt-5 sm:text-base sm:leading-8">{paragraph}</p>)}
+                  {section.bullets && <ul className="mt-5 flex flex-col gap-3 rounded-xl bg-muted/50 p-4 text-sm text-muted-foreground sm:p-5 sm:text-base">{section.bullets.map((bullet) => <li key={bullet} className="flex gap-3 leading-7"><span className="mt-3 size-1.5 shrink-0 rounded-full bg-primary" /> <span>{bullet}</span></li>)}</ul>}
+                  {section.table && <div className="mt-6 max-w-full overflow-x-auto rounded-xl border border-border overscroll-x-contain"><table className="w-full min-w-[500px] border-collapse text-left text-xs sm:min-w-0 sm:text-sm"><caption className="border-b border-border bg-muted/40 px-3 py-3 text-left font-semibold text-foreground sm:px-4">{section.table.caption}</caption><thead className="bg-primary/10 text-foreground"><tr>{section.table.headers.map((header) => <th key={header} scope="col" className="px-3 py-3 font-semibold sm:px-4">{header}</th>)}</tr></thead><tbody>{section.table.rows.map((row, rowIndex) => <tr key={`${section.heading}-${rowIndex}`} className="border-t border-border/70"><th scope="row" className="px-3 py-3 align-top font-medium text-foreground sm:px-4">{row[0]}</th>{row.slice(1).map((cell, cellIndex) => <td key={`${rowIndex}-${cellIndex}`} className="px-3 py-3 align-top leading-6 text-muted-foreground sm:px-4">{cell}</td>)}</tr>)}</tbody></table></div>}
+                </section>
+              ))}
+              <div className="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between"><p className="text-sm text-muted-foreground">Keep learning with CET TEST practice sets and mock tests.</p><Link href="/"><Button className="w-full sm:w-auto">Start practising <ArrowRight data-icon="inline-end" /></Button></Link></div>
+            </article>
 
-      {/* Content Section */}
-      <article className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-background to-background">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16">
-            {/* Main Content */}
-            <div className="lg:col-span-8">
-              {/* Article Content */}
-              <div
-                className="prose prose-base sm:prose-lg max-w-none 
-                  prose-headings:text-foreground prose-headings:font-bold prose-headings:scroll-mt-20
-                  prose-h2:text-xl sm:text-2xl prose-h2:mt-12 sm:prose-h2:mt-14 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:border-l-4 prose-h2:border-primary prose-h2:pl-4 sm:prose-h2:pl-5
-                  prose-h3:text-lg sm:text-xl prose-h3:mt-8 sm:prose-h3:mt-10 prose-h3:mb-4 sm:prose-h3:mb-5 prose-h3:font-semibold
-                  prose-h4:text-base sm:text-lg prose-h4:mt-6 prose-h4:mb-3 prose-h4:font-semibold
-                  prose-p:text-muted-foreground prose-p:leading-relaxed sm:prose-p:leading-loose prose-p:mb-4 sm:prose-p:mb-5
-                  prose-li:text-muted-foreground prose-li:leading-relaxed sm:prose-li:leading-loose prose-li:mb-2
-                  prose-strong:text-foreground prose-strong:font-semibold
-                  prose-em:text-muted-foreground prose-em:italic
-                  prose-a:text-primary prose-a:font-medium prose-a:no-underline hover:prose-a:underline hover:prose-a:underline-offset-2 transition-all
-                  prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-primary/5 prose-blockquote:py-4 sm:prose-blockquote:py-5 prose-blockquote:px-4 sm:prose-blockquote:px-5 prose-blockquote:rounded-r-lg prose-blockquote:not-italic prose-blockquote:my-6 prose-blockquote:text-foreground prose-blockquote:font-medium
-                  prose-code:bg-muted prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none prose-code:text-foreground/90
-                  prose-pre:bg-muted prose-pre:border prose-pre:border-border/50 prose-pre:rounded-lg
-                  prose-img:rounded-xl prose-img:shadow-xl prose-img:my-6 sm:prose-img:my-8 prose-img:border prose-img:border-border/50
-                  prose-ul:my-5 sm:prose-ul:my-6 prose-ul:space-y-2
-                  prose-ol:my-5 sm:prose-ol:my-6 prose-ol:space-y-2
-                  prose-table:my-6 prose-td:px-3 prose-td:py-2 prose-th:px-3 prose-th:py-2 prose-th:font-semibold prose-th:bg-muted/50
-                "
-                dangerouslySetInnerHTML={{ __html: blog.description || `<h2>${blog.title}</h2><p>This official ${authority} exam notice is listed for candidates preparing for government recruitment examinations.</p><h3>What to check</h3><ul><li>Notification dates and application deadline</li><li>Eligibility, vacancies and selection process</li><li>Official PDF, syllabus and examination instructions</li></ul>${sourceUrl ? `<p><a href="${sourceUrl}">Open the official notice source</a></p>` : ""}` }}
-              />
-
-              {/* Share Section */}
-              <div className="mt-12 sm:mt-16 lg:mt-20 pt-8 sm:pt-10 border-t border-border/50">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">Found this helpful?</h3>
-                    <p className="text-sm text-muted-foreground">Share it with your friends preparing for exams</p>
-                  </div>
-                  <div className="flex-shrink-0">
-                    <ShareButtons title={blog.title} slug={slug} />
-                  </div>
-                </div>
-              </div>
-
-              {/* CTA Section */}
-              <Card className="mt-12 sm:mt-16 lg:mt-20 bg-gradient-to-br from-primary/15 via-primary/8 to-primary/5 border border-primary/20 overflow-hidden hover:border-primary/40 transition-all shadow-lg hover:shadow-xl hover:shadow-primary/10">
-                <CardContent className="p-6 sm:p-8 lg:p-10">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8">
-                    <div className="flex-1">
-                      <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3 text-balance">
-                        Ready to Start Practicing?
-                      </h3>
-                      <p className="text-muted-foreground text-base leading-relaxed">
-                        Join thousands of students preparing for competitive exams with our comprehensive test series and study materials.
-                      </p>
-                    </div>
-                    <div className="flex flex-col gap-3">
-                      <Link href="/signup" className="flex-shrink-0">
-                        <Button size="lg" className="w-full sm:w-auto text-base font-semibold gap-2 shadow-lg hover:shadow-xl">
-                          Start Free Trial
-                          <ArrowRight className="w-5 h-5" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Sidebar */}
-            <aside className="lg:col-span-4">
-              <div className="space-y-6 sm:space-y-8 lg:sticky lg:top-24">
-                {/* Quick Navigation */}
-                <Card className="border border-border/50 shadow-sm hover:shadow-md transition-shadow">
-                  <CardContent className="p-5 sm:p-6">
-                    <h3 className="font-bold text-foreground mb-4 flex items-center gap-2 text-base sm:text-lg">
-                      <BookOpen className="w-5 h-5 text-primary" />
-                      Quick Navigation
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Scroll through the article to explore all sections and key insights covered in this comprehensive guide.
-                    </p>
-                  </CardContent>
-                </Card>
-
-                {/* Related Posts */}
-                {relatedBlogs.length > 0 && (
-                  <Card className="border border-border/50 shadow-sm hover:shadow-md transition-shadow">
-                    <CardContent className="p-5 sm:p-6">
-                      <h3 className="font-bold text-foreground mb-5 text-base sm:text-lg">Related Articles</h3>
-                      <div className="space-y-4">
-                        {relatedBlogs.map((post) => (
-                          <Link
-                            key={post.id}
-                            href={`/blog/${post.slug}`}
-                            className="block group"
-                          >
-                            <div className="flex gap-3">
-                              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-lg overflow-hidden flex-shrink-0 bg-muted ring-1 ring-border/50">
-                                <img
-                                  src={post.featured_image_url && !post.featured_image_url.includes("gov.in") && !post.featured_image_url.includes(".pdf") ? post.featured_image_url : "/current-affairs-news.jpg"}
-                                  alt={post.title}
-                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h4 className="text-sm font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
-                                  {post.title}
-                                </h4>
-                                <p className="text-xs text-muted-foreground mt-2">
-                                  {formatDate(post.created_at)}
-                                </p>
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Recent Posts */}
-                {recentBlogs.length > 0 && (
-                  <Card className="border border-border/50 shadow-sm hover:shadow-md transition-shadow">
-                    <CardContent className="p-5 sm:p-6">
-                      <h3 className="font-bold text-foreground mb-5 text-base sm:text-lg">Latest Articles</h3>
-                      <div className="space-y-4">
-                        {recentBlogs.map((post, index) => (
-                          <Link
-                            key={post.id}
-                            href={`/blog/${post.slug}`}
-                            className="flex items-start gap-4 group p-3 rounded-lg hover:bg-muted/50 transition-colors"
-                          >
-                            <span className="text-xl sm:text-2xl font-bold text-primary/30 group-hover:text-primary/60 transition-colors flex-shrink-0 w-6 text-center">
-                              {String(index + 1).padStart(2, "0")}
-                            </span>
-                            <div className="flex-1 min-w-0">
-                              <h4 className="text-sm font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
-                                {post.title}
-                              </h4>
-                              <p className="text-xs text-muted-foreground mt-1.5">
-                                {calculateReadTime(post.description)}
-                              </p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Categories */}
-                <Card className="border border-border/50 shadow-sm hover:shadow-md transition-shadow">
-                  <CardContent className="p-5 sm:p-6">
-                    <h3 className="font-bold text-foreground mb-5 text-base sm:text-lg">Categories</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {["CET", "Current Affairs", "Study Tips", "Mathematics", "English", "Reasoning"].map((cat) => (
-                        <Badge
-                          key={cat}
-                          variant="secondary"
-                          className="cursor-pointer text-xs sm:text-sm bg-muted/60 hover:bg-primary/20 text-foreground/80 hover:text-primary transition-all px-2.5 py-1 rounded-full font-medium"
-                        >
-                          {cat}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+            <aside className="min-w-0 lg:sticky lg:top-6 lg:self-start">
+              <Card><CardContent className="p-5"><p className="text-sm font-semibold text-foreground">More exam guides</p><div className="mt-4 flex flex-col gap-4">{related.map((item) => <Link key={item.slug} href={`/blog/${item.slug}`} className="rounded-lg border border-border p-3 transition-colors hover:border-primary/50"><p className="text-sm font-semibold leading-5 text-foreground">{item.title}</p><p className="mt-1 text-xs text-muted-foreground">{item.readTime}</p></Link>)}</div><Link href="/blog" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">View all blogs <ArrowRight aria-hidden="true" className="size-4" /></Link></CardContent></Card>
             </aside>
           </div>
-        </div>
-      </article>
+        </section>
 
+        <section className="px-4 pb-12 sm:px-6 sm:pb-16 lg:px-8"><div className="mx-auto flex max-w-3xl flex-col items-center rounded-2xl border border-primary/20 bg-primary/5 p-6 text-center sm:p-8"><h2 className="text-xl font-bold text-foreground sm:text-2xl">Ready to test your preparation?</h2><p className="mt-2 text-sm text-muted-foreground sm:text-base">Apply what you learned with focused practice and mock tests.</p><Link href="/" className="mt-5 w-full sm:w-auto"><Button className="w-full sm:w-auto">Start practising <ArrowRight data-icon="inline-end" /></Button></Link></div></section>
+      </main>
       <FooterLinkFooter />
     </div>
   )
