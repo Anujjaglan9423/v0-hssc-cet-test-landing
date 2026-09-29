@@ -65,6 +65,10 @@ export default async function BlogPostPage({ params }: PageProps) {
     articleSection: blog.category,
     keywords: blog.tags.join(", "),
     wordCount,
+    isAccessibleForFree: true,
+    about: { "@type": "Thing", name: `${blog.category} exam preparation` },
+    audience: { "@type": "EducationalAudience", educationalRole: "student" },
+    speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "article p"] },
   }
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -107,7 +111,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         <section className="px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-20">
           <div className="mx-auto grid max-w-6xl min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12">
-            <article className="min-w-0 max-w-3xl">
+            <article className="min-w-0 max-w-3xl break-words [overflow-wrap:anywhere]">
               <div className="mb-8 rounded-xl border border-primary/20 bg-primary/5 p-4 sm:mb-10 sm:p-5">
                 <p className="flex items-center gap-2 text-sm font-semibold text-primary"><BookOpen aria-hidden="true" className="size-4" /> In this guide</p>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">A practical read for aspirants who want a clearer routine, stronger revision and better exam-day decisions.</p>
@@ -117,7 +121,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                   <h2 className="break-words border-l-4 border-primary pl-3 text-xl font-bold leading-snug text-foreground sm:pl-4 sm:text-3xl">{section.heading}</h2>
                   {section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-[15px] leading-7 text-muted-foreground sm:mt-5 sm:text-base sm:leading-8">{paragraph}</p>)}
                   {section.bullets && <ul className="mt-5 flex flex-col gap-3 rounded-xl bg-muted/50 p-4 text-sm text-muted-foreground sm:p-5 sm:text-base">{section.bullets.map((bullet) => <li key={bullet} className="flex gap-3 leading-7"><span className="mt-3 size-1.5 shrink-0 rounded-full bg-primary" /> <span>{bullet}</span></li>)}</ul>}
-                  {section.table && <div className="mt-6 max-w-full overflow-x-auto rounded-xl border border-border overscroll-x-contain"><table className="w-full min-w-[560px] border-collapse text-left text-xs sm:text-sm"><caption className="border-b border-border bg-muted/40 px-3 py-3 text-left font-semibold text-foreground sm:px-4">{section.table.caption}</caption><thead className="bg-primary/10 text-foreground"><tr>{section.table.headers.map((header) => <th key={header} scope="col" className="px-3 py-3 font-semibold sm:px-4">{header}</th>)}</tr></thead><tbody>{section.table.rows.map((row, rowIndex) => <tr key={`${section.heading}-${rowIndex}`} className="border-t border-border/70"><th scope="row" className="px-3 py-3 align-top font-medium text-foreground sm:px-4">{row[0]}</th>{row.slice(1).map((cell, cellIndex) => <td key={`${rowIndex}-${cellIndex}`} className="px-3 py-3 align-top leading-6 text-muted-foreground sm:px-4">{cell}</td>)}</tr>)}</tbody></table></div>}
+                  {section.table && <div className="mt-6 max-w-full overflow-x-auto rounded-xl border border-border overscroll-x-contain"><table className="w-full min-w-[500px] border-collapse text-left text-xs sm:min-w-0 sm:text-sm"><caption className="border-b border-border bg-muted/40 px-3 py-3 text-left font-semibold text-foreground sm:px-4">{section.table.caption}</caption><thead className="bg-primary/10 text-foreground"><tr>{section.table.headers.map((header) => <th key={header} scope="col" className="px-3 py-3 font-semibold sm:px-4">{header}</th>)}</tr></thead><tbody>{section.table.rows.map((row, rowIndex) => <tr key={`${section.heading}-${rowIndex}`} className="border-t border-border/70"><th scope="row" className="px-3 py-3 align-top font-medium text-foreground sm:px-4">{row[0]}</th>{row.slice(1).map((cell, cellIndex) => <td key={`${rowIndex}-${cellIndex}`} className="px-3 py-3 align-top leading-6 text-muted-foreground sm:px-4">{cell}</td>)}</tr>)}</tbody></table></div>}
                 </section>
               ))}
               <div className="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between"><p className="text-sm text-muted-foreground">Keep learning with CET TEST practice sets and mock tests.</p><Link href="/"><Button className="w-full sm:w-auto">Start practising <ArrowRight data-icon="inline-end" /></Button></Link></div>

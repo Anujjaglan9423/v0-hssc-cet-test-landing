@@ -17,7 +17,7 @@ export async function GET(request: Request) {
   try {
     const result = await scrapeGovernmentNotices()
     const newest = result.results?.[0]
-    const notification = newest ? await notifyExamAlert(newest.title) : { sent: 0, skipped: false }
+    const notification = newest && "title" in newest ? await notifyExamAlert(String(newest.title)) : { sent: 0, skipped: false }
     return NextResponse.json({ ...result, notification })
   } catch (error) {
     console.error("[v0] Exam alert sync failed:", error)
