@@ -19,6 +19,13 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   turbopack: {},
+  async redirects() {
+    return [
+      { source: "/blog/haryana-cet-vs-uksssc-study-plan", destination: "/blog/haryana-cet-complete-preparation-guide", permanent: true },
+      { source: "/blog/reasoning-and-quantitative-aptitude-strategy", destination: "/blog/government-exam-preparation-guide-for-aspirants", permanent: true },
+      { source: "/blog/exam-day-strategy-and-time-management", destination: "/blog/mock-test-analysis-and-final-revision-plan", permanent: true },
+    ]
+  },
   
   // ============================================
   // DATA TRANSFER OPTIMIZATIONS

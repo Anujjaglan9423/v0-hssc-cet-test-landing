@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { staticBlogs } from '@/lib/blog-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://cettest.site'
@@ -63,37 +64,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
 
-    // 📝 Blog
     {
       url: `${baseUrl}/blog`,
       lastModified: now,
-      changeFrequency: 'daily',
+      changeFrequency: 'weekly',
       priority: 0.9,
     },
-    {
-      url: `${baseUrl}/blog/hssc-cet-preparation-2026`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/blog/hssc-cet-study-plan-2026`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/blog/hssc-cet-group-d-syllabus-2026`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/blog/hssc-cet-syllabus-2026`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 1,
-    },
+    ...staticBlogs.map((blog) => ({
+      url: `${baseUrl}/blog/${blog.slug}`,
+      lastModified: blog.dateModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
    
     // ⚖️ Legal
     {

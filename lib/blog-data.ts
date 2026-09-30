@@ -4,23 +4,36 @@ export type BlogTable = {
   rows: string[][]
 }
 
+export type BlogSection = { heading: string; paragraphs: string[]; bullets?: string[]; table?: BlogTable }
+
 export type StaticBlog = {
   slug: string
   title: string
   excerpt: string
   category: string
   date: string
+  dateModified: string
   readTime: string
   author: string
   tags: string[]
   image: string
-  sections: { heading: string; paragraphs: string[]; bullets?: string[]; table?: BlogTable }[]
+  imageAlt: string
+  toc: { id: string; label: string }[]
+  ctaHref: string
+  ctaLabel: string
+  sections: BlogSection[]
 }
 
-const author = "CET TEST Editorial Team"
-const image = "/current-affairs-news.jpg"
+export const authorConfig = {
+  name: "[AUTHOR NAME]",
+  bio: "Exam preparation writer and educator at CET TEST. Replace this placeholder with the site owner's verified author profile.",
+  url: "https://cettest.site/about",
+}
 
-export const staticBlogs: StaticBlog[] = [
+const author = authorConfig.name
+const image = "/blog-images/[UPLOAD-COVER-IMAGE].jpg"
+
+const rawBlogs = [
   {
     slug: "government-exam-preparation-guide-for-aspirants",
     title: "Government Exam Preparation Guide: Build a System That Actually Works",
@@ -188,6 +201,29 @@ export const staticBlogs: StaticBlog[] = [
   },
 ]
 
+const removedSlugs = new Set([
+  "haryana-cet-vs-uksssc-study-plan",
+  "reasoning-and-quantitative-aptitude-strategy",
+  "exam-day-strategy-and-time-management",
+])
+
+function slugify(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
+}
+
+export const staticBlogs: StaticBlog[] = rawBlogs
+  .filter((blog) => !removedSlugs.has(blog.slug))
+  .map((blog) => ({
+    ...blog,
+    dateModified: blog.date,
+    readTime: `${Math.max(1, Math.ceil(getBlogWords(blog) / 200))} min read`,
+    image: `/blog-images/${blog.slug}.jpg`,
+    imageAlt: `${blog.title} cover illustration`,
+    toc: blog.sections.map((section) => ({ id: slugify(section.heading), label: section.heading })),
+    ctaHref: blog.category === "Haryana CET" ? "/haryana-gk" : blog.category === "UKSSSC" ? "/study-materials-hub" : "/mock-test",
+    ctaLabel: blog.category === "Haryana CET" ? "Explore Haryana GK" : blog.category === "UKSSSC" ? "Open study materials" : "Take a mock test",
+  }))
+
 export function getStaticBlog(slug: string) {
   return staticBlogs.find((blog) => blog.slug === slug)
 }
@@ -196,8 +232,8 @@ export function stripMarkup(value: string) {
   return value.replace(/<[^>]*>/g, "").trim()
 }
 
-export function getBlogWords(blog: StaticBlog) {
-  return blog.sections.flatMap((section) => [section.heading, ...section.paragraphs, ...(section.bullets ?? []), ...(section.table?.rows.flat() ?? [])]).join(" ").split(/\s+/).length
+export function getBlogWords(blog: Pick<StaticBlog, "sections">) {
+  return blog.sections.flatMap((section) => [section.heading, ...section.paragraphs, ...(section.bullets ?? []), ...(section.table?.rows.flat() ?? [])]).join(" ").split(/\s+/).filter(Boolean).length
 }
 
 // Keep the article collection local and deterministic. It intentionally does not read from a server or database.

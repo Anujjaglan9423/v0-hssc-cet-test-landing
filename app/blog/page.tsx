@@ -6,12 +6,15 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
+import Image from "next/image"
 import { staticBlogs } from "@/lib/blog-data"
 
 export const metadata: Metadata = {
   title: "Exam Preparation Blog | CET TEST",
   description: "Practical Haryana CET, HSSC and government exam preparation guides for aspirants.",
   alternates: { canonical: "https://cettest.site/blog" },
+  openGraph: { title: "Exam Preparation Blog | CET TEST", description: "Practical Haryana CET, UKSSSC and state exam preparation guides.", url: "https://cettest.site/blog", type: "website" },
+  twitter: { card: "summary_large_image", title: "Exam Preparation Blog | CET TEST", description: "Practical state exam preparation guides for aspirants." },
 }
 
 export default function BlogPage() {
@@ -45,7 +48,7 @@ export default function BlogPage() {
               {staticBlogs.map((post, index) => (
                 <Link key={post.slug} href={`/blog/${post.slug}`} className={index === 0 ? "md:col-span-2 lg:col-span-2" : ""}>
                   <Card className="group flex h-full flex-col overflow-hidden border-border/70 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10">
-                    <div className={`relative overflow-hidden bg-muted ${index === 0 ? "h-64" : "h-48"}`}><img src={post.image} alt="" className="size-full object-cover transition-transform duration-500 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" /><Badge className="absolute bottom-4 left-4 bg-background/90 text-foreground hover:bg-background">{post.category}</Badge></div>
+                    <div className={`relative overflow-hidden bg-muted ${index === 0 ? "h-64" : "h-48"}`}><Image src={post.image} alt={post.imageAlt} fill sizes={index === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 1024px) 50vw, 33vw"} className="object-cover transition-transform duration-500 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" /><Badge className="absolute bottom-4 left-4 bg-background/90 text-foreground hover:bg-background">{post.category}</Badge></div>
                     <CardContent className="flex flex-1 flex-col gap-4 p-6"><h3 className={`${index === 0 ? "text-2xl" : "text-xl"} font-bold leading-tight text-foreground transition-colors group-hover:text-primary`}>{post.title}</h3><p className="line-clamp-3 text-sm leading-6 text-muted-foreground">{post.excerpt}</p><div className="mt-auto flex items-center justify-between border-t border-border/60 pt-4 text-xs text-muted-foreground"><span className="flex items-center gap-1.5"><Calendar /> {post.date}</span><span className="flex items-center gap-1.5"><Clock /> {post.readTime}</span></div><span className="flex items-center gap-2 text-sm font-semibold text-primary">Read guide <ArrowRight /></span></CardContent>
                   </Card>
                 </Link>

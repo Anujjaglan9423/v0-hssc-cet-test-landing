@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
-import { getBlogWords, getStaticBlog, staticBlogs } from "@/lib/blog-data"
+import { authorConfig, getBlogWords, getStaticBlog, staticBlogs } from "@/lib/blog-data"
 
 type PageProps = { params: Promise<{ slug: string }> }
 const SITE_URL = "https://cettest.site"
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: blog.title,
     description: blog.excerpt,
     keywords: blog.tags,
-    authors: [{ name: blog.author }],
+    authors: [{ name: authorConfig.name, url: authorConfig.url }],
     category: blog.category,
     alternates: { canonical: `${SITE_URL}/blog/${blog.slug}` },
     openGraph: {
@@ -36,7 +36,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "CET TEST",
       locale: "en_IN",
       publishedTime: blog.date,
-      authors: [blog.author],
+      modifiedTime: blog.dateModified,
+      authors: [authorConfig.name],
       tags: blog.tags,
       images: [{ url: blog.image, alt: blog.title }],
     },
@@ -56,10 +57,10 @@ export default async function BlogPostPage({ params }: PageProps) {
     headline: blog.title,
     description: blog.excerpt,
     image: [`${SITE_URL}${blog.image}`],
-    author: { "@type": "Organization", name: blog.author, url: SITE_URL },
+    author: { "@type": "Person", name: authorConfig.name, url: authorConfig.url, description: authorConfig.bio },
     publisher: { "@type": "Organization", name: "CET TEST", url: SITE_URL, logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png` } },
     datePublished: blog.date,
-    dateModified: blog.date,
+    dateModified: blog.dateModified,
     mainEntityOfPage: `${SITE_URL}/blog/${blog.slug}`,
     inLanguage: "en-IN",
     articleSection: blog.category,
@@ -114,17 +115,18 @@ export default async function BlogPostPage({ params }: PageProps) {
             <article className="min-w-0 max-w-3xl break-words [overflow-wrap:anywhere]">
               <div className="mb-8 rounded-xl border border-primary/20 bg-primary/5 p-4 sm:mb-10 sm:p-5">
                 <p className="flex items-center gap-2 text-sm font-semibold text-primary"><BookOpen aria-hidden="true" className="size-4" /> In this guide</p>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">A practical read for aspirants who want a clearer routine, stronger revision and better exam-day decisions.</p>
+                <nav aria-label="Table of contents" className="mt-3 grid gap-2 sm:grid-cols-2">{blog.toc.map((item) => <a key={item.id} href={`#${item.id}`} className="text-sm leading-6 text-muted-foreground underline-offset-4 hover:text-primary hover:underline">{item.label}</a>)}</nav>
               </div>
               {blog.sections.map((section) => (
                 <section key={section.heading} className="mb-10 min-w-0 sm:mb-12">
-                  <h2 className="break-words border-l-4 border-primary pl-3 text-xl font-bold leading-snug text-foreground sm:pl-4 sm:text-3xl">{section.heading}</h2>
+                  <h2 id={blog.toc.find((item) => item.label === section.heading)?.id} className="scroll-mt-24 break-words border-l-4 border-primary pl-3 text-xl font-bold leading-snug text-foreground sm:pl-4 sm:text-3xl">{section.heading}</h2>
                   {section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-[15px] leading-7 text-muted-foreground sm:mt-5 sm:text-base sm:leading-8">{paragraph}</p>)}
                   {section.bullets && <ul className="mt-5 flex flex-col gap-3 rounded-xl bg-muted/50 p-4 text-sm text-muted-foreground sm:p-5 sm:text-base">{section.bullets.map((bullet) => <li key={bullet} className="flex gap-3 leading-7"><span className="mt-3 size-1.5 shrink-0 rounded-full bg-primary" /> <span>{bullet}</span></li>)}</ul>}
                   {section.table && <div className="mt-6 max-w-full overflow-x-auto rounded-xl border border-border overscroll-x-contain"><table className="w-full min-w-[500px] border-collapse text-left text-xs sm:min-w-0 sm:text-sm"><caption className="border-b border-border bg-muted/40 px-3 py-3 text-left font-semibold text-foreground sm:px-4">{section.table.caption}</caption><thead className="bg-primary/10 text-foreground"><tr>{section.table.headers.map((header) => <th key={header} scope="col" className="px-3 py-3 font-semibold sm:px-4">{header}</th>)}</tr></thead><tbody>{section.table.rows.map((row, rowIndex) => <tr key={`${section.heading}-${rowIndex}`} className="border-t border-border/70"><th scope="row" className="px-3 py-3 align-top font-medium text-foreground sm:px-4">{row[0]}</th>{row.slice(1).map((cell, cellIndex) => <td key={`${rowIndex}-${cellIndex}`} className="px-3 py-3 align-top leading-6 text-muted-foreground sm:px-4">{cell}</td>)}</tr>)}</tbody></table></div>}
                 </section>
               ))}
-              <div className="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between"><p className="text-sm text-muted-foreground">Keep learning with CET TEST practice sets and mock tests.</p><Link href="/"><Button className="w-full sm:w-auto">Start practising <ArrowRight data-icon="inline-end" /></Button></Link></div>
+              <div className="mt-8 rounded-xl border border-border bg-muted/30 p-5"><p className="text-sm font-semibold text-foreground">About the author</p><p className="mt-2 text-sm leading-6 text-muted-foreground">{authorConfig.bio}</p><Link href={authorConfig.url} className="mt-3 inline-flex text-sm font-semibold text-primary hover:underline">Read more about the author</Link></div>
+              <div className="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between"><p className="text-sm text-muted-foreground">Keep learning with CET TEST practice sets and mock tests.</p><Link href={blog.ctaHref}><Button className="w-full sm:w-auto">{blog.ctaLabel} <ArrowRight data-icon="inline-end" /></Button></Link></div>
             </article>
 
             <aside className="min-w-0 lg:sticky lg:top-6 lg:self-start">
