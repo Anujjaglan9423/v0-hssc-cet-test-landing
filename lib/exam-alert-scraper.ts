@@ -1,7 +1,5 @@
 import { createHash } from "node:crypto"
 import { PDFParse } from "pdf-parse"
-import { join } from "node:path"
-import { pathToFileURL } from "node:url"
 import { createAdminClient } from "@/lib/supabase/server"
 
 const SOURCES = [
@@ -32,22 +30,25 @@ export async function extractNoticeSummary(url: string, fallbackTitle = "Officia
     const response = await fetch(url, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/pdf,text/html" }, signal: AbortSignal.timeout(15000), cache: "no-store" })
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
     const contentType = response.headers.get("content-type") ?? ""
-    let pdfResponse = response
+    let pdfBytes: Buffer
 
-    // Listings often store the official notice-board page, not the PDF itself.
-    // Follow the first same-site PDF link so the blog page can still show parsed details.
-    if (!contentType.includes("pdf") && !/\.pdf(?:$|[?#])/i.test(url)) {
+    if (contentType.includes("pdf") || /\.pdf(?:$|[?#])/i.test(url)) {
+      pdfBytes = Buffer.from(await response.arrayBuffer())
+    } else {
+      // Notice-board URLs often return HTML or a redirect page. Find the actual
+      // PDF in href/data attributes and JavaScript strings before parsing it.
       const html = await response.text()
-      const pdfHref = html.match(/(?:href|data-href)=["']([^"']+\.pdf(?:[?#][^"']*)?)["']/i)?.[1]
-      if (!pdfHref) return { text: "", extracted: false, bullets: [] as string[] }
-      const pdfUrl = absoluteUrl(url, pdfHref)
+      const candidates = [...html.matchAll(/(?:href|data-href|url|downloadUrl)\s*[:=]\s*["']([^"']+\.pdf(?:[?#][^"']*)?)["']/gi)].map((match) => match[1])
+      const pdfUrl = candidates.map((href) => absoluteUrl(url, href)).find(Boolean)
       if (!pdfUrl) return { text: "", extracted: false, bullets: [] as string[] }
-      pdfResponse = await fetch(pdfUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/pdf" }, signal: AbortSignal.timeout(15000), cache: "no-store" })
+      const pdfResponse = await fetch(pdfUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/pdf,*/*" }, signal: AbortSignal.timeout(15000), cache: "no-store" })
       if (!pdfResponse.ok) throw new Error(`PDF HTTP ${pdfResponse.status}`)
+      pdfBytes = Buffer.from(await pdfResponse.arrayBuffer())
     }
 
-    PDFParse.setWorker(pathToFileURL(join(process.cwd(), "node_modules/pdf-parse/dist/worker/esm/index.js")).href)
-    const parser = new PDFParse({ data: Buffer.from(await pdfResponse.arrayBuffer()) })
+    // Some government servers incorrectly label PDFs as octet-stream.
+    if (pdfBytes.subarray(0, 4).toString() !== "%PDF") throw new Error("Downloaded document is not a PDF")
+    const parser = new PDFParse({ data: pdfBytes })
     const result = await parser.getText()
     await parser.destroy()
     const text = result.text.replace(/\s+/g, " ").trim().slice(0, 12000)
