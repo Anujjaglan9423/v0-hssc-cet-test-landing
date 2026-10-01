@@ -52,7 +52,6 @@ export default async function BlogPostPage({ params }: PageProps) {
   const alert = await getExamAlertBySlug(slug)
   if (alert) {
     const parsedNotice = alert.sourceUrl ? await extractNoticeSummary(alert.sourceUrl, alert.title) : { text: "", extracted: false, bullets: [] as string[] }
-    const extractedText = parsedNotice.text.slice(0, 6000)
     const parsedBullets = parsedNotice.bullets ?? []
     const fallbackDescription = alert.description ?? "The notification could not be read automatically. Open the official notice for the complete instructions."
     return (
@@ -69,9 +68,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               <div className="mt-10 rounded-2xl border bg-card p-5 sm:p-8">
                 <h2 className="text-xl font-bold text-foreground">Important details from the notification</h2>
                 {parsedBullets.length > 0 && <ul className="mt-5 flex flex-col gap-3 rounded-xl bg-primary/5 p-4 text-sm leading-6 text-foreground">{parsedBullets.map((bullet) => <li key={bullet} className="flex gap-3"><span className="mt-2 size-2 shrink-0 rounded-full bg-primary" />{bullet}</li>)}</ul>}
-                <h2 className="mt-8 text-xl font-bold text-foreground">What the notice says</h2>
-                <p className="mt-3 whitespace-pre-line text-sm leading-7 text-muted-foreground">{extractedText}</p>
-                <p className="mt-6 border-t pt-5 text-sm leading-6 text-muted-foreground">Use these extracted details to understand the update, then open the official notification below before taking action. The PDF remains the final authority for complete eligibility, dates and instructions.</p>
+                <p className="mt-6 border-t pt-5 text-sm leading-6 text-muted-foreground">These points were extracted from the downloaded notification to make the update easier to understand. The PDF remains the final authority for complete eligibility, dates and instructions.</p>
               </div>
             ) : <div className="prose prose-slate mt-10 max-w-none rounded-2xl border bg-card p-5 sm:p-8" dangerouslySetInnerHTML={{ __html: fallbackDescription }} />}
             {alert.sourceUrl && <a href={alert.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground hover:opacity-90">Open official notification PDF</a>}

@@ -38,7 +38,12 @@ export async function extractNoticeSummary(url: string, fallbackTitle = "Officia
       // Notice-board URLs often return HTML or a redirect page. Find the actual
       // PDF in href/data attributes and JavaScript strings before parsing it.
       const html = await response.text()
-      const candidates = [...html.matchAll(/(?:href|data-href|url|downloadUrl)\s*[:=]\s*["']([^"']+\.pdf(?:[?#][^"']*)?)["']/gi)].map((match) => match[1])
+      const candidates = [
+        ...[...html.matchAll(/(?:href|data-href|url|downloadUrl)\s*[:=]\s*["']([^"']+\.pdf(?:[?#][^"']*)?)["']/gi)].map((match) => match[1]),
+        ...[...html.matchAll(/(?:https?:)?\/\/[^\s"'<>]+\.pdf(?:[?#][^\s"'<>]*)?/gi)].map((match) => match[0]),
+        ...[...html.matchAll(/(?:href|data-href)=["']([^"']+)["']/gi)].map((match) => match[1]).filter((href) => /pdf|download|attachment|notification/i.test(href)),
+      ]
+        .map((href) => href.replaceAll("\\\\/", "/").replaceAll("&amp;", "&"))
       const pdfUrl = candidates.map((href) => absoluteUrl(url, href)).find(Boolean)
       if (!pdfUrl) return { text: "", extracted: false, bullets: [] as string[] }
       const pdfResponse = await fetch(pdfUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/pdf,*/*" }, signal: AbortSignal.timeout(15000), cache: "no-store" })
@@ -53,10 +58,21 @@ export async function extractNoticeSummary(url: string, fallbackTitle = "Officia
     await parser.destroy()
     const text = result.text.replace(/\s+/g, " ").trim().slice(0, 12000)
     const find = (pattern: RegExp) => text.match(pattern)?.[1]?.trim()
-    const lastDate = find(/(?:last date|closing date|apply before|submission).*?(\d{1,2}[\/-]\d{1,2}[\/-]20\d{2}|\d{1,2}\s+[A-Za-z]+\s+20\d{2})/i)
+    const date = "\\d{1,2}[\\/. -](?:\\d{1,2}|[A-Za-z]{3,9})[\\/. -]20\\d{2}"
+    const lastDate = find(new RegExp(`(?:last date|closing date|apply before|submission|available till|available up to|valid till|deadline).*?(${date})`, "i"))
+    const dateRange = text.match(new RegExp(`(?:from|between)\\s+(${date}).{0,80}?(?:to|till|until)\\s+(${date})`, "i"))
+    const publishedDate = find(new RegExp(`(?:uploaded|published|issued|declared|released).*?(${date})`, "i"))
     const fee = find(/(?:application fee|exam fee|fee).*?(₹?\s?[\d,]+)/i)
     const qualification = find(/(?:educational qualification|eligibility|qualification)\s*[:\-]?\s*(.{20,220}?)(?:\.|\s{2,}|age limit|pay scale)/i)
-    const bullets = [lastDate && `Last date identified in the notice: ${lastDate}`, fee && `Fee mentioned in the notice: ${fee}`, qualification && `Eligibility/qualification: ${qualification}`].filter(Boolean)
+    const action = text.match(/(?:candidates? (?:may|should|are advised to)|applicants? (?:must|should)|download|login|apply online|check your)[^.]{20,240}/i)?.[0]?.trim()
+    const bullets = [
+      publishedDate && `Published/issued: ${publishedDate}`,
+      lastDate && `Important deadline: ${lastDate}`,
+      dateRange && `Notice window: ${dateRange[1]} to ${dateRange[2]}`,
+      fee && `Fee mentioned in the notice: ${fee}`,
+      qualification && `Eligibility/qualification: ${qualification}`,
+      action && `What to do next: ${action}`,
+    ].filter((value): value is string => Boolean(value))
     return { text, extracted: text.length > 20, bullets }
   } catch (error) {
     console.warn("[v0] Notice PDF extraction failed:", url, error instanceof Error ? error.message : error)
