@@ -25,12 +25,13 @@ function slugify(value: string) {
   return `${value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}-${createHash("sha1").update(value).digest("hex").slice(0, 8)}`
 }
 
-async function extractNoticeSummary(url: string, fallbackTitle: string) {
+export async function extractNoticeSummary(url: string, fallbackTitle = "Official notification") {
   try {
     const response = await fetch(url, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0" }, signal: AbortSignal.timeout(15000), cache: "no-store" })
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
     const contentType = response.headers.get("content-type") ?? ""
     if (!contentType.includes("pdf") && !/\.pdf(?:$|[?#])/i.test(url)) return { text: "", extracted: false }
+    PDFParse.setWorker("https://cdn.jsdelivr.net/npm/pdf-parse@2.4.5/dist/pdf-parse/web/pdf.worker.mjs")
     const parser = new PDFParse({ data: Buffer.from(await response.arrayBuffer()) })
     const result = await parser.getText()
     await parser.destroy()

@@ -16,8 +16,8 @@ export type ExamAlert = {
 export async function getExamAlertBySlug(slug: string): Promise<ExamAlert | null> {
   try {
     const supabase = createAdminClient()
-    const { data, error } = await supabase.from("blogs").select("id,title,slug,description,category,created_at,featured_image_url,tags,status").eq("slug", slug).eq("status", "publish").eq("category", "Exam Alert").maybeSingle()
-    if (error || !data) return null
+    const { data, error } = await supabase.from("blogs").select("id,title,slug,description,category,created_at,featured_image_url,tags,status").eq("slug", slug).eq("status", "publish").maybeSingle()
+    if (error || !data || data.category?.toLowerCase() !== "exam alert") return null
     const source = `${data.title} ${data.featured_image_url ?? ""} ${Array.isArray(data.tags) ? data.tags.join(" ") : ""}`.toLowerCase()
     const categoryKey = source.includes("hssc") ? "haryana" : source.includes("uksssc") || source.includes("ukpsc") ? "uttarakhand" : source.includes("rrb") || source.includes("railway") ? "railway" : "ssc"
     return { id: data.id, title: data.title, slug: data.slug, description: data.description, category: data.category, createdAt: data.created_at, sourceUrl: data.featured_image_url, region: categoryKey === "uttarakhand" ? "Uttarakhand" : categoryKey === "railway" ? "Railway" : categoryKey === "ssc" ? "SSC" : "Haryana", authority: source.includes("hssc") ? "HSSC" : source.includes("uksssc") ? "UKSSSC" : source.includes("ukpsc") ? "UKPSC" : categoryKey === "railway" ? "RRB" : "SSC", categoryKey }

@@ -10,6 +10,7 @@ import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import { getBlogWords, getStaticBlog, staticBlogs } from "@/lib/blog-data"
 import { getExamAlertBySlug } from "@/lib/exam-alerts"
+import { extractNoticeSummary } from "@/lib/exam-alert-scraper"
 
 type PageProps = { params: Promise<{ slug: string }> }
 const SITE_URL = "https://cettest.site"
@@ -50,6 +51,10 @@ export default async function BlogPostPage({ params }: PageProps) {
   const slug = (await params).slug
   const alert = await getExamAlertBySlug(slug)
   if (alert) {
+    const parsedNotice = alert.sourceUrl ? await extractNoticeSummary(alert.sourceUrl, alert.title) : { text: "", extracted: false, bullets: [] as string[] }
+    const extractedText = parsedNotice.text.slice(0, 6000)
+    const parsedBullets = parsedNotice.bullets ?? []
+    const fallbackDescription = alert.description ?? "The notification could not be read automatically. Open the official notice for the complete instructions."
     return (
       <div className="min-h-screen bg-background">
         <FooterLinkNavbar />
@@ -58,10 +63,18 @@ export default async function BlogPostPage({ params }: PageProps) {
             <Link href="/exam-alerts" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary"><ArrowLeft className="size-4" aria-hidden="true" /> Back to Exam Alerts</Link>
             <Badge className="mt-8">{alert.authority} Exam Alert</Badge>
             <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight sm:text-5xl">{alert.title.replace(/^(HSSC|HPSC|UKSSSC|UKPSC|Railway|SSC|RRB)\s*[:|-]\s*/i, "")}</h1>
-            <p className="mt-4 text-base leading-7 text-muted-foreground">A candidate-focused summary prepared from the linked official notification: important dates, eligibility, fees and the next action to take.</p>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">This page downloads and reads the linked official PDF, then presents the useful candidate details instead of republishing its raw heading.</p>
             <div className="mt-6 flex flex-wrap gap-4 text-sm text-muted-foreground"><span className="inline-flex items-center gap-2"><Calendar className="size-4" /> {new Date(alert.createdAt).toLocaleDateString("en-IN", { dateStyle: "medium" })}</span><span>{alert.region}</span></div>
-            <div className="prose prose-slate mt-10 max-w-none rounded-2xl border bg-card p-5 sm:p-8" dangerouslySetInnerHTML={{ __html: alert.description ?? "The official notice is available below. Read it carefully for eligibility, dates and instructions." }} />
-            {alert.sourceUrl && <a href={alert.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground hover:opacity-90">Open official notification</a>}
+            {parsedNotice.extracted ? (
+              <div className="mt-10 rounded-2xl border bg-card p-5 sm:p-8">
+                <h2 className="text-xl font-bold text-foreground">Important details from the notification</h2>
+                {parsedBullets.length > 0 && <ul className="mt-5 flex flex-col gap-3 rounded-xl bg-primary/5 p-4 text-sm leading-6 text-foreground">{parsedBullets.map((bullet) => <li key={bullet} className="flex gap-3"><span className="mt-2 size-2 shrink-0 rounded-full bg-primary" />{bullet}</li>)}</ul>}
+                <h2 className="mt-8 text-xl font-bold text-foreground">What the notice says</h2>
+                <p className="mt-3 whitespace-pre-line text-sm leading-7 text-muted-foreground">{extractedText}</p>
+                <p className="mt-6 border-t pt-5 text-sm leading-6 text-muted-foreground">Use these extracted details to understand the update, then open the official notification below before taking action. The PDF remains the final authority for complete eligibility, dates and instructions.</p>
+              </div>
+            ) : <div className="prose prose-slate mt-10 max-w-none rounded-2xl border bg-card p-5 sm:p-8" dangerouslySetInnerHTML={{ __html: fallbackDescription }} />}
+            {alert.sourceUrl && <a href={alert.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground hover:opacity-90">Open official notification PDF</a>}
           </article>
         </main>
         <FooterLinkFooter />
