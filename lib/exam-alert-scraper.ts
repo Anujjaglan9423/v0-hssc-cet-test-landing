@@ -1,5 +1,7 @@
 import { createHash } from "node:crypto"
 import { PDFParse } from "pdf-parse"
+import { join } from "node:path"
+import { pathToFileURL } from "node:url"
 import { createAdminClient } from "@/lib/supabase/server"
 
 const SOURCES = [
@@ -27,21 +29,34 @@ function slugify(value: string) {
 
 export async function extractNoticeSummary(url: string, fallbackTitle = "Official notification") {
   try {
-    const response = await fetch(url, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0" }, signal: AbortSignal.timeout(15000), cache: "no-store" })
+    const response = await fetch(url, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/pdf,text/html" }, signal: AbortSignal.timeout(15000), cache: "no-store" })
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
     const contentType = response.headers.get("content-type") ?? ""
-    if (!contentType.includes("pdf") && !/\.pdf(?:$|[?#])/i.test(url)) return { text: "", extracted: false }
-    PDFParse.setWorker("https://cdn.jsdelivr.net/npm/pdf-parse@2.4.5/dist/pdf-parse/web/pdf.worker.mjs")
-    const parser = new PDFParse({ data: Buffer.from(await response.arrayBuffer()) })
+    let pdfResponse = response
+
+    // Listings often store the official notice-board page, not the PDF itself.
+    // Follow the first same-site PDF link so the blog page can still show parsed details.
+    if (!contentType.includes("pdf") && !/\.pdf(?:$|[?#])/i.test(url)) {
+      const html = await response.text()
+      const pdfHref = html.match(/(?:href|data-href)=["']([^"']+\.pdf(?:[?#][^"']*)?)["']/i)?.[1]
+      if (!pdfHref) return { text: "", extracted: false, bullets: [] as string[] }
+      const pdfUrl = absoluteUrl(url, pdfHref)
+      if (!pdfUrl) return { text: "", extracted: false, bullets: [] as string[] }
+      pdfResponse = await fetch(pdfUrl, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0", accept: "application/pdf" }, signal: AbortSignal.timeout(15000), cache: "no-store" })
+      if (!pdfResponse.ok) throw new Error(`PDF HTTP ${pdfResponse.status}`)
+    }
+
+    PDFParse.setWorker(pathToFileURL(join(process.cwd(), "node_modules/pdf-parse/dist/worker/esm/index.js")).href)
+    const parser = new PDFParse({ data: Buffer.from(await pdfResponse.arrayBuffer()) })
     const result = await parser.getText()
     await parser.destroy()
     const text = result.text.replace(/\s+/g, " ").trim().slice(0, 12000)
     const find = (pattern: RegExp) => text.match(pattern)?.[1]?.trim()
-    const lastDate = find(/(?:last date|closing date|apply before|submission).*?(\d{1,2}[/-]\d{1,2}[/-]20\d{2}|\d{1,2}\s+[A-Za-z]+\s+20\d{2})/i)
+    const lastDate = find(/(?:last date|closing date|apply before|submission).*?(\d{1,2}[\/-]\d{1,2}[\/-]20\d{2}|\d{1,2}\s+[A-Za-z]+\s+20\d{2})/i)
     const fee = find(/(?:application fee|exam fee|fee).*?(₹?\s?[\d,]+)/i)
     const qualification = find(/(?:educational qualification|eligibility|qualification)\s*[:\-]?\s*(.{20,220}?)(?:\.|\s{2,}|age limit|pay scale)/i)
     const bullets = [lastDate && `Last date identified in the notice: ${lastDate}`, fee && `Fee mentioned in the notice: ${fee}`, qualification && `Eligibility/qualification: ${qualification}`].filter(Boolean)
-    return { text, extracted: text.length > 100, bullets }
+    return { text, extracted: text.length > 20, bullets }
   } catch (error) {
     console.warn("[v0] Notice PDF extraction failed:", url, error instanceof Error ? error.message : error)
     return { text: "", extracted: false, bullets: [] as string[] }
