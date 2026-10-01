@@ -98,12 +98,17 @@ export async function scrapeGovernmentNotices() {
 
       let inserted = 0
       for (const [url, noticeText] of [...notices].slice(0, 100)) {
-        const [noticeTitle, ...detailLines] = noticeText.split("\n").map((line) => line.trim()).filter(Boolean)
+        const [rawNoticeTitle, ...detailLines] = noticeText.split("\n").map((line) => line.trim()).filter(Boolean)
+        const noticeTitle = rawNoticeTitle
+          .replace(/\s*(?:[-|:]\s*)?(?:click\s+here|read\s+more|view\s+notice)\s*$/i, "")
+          .replace(/\s+/g, " ")
+          .trim()
         const details = detailLines.filter((line) => !/^Notice date:\s*$/i.test(line))
+        const escapeHtml = (value: string) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
         const detailHtml = details.length
-          ? `<h2>Important information</h2><ul>${details.map((detail) => `<li>${detail.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</li>`).join("")}</ul>`
+          ? `<h2>What this update means</h2><ul>${details.map((detail) => `<li>${escapeHtml(detail)}</li>`).join("")}</ul>`
           : ""
-        const description = `${detailHtml}<p>This update was discovered from the official ${source.name} notice. Verify the complete notification, eligibility, dates, vacancies, fees and application instructions in the official source.</p>`
+        const description = `${detailHtml}<h2>What to do next</h2><p>This ${source.name} notice may affect candidates planning to apply, download an admit card, check a result or complete the next stage of the process. Review the official notice for the exact dates, eligibility, documents, fees and instructions, then use the official link to complete any required action before the deadline.</p>`
         const { data: exists, error: lookupError } = await supabase.from("blogs").select("id,description,title").eq("featured_image_url", url).maybeSingle()
         if (lookupError) throw new Error(`Database lookup failed: ${lookupError.message}`)
         if (exists) {

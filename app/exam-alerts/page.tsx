@@ -25,7 +25,7 @@ export default async function ExamAlertsPage() {
   const siteUrl = "https://cettest.site"
   const itemList = alerts.map((alert, index) => {
     const officialDate = alert.title.match(/\b(\d{4}-\d{2}-\d{2}|\d{1,2}[/-]\d{1,2}[/-]20\d{2}|\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+20\d{2})\b/i)?.[1]
-    const item = { "@type": "Article", headline: alert.title, publisher: { "@type": "GovernmentOrganization", name: alert.authority }, url: alert.sourceUrl || `${siteUrl}/blog/${alert.slug}`, about: alert.title, ...(officialDate ? { datePublished: officialDate, dateModified: officialDate } : {}) }
+    const item = { "@type": "Article", headline: alert.title, description: alert.description || `A practical summary of the ${alert.authority} update, including what changed and what candidates should do next.`, publisher: { "@type": "GovernmentOrganization", name: alert.authority }, url: `${siteUrl}/blog/${alert.slug}`, about: alert.title, ...(officialDate ? { datePublished: officialDate, dateModified: officialDate } : {}) }
     return { "@type": "ListItem", position: index + 1, item }
   })
   const examNames = [...new Set(alerts.map((alert) => alert.title.replace(/^(HSSC|HPSC|UKSSSC|UKPSC|Railway|SSC):\s*/i, "")).filter(Boolean))]
