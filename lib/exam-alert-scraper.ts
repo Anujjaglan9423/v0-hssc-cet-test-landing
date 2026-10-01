@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto"
+import { PDFParse } from "pdf-parse"
 import { createAdminClient } from "@/lib/supabase/server"
 
 const SOURCES = [
@@ -22,6 +23,28 @@ function clean(value: string) {
 
 function slugify(value: string) {
   return `${value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}-${createHash("sha1").update(value).digest("hex").slice(0, 8)}`
+}
+
+async function extractNoticeSummary(url: string, fallbackTitle: string) {
+  try {
+    const response = await fetch(url, { headers: { "user-agent": "Mozilla/5.0 HSSC-CET-Alert-Bot/1.0" }, signal: AbortSignal.timeout(15000), cache: "no-store" })
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    const contentType = response.headers.get("content-type") ?? ""
+    if (!contentType.includes("pdf") && !/\.pdf(?:$|[?#])/i.test(url)) return { text: "", extracted: false }
+    const parser = new PDFParse({ data: Buffer.from(await response.arrayBuffer()) })
+    const result = await parser.getText()
+    await parser.destroy()
+    const text = result.text.replace(/\s+/g, " ").trim().slice(0, 12000)
+    const find = (pattern: RegExp) => text.match(pattern)?.[1]?.trim()
+    const lastDate = find(/(?:last date|closing date|apply before|submission).*?(\d{1,2}[/-]\d{1,2}[/-]20\d{2}|\d{1,2}\s+[A-Za-z]+\s+20\d{2})/i)
+    const fee = find(/(?:application fee|exam fee|fee).*?(₹?\s?[\d,]+)/i)
+    const qualification = find(/(?:educational qualification|eligibility|qualification)\s*[:\-]?\s*(.{20,220}?)(?:\.|\s{2,}|age limit|pay scale)/i)
+    const bullets = [lastDate && `Last date identified in the notice: ${lastDate}`, fee && `Fee mentioned in the notice: ${fee}`, qualification && `Eligibility/qualification: ${qualification}`].filter(Boolean)
+    return { text, extracted: text.length > 100, bullets }
+  } catch (error) {
+    console.warn("[v0] Notice PDF extraction failed:", url, error instanceof Error ? error.message : error)
+    return { text: "", extracted: false, bullets: [] as string[] }
+  }
 }
 
 function collectOfficialLinks(value: unknown, links = new Map<string, string>(), context = "official notice", allowedHosts: string[] = ["ssc.gov.in"], attachmentBase = "https://ssc.gov.in/api/attachment/") {
@@ -103,12 +126,16 @@ export async function scrapeGovernmentNotices() {
           .replace(/\s*(?:[-|:]\s*)?(?:click\s+here|read\s+more|view\s+notice)\s*$/i, "")
           .replace(/\s+/g, " ")
           .trim()
-        const details = detailLines.filter((line) => !/^Notice date:\s*$/i.test(line))
+        const extracted = await extractNoticeSummary(url, noticeTitle)
+        const details = [...detailLines.filter((line) => !/^Notice date:\s*$/i.test(line)), ...(extracted.bullets ?? []).filter((detail): detail is string => Boolean(detail))]
         const escapeHtml = (value: string) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
         const detailHtml = details.length
-          ? `<h2>What this update means</h2><ul>${details.map((detail) => `<li>${escapeHtml(detail)}</li>`).join("")}</ul>`
+          ? `<h2>Important details from the official notice</h2><ul>${details.map((detail) => `<li>${escapeHtml(detail)}</li>`).join("")}</ul>`
           : ""
-        const description = `${detailHtml}<h2>What to do next</h2><p>This ${source.name} notice may affect candidates planning to apply, download an admit card, check a result or complete the next stage of the process. Review the official notice for the exact dates, eligibility, documents, fees and instructions, then use the official link to complete any required action before the deadline.</p>`
+        const extractedHtml = extracted.extracted
+          ? `<h2>What we found</h2><p>We downloaded and read the linked official notice. The notice text is available below so candidates can understand the update without relying on a raw government heading.</p><blockquote>${escapeHtml(extracted.text.slice(0, 5000))}</blockquote>`
+          : ""
+        const description = `${detailHtml}${extractedHtml}<h2>What to do next</h2><p>This ${source.name} notice may affect candidates planning to apply, download an admit card, check a result or complete the next stage of the process. Review the extracted dates, eligibility and fee details above, then open the official notice for the complete instructions and use the official link to complete any required action before the deadline.</p>`
         const { data: exists, error: lookupError } = await supabase.from("blogs").select("id,description,title").eq("featured_image_url", url).maybeSingle()
         if (lookupError) throw new Error(`Database lookup failed: ${lookupError.message}`)
         if (exists) {

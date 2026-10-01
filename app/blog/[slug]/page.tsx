@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import { getBlogWords, getStaticBlog, staticBlogs } from "@/lib/blog-data"
+import { getExamAlertBySlug } from "@/lib/exam-alerts"
 
 type PageProps = { params: Promise<{ slug: string }> }
 const SITE_URL = "https://cettest.site"
@@ -46,7 +47,28 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const blog = getStaticBlog((await params).slug)
+  const slug = (await params).slug
+  const alert = await getExamAlertBySlug(slug)
+  if (alert) {
+    return (
+      <div className="min-h-screen bg-background">
+        <FooterLinkNavbar />
+        <main className="px-4 py-10 sm:px-6 sm:py-16 lg:px-8">
+          <article className="mx-auto max-w-4xl">
+            <Link href="/exam-alerts" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary"><ArrowLeft className="size-4" aria-hidden="true" /> Back to Exam Alerts</Link>
+            <Badge className="mt-8">{alert.authority} Exam Alert</Badge>
+            <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight sm:text-5xl">{alert.title.replace(/^(HSSC|HPSC|UKSSSC|UKPSC|Railway|SSC|RRB)\s*[:|-]\s*/i, "")}</h1>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">A candidate-focused summary prepared from the linked official notification: important dates, eligibility, fees and the next action to take.</p>
+            <div className="mt-6 flex flex-wrap gap-4 text-sm text-muted-foreground"><span className="inline-flex items-center gap-2"><Calendar className="size-4" /> {new Date(alert.createdAt).toLocaleDateString("en-IN", { dateStyle: "medium" })}</span><span>{alert.region}</span></div>
+            <div className="prose prose-slate mt-10 max-w-none rounded-2xl border bg-card p-5 sm:p-8" dangerouslySetInnerHTML={{ __html: alert.description ?? "The official notice is available below. Read it carefully for eligibility, dates and instructions." }} />
+            {alert.sourceUrl && <a href={alert.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground hover:opacity-90">Open official notification</a>}
+          </article>
+        </main>
+        <FooterLinkFooter />
+      </div>
+    )
+  }
+  const blog = getStaticBlog(slug)
   if (!blog) notFound()
   const related = staticBlogs.filter((item) => item.slug !== blog.slug).slice(0, 3)
   const wordCount = getBlogWords(blog)
