@@ -22,9 +22,8 @@ export const metadata: Metadata = {
 
 export default async function ExamAlertsPage() {
   const [alerts, user] = await Promise.all([getExamAlerts(100), getCurrentUser()])
-  // Keep the public FAQ and footer for logged-out visitors and admin users,
-  // but hide them when a student opens this page from the student area.
-  const showPublicSections = user?.role !== "student"
+  // FAQ and footer are public-page sections; authenticated users should not see them.
+  const showPublicSections = !user
   const fetchedAt = new Date()
   const siteUrl = "https://cettest.site"
   const itemList = alerts.map((alert, index) => {
