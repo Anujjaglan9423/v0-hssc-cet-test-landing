@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react"
 import type { ExamAlert } from "@/lib/exam-alerts"
-import Link from "next/link"
 import { ChevronDown } from "lucide-react"
 
 const fallbackOrder = ["Results", "Admit Cards", "Latest Jobs", "Answer Key", "Documents", "Admission"]
@@ -25,6 +24,19 @@ function titleFor(alert: ExamAlert) {
   return alert.title.replace(/^(HSSC|HPSC|UKSSSC|UKPSC|Railway|SSC)\s*[:|-]\s*/i, "")
 }
 
+function alertHref(alert: ExamAlert) {
+  if (!alert.sourceUrl) return `/blog/${encodeURIComponent(alert.slug)}`
+
+  try {
+    const url = new URL(alert.sourceUrl)
+    return url.protocol === "http:" || url.protocol === "https:"
+      ? alert.sourceUrl
+      : `/blog/${encodeURIComponent(alert.slug)}`
+  } catch {
+    return `/blog/${encodeURIComponent(alert.slug)}`
+  }
+}
+
 function CategoryColumn({ name, alerts }: { name: string; alerts: ExamAlert[] }) {
   const [expanded, setExpanded] = useState(false)
   const visibleAlerts = expanded ? alerts : alerts.slice(0, 12)
@@ -38,9 +50,14 @@ function CategoryColumn({ name, alerts }: { name: string; alerts: ExamAlert[] })
         <ul className="flex flex-col gap-4 text-[15px] leading-[1.2] text-[#0000b8] sm:text-base">
           {visibleAlerts.map((alert) => (
             <li key={alert.id} className="list-disc pl-0 marker:text-black">
-              <Link href={`/blog/${alert.slug}`} className="underline decoration-1 underline-offset-1 hover:text-primary focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+              <a
+                href={alertHref(alert)}
+                target={alert.sourceUrl && alertHref(alert) === alert.sourceUrl ? "_blank" : undefined}
+                rel={alert.sourceUrl && alertHref(alert) === alert.sourceUrl ? "noopener noreferrer" : undefined}
+                className="underline decoration-1 underline-offset-1 hover:text-primary focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              >
                 {titleFor(alert)}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
