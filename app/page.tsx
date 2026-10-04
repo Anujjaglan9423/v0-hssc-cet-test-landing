@@ -1,17 +1,38 @@
-import AsianGamesPage from "@/components/asian-games-page"
+import Navbar from "@/components/navbar"
+import HeroSection from "@/components/hero-section"
+import StatsSection from "@/components/stats-section"
+import FeaturesSection from "@/components/features-section"
+import ExamsSection from "@/components/exams-section"
+import DailyQuizSection from "@/components/daily-quiz-section"
+import TestSeriesSection from "@/components/test-series-section"
+import TestimonialsSection from "@/components/testimonials-section"
+import PricingSection from "@/components/pricing-section"
+import FAQSection from "@/components/faq-section"
+import CTASection from "@/components/cta-section"
+import Footer from "@/components/footer"
+import PreparationGuide, { EditorialNote } from "@/components/preparation-guide"
+import AdPlacement from "@/components/ad-placement"
+import ExamAlertsSection from "@/components/exam-alerts-section"
 
 export default function Home() {
-  return <AsianGamesPage />
+  return (
+    <main className="min-h-screen">
+      <Navbar />
+      <HeroSection />
+      <StatsSection />
+      <FeaturesSection />
+      <ExamsSection />
+      <ExamAlertsSection />
+      <AdPlacement className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
+      <PreparationGuide />
+      <DailyQuizSection />
+      <TestSeriesSection />
+      <TestimonialsSection />
+      <PricingSection />
+      <FAQSection />
+      <EditorialNote />
+      <CTASection />
+      <Footer />
+    </main>
+  )
 }
-
-export const metadata = {
-  title: "Asian Games 2026 - Master Notes & MCQs",
-  description:
-    "Exam-ready Asian Games 2026 current affairs notes, India medal tally, champions and 20 MCQs for UPSSSC, SSC, HSSC CET and other competitive exams.",
-}
-
-export const viewport = {
-  themeColor: "#f97316",
-}
-
-

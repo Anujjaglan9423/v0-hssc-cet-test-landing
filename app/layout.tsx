@@ -40,12 +40,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: "Asian Games 2026 - Master Notes & MCQs",
+    default: "CET TEST - Free Mock Tests for All Government Exams 2026",
     template: "%s | CET TEST",
   },
 
   description:
-    "Exam-ready Asian Games 2026 current affairs notes, India medal tally, champions and MCQs for UPSSSC, SSC, HSSC CET and other competitive exams.",
+    "India's #1 free mock test platform for all government job exams including SSC, Railway, Banking, Teaching, Defence, Haryana CET, UKSSSC, and state-level exams.",
 
   keywords: [
     "Haryana CET preparation",
