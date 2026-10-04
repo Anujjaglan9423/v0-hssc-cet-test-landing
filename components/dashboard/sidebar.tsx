@@ -61,6 +61,7 @@ const studentLinks = [
   { href: "/student/results", icon: Trophy, label: "Results" },
   { href: "/student/mistakes", icon: NotebookPen, label: "Mistake Notebook" },
   { href: "/student/analytics", icon: BarChart3, label: "My Analytics" },
+  { href: "/exam-alerts", icon: BellRing, label: "Exam Alerts" },
 ]
 
 export function Sidebar({ type, user }: SidebarProps) {
