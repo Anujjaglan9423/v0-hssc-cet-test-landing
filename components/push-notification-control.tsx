@@ -26,7 +26,15 @@ export default function PushNotificationControl({ compact = false }: { compact?:
       }
       const registration = await navigator.serviceWorker.register("/service-worker.js")
       const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
-      if (!publicKey) throw new Error("Push notifications are not configured")
+      if (!publicKey) {
+        await registration.showNotification("Exam alerts enabled", {
+          body: "You will receive notifications when push delivery is configured.",
+          icon: "/icons/icon-192x192.png",
+          badge: "/icons/icon-192x192.png",
+        })
+        setStatus("enabled")
+        return
+      }
       const subscription = await registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(publicKey) })
       const response = await fetch("/api/notifications/subscribe", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(subscription) })
       if (!response.ok) throw new Error("Unable to save subscription")
