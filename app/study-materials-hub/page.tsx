@@ -7,6 +7,7 @@ import {
   Newspaper,
   ShieldCheck,
   Sparkles,
+  Trophy,
 } from "lucide-react"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
@@ -63,6 +64,14 @@ const studySections = [
     href: "/haryana-gk",
     icon: Landmark,
     eyebrow: "Know your state",
+  },
+  {
+    number: "04",
+    title: "Asian Games 2026",
+    description: "Revise India’s medal tally, flag bearers, winners, and exam-oriented current-affairs MCQs.",
+    href: "/study-materials-hub/asian-games-2026",
+    icon: Trophy,
+    eyebrow: "Current affairs spotlight",
   },
 ]
 
