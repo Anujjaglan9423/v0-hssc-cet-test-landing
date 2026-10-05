@@ -6,7 +6,16 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin/', '/api/', '/student/test/', '/student/results/', '/demo/results/', '/take-test/'],
+        disallow: [
+          '/admin/',
+          '/api/',
+          '/student/test/',
+          '/student/results/',
+          '/demo/results/',
+          '/take-test/',
+          '/mock-test-attempt/',
+          '/mock-test-results/',
+        ],
       },
       {
         userAgent: 'Googlebot',
