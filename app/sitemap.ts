@@ -63,38 +63,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
 
-    // 📝 Blog
+    // 📝 Blog index
     {
       url: `${baseUrl}/blog`,
       lastModified: now,
       changeFrequency: 'daily',
       priority: 0.9,
     },
-    {
-      url: `${baseUrl}/blog/hssc-cet-preparation-2026`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/blog/hssc-cet-study-plan-2026`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/blog/hssc-cet-group-d-syllabus-2026`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/blog/hssc-cet-syllabus-2026`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 1,
-    },
-   
+
     // ⚖️ Legal
     {
       url: `${baseUrl}/privacy-policy`,
@@ -116,6 +92,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     // 📚 Exams Pages
+    {
+      url: `${baseUrl}/exams`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.95,
+    },
     {
       url: `${baseUrl}/exams/ssc`,
       lastModified: now,
@@ -159,30 +141,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
 
-    // 🧪 Demo Pages
+    // 🧪 Demo index
     {
       url: `${baseUrl}/demo`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.7,
     },
+
+    // 📖 Public resource pages
     {
-      url: `${baseUrl}/demo/test/haryana-police`,
+      url: `${baseUrl}/careers`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/community`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/study-materials-hub`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/study-materials-hub/asian-games-2026`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/demo/test/haryana-group-d`,
+      url: `${baseUrl}/haryana-previous-year-papers`,
       lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/demo/test/haryana-cet`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
+      changeFrequency: 'daily',
+      priority: 0.9,
     },
 
     // Haryana Exam Syllabus Pages
