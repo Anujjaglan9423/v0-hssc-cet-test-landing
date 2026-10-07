@@ -5,6 +5,7 @@ import { CheckCircle2, FileText, Clock, ChevronDown, Target, Instagram, MapPin, 
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import Script from "next/script"
+import { SeoBreadcrumbs } from "@/components/seo-breadcrumbs"
 
 // ============================================
 // SITE CONFIGURATION
@@ -276,7 +277,9 @@ export default function HSCSCETPage() {
   ]
 
   return (
-    <>
+  <>
+  <SeoBreadcrumbs items={[{ name: "Exams", href: "/exams" }, { name: "HSSC CET", href: "/exams/hssc-cet" }]} />
+
       {/* ===== STRUCTURED DATA (JSON-LD) ===== */}
       <Script
         id="hssc-cet-structured-data"
