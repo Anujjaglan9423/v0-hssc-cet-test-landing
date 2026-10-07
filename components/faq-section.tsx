@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
+import Script from "next/script"
 
 const faqs = [
   {
@@ -39,8 +40,20 @@ const faqs = [
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  }
+
   return (
-    <section id="faq" className="py-20 scroll-mt-20">
+    <>
+      <Script id="faq-schema" type="application/ld+json">{JSON.stringify(faqSchema)}</Script>
+      <section id="faq" className="py-20 scroll-mt-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -50,7 +63,7 @@ export default function FAQSection() {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-muted-foreground">Got questions? We've got answers.</p>
+          <p className="text-lg text-muted-foreground">Got questions? We&apos;ve got answers.</p>
         </div>
 
         {/* FAQ Items */}
@@ -79,6 +92,7 @@ export default function FAQSection() {
           ))}
         </div>
       </div>
-    </section>
+      </section>
+    </>
   )
 }

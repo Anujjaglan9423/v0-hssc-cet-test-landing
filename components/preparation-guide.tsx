@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, BookOpenCheck, ChartNoAxesCombined, FileSearch } from "lucide-react"
+import { AuthorBio } from "@/components/seo-breadcrumbs"
 
 const steps = [
   {
@@ -60,6 +61,7 @@ export function EditorialNote() {
         <p className="mt-4 leading-relaxed text-muted-foreground">CET TEST is an independent practice platform. We aim to explain questions clearly, keep exam guidance separate from official notifications, and review time-sensitive material before publishing updates. Always confirm dates, eligibility, and rules with the relevant recruiting authority.</p>
         <Link href="/about" className="mt-5 inline-flex text-sm font-semibold text-primary hover:underline">Read about our editorial approach <ArrowRight aria-hidden="true" /></Link>
       </div>
+      <AuthorBio />
     </section>
   )
 }

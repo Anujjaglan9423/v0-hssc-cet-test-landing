@@ -15,10 +15,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://cettest.site/login",
   },
-  robots: {
-    index: false,
-    follow: true,
-  },
   openGraph: {
     title: "Login | CET TEST - Access Your Mock Test Dashboard",
     description: "Sign in to CET TEST to resume your Haryana CET, HSSC, SSC, Railway & UKSSSC exam preparation.",
