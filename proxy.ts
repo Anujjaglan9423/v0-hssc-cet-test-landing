@@ -12,7 +12,8 @@ export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   
   // Static pages that rarely change - cache for 24 hours at edge
-  const staticPages = ["/about", "/contact", "/careers", "/privacy-policy", "/refund-policy", "/terms-of-service"]
+  const staticPages = ["/about", "/contact", "/careers", "/privacy-policy", "/terms-of-service"]
+    // const staticPages = ["/about", "/contact", "/careers", "/privacy-policy", "/refund-policy", "/terms-of-service"]
   if (staticPages.some(page => pathname === page)) {
     response.headers.set("Cache-Control", "public, s-maxage=86400, stale-while-revalidate=604800")
   }

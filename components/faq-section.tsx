@@ -25,16 +25,16 @@ const faqs = [
     answer:
       "We cover multiple exam categories including Haryana Exams (CET, Police, Group D), SSC Exams (CGL, CHSL, MTS, GD), Railway Exams (NTPC, Group D, ALP), and Uttarakhand Exams (UKPSC, UKSSSC).",
   },
-  {
-    question: "What happens after my subscription ends?",
-    answer:
-      "Your progress and performance data are saved even after your subscription ends. You can still access basic features with a free account. Renew anytime to unlock all premium features again.",
-  },
-  {
-    question: "Do you offer refunds if I'm not satisfied?",
-    answer:
-      "Yes, we offer a 7-day money-back guarantee. If you're not satisfied with our platform within the first 7 days of your purchase, contact our support team for a full refund.",
-  },
+  // {
+  //   question: "What happens after my subscription ends?",
+  //   answer:
+  //     "Your progress and performance data are saved even after your subscription ends. You can still access basic features with a free account. Renew anytime to unlock all premium features again.",
+  // },
+  // {
+  //   question: "Do you offer refunds if I'm not satisfied?",
+  //   answer:
+  //     "Yes, we offer a 7-day money-back guarantee. If you're not satisfied with our platform within the first 7 days of your purchase, contact our support team for a full refund.",
+  // },
 ]
 
 export default function FAQSection() {

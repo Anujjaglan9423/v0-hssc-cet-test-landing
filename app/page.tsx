@@ -26,7 +26,7 @@ export default function Home() {
       <PreparationGuide />
       <DailyQuizSection />
       <TestSeriesSection />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
       {/* <PricingSection /> */}
       <FAQSection />
       <EditorialNote />

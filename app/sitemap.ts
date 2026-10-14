@@ -84,12 +84,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.4,
     },
-    {
-      url: `${baseUrl}/refund-policy`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.4,
-    },
+    // {
+    //   url: `${baseUrl}/refund-policy`,
+    //   lastModified: now,
+    //   changeFrequency: 'yearly',
+    //   priority: 0.4,
+    // },
 
     // 📚 Exams Pages
     {
