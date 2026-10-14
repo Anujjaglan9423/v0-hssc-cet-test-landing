@@ -1,0 +1,6 @@
+export const examAlertsFaqs = [
+  { question: "Where can I find official government exam notifications?", answer: "CET TEST collects exam-related notices and displays links to the recruiting authority's website when a source URL is available. Confirm all dates, eligibility requirements and instructions directly with the recruiting authority." },
+  { question: "Which types of exam updates are listed?", answer: "Depending on the available notices, this page may include recruitment announcements, results, admit cards, answer keys, exam schedules, admissions and other updates for HSSC, HPSC, UKSSSC, UKPSC, SSC and Railway RRB exams." },
+  { question: "How often is the information updated?", answer: "Notices reflect the records currently available to CET TEST. Refresh timing depends on the data synchronization process; always check the linked official website for the latest changes." },
+  { question: "Are all notices and links official?", answer: "An official source link is displayed only when a URL is provided in the notice record. CET TEST is an independent preparation website, not a government recruiting authority. Verify any important information with the relevant agency." },
+] as const

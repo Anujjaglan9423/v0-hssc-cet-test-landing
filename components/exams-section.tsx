@@ -59,14 +59,7 @@ export default function ExamsSection() {
 
             return (
               <Link key={idx} href={exam.link}>
-                <div
-                  className="
-                relative group h-full p-[1px] rounded-2xl
-                bg-gradient-to-br from-gray-200 to-gray-100
-                hover:from-blue-500/40 hover:to-purple-500/40
-                transition-all duration-500
-              "
-                >
+                <div className="relative group h-full p-[1px] rounded-2xl bg-gradient-to-br from-gray-200 to-gray-100 hover:from-blue-500/40 hover:to-purple-500/40 ransition-all duration-500">
                   {/* Inner Card */}
                   <div
                     className="

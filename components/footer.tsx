@@ -8,7 +8,7 @@ const footerLinks = {
     { name: "Study Materials", href: "/study-materials-hub" },
     { name: "Exam Syllabus", href: "/syllabus" },
     { name: "Features", href: "#features" },
-    { name: "Pricing", href: "#pricing" },
+    // { name: "Pricing", href: "#pricing" },
     { name: "FAQs", href: "#faq" },
   ],
   company: [

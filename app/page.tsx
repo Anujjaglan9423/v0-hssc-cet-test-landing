@@ -27,7 +27,7 @@ export default function Home() {
       <DailyQuizSection />
       <TestSeriesSection />
       <TestimonialsSection />
-      <PricingSection />
+      {/* <PricingSection /> */}
       <FAQSection />
       <EditorialNote />
       <CTASection />
