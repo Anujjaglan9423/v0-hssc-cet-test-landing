@@ -129,7 +129,7 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
   const cookieStore = await cookies()
   cookieStore.set("auth_token", token, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
       expires: expiresAt,
     path: "/",
@@ -203,7 +203,7 @@ export async function signupUser(name: string, email: string, password: string, 
   const cookieStore = await cookies()
   cookieStore.set("auth_token", token, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
     expires: expiresAt,
     path: "/",
