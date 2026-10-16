@@ -33,7 +33,8 @@ export default function LoginPage() {
         setIsLoading(false)
       }
     } catch (err) {
-      setError("An error occurred during login")
+      console.error("[v0] Login request failed:", err)
+      setError("Unable to sign in right now. Please try again.")
       setIsLoading(false)
     }
   }

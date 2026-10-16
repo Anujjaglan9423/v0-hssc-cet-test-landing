@@ -103,7 +103,8 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
   }
 
   // Regular user login
-  const { data: user, error } = await supabase.from("users").select("*").eq("email", email.toLowerCase()).maybeSingle()
+  const normalizedEmail = email.trim().toLowerCase()
+  const { data: user, error } = await supabase.from("users").select("*").eq("email", normalizedEmail).maybeSingle()
 
   if (error || !user) {
     return { success: false, message: "Invalid email or password" }
@@ -129,9 +130,9 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
   const cookieStore = await cookies()
   cookieStore.set("auth_token", token, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
-      expires: expiresAt,
+    expires: expiresAt,
     path: "/",
   })
 
@@ -203,7 +204,7 @@ export async function signupUser(name: string, email: string, password: string, 
   const cookieStore = await cookies()
   cookieStore.set("auth_token", token, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
     expires: expiresAt,
     path: "/",
