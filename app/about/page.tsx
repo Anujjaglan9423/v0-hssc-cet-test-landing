@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar } from "@/components/ui/avatar"
 import { Users, Award, Target, CheckCircle, Star, FileText, Clock } from "lucide-react"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
@@ -35,7 +35,7 @@ const team = [
     role: "Founder & CEO",
     initials: "AJ",
     image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-10-19%20at%2010.08.17%20PM-wODZWoOsaWbmAxjB61di51SMwEEYuL.jpeg",
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-10-19%20at%2010.13.22%20PM-P65KFoXaZjYrpT4tMBC4WiWk23Du19.jpeg",
   },
   {
     name: "Gaurav Joshi",
@@ -235,17 +235,14 @@ export default function AboutPage() {
                 key={member.name}
                 className="group rounded-2xl border bg-background/80 p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
-                <Avatar className="mx-auto mb-5 h-44 w-44 ring-4 ring-primary/10 transition group-hover:ring-primary/25">
+                <Avatar className="mx-auto mb-5 h-56 w-56 overflow-hidden ring-4 ring-primary/10 transition group-hover:ring-primary/25">
                   <Image
                     src={member.image}
                     alt={`${member.name}, ${member.role}`}
-                    width={176}
-                    height={176}
+                    width={224}
+                    height={224}
                     className="h-full w-full object-cover object-top"
                   />
-                  <AvatarFallback className="text-2xl font-bold bg-primary text-primary-foreground">
-                    {member.initials}
-                  </AvatarFallback>
                 </Avatar>
                 <h3 className="text-xl font-semibold text-foreground">{member.name}</h3>
                 <p className="mt-1 text-muted-foreground">{member.role}</p>
