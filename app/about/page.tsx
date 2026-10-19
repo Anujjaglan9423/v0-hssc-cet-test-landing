@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Users, Award, Target, CheckCircle, Star, FileText, Clock } from "lucide-react"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
@@ -33,11 +34,15 @@ const team = [
     name: "Anuj Jaglan",
     role: "Founder & CEO",
     initials: "AJ",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-10-19%20at%2010.08.17%20PM-wODZWoOsaWbmAxjB61di51SMwEEYuL.jpeg",
   },
   {
     name: "Gaurav Joshi",
     role: "Co-Founder & CTO",
     initials: "GJ",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-10-19%20at%2010.06.11%20PM-V9Xt8rzpuXxdcn6pMSTor3CjPOZ85g.jpeg",
   },
 ]
 
@@ -224,16 +229,26 @@ export default function AboutPage() {
       {/* Team - Updated to use Avatar component with only 2 members */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card">
         <div className="max-w-7xl mx-auto">           <h2 className="text-3xl font-bold text-foreground text-center mb-12">Meet Our Team</h2>
-          <div className="flex justify-center gap-16">
-            {team.map((member, index) => (
-              <div key={index} className="text-center">
-                <Avatar className="w-32 h-32 mx-auto mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            {team.map((member) => (
+              <div
+                key={member.name}
+                className="group rounded-2xl border bg-background/80 p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                <Avatar className="mx-auto mb-5 h-44 w-44 ring-4 ring-primary/10 transition group-hover:ring-primary/25">
+                  <Image
+                    src={member.image}
+                    alt={`${member.name}, ${member.role}`}
+                    width={176}
+                    height={176}
+                    className="h-full w-full object-cover object-top"
+                  />
                   <AvatarFallback className="text-2xl font-bold bg-primary text-primary-foreground">
                     {member.initials}
                   </AvatarFallback>
                 </Avatar>
                 <h3 className="text-xl font-semibold text-foreground">{member.name}</h3>
-                <p className="text-muted-foreground">{member.role}</p>
+                <p className="mt-1 text-muted-foreground">{member.role}</p>
               </div>
             ))}
           </div>
