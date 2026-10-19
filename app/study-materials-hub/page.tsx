@@ -260,6 +260,7 @@ const studySections: Resource[] = [
   { title: "Current Affairs", description: "Browse current-affairs coverage and identify topics relevant to your examination.", href: "/current-affairs", icon: Newspaper, label: "Stay informed" },
   { title: "Haryana GK", description: "Review Haryana history, geography, culture and other state-focused topics.", href: "/haryana-gk", icon: Landmark, label: "State knowledge" },
   { title: "Asian Games 2026", description: "Explore the Asian Games 2026 topic page for exam-focused sports current affairs.", href: "/study-materials-hub/asian-games-2026", icon: Trophy, label: "Featured topic" },
+  { title: "September 2026 Current Affairs", description: "Revise September 2026 news, government schemes, economy, science, environment and international affairs with topic-wise notes and practice MCQs.", href: "/current-affairs/september-2026", icon: Newspaper, label: "Monthly current affairs" },
 ]
 
 const steps = [
@@ -351,18 +352,18 @@ export default function StudyMaterialsHubPage() {
           </header>
 
           <section id="exam-guides" aria-labelledby="exam-heading" className="scroll-mt-24 py-14 sm:py-20">
-              <div className="mb-8 max-w-3xl">
+            <div className="mb-8 max-w-3xl">
               <p className="text-xs font-semibold uppercase tracking-widest text-primary">Study library</p>
               <h2 id="resources-heading" className="mt-3 text-2xl font-bold tracking-tight sm:text-4xl">Essential preparation resources</h2>
               <p className="mt-3 text-base leading-7 text-muted-foreground">Use these sections to understand the syllabus, revise important topics and follow relevant updates.</p>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {studySections.map((section, index) => <ResourceCard key={section.href} resource={section} number={String(index + 1).padStart(2, "0")} />)}
             </div>
           </section>
 
           <section aria-labelledby="resources-heading" className="border-t border-border py-14 sm:py-20">
-             <div className="mb-8 max-w-3xl">
+            <div className="mb-8 max-w-3xl">
               <p className="text-xs font-semibold uppercase tracking-widest text-primary">Explore by examination</p>
               <h2 id="exam-heading" className="mt-3 text-2xl font-bold tracking-tight sm:text-4xl">Choose the exam you're preparing for</h2>
               <p className="mt-3 text-base leading-7 text-muted-foreground">Start with exam-specific guidance, then use the syllabus and practice resources that match your target recruitment examination.</p>
@@ -370,7 +371,7 @@ export default function StudyMaterialsHubPage() {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {examGuides.map((exam, index) => <ResourceCard key={exam.href} resource={exam} number={String(index + 1).padStart(2, "0")} />)}
             </div>
-        
+
           </section>
 
           <section aria-labelledby="plan-heading" className="rounded-3xl border border-border bg-muted/30 px-6 py-10 sm:px-10 sm:py-12">
