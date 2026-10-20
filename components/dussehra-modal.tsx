@@ -22,7 +22,7 @@ export default function DussehraModal() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
         aria-describedby="dussehra-message"
-        className="max-w-4xl overflow-hidden border-0 bg-[#fff8ed] p-0 text-[#3d1a12] shadow-2xl dark:bg-[#24110d] dark:text-[#fff8ed] sm:rounded-2xl"
+        className="max-w-5xl overflow-hidden border-0 bg-[#fff8ed] p-0 text-[#3d1a12] shadow-2xl dark:bg-[#24110d] dark:text-[#fff8ed] sm:rounded-2xl"
       >
         <div className="grid min-h-[min(620px,calc(100vh-2rem))] font-[family-name:var(--font-devanagari)] md:grid-cols-[0.9fr_1.1fr]">
           <div className="relative min-h-64 overflow-hidden md:min-h-full">
