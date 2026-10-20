@@ -13,9 +13,12 @@ import Footer from "@/components/footer"
 import PreparationGuide, { EditorialNote } from "@/components/preparation-guide"
 import AdPlacement from "@/components/ad-placement"
 import ExamAlertsSection from "@/components/exam-alerts-section"
+import DussehraModal from "@/components/dussehra-modal"
+
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <DussehraModal />
       <Navbar />
       <HeroSection />
       <StatsSection />

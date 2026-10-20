@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Geist_Mono, Inter } from "next/font/google"
+import { Geist_Mono, Inter, Noto_Sans_Devanagari } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
 import Script from "next/script"
@@ -16,9 +16,14 @@ const geistMono = Geist_Mono({
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
   preload: true,
   variable: "--font-inter",
+})
+
+const devanagari = Noto_Sans_Devanagari({
+  subsets: ["devanagari"],
+  display: "swap",
+  variable: "--font-devanagari",
 })
 
 // ============================================
@@ -384,7 +389,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en-IN" className={`${inter.variable} ${geistMono.variable}`}>
+    <html lang="en-IN" className={`${inter.variable} ${geistMono.variable} ${devanagari.variable}`}>
       <head>
         {/* ===== BASE META TAGS ===== */}
         <meta charSet="utf-8" />
