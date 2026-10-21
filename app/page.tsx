@@ -18,7 +18,7 @@ import DussehraModal from "@/components/dussehra-modal"
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <DussehraModal />
+      {/* <DussehraModal /> */}
       <Navbar />
       <HeroSection />
       <StatsSection />
