@@ -307,7 +307,7 @@ export default function DemoResultsPage() {
               <div>
                 <h2 className="text-2xl font-bold text-foreground mb-2">Enjoyed This Demo?</h2>
                 <p className="text-muted-foreground max-w-lg mx-auto">
-                  Sign up now to access 10,000+ practice questions, full-length mock tests, detailed analytics, and
+                  Sign up now to access 30,000+ practice questions, full-length mock tests, detailed analytics, and
                   personalized study recommendations to crack your HSSC CET exam!
                 </p>
               </div>

@@ -7,7 +7,7 @@ const features = [
   {
     icon: BookOpen,
     title: "Comprehensive Test Bank",
-    description: "Access 10,000+ questions covering all HSSC CET subjects with detailed solutions.",
+    description: "Access 30,000+ questions covering all HSSC CET subjects with detailed solutions.",
   },
   {
     icon: BarChart3,

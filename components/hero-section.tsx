@@ -13,7 +13,7 @@ export default function HeroSection() {
     return () => clearTimeout(timer)
   }, [])
 
-  const features = ["10,000+ Practice Questions", "Detailed Solutions & Analytics", "Topic-wise & Full Length Tests"]
+  const features = ["30,000+ Practice Questions", "Detailed Solutions & Analytics", "Topic-wise & Full Length Tests"]
 
   return (
     <section className="pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden relative">

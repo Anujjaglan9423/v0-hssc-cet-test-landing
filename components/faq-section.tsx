@@ -8,7 +8,7 @@ const faqs = [
   {
     question: "What is CET TEST and why should I prepare with your platform?",
     answer:
-      "CET TEST is a comprehensive exam preparation platform for all competitive government exams including Haryana CET, SSC, Railway, and Uttarakhand exams. Our platform provides 10,000+ questions, real exam simulation, and detailed analytics to maximize your chances of success across all exam types.",
+      "CET TEST is a comprehensive exam preparation platform for all competitive government exams including Haryana CET, SSC, Railway, and Uttarakhand exams. Our platform provides 30,000+ questions, real exam simulation, and detailed analytics to maximize your chances of success across all exam types.",
   },
   {
     question: "How are your mock tests different from others?",

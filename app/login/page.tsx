@@ -184,7 +184,7 @@ export default function LoginPage() {
               {[
                 "Real Exam Level Mock Tests",
                 "Performance & Rank Analysis",
-                "10,000+ Practice Questions",
+                "30,000+ Practice Questions",
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 text-white/90">
                   <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">

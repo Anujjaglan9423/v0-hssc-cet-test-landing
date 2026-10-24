@@ -84,7 +84,7 @@ export default function SignupPage() {
             {/* Benefits */}
             <div className="space-y-4">
               {[
-                "10,000+ Practice Questions",
+                "30,000+ Practice Questions",
                 "Real CBT Exam Interface",
                 "Detailed Performance Analytics",
                 "24/7 Access on All Devices",

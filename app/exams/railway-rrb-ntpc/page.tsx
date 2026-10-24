@@ -441,7 +441,7 @@ export default function RRBNTPCPage() {
               </div>
               <div className="flex items-center gap-2 text-sm bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-full border">
                 <FileText className="w-4 h-4 text-primary" />
-                <span>10,000+ Solved Questions</span>
+                <span>30,000+ Solved Questions</span>
               </div>
               <div className="flex items-center gap-2 text-sm bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-full border">
                 <TrendingUp className="w-4 h-4 text-primary" />

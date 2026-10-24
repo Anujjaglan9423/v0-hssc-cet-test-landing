@@ -137,13 +137,13 @@ export default function HSCSCETPage() {
       q: "What is HSSC CET exam and who conducts it?",
       a: "HSSC CET (Haryana Common Eligibility Test) is conducted by the Haryana Staff Selection Commission (HSSC) through NTA (National Testing Agency). It's a state-level exam for recruitment to Group C and Group D posts in Haryana government departments. The exam is mandatory for all direct recruitment in Haryana."
     },
-    {
-      q: "Is the HSSC CET mock test based on the NTA pattern?",
-      a: "Yes, all our HSSC CET practice sets follow the latest NTA (National Testing Agency) pattern with 100 questions in 90 minutes. We cover the 95+5 marks distribution where 95 marks are for subject knowledge and 5 marks for Haryana residency. Our mock tests are updated for the 2026 exam pattern."
-    },
+    // {
+    //   q: "Is the HSSC CET mock test based on the NTA pattern?",
+    //   a: "Yes, all our HSSC CET practice sets follow the latest NTA (National Testing Agency) pattern with 100 questions in 90 minutes. We cover the 95+5 marks distribution where 95 marks are for subject knowledge and 5 marks for Haryana residency. Our mock tests are updated for the 2026 exam pattern."
+    // },
     {
       q: "What is the eligibility criteria for HSSC CET 2026?",
-      a: "Eligibility: 1) Educational Qualification: 10th/12th/Graduation as per post requirement. 2) Age: 18-42 years for General category (relaxation for SC/ST/OBC). 3) Domicile: Haryana residency required (with 5 bonus marks). 4) Knowledge of Hindi/Sanskrit up to 10th standard."
+      a: "Eligibility: 1) Educational Qualification: 10th/12th/Graduation as per post requirement. 2) Age: 18-42 years for General category (relaxation for SC/ST/OBC). 3) Knowledge of Hindi/Sanskrit up to 10th standard."
     },
     {
       q: "Does this include Haryana GK and Current Affairs?",
@@ -379,7 +379,7 @@ export default function HSCSCETPage() {
                 <div className="mb-4 flex items-center justify-center w-14 h-14 rounded-xl bg-blue-500/10 group-hover:bg-blue-500/20 transition">
                   <FileText className="w-7 h-7 text-blue-600" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">10,000+ Questions</h3>
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">30,000+ Questions</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Extensive question bank covering Haryana GK, Maths, Reasoning, and Computer topics.
                 </p>
@@ -463,9 +463,9 @@ export default function HSCSCETPage() {
                   ["Mode of Exam", "Offline (OMR Based)"],
                   ["Total Questions", "100 Questions"],
                   ["Total Marks", "100 Marks"],
-                  ["Duration", "90 Minutes (1.5 Hours)"],
-                  ["Negative Marking", "No Negative Marking"],
-                  ["Bonus Marks", "5 for Haryana Domicile"],
+                  ["Duration", "1 Hour 45 Minutes"],
+                  ["Negative Marking", "No negative marking (0.95 deduction for unattempted)"],
+                  // ["Bonus Marks", "5 for Haryana Domicile"],
                   ["Language Medium", "Bilingual (Hindi & English)"],
                 ].map(([label, value], i) => (
                   <div key={i} className="grid grid-cols-2 px-6 py-3 hover:bg-muted/30 transition">

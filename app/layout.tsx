@@ -354,7 +354,7 @@ export default function RootLayout({
         name: "Which exams are covered on CET TEST?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "CET TEST covers over 50+ exams including SSC CGL, SSC CHSL, SSC MTS, RRB NTPC, Railway Group D, Haryana CET, HSSC CET, Police Constable, UKSSSC, IBPS PO, SBI PO, CTET, HTET, NDA, CDS, and more.",
+          text: "CET TEST covers over 250+ exams including SSC CGL, SSC CHSL, SSC MTS, RRB NTPC, Railway Group D, Haryana CET, HSSC CET, Police Constable, UKSSSC, IBPS PO, SBI PO, CTET, HTET, NDA, CDS, and more.",
         },
       },
     ],
@@ -367,7 +367,7 @@ export default function RootLayout({
         {
           "@type": "HowToStep",
           name: "Choose Your Exam",
-          text: "Select from over 50+ government exams including SSC, Railway, Banking, Teaching, Defence, and State exams.",
+          text: "Select from over 250+ government exams including SSC, Railway, Banking, Teaching, Defence, and State exams.",
         },
         {
           "@type": "HowToStep",

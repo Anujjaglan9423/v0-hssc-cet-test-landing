@@ -339,7 +339,7 @@ export default function SSCExamsPage() {
       <section className="py-16 px-4 md:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto bg-primary text-primary-foreground rounded-2xl p-12 text-center shadow-xl">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Start Your SSC Journey Today</h2>
-          <p className="text-lg mb-8 opacity-90">Unlock 10,000+ free questions and detailed performance analytics.</p>
+          <p className="text-lg mb-8 opacity-90">Unlock 30,000+ free questions and detailed performance analytics.</p>
           <Link href="/signup">
             <Button size="lg" variant="secondary" className="cursor-pointer font-bold px-8">
               Access All Mock Tests Now

@@ -158,7 +158,7 @@ export default function RefundPolicyPage() {
                     rel="noopener noreferrer"
                     className="text-primary hover:underline"
                   >
-                    @jaglan2
+                    @cet__test
                   </a>
                 </li>
               </ul>
