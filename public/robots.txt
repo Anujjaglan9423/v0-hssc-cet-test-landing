@@ -15,6 +15,7 @@ Disallow: /take-test/
 Disallow: /mock-test-attempt/
 Disallow: /mock-test-results/
 Disallow: /study-materials/
+Disallow: /refund-policy/
 
 # Allow specific public paths
 Allow: /mock-test/

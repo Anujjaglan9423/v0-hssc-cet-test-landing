@@ -554,7 +554,7 @@ export default function CurrentAffairsLayout({
             {/* Google Analytics - Add your GA4 code */}
             <script
                 async
-                src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_GA_ID"
+                src="https://www.googletagmanager.com/gtag/js?id=G-W5ZGFTDCTP"
             />
             <script
                 dangerouslySetInnerHTML={{
@@ -562,7 +562,7 @@ export default function CurrentAffairsLayout({
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){dataLayer.push(arguments);}
                         gtag('js', new Date());
-                        gtag('config', 'G-YOUR_GA_ID');
+                        gtag('config', 'G-W5ZGFTDCTP');
                     `,
                 }}
             />

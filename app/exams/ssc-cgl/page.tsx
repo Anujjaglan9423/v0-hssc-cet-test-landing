@@ -13,7 +13,9 @@ export const metadata: Metadata = {
     "SSC GD Constable pattern", "SSC CPO SI recruitment", "Staff Selection Commission exams 2026",
     "Free SSC Mock Tests India", "SSC Previous Year Paper Solutions"
   ],
-  alternates: { canonical: "https://cettest.site/exams/ssc" },
+  alternates: {
+  canonical: "https://cettest.site/exams/ssc-cgl",
+},
 }
 
 export default function AllSSCExamsPage() {

@@ -105,9 +105,9 @@ export const metadata: Metadata = {
 
     // Canonical & Alternate URLs
     alternates: {
-        canonical: "https://cettest.site/uksssc-police-forest-guard-syllabus",
+        canonical: "https://cettest.site/uksssc-police-constable-syllabus",
         languages: {
-            "en-IN": "https://cettest.site/uksssc-police-forest-guard-syllabus",
+            "en-IN": "https://cettest.site/uksssc-police-constable-syllabus",
         },
     },
 
