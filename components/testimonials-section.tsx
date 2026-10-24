@@ -5,42 +5,20 @@ import Image from "next/image"
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const testimonials = [
-  {
-    name: "Priya Sharma",
-    role: "HSSC CET 2024 Qualifier",
-    image: "/indian-woman-professional-photo.jpg",
-    content:
-      "HSSC CET TEST was a game-changer for my preparation. The questions are exactly like the actual exam, and the detailed solutions helped me understand my mistakes.",
-    rating: 5,
-  },
-  {
-    name: "Rohit Kumar",
-    role: "Clerk - HSSC",
-    image: "/indian-man-professional-photo.jpg",
-    content:
-      "I cleared my HSSC CET in the first attempt thanks to this platform. The topic-wise tests helped me focus on my weak areas effectively.",
-    rating: 5,
-  },
-  {
-    name: "Anjali Verma",
-    role: "HSSC CET 2024 Qualifier",
-    image: "/indian-woman-student-photo.jpg",
-    content:
-      "The analytics feature is amazing! I could track my progress daily and see exactly where I needed to improve. Highly recommended!",
-    rating: 5,
-  },
-  {
-    name: "Suresh Yadav",
-    role: "Patwari - HSSC",
-    image: "/indian-man-government-employee.jpg",
-    content:
-      "Best investment I made for my exam preparation. The previous year papers section was incredibly helpful for understanding the exam pattern.",
-    rating: 5,
-  },
-]
+export interface Testimonial {
+  id: string
+  name: string
+  role: string
+  content: string
+  rating: number
+  datePublished: string
+}
 
-export default function TestimonialsSection() {
+interface TestimonialsSectionProps {
+  testimonials: Testimonial[]
+}
+
+export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
@@ -129,6 +107,9 @@ export default function TestimonialsSection() {
               {testimonials.map((_, index) => (
                 <button
                   key={index}
+                  type="button"
+                  aria-label={`Show review ${index + 1}`}
+                  aria-current={index === currentIndex ? "true" : undefined}
                   onClick={() => {
                     setIsAutoPlaying(false)
                     setCurrentIndex(index)
