@@ -89,7 +89,7 @@ export async function uploadStudyMaterial(
     return { success: false, error: error.message }
   }
 
-  revalidatePath("/study-materials")
+  revalidatePath("/study-materials-hub")
   revalidatePath("/admin/study-materials")
   return { success: true, data }
 }
@@ -121,7 +121,7 @@ export async function updateStudyMaterial(
     return { success: false, error: error.message }
   }
 
-  revalidatePath("/study-materials")
+  revalidatePath("/study-materials-hub")
   revalidatePath("/admin/study-materials")
   return { success: true, data }
 }
@@ -143,7 +143,7 @@ export async function deleteStudyMaterial(id: string) {
     return { success: false, error: deleteError.message }
   }
 
-  revalidatePath("/study-materials")
+  revalidatePath("/study-materials-hub")
   revalidatePath("/admin/study-materials")
   return { success: true }
 }

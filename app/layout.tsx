@@ -396,12 +396,6 @@ export default function RootLayout({
 
         {/* ===== GEO TARGETING FOR ALL INDIA ===== */}
         <meta name="geo.country" content="IN" />
-        <meta name="target_state_haryana" content="Haryana" />
-        <meta name="target_state_uttarakhand" content="Uttarakhand" />
-        <meta name="target_state_rajasthan" content="Rajasthan" />
-        <meta name="target_state_uttar_pradesh" content="Uttar Pradesh" />
-        <meta name="target_state_bihar" content="Bihar" />
-        <meta name="target_state_madhya_pradesh" content="Madhya Pradesh" />
 
         {/* ===== LANGUAGE TARGETING ===== */}
         <meta name="language" content="English, Hindi" />

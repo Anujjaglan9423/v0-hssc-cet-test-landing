@@ -298,7 +298,7 @@ export default function HSCSCETPage() {
           <div className="max-w-4xl mx-auto text-center relative">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm mb-6">
               <Sparkles className="w-4 h-4" />
-              <span>Updated for 2026 NTA Pattern | 100% Free</span>
+              <span>Updated for 2026 preparation | Free practice</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Free <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">HSSC CET Mock Test</span> 2026
@@ -310,20 +310,20 @@ export default function HSCSCETPage() {
             {/* Key Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">50K+</div>
-                <div className="text-xs text-muted-foreground">Active Users</div>
+                <div className="text-2xl font-bold text-primary">2,000+</div>
+                <div className="text-xs text-muted-foreground">Students</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">200+</div>
-                <div className="text-xs text-muted-foreground">Mock Tests</div>
+                <div className="text-2xl font-bold text-primary">266</div>
+                <div className="text-xs text-muted-foreground">Total Tests</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">10K+</div>
-                <div className="text-xs text-muted-foreground">PYQs Solved</div>
+                <div className="text-2xl font-bold text-primary">30,000+</div>
+                <div className="text-xs text-muted-foreground">Questions</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">100%</div>
-                <div className="text-xs text-muted-foreground">Free Forever</div>
+                <div className="text-2xl font-bold text-primary">100+</div>
+                <div className="text-xs text-muted-foreground">Full Exam Tests</div>
               </div>
             </div>
 

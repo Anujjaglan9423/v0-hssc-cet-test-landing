@@ -93,10 +93,10 @@ export const metadata: Metadata = {
     siteName: "CET TEST",
     type: "website",
     locale: "en_IN",
-    // Set an image only when the corresponding file exists in /public.
+    images: [{ url: "/og-image.png", alt: "CET TEST government exam preparation" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: pageTitle,
     description: pageDescription,
   },
