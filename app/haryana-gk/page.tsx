@@ -50,7 +50,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: Sparkles,
             color: "from-blue-600 to-blue-700",
             // slug: "current-affairs",
-            link: "/study-materials",
+            link: "/study-materials-hub",
             subtopics: ["National Events", "International Events", "Sports News", "Awards & Honors", "Appointments", "Haryana Specific News", "Schemes & Policies", "Obituaries"]
         },
         {

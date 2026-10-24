@@ -14,10 +14,10 @@ Disallow: /demo/results/
 Disallow: /take-test/
 Disallow: /mock-test-attempt/
 Disallow: /mock-test-results/
+Disallow: /study-materials/
 
 # Allow specific public paths
 Allow: /mock-test/
-Allow: /study-materials/
 Allow: /study-materials-hub/
 Allow: /student/tests/
 Allow: /blog/
