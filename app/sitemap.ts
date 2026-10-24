@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { staticBlogs } from '@/lib/blog-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://cettest.site'
@@ -461,8 +462,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       {
         url: `${baseUrl}/current-affairs/december-2025`,
         lastModified: now,
+        changeFrequency: 'monthly',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/current-affairs/september-2026`,
+        lastModified: now,
         changeFrequency: 'daily',
         priority: 0.9,
       },
+      ...staticBlogs.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: post.date,
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      })),
   ]
 }

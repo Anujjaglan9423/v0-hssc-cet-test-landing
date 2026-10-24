@@ -33,16 +33,16 @@ export default function CTASection() {
         {/* Stats (minimal + premium) */}
         <div className="flex justify-center gap-10 text-left mb-12">
           <div>
-            <p className="text-2xl font-semibold text-white">50K+</p>
-            <p className="text-xs text-white/70">Aspirants</p>
+            <p className="text-2xl font-semibold text-white">2,000+</p>
+            <p className="text-xs text-white/70">Students</p>
           </div>
           <div>
-            <p className="text-2xl font-semibold text-white">500+</p>
+            <p className="text-2xl font-semibold text-white">266</p>
             <p className="text-xs text-white/70">Tests</p>
           </div>
           <div>
-            <p className="text-2xl font-semibold text-white">Top Results</p>
-            <p className="text-xs text-white/70">Proven Outcomes</p>
+            <p className="text-2xl font-semibold text-white">30,000+</p>
+            <p className="text-xs text-white/70">Questions</p>
           </div>
         </div>
 
@@ -50,7 +50,7 @@ export default function CTASection() {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link href="/signup">
             <Button size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 hover:text-black px-8 group cursor-pointer">
-              START FREE TRIAL
+              START FREE PRACTICE
             </Button>
           </Link>
 
@@ -58,7 +58,7 @@ export default function CTASection() {
 
         {/* Trust */}
         <p className="mt-6 text-xs text-white/60">
-          No credit card required • 7-day free access
+          All mock tests and study resources are free
         </p>
       </div>
     </section>

@@ -199,7 +199,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       ...(image ? { images: [{ url: image, alt: blog.imageAlt || blog.title }] } : {}),
     },
     twitter: {
-      card: image ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title: blog.title, description: blog.excerpt,
       ...(image ? { images: [image] } : {}),
     },

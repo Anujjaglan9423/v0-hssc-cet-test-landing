@@ -18,8 +18,7 @@ export default function RefundPolicyPage() {
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">Overview</h2>
               <p className="text-muted-foreground leading-relaxed">
-                At HSSC CET TEST, we want you to be completely satisfied with your purchase. This refund policy outlines
-                the terms and conditions for requesting a refund on our subscription plans.
+                CET TEST provides its listed mock tests, study materials, and practice resources free of charge. This page explains our policy for paid transactions if a paid service is introduced in the future; no subscription plan is currently offered.
               </p>
             </section>
 
@@ -154,7 +153,7 @@ export default function RefundPolicyPage() {
                 <li>
                   Instagram:{" "}
                   <a
-                    href="https://instagram.com/jaglan2"
+                    href="https://instagram.com/cet__test"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:underline"
