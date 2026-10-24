@@ -601,7 +601,7 @@ export default function UKSSCSPage() {
               Ready to Crack Your UKSSSC Exam?
             </h2>
             <p className="text-lg mb-8 opacity-90">
-              Join 50,000+ Uttarakhand aspirants and start your free preparation
+              Join 2,000+ Uttarakhand aspirants and start your free preparation
               today
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

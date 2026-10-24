@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "SSC Exams Mock Tests 2026 | Free CGL, CHSL, MTS Practice",
-    description: "Prepare for all SSC exams with 50,000+ questions, detailed solutions, and All-India Ranking.",
+    description: "Prepare for all SSC exams with 30,000+ questions, detailed solutions, and All-India Ranking.",
     url: "https://cettest.site/exams/ssc",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "SSC Exams Free Mock Test Series" }],
   },
@@ -89,7 +89,7 @@ export default function SSCExamsPage() {
             Crack SSC Exams with <span className="text-primary">Free Mock Tests</span>
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Your one-stop destination for SSC CGL, CHSL, MTS, and GD preparation. Access 50,000+ NTA-standard questions and real exam simulations.
+            Your one-stop destination for SSC CGL, CHSL, MTS, and GD preparation. Access 30,000+ NTA-standard questions and real exam simulations.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/exams/ssc-cgl">
@@ -324,7 +324,7 @@ export default function SSCExamsPage() {
             <div>
               <Users className="w-12 h-12 text-primary mx-auto mb-3" />
               <h3 className="font-semibold mb-2">Community Support</h3>
-              <p className="text-sm text-muted-foreground">Join 50,000+ students on the path to success.</p>
+              <p className="text-sm text-muted-foreground">Join 2,000+ students on the path to success.</p>
             </div>
             <div>
               <CheckCircle2 className="w-12 h-12 text-primary mx-auto mb-3" />

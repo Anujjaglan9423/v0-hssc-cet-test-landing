@@ -355,7 +355,7 @@ export default function HaryanaExamsPage() {
           <div className="max-w-4xl mx-auto text-center relative">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm mb-6">
               <MapPin className="w-4 h-4" />
-              <span>Official Partner for Haryana Govt Exams Preparation</span>
+              <span>Haryana Govt Exams Preparation</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
               Crack Haryana Govt Exams with{" "}
@@ -364,17 +364,17 @@ export default function HaryanaExamsPage() {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Get the most accurate HSSC CET Mock Test Series, Haryana Police Online Tests, and Previous Year Solved Papers for 2026. Trusted by 50,000+ Haryana aspirants.
+              Get the most accurate HSSC CET Mock Test Series, Haryana Police Online Tests, and Previous Year Solved Papers for 2026. Trusted by 2,000+ Haryana aspirants.
             </p>
 
             {/* Key Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">50K+</div>
+                <div className="text-2xl font-bold text-primary">2K+</div>
                 <div className="text-xs text-muted-foreground">Active Aspirants</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">800+</div>
+                <div className="text-2xl font-bold text-primary">250+</div>
                 <div className="text-xs text-muted-foreground">Mock Tests</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
@@ -550,7 +550,7 @@ export default function HaryanaExamsPage() {
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-2xl p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Crack Your Haryana Exam?</h2>
-            <p className="text-lg mb-8 opacity-90">Join 50,000+ Haryana aspirants and start your free preparation today</p>
+            <p className="text-lg mb-8 opacity-90">Join 2,000+ Haryana aspirants and start your free preparation today</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/signup">
                 <Button size="lg" variant="secondary" className="gap-2 cursor-pointer">

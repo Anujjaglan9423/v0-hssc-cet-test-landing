@@ -106,7 +106,7 @@ export default function SignupPage() {
               </div>
 
               <div>
-                <p className="text-white font-semibold">50,000+ Aspirants</p>
+                <p className="text-white font-semibold">2,000+ Aspirants</p>
                 <p className="text-white/70 text-sm">Preparing daily with CET TEST</p>
               </div>
 

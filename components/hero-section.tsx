@@ -81,7 +81,7 @@ export default function HeroSection() {
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 group animate-pulse-glow cursor-pointer"
                 >
-                  Start Free Trial
+                  Start Practicing Free
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
@@ -163,7 +163,7 @@ export default function HeroSection() {
                       <BookOpen className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-foreground">10K+</p>
+                      <p className="text-2xl font-bold text-foreground">30K+</p>
                       <p className="text-sm text-muted-foreground">Questions</p>
                     </div>
                   </div>
