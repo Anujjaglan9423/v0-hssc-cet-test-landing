@@ -270,6 +270,76 @@ export default function CurrentAffairsLayout({
                 }}
             />
 
+            {/* ==================== ITEM LIST SCHEMA - ALL TOPIC-WISE CURRENT AFFAIRS ==================== */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "ItemList",
+                        name: "Topic-Wise Current Affairs 2026",
+                        description: "Topic-wise bilingual current affairs notes and practice questions for competitive examinations.",
+                        numberOfItems: 54,
+                        itemListElement: [
+                            { "@type": "ListItem", position: 1, name: "18th BRICS Summit 2026", alternateName: "18वाँ BRICS शिखर सम्मेलन 2026", url: "https://cettest.site/current-affairs/by-topic/brics-summit-2026" },
+                            { "@type": "ListItem", position: 2, name: "26th SCO Summit 2026 (Bishkek)", alternateName: "26वाँ SCO शिखर सम्मेलन 2026 (बिश्केक)", url: "https://cettest.site/current-affairs/by-topic/sco-summit-2026" },
+                            { "@type": "ListItem", position: 3, name: "Nepal Flash Flood 2026", alternateName: "नेपाल फ्लैश फ्लड 2026", url: "https://cettest.site/current-affairs/by-topic/nepal-flash-flood-2026" },
+                            { "@type": "ListItem", position: 4, name: "NFHS-6 (2023–24)", alternateName: "राष्ट्रीय परिवार स्वास्थ्य सर्वेक्षण-6", url: "https://cettest.site/current-affairs/by-topic/nfhs-6" },
+                            { "@type": "ListItem", position: 5, name: "CAPF Act, 2026", alternateName: "CAPF अधिनियम, 2026", url: "https://cettest.site/current-affairs/by-topic/capf-act-2026" },
+                            { "@type": "ListItem", position: 6, name: "NASA Artemis II Mission", alternateName: "नासा आर्टेमिस II मिशन", url: "https://cettest.site/current-affairs/by-topic/artemis-ii" },
+                            { "@type": "ListItem", position: 7, name: "US Withdrawal from NATO?", alternateName: "नाटो से अमेरिका की वापसी?", url: "https://cettest.site/current-affairs/by-topic/nato-withdrawal" },
+                            { "@type": "ListItem", position: 8, name: "India's Leadership in IRCCs", alternateName: "IRCCs में भारत का नेतृत्व", url: "https://cettest.site/current-affairs/by-topic/ircc-india" },
+                            { "@type": "ListItem", position: 9, name: "FCRA Amendment Bill, 2026", alternateName: "FCRA संशोधन विधेयक, 2026", url: "https://cettest.site/current-affairs/by-topic/fcra-amendment-2026" },
+                            { "@type": "ListItem", position: 10, name: "Constitution (131st Amendment) Bill, 2026", alternateName: "संविधान (131वां संशोधन) विधेयक, 2026", url: "https://cettest.site/current-affairs/by-topic/constitution-131st-amendment" },
+                            { "@type": "ListItem", position: 11, name: "PoSH Act, 2013", alternateName: "PoSH अधिनियम, 2013", url: "https://cettest.site/current-affairs/by-topic/posh-act" },
+                            { "@type": "ListItem", position: 12, name: "Adi Shankaracharya & Advaita Vedanta", alternateName: "आदि शंकराचार्य और अद्वैत वेदांत", url: "https://cettest.site/current-affairs/by-topic/adi-shankaracharya" },
+                            { "@type": "ListItem", position: 13, name: "Super El Niño", alternateName: "सुपर अल नीनो", url: "https://cettest.site/current-affairs/by-topic/super-el-nino" },
+                            { "@type": "ListItem", position: 14, name: "UAE Exits OPEC and OPEC+", alternateName: "UAE का OPEC और OPEC+ से बाहर होना", url: "https://cettest.site/current-affairs/by-topic/uae-exit-opec" },
+                            { "@type": "ListItem", position: 15, name: "NCRB Crime in India & ADSI 2024", alternateName: "NCRB अपराध और ADSI रिपोर्ट 2024", url: "https://cettest.site/current-affairs/by-topic/ncrb-2024" },
+                            { "@type": "ListItem", position: 16, name: "MoEFCC–NBA Biodiversity Project", alternateName: "MoEFCC–NBA जैव विविधता परियोजना", url: "https://cettest.site/current-affairs/by-topic/biodiversity-project" },
+                            { "@type": "ListItem", position: 17, name: "Ganga Expressway Project", alternateName: "गंगा एक्सप्रेसवे परियोजना", url: "https://cettest.site/current-affairs/by-topic/ganga-expressway" },
+                            { "@type": "ListItem", position: 18, name: "India's Updated NDCs 2031–2035", alternateName: "भारत के संशोधित NDCs 2031–2035", url: "https://cettest.site/current-affairs/by-topic/india-ndc-2035" },
+                            { "@type": "ListItem", position: 19, name: "The Abraham Accords", alternateName: "अब्राहम अकॉर्ड्स", url: "https://cettest.site/current-affairs/by-topic/abraham-accords" },
+                            { "@type": "ListItem", position: 20, name: "Ebola Outbreak — PHEIC", alternateName: "इबोला प्रकोप — PHEIC", url: "https://cettest.site/current-affairs/by-topic/ebola-outbreak-2026" },
+                            { "@type": "ListItem", position: 21, name: "Semiconductor Industry Roadmap", alternateName: "सेमीकंडक्टर इंडस्ट्री रोडमैप", url: "https://cettest.site/current-affairs/by-topic/semiconductor-roadmap" },
+                            { "@type": "ListItem", position: 22, name: "SRS Statistical Report 2024", alternateName: "SRS सांख्यिकीय रिपोर्ट 2024", url: "https://cettest.site/current-affairs/by-topic/srs-2024" },
+                            { "@type": "ListItem", position: 23, name: "India–UAE Agreements 2026", alternateName: "भारत–UAE समझौते 2026", url: "https://cettest.site/current-affairs/by-topic/india-uae-agreements" },
+                            { "@type": "ListItem", position: 24, name: "India–New Zealand FTA", alternateName: "भारत–न्यूज़ीलैंड FTA", url: "https://cettest.site/current-affairs/by-topic/india-nz-fta" },
+                            { "@type": "ListItem", position: 25, name: "SEHAT Mission", alternateName: "SEHAT मिशन", url: "https://cettest.site/current-affairs/by-topic/seat-mission" },
+                            { "@type": "ListItem", position: 26, name: "VB-G RAM G Act 2025", alternateName: "VB-G RAM G अधिनियम 2025", url: "https://cettest.site/current-affairs/by-topic/vb-ram-g" },
+                            { "@type": "ListItem", position: 27, name: "Somnath Amrut Parv", alternateName: "सोमनाथ अमृत पर्व", url: "https://cettest.site/current-affairs/by-topic/somnath-amrut-parv" },
+                            { "@type": "ListItem", position: 28, name: "Coal Gasification Scheme", alternateName: "कोयला गैसीकरण योजना", url: "https://cettest.site/current-affairs/by-topic/coal-gasification" },
+                            { "@type": "ListItem", position: 29, name: "Unpaid Domestic Labour", alternateName: "अवैतनिक घरेलू श्रम", url: "https://cettest.site/current-affairs/by-topic/unpaid-domestic-labour" },
+                            { "@type": "ListItem", position: 30, name: "G7 Summit 2026 (Évian)", alternateName: "G7 शिखर सम्मेलन 2026", url: "https://cettest.site/current-affairs/by-topic/g7-summit-2026" },
+                            { "@type": "ListItem", position: 31, name: "India–Russia RELOS", alternateName: "भारत–रूस RELOS", url: "https://cettest.site/current-affairs/by-topic/relos" },
+                            { "@type": "ListItem", position: 32, name: "Kishau Multipurpose Dam", alternateName: "किशाउ बहुउद्देशीय बांध", url: "https://cettest.site/current-affairs/by-topic/kishau-dam" },
+                            { "@type": "ListItem", position: 33, name: "Project GANGA (UP)", alternateName: "प्रोजेक्ट गंगा (UP)", url: "https://cettest.site/current-affairs/by-topic/project-ganga" },
+                            { "@type": "ListItem", position: 34, name: "16th India–Japan Summit", alternateName: "16वां भारत-जापान शिखर सम्मेलन", url: "https://cettest.site/current-affairs/by-topic/india-japan-summit" },
+                            { "@type": "ListItem", position: 35, name: "UN SD Report 2026", alternateName: "UN सतत विकास रिपोर्ट 2026", url: "https://cettest.site/current-affairs/by-topic/sd-report-2026" },
+                            { "@type": "ListItem", position: 36, name: "Index of Services Production", alternateName: "सेवा उत्पादन सूचकांक", url: "https://cettest.site/current-affairs/by-topic/isp-index" },
+                            { "@type": "ListItem", position: 37, name: "India UNSC 2028–29 & SHANTI", alternateName: "भारत UNSC 2028-29 & SHANTI", url: "https://cettest.site/current-affairs/by-topic/india-unsc-2028" },
+                            { "@type": "ListItem", position: 38, name: "Prevention of Insults to National Honour (Amendment) Bill, 2026", alternateName: "राष्ट्रीय सम्मान के अपमान की रोकथाम (संशोधन) विधेयक, 2026", url: "https://cettest.site/current-affairs/by-topic/national-honour-amendment-2026" },
+                            { "@type": "ListItem", position: 39, name: "Sarnath — India's 45th UNESCO Site", alternateName: "सारनाथ — भारत का 45वां UNESCO स्थल", url: "https://cettest.site/current-affairs/by-topic/sarnath-unesco" },
+                            { "@type": "ListItem", position: 40, name: "Public Examinations (Prevention of Unfair Means) Amendment Bill, 2026", alternateName: "सार्वजनिक परीक्षा (अनुचित साधनों की रोकथाम) संशोधन विधेयक, 2026", url: "https://cettest.site/current-affairs/by-topic/public-exams-amendment-2026" },
+                            { "@type": "ListItem", position: 41, name: "Tribunals Reforms Bill, 2026", alternateName: "न्यायाधिकरण सुधार विधेयक, 2026", url: "https://cettest.site/current-affairs/by-topic/tribunals-reforms-bill-2026" },
+                            { "@type": "ListItem", position: 42, name: "India's 101st Ramsar Site 2026", alternateName: "भारत का 101वाँ रामसर स्थल 2026", url: "https://cettest.site/current-affairs/by-topic/india-101st-ramsar-site-2026" },
+                            { "@type": "ListItem", position: 43, name: "23rd Commonwealth Games 2026 – India's Performance", alternateName: "23वें राष्ट्रमंडल खेल 2026 – भारत का प्रदर्शन", url: "https://cettest.site/current-affairs/by-topic/commonwealth-games-2026" },
+                            { "@type": "ListItem", position: 44, name: "Padma Awards 2026 – Complete List & Important Facts", alternateName: "पद्म पुरस्कार 2026 – संपूर्ण सूची एवं महत्वपूर्ण तथ्य", url: "https://cettest.site/current-affairs/by-topic/padma-awards-2026" },
+                            { "@type": "ListItem", position: 45, name: "National & International Current Affairs 2026", alternateName: "राष्ट्रीय एवं अंतरराष्ट्रीय समसामयिकी 2026", url: "https://cettest.site/current-affairs/by-topic/national-international-current-affairs-2026" },
+                            { "@type": "ListItem", position: 46, name: "Important Government Schemes & Initiatives 2026", alternateName: "महत्वपूर्ण सरकारी योजनाएँ एवं पहलें 2026", url: "https://cettest.site/current-affairs/by-topic/scheme-2026" },
+                            { "@type": "ListItem", position: 47, name: "Science & Technology", alternateName: "विज्ञान एवं प्रौद्योगिकी", url: "https://cettest.site/current-affairs/by-topic/science-technology-2026" },
+                            { "@type": "ListItem", position: 48, name: "Defence Current Affairs", alternateName: "रक्षा समसामयिकी", url: "https://cettest.site/current-affairs/by-topic/defence" },
+                            { "@type": "ListItem", position: 49, name: "Awards & Honours", alternateName: "पुरस्कार एवं सम्मान", url: "https://cettest.site/current-affairs/by-topic/awards-honours-2026" },
+                            { "@type": "ListItem", position: 50, name: "Sports Current Affairs", alternateName: "खेल समसामयिकी", url: "https://cettest.site/current-affairs/by-topic/sports" },
+                            { "@type": "ListItem", position: 51, name: "Indexes, Rankings & Reports", alternateName: "सूचकांक, रैंकिंग एवं रिपोर्ट", url: "https://cettest.site/current-affairs/by-topic/indexes-rankings-reports-2026" },
+                            { "@type": "ListItem", position: 52, name: "Important Days & Themes", alternateName: "महत्वपूर्ण दिवस एवं थीम", url: "https://cettest.site/current-affairs/by-topic/important-days-themes-2026" },
+                            { "@type": "ListItem", position: 53, name: "Persons in News", alternateName: "चर्चित व्यक्ति", url: "https://cettest.site/current-affairs/by-topic/persons-in-news-2026" },
+                            { "@type": "ListItem", position: 54, name: "One-Liner Current Affairs Q&A", alternateName: "एक-पंक्ति करेंट अफेयर्स प्रश्नोत्तर", url: "https://cettest.site/current-affairs/by-topic/one-liner-current-affairs-2026" },
+                        ],
+                    }),
+                }}
+            />
+
             {/* ==================== MAIN FAQ SCHEMA - SINGLE INSTANCE ==================== */}
             <script
                 type="application/ld+json"

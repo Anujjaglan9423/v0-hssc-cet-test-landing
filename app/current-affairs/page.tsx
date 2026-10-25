@@ -466,6 +466,194 @@ export default function CurrentAffairsPage() {
     mcqCount: 2,
     icon: "generic",
   },
+  {
+    id: "india-101st-ramsar-site-2026",
+    titleEn: "India's 101st Ramsar Site 2026",
+    titleHi: "भारत का 101वाँ रामसर स्थल 2026",
+    category: "Environment & Biodiversity",
+    shortDescEn:
+        "Glaw Lake in Arunachal Pradesh became India's 101st Ramsar Site. Covers the Ramsar Convention, India's 100th Ramsar Site (Surha Tal), Montreux Record, Tamil Nadu's Ramsar sites, and all 13 Ramsar sites in Uttar Pradesh. Includes bilingual notes and practice MCQs.",
+    shortDescHi:
+        "अरुणाचल प्रदेश की ग्लॉ झील भारत का 101वाँ रामसर स्थल बनी। रामसर कन्वेंशन, 100वाँ रामसर स्थल (सुरहा ताल), मॉन्ट्रो रिकॉर्ड, तमिलनाडु के रामसर स्थल और उत्तर प्रदेश के सभी 13 रामसर स्थलों की जानकारी। हिंदी-अंग्रेजी नोट्स और अभ्यास प्रश्न।",
+    tag: "Environment",
+    color: "from-emerald-600 to-teal-800",
+    mcqCount: 1,
+    icon: "generic",
+},
+{
+    id: "commonwealth-games-2026",
+    titleEn: "23rd Commonwealth Games 2026 – India's Performance",
+    titleHi: "23वें राष्ट्रमंडल खेल 2026 – भारत का प्रदर्शन",
+    category: "Sports & Current Affairs",
+    shortDescEn:
+        "Complete coverage of the 23rd Commonwealth Games 2026 in Glasgow, Scotland. India's 39 medals (13 gold, 17 silver, 9 bronze), fourth-place finish, medal standings, gold medallists, boxing achievements, Mirabai Chanu, Neeraj Chopra, and exam-oriented MCQs.",
+    shortDescHi:
+        "ग्लासगो, स्कॉटलैंड में आयोजित 23वें राष्ट्रमंडल खेल 2026 की विस्तृत जानकारी। भारत के 39 पदक (13 स्वर्ण, 17 रजत, 9 कांस्य), चौथा स्थान, पदक तालिका, स्वर्ण पदक विजेता, मुक्केबाजी की उपलब्धियां, मीराबाई चानू, नीरज चोपड़ा और परीक्षा उपयोगी प्रश्न।",
+    tag: "Sports",
+    color: "from-blue-600 to-cyan-800",
+    mcqCount: 2,
+    icon: "generic",
+},
+{
+    id: "padma-awards-2026",
+    titleEn: "Padma Awards 2026 – Complete List & Important Facts",
+    titleHi: "पद्म पुरस्कार 2026 – संपूर्ण सूची एवं महत्वपूर्ण तथ्य",
+    category: "Awards & Honours",
+    shortDescEn:
+        "Complete exam-focused notes on Padma Awards 2026. Covers 131 awards, including 5 Padma Vibhushan, 13 Padma Bhushan and 113 Padma Shri. Important awardees, Uttar Pradesh recipients, posthumous honours, categories, and bilingual practice MCQs.",
+    shortDescHi:
+        "पद्म पुरस्कार 2026 के परीक्षा उपयोगी नोट्स। कुल 131 पुरस्कारों में 5 पद्म विभूषण, 13 पद्म भूषण और 113 पद्म श्री। प्रमुख सम्मानित व्यक्ति, उत्तर प्रदेश के पुरस्कार विजेता, मरणोपरांत सम्मान, पुरस्कार श्रेणियां और हिंदी-अंग्रेजी अभ्यास प्रश्न।",
+    tag: "Awards",
+    color: "from-amber-600 to-orange-800",
+    mcqCount: 2,
+    icon: "generic",
+},
+{
+    id: "national-international-current-affairs-2026",
+    titleEn: "National & International Current Affairs 2026",
+    titleHi: "राष्ट्रीय एवं अंतरराष्ट्रीय समसामयिकी 2026",
+    category: "National & International Affairs",
+    shortDescEn:
+        "Complete National & International Current Affairs 2026 covering government schemes, important national events, international summits, economy, defence, science, environment, bilateral agreements, major organizations, and exam-focused facts. Includes 20 pages of detailed notes and 7 practice MCQs.",
+    shortDescHi:
+        "राष्ट्रीय एवं अंतरराष्ट्रीय समसामयिकी 2026 के संपूर्ण नोट्स। सरकारी योजनाएं, प्रमुख राष्ट्रीय घटनाएं, अंतरराष्ट्रीय शिखर सम्मेलन, अर्थव्यवस्था, रक्षा, विज्ञान, पर्यावरण, द्विपक्षीय समझौते और महत्वपूर्ण संगठन। 20 पृष्ठों की विस्तृत अध्ययन सामग्री और 7 अभ्यास प्रश्न।",
+    tag: "Current Affairs",
+    color: "from-blue-600 to-indigo-800",
+    mcqCount: 7,
+    icon: "generic",
+},
+{
+    id: "scheme-2026",
+    titleEn: "Important Government Schemes & Initiatives 2026",
+    titleHi: "महत्वपूर्ण सरकारी योजनाएँ एवं पहलें 2026",
+    category: "Government Schemes & Policies",
+    shortDescEn:
+        "Complete exam-focused study material covering 35 important government schemes and initiatives of 2026. Includes Mission Rangeen Machhli, PM Surya Sarovar, GOBARdhan, PM RAHAT, Bharat Taxi, SHE-MART, BHAVYA, PRAGATI, Bharat-VISTAAR and more. Detailed notes, key facts, Hindi explanations, and one-liner Q&A for competitive exams.",
+    shortDescHi:
+        "वर्ष 2026 की 35 महत्वपूर्ण सरकारी योजनाओं और पहलों की विस्तृत अध्ययन सामग्री। मिशन रंगीन मछली, पीएम सूर्य सरोवर, गोबरधन, पीएम राहत, भारत टैक्सी, शी-मार्ट, भाव्य, प्रगति, भारत-विस्तार सहित अन्य प्रमुख योजनाएँ। हिंदी में महत्वपूर्ण तथ्य, विस्तृत नोट्स और प्रतियोगी परीक्षाओं के लिए एक-पंक्ति प्रश्नोत्तर।",
+    tag: "Govt Schemes",
+    color: "from-emerald-600 to-teal-800",
+    mcqCount: 12,
+    icon: "generic",
+},
+{
+    id: "science-technology-2026",
+    titleEn: "Science & Technology",
+    titleHi: "विज्ञान एवं प्रौद्योगिकी",
+    category: "Science & Technology",
+    shortDescEn:
+        "Complete bilingual Science & Technology current affairs coverage for 2026. Includes Truenat HPV-HR Plus, BGP Hijacking & Telegram Ban, Varya AI Model, Project Nimbus, Biochar, High-Energy Medical Cyclotron, Mission Aagaman, Green Urea, I-2SEA Submarine Cable, GAGAN, Eärendil-1, PRAXIS Mission, QDENGA Dengue Vaccine, CAFE-III Norms, NASA Moon Base Programme, Mission MITRA, SMILE Mission, and SFDR Technology. Detailed notes, key facts, Hindi explanations, and interactive MCQs for UPSC, SSC, Banking, HSSC, UKSSSC and other competitive exams.",
+    shortDescHi:
+        "वर्ष 2026 के विज्ञान एवं प्रौद्योगिकी विषय की पूर्ण द्विभाषी करेंट अफेयर्स सामग्री। ट्रूनेट HPV-HR प्लस, BGP हाईजैकिंग और टेलीग्राम प्रतिबंध, वर्या AI मॉडल, प्रोजेक्ट निम्बस, बायोचार, हाई-एनर्जी मेडिकल साइक्लोट्रॉन, मिशन आगमन, ग्रीन यूरिया, I-2SEA सबमरीन केबल, गगन, एसडिल-1, PRAXIS मिशन, क्यूडेंगा डेंगू वैक्सीन, CAFE-III मानक, NASA मून बेस कार्यक्रम, मिशन मित्रा, SMILE मिशन और SFDR तकनीक शामिल हैं। हिंदी में महत्वपूर्ण तथ्य, विस्तृत नोट्स और प्रतियोगी परीक्षाओं के लिए इंटरैक्टिव MCQs।",
+    tag: "Science & Tech",
+    color: "from-emerald-600 to-teal-800",
+    mcqCount: 18,
+    icon: "generic",
+},
+{
+    id: "defence",
+    titleEn: "Defence Current Affairs",
+    titleHi: "रक्षा समसामयिकी",
+    category: "Defence & Security",
+    shortDescEn:
+        "Complete bilingual Defence & Security current affairs coverage for 2026. Includes Netra AEW&C System, advanced missile systems, RS-28 Sarmat, DF-41, Airbus C-295 Military Transport Aircraft, Indian Navy warships, indigenous defence technologies, Suryaastra Rocket Launching System, TARA Glide Weapon, tri-service military exercises, CORE Programme 2026, ORV Sagar Manthan, and important DRDO developments. Detailed notes, key facts, Hindi explanations, and exam-oriented questions and answers for UPSC, SSC, Banking, HSSC, UKSSSC and other competitive exams.",
+    shortDescHi:
+        "वर्ष 2026 के रक्षा एवं सुरक्षा विषय की संपूर्ण द्विभाषी करेंट अफेयर्स सामग्री। इसमें नेत्र AEW&C प्रणाली, उन्नत मिसाइल प्रणालियाँ, RS-28 सरमत, DF-41, एयरबस C-295 सैन्य परिवहन विमान, भारतीय नौसेना के युद्धपोत, स्वदेशी रक्षा तकनीक, सूर्यास्त्र रॉकेट लॉन्चिंग प्रणाली, तारा (TARA) ग्लाइड वेपन, तीनों सेनाओं के संयुक्त सैन्य अभ्यास, CORE कार्यक्रम 2026, ORV सागर मंथन और DRDO से संबंधित महत्वपूर्ण विकास शामिल हैं। हिंदी में महत्वपूर्ण तथ्य, विस्तृत नोट्स तथा UPSC, SSC, बैंकिंग, HSSC, UKSSSC और अन्य प्रतियोगी परीक्षाओं के लिए महत्वपूर्ण प्रश्नोत्तर उपलब्ध हैं।",
+    tag: "Defence & Security",
+    color: "from-blue-700 to-slate-900",
+    mcqCount: 18,
+    icon: "generic",
+},
+{
+    id: "awards-honours-2026",
+    titleEn: "Awards & Honours",
+    titleHi: "पुरस्कार एवं सम्मान",
+    category: "Awards & Honours",
+    shortDescEn:
+        "Complete bilingual Awards & Honours current affairs coverage for 2026. Includes The Earth Prize 2026, FAO Soil Farmer Hero Award, National Awards for e-Governance, Indian Athletics Awards, 72nd National Film Awards, 60th Jnanpith Award, COSPAR Vikram Sarabhai Medal, Kalinga Ratna Award, Women Empowerment Trailblazer Award, Tyler Prize, Golden Globe Awards, Global Teacher Prize, UNESCO Asia-Pacific Heritage Conservation Awards, BAFTA Awards, BBC Indian Sportswoman of the Year, Sansad Ratna Awards, Abel Prize, Lata Deenanath Mangeshkar Award, Lokmanya Tilak National Award, USISPF Leadership Award, and UNESCO World Press Freedom Prize. Detailed notes, award winners, key facts, Hindi explanations, and exam-oriented questions and answers for UPSC, SSC, Banking, HSSC, UKSSSC and other competitive exams.",
+    shortDescHi:
+        "वर्ष 2026 के पुरस्कार एवं सम्मान विषय की संपूर्ण द्विभाषी करेंट अफेयर्स सामग्री। इसमें द अर्थ प्राइज 2026, FAO सॉइल फार्मर हीरो अवॉर्ड, राष्ट्रीय ई-गवर्नेंस पुरस्कार, भारतीय एथलेटिक्स पुरस्कार, 72वें राष्ट्रीय फिल्म पुरस्कार, 60वाँ ज्ञानपीठ पुरस्कार, कॉसपार विक्रम साराभाई पदक, कलिंग रत्न पुरस्कार, महिला सशक्तिकरण ट्रेलब्लेजर पुरस्कार, टायलर पुरस्कार, गोल्डन ग्लोब पुरस्कार, ग्लोबल टीचर प्राइज, यूनेस्को एशिया-प्रशांत विरासत संरक्षण पुरस्कार, बाफ्टा पुरस्कार, बीबीसी इंडियन स्पोर्ट्सवुमन ऑफ द ईयर, संसद रत्न पुरस्कार, एबेल पुरस्कार, लता दीनानाथ मंगेशकर पुरस्कार, लोकमान्य तिलक राष्ट्रीय पुरस्कार, USISPF लीडरशिप अवॉर्ड और यूनेस्को विश्व प्रेस स्वतंत्रता पुरस्कार शामिल हैं। पुरस्कार विजेताओं की जानकारी, महत्वपूर्ण तथ्य, विस्तृत हिंदी नोट्स तथा UPSC, SSC, बैंकिंग, HSSC, UKSSSC और अन्य प्रतियोगी परीक्षाओं के लिए महत्वपूर्ण प्रश्नोत्तर उपलब्ध हैं।",
+    tag: "Awards & Honours",
+    color: "from-amber-500 to-orange-700",
+    mcqCount: 6,
+    icon: "generic",
+},
+
+{
+    id: "sports",
+    titleEn: "Sports Current Affairs",
+    titleHi: "खेल समसामयिकी",
+    category: "Sports",
+    shortDescEn:
+        "Complete bilingual Sports current affairs coverage for 2026. Includes Grand Slam Tennis Championships, ICC Men's T20 World Cup, ICC Under-19 Cricket World Cup, Women's T20 World Cup, Women's T20 Asia Cup, ADCA Deaf Cricket Asia Cup, Vijay Hazare Trophy, Ranji Trophy, IPL 2026, SAFF Women's Championship, TIME100 Sports, FIFA World Cup, Khelo India Tribal Games, Khelo India Winter Games, Squash World Cup, FIH Men's Junior Hockey World Cup, World Yogasana Championship, and Singapore Open Badminton. Detailed notes, winners, runners-up, records, Hindi explanations, and interactive MCQs for UPSC, SSC, Banking, HSSC, UKSSSC and other competitive exams.",
+    shortDescHi:
+        "वर्ष 2026 की खेल समसामयिकी की संपूर्ण द्विभाषी अध्ययन सामग्री। इसमें ग्रैंड स्लैम टेनिस, आईसीसी पुरुष टी20 विश्व कप, अंडर-19 क्रिकेट विश्व कप, महिला टी20 विश्व कप, महिला एशिया कप, बधिर क्रिकेट एशिया कप, विजय हज़ारे ट्रॉफी, रणजी ट्रॉफी, आईपीएल 2026, सैफ महिला चैंपियनशिप, फीफा विश्व कप, खेलो इंडिया जनजातीय खेल, शीतकालीन खेल, स्क्वैश विश्व कप, जूनियर हॉकी विश्व कप, विश्व योगासन चैंपियनशिप और सिंगापुर ओपन बैडमिंटन शामिल हैं। विजेता, उपविजेता, रिकॉर्ड, महत्वपूर्ण तथ्य, हिंदी नोट्स और प्रतियोगी परीक्षाओं के लिए इंटरैक्टिव MCQs उपलब्ध हैं।",
+    tag: "Sports",
+    color: "from-blue-600 to-indigo-800",
+    mcqCount: 6,
+    icon: "generic",
+},
+
+{
+    id: "indexes-rankings-reports-2026",
+    titleEn: "Indexes, Rankings & Reports",
+    titleHi: "सूचकांक, रैंकिंग एवं रिपोर्ट",
+    category: "Indexes & Reports",
+    shortDescEn:
+        "Complete bilingual Indexes, Rankings & Reports current affairs coverage for 2026. Includes Global Peace Index, World Happiness Report, Global Terrorism Index, Global Gender Gap Report, Travel & Tourism Development Index, Energy Transition Index, Environmental Performance Index, World Press Freedom Index, Corruption Perceptions Index, Global Firepower Ranking, Global Liveability Index, QS World University Rankings, India's Next Growth Frontier Report, SOFI Report, World Air Quality Report, Swachh Vayu Sarvekshan, SIPRI Arms Transfers and Military Expenditure Reports, World's Cities Report, Investment Friendliness Index, LEADS 2025, Panchayat Advancement Index, Women and Men in India, Export Preparedness Index and Fiscal Health Index. India rankings, top countries, key findings, Hindi notes and interactive MCQs for UPSC, SSC, Banking, HSSC, UKSSSC and other competitive exams.",
+    shortDescHi:
+        "वर्ष 2026 के सूचकांक, रैंकिंग एवं रिपोर्ट विषय की संपूर्ण द्विभाषी करेंट अफेयर्स सामग्री। इसमें वैश्विक शांति सूचकांक, विश्व प्रसन्नता रिपोर्ट, आतंकवाद सूचकांक, लैंगिक अंतर रिपोर्ट, यात्रा एवं पर्यटन विकास सूचकांक, ऊर्जा संक्रमण सूचकांक, पर्यावरण प्रदर्शन सूचकांक, विश्व प्रेस स्वतंत्रता सूचकांक, भ्रष्टाचार धारणा सूचकांक, सैन्य शक्ति रैंकिंग, वैश्विक रहने-योग्यता सूचकांक, क्यूएस विश्वविद्यालय रैंकिंग, खाद्य सुरक्षा एवं पोषण रिपोर्ट, विश्व वायु गुणवत्ता रिपोर्ट, स्वच्छ वायु सर्वेक्षण, सिपरी रिपोर्ट, निवेश अनुकूलता सूचकांक, लीड्स रिपोर्ट, पंचायत उन्नति सूचकांक, निर्यात तैयारी सूचकांक और राजकोषीय स्वास्थ्य सूचकांक शामिल हैं। भारत की रैंक, शीर्ष देश, प्रमुख निष्कर्ष, महत्वपूर्ण हिंदी नोट्स और प्रतियोगी परीक्षाओं के लिए इंटरैक्टिव MCQs उपलब्ध हैं।",
+    tag: "Indexes & Reports",
+    color: "from-indigo-600 to-violet-800",
+    mcqCount: 8,
+    icon: "generic",
+},
+
+{
+    id: "important-days-themes-2026",
+    titleEn: "Important Days & Themes",
+    titleHi: "महत्वपूर्ण दिवस एवं थीम",
+    category: "Important Days",
+    shortDescEn:
+        "Complete bilingual Important Days & Themes current affairs coverage for 2026. Includes Pravasi Bharatiya Divas, World Hindi Day, National Youth Day, Republic Day, World Wetlands Day, National Science Day, International Women's Day, World Water Day, World Health Day, Earth Day, National Panchayati Raj Day, World Environment Day, International Yoga Day, National Space Day, National Sports Day, Hindi Diwas, World Ozone Day, Ayurveda Day and World Tourism Day. Features month-wise dates, 2026 themes, historical significance, Books & Authors, Hindi notes, and interactive MCQs for UPSC, SSC, Banking, HSSC, UKSSSC and other competitive exams.",
+    shortDescHi:
+        "वर्ष 2026 के महत्वपूर्ण दिवस एवं थीम विषय की संपूर्ण द्विभाषी करेंट अफेयर्स सामग्री। इसमें प्रवासी भारतीय दिवस, विश्व हिंदी दिवस, राष्ट्रीय युवा दिवस, गणतंत्र दिवस, विश्व आर्द्रभूमि दिवस, राष्ट्रीय विज्ञान दिवस, अंतरराष्ट्रीय महिला दिवस, विश्व जल दिवस, विश्व स्वास्थ्य दिवस, पृथ्वी दिवस, राष्ट्रीय पंचायती राज दिवस, विश्व पर्यावरण दिवस, अंतरराष्ट्रीय योग दिवस, राष्ट्रीय अंतरिक्ष दिवस, राष्ट्रीय खेल दिवस, हिंदी दिवस, विश्व ओज़ोन दिवस, आयुर्वेद दिवस और विश्व पर्यटन दिवस शामिल हैं। जनवरी से सितंबर तक की महत्वपूर्ण तिथियाँ, वर्ष 2026 की थीम, ऐतिहासिक महत्व, पुस्तकें एवं लेखक, हिंदी नोट्स और प्रतियोगी परीक्षाओं के लिए इंटरैक्टिव MCQs उपलब्ध हैं।",
+    tag: "Important Days",
+    color: "from-rose-600 to-pink-800",
+    mcqCount: 8,
+    icon: "generic",
+},
+
+{
+    id: "persons-in-news-2026",
+    titleEn: "Persons in News",
+    titleHi: "चर्चित व्यक्ति",
+    category: "Persons in News",
+    shortDescEn:
+        "Complete bilingual Persons in News current affairs coverage for 2026. Includes important appointments, defence leadership, government officials, international political leaders, notable firsts, and obituary profiles. Covers Jeetendra Mishra, Shakti Sharma, Dhiraj Seth, Krishna Swaminathan, Saurabh Vijay, Vivek Aggarwal, Professor B. Ravindran, Kunal Shah, Bhawana Kanth, Anurag Jain, Varsha Ashok Aglawe, Kanishka Narayan, Kanchan Devi, Professor Bimal N. Patel, Menaka Guruswamy, Sanae Takaichi, Andy Burnham, Asha Bhosle, Teejan Bai and Madhav Gadgil. Detailed notes, appointments, achievements, Hindi explanations and interactive MCQs for UPSC, SSC, Banking, HSSC, UKSSSC and other competitive exams.",
+    shortDescHi:
+        "वर्ष 2026 के चर्चित व्यक्तियों की संपूर्ण द्विभाषी करेंट अफेयर्स सामग्री। इसमें महत्वपूर्ण नियुक्तियाँ, रक्षा नेतृत्व, सरकारी अधिकारी, अंतरराष्ट्रीय राजनीतिक नेता, प्रथम उपलब्धियाँ और निधन से जुड़े व्यक्तित्व शामिल हैं। जितेंद्र मिश्रा, शक्ति शर्मा, धीरज सेठ, कृष्ण स्वामीनाथन, सौरभ विजय, विवेक अग्रवाल, प्रोफेसर बी. रवींद्रन, कुणाल शाह, भावना कंठ, अनुराग जैन, वर्षा अशोक आगलावे, कनिष्क नारायण, कंचन देवी, प्रोफेसर बिमल एन. पटेल, मेनका गुरुस्वामी, सनाए ताकाइची, एंडी बर्नहम, आशा भोसले, तीजन बाई और माधव गाडगिल सहित प्रमुख व्यक्तियों की जानकारी उपलब्ध है। नियुक्तियाँ, उपलब्धियाँ, महत्वपूर्ण तथ्य, हिंदी नोट्स और प्रतियोगी परीक्षाओं के लिए इंटरैक्टिव MCQs शामिल हैं।",
+    tag: "Persons in News",
+    color: "from-teal-600 to-cyan-800",
+    mcqCount: 8,
+    icon: "generic",
+},
+
+{
+    id: "one-liner-current-affairs-2026",
+    titleEn: "One-Liner Current Affairs Q&A",
+    titleHi: "एक-पंक्ति करेंट अफेयर्स प्रश्नोत्तर",
+    category: "Current Affairs Q&A",
+    shortDescEn:
+        "Practice 121 one-liner current affairs questions and answers from 2026. Covers government schemes, important appointments, sports, awards, science and technology, banking, RBI policies, international relations, geography, environment, defence, education, and economic developments. Features searchable questions, instant answer reveal, page-wise filtering, and interactive bilingual practice MCQs for UPSC, SSC, Banking, HSSC, UKSSSC and other competitive exams.",
+    shortDescHi:
+        "वर्ष 2026 के 121 एक-पंक्ति करेंट अफेयर्स प्रश्नोत्तर का अभ्यास करें। इसमें सरकारी योजनाएँ, महत्वपूर्ण नियुक्तियाँ, खेल, पुरस्कार, विज्ञान एवं प्रौद्योगिकी, बैंकिंग, आरबीआई नीतियाँ, अंतरराष्ट्रीय संबंध, भूगोल, पर्यावरण, रक्षा, शिक्षा और आर्थिक घटनाक्रम शामिल हैं। प्रश्न खोजने की सुविधा, उत्तर देखने का विकल्प, पृष्ठवार फ़िल्टर और प्रतियोगी परीक्षाओं के लिए द्विभाषी अभ्यास MCQs उपलब्ध हैं। मुख्य प्रश्न बैंक अंग्रेज़ी में है।",
+    tag: "Current Affairs Q&A",
+    color: "from-purple-600 to-fuchsia-800",
+    mcqCount: 6,
+    icon: "generic",
+},
+
     ]
 
     const filteredMonths = monthsData.filter(month =>

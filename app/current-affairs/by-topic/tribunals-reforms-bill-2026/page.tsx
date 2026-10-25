@@ -151,7 +151,7 @@ export default function TribunalsReformsPage() {
                  <div className="flex flex-col sm:flex-row gap-3 justify-between items-center border-t pt-8">
                     <Link href="/current-affairs"><Button variant="outline" className="gap-2 cursor-pointer"><ArrowLeft className="w-4 h-4" /> Back to Current Affairs</Button></Link>
                     <div className="flex flex-wrap gap-3">
-   {/* <Link href="/current-affairs/by-topic/ramsar-sites-2026"><Button variant="outline" className="gap-2 cursor-pointer">Next: Ramsar Sites <ChevronRight className="w-4 h-4" /></Button></Link> */}
+   <Link href="/current-affairs/by-topic/ramsar-sites-2026"><Button variant="outline" className="gap-2 cursor-pointer">Next: Ramsar Sites <ChevronRight className="w-4 h-4" /></Button></Link>
                         <Link href="/mock-test"><Button className="gap-2 cursor-pointer">Practice Quiz <Target className="w-4 h-4" /></Button></Link>
                     </div>
                 </div>
