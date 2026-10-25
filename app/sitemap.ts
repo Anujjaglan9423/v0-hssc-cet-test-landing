@@ -527,12 +527,12 @@ const currentAffairsTopicSlugs = [
   'sarnath-unesco',
   'public-exams-amendment-2026',
   'tribunals-reforms-bill-2026',
-  'india-101st-ramsar-site-2026',
+  'ramsar-sites-2026',
   'commonwealth-games-2026',
   'padma-awards-2026',
   'national-international-current-affairs-2026',
   'scheme-2026',
-  'science-technology-2026',
+  'science-technology',
   'defence',
   'awards-honours-2026',
   'sports',
@@ -584,12 +584,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     // 🔔 Live exam alerts
-    {
-      url: `${baseUrl}/exam-alerts`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 1.0,
-    },
+    // {
+    //   url: `${baseUrl}/exam-alerts`,
+    //   lastModified: now,
+    //   changeFrequency: 'daily',
+    //   priority: 1.0,
+    // },
 
     // 📄 Informational
     {
@@ -684,20 +684,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     // 🧪 Demo index
-    {
-      url: `${baseUrl}/demo`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
+    // {
+    //   url: `${baseUrl}/demo`,
+    //   lastModified: now,
+    //   changeFrequency: 'weekly',
+    //   priority: 0.7,
+    // },
 
     // 📖 Public resource pages
-    {
-      url: `${baseUrl}/careers`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
+    // {
+    //   url: `${baseUrl}/careers`,
+    //   lastModified: now,
+    //   changeFrequency: 'monthly',
+    //   priority: 0.6,
+    // },
     {
       url: `${baseUrl}/study-materials-hub/asian-games-2026`,
       lastModified: now,

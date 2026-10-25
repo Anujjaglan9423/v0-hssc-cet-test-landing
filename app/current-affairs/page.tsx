@@ -467,7 +467,7 @@ export default function CurrentAffairsPage() {
     icon: "generic",
   },
   {
-    id: "india-101st-ramsar-site-2026",
+    id: "ramsar-sites-2026",
     titleEn: "India's 101st Ramsar Site 2026",
     titleHi: "भारत का 101वाँ रामसर स्थल 2026",
     category: "Environment & Biodiversity",
@@ -537,7 +537,7 @@ export default function CurrentAffairsPage() {
     icon: "generic",
 },
 {
-    id: "science-technology-2026",
+    id: "science-technology",
     titleEn: "Science & Technology",
     titleHi: "विज्ञान एवं प्रौद्योगिकी",
     category: "Science & Technology",
