@@ -395,11 +395,11 @@ export default function UKSSCSPage() {
                 </div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-primary">900+</div>
+                <div className="text-2xl font-bold text-primary">250+</div>
                 <div className="text-xs text-muted-foreground">Mock Tests</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-primary">55K+</div>
+                <div className="text-2xl font-bold text-primary">30K+</div>
                 <div className="text-xs text-muted-foreground">
                   Practice Questions
                 </div>

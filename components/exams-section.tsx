@@ -8,6 +8,20 @@ import { BarChart3, Train, Landmark, Mountain } from "lucide-react";
 export default function ExamsSection() {
 
   const examCategories = [
+     {
+      name: "Haryana Exams",
+      description: "HSSC CET, HTET, Haryana Police and state recruitment exams",
+      link: "/exams/haryana",
+      icon: Landmark,
+      color: "green",
+    },
+    {
+      name: "Uttarakhand Exams",
+      description: "UKSSSC VDO, Patwari, Police and Uttarakhand state exams",
+      link: "/exams/uksssc",
+      icon: Mountain,
+      color: "purple",
+    },
     {
       name: "SSC Exams",
       description: "CGL, CHSL, MTS, JE and other SSC recruitment exams",
@@ -22,20 +36,7 @@ export default function ExamsSection() {
       icon: Train,
       color: "red",
     },
-    {
-      name: "Haryana Exams",
-      description: "HSSC CET, HTET, Haryana Police and state recruitment exams",
-      link: "/exams/haryana",
-      icon: Landmark,
-      color: "green",
-    },
-    {
-      name: "Uttarakhand Exams",
-      description: "UKSSSC VDO, Patwari, Police and Uttarakhand state exams",
-      link: "/exams/uksssc",
-      icon: Mountain,
-      color: "purple",
-    },
+   
   ];
 
   return (
