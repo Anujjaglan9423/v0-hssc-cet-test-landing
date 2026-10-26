@@ -5,8 +5,10 @@ import { ChartCard } from "@/components/dashboard/chart-card"
 import { DataTable } from "@/components/dashboard/data-table"
 import { getAllTests, deleteTest, getTestWithQuestions } from "@/lib/actions/admin"
 import { Button } from "@/components/ui/button"
-import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangle, Loader2, Edit } from "lucide-react"
+import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangle, Loader2, Edit, Download, FileSpreadsheet, FileDown } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { jsPDF } from "jspdf"
 import { CSVUploadModal } from "@/components/admin/csv-upload-modal"
 import { CustomMockTestModal } from "@/components/admin/custom-mock-test-modal"
 import { TestEditModal } from "@/components/admin/test-edit-modal"
@@ -96,6 +98,81 @@ export default function AdminTestsPage() {
     }
   }
 
+  const getExportTest = async (test: any) => {
+    const fullTest = await getTestWithQuestions(test.id)
+    return fullTest || { ...test, questions: [] }
+  }
+
+  const escapeCsvValue = (value: unknown) => {
+    const text = String(value ?? "")
+    return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text
+  }
+
+  const handleDownloadCsv = async (test: any) => {
+    const fullTest = await getExportTest(test)
+    const questions = fullTest.questions || []
+    const headers = ["Test Name", "Question No.", "Question", "Option A", "Option B", "Option C", "Option D", "Correct Answer", "Explanation", "Exam Source"]
+    const rows = questions.map((question: any, index: number) => [
+      fullTest.title,
+      question.question_order || index + 1,
+      question.question_text,
+      question.option_a,
+      question.option_b,
+      question.option_c,
+      question.option_d,
+      question.correct_answer,
+      question.explanation,
+      question.exam_source,
+    ])
+    const csv = [headers, ...rows].map((row) => row.map(escapeCsvValue).join(",")).join("\n")
+    const blob = new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8;" })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.href = url
+    link.download = `${fullTest.title.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "test"}.csv`
+    link.click()
+    URL.revokeObjectURL(url)
+  }
+
+  const handleDownloadPdf = async (test: any) => {
+    const fullTest = await getExportTest(test)
+    const questions = fullTest.questions || []
+    const pdf = new jsPDF()
+    const pageWidth = pdf.internal.pageSize.getWidth()
+    let y = 18
+
+    pdf.setFontSize(16)
+    pdf.text(fullTest.title || "Test", 14, y)
+    y += 8
+    pdf.setFontSize(10)
+    pdf.text(`${fullTest.questions_count || questions.length} questions | ${fullTest.duration || "-"} minutes | ${fullTest.difficulty || "-"} difficulty`, 14, y)
+    y += 10
+
+    questions.forEach((question: any, index: number) => {
+      const questionText = `${index + 1}. ${question.question_text || ""}`
+      const lines = pdf.splitTextToSize(questionText, pageWidth - 28)
+      if (y + lines.length * 5 + 28 > 280) {
+        pdf.addPage()
+        y = 18
+      }
+      pdf.setFontSize(10)
+      pdf.text(lines, 14, y)
+      y += lines.length * 5 + 2
+      ;["a", "b", "c", "d"].forEach((option) => {
+        const value = question[`option_${option}`]
+        if (!value) return
+        const optionLines = pdf.splitTextToSize(`${option.toUpperCase()}. ${value}`, pageWidth - 34)
+        pdf.text(optionLines, 20, y)
+        y += optionLines.length * 5
+      })
+      pdf.setFontSize(9)
+      pdf.text(`Correct answer: ${(question.correct_answer || "").toUpperCase()}`, 20, y)
+      y += 8
+    })
+
+    pdf.save(`${fullTest.title.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "test"}.pdf`)
+  }
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -182,6 +259,29 @@ export default function AdminTestsPage() {
           >
             <Edit className="w-4 h-4" />
           </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-muted-foreground hover:text-primary"
+                onClick={(e) => e.stopPropagation()}
+                aria-label={`Download ${test.title}`}
+              >
+                <Download className="w-4 h-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" onClick={(e) => e.stopPropagation()}>
+              <DropdownMenuItem onClick={() => handleDownloadPdf(test)}>
+                <FileDown data-icon="inline-start" />
+                Download PDF
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleDownloadCsv(test)}>
+                <FileSpreadsheet data-icon="inline-start" />
+                Download CSV
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button
             variant="ghost"
             size="icon"
