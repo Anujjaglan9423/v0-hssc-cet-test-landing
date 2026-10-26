@@ -164,9 +164,20 @@ export default function AdminTestsPage() {
       }
 
       const filename = `${String(fullTest.title || "test").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "test"}.pdf`
-      pdf.save(filename)
+      const pdfBlob = pdf.output("blob")
+      const downloadUrl = URL.createObjectURL(pdfBlob)
+      const downloadLink = document.createElement("a")
+      downloadLink.href = downloadUrl
+      downloadLink.download = filename
+      downloadLink.rel = "noopener"
+      downloadLink.style.display = "none"
+      document.body.appendChild(downloadLink)
+      downloadLink.click()
+      downloadLink.remove()
+      window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000)
     } catch (error) {
       console.error("Error downloading PDF:", error)
+      window.alert("PDF download failed. Please try again.")
     } finally {
       setExportingTestId(null)
     }
