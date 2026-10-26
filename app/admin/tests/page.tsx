@@ -9,6 +9,7 @@ import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangl
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { jsPDF } from "jspdf"
+import html2canvas from "html2canvas"
 import { CSVUploadModal } from "@/components/admin/csv-upload-modal"
 import { CustomMockTestModal } from "@/components/admin/custom-mock-test-modal"
 import { TestEditModal } from "@/components/admin/test-edit-modal"
@@ -142,68 +143,28 @@ export default function AdminTestsPage() {
     try {
       const fullTest = await getExportTest(test)
       const questions = fullTest.questions || []
+      const title = String(fullTest.title || "Test")
+      const exportRoot = document.createElement("div")
+      exportRoot.style.cssText = "position:fixed;left:-10000px;top:0;width:794px;background:#fff;color:#172033;padding:48px;font-family:Arial,'Noto Sans Devanagari',sans-serif;"
+      exportRoot.innerHTML = `<h1 style="font-size:28px;color:#102a56;margin:0 0 8px">${title.replace(/[&<>\"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c] || c))}</h1><p style="color:#526176;border-bottom:3px solid #2563eb;padding-bottom:16px">${questions.length} questions | ${fullTest.duration || "-"} minutes | ${fullTest.difficulty || "-"} difficulty</p>${questions.map((question: any, index: number) => `<section style="break-inside:avoid;border:1px solid #dbe3ef;border-left:5px solid #2563eb;border-radius:8px;padding:18px;margin:18px 0"><h2 style="font-size:18px;margin:0 0 12px">${index + 1}. ${String(question.question_text || "")}</h2><div style="font-size:16px;line-height:1.8">${["a","b","c","d"].map((option) => question[`option_${option}`] ? `<div><b>${option.toUpperCase()}.</b> ${String(question[`option_${option}`])}</div>` : "").join("")}</div><p style="color:#166534;font-weight:bold;margin:12px 0 0">Correct answer: ${String(question.correct_answer || "").toUpperCase()}</p></section>`).join("")}<div style="position:fixed;top:45%;left:25%;font-size:64px;color:rgba(37,99,235,.10);font-weight:bold;transform:rotate(-28deg)">@cet__test</div>`
+      document.body.appendChild(exportRoot)
+      await new Promise((resolve) => requestAnimationFrame(() => resolve(null)))
+      if (document.fonts?.ready) await document.fonts.ready
+      const canvas = await html2canvas(exportRoot, { scale: 2, backgroundColor: "#ffffff", useCORS: true })
       const pdf = new jsPDF({ unit: "mm", format: "a4" })
       const pageWidth = 210
       const pageHeight = 297
-      const margin = 16
-      const contentWidth = pageWidth - margin * 2
-      const lineHeight = 5
-      const title = String(fullTest.title || "Test")
-      const pages = Math.max(1, Math.ceil(questions.length / 4))
-      let questionIndex = 0
-
-      for (let pageIndex = 0; pageIndex < pages; pageIndex++) {
-        if (pageIndex > 0) pdf.addPage()
-        pdf.setTextColor(16, 42, 86)
-        pdf.setFont("helvetica", "bold")
-        pdf.setFontSize(16)
-        pdf.text(pdf.splitTextToSize(title, contentWidth), margin, 20)
-        pdf.setDrawColor(37, 99, 235)
-        pdf.setLineWidth(0.8)
-        pdf.line(margin, 27, pageWidth - margin, 27)
-        pdf.setTextColor(82, 97, 118)
-        pdf.setFont("helvetica", "normal")
-        pdf.setFontSize(9)
-        pdf.text(`${fullTest.questions_count || questions.length} questions | ${fullTest.duration || "-"} minutes | ${fullTest.difficulty || "-"} difficulty`, margin, 34)
-
-        let y = 45
-        for (let item = 0; item < 4 && questionIndex < questions.length; item++, questionIndex++) {
-          const question = questions[questionIndex]
-          pdf.setTextColor(23, 32, 51)
-          pdf.setFont("helvetica", "bold")
-          pdf.setFontSize(10.5)
-          const questionLines = pdf.splitTextToSize(`${questionIndex + 1}. ${String(question.question_text || "")}`, contentWidth)
-          pdf.text(questionLines, margin, y)
-          y += questionLines.length * lineHeight + 2
-          pdf.setFont("helvetica", "normal")
-          pdf.setFontSize(9.5)
-          for (const option of ["a", "b", "c", "d"]) {
-            const value = question[`option_${option}`]
-            if (!value) continue
-            const optionLines = pdf.splitTextToSize(`${option.toUpperCase()}. ${String(value)}`, contentWidth - 6)
-            pdf.text(optionLines, margin + 6, y)
-            y += optionLines.length * 4.5 + 1
-          }
-          pdf.setTextColor(22, 101, 52)
-          pdf.setFont("helvetica", "bold")
-          pdf.setFontSize(8.5)
-          pdf.text(`Correct answer: ${String(question.correct_answer || "").toUpperCase()}`, margin + 6, y)
-          y += 10
-        }
-
-        pdf.setTextColor(37, 99, 235)
-        pdf.setFont("helvetica", "bold")
-        pdf.setFontSize(28)
-        pdf.setGState(new (pdf as any).GState({ opacity: 0.1 }))
-        pdf.text("@cet__test", 58, 155, { angle: 32 })
-        pdf.setGState(new (pdf as any).GState({ opacity: 1 }))
-        pdf.setTextColor(100, 116, 139)
-        pdf.setFont("helvetica", "normal")
-        pdf.setFontSize(8)
-        pdf.line(margin, pageHeight - 18, pageWidth - margin, pageHeight - 18)
-        pdf.text(`${title} | Page ${pageIndex + 1} of ${pages}`, margin, pageHeight - 11)
+      const imageWidth = pageWidth
+      const imageHeight = (canvas.height * imageWidth) / canvas.width
+      let remainingHeight = imageHeight
+      let offset = 0
+      while (remainingHeight > 0) {
+        if (offset > 0) pdf.addPage()
+        pdf.addImage(canvas.toDataURL("image/jpeg", 0.94), "JPEG", 0, -offset, imageWidth, imageHeight)
+        offset += pageHeight
+        remainingHeight -= pageHeight
       }
-
+      document.body.removeChild(exportRoot)
       const filename = `${title.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "test"}.pdf`
       pdf.save(filename)
     } catch (error) {
