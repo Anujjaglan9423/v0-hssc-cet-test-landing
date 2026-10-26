@@ -5,8 +5,10 @@ import { ChartCard } from "@/components/dashboard/chart-card"
 import { DataTable } from "@/components/dashboard/data-table"
 import { getAllTests, deleteTest, getTestWithQuestions } from "@/lib/actions/admin"
 import { Button } from "@/components/ui/button"
-import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangle, Loader2, Edit } from "lucide-react"
+import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangle, Loader2, Edit, Download, FileSpreadsheet, FileDown } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { jsPDF } from "jspdf"
 import { CSVUploadModal } from "@/components/admin/csv-upload-modal"
 import { CustomMockTestModal } from "@/components/admin/custom-mock-test-modal"
 import { TestEditModal } from "@/components/admin/test-edit-modal"
@@ -26,6 +28,7 @@ export default function AdminTestsPage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [testToDelete, setTestToDelete] = useState<any | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [exportingTestId, setExportingTestId] = useState<string | number | null>(null)
   
   const [testToEdit, setTestToEdit] = useState<any | null>(null)
   const [editTestQuestions, setEditTestQuestions] = useState<any[]>([])
@@ -93,6 +96,121 @@ export default function AdminTestsPage() {
     const fullTest = await getTestWithQuestions(test.id)
     if (fullTest) {
       setEditTestQuestions(fullTest.questions || [])
+    }
+  }
+
+  const getExportTest = async (test: any) => {
+    const fullTest = await getTestWithQuestions(test.id)
+    return fullTest || { ...test, questions: [] }
+  }
+
+  const escapeCsvValue = (value: unknown) => {
+    const text = String(value ?? "")
+    return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text
+  }
+
+  const handleDownloadCsv = async (test: any) => {
+    const fullTest = await getExportTest(test)
+    const questions = fullTest.questions || []
+    const headers = ["Test Name", "Question No.", "Question", "Option A", "Option B", "Option C", "Option D", "Correct Answer", "Explanation", "Exam Source"]
+    const rows = questions.map((question: any, index: number) => [
+      fullTest.title,
+      question.question_order || index + 1,
+      question.question_text,
+      question.option_a,
+      question.option_b,
+      question.option_c,
+      question.option_d,
+      question.correct_answer,
+      question.explanation,
+      question.exam_source,
+    ])
+    const csv = [headers, ...rows].map((row) => row.map(escapeCsvValue).join(",")).join("\n")
+    const blob = new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8;" })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.href = url
+    link.download = `${fullTest.title.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "test"}.csv`
+    link.click()
+    URL.revokeObjectURL(url)
+  }
+
+  const handleDownloadPdf = async (test: any) => {
+    if (exportingTestId !== null) return
+    setExportingTestId(test.id)
+
+    try {
+      const fullTest = await getExportTest(test)
+      const questions = fullTest.questions || []
+      const pdf = new jsPDF({ unit: "mm", format: "a4" })
+      const pageWidth = 210
+      const pageHeight = 297
+      const margin = 16
+      const contentWidth = pageWidth - margin * 2
+      const lineHeight = 5
+      const title = String(fullTest.title || "Test")
+      const pages = Math.max(1, Math.ceil(questions.length / 4))
+      let questionIndex = 0
+
+      for (let pageIndex = 0; pageIndex < pages; pageIndex++) {
+        if (pageIndex > 0) pdf.addPage()
+        pdf.setTextColor(16, 42, 86)
+        pdf.setFont("helvetica", "bold")
+        pdf.setFontSize(16)
+        pdf.text(pdf.splitTextToSize(title, contentWidth), margin, 20)
+        pdf.setDrawColor(37, 99, 235)
+        pdf.setLineWidth(0.8)
+        pdf.line(margin, 27, pageWidth - margin, 27)
+        pdf.setTextColor(82, 97, 118)
+        pdf.setFont("helvetica", "normal")
+        pdf.setFontSize(9)
+        pdf.text(`${fullTest.questions_count || questions.length} questions | ${fullTest.duration || "-"} minutes | ${fullTest.difficulty || "-"} difficulty`, margin, 34)
+
+        let y = 45
+        for (let item = 0; item < 4 && questionIndex < questions.length; item++, questionIndex++) {
+          const question = questions[questionIndex]
+          pdf.setTextColor(23, 32, 51)
+          pdf.setFont("helvetica", "bold")
+          pdf.setFontSize(10.5)
+          const questionLines = pdf.splitTextToSize(`${questionIndex + 1}. ${String(question.question_text || "")}`, contentWidth)
+          pdf.text(questionLines, margin, y)
+          y += questionLines.length * lineHeight + 2
+          pdf.setFont("helvetica", "normal")
+          pdf.setFontSize(9.5)
+          for (const option of ["a", "b", "c", "d"]) {
+            const value = question[`option_${option}`]
+            if (!value) continue
+            const optionLines = pdf.splitTextToSize(`${option.toUpperCase()}. ${String(value)}`, contentWidth - 6)
+            pdf.text(optionLines, margin + 6, y)
+            y += optionLines.length * 4.5 + 1
+          }
+          pdf.setTextColor(22, 101, 52)
+          pdf.setFont("helvetica", "bold")
+          pdf.setFontSize(8.5)
+          pdf.text(`Correct answer: ${String(question.correct_answer || "").toUpperCase()}`, margin + 6, y)
+          y += 10
+        }
+
+        pdf.setTextColor(37, 99, 235)
+        pdf.setFont("helvetica", "bold")
+        pdf.setFontSize(28)
+        pdf.setGState(new (pdf as any).GState({ opacity: 0.1 }))
+        pdf.text("@cet__test", 58, 155, { angle: 32 })
+        pdf.setGState(new (pdf as any).GState({ opacity: 1 }))
+        pdf.setTextColor(100, 116, 139)
+        pdf.setFont("helvetica", "normal")
+        pdf.setFontSize(8)
+        pdf.line(margin, pageHeight - 18, pageWidth - margin, pageHeight - 18)
+        pdf.text(`${title} | Page ${pageIndex + 1} of ${pages}`, margin, pageHeight - 11)
+      }
+
+      const filename = `${title.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "test"}.pdf`
+      pdf.save(filename)
+    } catch (error) {
+      console.error("Error downloading PDF:", error)
+      window.alert("PDF download failed. Please try again.")
+    } finally {
+      setExportingTestId(null)
     }
   }
 
@@ -182,6 +300,30 @@ export default function AdminTestsPage() {
           >
             <Edit className="w-4 h-4" />
           </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-muted-foreground hover:text-primary"
+                onClick={(e) => e.stopPropagation()}
+                aria-label={`Download ${test.title}`}
+                disabled={exportingTestId !== null}
+              >
+                {exportingTestId === test.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" onClick={(e) => e.stopPropagation()}>
+              <DropdownMenuItem onClick={() => handleDownloadPdf(test)}>
+                <FileDown data-icon="inline-start" />
+                Download PDF
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleDownloadCsv(test)}>
+                <FileSpreadsheet data-icon="inline-start" />
+                Download CSV
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button
             variant="ghost"
             size="icon"
