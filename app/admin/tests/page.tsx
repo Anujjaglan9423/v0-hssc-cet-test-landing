@@ -9,7 +9,6 @@ import { FileText, Users, Clock, Upload, CheckCircle2, Eye, Trash2, AlertTriangl
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { jsPDF } from "jspdf"
-import html2canvas from "html2canvas"
 import { CSVUploadModal } from "@/components/admin/csv-upload-modal"
 import { CustomMockTestModal } from "@/components/admin/custom-mock-test-modal"
 import { TestEditModal } from "@/components/admin/test-edit-modal"
@@ -144,37 +143,69 @@ export default function AdminTestsPage() {
       const fullTest = await getExportTest(test)
       const questions = fullTest.questions || []
       const pdf = new jsPDF({ unit: "mm", format: "a4" })
-      const safeText = (value: unknown) => String(value ?? "").replace(/[&<>\"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;" })[char] || char)
-      const pages = Array.from({ length: Math.max(1, Math.ceil(questions.length / 5)) }, (_, pageIndex) => questions.slice(pageIndex * 5, pageIndex * 5 + 5))
-      const exportPage = document.createElement("section")
-      exportPage.style.cssText = "position:absolute;left:-10000px;top:0;width:794px;min-height:1123px;padding:54px 58px;background:#fff;color:#172033;font-family:Arial,'Noto Sans Devanagari',sans-serif;box-sizing:border-box;"
-      document.body.appendChild(exportPage)
+      const pageWidth = 210
+      const pageHeight = 297
+      const margin = 16
+      const contentWidth = pageWidth - margin * 2
+      const lineHeight = 5
+      const title = String(fullTest.title || "Test")
+      const pages = Math.max(1, Math.ceil(questions.length / 4))
+      let questionIndex = 0
 
-      try {
-        if (document.fonts?.ready) await document.fonts.ready
-        for (let pageIndex = 0; pageIndex < pages.length; pageIndex++) {
-          const pageQuestions = pages[pageIndex]
-          exportPage.innerHTML = `<div style="position:relative;min-height:1015px"><div style="border-bottom:3px solid #2563eb;padding-bottom:16px;margin-bottom:20px"><div style="font-size:25px;font-weight:700;color:#102a56">${safeText(fullTest.title || "Test")}</div><div style="font-size:14px;color:#526176;margin-top:8px">${fullTest.questions_count || questions.length} questions &nbsp;|&nbsp; ${safeText(fullTest.duration || "-")} minutes &nbsp;|&nbsp; ${safeText(fullTest.difficulty || "-")} difficulty</div></div>${pageQuestions.map((question: any, index: number) => `<article style="margin-bottom:20px;page-break-inside:avoid"><div style="font-size:16px;line-height:1.5;font-weight:600;margin-bottom:8px">${pageIndex * 5 + index + 1}. ${safeText(question.question_text)}</div><div style="padding-left:18px">${["a", "b", "c", "d"].map((option) => question[`option_${option}`] ? `<div style="font-size:14px;line-height:1.45;margin:4px 0"><b>${option.toUpperCase()}.</b> ${safeText(question[`option_${option}`])}</div>` : "").join("")}<div style="font-size:12px;color:#166534;margin-top:7px;font-weight:600">Correct answer: ${safeText(String(question.correct_answer || "").toUpperCase())}</div></div></article>`).join("")}<div style="position:absolute;bottom:0;left:0;right:0;border-top:1px solid #dbe3ef;padding-top:10px;font-size:11px;color:#64748b">${safeText(fullTest.title || "Test")} &nbsp;|&nbsp; Page ${pageIndex + 1} of ${pages.length}</div><div style="position:absolute;top:470px;left:85px;transform:rotate(-32deg);font-size:58px;font-weight:700;letter-spacing:5px;color:rgba(37,99,235,.10);pointer-events:none">@cet__test</div></div>`
-          const canvas = await html2canvas(exportPage, { scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false, width: 794, height: 1123, windowWidth: 794, windowHeight: 1123 })
-          if (pageIndex > 0) pdf.addPage()
-          pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 210, 297, undefined, "FAST")
+      for (let pageIndex = 0; pageIndex < pages; pageIndex++) {
+        if (pageIndex > 0) pdf.addPage()
+        pdf.setTextColor(16, 42, 86)
+        pdf.setFont("helvetica", "bold")
+        pdf.setFontSize(16)
+        pdf.text(pdf.splitTextToSize(title, contentWidth), margin, 20)
+        pdf.setDrawColor(37, 99, 235)
+        pdf.setLineWidth(0.8)
+        pdf.line(margin, 27, pageWidth - margin, 27)
+        pdf.setTextColor(82, 97, 118)
+        pdf.setFont("helvetica", "normal")
+        pdf.setFontSize(9)
+        pdf.text(`${fullTest.questions_count || questions.length} questions | ${fullTest.duration || "-"} minutes | ${fullTest.difficulty || "-"} difficulty`, margin, 34)
+
+        let y = 45
+        for (let item = 0; item < 4 && questionIndex < questions.length; item++, questionIndex++) {
+          const question = questions[questionIndex]
+          pdf.setTextColor(23, 32, 51)
+          pdf.setFont("helvetica", "bold")
+          pdf.setFontSize(10.5)
+          const questionLines = pdf.splitTextToSize(`${questionIndex + 1}. ${String(question.question_text || "")}`, contentWidth)
+          pdf.text(questionLines, margin, y)
+          y += questionLines.length * lineHeight + 2
+          pdf.setFont("helvetica", "normal")
+          pdf.setFontSize(9.5)
+          for (const option of ["a", "b", "c", "d"]) {
+            const value = question[`option_${option}`]
+            if (!value) continue
+            const optionLines = pdf.splitTextToSize(`${option.toUpperCase()}. ${String(value)}`, contentWidth - 6)
+            pdf.text(optionLines, margin + 6, y)
+            y += optionLines.length * 4.5 + 1
+          }
+          pdf.setTextColor(22, 101, 52)
+          pdf.setFont("helvetica", "bold")
+          pdf.setFontSize(8.5)
+          pdf.text(`Correct answer: ${String(question.correct_answer || "").toUpperCase()}`, margin + 6, y)
+          y += 10
         }
-      } finally {
-        exportPage.remove()
+
+        pdf.setTextColor(37, 99, 235)
+        pdf.setFont("helvetica", "bold")
+        pdf.setFontSize(28)
+        pdf.setGState(new (pdf as any).GState({ opacity: 0.1 }))
+        pdf.text("@cet__test", 58, 155, { angle: 32 })
+        pdf.setGState(new (pdf as any).GState({ opacity: 1 }))
+        pdf.setTextColor(100, 116, 139)
+        pdf.setFont("helvetica", "normal")
+        pdf.setFontSize(8)
+        pdf.line(margin, pageHeight - 18, pageWidth - margin, pageHeight - 18)
+        pdf.text(`${title} | Page ${pageIndex + 1} of ${pages}`, margin, pageHeight - 11)
       }
 
-      const filename = `${String(fullTest.title || "test").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "test"}.pdf`
-      const pdfBlob = pdf.output("blob")
-      const downloadUrl = URL.createObjectURL(pdfBlob)
-      const downloadLink = document.createElement("a")
-      downloadLink.href = downloadUrl
-      downloadLink.download = filename
-      downloadLink.rel = "noopener"
-      downloadLink.style.display = "none"
-      document.body.appendChild(downloadLink)
-      downloadLink.click()
-      downloadLink.remove()
-      window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000)
+      const filename = `${title.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "test"}.pdf`
+      pdf.save(filename)
     } catch (error) {
       console.error("Error downloading PDF:", error)
       window.alert("PDF download failed. Please try again.")
