@@ -147,32 +147,24 @@ export default function AdminTestsPage() {
       const safeText = (value: unknown) => String(value ?? "").replace(/[&<>\"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;" })[char] || char)
       const pages = Array.from({ length: Math.max(1, Math.ceil(questions.length / 5)) }, (_, pageIndex) => questions.slice(pageIndex * 5, pageIndex * 5 + 5))
       const exportPage = document.createElement("section")
-      exportPage.style.cssText = "position:fixed;left:-10000px;top:0;width:794px;min-height:1123px;padding:54px 58px;background:#fff;color:#172033;font-family:Arial,'Noto Sans Devanagari',sans-serif;box-sizing:border-box;"
+      exportPage.style.cssText = "position:absolute;left:-10000px;top:0;width:794px;min-height:1123px;padding:54px 58px;background:#fff;color:#172033;font-family:Arial,'Noto Sans Devanagari',sans-serif;box-sizing:border-box;"
       document.body.appendChild(exportPage)
 
       try {
+        if (document.fonts?.ready) await document.fonts.ready
         for (let pageIndex = 0; pageIndex < pages.length; pageIndex++) {
           const pageQuestions = pages[pageIndex]
           exportPage.innerHTML = `<div style="position:relative;min-height:1015px"><div style="border-bottom:3px solid #2563eb;padding-bottom:16px;margin-bottom:20px"><div style="font-size:25px;font-weight:700;color:#102a56">${safeText(fullTest.title || "Test")}</div><div style="font-size:14px;color:#526176;margin-top:8px">${fullTest.questions_count || questions.length} questions &nbsp;|&nbsp; ${safeText(fullTest.duration || "-")} minutes &nbsp;|&nbsp; ${safeText(fullTest.difficulty || "-")} difficulty</div></div>${pageQuestions.map((question: any, index: number) => `<article style="margin-bottom:20px;page-break-inside:avoid"><div style="font-size:16px;line-height:1.5;font-weight:600;margin-bottom:8px">${pageIndex * 5 + index + 1}. ${safeText(question.question_text)}</div><div style="padding-left:18px">${["a", "b", "c", "d"].map((option) => question[`option_${option}`] ? `<div style="font-size:14px;line-height:1.45;margin:4px 0"><b>${option.toUpperCase()}.</b> ${safeText(question[`option_${option}`])}</div>` : "").join("")}<div style="font-size:12px;color:#166534;margin-top:7px;font-weight:600">Correct answer: ${safeText(String(question.correct_answer || "").toUpperCase())}</div></div></article>`).join("")}<div style="position:absolute;bottom:0;left:0;right:0;border-top:1px solid #dbe3ef;padding-top:10px;font-size:11px;color:#64748b">${safeText(fullTest.title || "Test")} &nbsp;|&nbsp; Page ${pageIndex + 1} of ${pages.length}</div><div style="position:absolute;top:470px;left:85px;transform:rotate(-32deg);font-size:58px;font-weight:700;letter-spacing:5px;color:rgba(37,99,235,.10);pointer-events:none">@cet__test</div></div>`
-          const canvas = await html2canvas(exportPage, { scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false })
+          const canvas = await html2canvas(exportPage, { scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false, width: 794, height: 1123, windowWidth: 794, windowHeight: 1123 })
           if (pageIndex > 0) pdf.addPage()
-          pdf.addImage(canvas.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, 210, 297)
+          pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 210, 297, undefined, "FAST")
         }
       } finally {
         exportPage.remove()
       }
 
       const filename = `${String(fullTest.title || "test").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "test"}.pdf`
-      const blob = pdf.output("blob")
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement("a")
-      link.href = url
-      link.download = filename
-      link.style.display = "none"
-      document.body.appendChild(link)
-      link.click()
-      link.remove()
-      window.setTimeout(() => URL.revokeObjectURL(url), 1000)
+      pdf.save(filename)
     } catch (error) {
       console.error("Error downloading PDF:", error)
     } finally {
