@@ -44,7 +44,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
 
   return (
     <section className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
@@ -114,7 +114,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
                     setIsAutoPlaying(false)
                     setCurrentIndex(index)
                   }}
-                  className={`w-2.5 h-2.5 rounded-full transition-all ${
+                  className={`w-1.5 h-1.5 rounded-full transition-all ${
                     index === currentIndex ? "bg-primary w-8" : "bg-primary/20 hover:bg-primary/40"
                   }`}
                 />
