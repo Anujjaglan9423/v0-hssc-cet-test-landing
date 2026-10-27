@@ -183,7 +183,7 @@ async function getPublicReviews(): Promise<Testimonial[]> {
         .eq("would_recommend", true)
         .not("comments", "is", null)
         .neq("comments", "")
-        .gte("rating", 4)
+        // .gte("rating", 4)
         .order("created_at", { ascending: false })
         .order("id", { ascending: false })
         .range(offset, offset + PAGE_SIZE - 1)
@@ -294,7 +294,7 @@ export default async function Home() {
       <HeroSection />
 
       <ExamsSection />
-
+  <AdPlacement className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
       <DailyQuizSection />
 
       <ExamAlertsSection />
@@ -303,15 +303,13 @@ export default async function Home() {
 
       <FeaturesSection />
 
-      <AdPlacement className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
-
       <PreparationGuide />
 
       <TestSeriesSection />
 
-      {testimonials.length > 0 && (
+      {/* {testimonials.length > 0 && ( */}
         <TestimonialsSection testimonials={testimonials} />
-      )}
+      {/* )} */}
 
       {reviewStructuredData && (
         <script
