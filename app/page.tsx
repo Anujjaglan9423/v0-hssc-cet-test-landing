@@ -307,9 +307,9 @@ export default async function Home() {
 
       <TestSeriesSection />
 
-      {/* {testimonials.length > 0 && ( */}
+      {testimonials.length > 0 && (
         <TestimonialsSection testimonials={testimonials} />
-      {/* )} */}
+      )}
 
       {reviewStructuredData && (
         <script
