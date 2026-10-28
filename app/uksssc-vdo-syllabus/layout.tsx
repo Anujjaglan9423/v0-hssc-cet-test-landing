@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next"
 
 export const metadata: Metadata = {
     // Primary Title with Power Words & Numbers
-    title: "UKSSSC VDO Syllabus 2026 PDF Download | Gram Vikas Adhikari Complete Exam Pattern | Uttarakhand VDO Selection Process",
+    title: "UKSSSC VDO Syllabus 2026 | Gram Vikas Adhikari Exam Pattern | Uttarakhand VDO Selection Process",
 
     // Description optimized for Google SGE / Bing Chat (GEO) - Bilingual
     description: "UKSSSC VDO Syllabus 2026: डाउनलोड करें Gram Vikas Adhikari complete syllabus PDF. 4 subjects: Uttarakhand GK (30-35 Qs), General Hindi (20-25 Qs), Reasoning (15-20 Qs), Numerical Ability (15-20 Qs). Exam pattern, negative marking (0.25), 100 questions, 90 minutes, selection process, eligibility, salary ₹35,000-45,000, and free mock tests. Computer Knowledge NOT included.",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     // Open Graph optimized for higher CTR
     openGraph: {
         title: "📚 UKSSSC VDO Syllabus 2026 PDF | Gram Vikas Adhikari Complete Exam Pattern | Uttarakhand VDO Selection Process",
-        description: "✅ 4 Subjects: GK (30-35 Qs), Hindi (20-25 Qs), Reasoning (15-20 Qs), Maths (15-20 Qs) | ✅ Negative Marking 0.25 | ✅ 100 Questions, 90 Minutes | ✅ Computer Knowledge NOT Included | ✅ Salary ₹35,000-45,000 | ✅ Free PDF + Mock Tests",
+        description: "✅ 4 Subjects: GK (30-35 Qs), Hindi (20-25 Qs), Reasoning (15-20 Qs), Maths (15-20 Qs) | ✅ Negative Marking 0.25 | ✅ 100 Questions, 90 Minutes | ✅ Computer Knowledge NOT Included | ✅ Salary ₹35,000-45,000 | ✅ Official notification link + Mock Tests",
         url: "https://cettest.site/uksssc-vdo-syllabus",
         siteName: "CET TEST | Uttarakhand Govt Exam Prep",
         locale: "en_IN",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
                 url: "/og-uksssc-vdo-syllabus-2026.jpg",
                 width: 1200,
                 height: 630,
-                alt: "UKSSSC VDO Syllabus 2026 - Gram Vikas Adhikari Complete Exam Pattern with 4 Subjects - Free PDF Download",
+                alt: "UKSSSC VDO Syllabus 2026 - Gram Vikas Adhikari Complete Exam Pattern with 4 Subjects",
                 type: "image/jpeg",
             },
         ],
@@ -375,7 +375,7 @@ export default function UKSSSCVDOSyllabusLayout({
                                 name: "How to prepare for UKSSSC VDO exam?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "To prepare for UKSSSC VDO exam: (1) Download complete syllabus from this page, (2) Focus on Uttarakhand GK (30-35% weightage - Char Dham, Jim Corbett, Panchayati Raj), (3) Master General Hindi grammar (Sandhi, Samas, Muhavare), (4) Practice Reasoning and Maths daily (20-30 questions each), (5) Read Hindi newspapers for current affairs, (6) Take weekly mock tests, (7) Solve previous year papers.",
+                                    text: "To prepare for UKSSSC VDO exam: (1) Review the topic-wise syllabus on this page, (2) Focus on Uttarakhand GK (30-35% weightage - Char Dham, Jim Corbett, Panchayati Raj), (3) Master General Hindi grammar (Sandhi, Samas, Muhavare), (4) Practice Reasoning and Maths daily (20-30 questions each), (5) Read Hindi newspapers for current affairs, (6) Take weekly mock tests, (7) Solve previous year papers.",
                                 },
                             },
                             {
@@ -468,7 +468,7 @@ export default function UKSSSCVDOSyllabusLayout({
                             `https://twitter.com/${socialMedia}`,
                         ],
                         awards: "Best Uttarakhand Exam Preparation Platform 2025",
-                        description: "India's most trusted platform for UKSSSC VDO, Police Constable, and other Uttarakhand government exam preparation with free study material, mock tests, and PDFs.",
+                        description: "India's most trusted platform for UKSSSC VDO, Police Constable, and other Uttarakhand government exam preparation with free study material and mock tests.",
                         founder: {
                             "@type": "Person",
                             name: "Anuj Jaglan",
@@ -497,7 +497,7 @@ export default function UKSSSCVDOSyllabusLayout({
                         totalTime: "P90D",
                         estimatedCost: 0,
                         step: [
-                            { "@type": "HowToStep", name: "Month 1: Master Syllabus & Uttarakhand GK", text: "Download complete syllabus PDF. Study Uttarakhand GK: History (Formation 9 Nov 2000, Katyuri & Chand dynasties), Culture (Garhwali, Kumaoni, Jaunsari), Geography (Himalayas, Rivers, Glaciers), National Parks (Jim Corbett, Rajaji, Valley of Flowers), Char Dham Yatra (Yamunotri, Gangotri, Kedarnath, Badrinath). This carries 30-35% weightage of total marks." },
+                            { "@type": "HowToStep", name: "Month 1: Master Syllabus & Uttarakhand GK", text: "Review the topic-wise syllabus on this page. Study Uttarakhand GK: History (Formation 9 Nov 2000, Katyuri & Chand dynasties), Culture (Garhwali, Kumaoni, Jaunsari), Geography (Himalayas, Rivers, Glaciers), National Parks (Jim Corbett, Rajaji, Valley of Flowers), Char Dham Yatra (Yamunotri, Gangotri, Kedarnath, Badrinath). This carries 30-35% weightage of total marks." },
                             { "@type": "HowToStep", name: "Week 1-2: Uttarakhand GK Deep Dive", text: "Focus on Uttarakhand specific topics: Panchayati Raj system, Nanda Devi Raj Jat festival, Ganga-Yamuna river system, Jim Corbett National Park (India's first), Valley of Flowers (UNESCO World Heritage). Make short notes for revision." },
                             { "@type": "HowToStep", name: "Week 3-4: General Hindi & Current Affairs", text: "Master General Hindi: Sandhi (Swar, Vyanjan, Visarg), Samas (Tatpurush, Dvandva, Bahuvrihi, Avyayibhav, Karmadharay), Muhavare, Lokoktiyan, Synonyms, Antonyms. Cover last 6 months current affairs." },
                             { "@type": "HowToStep", name: "Month 2: Reasoning & Numerical Ability", text: "Practice Reasoning: Coding-Decoding, Blood Relations, Syllogism, Logical Venn Diagrams. Maths: Percentage, Profit-Loss, Time & Work, Mensuration, Data Interpretation. Solve 30 questions daily from each subject." },
@@ -617,7 +617,7 @@ export default function UKSSSCVDOSyllabusLayout({
                         "@id": `${baseUrl}#website`,
                         url: baseUrl,
                         name: "CET TEST - Uttarakhand & Haryana Govt Exam Prep",
-                        description: "Best platform for UKSSSC VDO, Police Constable, HSSC CET, and other government exam preparation with free study material, mock tests, and PDFs.",
+                        description: "Best platform for UKSSSC VDO, Police Constable, HSSC CET, and other government exam preparation with free study material and mock tests.",
                         inLanguage: ["en-IN", "hi-IN"],
                         publisher: {
                             "@type": "Organization",
@@ -646,7 +646,7 @@ export default function UKSSSCVDOSyllabusLayout({
                         "@type": "WebPage",
                         "@id": `${currentUrl}#webpage`,
                         url: currentUrl,
-                        name: "UKSSSC VDO Syllabus 2026 PDF Download | Gram Vikas Adhikari Complete Exam Pattern",
+                        name: "UKSSSC VDO Syllabus 2026 | Gram Vikas Adhikari Complete Exam Pattern",
                         isPartOf: { "@id": `${baseUrl}#website` },
                         speakable: {
                             "@type": "SpeakableSpecification",
@@ -675,34 +675,7 @@ export default function UKSSSCVDOSyllabusLayout({
                 }}
             />
 
-            {/* 11. PotentialAction Schema (PDF Download Action) */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "Action",
-                        target: {
-                            "@type": "EntryPoint",
-                            urlTemplate: `${currentUrl}#download-pdf`,
-                            actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
-                        },
-                        name: "Download UKSSSC VDO Syllabus PDF",
-                        description: "Download complete UKSSSC VDO (Gram Vikas Adhikari) syllabus PDF for 2026 with 4 subjects topic-wise breakdown",
-                        potentialAction: {
-                            "@type": "DownloadAction",
-                            object: {
-                                "@type": "MediaObject",
-                                contentUrl: `${currentUrl}/uksssc-vdo-syllabus-2026.pdf`,
-                                encodingFormat: "application/pdf",
-                                name: "UKSSSC_VDO_Complete_Syllabus_2026.pdf",
-                                description: "Complete syllabus for UKSSSC VDO (Gram Vikas Adhikari) with 4 subjects: General Knowledge & Current Affairs (Uttarakhand GK focus), General Hindi, Reasoning Ability, Numerical Ability. Exam pattern: 100 questions, 90 minutes, 0.25 negative marking.",
-                                fileSize: "2.5MB",
-                            },
-                        },
-                    }),
-                }}
-            />
+            {/* The page links to the official notification instead of advertising a missing local PDF. */}
 
             {/* 12. WebSite Schema for UKSSSC VDO */}
             <script

@@ -331,7 +331,7 @@ export default function HaryanaCETGroupDSyllabusLayout({
                                 name: "Is there negative marking in Haryana CET Group D?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "As per the official notification, there is a negative marking. Please check the latest HSSC notification for the exact negative marking scheme (0.25 or 1 mark per wrong answer).",
+                                    text: "The current HSSC CET pattern used on this site has no negative marking. Candidates must still verify the latest official HSSC notification before applying.",
                                 },
                             },
                             {

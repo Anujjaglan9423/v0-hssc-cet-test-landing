@@ -253,12 +253,12 @@ export default function SyllabusLayout({
                             {
                                 "@type": "Course",
                                 name: "HSSC CET Group C Syllabus",
-                                description: "6 subjects: General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English, Hindi. 100 questions, 105 minutes.",
+                                description: "6 subjects: General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English, Hindi. 100 questions, 90 minutes with no negative marking.",
                             },
                             {
                                 "@type": "Course",
                                 name: "HSSC CET Group D Syllabus",
-                                description: "7 subjects including Haryana GK (25% weightage). 100 questions, 105 minutes.",
+                                description: "7 subjects including Haryana GK (25% weightage). 100 questions, 90 minutes with no negative marking.",
                             },
                             {
                                 "@type": "Course",
@@ -356,7 +356,7 @@ export default function SyllabusLayout({
                                 name: "What is the duration of these exams?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "HSSC exams are typically 1 hour 45 minutes (105 minutes). UKSSSC exams are 2 hours (120 minutes).",
+                                    text: "HSSC CET is presented as 100 questions in 90 minutes with no negative marking; verify the current official notice. UKSSSC exams are 2 hours (120 minutes).",
                                 },
                             },
                             {

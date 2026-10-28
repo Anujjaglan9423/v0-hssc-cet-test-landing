@@ -155,7 +155,7 @@ export default function HSCSCETPage() {
     },
     {
       q: "What is the exam pattern for HSSC CET 2026?",
-      a: "HSSC CET 2026 pattern: Total 100 questions (100 marks) in 90 minutes. Subject distribution: Haryana GK (25%), General Awareness (20%), Reasoning (20%), Mathematics (20%), Language (10%), Computers (5%). Questions are OMR-based with 0.25 marks deducted for each incorrect answer. Unattempted questions receive no deduction."
+      a: "HSSC CET 2026 pattern: Total 100 questions (100 marks) in 90 minutes. Subject distribution: Haryana GK (25%), General Awareness (20%), Reasoning (20%), Mathematics (20%), Language (10%), Computers (5%). Questions are OMR-based with no negative marking. Follow the current official notification for the required option-marking instructions."
     },
     {
       q: "What is the salary for HSSC CET qualified candidates?",

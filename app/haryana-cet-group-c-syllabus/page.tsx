@@ -41,7 +41,7 @@ export default function HaryanaCETGroupCSyllabusPage() {
         },
         {
             question: "Is there negative marking in Haryana CET Group C exam?",
-            answer: "Yes, there is a negative marking of 1 mark for each skip or unattempt any question in Haryana CET Group C examination. It's recommended to skip questions you're unsure about rather than guessing."
+            answer: "There is no negative marking in the HSSC CET pattern used on this site. Candidates should still verify the latest official HSSC notification before applying."
         },
         {
             question: "What is the duration of Haryana CET Group C exam?",
@@ -410,7 +410,7 @@ export default function HaryanaCETGroupCSyllabusPage() {
                                 <div className="grid md:grid-cols-2 gap-4">
                                     {[
                                         "वर्ण, स्वर, व्यंजन",
-                                        "संधि (स्वर, व्यंजन, विसर्ग)",
+                                        "संधि (स्��र, व्यंजन, विसर्ग)",
                                         "शब्द विचार (तत्सम, तद्भव, देशज)",
                                         "समास (तत्पुरुष, द्वंद्व, कर्मधारय)",
                                         "उपसर्ग एवं प्रत्यय",

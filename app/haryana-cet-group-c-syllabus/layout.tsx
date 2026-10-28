@@ -3,10 +3,10 @@ import type { Metadata, Viewport } from "next"
 
 export const metadata: Metadata = {
     // Primary Title with Power Words & Numbers
-    title: "HSSC CET Group C Syllabus 2026 PDF Download | Complete Haryana CET Exam Pattern Topic-wise",
+    title: "HSSC CET Group C Syllabus 2026 | Complete Haryana CET Exam Pattern Topic-wise",
 
     // Description optimized for Google SGE / Bing Chat (GEO) - Bilingual for maximum reach
-    description: "HSSC CET Group C Syllabus 2026: डाउनलोड करें पूरा syllabus PDF with topic-wise breakdown. Complete coverage: Haryana GK (25 marks), General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English & Hindi. Latest exam pattern, negative marking (0.25), 100 questions, 90 minutes. Free mock tests included.",
+    description: "HSSC CET Group C Syllabus 2026 with topic-wise coverage: Haryana GK (25 marks), General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English and Hindi. Exam pattern: 100 questions, 90 minutes, no negative marking. Free mock tests included.",
 
     // Keywords extended for long-tail & question-based queries (AEO)
     keywords: [
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     // Open Graph optimized for higher CTR
     openGraph: {
         title: "📚 HSSC CET Group C Syllabus 2026 PDF | Complete Haryana CET Exam Pattern",
-        description: "✅ Topic-wise syllabus for all 6 subjects | ✅ 100 questions, 90 minutes, 0.25 negative marking | ✅ Haryana GK (25 marks) | ✅ Free PDF Download + Mock Tests | ✅ Bilingual (English & Hindi)",
+        description: "✅ Topic-wise syllabus for all 6 subjects | ✅ 100 questions, 90 minutes, no negative marking | ✅ Haryana GK (25 marks) | ✅ Topic-wise study material + mock tests | ✅ Bilingual (English & Hindi)",
         url: "https://cettest.site/haryana-cet-group-c-syllabus",
         siteName: "CET TEST | Haryana Govt Exam Prep",
         locale: "en_IN",
@@ -147,7 +147,7 @@ export default function HaryanaCETGroupCSyllabusLayout({
                         "@type": "EducationalOccupationalProgram",
                         "@id": `${currentUrl}#program`,
                         name: "HSSC CET Group C Examination 2026 - Complete Syllabus Program",
-                        description: "Comprehensive syllabus for Haryana Common Eligibility Test (CET) for Group C posts. Covers all 6 subjects: General Awareness (25 marks including Haryana GK), General Reasoning, Quantitative Ability, Computer Knowledge, English Language, and Hindi Language. Exam pattern: 100 questions, 100 marks, 90 minutes, 0.25 negative marking.",
+                        description: "Comprehensive syllabus for Haryana Common Eligibility Test (CET) for Group C posts. Covers all 6 subjects: General Awareness (25 marks including Haryana GK), General Reasoning, Quantitative Ability, Computer Knowledge, English Language, and Hindi Language. Exam pattern: 100 questions, 100 marks, 90 minutes, no negative marking.",
                         educationalProgramMode: "Exam Preparation",
                         timeToComplete: "P3M",
                         occupationalCategory: "Government Jobs - Haryana Staff Selection Commission",
@@ -306,7 +306,7 @@ export default function HaryanaCETGroupCSyllabusLayout({
                                 name: "Is there negative marking in Haryana CET?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "Yes, there is a negative marking of 0.25 marks for each wrong answer in Haryana CET Group C examination. No marks are deducted for unanswered questions. So avoid guesswork and attempt only those questions you are confident about.",
+                                    text: "There is no negative marking in the HSSC CET pattern used on this site. Candidates should still verify the latest official HSSC notification before applying.",
                                 },
                             },
                             {
@@ -322,7 +322,7 @@ export default function HaryanaCETGroupCSyllabusLayout({
                                 name: "What is the exam pattern for HSSC CET Group C 2026?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "HSSC CET Group C exam pattern 2026: Mode: Online (Computer Based Test), Total Questions: 100, Total Marks: 100, Duration: 90 minutes (1.5 hours), Negative Marking: 0.25 per wrong answer, Subjects: General Awareness (25 marks including Haryana GK), Reasoning (15-20 marks), Maths (15-20 marks), Computer (10-15 marks), English (10-15 marks), Hindi (10-15 marks).",
+                                    text: "HSSC CET Group C exam pattern 2026: Mode: Online (Computer Based Test), Total Questions: 100, Total Marks: 100, Duration: 90 minutes (1.5 hours), Negative Marking: None, Subjects: General Awareness (25 marks including Haryana GK), Reasoning (15-20 marks), Maths (15-20 marks), Computer (10-15 marks), English (10-15 marks), Hindi (10-15 marks).",
                                 },
                             },
                             {
@@ -592,31 +592,7 @@ export default function HaryanaCETGroupCSyllabusLayout({
                 }}
             />
 
-            {/* 10. PotentialAction Schema (Download Action - PDF Download Button Recognition) */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "Action",
-                        target: {
-                            "@type": "EntryPoint",
-                            urlTemplate: `${currentUrl}#download-pdf`,
-                            actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
-                        },
-                        name: "Download HSSC CET Group C Syllabus PDF",
-                        description: "Download complete syllabus PDF for Haryana CET Group C 2026",
-                        potentialAction: {
-                            "@type": "DownloadAction",
-                            object: {
-                                "@type": "MediaObject",
-                                contentUrl: `${currentUrl}/cet-syllabus-2026.pdf`,
-                                encodingFormat: "application/pdf",
-                            },
-                        },
-                    }),
-                }}
-            />
+            {/* The page provides topic-wise study material and links to official notices. */}
 
             {children}
         </>

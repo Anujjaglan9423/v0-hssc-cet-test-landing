@@ -7,6 +7,6 @@ export const SITE_FACTS = {
 export const EXAM_PATTERN = {
   questions: 100,
   durationMinutes: 90,
-  negativeMarking: "0.25 marks for each wrong answer",
+  negativeMarking: "No negative marking; all five options must be handled as instructed",
   mode: "Offline OMR",
 } as const

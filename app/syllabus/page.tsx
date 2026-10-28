@@ -74,8 +74,8 @@ export default function SyllabusLandingPage() {
             ],
             examPattern: {
                 totalQuestions: 100,
-                duration: "1 Hour 45 Minutes",
-                negativeMarking: "0.25 marks deducted for each incorrect answer",
+                duration: "90 Minutes",
+                negativeMarking: "No negative marking",
                 language: "Hindi & English"
             },
             popularExams: [
@@ -611,7 +611,7 @@ export default function SyllabusLandingPage() {
                             },
                             {
                                 q: "What is the duration of these exams?",
-                                a: "HSSC exams are typically 1 hour 45 minutes (105 minutes) for 100 questions. UKSSSC exams are 2 hours (120 minutes) for 100 questions."
+                                a: "HSSC CET is presented here as 100 questions in 90 minutes with no negative marking; verify the current official notice before applying. UKSSSC exams are 2 hours (120 minutes) for 100 questions."
                             },
                             {
                                 q: "Can I take these exams in Hindi language?",
