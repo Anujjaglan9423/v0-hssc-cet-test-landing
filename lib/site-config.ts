@@ -1,7 +1,7 @@
 export const SITE_FACTS = {
   students: "2,000+",
-  tests: "266+",
-  questions: "30,000+",
+  tests: "312+",
+  questions: "31,068+",
 } as const
 
 export const EXAM_PATTERN = {

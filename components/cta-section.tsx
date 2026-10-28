@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
+import { SITE_FACTS } from "@/lib/site-config"
 
 export default function CTASection() {
   return (
@@ -33,15 +34,15 @@ export default function CTASection() {
         {/* Stats (minimal + premium) */}
         <div className="flex justify-center gap-10 text-left mb-12">
           <div>
-            <p className="text-2xl font-semibold text-white">2,000+</p>
+            <p className="text-2xl font-semibold text-white">{SITE_FACTS.students}</p>
             <p className="text-xs text-white/70">Students</p>
           </div>
           <div>
-            <p className="text-2xl font-semibold text-white">266</p>
+            <p className="text-2xl font-semibold text-white">{SITE_FACTS.tests}</p>
             <p className="text-xs text-white/70">Tests</p>
           </div>
           <div>
-            <p className="text-2xl font-semibold text-white">30,000+</p>
+            <p className="text-2xl font-semibold text-white">{SITE_FACTS.questions}</p>
             <p className="text-xs text-white/70">Questions</p>
           </div>
         </div>

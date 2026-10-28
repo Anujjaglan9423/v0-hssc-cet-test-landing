@@ -144,7 +144,7 @@ export default function DrainageSystemOfHaryanaPage() {
     const chautangRiver = {
         titleHindi: "चौतंग नदी (Chautang River)",
         titleEnglish: "Chautang River",
-        contentHindi: "चितांग और चौतांग इस नदी के उपनाम हैं। इस नदी को ऋग्वेद में दृषद्वती के नाम से भी जाना जाता है। यह नदी शिवालिक पहाड़ियों (निचला क्षेत्र) से निकलती है। यह नदी सरस्वती नदी के समानांतर बहती है। राज्य का सिसवाल गाँव (हिसार) इसी नदी के तट पर स्थित है। रक्षी इस नदी की प्रमुख सहायक नदी है। प्राचीन काल में यह नदी घग्गर की सहायक नदी थी। यह नदी यमुनानगर, कुरुक्षेत्र, करनाल, कैथल, जींद और हिसार जिलों में बहती थी और अंततः राजस्थान में भटनेर के पास घग्गर नदी से मिल जाती थी।",
+        contentHindi: "चितांग और चौतांग इस नदी के उपनाम हैं। इस नदी को ऋग्वेद में दृषद्वती के नाम से भी जाना जाता है। यह नदी शिवालिक पहाड़ियों (निचला क्षेत्र) से निकलती है। यह नदी सरस्वती नदी के समानांतर बहती है। राज्य का सिसवाल गाँव (हिसार) इसी नदी के तट पर स्थित है। रक्षी इस नदी की प्रमुख सहायक नदी है। प्रा���ीन काल में यह नदी घग्गर की सहायक नदी थी। यह नदी यमुनानगर, कुरुक्षेत्र, करनाल, कैथल, जींद और हिसार जिलों में बहती थी और अंततः राजस्थान में भटनेर के पास घग्गर नदी से मिल जाती थी।",
         contentEnglish: "Chitang and Chautang are the nick names of this river. This river is also known as Drishadvati in Rigveda. This river originates from Shivalik hills (lower region). This river flows parallel to the Saraswati river. Siswal village (Hisar) of the state is situated on the banks of this river. Rakshi is the major tributary of this river. This river was a tributary of Ghaggar in ancient times. The river used to flow into the districts of Yamunanagar, Kurukshetra, Karnal, Kaithal, Jind and Hisar and finally joins Ghaggar river near Bhatner in Rajasthan."
     };
 
@@ -170,7 +170,7 @@ export default function DrainageSystemOfHaryanaPage() {
             name: "Badkhal Lake",
             locationHindi: "फरीदाबाद",
             locationEnglish: "Faridabad",
-            detailHindi: "यह अरावली पहाड़ियों से घिरा बड़खल गाँव (फरीदाबाद) के पास स्थित है। दिल्ली से इस झील की दूरी केवल 32 किमी है। यह 206 एकड़ क्षेत्र में फैली हुई है। प्राचीन काल में, यह झील राज्य में बाढ़ का मुख्य कारण थी। 1947 में, इस झील के पानी को नियंत्रित करने के लिए एक बाँध बनाया गया था, जो राज्य की एक सिंचाई परियोजना के तहत काम करता है। हर वसंत ऋतु में यहाँ फूलों की प्रदर्शनी आयोजित की जाती है। इस झील के पास मोर झील स्थित है।",
+            detailHindi: "यह अरावली पहाड़ियों से घिरा बड़खल गाँव (फरीदाबाद) के पास स्थित है। दिल्ली से इस झील की दूरी केवल 32 किमी है। यह 206 एकड़ क्षेत्र में फैली हुई है। प्राचीन काल में, यह झील राज्य में बाढ़ का मुख्य कारण थी। 1947 में, इस झील के पानी को नियंत्रित करने के लिए एक बाँध बनाया गया था, जो राज्य की एक सिंचाई परियोजना के तहत काम करता है। हर वसंत ऋतु में यह��ँ फूलों की प्रदर्शनी आयोजित की जाती है। इस झील के पास मोर झील स्थित है।",
             detailEnglish: "It is located near Badkhal village (Faridabad) surrounded by the Aravalli hills. The distance of this lake from Delhi is only 32 km. It is spread over an area of 206 acres. In ancient times, this lake was the main reason of flood in the state. In 1947, a dam was constructed to control the water of this lake, which works under an irrigation project of the state. Flower Show is organised here during every spring season. Peacock lake is located near this lake."
         },
         {
@@ -205,7 +205,7 @@ export default function DrainageSystemOfHaryanaPage() {
             name: "Karna Lake",
             locationHindi: "करनाल",
             locationEnglish: "Karnal",
-            detailHindi: "यह करनाल जिले से लगभग 5 किमी दूर राष्ट्रीय राजमार्ग संख्या 1 पर स्थित है। करना झील की दूरी चंडीगढ़ और दिल्ली से समान रूप से 125 किमी है। यह लगभग 17 एकड़ क्षेत्र में फैली हुई है। यह 1972 में बनाई गई एक मानव निर्मित झील है। इस झील का आकार वृत्त जैसा है। करनार और चक्रवर्ती इस झील के अन्य नाम हैं। करनाल शहर का नाम करना झील के नाम पर पड़ा।",
+            detailHindi: "यह करनाल जिले से लगभग 5 किमी दूर राष्ट्रीय राजमार्ग संख्या 1 पर स्थित है। करना झील की दूरी चंडीगढ़ और दिल्ली से समान रूप से 125 किमी है। यह लगभग 17 एकड़ क्षेत्र में फैली हुई है। यह 1972 में बनाई गई एक मानव निर्मित झील है। इस झील का आकार वृत्त जैसा है��� करनार और चक्रवर्ती इस झील के अन्य नाम हैं। करनाल शहर का नाम करना झील के नाम पर पड़ा।",
             detailEnglish: "It is located on National Highway No. 1 about 5 km from Karnal district. The distance of Karna lake is equally 125 km from Chandigarh and Delhi. It is spread over an area of about 17 acres. It is a man-made lake created in 1972. The shape of this lake is like a circle. Karnar and Chakravati are other names of this lake. Karnal was named after the Karna lake."
         },
         {
@@ -454,7 +454,7 @@ export default function DrainageSystemOfHaryanaPage() {
 
                     {/* Other Lakes Table */}
                     <div className="bg-card rounded-2xl p-6 md:p-8 border shadow-sm">
-                        <h2 className="text-xl font-bold mb-4">{language === "hindi" ? "हरियाणा की अन्य झीलें" : "Other Lakes of Haryana"}</h2>
+                        <h2 className="text-xl font-bold mb-4">{language === "hindi" ? "हरियाणा की अन��य झीलें" : "Other Lakes of Haryana"}</h2>
                         <div className="overflow-x-auto">
                             <table className="w-full border-collapse text-sm">
                                 <thead>
@@ -523,7 +523,7 @@ export default function DrainageSystemOfHaryanaPage() {
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "सुल्तानपुर झील में पक्षी प्रजातियाँ" : "Bird Species in Sultanpur Lake"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-primary mb-2">266</div>
+                            <div className="text-3xl font-bold text-primary mb-2">312+</div>
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "भिंडावास झील में पक्षी प्रजातियाँ" : "Bird Species in Bhindawas Lake"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">

@@ -126,29 +126,10 @@ import PreparationGuide, {
 import AdPlacement from "@/components/ad-placement"
 import ExamAlertsSection from "@/components/exam-alerts-section"
 import { createAdminClient } from "@/lib/supabase/server"
+import { SITE_FACTS } from "@/lib/site-config"
 
 import type { Testimonial } from "@/components/testimonials-section"
 const SITE_URL = "https://cettest.site"
-
-const FALLBACK_STATS = { students: "2,000+", tests: "266+", questions: "30,000+" }
-
-async function getSiteStats() {
-  try {
-    const supabase = createAdminClient()
-    const [{ count: tests }, { count: questions }, { count: students }] = await Promise.all([
-      supabase.from("tests").select("id", { count: "exact", head: true }).eq("is_active", true),
-      supabase.from("questions").select("id", { count: "exact", head: true }),
-      supabase.from("users").select("id", { count: "exact", head: true }),
-    ])
-    return {
-      students: `${(students ?? 0).toLocaleString()}+`,
-      tests: `${(tests ?? 0).toLocaleString()}+`,
-      questions: `${(questions ?? 0).toLocaleString()}+`,
-    }
-  } catch {
-    return FALLBACK_STATS
-  }
-}
 
 
 interface RelatedUser {
@@ -263,7 +244,7 @@ async function getPublicReviews(): Promise<Testimonial[]> {
 
 
 export default async function Home() {
-  const [testimonials, stats] = await Promise.all([getPublicReviews(), getSiteStats()])
+  const testimonials = await getPublicReviews()
 
   const aggregateRating =
     testimonials.length > 0
@@ -311,7 +292,7 @@ export default async function Home() {
     <main className="min-h-screen">
       <Navbar />
 
-      <HeroSection stats={stats} />
+      <HeroSection stats={SITE_FACTS} />
 
       <ExamsSection />
   <AdPlacement className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />

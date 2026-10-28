@@ -316,7 +316,7 @@ export default function SyllabusLayout({
                                 name: "What is the difference between HSSC and UKSSSC exams?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "HSSC conducts exams for Haryana government jobs with CET score valid for 3 years and 25% Haryana GK weightage. UKSSSC conducts exams for Uttarakhand with up to 40% state GK weightage and negative marking of 0.25.",
+                                    text: "HSSC conducts exams for Haryana government jobs with CET score valid for 3 years and 25% Haryana GK weightage. UKSSSC conducts exams for Uttarakhand with up to 40% state GK weightage and no negative marking.",
                                 },
                             },
                             {
@@ -332,7 +332,7 @@ export default function SyllabusLayout({
                                 name: "Is there negative marking in UKSSSC exams?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "Yes, most UKSSSC exams have negative marking of 0.25 marks for each wrong answer. Candidates should avoid guesswork and focus on accuracy.",
+                                    text: "Yes, most UKSSSC exams use 0.25 negative marking for each wrong answer. Candidates should avoid guesswork and focus on accuracy.",
                                 },
                             },
                             {

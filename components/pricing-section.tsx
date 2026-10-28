@@ -28,7 +28,7 @@ const plans = [
     price: { monthly: 30, yearly: 250 },
     description: "Complete preparation package",
     features: [
-      { name: "30,000+ Practice Questions", included: true },
+      { name: "31,068+ Practice Questions", included: true },
       { name: "Unlimited Mock Tests", included: true },
       { name: "Advanced Analytics", included: true },
       { name: "Mobile Access", included: true },

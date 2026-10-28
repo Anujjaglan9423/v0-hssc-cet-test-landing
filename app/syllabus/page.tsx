@@ -108,7 +108,7 @@ export default function SyllabusLandingPage() {
             examPattern: {
                 totalQuestions: 100,
                 duration: "2 Hours",
-                negativeMarking: "-0.25 for wrong answers",
+                negativeMarking: "No negative marking",
                 language: "Hindi & English"
             },
             popularExams: [
@@ -137,7 +137,7 @@ export default function SyllabusLandingPage() {
     const ukssscStats = [
         { label: "State GK Weightage", value: "40%", icon: <Globe className="w-3.5 h-3.5" />, color: "text-green-600" },
         { label: "Exam Duration", value: "2 Hours", icon: <Clock className="w-3.5 h-3.5" />, color: "text-teal-600" },
-        { label: "Negative Marking", value: "0.25", icon: <Target className="w-3.5 h-3.5" />, color: "text-green-600" }
+        { label: "Negative Marking", value: "None", icon: <Target className="w-3.5 h-3.5" />, color: "text-green-600" }
     ]
 
     // HSSC Syllabus Details
@@ -361,7 +361,7 @@ export default function SyllabusLandingPage() {
                         <div className="p-4 bg-muted/20 border-t text-xs text-muted-foreground">
                             <p className="flex items-center gap-1">
                                 <span className="font-medium text-foreground">Note:</span>
-                                Haryana GK carries the highest weightage (25%). CET scores are valid for 3 years. The standard pattern used on this site deducts 0.25 marks for each incorrect answer; verify the current official notification before applying.
+                                Haryana GK carries the highest weightage (25%). CET scores are valid for 3 years. The pattern used on this site has no negative marking; verify the current official notification before applying.
                             </p>
                         </div>
                     </div>
@@ -443,7 +443,7 @@ export default function SyllabusLandingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>No Negative Marking:</strong> For wrong answers (unattempted have penalty)</span>
+                                    <span><strong>No Negative Marking:</strong> Wrong answers do not reduce the score</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />

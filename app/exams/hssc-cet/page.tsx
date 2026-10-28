@@ -314,11 +314,11 @@ export default function HSCSCETPage() {
                 <div className="text-xs text-muted-foreground">Students</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">266</div>
+                <div className="text-2xl font-bold text-primary">312+</div>
                 <div className="text-xs text-muted-foreground">Total Tests</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">30,000+</div>
+                <div className="text-2xl font-bold text-primary">31,068+</div>
                 <div className="text-xs text-muted-foreground">Questions</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
@@ -379,7 +379,7 @@ export default function HSCSCETPage() {
                 <div className="mb-4 flex items-center justify-center w-14 h-14 rounded-xl bg-blue-500/10 group-hover:bg-blue-500/20 transition">
                   <FileText className="w-7 h-7 text-blue-600" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">30,000+ Questions</h3>
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">31,068+ Questions</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Extensive question bank covering Haryana GK, Maths, Reasoning, and Computer topics.
                 </p>
