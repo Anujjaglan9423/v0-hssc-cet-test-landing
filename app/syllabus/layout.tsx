@@ -296,7 +296,7 @@ export default function SyllabusLayout({
                             {
                                 "@type": "Course",
                                 name: "UKSSSC VDO Syllabus",
-                                description: "4 subjects: GK & Current Affairs, General Hindi, Reasoning, Numerical Ability. No computer section. 100-120 questions, 2 hours.",
+                                description: "4 subjects: GK & Current Affairs, General Hindi, Reasoning, Numerical Ability. No computer section. 100 questions, 90 minutes.",
                             },
                         ],
                     }),
@@ -356,7 +356,7 @@ export default function SyllabusLayout({
                                 name: "What is the duration of these exams?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "HSSC CET is presented as 100 questions in 90 minutes with no negative marking; verify the current official notice. UKSSSC exams are 2 hours (120 minutes).",
+                                    text: "HSSC CET is presented as 100 questions in 90 minutes with no negative marking. UKSSSC Police Constable and VDO pages use 100 questions in 90 minutes with 0.25 negative marking; verify the current official notice.",
                                 },
                             },
                             {

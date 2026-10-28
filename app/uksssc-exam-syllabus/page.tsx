@@ -77,12 +77,12 @@ export default function UKSSSCExamSyllabusPage() {
             features: [
                 "4 Main Subjects",
                 "100 Questions",
-                "1.5 Hours Duration",
+                "90 Minutes Duration",
                 "Negative Marking: -0.25",
                 "No Computer Section"
             ],
             totalQuestions: "100",
-            duration: "1.5 Hours",
+            duration: "90 Minutes",
             link: "/uksssc-vdo-syllabus",
             icon: <Users className="w-6 h-6" />,
             subjects: ["GK & Current Affairs", "General Hindi", "Reasoning", "Numerical Ability"],
@@ -319,7 +319,7 @@ export default function UKSSSCExamSyllabusPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>100 Questions</strong> | <strong>1.5 Hours</strong> duration</span>
+                                    <span><strong>100 Questions</strong> | <strong>90 Minutes</strong> duration</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />

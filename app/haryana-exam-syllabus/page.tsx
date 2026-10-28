@@ -95,7 +95,7 @@ export default function HaryanaExamSyllabusPage() {
                     name: "HSSC CET Group C",
                     shortName: "Group C",
                     description: "Complete syllabus for Haryana CET Group C examination. Includes General Awareness, Reasoning, Quantitative Ability, Computer Knowledge, English & Hindi Language.",
-                    features: ["6 Main Subjects", "100 Marks", "90 Minutes", "Negative Marking: -1"],
+                    features: ["6 Main Subjects", "100 Marks", "90 Minutes", "No Negative Marking"],
                     totalQuestions: 100,
                     duration: "90 Minutes",
                     link: "/haryana-cet-group-c-syllabus",

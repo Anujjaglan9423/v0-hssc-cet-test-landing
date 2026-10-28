@@ -311,7 +311,7 @@ export default function UKSSSCVDOSyllabusLayout({
                                 name: "What is the duration of UKSSSC VDO exam?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "The UKSSSC VDO written examination is conducted for 90 minutes (1.5 hours) with 100 objective-type multiple choice questions (MCQs). Time management is crucial - you have approximately 54 seconds per question.",
+                                    text: "The UKSSSC VDO written examination is conducted for 90 minutes (90 minutes) with 100 objective-type multiple choice questions (MCQs). Time management is crucial - you have approximately 54 seconds per question.",
                                 },
                             },
                             {

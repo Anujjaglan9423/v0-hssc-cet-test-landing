@@ -49,7 +49,7 @@ export default function UKSSSCPoliceSyllabusPage() {
         },
         {
             question: "How many questions are asked from each subject in UK Police exam?",
-            answer: "As per previous year patterns: Computer Knowledge (20-25 questions), General Knowledge & Current Affairs (25-30 questions), General Hindi (15-20 questions), Reasoning Ability (15-20 questions), Numerical Ability (10-15 questions). Total 100-120 questions typically."
+            answer: "As per previous year patterns: Computer Knowledge (20-25 questions), General Knowledge & Current Affairs (25-30 questions), General Hindi (15-20 questions), Reasoning Ability (15-20 questions), Numerical Ability (10-15 questions). Total 100 questions in the pattern shown on this page."
         },
         {
             question: "Is there negative marking in UKSSSC Police Constable exam?",
@@ -57,7 +57,7 @@ export default function UKSSSCPoliceSyllabusPage() {
         },
         {
             question: "What is the duration of UK Police Constable exam?",
-            answer: "The written examination is typically conducted for 2 hours (120 minutes) with objective-type multiple choice questions."
+            answer: "The written examination is typically conducted for 90 minutes with objective-type multiple choice questions."
         },
         {
             question: "Where can I download UKSSSC Police syllabus PDF?",
@@ -742,7 +742,7 @@ export default function UKSSSCPoliceSyllabusPage() {
                                         <div className="grid md:grid-cols-2 gap-3 pl-4">
                                             {[
                                                 "दर्पण एवं जल प्रतिबिंब (Mirror & Water Images)",
-                                                "कागज मोड़ना एवं काटना (Paper Folding & Cutting)",
+                                                "कागज मोड़ना ���वं काटना (Paper Folding & Cutting)",
                                                 "अंतर्निहित आकृतियाँ (Embedded Figures)",
                                                 "आकृतियों का पूर्णीकरण (Figure Completion)",
                                                 "आकृति श्रेणी (Figure Series)",

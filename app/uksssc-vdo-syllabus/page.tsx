@@ -127,7 +127,7 @@ export default function UKSSSCVDOSyllabusPage() {
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Clock className="w-4 h-4 text-primary" />
-                            <span>1.5 Hours</span>
+                            <span>90 Minutes</span>
                         </div>
                     </div>
 
@@ -171,7 +171,7 @@ export default function UKSSSCVDOSyllabusPage() {
                             {[
                                 { label: "Total Sections", value: "4", color: "from-blue-500 to-blue-600" },
                                 { label: "Total Questions", value: "100", color: "from-green-500 to-green-600" },
-                                { label: "Duration", value: "1.5 Hours", color: "from-orange-500 to-orange-600" },
+                                { label: "Duration", value: "90 Minutes", color: "from-orange-500 to-orange-600" },
                                 { label: "Negative Marking", value: "-0.25", color: "from-red-500 to-red-600" }
                             ].map((item, idx) => (
                                 <div key={idx} className="bg-card rounded-xl p-4 text-center border shadow-sm">
@@ -447,7 +447,7 @@ export default function UKSSSCVDOSyllabusPage() {
                                                 "उपसर्ग एवं प्रत्यय",
                                                 "पर्यायवाची शब्द (समानार्थक)",
                                                 "विलोम शब्द (विपरीतार्थक)",
-                                                "अने��ार्थी शब्द",
+                                                "अने��ार्थी शब��द",
                                                 "शब्दों के लिए एक शब्द (अनेक शब्दों के लिए एक शब्द)",
                                                 "मुहावरे एवं लोकोक्तियाँ",
                                                 "वाक्य शुद्धिकरण (अशुद्धियों का संशोधन)",
@@ -640,7 +640,7 @@ export default function UKSSSCVDOSyllabusPage() {
                                                 "अनुपात एवं समानुपात (Ratio & Proportion)",
                                                 "प्रतिशत (Percentage - Calculation, Increase/Decrease)",
                                                 "लाभ एवं हानि (Profit & Loss - CP, SP, Marked Price)",
-                                                "बट्टा/छूट (Discount - Successive Discount)",
+                                                "���ट्टा/छूट (Discount - Successive Discount)",
                                                 "साधारण एवं चक्रवृद्धि ब्याज (Simple & Compound Interest)",
                                                 "औसत (Average - Weighted Average, Age Problems)",
                                                 "समय एवं कार्य (Time & Work - Efficiency, Wages)",

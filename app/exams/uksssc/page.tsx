@@ -279,7 +279,7 @@ export default function UKSSCSPage() {
         name: "What is the exam pattern for UKSSSC VDO 2026?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "UKSSSC VDO exam has 100 questions (100 marks) covering General Hindi, General Knowledge, Uttarakhand GK, Mathematics, and Reasoning. Time: 2 hours.",
+          text: "UKSSSC VDO exam has 100 questions (100 marks) covering General Hindi, General Knowledge, Uttarakhand GK, Mathematics, and Reasoning. Time: 90 minutes.",
         },
       },
       {

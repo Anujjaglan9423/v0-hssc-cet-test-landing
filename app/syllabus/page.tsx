@@ -107,8 +107,8 @@ export default function SyllabusLandingPage() {
             ],
             examPattern: {
                 totalQuestions: 100,
-                duration: "2 Hours",
-                negativeMarking: "No negative marking",
+                duration: "90 Minutes",
+                negativeMarking: "0.25 marks per wrong answer",
                 language: "Hindi & English"
             },
             popularExams: [
@@ -136,8 +136,8 @@ export default function SyllabusLandingPage() {
     // Statistics for UKSSSC
     const ukssscStats = [
         { label: "State GK Weightage", value: "40%", icon: <Globe className="w-3.5 h-3.5" />, color: "text-green-600" },
-        { label: "Exam Duration", value: "2 Hours", icon: <Clock className="w-3.5 h-3.5" />, color: "text-teal-600" },
-        { label: "Negative Marking", value: "None", icon: <Target className="w-3.5 h-3.5" />, color: "text-green-600" }
+        { label: "Exam Duration", value: "90 Minutes", icon: <Clock className="w-3.5 h-3.5" />, color: "text-teal-600" },
+        { label: "Negative Marking", value: "0.25", icon: <Target className="w-3.5 h-3.5" />, color: "text-green-600" }
     ]
 
     // HSSC Syllabus Details
@@ -475,7 +475,7 @@ export default function SyllabusLandingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>Exam Duration:</strong> 2 hours (120 minutes)</span>
+                                    <span><strong>Exam Duration:</strong> 90 minutes for the standard patterns shown here</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -569,7 +569,7 @@ export default function SyllabusLandingPage() {
                                     <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-green-600">4</span>
                                     </div>
-                                    <span><strong>Time Management:</strong> 2 hours for 100 questions - allocate 45 seconds per question</span>
+                                    <span><strong>Time Management:</strong> 90 minutes for 100 questions - allocate time by section</span>
                                 </li>
                             </ul>
                         </div>
@@ -611,7 +611,7 @@ export default function SyllabusLandingPage() {
                             },
                             {
                                 q: "What is the duration of these exams?",
-                                a: "HSSC CET is presented here as 100 questions in 90 minutes with no negative marking; verify the current official notice before applying. UKSSSC exams are 2 hours (120 minutes) for 100 questions."
+                                a: "HSSC CET is presented here as 100 questions in 90 minutes with no negative marking. UKSSSC Police Constable and VDO pages use 100 questions in 90 minutes with 0.25 negative marking; verify the current official notice before applying."
                             },
                             {
                                 q: "Can I take these exams in Hindi language?",
