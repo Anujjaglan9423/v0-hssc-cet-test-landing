@@ -161,7 +161,7 @@ export default function UKSSSCPoliceSyllabusPage() {
                                 <h2 className="text-2xl font-bold">Exam Pattern & Complete Syllabus</h2>
                             </div>
 
-                            <Link href="https://www.adda247.com/jobs/wp-content/uploads/sites/22/2024/11/04130458/Uttarakhand-Police-Constable-Syllabus-2024.pdf" target="_blank" rel="noopener noreferrer">
+                            <Link href="https://sssc.uk.gov.in/" target="_blank" rel="noopener noreferrer">
                                 <Button variant="default" size="lg" className="gap-2 bg-primary hover:bg-primary/90 cursor-pointer">
                                     <FileText className="w-4 h-4" />
                                     Download Official Syllabus PDF
@@ -816,7 +816,7 @@ export default function UKSSSCPoliceSyllabusPage() {
                                                 "बट्टा/छूट (Discount - Successive Discount)",
                                                 "साधारण एवं चक्रवृद्धि ब्याज (Simple & Compound Interest)",
                                                 "औसत (Average - Weighted Average, Age Problems)",
-                                                "समय एवं कार्य (Time & Work - Efficiency, Wages)",
+                                                "���मय एवं कार्य (Time & Work - Efficiency, Wages)",
                                                 "नल एवं हौज (Pipe & Cistern - Inlet/Outlet)",
                                                 "समय, चाल एवं दूरी (Time, Speed & Distance - Average Speed)",
                                                 "रेलगाड़ी (Train - Platform, Relative Speed)",
@@ -842,7 +842,7 @@ export default function UKSSSCPoliceSyllabusPage() {
                                             {[
                                                 "बीजगणित (Algebra - Basic Algebraic Identities)",
                                                 "रेखीय एवं द्विघात समीकरण (Linear & Quadratic Equations)",
-                                                "ज्यामिति (Geometry - Lines, Angles, Triangles)",
+                                                "ज���यामिति (Geometry - Lines, Angles, Triangles)",
                                                 "त्रिभुज (Triangles - Pythagoras Theorem, Congruence)",
                                                 "वृत्त (Circle - Radius, Diameter, Chord, Arc)",
                                                 "चतुर्भुज (Quadrilaterals - Square, Rectangle, Rhombus)",

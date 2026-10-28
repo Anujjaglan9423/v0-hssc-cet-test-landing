@@ -59,7 +59,7 @@ export default function UKSSSCVDOSyllabusPage() {
         },
         {
             question: "Where can I download UKSSSC VDO syllabus PDF?",
-            answer: "You can download the official syllabus PDF from UKSSSC's official website: sssc.uk.gov.in. The direct PDF link is also provided in the button above."
+            answer: "Use the official UKSSSC website at sssc.uk.gov.in to verify and download the latest syllabus notification. CET TEST links only to the official source so an outdated third-party PDF is not presented as current."
         },
         {
             question: "Which topics are most important for UK VDO General Knowledge section?",
@@ -158,10 +158,10 @@ export default function UKSSSCVDOSyllabusPage() {
                                 <h2 className="text-2xl font-bold">Exam Pattern & Complete Syllabus</h2>
                             </div>
 
-                            <Link href="https://www.adda247.com/jobs/wp-content/uploads/sites/22/2024/11/04130458/Uttarakhand-Police-Constable-Syllabus-2024.pdf" target="_blank" rel="noopener noreferrer">
+                            <Link href="https://sssc.uk.gov.in/" target="_blank" rel="noopener noreferrer">
                                 <Button variant="default" size="lg" className="gap-2 bg-primary hover:bg-primary/90 cursor-pointer">
                                     <FileText className="w-4 h-4" />
-                                    Download Official Syllabus PDF
+                                    Check Official Syllabus Source
                                     <ChevronRight className="w-4 h-4" />
                                 </Button>
                             </Link>
@@ -447,7 +447,7 @@ export default function UKSSSCVDOSyllabusPage() {
                                                 "उपसर्ग एवं प्रत्यय",
                                                 "पर्यायवाची शब्द (समानार्थक)",
                                                 "विलोम शब्द (विपरीतार्थक)",
-                                                "अनेकार्थी शब्द",
+                                                "अने��ार्थी शब्द",
                                                 "शब्दों के लिए एक शब्द (अनेक शब्दों के लिए एक शब्द)",
                                                 "मुहावरे एवं लोकोक्तियाँ",
                                                 "वाक्य शुद्धिकरण (अशुद्धियों का संशोधन)",

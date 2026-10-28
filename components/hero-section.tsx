@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap, CheckCircle2, Sparkles, BookOpen } from "lucide-react"
+import { SITE_FACTS } from "@/lib/site-config"
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -13,7 +14,7 @@ export default function HeroSection() {
     return () => clearTimeout(timer)
   }, [])
 
-  const features = ["30,000+ Practice Questions", "Detailed Solutions & Analytics", "Topic-wise & Full Length Tests"]
+  const features = [`${SITE_FACTS.questions} Practice Questions`, `${SITE_FACTS.tests} Practice Tests`, "Detailed Solutions & Analytics"]
 
   return (
     <section className="pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden relative">
