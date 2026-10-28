@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   title:
     "UKSSSC & UKPSC Mock Tests 2026 | Uttarakhand Govt Exam Preparation Online | Free Practice",
   description:
-    "Crack UKSSSC & UKPSC 2026 exams with India's #1 free mock test platform. Attempt unlimited mock tests for UK VDO/VPDO, Patwari, Lekhpal, Forest Guard, UK Police Constable, SI, Junior Assistant (Kanisth Sahayak), RO/ARO, and Group C. Practice latest Uttarakhand GK, previous year papers (PYQs), full-length test series with instant results, detailed solutions, and all-India rank. Start your 100% free preparation today!",
+    "Crack UKSSSC & UKPSC 2026 exams with Free mock test platform. Attempt unlimited mock tests for UK VDO/VPDO, Patwari, Lekhpal, Forest Guard, UK Police Constable, SI, Junior Assistant (Kanisth Sahayak), RO/ARO, and Group C. Practice latest Uttarakhand GK, previous year papers (PYQs), full-length test series with instant results, detailed solutions, and all-India rank. Start your 100% free preparation today!",
 
   keywords: [
     // Primary UKSSSC Exams

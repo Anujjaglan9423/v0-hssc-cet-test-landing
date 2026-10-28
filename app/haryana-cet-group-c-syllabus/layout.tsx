@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "HSSC CET Group C Syllabus 2026 PDF | Haryana CET Complete Exam Pattern",
-        description: "Download free PDF: General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English & Hindi. Latest syllabus for 2026 exam with topic-wise breakdown.",
+        description: "Study the syllabus: General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English & Hindi. Latest syllabus for 2026 exam with topic-wise breakdown.",
         images: ["/twitter-haryana-cet-syllabus.jpg"],
         creator: "@cet__test",
         site: "@cet__test",

@@ -97,7 +97,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "UKSSSC Police Constable & Forest Guard Syllabus 2026 PDF | Van Rakshak Complete Exam Pattern",
-        description: "Download free PDF: Same syllabus for both posts. Computer Knowledge (5 Units), Uttarakhand GK, Hindi, Reasoning, Maths. Physical: 168cm/81cm Male, 147cm Female. Free mock tests.",
+        description: "Study the shared syllabus for both posts. Computer Knowledge (5 Units), Uttarakhand GK, Hindi, Reasoning, Maths. Physical: 168cm/81cm Male, 147cm Female. Free mock tests.",
         images: ["/twitter-uksssc-police-forest-guard.jpg"],
         creator: "@cet__test",
         site: "@cet__test",

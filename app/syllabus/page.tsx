@@ -75,7 +75,7 @@ export default function SyllabusLandingPage() {
             examPattern: {
                 totalQuestions: 100,
                 duration: "1 Hour 45 Minutes",
-                negativeMarking: "No negative marking (0.95 deduction for unattempted)",
+                negativeMarking: "0.25 marks deducted for each incorrect answer",
                 language: "Hindi & English"
             },
             popularExams: [
@@ -361,7 +361,7 @@ export default function SyllabusLandingPage() {
                         <div className="p-4 bg-muted/20 border-t text-xs text-muted-foreground">
                             <p className="flex items-center gap-1">
                                 <span className="font-medium text-foreground">Note:</span>
-                                Haryana GK carries the highest weightage (25%). CET scores are valid for 3 years. No negative marking for wrong answers, but unattempted questions incur -0.95 marks if 5th option not filled.
+                                Haryana GK carries the highest weightage (25%). CET scores are valid for 3 years. The standard pattern used on this site deducts 0.25 marks for each incorrect answer; verify the current official notification before applying.
                             </p>
                         </div>
                     </div>
@@ -447,7 +447,7 @@ export default function SyllabusLandingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>Exam Duration:</strong> 1 hour 45 minutes (105 minutes)</span>
+                                    <span><strong>Exam Duration:</strong> 90 minutes</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -529,7 +529,7 @@ export default function SyllabusLandingPage() {
                                     <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-orange-600">3</span>
                                     </div>
-                                    <span><strong>Attempt All Questions:</strong> No negative marking for wrong answers, but avoid leaving questions unattempted</span>
+                                    <span><strong>Attempt Carefully:</strong> 0.25 marks are deducted for each incorrect answer; unattempted questions receive no deduction</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">

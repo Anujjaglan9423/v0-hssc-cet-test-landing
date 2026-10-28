@@ -279,7 +279,7 @@ export default function HaryanaPoliceConstableSyllabusPage() {
                             <div>
                                 <h4 className="font-semibold text-red-800 mb-1">Important: Negative Marking Rule</h4>
                                 <p className="text-sm text-red-700">
-                                    No negative marking for wrong answers. However, for every un-attempted question, there shall be
+                                    The current Haryana Police notification should be treated as the source of truth for negative marking. Check the official notice before attempting the exam; do not rely on an unverified older pattern.
                                     <strong> negative marking of minus 0.97 marks</strong>. Fill the 5th bubble in OMR sheet if you don't wish to attempt a question.
                                 </p>
                             </div>

@@ -23,7 +23,7 @@ const SUPPORT_PHONE_DISPLAY = "7291849546"
 // ============================================
 export const metadata: Metadata = {
   title: "HSSC CET Mock Test 2026 | Free Haryana CET Group C & D Practice Sets | NTA Pattern & PYQs",
-  description: "Crack HSSC CET 2026 with India's #1 free mock test platform. Attempt unlimited tests for Haryana CET Group C & D with NTA pattern, Haryana GK, previous year papers (PYQs), detailed solutions, and all-India rank. Start your 100% free preparation today!",
+  description: "Crack HSSC CET 2026 with Free mock test platform Attempt unlimited tests for Haryana CET Group C & D with NTA pattern, Haryana GK, previous year papers (PYQs), detailed solutions, and all-India rank. Start your 100% free preparation today!",
 
   keywords: [
     // ===== PRIMARY HSSC CET KEYWORDS =====
@@ -155,7 +155,7 @@ export default function HSCSCETPage() {
     },
     {
       q: "What is the exam pattern for HSSC CET 2026?",
-      a: "HSSC CET 2026 pattern: Total 100 questions (100 marks) in 90 minutes. Subject distribution: Haryana GK (25%), General Awareness (20%), Reasoning (20%), Mathematics (20%), Language (10%), Computers (5%). Questions are OMR-based with no negative marking. All 5 options are compulsory to attempt."
+      a: "HSSC CET 2026 pattern: Total 100 questions (100 marks) in 90 minutes. Subject distribution: Haryana GK (25%), General Awareness (20%), Reasoning (20%), Mathematics (20%), Language (10%), Computers (5%). Questions are OMR-based with 0.25 marks deducted for each incorrect answer. Unattempted questions receive no deduction."
     },
     {
       q: "What is the salary for HSSC CET qualified candidates?",
@@ -464,7 +464,7 @@ export default function HSCSCETPage() {
                   ["Total Questions", "100 Questions"],
                   ["Total Marks", "100 Marks"],
                   ["Duration", "1 Hour 45 Minutes"],
-                  ["Negative Marking", "No negative marking (0.95 deduction for unattempted)"],
+                  ["Negative Marking", "0.25 marks per incorrect answer"],
                   // ["Bonus Marks", "5 for Haryana Domicile"],
                   ["Language Medium", "Bilingual (Hindi & English)"],
                 ].map(([label, value], i) => (

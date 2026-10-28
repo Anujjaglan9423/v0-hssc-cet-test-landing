@@ -445,7 +445,7 @@ export default function RRBNTPCPage() {
               </div>
               <div className="flex items-center gap-2 text-sm bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-full border">
                 <TrendingUp className="w-4 h-4 text-primary" />
-                <span>95% Success Rate</span>
+                <span>Detailed performance analytics</span>
               </div>
             </div>
           </div>

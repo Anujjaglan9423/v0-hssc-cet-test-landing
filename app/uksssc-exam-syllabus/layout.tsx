@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "UKSSSC Exam Syllabus 2026 PDF | Police Constable & VDO Complete Syllabus",
-        description: "Download free PDF: Police Constable (5 subjects) & VDO (4 subjects). Uttarakhand GK, exam pattern, physical standards (168cm/81cm), negative marking, and free mock tests.",
+        description: "Study topics for Police Constable (5 subjects) & VDO (4 subjects). Uttarakhand GK, exam pattern, physical standards (168cm/81cm), negative marking, and free mock tests.",
         images: ["/twitter-uksssc-syllabus.jpg"],
         creator: "@cet__test",
         site: "@cet__test",

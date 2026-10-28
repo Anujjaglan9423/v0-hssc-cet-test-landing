@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { getAllStudyMaterials, uploadStudyMaterial, deleteStudyMaterial, updateStudyMaterial, StudyMaterial } from "@/lib/actions/study-materials"
+import { getAllStudyMaterials, uploadStudyMaterial, deleteStudyMaterial, updateStudyMaterial, StudyMaterial } from "@/lib/actions/study-materials-hub"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"

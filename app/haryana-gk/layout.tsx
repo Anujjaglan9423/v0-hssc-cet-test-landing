@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     // Open Graph optimized for higher CTR
     openGraph: {
         title: "Haryana GK Complete Syllabus 2026 | HSSC CET Group C 25 Marks",
-        description: "Download Free PDF: Complete Haryana GK covering History, Geography, Culture, Animal Husbandry, Polity, Sports & Awards. 25 Marks separate section for HSSC CET 2026.",
+        description: "Study complete Haryana GK covering History, Geography, Culture, Animal Husbandry, Polity, Sports & Awards. 25 Marks separate section for HSSC CET 2026.",
         url: "https://cettest.site/haryana-gk",
         siteName: "CET TEST | Haryana Govt Exam Prep",
         locale: "en_IN",

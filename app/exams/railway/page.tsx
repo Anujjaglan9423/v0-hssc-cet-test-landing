@@ -588,7 +588,7 @@ export default function RailwayExamsPage() {
                 <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Trophy className="w-7 h-7 text-blue-600" />
                 </div>
-                <h3 className="font-bold text-lg mb-2">95% Success Rate</h3>
+                <h3 className="font-bold text-lg mb-2">Detailed performance analytics</h3>
                 <p className="text-sm text-muted-foreground">Join thousands of successful candidates who cleared Railway exams</p>
               </div>
               <div className="text-center p-6 bg-background rounded-xl border hover:shadow-lg transition">

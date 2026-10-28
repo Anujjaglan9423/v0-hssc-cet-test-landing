@@ -1,33 +1,8 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next"
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: [
-          '/admin/',
-          '/api/',
-          '/student/test/',
-          '/student/results/',
-          '/demo/results/',
-          '/take-test/',
-          '/mock-test-attempt/',
-          '/mock-test-results/',
-        ],
-      },
-      {
-        userAgent: 'Googlebot',
-        allow: '/',
-        crawlDelay: 0,
-      },
-      {
-        userAgent: 'Bingbot',
-        allow: '/',
-        crawlDelay: 1,
-      },
-    ],
-    sitemap: 'https://cettest.site/sitemap.xml',
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/admin/", "/api/", "/student/", "/login", "/signup", "/auth/"] }],
+    sitemap: "https://cettest.site/sitemap.xml",
   }
 }

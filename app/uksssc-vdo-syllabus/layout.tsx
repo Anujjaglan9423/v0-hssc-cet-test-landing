@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "UKSSSC VDO Syllabus 2026 PDF | Gram Vikas Adhikari Complete Exam Pattern",
-        description: "Download free PDF: Uttarakhand GK, General Hindi, Reasoning, Numerical Ability. 100 questions, 90 minutes, 0.25 negative marking. Computer Knowledge NOT included. Salary ₹35K-45K.",
+        description: "View the syllabus topics: Uttarakhand GK, General Hindi, Reasoning and Numerical Ability. 100 questions, 90 minutes, 0.25 negative marking. Computer Knowledge NOT included. Salary ₹35K-45K.",
         images: ["/twitter-uksssc-vdo-syllabus.jpg"],
         creator: "@cet__test",
         site: "@cet__test",
@@ -148,7 +148,7 @@ export default function UKSSSCVDOSyllabusLayout({
                         "@type": "EducationalOccupationalProgram",
                         "@id": `${currentUrl}#program`,
                         name: "UKSSSC VDO (Gram Vikas Adhikari) Exam Preparation Program 2026",
-                        description: "Complete syllabus and preparation program for UKSSSC Village Development Officer (VDO) / Gram Vikas Adhikari examination. 4 Subjects: General Knowledge & Current Affairs (30-35 questions including Uttarakhand GK, Panchayati Raj system), General Hindi (20-25 questions covering Sandhi, Samas, Muhavare), Reasoning Ability (15-20 questions - Verbal & Non-Verbal), Numerical Ability (15-20 questions - Arithmetic, Algebra, Data Interpretation). Computer Knowledge is NOT included. Exam: 100 questions, 90 minutes, 0.25 negative marking.",
+                        description: "Complete syllabus topics and preparation program for UKSSSC Village Development Officer (VDO) / Gram Vikas Adhikari examination. 4 Subjects: General Knowledge & Current Affairs (30-35 questions including Uttarakhand GK, Panchayati Raj system), General Hindi (20-25 questions covering Sandhi, Samas, Muhavare), Reasoning Ability (15-20 questions - Verbal & Non-Verbal), Numerical Ability (15-20 questions - Arithmetic, Algebra, Data Interpretation). Computer Knowledge is NOT included. Exam: 100 questions, 90 minutes, 0.25 negative marking.",
                         educationalProgramMode: "Exam Preparation",
                         timeToComplete: "P3M",
                         occupationalCategory: "Rural Development Services - Uttarakhand Government",

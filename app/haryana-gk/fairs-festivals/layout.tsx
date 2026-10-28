@@ -1,12 +1,6 @@
 import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo-metadata"
 
-export const metadata: Metadata = {
-  title: "Fairs Festivals | Haryana GK | CET TEST",
-  description: "Read exam-focused Fairs Festivals notes, facts, and practice questions for Haryana CET preparation.",
-  alternates: { canonical: `https://cettest.site/haryana-gk/fairs-festivals` },
-  openGraph: { title: "Fairs Festivals | Haryana GK", description: "Haryana CET study notes and practice questions.", url: `https://cettest.site/haryana-gk/fairs-festivals` },
-}
+export const metadata: Metadata = pageMetadata('Fairs Festivals | Haryana GK Study Material | CET TEST', 'Fairs Festivals Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.', "/haryana-gk/fairs-festivals")
 
-export default function ChapterLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return children
-}
+export default function Layout({ children }: { children: React.ReactNode }) { return children }

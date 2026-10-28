@@ -1,12 +1,6 @@
 import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo-metadata"
 
-export const metadata: Metadata = {
-  title: "Soil Resources | Haryana GK | CET TEST",
-  description: "Read exam-focused Soil Resources notes, facts, and practice questions for Haryana CET preparation.",
-  alternates: { canonical: `https://cettest.site/haryana-gk/soil-resources` },
-  openGraph: { title: "Soil Resources | Haryana GK", description: "Haryana CET study notes and practice questions.", url: `https://cettest.site/haryana-gk/soil-resources` },
-}
+export const metadata: Metadata = pageMetadata('Soil Resources | Haryana GK Study Material | CET TEST', 'Soil Resources Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.', "/haryana-gk/soil-resources")
 
-export default function ChapterLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return children
-}
+export default function Layout({ children }: { children: React.ReactNode }) { return children }

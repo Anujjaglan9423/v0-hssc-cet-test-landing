@@ -22,7 +22,7 @@ const SUPPORT_PHONE_DISPLAY = "7291849546"
 // ============================================
 export const metadata: Metadata = {
   title: "Haryana CET & HSSC Mock Tests 2026 | Free HSSC CET, Police, Group D Exam Practice | CET TEST",
-  description: "India's #1 free platform for Haryana government exam preparation. Attempt unlimited mock tests for HSSC CET (Group C & D), Haryana Police Constable, HSSC Group D, Patwari, VDO, and all Haryana state exams. Practice latest HSSC pattern, previous year papers (PYQs), Haryana GK, and section-wise tests with instant results, detailed solutions, and all-India rank. Start your 100% free HSSC exam preparation today!",
+  description: "Free platform for Haryana government exam preparation. Attempt unlimited mock tests for HSSC CET (Group C & D), Haryana Police Constable, HSSC Group D, Patwari, VDO, and all Haryana state exams. Practice latest HSSC pattern, previous year papers (PYQs), Haryana GK, and section-wise tests with instant results, detailed solutions, and all-India rank. Start your 100% free HSSC exam preparation today!",
 
   keywords: [
     // ===== PRIMARY HARYANA EXAMS =====
@@ -104,7 +104,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "Haryana CET & HSSC Mock Tests 2026 | Free Haryana Police, Group D Exam Practice",
-    description: "Crack Haryana government exams with India's #1 free mock test platform. Unlimited tests for HSSC CET, Police Constable, Group D, Patwari & VDO. Practice Haryana GK, PYQs & get all-India rank.",
+    description: "Crack Haryana government exams with Free mock test platform with unlimited tests for HSSC CET, Police Constable, Group D, Patwari & VDO. Practice Haryana GK, PYQs & get all-India rank.",
     url: "https://cettest.site/exams/haryana",
     siteName: "CET TEST",
     locale: "en_IN",

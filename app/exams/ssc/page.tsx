@@ -313,7 +313,7 @@ export default function SSCExamsPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <Trophy className="w-12 h-12 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">95% Success Rate</h3>
+              <h3 className="font-semibold mb-2">Detailed performance analytics</h3>
               <p className="text-sm text-muted-foreground">Strategic preparation leads to real results.</p>
             </div>
             <div>
