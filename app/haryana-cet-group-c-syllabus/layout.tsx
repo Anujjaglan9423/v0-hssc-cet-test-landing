@@ -68,7 +68,7 @@ export const metadata: Metadata = {
                 url: "/og-haryana-cet-syllabus-2026.jpg",
                 width: 1200,
                 height: 630,
-                alt: "HSSC CET Group C Syllabus 2026 - Complete Exam Pattern with 6 Subjects - Free PDF Download",
+                alt: "HSSC CET Group C Syllabus 2026 - Complete Exam Pattern with 6 Subjects - Free study material",
                 type: "image/jpeg",
             },
         ],
@@ -188,7 +188,7 @@ export default function HaryanaCETGroupCSyllabusLayout({
                             {
                                 "@type": "Course",
                                 name: "Hindi Language (10-15 Marks)",
-                                description: "हिन्दी व्याकरण: संज्ञा, सर्वनाम, विशेषण, क्रिया, काल, वचन, लिंग, कारक. रचना: संधि (स्वर, व्यंजन, विसर्ग), समास (तत्पुरुष, द्वंद्व, बहुव्रीहि, अव्ययीभाव, कर्मधारय), उपसर्ग, प्रत्यय. शब्द भंडार: पर्यायवाची शब्द, विलोम शब्द, अनेकार्थी शब्द, शब्द युग्म, मुहावरे एवं लोकोक्तियाँ, अंग्रेजी के समानार्थक हिन्दी शब्द. वाक्य संरचना: वाक्य शुद्धिकरण, वाक्य निर्माण, अपठित गद्यांश.",
+                                description: "हिन्दी व्याकरण: संज्ञा, सर्वनाम, विशेषण, क्रिया, काल, वचन, लिंग, कारक. रचना: संधि (स्वर, व्यंजन, विसर्ग), समास (तत्पुरुष, द्वंद्व, बहुव्रीहि, अव्ययीभाव, कर्मधारय), उपसर्ग, प्रत्यय. शब्द भंडार: पर्यायवाची ��ब्द, विलोम शब्द, अनेकार्थी शब्द, शब्द युग्म, मुहावरे एवं लोकोक्तियाँ, अंग्रेजी के समानार्थक हिन्दी शब्द. वाक्य संरचना: वाक्य शुद्धिकरण, वाक्य निर्माण, अपठित गद्यांश.",
                             },
                         ],
                         financialAidEligible: false,
@@ -476,7 +476,7 @@ export default function HaryanaCETGroupCSyllabusLayout({
                         totalTime: "P90D",
                         estimatedCost: 0,
                         step: [
-                            { "@type": "HowToStep", name: "Month 1: Master Syllabus & Basics", text: "Download complete syllabus PDF. Study each of 6 subjects: General Awareness (focus on Haryana GK 25 marks), Reasoning (verbal & non-verbal), Maths (arithmetic, algebra, geometry), Computer (fundamentals, MS Office), English (grammar, vocabulary), Hindi (व्याकरण, मुहावरे). Complete basic concepts first." },
+                            { "@type": "HowToStep", name: "Month 1: Master Syllabus & Basics", text: "Study the complete syllabus. Study each of 6 subjects: General Awareness (focus on Haryana GK 25 marks), Reasoning (verbal & non-verbal), Maths (arithmetic, algebra, geometry), Computer (fundamentals, MS Office), English (grammar, vocabulary), Hindi (व्याकरण, मुहावरे). Complete basic concepts first." },
                             { "@type": "HowToStep", name: "Week 1-2: Haryana GK & Current Affairs", text: "Study 33 chapters of Haryana GK: History, Geography, Culture, Polity, Animal Husbandry (Murrah buffalo), Sports (Phogat sisters). Read daily current affairs (last 6 months)." },
                             { "@type": "HowToStep", name: "Week 3-4: Reasoning & Quantitative Aptitude", text: "Practice Coding-Decoding, Blood Relations, Syllogism, Venn Diagrams. For Maths: Percentage, Profit-Loss, Time & Work, Mensuration, Data Interpretation. Solve 50 questions daily." },
                             { "@type": "HowToStep", name: "Month 2: Computer Knowledge & Languages", text: "Computer: Learn generations, hardware/software, MS Word/Excel shortcuts, internet protocols. English: Tenses, Prepositions, Active-Passive, Cloze test. Hindi: संधि, समास, पर्यायवाची, विलोम, मुहावरे." },

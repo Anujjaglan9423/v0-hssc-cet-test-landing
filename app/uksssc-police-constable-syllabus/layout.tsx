@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     // Open Graph optimized for higher CTR
     openGraph: {
         title: "📚 UKSSSC Police Constable & Forest Guard Syllabus 2026 PDF | Van Rakshak Complete Exam Pattern | Computer 5 Units",
-        description: "✅ Same Syllabus for Both Posts | ✅ Computer Knowledge 5 Units (Basic Concepts, OS, MS Office, Internet, Cyber Security) | ✅ Uttarakhand GK | ✅ Physical Standards: 168cm/81cm Male, 147cm Female | ✅ 100 Questions, 90 Minutes, 0.25 Negative Marking | ✅ Free PDF + Mock Tests",
+        description: "✅ Same Syllabus for Both Posts | ✅ Computer Knowledge 5 Units (Basic Concepts, OS, MS Office, Internet, Cyber Security) | ✅ Uttarakhand GK | ✅ Physical Standards: 168cm/81cm Male, 147cm Female | ✅ 100 Questions, 90 Minutes, 0.25 Negative Marking | ✅ Free study material + Mock Tests",
         url: "https://cettest.site/uksssc-police-forest-guard-syllabus",
         siteName: "CET TEST | Uttarakhand Govt Exam Prep",
         locale: "en_IN",
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
                 url: "/og-uksssc-police-forest-guard-2026.jpg",
                 width: 1200,
                 height: 630,
-                alt: "UKSSSC Police Constable & Forest Guard Syllabus 2026 - Same Syllabus for Both Posts - Computer 5 Units - Free PDF Download",
+                alt: "UKSSSC Police Constable & Forest Guard Syllabus 2026 - Same Syllabus for Both Posts - Computer 5 Units - Free study material Download",
                 type: "image/jpeg",
             },
         ],
@@ -384,7 +384,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                                 name: "Where can I download UKSSSC Police and Forest Guard syllabus PDF?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "You can download the official UKSSSC Police Constable and Forest Guard syllabus PDF from UKSSSC's official website: ssc.uk.gov.in. The complete topic-wise syllabus PDF is also available on this page. Click the 'Download PDF' button above to get instant access.",
+                                    text: "You can review the official UKSSSC Police Constable and Forest Guard syllabus on UKSSSC's official website: ssc.uk.gov.in. The complete topic-wise syllabus is available on this page.",
                                 },
                             },
                             {
@@ -824,8 +824,8 @@ export default function UKSSSCPoliceForestGuardLayout({
                             urlTemplate: `${currentUrl}#download-pdf`,
                             actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
                         },
-                        name: "Download UKSSSC Police Constable & Forest Guard Syllabus PDF",
-                        description: "Download complete UKSSSC Police Constable and Forest Guard (Van Rakshak) syllabus PDF for 2026 with 5 subjects topic-wise breakdown",
+                        name: "View UKSSSC Police Constable & Forest Guard Syllabus",
+                        description: "View complete UKSSSC Police Constable and Forest Guard (Van Rakshak) syllabus for 2026 with 5 subjects topic-wise breakdown",
                         potentialAction: {
                             "@type": "DownloadAction",
                             object: {

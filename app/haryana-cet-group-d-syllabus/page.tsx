@@ -133,7 +133,7 @@ export default function HaryanaCETGroupDSyllabusPage() {
                             <Link href="https://hssc.gov.in/group_d/Syllabus_d.pdf" target="_blank" rel="noopener noreferrer">
                                 <Button variant="default" size="lg" className="gap-2 bg-primary hover:bg-primary/90">
                                     <FileText className="w-4 h-4" />
-                                    Download Official Syllabus (HSSC) PDF
+                                    View Official Syllabus (HSSC)
                                     <ChevronRight className="w-4 h-4" />
                                 </Button>
                             </Link>

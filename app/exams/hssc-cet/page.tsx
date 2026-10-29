@@ -563,7 +563,7 @@ export default function HSCSCETPage() {
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-2xl p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Crack Your HSSC CET Exam?</h2>
-            <p className="text-lg mb-8 opacity-90">Join 50,000+ Haryana aspirants and start your free preparation today</p>
+            <p className="text-lg mb-8 opacity-90">Join 2,000+ Haryana aspirants and start your free preparation today</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/signup">
                 <Button size="lg" variant="secondary" className="gap-2 cursor-pointer">

@@ -290,7 +290,7 @@ export default function HaryanaGKStudyMaterialLayout({
                                 name: "Where can I download Haryana GK complete PDF for free?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "You can download the complete Haryana GK PDF for free from this page. The PDF includes topic-wise breakdown, important one-liners, previous year questions, and a separate section for Animal Husbandry & Panchayati Raj. Click on the 'Download PDF' button above to get instant access.",
+                                    text: "You can study the complete Haryana GK material on this page. The material includes a topic-wise breakdown, important one-liners, previous year questions, and a separate section for Animal Husbandry & Panchayati Raj.",
                                 },
                             },
                             {

@@ -86,7 +86,7 @@ export default function FebruaryCurrentAffairsPage() {
                 "Achieving 4.2% fiscal deficit will strengthen India's sovereign credit rating, attracting higher FDI"
             ],
             impactHi: [
-                "बड़े पैमाने पर पूंजीगत व्यय में वृद्धि से बुनियादी ढांचे और लॉजिस्टिक्स में 1.5 मिलियन प्रत्यक्ष नौकरियां पैदा होने की उम्मीद",
+                "बड़े पैमाने पर पूंजीगत व्यय में वृद्धि से बुनियादी ढांचे और लॉजिस्टिक्स में 1.5 मिल���यन प्रत्यक्ष नौकरियां पैदा होने की उम्मीद",
                 "डिजिटल इंडिया अधिनियम 2026 AI नैतिकता और डेटा गोपनीयता के लिए सख्त कानूनी ढांचा तैयार करेगा",
                 "4.2% राजकोषीय घाटे को प्राप्त करने से भारत की संप्रभु क्रेडिट रेटिंग मजबूत होगी, जिससे अधिक FDI आकर्षित होगा"
             ],
@@ -202,7 +202,7 @@ export default function FebruaryCurrentAffairsPage() {
         {
             id: "ramsar-feb",
             title: "World Wetlands Day 2026: India Adds 5 New Ramsar Sites",
-            titleHi: "विश्व आर्द्रभूमि दिवस 2026: भारत ने 5 नए रामसर स्थल जोड़े",
+            titleHi: "विश्��� आर्द्रभूमि दिवस 2026: भारत ने 5 नए रामसर स्थल जोड़े",
             category: "environment",
             summary: "On World Wetlands Day (Feb 2, 2026), India announced addition of 5 new Ramsar sites in Karnataka and Tamil Nadu, taking total to 85. 'Wetland Credit Trading' launched under Amrit Dharohar scheme.",
             summaryHi: "विश्व आर्द्रभूमि दिवस (2 फरवरी, 2026) पर, भारत ने कर्नाटक और तमिलनाडु में 5 नए रामसर स्थलों को जोड़ने की घोषणा की, जिससे कुल संख्या 85 हो गई। अमृत धरोहर योजना के तहत 'वेटलैंड क्रेडिट ट्रेडिंग' शुरू की गई।",
@@ -270,7 +270,7 @@ export default function FebruaryCurrentAffairsPage() {
         { q: "How many Ramsar sites does India have after February 2026?", qHi: "फरवरी 2026 के बाद भारत के पास कितने रामसर स्थल हैं?", a: "India has 85 Ramsar sites after adding 5 new sites in Karnataka and Tamil Nadu.", aHi: "कर्नाटक और तमिलनाडु में 5 नए स्थलों को जोड़ने के बाद भारत के पास 85 रामसर स्थल हैं।" },
         { q: "What was the theme of World Wetlands Day 2026?", qHi: "विश्व आर्द्रभूमि दिवस 2026 की थीम क्या थी?", a: "The theme was 'Wetlands and Human Wellbeing: A Sustainable Future'.", aHi: "थीम थी 'आर्द्रभूमि और मानव कल्याण: एक सतत भविष्य'।" },
         { q: "Who received the Bharat Ratna in 2026?", qHi: "2026 में भारत रत्न किसे मिला?", a: "Dr. M.S. Swaminathan and Ratan Tata were conferred Bharat Ratna posthumously.", aHi: "डॉ. एम.एस. स्वामीनाथन और रतन टाटा को मरणोपरांत भारत रत्न से सम्मानित किया गया।" },
-        { q: "What is Wetland Credit Trading?", qHi: "वेटलैंड क्रेडिट ट्रेडिंग क्या है?", a: "A first-of-its-kind initiative under Amrit Dharohar scheme where local communities earn credits for conserving wetland biodiversity, which can be bought by corporations for ESG targets.", aHi: "अमृत धरोहर योजना के तहत अपनी तरह की पहली पहल जहां स्थानीय समुदाय आर्द्रभूमि जैव विविधता के संरक्षण के लिए क्रेडिट अर्जित करते हैं, जिसे निगम ESG लक्ष्यों के लिए खरीद सकते हैं।" }
+        { q: "What is Wetland Credit Trading?", qHi: "वेटलैंड क्रेडिट ट्रेडिंग क्या है?", a: "A first-of-its-kind initiative under Amrit Dharohar scheme where local communities earn credits for conserving wetland biodiversity, which can be bought by corporations for ESG targets.", aHi: "अमृत धरोहर योजना के तहत अपनी तरह की पहली पहल जहां स्थानीय समुदाय आर्द्रभूमि जैव विविधता के संरक्षण के लिए क्रेडिट अर्जित करते हैं, जिसे निगम ESG लक्ष्यों के लिए खरी�� सकते हैं।" }
     ]
 
     return (
@@ -292,7 +292,7 @@ export default function FebruaryCurrentAffairsPage() {
                         {language === "en" ? "February" : "फरवरी"} <span className="text-primary">2026</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-muted-foreground mb-4">
-                        {language === "en" ? "Monthly Current Affairs Digest" : "मासिक करेंट अफेयर्स डाइजेस्ट"}
+                        {language === "en" ? "Monthly Current Affairs Digest" : "मासिक करेंट अफेयर्स डाइजेस्���"}
                     </p>
 
                     {/* Language Toggle */}
@@ -340,7 +340,7 @@ export default function FebruaryCurrentAffairsPage() {
                         </Button>
                         {/* <Button variant="outline" size="lg" className="cursor-pointer gap-2">
                             <Download className="w-4 h-4" />
-                            {language === "en" ? "Download PDF" : "पीडीएफ डाउनलोड करें"}
+                            {language === "en" ? "Read Digest" : "पीडीएफ डाउनलोड करें"}
                         </Button> */}
                     </div>
                 </div>
@@ -543,7 +543,7 @@ export default function FebruaryCurrentAffairsPage() {
                             {/* Download Card */}
                             {/* <div className="rounded-xl border bg-card p-5 text-center">
                                 <Download className="w-8 h-8 text-primary mx-auto mb-3" />
-                                <h3 className="font-bold mb-2">{language === "en" ? "Download PDF" : "पीडीएफ डाउनलोड करें"}</h3>
+                                <h3 className="font-bold mb-2">{language === "en" ? "Read Digest" : "पीडीएफ डाउनलोड करें"}</h3>
                                 <p className="text-xs text-muted-foreground mb-3">
                                     {language === "en" ? "Get the complete February 2026 Current Affairs PDF for offline study" : "ऑफलाइन अध्ययन के लिए संपूर्ण फरवरी 2026 करेंट अफेयर्स पीडीएफ प्राप्त करें"}
                                 </p>

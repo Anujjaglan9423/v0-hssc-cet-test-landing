@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
     title: "Haryana Police Constable Syllabus 2026 | Complete Selection Process & Exam Pattern",
-    description: "Download Haryana Police Constable syllabus 2026 PDF. Complete selection process including PMT, PST, Knowledge Test (97% weightage), NCC bonus marks, physical standards, and exam pattern. Free mock tests available at cettest.site.",
+    description: "View the Haryana Police Constable syllabus 2026. Complete selection process including PMT, PST, Knowledge Test (97% weightage), NCC bonus marks, physical standards, and exam pattern. Free mock tests available at cettest.site.",
     keywords: [
         "Haryana Police Constable syllabus",
         "Haryana Police Constable syllabus 2026",

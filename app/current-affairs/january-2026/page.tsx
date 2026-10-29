@@ -121,7 +121,7 @@ export default function JanuaryCurrentAffairsPage() {
                 "Potential for trans-continental green energy grid and deeper defense manufacturing cooperation"
             ],
             impactHi: [
-                "लैटिन अमेरिका के साथ बढ़ा व्यापार भारतीय जेनेरिक दवाओं और आईटी सेवाओं के लिए नया बाजार प्रदान करता है",
+                "लै���िन अमेरिका के साथ बढ़ा व्यापार भारतीय जेनेरिक दवाओं और आईटी सेवाओं के लिए नया बाजार प्रदान करता है",
                 "बहुपक्षवाद की वकालत करते हुए भारत की ग्लोबल साउथ के नेता के रूप में स्थिति को मजबूत करता है",
                 "ट्रांस-कॉन्टिनेंटल ग्रीन एनर्जी ग्रिड और गहन रक्षा विनिर्माण सहयोग की संभावना"
             ],
@@ -176,7 +176,7 @@ export default function JanuaryCurrentAffairsPage() {
             titleHi: "ISRO ने गगनयान-H1 लॉन्च किया: पहला मानव-रेटेड मानवरहित मॉड्यूल",
             category: "science",
             summary: "ISRO successfully launched Gaganyaan-H1 mission on January 15, 2026, the final uncrewed test flight before the historic crewed mission scheduled for late 2026.",
-            summaryHi: "ISRO ने 15 जनवरी, 2026 को गगनयान-H1 मिशन को सफलतापूर्वक लॉन्च किया, जो 2026 के अंत में निर्धारित ऐतिहासिक मानवयुक्त मिशन से पहले अंतिम मानवरहित परीक्षण उड़ान है।",
+            summaryHi: "ISRO ने 15 जनवरी, 2026 को गगनयान-H1 मिशन को सफलतापूर्वक ��ॉन्च किया, जो 2026 के अंत में निर्धारित ऐतिहासिक मानवयुक्त मिशन से पहले अंतिम मानवरहित परीक्षण उड़ान है।",
             detailedAnalysis: "The H1 mission utilized the LVM3 (Launch Vehicle Mark 3) rocket, specifically modified to be 'Human-Rated.' The primary objective was to test the 'Orbital Module,' which consists of the Crew Module (CM) and Service Module (SM). A key highlight of this mission was the successful deployment of 'Vyommitra,' the humanoid robot, which monitored the cabin parameters such as pressure, vibration, and radiation levels to ensure they are safe for human skin. The mission also validated the 'Integrated Main Parachute Awareness' system and the 'Apex Cover Separation' at an altitude of 120 km. After spending 3 days in a low-earth orbit (LEO) at 400 km, the module performed a precise de-boost and splashed down in the Arabian Sea, where it was recovered by the Indian Navy and Coast Guard. This mission proves the reliability of the Life Support System (ECLSS) developed indigenously by ISRO.",
             detailedAnalysisHi: "15 जनवरी, 2026 को, इसरो ने सतीश धवन अंतरिक्ष केंद्र, श्रीहरिकोटा से गगनयान-H1 मिशन को सफलतापूर्वक लॉन्च किया। यह 2026 के अंत में निर्धारित ऐतिहासिक मानवयुक्त मिशन से पहले अंतिम मानवरहित परीक्षण उड़ान है। H1 मिशन में LVM3 (लॉन्च व्हीकल मार्क 3) रॉकेट का उपयोग किया गया, जिसे विशेष रूप से 'ह्यूमन-रेटेड' होने के लिए संशोधित किया गया था। इस मिशन का प्राथमिक उद्देश्य 'ऑर्बिटल मॉड्यूल' का परीक्षण करना था, जिसमें क्रू मॉड्यूल (CM) और सर्विस मॉड्यूल (SM) शामिल हैं। इस मिशन का एक मुख्य आकर्षण 'व्योममित्र' (ह्यूमनॉइड रोबोट) की सफल तैनाती थी, जिसने केबिन मापदंडों जैसे दबाव, कंपन और विकिरण स्तरों की निगरानी की। मिशन ने 120 किमी की ऊंचाई पर 'एकीकृत मुख्य पैराशूट जागरूकता' प्रणाली और 'एपेक्स कवर पृथक्करण' को भी मान्य किया। 400 किमी की निचली पृथ्वी कक्षा (LEO) में 3 दिन बिताने के बाद, मॉड्यूल ने सटीक डी-बूस्ट किया और अरब सागर में स्प्लैश-डाउन किया।",
             impact: [
@@ -192,14 +192,14 @@ export default function JanuaryCurrentAffairsPage() {
             staticGk: [
                 { fact: "Gaganyaan Announcement", description: "Announced by PM Modi in 2018 Independence Day speech", factHi: "गगनयान घोषणा", descriptionHi: "2018 के स्वतंत्रता दिवस भाषण में प्रधानमंत्री मोदी द्वारा घोषित" },
                 { fact: "Gaganauts Training", description: "Trained at Yuri Gagarin Cosmonaut Training Center, Russia", factHi: "गगनॉट्स प्रशिक्षण", descriptionHi: "रूस में यूरी गागरिन कॉस्मोनॉट प्रशिक्षण केंद्र में प्रशिक्षित" },
-                { fact: "LVM3 Rocket", description: "Human-rated version of India's heaviest rocket", factHi: "LVM3 रॉकेट", descriptionHi: "भारत के सबसे भारी रॉकेट का मानव-रेटेड संस्करण" },
+                { fact: "LVM3 Rocket", description: "Human-rated version of India's heaviest rocket", factHi: "LVM3 रॉकेट", descriptionHi: "भारत के सबसे भारी रॉकेट का मानव-रेटेड संस्कर��" },
                 { fact: "Vyommitra", description: "Humanoid robot for Gaganyaan mission", factHi: "व्योममित्र", descriptionHi: "गगनयान मिशन के लिए ह्यूमनॉइड रोबोट" }
             ],
             examSignificance: {
                 prelims: "LVM3 features, Vyommitra, Gaganyaan mission phases",
                 mains: "GS Paper III (Science & Tech) - India's space exploration, international collaboration, self-reliance in space technology",
                 prelimsHi: "LVM3 विशेषताएं, व्योममित्र, गगनयान मिशन चरण",
-                mainsHi: "जीएस पेपर III (विज्ञान और प्रौद्योगिकी) - भारत की अंतरिक्ष खोज, अंतर्राष्ट्रीय सहयोग, अंतरिक्ष प्रौद्योगिकी में आत्मनिर्भरता"
+                mainsHi: "जीएस पेपर III (विज्ञान और प्रौद्योगिकी) - भारत की अंतरिक्ष खोज, अंतर्राष्ट्रीय सहयोग, अंतरिक्ष प्���ौद्योगिकी में आत्मनिर्भरता"
             }
         },
         {
@@ -336,7 +336,7 @@ export default function JanuaryCurrentAffairsPage() {
                         </Button>
                         {/* <Button variant="outline" size="lg" className="cursor-pointer gap-2">
                             <Download className="w-4 h-4" />
-                            {language === "en" ? "Download PDF" : "पीडीएफ डाउनलोड करें"}
+                            {language === "en" ? "Read Digest" : "पीडीएफ डाउनलोड करें"}
                         </Button> */}
                     </div>
                 </div>
@@ -523,7 +523,7 @@ export default function JanuaryCurrentAffairsPage() {
                             {/* Download Card */}
                             {/* <div className="rounded-xl border bg-card p-5 text-center">
                                 <Download className="w-8 h-8 text-primary mx-auto mb-3" />
-                                <h3 className="font-bold mb-2">{language === "en" ? "Download PDF" : "पीडीएफ डाउनलोड करें"}</h3>
+                                <h3 className="font-bold mb-2">{language === "en" ? "Read Digest" : "पीडीएफ डाउनलोड करें"}</h3>
                                 <p className="text-xs text-muted-foreground mb-3">
                                     {language === "en" ? "Get the complete January 2026 Current Affairs PDF for offline study" : "ऑफलाइन अध्ययन के लिए संपूर्ण जनवरी 2026 करेंट अफेयर्स पीडीएफ प्राप्त करें"}
                                 </p>

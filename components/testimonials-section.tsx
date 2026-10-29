@@ -12,6 +12,7 @@ export interface Testimonial {
   content: string
   rating: number
   datePublished: string
+  image?: string
 }
 
 interface TestimonialsSectionProps {
@@ -52,7 +53,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">What Our Students Say</h2>
           <p className="text-lg text-muted-foreground">
-            Join thousands of successful candidates who cracked HSSC CET with us
+            Read recent learner feedback from CET TEST
           </p>
         </div>
 

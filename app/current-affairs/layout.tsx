@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
     title: "Monthly Current Affairs 2026 | Complete Bilingual Digest for Competitive Exams",
-    description: "Download monthly current affairs 2026 PDF in English & Hindi. Complete coverage of national, international, economy, science & tech, environment news. Exam-oriented analysis for UPSC, SSC, Banking, HSSC, UKSSSC, and all state exams.",
+    description: "Study monthly current affairs 2026 in English & Hindi. Complete coverage of national, international, economy, science & tech, environment news. Exam-oriented analysis for UPSC, SSC, Banking, HSSC, UKSSSC, and all state exams.",
     keywords: [
         "current affairs 2026",
         "monthly current affairs",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: "Monthly Current Affairs 2026 | Complete Bilingual Digest for Competitive Exams",
-        description: "Free monthly current affairs digest in English & Hindi. Exam-oriented analysis, static GK, important days, and practice questions. Download PDF for UPSC, SSC, Banking, HSSC, UKSSSC.",
+        description: "Free monthly current affairs digest in English & Hindi. Exam-oriented analysis, static GK, important days, and practice questions. Read the digest for UPSC, SSC, Banking, HSSC, UKSSSC.",
         url: "https://cettest.site/current-affairs",
         siteName: "CET TEST",
         locale: "en_IN",
@@ -289,7 +289,7 @@ export default function CurrentAffairsLayout({
                             { "@type": "ListItem", position: 7, name: "US Withdrawal from NATO?", alternateName: "नाटो से अमेरिका की वापसी?", url: "https://cettest.site/current-affairs/by-topic/nato-withdrawal" },
                             { "@type": "ListItem", position: 8, name: "India's Leadership in IRCCs", alternateName: "IRCCs में भारत का नेतृत्व", url: "https://cettest.site/current-affairs/by-topic/ircc-india" },
                             { "@type": "ListItem", position: 9, name: "FCRA Amendment Bill, 2026", alternateName: "FCRA संशोधन विधेयक, 2026", url: "https://cettest.site/current-affairs/by-topic/fcra-amendment-2026" },
-                            { "@type": "ListItem", position: 10, name: "Constitution (131st Amendment) Bill, 2026", alternateName: "संविधान (131वां संशोधन) विधेयक, 2026", url: "https://cettest.site/current-affairs/by-topic/constitution-131st-amendment" },
+                            { "@type": "ListItem", position: 10, name: "Constitution (131st Amendment) Bill, 2026", alternateName: "संविधान (131वा�� संशोधन) विधेयक, 2026", url: "https://cettest.site/current-affairs/by-topic/constitution-131st-amendment" },
                             { "@type": "ListItem", position: 11, name: "PoSH Act, 2013", alternateName: "PoSH अधिनियम, 2013", url: "https://cettest.site/current-affairs/by-topic/posh-act" },
                             { "@type": "ListItem", position: 12, name: "Adi Shankaracharya & Advaita Vedanta", alternateName: "आदि शंकराचार्य और अद्वैत वेदांत", url: "https://cettest.site/current-affairs/by-topic/adi-shankaracharya" },
                             { "@type": "ListItem", position: 13, name: "Super El Niño", alternateName: "सुपर अल नीनो", url: "https://cettest.site/current-affairs/by-topic/super-el-nino" },
@@ -397,7 +397,7 @@ export default function CurrentAffairsLayout({
                             },
                             {
                                 "@type": "Question",
-                                name: "प्रतियोगी परीक्षाओं के लिए करेंट अफेयर्स की तैयारी कैसे करें?",
+                                name: "प्रतियोगी परीक्षाओं के लिए करेंट अफेयर्स की तैयार�� कैसे करें?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
                                     text: "पिछले 6-8 महीनों पर ध्यान केंद्रित करें, विशेष रूप से सरकारी योजनाओं, अंतर्राष्ट्रीय संबंधों, आर्थिक विकास और राज्य-विशिष्ट समाचारों पर। हमारे मासिक डाइजेस्ट परीक्षा-उन्मुख विश्लेषण प्रदान करते हैं।",
@@ -413,7 +413,7 @@ export default function CurrentAffairsLayout({
                             },
                             {
                                 "@type": "Question",
-                                name: "क्या ये डाइजेस्ट HSSC और UKSSSC जैसी राज्य परीक्षाओं के लिए उपयोगी हैं?",
+                                name: "क्या ये डाइजेस्��� HSSC और UKSSSC जैसी राज्य परीक्षाओं के लिए उपयोगी हैं?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
                                     text: "बिल्कुल! हमारे डाइजेस्ट राष्ट्रीय और राज्य-स्तरीय दोनों समाचारों को कवर करते हैं। हम हरियाणा और उत्तराखंड परीक्षाओं के लिए राज्य-विशिष्ट करेंट अफेयर्स शामिल करते हैं।",

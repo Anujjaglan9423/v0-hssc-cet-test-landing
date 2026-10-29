@@ -2,8 +2,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-    title: "Haryana CET Group D Syllabus 2026 | Complete HSSC Group D Syllabus PDF Download",
-    description: "Download Haryana CET Group D syllabus 2026 PDF. Complete HSSC Group D syllabus with weightage: Haryana GK (25%), General Awareness (30%), Reasoning (10%), Maths (15%), English (10%), Hindi (10%). Free mock tests available.",
+    title: "Haryana CET Group D Syllabus 2026 | Complete HSSC Group D Syllabus PDF View",
+    description: "View Haryana CET Group D syllabus 2026 PDF. Complete HSSC Group D syllabus with weightage: Haryana GK (25%), General Awareness (30%), Reasoning (10%), Maths (15%), English (10%), Hindi (10%). Free mock tests available.",
     keywords: [
         "Haryana CET Group D syllabus",
         "HSSC CET Group D syllabus",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: "Haryana CET Group D Syllabus 2026 | Complete HSSC Group D Syllabus with Weightage",
-        description: "Complete Haryana CET Group D syllabus for 2026 exam. Download PDF with subject-wise weightage: Haryana GK (25%), General Awareness (30%), Reasoning (10%), Quantitative (15%), English (10%), Hindi (10%). Free mock tests available.",
+        description: "Complete Haryana CET Group D syllabus for 2026 exam. View PDF with subject-wise weightage: Haryana GK (25%), General Awareness (30%), Reasoning (10%), Quantitative (15%), English (10%), Hindi (10%). Free mock tests available.",
         url: "https://cettest.site/haryana-cet-group-d-syllabus",
         siteName: "CET TEST",
         locale: "en_IN",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Haryana CET Group D Syllabus 2026 | Complete HSSC Group D Syllabus",
-        description: "Complete Haryana CET Group D syllabus with weightage. Download PDF and start preparing with free mock tests.",
+        description: "Complete Haryana CET Group D syllabus with weightage. View PDF and start preparing with free mock tests.",
         images: ["/og-syllabus-group-d.jpg"],
         creator: "@cettest",
         site: "@cettest",

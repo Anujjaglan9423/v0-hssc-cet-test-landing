@@ -176,7 +176,7 @@ export default function ExamsPage() {
       <section className="py-20 px-4 md:px-6 lg:px-8 bg-muted/30">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Start Your Exam Preparation?</h2>
-          <p className="text-lg text-muted-foreground mb-8">Join thousands of successful candidates who prepared with CET TEST</p>
+          <p className="text-lg text-muted-foreground mb-8">Join learners preparing with CET TEST</p>
           <Link href="/signup">
             <Button size="lg" className="gap-2">
               <span>Create Free Account</span>

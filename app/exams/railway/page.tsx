@@ -589,7 +589,7 @@ export default function RailwayExamsPage() {
                   <Trophy className="w-7 h-7 text-blue-600" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">Detailed performance analytics</h3>
-                <p className="text-sm text-muted-foreground">Join thousands of successful candidates who cleared Railway exams</p>
+                <p className="text-sm text-muted-foreground">Join learners preparing for Railway exams</p>
               </div>
               <div className="text-center p-6 bg-background rounded-xl border hover:shadow-lg transition">
                 <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -688,7 +688,7 @@ export default function RailwayExamsPage() {
           <div className="max-w-4xl mx-auto bg-primary text-primary-foreground rounded-xl p-12 text-center">
             <Train className="w-12 h-12 mx-auto mb-4 opacity-90" />
             <h2 className="text-3xl font-bold mb-4">Ready to Crack Your Railway Exam?</h2>
-            <p className="text-lg mb-8 opacity-90">Join 2,000+ successful candidates and start your free preparation today</p>
+            <p className="text-lg mb-8 opacity-90">Join 2,000+ learners and start your free preparation today</p>
             <Link href="/signup">
               <Button size="lg" variant="secondary" className="cursor-pointer">
                 Start Practicing for Free

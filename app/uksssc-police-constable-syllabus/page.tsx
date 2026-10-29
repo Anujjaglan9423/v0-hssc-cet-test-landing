@@ -164,7 +164,7 @@ export default function UKSSSCPoliceSyllabusPage() {
                             <Link href="https://sssc.uk.gov.in/" target="_blank" rel="noopener noreferrer">
                                 <Button variant="default" size="lg" className="gap-2 bg-primary hover:bg-primary/90 cursor-pointer">
                                     <FileText className="w-4 h-4" />
-                                    Download Official Syllabus PDF
+                                    View Official Syllabus
                                     <ChevronRight className="w-4 h-4" />
                                 </Button>
                             </Link>

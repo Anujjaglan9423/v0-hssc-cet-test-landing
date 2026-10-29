@@ -135,7 +135,7 @@ export default function OctoberCurrentAffairsPage() {
                 "साझा मुद्रा के लिए प्रयास चीन-भारत आर्थिक असमानताओं के कारण बाधाओं का सामना कर सकता है"
             ],
             staticGk: [
-                { fact: "BRICS Origin", description: "Term coined by Jim O'Neill (Goldman Sachs) in 2001; first summit in 2009 (Yekaterinburg)", factHi: "ब्रिक्स उत्पत्ति", descriptionHi: "2001 में जिम ओ'नील द्वारा गढ़ा गया शब्द; पहला शिखर सम्मेलन 2009 (येकातेरिनबर्ग)" },
+                { fact: "BRICS Origin", description: "Term coined by Jim O'Neill (Goldman Sachs) in 2001; first summit in 2009 (Yekaterinburg)", factHi: "ब्र��क्स उत्पत्ति", descriptionHi: "2001 में जिम ओ'नील द्वारा गढ़ा गया शब्द; पहला शिखर सम्मेलन 2009 (येकातेरिनबर्ग)" },
                 { fact: "NDB Establishment", description: "2014 (Fortaleza Summit); HQ in Shanghai, China", factHi: "NDB स्थापना", descriptionHi: "2014 (फोर्टालेजा शिखर सम्मेलन); मुख्यालय शंघाई, चीन" },
                 { fact: "BRICS Expansion", description: "Historic expansion decided at 15th Summit in Johannesburg (2023)", factHi: "ब्रिक्स विस्तार", descriptionHi: "ऐतिहासिक विस्तार जोहान्सबर्ग (2023) में 15वें शिखर सम्मेलन में तय किया गया" },
                 { fact: "Current Chair (2025)", description: "Brazil", factHi: "वर्तमान अध्यक्ष (2025)", descriptionHi: "ब्राजील" }
@@ -341,7 +341,7 @@ export default function OctoberCurrentAffairsPage() {
                         </Button>
                         {/* <Button variant="outline" size="lg" className="cursor-pointer gap-2">
                             <Download className="w-4 h-4" />
-                            {language === "en" ? "Download PDF" : "पीडीएफ डाउनलोड करें"}
+                            {language === "en" ? "Read Digest" : "पीडीएफ डाउनलोड करें"}
                         </Button> */}
                     </div>
                 </div>
@@ -528,7 +528,7 @@ export default function OctoberCurrentAffairsPage() {
                             {/* Download Card */}
                             {/* <div className="rounded-xl border bg-card p-5 text-center">
                                 <Download className="w-8 h-8 text-primary mx-auto mb-3" />
-                                <h3 className="font-bold mb-2">{language === "en" ? "Download PDF" : "पीडीएफ डाउनलोड करें"}</h3>
+                                <h3 className="font-bold mb-2">{language === "en" ? "Read Digest" : "पीडीएफ डाउनलोड करें"}</h3>
                                 <p className="text-xs text-muted-foreground mb-3">
                                     {language === "en" ? "Get the complete October 2025 Current Affairs PDF for offline study" : "ऑफलाइन अध्ययन के लिए संपूर्ण अक्टूबर 2025 करेंट अफेयर्स पीडीएफ प्राप्त करें"}
                                 </p>
@@ -612,7 +612,7 @@ export default function OctoberCurrentAffairsPage() {
                             : "यह व्यापक करेंट अफेयर्स डाइजेस्ट अक्टूबर 2025 की सभी महत्वपूर्ण घटनाओं को कवर करता है, जिसमें DPDP अधिनियम कार्यान्वयन नियम (सहमति प्रबंधक, 36 घंटे की उल्लंघन रिपोर्टिंग, स्टार्टअप्स के लिए रेगुलेटरी सैंडबॉक्स), 17वां ब्रिक्स शिखर सम्मेलन (ब्रिक्स पे, NDB पूंजी $100 बिलियन, 40% जलवायु ऋण, भागीदार देश श्रेणी), RBI MPC समीक्षा (रेपो रेट 6.25%, तटस्थ रुख, GDP पूर्वानुमान 7.2%, ULI लॉन्च, UPI लाइट सीमा ₹1,000), नोबेल पुरस्कार 2025 (एपिजेनेटिक कायाकल्प थेरेपी, टोपोलॉजिकल क्वांटम फ्लुइड्स, AI-संचालित प्रोटीन संश्लेषण, AI स्वायत्तता शांति पुरस्कार), वायु गुणवत्ता संकट (AQI 450+, GRAP-IV, पूसा बायो-डीकंपोजर 2.0, 2020 से PM2.5 में 12% कमी), उत्तराखंड में 38वें राष्ट्रीय खेल (सर्विसेज शीर्ष पर, योग और मलखंब शामिल, ग्रीन गेम्स पहल), और गांधी जयंती, IAF दिवस और राष्ट्रीय एकता दिवस सहित 7 महत्वपूर्ण दिवस शामिल हैं। UPSC, SSC, बैंकिंग, रेलवे, HSSC, UKSSSC और सभी राज्य-स्तरीय प्रतियोगी परीक्षाओं के लिए उपयुक्त।"}
                     </p>
                     <p className="text-xs text-muted-foreground mt-3">
-                        {language === "en" ? "Source: Chronos Intelligence Hub • Research Grade Analysis • For Educational Purposes" : "स्रोत: Chronos Intelligence Hub • अनुसंधान-ग्रेड विश्लेषण • शैक्षिक उद्देश्यों के लिए"}
+                        {language === "en" ? "Source: Chronos Intelligence Hub • Research Grade Analysis • For Educational Purposes" : "स्रोत: Chronos Intelligence Hub • अनुसंधान-ग्रेड विश्लेषण • शै��्षिक उद्देश्यों के लिए"}
                     </p>
                 </div>
             </section>

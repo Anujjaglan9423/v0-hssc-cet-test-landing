@@ -638,7 +638,7 @@ export default function RRBNTPCPage() {
         <section className="py-16 px-4 md:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto bg-primary text-primary-foreground rounded-lg p-12 text-center">
             <h2 className="text-3xl font-bold mb-4">Ready to Crack Your Railway Exam?</h2>
-            <p className="text-lg mb-8 opacity-90">Join 2,000+ successful candidates and start your free preparation today</p>
+            <p className="text-lg mb-8 opacity-90">Join 2,000+ learners and start your free preparation today</p>
             <Link href="/signup">
               <Button size="lg" variant="secondary" className="cursor-pointer">
                 Start Practicing for Free
