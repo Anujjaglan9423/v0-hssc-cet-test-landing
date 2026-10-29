@@ -283,6 +283,57 @@ export default function BlogPage() {
           </div>
         </section>
 
+        <section aria-labelledby="how-to-use-heading" className="border-t border-border px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">A practical study library</p>
+              <h2 id="how-to-use-heading" className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">How to use these exam guides</h2>
+              <p className="mt-4 text-base leading-8 text-muted-foreground">
+                A blog post is useful when it changes what you do next. Use the guides to build a small, repeatable preparation system instead of collecting more resources. Start with the official notification, choose the topics that match your target exam, and then practise under time pressure.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-5 md:grid-cols-3">
+              <article className="rounded-2xl border border-border bg-card p-6">
+                <p className="text-sm font-bold text-primary">01 · Understand</p>
+                <h3 className="mt-3 text-lg font-semibold">Begin with the syllabus</h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">Note the subjects, question pattern, marking rules, eligibility and important dates from the latest official notice before making a timetable.</p>
+              </article>
+              <article className="rounded-2xl border border-border bg-card p-6">
+                <p className="text-sm font-bold text-primary">02 · Practise</p>
+                <h3 className="mt-3 text-lg font-semibold">Turn topics into questions</h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">After every concept, solve a focused set. Mark questions that were slow, guessed or wrong so your next revision has a clear purpose.</p>
+              </article>
+              <article className="rounded-2xl border border-border bg-card p-6">
+                <p className="text-sm font-bold text-primary">03 · Improve</p>
+                <h3 className="mt-3 text-lg font-semibold">Use mocks as feedback</h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">Review accuracy, time and skipped questions after each mock. Repair the weakest topic before taking another full test.</p>
+              </article>
+            </div>
+            <div className="mt-10 grid gap-5 md:grid-cols-2">
+              <article className="rounded-2xl border border-border bg-muted/30 p-6 sm:p-7">
+                <h3 className="text-xl font-semibold">What you will find here</h3>
+                <ul className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
+                  <li><span className="font-semibold text-foreground">Haryana CET:</span> state GK, syllabus planning, revision cycles and common preparation mistakes.</li>
+                  <li><span className="font-semibold text-foreground">UKSSSC:</span> Uttarakhand GK, post-wise planning, general subjects and final-month strategy.</li>
+                  <li><span className="font-semibold text-foreground">Government exams:</span> daily routines, mock analysis, active recall and exam-day decisions.</li>
+                </ul>
+              </article>
+              <article className="rounded-2xl border border-border bg-muted/30 p-6 sm:p-7">
+                <h3 className="text-xl font-semibold">A simple weekly workflow</h3>
+                <ol className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
+                  <li><span className="font-semibold text-foreground">Monday–Thursday:</span> learn one concept and practise it the same day.</li>
+                  <li><span className="font-semibold text-foreground">Friday:</span> revise notes and solve mixed questions from the week.</li>
+                  <li><span className="font-semibold text-foreground">Weekend:</span> take a timed test, analyse errors and plan the next week.</li>
+                </ol>
+              </article>
+            </div>
+            <div className="mt-10 rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
+              <h3 className="text-xl font-semibold">Keep the official notification as your final authority</h3>
+              <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Exam patterns, eligibility, dates and marking schemes can change by recruitment and post. These guides explain preparation methods; always compare exam-specific facts with the latest notice before applying or finalising your strategy.</p>
+            </div>
+          </div>
+        </section>
+
         <section aria-labelledby="study-next-heading" className="border-t border-border bg-muted/30 px-4 py-14 sm:px-6 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-[1fr_auto] md:items-center">
             <div>
