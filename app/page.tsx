@@ -211,7 +211,7 @@ async function getPublicReviews(): Promise<Testimonial[]> {
           ? review.comments.trim()
           : ""
 
-      if (!comment) return []
+      if (comment.length <= 10) return []
 
       const user = getRelation(review.user)
       const test = getRelation(review.test)

@@ -7,8 +7,7 @@ export const metadata: Metadata = {
     keywords: [
         "current affairs 2026",
         "monthly current affairs",
-        "March 2026 current affairs",
-        "April 2026 current affairs",
+        "September 2026 current affairs",
         "current affairs in Hindi",
         "मासिक करेंट अफेयर्स",
         "current affairs for competitive exams",
@@ -361,7 +360,7 @@ export default function CurrentAffairsLayout({
                                 name: "Which months are most important for current affairs?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "The last 6 months before your exam are most important. For exams in mid-2026, focus on January-June 2026 with special attention to Union Budget, Economic Survey, and major international summits.",
+                                    text: "September 2026 is the currently published monthly current-affairs digest on this page.",
                                 },
                             },
                             {
