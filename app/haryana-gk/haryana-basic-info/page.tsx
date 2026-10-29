@@ -183,7 +183,7 @@ export default function HaryanaBasicInformationPage() {
         { area: "पलवल एवं रोहतक", areaEn: "Palwal and Rohtak", nickname: "शक्कर नगर", nicknameEn: "Sugar city" },
         { area: "पानीपत", areaEn: "Panipat", nickname: "वस्त्र नगर", nicknameEn: "Textile city, The City of Weavers" },
         { area: "पंचकूला", areaEn: "Panchkula", nickname: "नैनो सिटी", nicknameEn: "Nano city" },
-        { area: "फतेहाबाद", areaEn: "Fatehabad", nickname: "गुलाबी नगर", nicknameEn: "Pink city" },
+        { area: "फतेह��बाद", areaEn: "Fatehabad", nickname: "गुलाबी नगर", nicknameEn: "Pink city" },
         { area: "हिसार", areaEn: "Hisar", nickname: "चुंबक नगर, इस्पात नगर", nicknameEn: "Magnet city, Steel city" },
         { area: "झज्जर", areaEn: "Jhajjar", nickname: "शहीदों की नगरी", nicknameEn: "The City of Martyrs" },
         { area: "अम्बाला", areaEn: "Ambala", nickname: "विज्ञान नगर, जुड़वां नगर", nicknameEn: "Science city, Twin city" },
@@ -194,7 +194,7 @@ export default function HaryanaBasicInformationPage() {
     // Minimum Records - Bilingual
     const minimumRecords = [
         { categoryHindi: "सबसे कम वन क्षेत्र (ISFR-2019)", categoryEn: "Least Forest Area (ISFR-2019)", district: "पलवल (13.97 वर्ग किमी)", districtEn: "Palwal (13.97 sq. km.)" },
-        { categoryHindi: "सबसे कम क्षेत्रफल", categoryEn: "Minimum Area", district: "फरीदाबाद (743 वर्ग किमी)", districtEn: "Faridabad (743 sq. km)" },
+        { categoryHindi: "सबसे कम क्षेत्रफल", categoryEn: "Minimum Area", district: "फरीदाबाद (741 वर्ग किमी)", districtEn: "Faridabad (741 sq. km)" },
         { categoryHindi: "सबसे कम जनसंख्या", categoryEn: "Minimum Population", district: "पंचकूला (5,61,293)", districtEn: "Panchkula (5,61,293 persons)" },
         { categoryHindi: "सबसे कम जनसंख्या घनत्व", categoryEn: "Minimum Population Density", district: "सिरसा (303)", districtEn: "Sirsa (303 persons/sq. km.)" },
         { categoryHindi: "सबसे कम साक्षरता दर", categoryEn: "Minimum Literacy Rate", district: "मेवात (54.08%)", districtEn: "Mewat (54.08%)" },
@@ -242,7 +242,7 @@ export default function HaryanaBasicInformationPage() {
         {
             titleHindi: "राजकीय वृक्ष: पीपल",
             titleEn: "State Tree: Peepal",
-            descriptionHindi: "भारत का एक मूल वृक्ष 'पीपल' को हरियाणा का राजकीय वृक्ष घोषित किया गया है। इसे बोधि वृक्ष, पिप्पल वृक्ष और अश्वत्थ वृक्ष के नाम से भी जाना जाता है। यह वृक्ष तीन प्रमुख धर्मों - बौद्ध, हिंदू और जैन धर्म में धार्मिक महत्व रखता है। पीपल के पेड़ के सभी भाग - जड़, छाल, पत्ता और फल उपयोगी होते हैं। इसका वैज्ञानिक नाम फाइकस रिलीजियोसा है।",
+            descriptionHindi: "भारत का एक मूल वृक्�� 'पीपल' को हरियाणा का राजकीय वृक्ष घोषित किया गया है। इसे बोधि वृक्ष, पिप्पल वृक्ष और अश्वत्थ वृक्ष के नाम से भी जाना जाता है। यह वृक्ष तीन प्रमुख धर्मों - बौद्ध, हिंदू और जैन धर्म में धार्मिक महत्व रखता है। पीपल के पेड़ के सभी भाग - जड़, छाल, पत्ता और फल उपयोगी होते हैं। इसका वैज्ञानिक नाम फाइकस रिलीजियोसा है।",
             descriptionEnglish: "A native tree of India 'Peepal' (Sacred Fig), has been declared state tree of Haryana. It is also known as bodhi tree, pippala tree and ashwattha tree. This tree is considered to have religious significance in three major religions i.e. Buddhism, Hinduism and Jainism. All parts of the Peepal tree, including root, bark, leaf and fruit are useful. Its scientific name is Ficus religiosa.",
             icon: TreePine,
             color: "green"
@@ -524,7 +524,7 @@ export default function HaryanaBasicInformationPage() {
                         </div>
                         <h2 className="text-3xl font-bold mb-4">{language === "hindi" ? "राजकीय प्रतीक" : "State Symbols"}</h2>
                         <p className="text-muted-foreground max-w-2xl mx-auto">
-                            {language === "hindi" ? "हरियाणा की समृद्ध सांस्कृतिक और प्राकृतिक विरासत का प्रतिनिधित्व करने वाले आधिकारिक प्रतीक" : "Official symbols representing the rich cultural and natural heritage of Haryana"}
+                            {language === "hindi" ? "हरियाणा की समृद्ध सांस्कृ��िक और प्राकृतिक विरासत का प्रतिनिधित्व करने वाले आधिकारिक प्रतीक" : "Official symbols representing the rich cultural and natural heritage of Haryana"}
                         </p>
                     </div>
 
