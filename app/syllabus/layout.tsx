@@ -253,12 +253,12 @@ export default function SyllabusLayout({
                             {
                                 "@type": "Course",
                                 name: "HSSC CET Group C Syllabus",
-                                description: "6 subjects: General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English, Hindi. 100 questions, 105 minutes.",
+                                description: "6 subjects: General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English, Hindi. 100 questions, 90 minutes with no negative marking.",
                             },
                             {
                                 "@type": "Course",
                                 name: "HSSC CET Group D Syllabus",
-                                description: "7 subjects including Haryana GK (25% weightage). 100 questions, 105 minutes.",
+                                description: "7 subjects including Haryana GK (25% weightage). 100 questions, 90 minutes with no negative marking.",
                             },
                             {
                                 "@type": "Course",
@@ -296,7 +296,7 @@ export default function SyllabusLayout({
                             {
                                 "@type": "Course",
                                 name: "UKSSSC VDO Syllabus",
-                                description: "4 subjects: GK & Current Affairs, General Hindi, Reasoning, Numerical Ability. No computer section. 100-120 questions, 2 hours.",
+                                description: "4 subjects: GK & Current Affairs, General Hindi, Reasoning, Numerical Ability. No computer section. 100 questions, 90 minutes.",
                             },
                         ],
                     }),
@@ -316,7 +316,7 @@ export default function SyllabusLayout({
                                 name: "What is the difference between HSSC and UKSSSC exams?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "HSSC conducts exams for Haryana government jobs with CET score valid for 3 years and 25% Haryana GK weightage. UKSSSC conducts exams for Uttarakhand with up to 40% state GK weightage and negative marking of 0.25.",
+                                    text: "HSSC conducts exams for Haryana government jobs with CET score valid for 3 years and 25% Haryana GK weightage. UKSSSC conducts exams for Uttarakhand with up to 40% state GK weightage and no negative marking.",
                                 },
                             },
                             {
@@ -332,7 +332,7 @@ export default function SyllabusLayout({
                                 name: "Is there negative marking in UKSSSC exams?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "Yes, most UKSSSC exams have negative marking of 0.25 marks for each wrong answer. Candidates should avoid guesswork and focus on accuracy.",
+                                    text: "Yes, most UKSSSC exams use 0.25 negative marking for each wrong answer. Candidates should avoid guesswork and focus on accuracy.",
                                 },
                             },
                             {
@@ -356,7 +356,7 @@ export default function SyllabusLayout({
                                 name: "What is the duration of these exams?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "HSSC exams are typically 1 hour 45 minutes (105 minutes). UKSSSC exams are 2 hours (120 minutes).",
+                                    text: "HSSC CET is presented as 100 questions in 90 minutes with no negative marking. UKSSSC Police Constable and VDO pages use 100 questions in 90 minutes with 0.25 negative marking; verify the current official notice.",
                                 },
                             },
                             {

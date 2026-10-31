@@ -5,7 +5,13 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap, CheckCircle2, Sparkles, BookOpen } from "lucide-react"
 
-export default function HeroSection() {
+type HeroStats = {
+  students: string
+  tests: string
+  questions: string
+}
+
+export default function HeroSection({ stats }: { stats: HeroStats }) {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -13,7 +19,7 @@ export default function HeroSection() {
     return () => clearTimeout(timer)
   }, [])
 
-  const features = ["30,000+ Practice Questions", "Detailed Solutions & Analytics", "Topic-wise & Full Length Tests"]
+  const features = [`${stats.questions} Practice Questions`, `${stats.tests} Practice Tests`, "Detailed Solutions & Analytics"]
 
   return (
     <section className="pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden relative">
@@ -163,7 +169,7 @@ export default function HeroSection() {
                       <BookOpen className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-foreground">30K+</p>
+                      <p className="text-2xl font-bold text-foreground">{stats.questions}</p>
                       <p className="text-sm text-muted-foreground">Questions</p>
                     </div>
                   </div>

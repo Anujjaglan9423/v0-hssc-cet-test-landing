@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "RRB NTPC, Group D, ALP & JE Mock Test 2026 | Free Railway Exam Prep | CBT Stage 1 & 2 Practice Sets",
 
   // Description optimized for Google SGE / Bing Chat (GEO)
-  description: "RRB NTPC, Group D, ALP & JE 2026: Free mock tests with latest exam pattern. 30,000+ questions, previous year solved papers, bilingual (Hindi/English), CBT Stage 1 & 2 practice. Railway Recruitment Board complete preparation for Station Master, Goods Guard, ALP, Technician, JE. Start free now!",
+  description: "RRB NTPC, Group D, ALP & JE 2026: Free mock tests with latest exam pattern. 31,068+ questions, previous year solved papers, bilingual (Hindi/English), CBT Stage 1 & 2 practice. Railway Recruitment Board complete preparation for Station Master, Goods Guard, ALP, Technician, JE. Start free now!",
 
   // Keywords extended for long-tail & question-based queries (AEO)
   keywords: [
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   // Open Graph optimized
   openGraph: {
     title: "🚂 RRB NTPC, Group D, ALP & JE Mock Test 2026 | Free Railway Exam Prep | CBT Stage 1 & 2",
-    description: "✅ 4 Exams Covered (NTPC, Group D, ALP, JE) | ✅ 30,000+ Questions | ✅ Previous Year Solved Papers | ✅ Bilingual (Hindi/English) | ✅ CBT Interface Simulation | ✅ Free Unlimited Attempts",
+    description: "✅ 4 Exams Covered (NTPC, Group D, ALP, JE) | ✅ 31,068+ Questions | ✅ Previous Year Solved Papers | ✅ Bilingual (Hindi/English) | ✅ CBT Interface Simulation | ✅ Free Unlimited Attempts",
     url: "https://cettest.site/exams/railway-rrb-ntpc",
     siteName: "CET TEST | Railway Exam Prep",
     locale: "en_IN",
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "RRB NTPC, Group D, ALP & JE Mock Test 2026 | Free Railway Exam Prep",
-    description: "Free mock tests for all RRB exams: NTPC (UG/Graduate), Group D, ALP & Technician, JE. 30,000+ questions, previous year papers, bilingual. Start free!",
+    description: "Free mock tests for all RRB exams: NTPC (UG/Graduate), Group D, ALP & Technician, JE. 31,068+ questions, previous year papers, bilingual. Start free!",
     images: ["/twitter-rrb-railway.jpg"],
     creator: "@cet__test",
     site: "@cet__test",
@@ -198,7 +198,7 @@ export default function RRBNTPCPage() {
             "@type": "EducationalOccupationalProgram",
             "@id": `${currentUrl}#program`,
             name: "RRB NTPC, Group D, ALP & JE Complete Preparation Program 2026",
-            description: "Complete free mock test platform for all Railway Recruitment Board (RRB) examinations including NTPC (UG & Graduate), Group D, ALP & Technician, and JE. Features: 30,000+ questions, previous year solved papers, bilingual (Hindi/English), CBT Stage 1 & 2 simulation, unlimited attempts.",
+            description: "Complete free mock test platform for all Railway Recruitment Board (RRB) examinations including NTPC (UG & Graduate), Group D, ALP & Technician, and JE. Features: 31,068+ questions, previous year solved papers, bilingual (Hindi/English), CBT Stage 1 & 2 simulation, unlimited attempts.",
             educationalProgramMode: "Exam Preparation",
             timeToComplete: "P3M",
             occupationalCategory: "Railway Services - Indian Railways",
@@ -441,11 +441,11 @@ export default function RRBNTPCPage() {
               </div>
               <div className="flex items-center gap-2 text-sm bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-full border">
                 <FileText className="w-4 h-4 text-primary" />
-                <span>30,000+ Solved Questions</span>
+                <span>31,068+ Solved Questions</span>
               </div>
               <div className="flex items-center gap-2 text-sm bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-full border">
                 <TrendingUp className="w-4 h-4 text-primary" />
-                <span>95% Success Rate</span>
+                <span>Detailed performance analytics</span>
               </div>
             </div>
           </div>
@@ -638,7 +638,7 @@ export default function RRBNTPCPage() {
         <section className="py-16 px-4 md:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto bg-primary text-primary-foreground rounded-lg p-12 text-center">
             <h2 className="text-3xl font-bold mb-4">Ready to Crack Your Railway Exam?</h2>
-            <p className="text-lg mb-8 opacity-90">Join 2,000+ successful candidates and start your free preparation today</p>
+            <p className="text-lg mb-8 opacity-90">Join 2,000+ learners and start your free preparation today</p>
             <Link href="/signup">
               <Button size="lg" variant="secondary" className="cursor-pointer">
                 Start Practicing for Free

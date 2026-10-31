@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     alternateLocale: ["hi_IN"],
     url: SITE_URL,
     title: "CET TEST - Free Mock Tests for Haryana CET, HSSC, SSC, Railway, UKSSSC & All Govt Exams 2026",
-    description: "India's #1 free mock test platform for all government job exams including SSC, Railway, Banking, Teaching, Defence, State PSC & more. Unlimited practice tests with instant results, all-India rank & detailed analytics.",
+    description: "Free mock tests and study resources for Haryana CET, HSSC, SSC, Railway, UKSSSC and related government exams, with instant results and performance analytics.",
     siteName: SITE_NAME,
     images: [
       {

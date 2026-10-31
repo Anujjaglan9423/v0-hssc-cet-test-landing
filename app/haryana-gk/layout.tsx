@@ -6,15 +6,15 @@ import type { Metadata, Viewport } from "next";
 // ============================================
 export const metadata: Metadata = {
     // Primary Title with Power Words
-    title: "Haryana GK 2026 [PDF] Complete Syllabus | HSSC CET Group C 25 Marks",
+    title: "Haryana GK 2026: Complete Syllabus | HSSC CET Group C 25 Marks",
 
     // Description optimized for CTR (Click-Through Rate)
-    description: "✓ Complete Haryana GK Syllabus ✓ 25 Marks Separate Section ✓ Animal Husbandry ✓ Murrah Buffalo ✓ Panchayati Raj ✓ Sports Awards ✓ Free PDF Download for HSSC CET 2026",
+    description: "Complete Haryana GK syllabus for HSSC CET Group C: Haryana history, geography, polity, economy, animal husbandry, Panchayati Raj, sports and current affairs.",
 
     // Keywords targeting long-tail, question-based, and conversational queries (AEO)
     keywords: [
         // Primary keywords
-        "haryana gk", "haryana gk 2026", "haryana gk pdf", "haryana gk syllabus",
+        "haryana gk", "haryana gk 2026", "haryana gk study material", "haryana gk syllabus",
         "hssc cet syllabus", "haryana cet syllabus", "haryana gk book",
 
         // Question-based (AEO - Answer Engine Optimization)
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     // Open Graph optimized for higher CTR
     openGraph: {
         title: "Haryana GK Complete Syllabus 2026 | HSSC CET Group C 25 Marks",
-        description: "Download Free PDF: Complete Haryana GK covering History, Geography, Culture, Animal Husbandry, Polity, Sports & Awards. 25 Marks separate section for HSSC CET 2026.",
+        description: "Study complete Haryana GK covering History, Geography, Culture, Animal Husbandry, Polity, Sports & Awards. 25 Marks separate section for HSSC CET 2026.",
         url: "https://cettest.site/haryana-gk",
         siteName: "CET TEST | Haryana Govt Exam Prep",
         locale: "en_IN",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
                 url: "/og-haryana-gk-2026.jpg",
                 width: 1200,
                 height: 630,
-                alt: "Haryana GK 2026 Syllabus for HSSC CET Group C - Free PDF Download",
+                alt: "Haryana GK 2026 Syllabus for HSSC CET Group C",
                 type: "image/jpeg",
             },
         ],
@@ -290,7 +290,7 @@ export default function HaryanaGKStudyMaterialLayout({
                                 name: "Where can I download Haryana GK complete PDF for free?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "You can download the complete Haryana GK PDF for free from this page. The PDF includes topic-wise breakdown, important one-liners, previous year questions, and a separate section for Animal Husbandry & Panchayati Raj. Click on the 'Download PDF' button above to get instant access.",
+                                    text: "You can study the complete Haryana GK material on this page. The material includes a topic-wise breakdown, important one-liners, previous year questions, and a separate section for Animal Husbandry & Panchayati Raj.",
                                 },
                             },
                             {
@@ -462,7 +462,7 @@ export default function HaryanaGKStudyMaterialLayout({
                         "@type": "WebPage",
                         "@id": `${currentUrl}#webpage`,
                         url: currentUrl,
-                        name: "Haryana GK Complete Syllabus 2026 | PDF Download",
+                        name: "Haryana GK Complete Syllabus 2026",
                         isPartOf: { "@id": `${baseUrl}#website` },
                         speakable: {
                             "@type": "SpeakableSpecification",

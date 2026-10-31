@@ -38,7 +38,7 @@ export default function HaryanaCETGroupDSyllabusPage() {
         },
         {
             question: "What is the negative marking in Haryana CET Group D?",
-            answer: "The official notification states there is a no negative marking till you skip/unattempt any question of 1 mark."
+            answer: "There is no negative marking in the HSSC CET pattern used on this site. Candidates should still verify the latest official HSSC notification before applying."
         },
         {
             question: "What are the main topics in Haryana GK for Group D?",
@@ -133,7 +133,7 @@ export default function HaryanaCETGroupDSyllabusPage() {
                             <Link href="https://hssc.gov.in/group_d/Syllabus_d.pdf" target="_blank" rel="noopener noreferrer">
                                 <Button variant="default" size="lg" className="gap-2 bg-primary hover:bg-primary/90">
                                     <FileText className="w-4 h-4" />
-                                    Download Official Syllabus (HSSC) PDF
+                                    View Official Syllabus (HSSC)
                                     <ChevronRight className="w-4 h-4" />
                                 </Button>
                             </Link>

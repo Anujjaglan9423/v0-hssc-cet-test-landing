@@ -128,7 +128,7 @@ export default function NovemberCurrentAffairsPage() {
             ],
             impactHi: [
                 "यूपीआई एकीकरण सहज प्रेषण और पर्यटन की सुविधा प्रदान करेगा, जिससे दक्षिण पूर्व एशिया में लाखों भारतीय प्रवासियों को लाभ होगा",
-                "AITIGA समीक्षा का उद्देश्य आसियान क्षेत्र में भारतीय एमएसएमई के लिए बेहतर बाजार पहुंच प्रदान करना है",
+                "AITIGA समीक्षा का उद्द���श्य आसियान क्षेत्र में भारतीय एमएसएमई के लिए बेहतर बाजार पहुंच प्रदान करना है",
                 "आसियान के साथ संबंधों को मजबूत करना क्षेत्रीय आधिपत्य का मुकाबला करने के लिए भारत की इंडो-पैसिफिक रणनीति के लिए महत्वपूर्ण है"
             ],
             staticGk: [
@@ -204,7 +204,7 @@ export default function NovemberCurrentAffairsPage() {
             examSignificance: {
                 prelims: "Payloads of Shukrayaan, MIRV technology, range of Agni missiles",
                 mains: "GS Paper III - India's space exploration, missile technology, strategic autonomy",
-                prelimsHi: "शुक्रयान के पेलोड, MIRV तकनीक, अग्नि मिसाइलों की सीमा",
+                prelimsHi: "शुक्रयान के पेलोड, MIRV तकनीक, अग��नि मिसाइलों की सीमा",
                 mainsHi: "जीएस पेपर III - भारत का अंतरिक्ष अन्वेषण, मिसाइल प्रौद्योगिकी, रणनीतिक स्वायत्तता"
             }
         },
@@ -243,7 +243,7 @@ export default function NovemberCurrentAffairsPage() {
     ]
 
     const awardsAndPersons = [
-        { title: "56th International Film Festival of India (IFFI) 2025", titleHi: "56वां भारतीय अंतर्राष्ट्रीय फिल्म महोत्सव (IFFI) 2025", winner: "Goa, November 20-28, 2025", winnerHi: "गोवा, 20-28 नवंबर, 2025", detail: "Theme: 'Cinema in the Age of AI'. Golden Peacock Award for Best Film won by an international feature. Dadasaheb Phalke Award conferred on veteran actor. Satyajit Ray Lifetime Achievement Award to world-renowned director. Film Facilitation Office announced new incentives for foreign filmmakers to 'Shoot in India'.", detailHi: "थीम: 'एआई के युग में सिनेमा'। सर्वश्रेष्ठ फिल्म के लिए गोल्डन पीकॉक अवार्ड एक अंतरराष्ट्रीय फिल्म ने जीता। दादा साहब फाल्के पुरस्कार वरिष्ठ अभिनेता को प्रदान किया गया। सत्यजीत रे लाइफटाइम अचीवमेंट अवार्ड विश्व प्रसिद्ध निर्देशक को। फिल्म सुविधा कार्यालय ने 'शूट इन इंडिया' के लिए विदेशी फिल्म निर्माताओं के लिए नए प्रोत्साहनों की घोषणा की।" },
+        { title: "56th International Film Festival of India (IFFI) 2025", titleHi: "56वां भारतीय अंतर्राष्ट्रीय फिल्म महोत्सव (IFFI) 2025", winner: "Goa, November 20-28, 2025", winnerHi: "गोवा, 20-28 ���वंबर, 2025", detail: "Theme: 'Cinema in the Age of AI'. Golden Peacock Award for Best Film won by an international feature. Dadasaheb Phalke Award conferred on veteran actor. Satyajit Ray Lifetime Achievement Award to world-renowned director. Film Facilitation Office announced new incentives for foreign filmmakers to 'Shoot in India'.", detailHi: "थीम: 'एआई के युग में सिनेमा'। सर्वश्रेष्ठ फिल्म के लिए गोल्डन पीकॉक अवार्ड एक अंतरराष्ट्रीय फिल्म ने जीता। दादा साहब फाल्के पुरस्कार वरिष्ठ अभिनेता को प्रदान किया गया। सत्यजीत रे लाइफटाइम अचीवमेंट अवार्ड विश्व प्रसिद्ध निर्देशक को। फिल्म सुविधा कार्यालय ने 'शूट इन इंडिया' के लिए विदेशी फिल्म निर्माताओं के लिए नए प्रोत्साहनों की घोषणा की।" },
         { title: "39th National Games 2025", titleHi: "39वें राष्ट्रीय खेल 2025", winner: "Services topped medal tally", winnerHi: "सर्विसेज ने पदक तालिका में शीर्ष स्थान प्राप्त किया", detail: "Held in Uttarakhand. Services topped once again, followed by Maharashtra and Haryana. Games served as selection trial for 2026 Asian Games.", detailHi: "उत्तराखंड में आयोजित। सर्विसेज एक बार फिर शीर्ष पर रहा, उसके बाद महाराष्ट्र और हरियाणा का स्थान रहा। ये खेल 2026 के एशियाई खेलों के लिए चयन परीक्षण के रूप में काम करते थे।" },
         { title: "ICC Champions Trophy 2025 Preparations", titleHi: "ICC चैंपियंस ट्रॉफी 2025 की तैयारियाँ", winner: "Venues finalized for early 2026", winnerHi: "2026 की शुरुआत के लिए स्थान अंतिम रूप दिए गए", detail: "BCCI and ICC held high-level meetings regarding participation and neutral venues. PV Sindhu/Lakshya Sen reached finals of China Masters, maintaining top-10 BWF rankings.", detailHi: "BCCI और ICC ने भागीदारी और तटस्थ स्थानों के संबंध में उच्च स्तरीय बैठकें कीं। पीवी सिंधु/लक्ष्य सेन चीन मास्टर्स के फाइनल में पहुंचे, जिससे उनकी शीर्ष-10 BWF रैंकिंग बनी रही।" }
     ]
@@ -266,7 +266,7 @@ export default function NovemberCurrentAffairsPage() {
     const faqs = [
         { q: "What is the divisible pool in Finance Commission context?", qHi: "वित्त आयोग के संदर्भ में विभाज्य पूल क्या है?", a: "The divisible pool is the portion of central taxes (excluding cess and surcharge) that is shared between the Centre and States as per Finance Commission recommendations. It has grown to ₹22.4 lakh crore.", aHi: "विभाज्य पूल केंद्रीय करों (उपकर और अधिभार को छोड़कर) का वह हिस्सा है जो वित्त आयोग की सिफारिशों के अनुसार केंद्र और राज्यों के बीच साझा किया जाता है। यह बढ़कर ₹22.4 लाख करोड़ हो गया है।" },
         { q: "What is the India-Myanmar-Thailand Trilateral Highway?", qHi: "भारत-म्यांमार-थाईलैंड त्रिपक्षीय राजमार्ग क्या है?", a: "A highway project connecting India to Southeast Asia, currently 92% complete, expected to be fully functional by mid-2026.", aHi: "एक राजमार्ग परियोजना जो भारत को दक्षिण पूर्व एशिया से जोड़ती है, वर्तमान में 92% पूर्ण, मध्य-2026 तक पूरी तरह से कार्यात्मक होने की उम्मीद है।" },
-        { q: "What was India's GDP growth in Q2 of FY 2025-26?", qHi: "वित्त वर्ष 2025-26 की दूसरी तिमाही में भारत की जीडीपी वृद्धि क्या थी?", a: "India's GDP grew at 6.7% in Q2, down from 7.1% in Q1, due to erratic monsoon impacting agriculture.", aHi: "दूसरी तिमाही में भारत की जीडीपी 6.7% बढ़ी, जो पहली तिमाही में 7.1% से कम है, जो कृषि को प्रभावित करने वाले अनियमित मानसून के कारण था।" },
+        { q: "What was India's GDP growth in Q2 of FY 2025-26?", qHi: "वित्त वर्ष 2025-26 की दूसरी तिमाही में भारत की जीडीपी वृद्धि क्या थी?", a: "India's GDP grew at 6.7% in Q2, down from 7.1% in Q1, due to erratic monsoon impacting agriculture.", aHi: "दूसरी तिमाही में भारत की जीडीपी 6.7% बढ़ी, जो पहली तिमाही में 7.1% से कम है, जो कृषि को प्रभावित करने वाले अनि��मित मानसून के कारण था।" },
         { q: "What is Shukrayaan-1 mission?", qHi: "शुक्रयान-1 मिशन क्या है?", a: "ISRO's Venus Orbiter Mission to study Venusian atmosphere (96% CO2) and investigate presence of Phosphine. Thermal vacuum tests completed in November 2025.", aHi: "शुक्र के वायुमंडल (96% CO2) का अध्ययन करने और फॉस्फीन की उपस्थिति की जांच करने के लिए ISRO का शुक्र ऑर्बिटर मिशन। थर्मल वैक्यूम परीक्षण नवंबर 2025 में पूरे हुए।" },
         { q: "What is Agni-VI?", qHi: "अग्नि-VI क्या है?", a: "India's first ICBM with MIRV technology, range exceeding 7,000 km, allowing single missile to strike multiple targets simultaneously.", aHi: "MIRV तकनीक वाली भारत की पहली ICBM, सीमा 7,000 किमी से अधिक, जो एक ही मिसाइल को एक साथ कई लक्ष्यों पर हमला करने की अनुमति देती है।" },
         { q: "What was the theme of IFFI 2025?", qHi: "IFFI 2025 की थीम क्या थी?", a: "The 56th IFFI focused on 'Cinema in the Age of AI' and was held in Goa from November 20-28, 2025.", aHi: "56वें IFFI का ध्यान 'एआई के युग में सिनेमा' पर था और यह 20-28 नवंबर, 2025 तक गोवा में आयोजित किया गया था।" }
@@ -339,7 +339,7 @@ export default function NovemberCurrentAffairsPage() {
                         </Button>
                         {/* <Button variant="outline" size="lg" className="cursor-pointer gap-2">
                             <Download className="w-4 h-4" />
-                            {language === "en" ? "Download PDF" : "पीडीएफ डाउनलोड करें"}
+                            {language === "en" ? "Read Digest" : "पीडीएफ डाउनलोड करें"}
                         </Button> */}
                     </div>
                 </div>
@@ -526,7 +526,7 @@ export default function NovemberCurrentAffairsPage() {
                             {/* Download Card */}
                             {/* <div className="rounded-xl border bg-card p-5 text-center">
                                 <Download className="w-8 h-8 text-primary mx-auto mb-3" />
-                                <h3 className="font-bold mb-2">{language === "en" ? "Download PDF" : "पीडीएफ डाउनलोड करें"}</h3>
+                                <h3 className="font-bold mb-2">{language === "en" ? "Read Digest" : "पीडीएफ डाउनलोड करें"}</h3>
                                 <p className="text-xs text-muted-foreground mb-3">
                                     {language === "en" ? "Get the complete November 2025 Current Affairs PDF for offline study" : "ऑफलाइन अध्ययन के लिए संपूर्ण नवंबर 2025 करेंट अफेयर्स पीडीएफ प्राप्त करें"}
                                 </p>

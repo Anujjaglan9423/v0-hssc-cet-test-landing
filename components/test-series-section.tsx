@@ -10,7 +10,7 @@ const testSeries = [
     title: "HSSC CET Full Length Tests",
     description: "Complete mock tests based on actual exam pattern",
     tests: 50,
-    questions: 5000,
+    questions: 31068,
     duration: "90 mins each",
     difficulty: "Medium-Hard",
     popular: true,

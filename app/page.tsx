@@ -126,10 +126,11 @@ import PreparationGuide, {
 import AdPlacement from "@/components/ad-placement"
 import ExamAlertsSection from "@/components/exam-alerts-section"
 import { createAdminClient } from "@/lib/supabase/server"
+import { SITE_FACTS } from "@/lib/site-config"
 
 import type { Testimonial } from "@/components/testimonials-section"
-
 const SITE_URL = "https://cettest.site"
+
 
 interface RelatedUser {
   full_name: string | null
@@ -210,7 +211,7 @@ async function getPublicReviews(): Promise<Testimonial[]> {
           ? review.comments.trim()
           : ""
 
-      if (!comment) return []
+      if (comment.length <= 10) return []
 
       const user = getRelation(review.user)
       const test = getRelation(review.test)
@@ -291,7 +292,7 @@ export default async function Home() {
     <main className="min-h-screen">
       <Navbar />
 
-      <HeroSection />
+      <HeroSection stats={SITE_FACTS} />
 
       <ExamsSection />
   <AdPlacement className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />

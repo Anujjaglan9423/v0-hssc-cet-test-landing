@@ -144,7 +144,7 @@ export default function AboutPage() {
               <div className="mb-3 flex justify-center">
                 <FileText className="w-7 h-7 text-green-600" />
               </div>
-              <div className="text-3xl font-bold text-green-600 mb-1">266</div>
+              <div className="text-3xl font-bold text-green-600 mb-1">312+</div>
               <div className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">
                 Free Mock Tests
               </div>

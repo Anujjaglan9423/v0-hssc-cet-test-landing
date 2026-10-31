@@ -71,20 +71,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
 
-    // 🔐 Auth Pages
-    {
-      url: `${baseUrl}/login`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/signup`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-
     // 🎯 Core Pages
     {
       url: `${baseUrl}/mock-test`,
@@ -485,42 +471,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: now,
         changeFrequency: 'daily',
         priority: 1,
-      },
-      {
-        url: `${baseUrl}/current-affairs/january-2026`,
-        lastModified: now,
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${baseUrl}/current-affairs/february-2026`,
-        lastModified: now,
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${baseUrl}/current-affairs/march-2026`,
-        lastModified: now,
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${baseUrl}/current-affairs/october-2025`,
-        lastModified: now,
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${baseUrl}/current-affairs/november-2025`,
-        lastModified: now,
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${baseUrl}/current-affairs/december-2025`,
-        lastModified: now,
-        changeFrequency: 'monthly',
-        priority: 0.9,
       },
       {
         url: `${baseUrl}/current-affairs/september-2026`,

@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useState } from "react"
 import { BookOpen, BarChart3, Clock, Shield, Smartphone, Zap, Target, Users } from "lucide-react"
+import { SITE_FACTS } from "@/lib/site-config"
 
 const features = [
   {
     icon: BookOpen,
     title: "Comprehensive Test Bank",
-    description: "Access 30,000+ questions covering all HSSC CET subjects with detailed solutions.",
+    description: `Access ${SITE_FACTS.questions} questions covering all HSSC CET subjects with detailed solutions.`,
   },
   {
     icon: BarChart3,

@@ -74,8 +74,8 @@ export default function SyllabusLandingPage() {
             ],
             examPattern: {
                 totalQuestions: 100,
-                duration: "1 Hour 45 Minutes",
-                negativeMarking: "No negative marking (0.95 deduction for unattempted)",
+                duration: "90 Minutes",
+                negativeMarking: "No negative marking",
                 language: "Hindi & English"
             },
             popularExams: [
@@ -107,8 +107,8 @@ export default function SyllabusLandingPage() {
             ],
             examPattern: {
                 totalQuestions: 100,
-                duration: "2 Hours",
-                negativeMarking: "-0.25 for wrong answers",
+                duration: "90 Minutes",
+                negativeMarking: "0.25 marks per wrong answer",
                 language: "Hindi & English"
             },
             popularExams: [
@@ -136,7 +136,7 @@ export default function SyllabusLandingPage() {
     // Statistics for UKSSSC
     const ukssscStats = [
         { label: "State GK Weightage", value: "40%", icon: <Globe className="w-3.5 h-3.5" />, color: "text-green-600" },
-        { label: "Exam Duration", value: "2 Hours", icon: <Clock className="w-3.5 h-3.5" />, color: "text-teal-600" },
+        { label: "Exam Duration", value: "90 Minutes", icon: <Clock className="w-3.5 h-3.5" />, color: "text-teal-600" },
         { label: "Negative Marking", value: "0.25", icon: <Target className="w-3.5 h-3.5" />, color: "text-green-600" }
     ]
 
@@ -361,7 +361,7 @@ export default function SyllabusLandingPage() {
                         <div className="p-4 bg-muted/20 border-t text-xs text-muted-foreground">
                             <p className="flex items-center gap-1">
                                 <span className="font-medium text-foreground">Note:</span>
-                                Haryana GK carries the highest weightage (25%). CET scores are valid for 3 years. No negative marking for wrong answers, but unattempted questions incur -0.95 marks if 5th option not filled.
+                                Haryana GK carries the highest weightage (25%). CET scores are valid for 3 years. The pattern used on this site has no negative marking; verify the current official notification before applying.
                             </p>
                         </div>
                     </div>
@@ -443,11 +443,11 @@ export default function SyllabusLandingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>No Negative Marking:</strong> For wrong answers (unattempted have penalty)</span>
+                                    <span><strong>No Negative Marking:</strong> Wrong answers do not reduce the score</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>Exam Duration:</strong> 1 hour 45 minutes (105 minutes)</span>
+                                    <span><strong>Exam Duration:</strong> 90 minutes</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -475,7 +475,7 @@ export default function SyllabusLandingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>Exam Duration:</strong> 2 hours (120 minutes)</span>
+                                    <span><strong>Exam Duration:</strong> 90 minutes for the standard patterns shown here</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -529,7 +529,7 @@ export default function SyllabusLandingPage() {
                                     <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-orange-600">3</span>
                                     </div>
-                                    <span><strong>Attempt All Questions:</strong> No negative marking for wrong answers, but avoid leaving questions unattempted</span>
+                                    <span><strong>Attempt Carefully:</strong> 0.25 marks are deducted for each incorrect answer; unattempted questions receive no deduction</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -569,7 +569,7 @@ export default function SyllabusLandingPage() {
                                     <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-green-600">4</span>
                                     </div>
-                                    <span><strong>Time Management:</strong> 2 hours for 100 questions - allocate 45 seconds per question</span>
+                                    <span><strong>Time Management:</strong> 90 minutes for 100 questions - allocate time by section</span>
                                 </li>
                             </ul>
                         </div>
@@ -611,7 +611,7 @@ export default function SyllabusLandingPage() {
                             },
                             {
                                 q: "What is the duration of these exams?",
-                                a: "HSSC exams are typically 1 hour 45 minutes (105 minutes) for 100 questions. UKSSSC exams are 2 hours (120 minutes) for 100 questions."
+                                a: "HSSC CET is presented here as 100 questions in 90 minutes with no negative marking. UKSSSC Police Constable and VDO pages use 100 questions in 90 minutes with 0.25 negative marking; verify the current official notice before applying."
                             },
                             {
                                 q: "Can I take these exams in Hindi language?",

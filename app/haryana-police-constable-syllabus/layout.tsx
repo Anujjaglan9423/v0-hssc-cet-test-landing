@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
     title: "Haryana Police Constable Syllabus 2026 | Complete Selection Process & Exam Pattern",
-    description: "Download Haryana Police Constable syllabus 2026 PDF. Complete selection process including PMT, PST, Knowledge Test (97% weightage), NCC bonus marks, physical standards, and exam pattern. Free mock tests available at cettest.site.",
+    description: "View the Haryana Police Constable syllabus 2026. Complete selection process including PMT, PST, Knowledge Test (97% weightage), NCC bonus marks, physical standards, and exam pattern. Free mock tests available at cettest.site.",
     keywords: [
         "Haryana Police Constable syllabus",
         "Haryana Police Constable syllabus 2026",
@@ -238,7 +238,7 @@ export default function HaryanaPoliceConstableSyllabusLayout({
                                 name: "What is the marking scheme for Haryana Police Constable Knowledge Test?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "Knowledge Test has 97% weightage. No negative marking for wrong answers, but un-attempted questions have negative marking of minus 0.97 marks. General category needs 50% and reserved category needs 40% to qualify.",
+                                    text: "Knowledge Test weightage, marking rules and qualifying thresholds can change by recruitment notification. Verify the current official Haryana Police notice before applying.",
                                 },
                             },
                             {

@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     // Open Graph optimized for higher CTR
     openGraph: {
         title: "📚 UKSSSC Exam Syllabus 2026 PDF | Police Constable & VDO Complete Syllabus | Uttarakhand Exam Pattern",
-        description: "✅ Police Constable: 5 Subjects (Computer, GK, Hindi, Reasoning, Maths) | ✅ VDO: 4 Subjects (GK, Hindi, Reasoning, Maths) | ✅ Uttarakhand GK Focus | ✅ Physical Standards: 168cm/81cm Male, 147cm Female | ✅ Free PDF Download + Mock Tests",
+        description: "✅ Police Constable: 5 Subjects (Computer, GK, Hindi, Reasoning, Maths) | ✅ VDO: 4 Subjects (GK, Hindi, Reasoning, Maths) | ✅ Uttarakhand GK Focus | ✅ Physical Standards: 168cm/81cm Male, 147cm Female | ✅ Free study material Download + Mock Tests",
         url: "https://cettest.site/uksssc-exam-syllabus",
         siteName: "CET TEST | Govt Exam Prep",
         locale: "en_IN",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
                 url: "/og-uksssc-syllabus-2026.jpg",
                 width: 1200,
                 height: 630,
-                alt: "UKSSSC Exam Syllabus 2026 - Police Constable & VDO Complete Syllabus with Exam Pattern - Free PDF Download",
+                alt: "UKSSSC Exam Syllabus 2026 - Police Constable & VDO Complete Syllabus with Exam Pattern - Free study material Download",
                 type: "image/jpeg",
             },
         ],
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "UKSSSC Exam Syllabus 2026 PDF | Police Constable & VDO Complete Syllabus",
-        description: "Download free PDF: Police Constable (5 subjects) & VDO (4 subjects). Uttarakhand GK, exam pattern, physical standards (168cm/81cm), negative marking, and free mock tests.",
+        description: "Study topics for Police Constable (5 subjects) & VDO (4 subjects). Uttarakhand GK, exam pattern, physical standards (168cm/81cm), negative marking, and free mock tests.",
         images: ["/twitter-uksssc-syllabus.jpg"],
         creator: "@cet__test",
         site: "@cet__test",
@@ -468,7 +468,7 @@ export default function UKSSSCExamSyllabusLayout({
                         totalTime: "P90D",
                         estimatedCost: 0,
                         step: [
-                            { "@type": "HowToStep", name: "Month 1: Master Syllabus & Uttarakhand GK", text: "Download complete syllabus PDF. Study Uttarakhand GK: History (Formation 9 Nov 2000), Culture (Garhwali, Kumaoni), Geography (Himalayas, Rivers, Glaciers), National Parks (Jim Corbett, Rajaji, Valley of Flowers), Char Dham Yatra. This carries 30-35% weightage." },
+                            { "@type": "HowToStep", name: "Month 1: Master Syllabus & Uttarakhand GK", text: "Study the complete syllabus. Study Uttarakhand GK: History (Formation 9 Nov 2000), Culture (Garhwali, Kumaoni), Geography (Himalayas, Rivers, Glaciers), National Parks (Jim Corbett, Rajaji, Valley of Flowers), Char Dham Yatra. This carries 30-35% weightage." },
                             { "@type": "HowToStep", name: "Week 1-2: Uttarakhand GK Deep Dive", text: "Focus on Uttarakhand specific topics: Katyuri, Chand dynasties, Nanda Devi Raj Jat festival, Ganga-Yamuna river system, Panchayati Raj institutions. Make short notes for revision." },
                             { "@type": "HowToStep", name: "Week 3-4: Computer Knowledge & General Hindi", text: "For Police Constable: Master Computer Fundamentals, MS Word/Excel shortcuts, Internet protocols, Cyber Security basics. For Hindi: Learn Sandhi, Samas, Muhavare, Lokoktiyan, Synonyms, Antonyms." },
                             { "@type": "HowToStep", name: "Month 2: Reasoning & Numerical Ability", text: "Practice Reasoning: Coding-Decoding, Blood Relations, Syllogism, Logical Venn Diagrams. Maths: Percentage, Profit-Loss, Time & Work, Mensuration, Data Interpretation. Solve 30 questions daily." },
@@ -696,8 +696,8 @@ export default function UKSSSCExamSyllabusLayout({
                             urlTemplate: `${currentUrl}#download-pdf`,
                             actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
                         },
-                        name: "Download UKSSSC Syllabus PDF",
-                        description: "Download complete UKSSSC Police Constable and VDO syllabus PDF for 2026",
+                        name: "View UKSSSC Syllabus",
+                        description: "View complete UKSSSC Police Constable and VDO syllabus for 2026",
                         potentialAction: {
                             "@type": "DownloadAction",
                             object: {

@@ -23,7 +23,7 @@ const SUPPORT_PHONE_DISPLAY = "7291849546"
 // ============================================
 export const metadata: Metadata = {
   title: "HSSC CET Mock Test 2026 | Free Haryana CET Group C & D Practice Sets | NTA Pattern & PYQs",
-  description: "Crack HSSC CET 2026 with India's #1 free mock test platform. Attempt unlimited tests for Haryana CET Group C & D with NTA pattern, Haryana GK, previous year papers (PYQs), detailed solutions, and all-India rank. Start your 100% free preparation today!",
+  description: "Crack HSSC CET 2026 with Free mock test platform Attempt unlimited tests for Haryana CET Group C & D with NTA pattern, Haryana GK, previous year papers (PYQs), detailed solutions, and all-India rank. Start your 100% free preparation today!",
 
   keywords: [
     // ===== PRIMARY HSSC CET KEYWORDS =====
@@ -155,7 +155,7 @@ export default function HSCSCETPage() {
     },
     {
       q: "What is the exam pattern for HSSC CET 2026?",
-      a: "HSSC CET 2026 pattern: Total 100 questions (100 marks) in 90 minutes. Subject distribution: Haryana GK (25%), General Awareness (20%), Reasoning (20%), Mathematics (20%), Language (10%), Computers (5%). Questions are OMR-based with no negative marking. All 5 options are compulsory to attempt."
+      a: "HSSC CET 2026 pattern: Total 100 questions (100 marks) in 90 minutes. Subject distribution: Haryana GK (25%), General Awareness (20%), Reasoning (20%), Mathematics (20%), Language (10%), Computers (5%). Questions are OMR-based with no negative marking. Follow the current official notification for the required option-marking instructions."
     },
     {
       q: "What is the salary for HSSC CET qualified candidates?",
@@ -314,11 +314,11 @@ export default function HSCSCETPage() {
                 <div className="text-xs text-muted-foreground">Students</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">266</div>
+                <div className="text-2xl font-bold text-primary">312+</div>
                 <div className="text-xs text-muted-foreground">Total Tests</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">30,000+</div>
+                <div className="text-2xl font-bold text-primary">31,068+</div>
                 <div className="text-xs text-muted-foreground">Questions</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
@@ -379,7 +379,7 @@ export default function HSCSCETPage() {
                 <div className="mb-4 flex items-center justify-center w-14 h-14 rounded-xl bg-blue-500/10 group-hover:bg-blue-500/20 transition">
                   <FileText className="w-7 h-7 text-blue-600" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">30,000+ Questions</h3>
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">31,068+ Questions</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Extensive question bank covering Haryana GK, Maths, Reasoning, and Computer topics.
                 </p>
@@ -464,7 +464,7 @@ export default function HSCSCETPage() {
                   ["Total Questions", "100 Questions"],
                   ["Total Marks", "100 Marks"],
                   ["Duration", "1 Hour 45 Minutes"],
-                  ["Negative Marking", "No negative marking (0.95 deduction for unattempted)"],
+                  ["Negative Marking", "0.25 marks per incorrect answer"],
                   // ["Bonus Marks", "5 for Haryana Domicile"],
                   ["Language Medium", "Bilingual (Hindi & English)"],
                 ].map(([label, value], i) => (
@@ -563,7 +563,7 @@ export default function HSCSCETPage() {
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-2xl p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Crack Your HSSC CET Exam?</h2>
-            <p className="text-lg mb-8 opacity-90">Join 50,000+ Haryana aspirants and start your free preparation today</p>
+            <p className="text-lg mb-8 opacity-90">Join 2,000+ Haryana aspirants and start your free preparation today</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/signup">
                 <Button size="lg" variant="secondary" className="gap-2 cursor-pointer">

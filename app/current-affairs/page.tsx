@@ -412,7 +412,7 @@ export default function CurrentAffairsPage() {
         { id: "unpaid-domestic-labour", titleEn: "Unpaid Domestic Labour", titleHi: "अवैतनिक घरेलू श्रम", category: "Women & Labour", shortDescEn: "SC ruling: monetise homemakers' work at ₹30,000/month minimum, revised 10% every 3 years. Contributes ~15-17% to GDP.", shortDescHi: "SC: ₹30,000/माह न्यूनतम, 3 वर्ष में 10% वृद्धि। GDP में ~15-17% योगदान।", tag: "Judiciary", color: "from-pink-600 to-pink-800", mcqCount: 2, icon: "generic" },
         { id: "g7-summit-2026", titleEn: "G7 Summit 2026 (Évian)", titleHi: "G7 शिखर सम्मेलन 2026", category: "International Relations", shortDescEn: "52nd G7 Summit in Évian, France. India–Canada announced Raisina Americas Forum. G7 2027 in US. Informal bloc — no secretariat.", shortDescHi: "52वां G7 एवियन में। रायसीना अमेरिकास फोरम। 2027 US में। अनौपचारिक — कोई सचिवालय नहीं।", tag: "Summit", color: "from-indigo-600 to-indigo-800", mcqCount: 2, icon: "generic" },
         { id: "relos", titleEn: "India–Russia RELOS", titleHi: "भारत–रूस RELOS", category: "Defense", shortDescEn: "Reciprocal logistics pact operationalised Jan 2026 (signed Feb 2025). NOT a military alliance; bars permanent bases. LEMOA was India's first.", shortDescHi: "जनवरी 2026 में लागू। सैन्य गठबंधन नहीं; स्थायी अड्डों पर प्रतिबंध। LEMOA पहला।", tag: "Defense", color: "from-red-600 to-red-800", mcqCount: 2, icon: "generic" },
-        { id: "kishau-dam", titleEn: "Kishau Multipurpose Dam", titleHi: "किशाउ बहुउद्देशीय बांध", category: "Infrastructure", shortDescEn: "On Tons River (Yamuna tributary). 660 MW hydropower. Six states reached historic consensus — 90% cost by Centre. HP-Uttarakhand border.", shortDescHi: "टोंस नदी पर। 660 MW। छह राज्यों ने सहमति — 90% केंद्र। HP-उत्तराखंड सीमा।", tag: "Infrastructure", color: "from-sky-600 to-sky-800", mcqCount: 2, icon: "generic" },
+        { id: "kishau-dam", titleEn: "Kishau Multipurpose Dam", titleHi: "किशाउ बहुउद्देशीय बांध", category: "Infrastructure", shortDescEn: "On Tons River (Yamuna tributary). 660 MW hydropower. Six states reached historic consensus — 90% cost by Centre. HP-Uttarakhand border.", shortDescHi: "टोंस नदी ��र। 660 MW। छह राज्यों ने सहमति — 90% केंद्र। HP-उत्तराखंड सीमा।", tag: "Infrastructure", color: "from-sky-600 to-sky-800", mcqCount: 2, icon: "generic" },
         { id: "project-ganga", titleEn: "Project GANGA (UP)", titleHi: "प्रोजेक्ट गंगा (UP)", category: "Digital India", shortDescEn: "UP broadband expansion — ~20 lakh households; 8,000-10,000 Digital Service Providers; 1 lakh+ jobs; ₹5 lakh interest-free loans under CM Yuva Scheme.", shortDescHi: "UP ब्रॉडबैंड विस्तार — ~20 लाख घर; 8-10 हजार DSP; 1 लाख+ नौकरी; ₹5 लाख ब्याज-मुक्त।", tag: "Digital", color: "from-blue-600 to-blue-800", mcqCount: 2, icon: "generic" },
         { id: "india-japan-summit", titleEn: "16th India–Japan Summit", titleHi: "16वां भारत-जापान शिखर सम्मेलन", category: "International Relations", shortDescEn: "UNICORN stealth antenna project — first India-Japan defense co-development. NGMP; 1,000 biogas plants; MAHASAGAR doctrine.", shortDescHi: "UNICORN स्टेल्थ एंटीना — पहला रक्षा सह-विकास। NGMP; 1,000 बायोगैस संयंत्र; MAHASAGAR।", tag: "Summit", color: "from-rose-600 to-rose-800", mcqCount: 2, icon: "generic" },
         { id: "sd-report-2026", titleEn: "UN SD Report 2026", titleHi: "UN सतत विकास रिपोर्ट 2026", category: "Sustainable Development", shortDescEn: "None of 17 SDGs on track globally. India 94th (highest ever); SDG 2 most critical. Barbados tops UN-Mi; US last.", shortDescHi: "17 में से कोई भी SDG ट्रैक पर नहीं। भारत 94वां (सर्वश्रेष्ठ); SDG 2 सबसे गंभीर। बारबाडोस प्रथम।", tag: "SDG", color: "from-emerald-600 to-emerald-800", mcqCount: 2, icon: "generic" },
@@ -474,7 +474,7 @@ export default function CurrentAffairsPage() {
     shortDescEn:
         "Glaw Lake in Arunachal Pradesh became India's 101st Ramsar Site. Covers the Ramsar Convention, India's 100th Ramsar Site (Surha Tal), Montreux Record, Tamil Nadu's Ramsar sites, and all 13 Ramsar sites in Uttar Pradesh. Includes bilingual notes and practice MCQs.",
     shortDescHi:
-        "अरुणाचल प्रदेश की ग्लॉ झील भारत का 101वाँ रामसर स्थल बनी। रामसर कन्वेंशन, 100वाँ रामसर स्थल (सुरहा ताल), मॉन्ट्रो रिकॉर्ड, तमिलनाडु के रामसर स्थल और उत्तर प्रदेश के सभी 13 रामसर स्थलों की जानकारी। हिंदी-अंग्रेजी नोट्स और अभ्यास प्रश्न।",
+        "अरुणाचल प्रदेश की ग्लॉ झील भारत का 101वाँ रामसर स्थल बनी। रामसर कन्वेंश��, 100वाँ रामसर स्थल (सुरहा ताल), मॉन्ट्रो रिकॉर्ड, तमिलनाडु के रामसर स्थल और उत्तर प्रदेश के सभी 13 रामसर स्थलों की जानकारी। हिंदी-अंग्रेजी नोट्स और अभ्यास प्रश्न।",
     tag: "Environment",
     color: "from-emerald-600 to-teal-800",
     mcqCount: 1,
@@ -661,7 +661,7 @@ export default function CurrentAffairsPage() {
         month.majorTopics.some(topic => topic.toLowerCase().includes(searchQuery.toLowerCase()))
     )
 
-    const displayedMonths = showAllMonths ? filteredMonths : filteredMonths.slice(0, 6)
+    const displayedMonths = filteredMonths.filter((month) => month.month === "September" && month.year === 2026)
 
     const totalAvailable = monthsData.filter(m => m.isAvailable).length
     const totalTopics = monthsData.reduce((acc, m) => acc + m.majorTopics.length, 0)
@@ -694,7 +694,7 @@ export default function CurrentAffairsPage() {
                     </h1>
 
                     <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
-                        Complete month-wise current affairs for competitive examinations.
+                        September 2026 current affairs for competitive examinations.
                         <strong className="text-foreground"> Exam-oriented analysis, static GK, and practice questions</strong> for UPSC, SSC, Banking, HSSC, UKSSSC & more.
                     </p>
 
@@ -930,7 +930,7 @@ export default function CurrentAffairsPage() {
                         ))}
                     </div>
 
-                    {filteredMonths.length > 6 && (
+                    {false && filteredMonths.length > 6 && (
                         <div className="text-center mt-8">
                             <Button
                                 variant="outline"
@@ -949,6 +949,7 @@ export default function CurrentAffairsPage() {
             </section>
 
             {/* ================= PREVIOUS YEAR ARCHIVE ================= */}
+            {false && previousYearMonths.length > 0 && (
             <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-muted/30 to-background">
                 <div className="max-w-6xl mx-auto">
                     <div className="flex items-center gap-3 mb-6">
@@ -995,6 +996,7 @@ export default function CurrentAffairsPage() {
                     </div>
                 </div>
             </section>
+            )}
 
             {/* ================= WHY ================= */}
             <section className="py-12 px-4 sm:px-6 lg:px-8">
@@ -1045,7 +1047,7 @@ export default function CurrentAffairsPage() {
                     <div className="space-y-4">
                         {[
                             { q: "How should I prepare current affairs for competitive exams?", a: "Focus on the last 6-8 months with special attention to government schemes, international relations, economic developments, and state-specific news. Our monthly digests provide exam-oriented analysis." },
-                            { q: "Which months are most important for current affairs?", a: "The last 6 months before your exam are most important. For exams in mid-2026, focus on January-June 2026 with special attention to Budget, Economic Survey, and major international summits." },
+                            { q: "Which months are most important for current affairs?", a: "September 2026 is the currently published monthly current-affairs digest on this page." },
                             { q: "Are these digests useful for state exams like HSSC and UKSSSC?", a: "Yes, our digests cover both national and state-level news. For state exams, we include state-specific current affairs and important state government schemes." },
                             { q: "How many questions can I expect from current affairs?", a: "In most competitive exams, current affairs constitute 15-25% of the general awareness section. This can vary from 10-30 questions depending on the exam." },
                             { q: "Do you provide practice questions?", a: "Yes, each monthly digest includes practice MCQs. You can also attempt our full-length current affairs quizzes in the mock test section." }
@@ -1087,7 +1089,7 @@ export default function CurrentAffairsPage() {
                 <div className="max-w-5xl mx-auto text-center">
                     <h2 className="text-lg font-semibold mb-2">Monthly Current Affairs for Competitive Exams 2026</h2>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                        Complete month-wise current affairs coverage for 2026 including September, March, February, January and previous year archives.
+                        September 2026 current affairs coverage is currently published on this page.
                         Each digest covers national affairs, international relations, economy & banking, science & technology, environment & ecology,
                         sports, awards, appointments, and important days with exam-oriented analysis for UPSC, SSC, Banking, Railways,
                         HSSC (Haryana CET), UKSSSC (Uttarakhand), and all state-level competitive examinations.
