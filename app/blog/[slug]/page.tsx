@@ -153,6 +153,8 @@ import { getBlogReadTime, getRelatedBlogs, getStaticBlog, staticBlogs } from "@/
 const SITE_URL = "https://cettest.site"
 type PageProps = { params: Promise<{ slug: string }> }
 
+export const dynamicParams = true
+
 type Blog = NonNullable<ReturnType<typeof getStaticBlog>>
 
 function absoluteUrl(value: string) {
