@@ -125,6 +125,7 @@ import PreparationGuide, {
 } from "@/components/preparation-guide"
 import AdPlacement from "@/components/ad-placement"
 import ExamAlertsSection from "@/components/exam-alerts-section"
+import LeaderboardPopup, { type LeaderboardEntry } from "@/components/leaderboard-popup"
 import { createAdminClient } from "@/lib/supabase/server"
 import { SITE_FACTS } from "@/lib/site-config"
 
@@ -161,6 +162,32 @@ function getRelation<T>(
 }
 
 // Fetch all public testimonials
+
+async function getTopLeaderboard(): Promise<LeaderboardEntry[]> {
+  try {
+    const supabase = createAdminClient()
+    const { data, error } = await supabase
+      .from("test_results")
+      .select("score, percentage, user:users(full_name)")
+      .not("user_id", "is", null)
+      .order("score", { ascending: false })
+      .order("created_at", { ascending: true })
+      .limit(20)
+
+    if (error) return []
+
+    const seen = new Set<string>()
+    return (data ?? []).flatMap((result: any) => {
+      const user = Array.isArray(result.user) ? result.user[0] : result.user
+      const name = typeof user?.full_name === "string" ? user.full_name.trim() : ""
+      if (!name || seen.has(name.toLowerCase())) return []
+      seen.add(name.toLowerCase())
+      return [{ name, score: Math.round(Number(result.percentage ?? result.score ?? 0)) }]
+    }).slice(0, 3)
+  } catch {
+    return []
+  }
+}
 
 async function getPublicReviews(): Promise<Testimonial[]> {
   try {
@@ -244,7 +271,10 @@ async function getPublicReviews(): Promise<Testimonial[]> {
 
 
 export default async function Home() {
-  const testimonials = await getPublicReviews()
+  const [testimonials, leaderboard] = await Promise.all([
+    getPublicReviews(),
+    getTopLeaderboard(),
+  ])
 
   const aggregateRating =
     testimonials.length > 0
@@ -290,6 +320,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen">
+      <LeaderboardPopup entries={leaderboard} />
       <Navbar />
 
       <HeroSection stats={SITE_FACTS} />
