@@ -136,12 +136,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // },
 
     // 📚 Exams Pages
-    {
-      url: `${baseUrl}/exams`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.95,
-    },
+    // {
+    //   url: `${baseUrl}/exams`,
+    //   lastModified: now,
+    //   changeFrequency: 'daily',
+    //   priority: 0.95,
+    // },
     {
       url: `${baseUrl}/exams/ssc`,
       lastModified: now,
@@ -206,12 +206,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
-    {
-      url: `${baseUrl}/haryana-previous-year-papers`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
+    // {
+    //   url: `${baseUrl}/haryana-previous-year-papers`,
+    //   lastModified: now,
+    //   changeFrequency: 'daily',
+    //   priority: 0.9,
+    // },
 
     // Haryana Exam Syllabus Pages
     {
