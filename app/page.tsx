@@ -170,7 +170,7 @@ async function getTopLeaderboard(): Promise<LeaderboardEntry[]> {
       .from("test_results")
       .select("score, percentage, user:users(full_name)")
       .not("user_id", "is", null)
-      .order("score", { ascending: false })
+      .order("percentage", { ascending: false, nullsFirst: false })
       .order("created_at", { ascending: true })
       .limit(20)
 
