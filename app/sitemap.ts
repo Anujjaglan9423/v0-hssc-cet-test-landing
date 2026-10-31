@@ -473,42 +473,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 1,
       },
       {
-        url: `${baseUrl}/current-affairs/january-2026`,
-        lastModified: now,
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${baseUrl}/current-affairs/february-2026`,
-        lastModified: now,
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${baseUrl}/current-affairs/march-2026`,
-        lastModified: now,
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${baseUrl}/current-affairs/october-2025`,
-        lastModified: now,
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${baseUrl}/current-affairs/november-2025`,
-        lastModified: now,
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      {
-        url: `${baseUrl}/current-affairs/december-2025`,
-        lastModified: now,
-        changeFrequency: 'monthly',
-        priority: 0.9,
-      },
-      {
         url: `${baseUrl}/current-affairs/september-2026`,
         lastModified: now,
         changeFrequency: 'daily',
