@@ -3,16 +3,16 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
-import { SITE_FACTS } from "@/lib/site-config"
+import type { PublicSiteStats } from "@/lib/public-site-stats"
 
-export default function CTASection() {
+export default function CTASection({ stats }: { stats: PublicSiteStats }) {
   return (
     <section className="py-28 bg-primary relative">
       <div className="max-w-4xl mx-auto px-6 text-center">
 
         {/* Tag */}
         <p className="text-xs tracking-[0.25em] text-white/90 uppercase mb-6">
-          Trusted by serious aspirants
+          Free preparation resources
         </p>
 
         {/* Headline */}
@@ -34,15 +34,15 @@ export default function CTASection() {
         {/* Stats (minimal + premium) */}
         <div className="flex justify-center gap-10 text-left mb-12">
           <div>
-            <p className="text-2xl font-semibold text-white">{SITE_FACTS.students}</p>
+            <p className="text-2xl font-semibold text-white">{stats.students === null ? "—" : stats.students.toLocaleString("en-IN")}</p>
             <p className="text-xs text-white/70">Students</p>
           </div>
           <div>
-            <p className="text-2xl font-semibold text-white">{SITE_FACTS.tests}</p>
+            <p className="text-2xl font-semibold text-white">{stats.tests === null ? "—" : stats.tests.toLocaleString("en-IN")}</p>
             <p className="text-xs text-white/70">Tests</p>
           </div>
           <div>
-            <p className="text-2xl font-semibold text-white">{SITE_FACTS.questions}</p>
+            <p className="text-2xl font-semibold text-white">{stats.questions === null ? "—" : stats.questions.toLocaleString("en-IN")}</p>
             <p className="text-xs text-white/70">Questions</p>
           </div>
         </div>
@@ -59,7 +59,7 @@ export default function CTASection() {
 
         {/* Trust */}
         <p className="mt-6 text-xs text-white/60">
-          All mock tests and study resources are free
+          Free mock tests and study resources; some tests require a free account
         </p>
       </div>
     </section>

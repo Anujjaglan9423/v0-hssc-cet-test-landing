@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   title:
     "UKSSSC & UKPSC Mock Tests 2026 | Uttarakhand Govt Exam Preparation Online | Free Practice",
   description:
-    "Crack UKSSSC & UKPSC 2026 exams with Free mock test platform. Attempt unlimited mock tests for UK VDO/VPDO, Patwari, Lekhpal, Forest Guard, UK Police Constable, SI, Junior Assistant (Kanisth Sahayak), RO/ARO, and Group C. Practice latest Uttarakhand GK, previous year papers (PYQs), full-length test series with instant results, detailed solutions, and all-India rank. Start your 100% free preparation today!",
+    "Crack UKSSSC & UKPSC 2026 exams with Free mock test platform. Attempt unlimited mock tests for UK VDO/VPDO, Patwari, Lekhpal, Forest Guard, UK Police Constable, SI, Junior Assistant (Kanisth Sahayak), RO/ARO, and Group C. Practice latest Uttarakhand GK, previous year papers (PYQs), full-length test series with instant results, detailed solutions, and answer reviews. Start your 100% free preparation today!",
 
   keywords: [
     // Primary UKSSSC Exams
@@ -99,7 +99,7 @@ export const metadata: Metadata = {
     title:
       "UKSSSC & UKPSC Mock Tests 2026 | Free Uttarakhand Exam Practice | CET TEST",
     description:
-      "Boost your score in UKSSSC 2026 exams. Get unlimited free mock tests for VDO, Patwari, Forest Guard, Police, Junior Assistant (Kanisth Sahayak), and UKPSC with detailed solutions, performance analytics, and all-India rank.",
+      "Boost your score in UKSSSC 2026 exams. Get free mock tests for VDO, Patwari, Forest Guard, Police, Junior Assistant (Kanisth Sahayak), and UKPSC with detailed solutions, performance analytics, and answer reviews.",
     url: "https://cettest.site/exams/uksssc",
     siteName: "CET TEST",
     locale: "en_IN",
@@ -151,7 +151,7 @@ export default function UKSSCSPage() {
         "Village Development Officer recruitment in Uttarakhand - Group C post",
       link: "/mock-test",
       features: [
-        "150+ Mock Tests",
+        "Available Mock Tests",
         "10 Previous Year Papers",
         "Subject-wise Practice",
         "Uttarakhand GK Focus",
@@ -164,7 +164,7 @@ export default function UKSSCSPage() {
         "Land record and revenue department positions in Uttarakhand",
       link: "/mock-test",
       features: [
-        "120+ Timed Tests",
+        "Timed Practice Tests",
         "Detailed Solutions",
         "Performance Analytics",
         "Revision Tests",
@@ -176,7 +176,7 @@ export default function UKSSCSPage() {
       description: "Uttarakhand forest department recruitment - Group C",
       link: "/mock-test",
       features: [
-        "100+ Full Mock Tests",
+        "Full Mock Tests",
         "Real Exam Pattern",
         "Topic-wise Practice",
         "Physical Test Guide",
@@ -188,7 +188,7 @@ export default function UKSSCSPage() {
       description: "Police Constable & SI recruitment in Uttarakhand",
       link: "/mock-test",
       features: [
-        "200+ Mock Tests",
+        "Available Mock Tests",
         "Previous Year Papers",
         "Expert Explanations",
         "Instant Results",
@@ -201,7 +201,7 @@ export default function UKSSCSPage() {
         "Junior Assistant recruitment in Uttarakhand government departments - Group C post",
       link: "/mock-test",
       features: [
-        "140+ Mock Tests",
+        "Available Mock Tests",
         "15 Previous Year Papers",
         "Typing Practice",
         "Computer Knowledge",
@@ -215,7 +215,7 @@ export default function UKSSCSPage() {
         "Various Group C posts including Junior Assistant, Clerk, Accountant",
       link: "/mock-test",
       features: [
-        "180+ Mock Tests",
+        "Available Mock Tests",
         "Sectional Tests",
         "Full-Length Exams",
         "Progress Tracking",
@@ -228,7 +228,7 @@ export default function UKSSCSPage() {
         "Review Officer & Assistant Review Officer - Uttarakhand PSC",
       link: "/mock-test",
       features: [
-        "100+ Mock Tests",
+        "Available Mock Tests",
         "Mains Practice",
         "Interview Guide",
         "Current Affairs",
@@ -381,8 +381,8 @@ export default function UKSSCSPage() {
               UKSSSC & UKPSC Mock Tests 2026
             </h1>
             <p className="text-xl text-muted-foreground mb-6">
-              Master UK VDO, Patwari, Forest Guard, Police Constable, Junior
-              Assistant (Kanisth Sahayak) & all Group C exams with unlimited
+              Prepare for UK VDO, Patwari, Forest Guard, Police Constable, Junior
+              Assistant (Kanisth Sahayak) and Group C exams with
               free mock tests, PYQs, and detailed analytics
             </p>
 
@@ -395,11 +395,11 @@ export default function UKSSCSPage() {
                 </div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-primary">250+</div>
+                <div className="text-2xl font-bold text-primary">Available</div>
                 <div className="text-xs text-muted-foreground">Mock Tests</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-primary">30K+</div>
+                <div className="text-2xl font-bold text-primary">Practice</div>
                 <div className="text-xs text-muted-foreground">
                   Practice Questions
                 </div>
@@ -528,9 +528,9 @@ export default function UKSSCSPage() {
               </div>
               <div className="text-center">
                 <Users className="w-12 h-12 text-primary mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">All-India Rank</h3>
+                <h3 className="font-semibold mb-2">Performance Review</h3>
                 <p className="text-sm text-muted-foreground">
-                  Compare with 10K+ aspirants
+                  Review your test attempts
                 </p>
               </div>
               <div className="text-center">
@@ -562,7 +562,7 @@ export default function UKSSCSPage() {
                 },
                 {
                   q: "How many vacancies are expected for UKSSSC 2026?",
-                  a: "UKSSSC is expected to announce 2000+ vacancies for various Group C posts including VDO, Patwari, Forest Guard, Junior Assistant (Kanisth Sahayak), and other posts in 2026.",
+                  a: "Vacancy numbers should be checked in the latest official UKSSSC recruitment notification. Do not rely on unconfirmed projections.",
                 },
                 {
                   q: "What is the selection process for UKSSSC Forest Guard?",
@@ -601,7 +601,7 @@ export default function UKSSCSPage() {
               Ready to Crack Your UKSSSC Exam?
             </h2>
             <p className="text-lg mb-8 opacity-90">
-              Join 2,000+ Uttarakhand aspirants and start your free preparation
+              Join Uttarakhand aspirants and start your free preparation
               today
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

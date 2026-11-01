@@ -3,18 +3,17 @@
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import Script from "next/script"
-import { SITE_FACTS } from "@/lib/site-config"
 
 const faqs = [
   {
     question: "What is CET TEST and why should I prepare with your platform?",
     answer:
-      `CET TEST is a comprehensive exam preparation platform for all competitive government exams including Haryana CET, SSC, Railway, and Uttarakhand exams. Our platform provides ${SITE_FACTS.questions} questions, real exam simulation, and detailed analytics to maximize your chances of success across all exam types.`,
+      "CET TEST offers government-exam preparation resources, including topic guides, mock tests, answer reviews, and study materials for Haryana CET, SSC, Railway and Uttarakhand exams.",
   },
   {
     question: "How are your mock tests different from others?",
     answer:
-      "Our mock tests are designed by experts who have analyzed years of exam patterns across multiple competitive exams. Each test mirrors the actual exam format in difficulty, question types, and time constraints. Plus, you get detailed solutions and performance analytics after every test.",
+      "Our mock tests are grouped by exam and show their questions and time limits before you start. After submitting a free test, you can review which answers were correct, which were incorrect, and any available explanations. Always verify exam rules against the latest official notification.",
   },
   {
     question: "Can I access the platform on my mobile device?",

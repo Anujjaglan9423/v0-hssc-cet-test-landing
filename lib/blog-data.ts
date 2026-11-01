@@ -229,7 +229,6 @@ export type StaticBlog = {
   imageAlt?: string
   sources?: { label: string; url: string }[]
 
-  readTime: string
 
   author: string
 
@@ -263,7 +262,6 @@ export const staticBlogs: StaticBlog[] = [
 
     date: "2026-09-28",
 
-    readTime: "18 min read",
 
     author,
 
@@ -297,7 +295,6 @@ export const staticBlogs: StaticBlog[] = [
 
     date: "2026-09-25",
 
-    readTime: "20 min read",
 
     author,
 
@@ -331,7 +328,6 @@ export const staticBlogs: StaticBlog[] = [
 
     date: "2026-09-22",
 
-    readTime: "19 min read",
 
     author,
 
@@ -365,7 +361,6 @@ export const staticBlogs: StaticBlog[] = [
 
     date: "2026-09-16",
 
-    readTime: "17 min read",
 
     author,
 
@@ -399,7 +394,6 @@ export const staticBlogs: StaticBlog[] = [
 
     date: "2026-09-10",
 
-    readTime: "16 min read",
 
     author,
 
@@ -433,7 +427,6 @@ export const staticBlogs: StaticBlog[] = [
 
     date: "2026-09-08",
 
-    readTime: "15 min read",
 
     author,
 
@@ -465,7 +458,6 @@ export const staticBlogs: StaticBlog[] = [
 
     date: "2026-09-05",
 
-    readTime: "16 min read",
 
     author,
 
@@ -497,7 +489,6 @@ export const staticBlogs: StaticBlog[] = [
 
     date: "2026-09-02",
 
-    readTime: "17 min read",
 
     author,
 
@@ -529,7 +520,6 @@ export const staticBlogs: StaticBlog[] = [
 
     date: "2026-08-29",
 
-    readTime: "14 min read",
 
     author,
 
@@ -561,7 +551,6 @@ export const staticBlogs: StaticBlog[] = [
 
     date: "2026-08-26",
 
-    readTime: "13 min read",
 
     author,
 

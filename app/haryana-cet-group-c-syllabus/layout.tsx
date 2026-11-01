@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     title: "HSSC CET Group C Syllabus 2026 | Complete Haryana CET Exam Pattern Topic-wise",
 
     // Description optimized for Google SGE / Bing Chat (GEO) - Bilingual for maximum reach
-    description: "HSSC CET Group C Syllabus 2026 with topic-wise coverage: Haryana GK (25 marks), General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English and Hindi. Exam pattern: 100 questions, 90 minutes, no negative marking. Free mock tests included.",
+    description: "HSSC CET Group C Syllabus 2026 with topic-wise coverage: Haryana GK (25 marks), General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English and Hindi. Exam pattern: 100 questions, 105 minutes, no penalty for wrong answers; −1 for an unmarked skipped question. Free mock tests included.",
 
     // Keywords extended for long-tail & question-based queries (AEO)
     keywords: [
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     // Open Graph optimized for higher CTR
     openGraph: {
         title: "📚 HSSC CET Group C Syllabus 2026 PDF | Complete Haryana CET Exam Pattern",
-        description: "✅ Topic-wise syllabus for all 6 subjects | ✅ 100 questions, 90 minutes, no negative marking | ✅ Haryana GK (25 marks) | ✅ Topic-wise study material + mock tests | ✅ Bilingual (English & Hindi)",
+        description: "✅ Topic-wise syllabus for all 6 subjects | ✅ 100 questions, 105 minutes, no penalty for wrong answers; −1 for an unmarked skipped question | ✅ Haryana GK (25 marks) | ✅ Topic-wise study material + mock tests | ✅ Bilingual (English & Hindi)",
         url: "https://cettest.site/haryana-cet-group-c-syllabus",
         siteName: "CET TEST | Haryana Govt Exam Prep",
         locale: "en_IN",
@@ -147,7 +147,7 @@ export default function HaryanaCETGroupCSyllabusLayout({
                         "@type": "EducationalOccupationalProgram",
                         "@id": `${currentUrl}#program`,
                         name: "HSSC CET Group C Examination 2026 - Complete Syllabus Program",
-                        description: "Comprehensive syllabus for Haryana Common Eligibility Test (CET) for Group C posts. Covers all 6 subjects: General Awareness (25 marks including Haryana GK), General Reasoning, Quantitative Ability, Computer Knowledge, English Language, and Hindi Language. Exam pattern: 100 questions, 100 marks, 90 minutes, no negative marking.",
+                        description: "Comprehensive syllabus for Haryana Common Eligibility Test (CET) for Group C posts. Covers all 6 subjects: General Awareness (25 marks including Haryana GK), General Reasoning, Quantitative Ability, Computer Knowledge, English Language, and Hindi Language. Exam pattern: 100 questions, 100 marks, 105 minutes; wrong: 0, unmarked skipped question: −1.",
                         educationalProgramMode: "Exam Preparation",
                         timeToComplete: "P3M",
                         occupationalCategory: "Government Jobs - Haryana Staff Selection Commission",
@@ -298,7 +298,7 @@ export default function HaryanaCETGroupCSyllabusLayout({
                                 name: "How many questions are asked in Haryana CET Group C exam?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "Haryana CET Group C exam consists of total 100 objective-type (MCQ) questions for 100 marks. The exam duration is 90 minutes. Subject-wise distribution: General Awareness (25 questions), Reasoning (15-20 questions), Quantitative Aptitude (15-20 questions), Computer Knowledge (10-15 questions), English (10-15 questions), Hindi (10-15 questions).",
+                                    text: "Haryana CET Group C exam consists of total 100 objective-type (MCQ) questions for 100 marks. The exam duration is 105 minutes (1 hour 45 minutes). Subject-wise distribution: General Awareness (25 questions), Reasoning (15-20 questions), Quantitative Aptitude (15-20 questions), Computer Knowledge (10-15 questions), English (10-15 questions), Hindi (10-15 questions).",
                                 },
                             },
                             {
@@ -306,7 +306,7 @@ export default function HaryanaCETGroupCSyllabusLayout({
                                 name: "Is there negative marking in Haryana CET?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "There is no negative marking in the HSSC CET pattern used on this site. Candidates should still verify the latest official HSSC notification before applying.",
+                                    text: "Wrong answers have no penalty. If you skip a question, fill the fifth OMR bubble; an unmarked fifth bubble deducts one mark. Verify the applicable official HSSC notice.",
                                 },
                             },
                             {
@@ -322,7 +322,7 @@ export default function HaryanaCETGroupCSyllabusLayout({
                                 name: "What is the exam pattern for HSSC CET Group C 2026?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "HSSC CET Group C exam pattern 2026: Mode: Online (Computer Based Test), Total Questions: 100, Total Marks: 100, Duration: 90 minutes (1.5 hours), Negative Marking: None, Subjects: General Awareness (25 marks including Haryana GK), Reasoning (15-20 marks), Maths (15-20 marks), Computer (10-15 marks), English (10-15 marks), Hindi (10-15 marks).",
+                                    text: "HSSC CET Group C exam pattern 2026: Mode: Offline (OMR-based), Total Questions: 100, Total Marks: 100, Duration: 105 minutes (1 hour 45 minutes), Wrong-answer penalty: none; unmarked skipped question: minus one mark, Subjects: General Awareness (25 marks including Haryana GK), Reasoning (15-20 marks), Maths (15-20 marks), Computer (10-15 marks), English (10-15 marks), Hindi (10-15 marks).",
                                 },
                             },
                             {
@@ -481,8 +481,8 @@ export default function HaryanaCETGroupCSyllabusLayout({
                             { "@type": "HowToStep", name: "Week 3-4: Reasoning & Quantitative Aptitude", text: "Practice Coding-Decoding, Blood Relations, Syllogism, Venn Diagrams. For Maths: Percentage, Profit-Loss, Time & Work, Mensuration, Data Interpretation. Solve 50 questions daily." },
                             { "@type": "HowToStep", name: "Month 2: Computer Knowledge & Languages", text: "Computer: Learn generations, hardware/software, MS Word/Excel shortcuts, internet protocols. English: Tenses, Prepositions, Active-Passive, Cloze test. Hindi: संधि, समास, पर्यायवाची, विलोम, मुहावरे." },
                             { "@type": "HowToStep", name: "Week 9-10: Full Syllabus Revision", text: "Revise all 6 subjects. Create short notes for important formulas, computer shortcuts, Hindi grammar rules, and Haryana GK one-liners." },
-                            { "@type": "HowToStep", name: "Week 11: Previous Year Papers & Mock Tests", text: "Solve last 5 years HSSC CET papers. Take 10 full-length mock tests. Analyze mistakes. Time management is key - 90 minutes for 100 questions." },
-                            { "@type": "HowToStep", name: "Week 12: Final Revision & Exam Strategy", text: "Revise weak areas. Practice Haryana GK and Computer section thoroughly. Plan attempt strategy: attempt easier sections first, avoid guesswork due to negative marking." },
+                            { "@type": "HowToStep", name: "Week 11: Previous Year Papers & Mock Tests", text: "Solve last 5 years HSSC CET papers. Take 10 full-length mock tests. Analyze mistakes. Time management is key - 105 minutes for 100 questions." },
+                            { "@type": "HowToStep", name: "Week 12: Final Revision & Exam Strategy", text: "Revise weak areas. Practice Haryana GK and Computer section thoroughly. Plan attempt strategy: attempt easier sections first, fill the fifth bubble when skipping a question to avoid the one-mark deduction." },
                         ],
                     }),
                 }}

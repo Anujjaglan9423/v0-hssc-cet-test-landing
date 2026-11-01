@@ -64,8 +64,38 @@ export default function MockTestResultsPage() {
     )
   }
 
-  const passPercentage = 40 // Passing percentage
-  const isPassed = result.percentage >= passPercentage
+  const isPassed = result.percentage >= 40 // Practice-only benchmark, not an exam qualifying score
+
+  const downloadReport = () => {
+    const lines = [
+      `${result.testTitle} — CET TEST practice review`,
+      `Score: ${result.score}/${result.totalQuestions} (${result.percentage}%)`,
+      `Correct: ${result.correct}; Incorrect: ${result.incorrect}; Unattempted: ${result.unattempted}`,
+      ...result.questions.map((q: any, i: number) => [
+        `Question ${i + 1}: ${q.question_text}`,
+        `Your answer: ${result.answers[q.id] || "Not attempted"}`,
+        `Correct answer: ${q.correct_answer}`,
+        `Explanation: ${q.explanation || "Not available"}`,
+      ].join("\n")),
+    ]
+    const file = new Blob([lines.join("\n\n")], { type: "text/plain;charset=utf-8" })
+    const url = URL.createObjectURL(file)
+    const anchor = document.createElement("a")
+    anchor.href = url
+    anchor.download = "cet-test-practice-review.txt"
+    anchor.click()
+    URL.revokeObjectURL(url)
+  }
+
+  const shareReport = async () => {
+    const text = `${result.testTitle}: I scored ${result.score}/${result.totalQuestions} on CET TEST.`
+    if (navigator.share) {
+      try { await navigator.share({ title: "My CET TEST practice score", text, url: "https://cettest.site/mock-test" }) } catch { /* Share dismissed */ }
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(text)
+      alert("Practice score copied to clipboard")
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted/30 py-8 px-4">
@@ -80,11 +110,11 @@ export default function MockTestResultsPage() {
             Back to Mock Tests
           </button>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="gap-2 bg-transparent">
+            <Button onClick={downloadReport} variant="outline" size="sm" className="gap-2 bg-transparent">
               <Download className="w-4 h-4" />
               Download
             </Button>
-            <Button variant="outline" size="sm" className="gap-2 bg-transparent">
+            <Button onClick={() => void shareReport()} variant="outline" size="sm" className="gap-2 bg-transparent">
               <Share2 className="w-4 h-4" />
               Share
             </Button>
@@ -135,10 +165,10 @@ export default function MockTestResultsPage() {
                 </div>
                 <div className="space-y-2">
                   <Badge className={isPassed ? "bg-green-500" : "bg-red-500"}>
-                    {isPassed ? "PASSED" : "FAILED"}
+                    {isPassed ? "PRACTICE TARGET MET" : "KEEP PRACTICING"}
                   </Badge>
                   <p className="text-sm text-muted-foreground">
-                    Passing Score: {passPercentage}%
+                    Practice benchmark: 40% (not an official cutoff)
                   </p>
                 </div>
               </div>
@@ -277,12 +307,14 @@ export default function MockTestResultsPage() {
                         </div>
                       </div>
 
-                      {question.explanation && (
-                        <div className="pt-3 border-t border-current/10">
-                          <p className="text-sm text-muted-foreground mb-2">Explanation:</p>
+                      <div className="pt-3 border-t border-current/10">
+                        <p className="text-sm font-medium text-foreground mb-2">Answer review</p>
+                        {question.explanation?.trim() ? (
                           <p className="text-sm text-foreground">{question.explanation}</p>
-                        </div>
-                      )}
+                        ) : (
+                          <p className="text-sm text-muted-foreground">An explanation has not yet been added for this question. Use the correct answer above for revision and verify uncertain facts against official study material.</p>
+                        )}
+                      </div>
                     </div>
                   </CardContent>
                 </Card>

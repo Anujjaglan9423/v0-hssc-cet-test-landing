@@ -30,7 +30,7 @@ export default function CurrentAffairsExamNotes({ slug }: { slug: string }) {
           </div>
         </div>
         <div className="border-t pt-4 space-y-2">
-          <h3 className="font-semibold text-base">Official reference / आधिकारिक संदर्भ</h3>
+          <h3 className="font-semibold text-base">Reference and further reading / संदर्भ एवं अतिरिक्त अध्ययन</h3>
           <a
             href={note.source.url}
             target="_blank"
@@ -48,8 +48,7 @@ export default function CurrentAffairsExamNotes({ slug }: { slug: string }) {
             </p>
           ) : (
             <p className="text-xs text-muted-foreground">
-              This is an official primary-source document or topic page. Check its date and scope;
-              it does not automatically verify every other statement or question in this article.
+              This link leads to an official document or topic page. Confirm it supports the particular detail you are studying; an announcement and a later conferral notice may have different lists.
             </p>
           )}
         </div>

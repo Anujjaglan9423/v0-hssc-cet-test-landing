@@ -41,11 +41,11 @@ export default function HaryanaCETGroupCSyllabusPage() {
         },
         {
             question: "Is there negative marking in Haryana CET Group C exam?",
-            answer: "There is no negative marking in the HSSC CET pattern used on this site. Candidates should still verify the latest official HSSC notification before applying."
+            answer: "HSSC CET Group C: an incorrect answer has no penalty. If you do not attempt a question, fill its fifth OMR bubble; leaving it blank deducts one mark. Check the applicable official HSSC advertisement."
         },
         {
             question: "What is the duration of Haryana CET Group C exam?",
-            answer: "The Haryana CET Group C exam is conducted for a duration of 90 minutes (1 hour 30 minutes) to attempt 100 questions."
+            answer: "HSSC CET Group C has 100 questions for 100 marks and a duration of 105 minutes (1 hour 45 minutes), according to the applicable HSSC notification."
         },
         {
             question: "Where can I download Haryana CET Group C syllabus PDF?",
@@ -116,7 +116,7 @@ export default function HaryanaCETGroupCSyllabusPage() {
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Clock className="w-4 h-4 text-primary" />
-                            <span>90 Minutes</span>
+                            <span>105 Minutes</span>
                         </div>
                     </div>
 
@@ -162,8 +162,8 @@ export default function HaryanaCETGroupCSyllabusPage() {
                             {[
                                 { label: "Total Questions", value: "100", color: "from-blue-500 to-blue-600" },
                                 { label: "Total Marks", value: "100", color: "from-green-500 to-green-600" },
-                                { label: "Duration", value: "90 Minutes", color: "from-orange-500 to-orange-600" },
-                                { label: "Negative Marking", value: "Skip: −1", color: "from-red-500 to-red-600" }
+                                { label: "Duration", value: "105 Minutes", color: "from-orange-500 to-orange-600" },
+                                { label: "Marking", value: "Wrong: 0 | blank skip: −1", color: "from-red-500 to-red-600" }
                             ].map((item, idx) => (
                                 <div key={idx} className="bg-card rounded-xl p-4 text-center border shadow-sm">
                                     <p className="text-sm text-muted-foreground mb-1">{item.label}</p>

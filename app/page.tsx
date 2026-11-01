@@ -102,7 +102,7 @@
 //       {/* <PricingSection /> */}
 //       <FAQSection />
 //       <EditorialNote />
-//       <CTASection />
+//       <CTASection stats={stats} />
 //       <Footer />
 //     </main>
 //   )
@@ -126,7 +126,7 @@ import PreparationGuide, {
 import AdPlacement from "@/components/ad-placement"
 import ExamAlertsSection from "@/components/exam-alerts-section"
 import { createAdminClient } from "@/lib/supabase/server"
-import { SITE_FACTS } from "@/lib/site-config"
+import { getPublicSiteStats } from "@/lib/public-site-stats"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = { alternates: { canonical: "https://cettest.site" } }
@@ -291,11 +291,12 @@ export default async function Home() {
         }
       : undefined
 
+  const stats = await getPublicSiteStats()
   return (
     <main className="min-h-screen">
       <Navbar />
 
-      <HeroSection stats={SITE_FACTS} />
+      <HeroSection stats={stats} />
 
       <ExamsSection />
   <AdPlacement className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
@@ -331,7 +332,7 @@ export default async function Home() {
 
       <EditorialNote />
 
-      <CTASection />
+      <CTASection stats={stats} />
 
       <Footer />
     </main>

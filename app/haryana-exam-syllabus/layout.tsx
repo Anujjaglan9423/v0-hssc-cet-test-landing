@@ -471,7 +471,6 @@ export default function HaryanaExamSyllabusLayout({
                         hasCourseInstance: {
                             "@type": "CourseInstance",
                             courseMode: "online",
-                            courseWorkload: "PT90M",
                         },
                         educationalLevel: "Graduation",
                         teaches: [
@@ -504,7 +503,7 @@ export default function HaryanaExamSyllabusLayout({
                             "https://www.facebook.com/Cet Test",
                             "https://www.instagram.com/cet__test",
                         ],
-                        description: "India's leading platform for Haryana CET, HSSC, SSC, Railway, and UKSSSC exam preparation with free mock tests and study materials",
+                        description: "An independent platform for Haryana CET, HSSC, SSC, Railway, and UKSSSC exam preparation with free mock tests and study materials",
                         address: {
                             "@type": "PostalAddress",
                             addressLocality: "Haryana",

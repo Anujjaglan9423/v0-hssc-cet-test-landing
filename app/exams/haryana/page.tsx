@@ -153,7 +153,7 @@ export default function HaryanaExamsPage() {
       name: "HSSC CET (Group C & D)",
       description: "Complete preparation for Haryana Common Entrance Test with latest NTA pattern questions for all Group C and Group D posts.",
       link: "/mock-test",
-      features: ["100+ Full-Length Mocks", "NTA Pattern Based", "HSSC CET PYQs", "Haryana GK Focus"],
+      features: ["Full-Length Mock Tests", "NTA Pattern Based", "HSSC CET PYQs", "Haryana GK Focus"],
       badge: "Most Popular",
       color: "from-blue-500 to-cyan-500"
     },
@@ -161,7 +161,7 @@ export default function HaryanaExamsPage() {
       name: "Haryana Police Constable",
       description: "Targeted mock tests for Haryana Police recruitment including Physical & Written exam focus with latest syllabus.",
       link: "/mock-test",
-      features: ["80+ Subject-wise Tests", "Haryana GK Special", "Timed Mock Tests", "All India Rank Analysis"],
+      features: ["Subject-wise Practice", "Haryana GK Special", "Timed Mock Tests", "Performance Review"],
       badge: "High Demand",
       color: "from-red-500 to-orange-500"
     },
@@ -169,7 +169,7 @@ export default function HaryanaExamsPage() {
       name: "HSSC Group D",
       description: "Dedicated test series for upcoming HSSC Group D vacancies with 2026 updated syllabus and exam pattern.",
       link: "/mock-test",
-      features: ["150+ Sectional Tests", "Focus on Reasoning & Math", "Instant Scorecards", "Previous Year Papers"],
+      features: ["Sectional Practice Tests", "Focus on Reasoning & Math", "Instant Scorecards", "Previous Year Papers"],
       badge: "New Updates",
       color: "from-green-500 to-emerald-500"
     },
@@ -177,7 +177,7 @@ export default function HaryanaExamsPage() {
       name: "Haryana Patwari",
       description: "Practice sets for Patwari examination with focus on land records, revenue laws, and Haryana specific GK.",
       link: "/mock-test",
-      features: ["60+ Mock Tests", "Revenue Law Focus", "Haryana Land Records", "Previous Year Analysis"],
+      features: ["Mock Tests", "Revenue Law Focus", "Haryana Land Records", "Previous Year Analysis"],
       badge: "Limited Seats",
       color: "from-purple-500 to-pink-500"
     },
@@ -193,7 +193,7 @@ export default function HaryanaExamsPage() {
       name: "HSSC Clerk & Jr. Assistant",
       description: "Office management and clerical exam preparation with computer knowledge and typing test guidance.",
       link: "/mock-test",
-      features: ["70+ Practice Tests", "Computer Knowledge", "Typing Test Guide", "Previous Year Papers"],
+      features: ["Practice Tests", "Computer Knowledge", "Typing Test Guide", "Previous Year Papers"],
       badge: "New",
       color: "from-indigo-500 to-blue-500"
     },
@@ -233,7 +233,7 @@ export default function HaryanaExamsPage() {
     },
     {
       question: "What is the exam pattern for HSSC CET 2026?",
-      answer: "HSSC CET 2026 pattern: 100 questions (100 marks) in 90 minutes. Subjects include: General Awareness (including Haryana GK), Reasoning, Mathematics, Hindi/English language skills. There is no negative marking. CET TEST mocks follow this exact pattern."
+      answer: "HSSC CET Group C and Group D 2026 notices specify 100 questions, 100 marks and 105 minutes (1 hour 45 minutes) in an offline bilingual OMR exam. Incorrect answers carry no penalty; if you skip a question, you must fill the fifth bubble or one mark is deducted. Check the specific HSSC advertisement and the duration shown for each CET TEST practice test."
     },
     {
       question: "Can I practice HSSC previous year question papers on CET TEST?",
@@ -256,8 +256,8 @@ export default function HaryanaExamsPage() {
       answer: "For most Haryana government exams (HSSC CET, Police, Group D), the age limit is 18-42 years for General category. Age relaxation: SC/ST/OBC: +5 years, PwD: +10 years, Ex-servicemen: as per Haryana government rules."
     },
     {
-      question: "How does the All-India Rank (AIR) feature work for Haryana exams?",
-      answer: "After every mock test, you receive a detailed performance report including your All-India Rank among thousands of Haryana aspirants who have taken the same test. This helps you understand where you stand compared to the actual competition pool."
+      question: "How does the performance review feature work for Haryana exams?",
+      answer: "After every mock test, you receive a detailed performance report including your score and accuracy information from your attempted questions. This helps you understand where you stand compared to the actual competition pool."
     },
   ]
 
@@ -302,7 +302,7 @@ export default function HaryanaExamsPage() {
         name: "How many vacancies are expected for HSSC CET 2026?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "HSSC is expected to announce 15,000+ vacancies for Group C and Group D posts in 2026, including Police Constable, Patwari, Clerk, VDO, and various departmental posts across Haryana government departments.",
+          text: "HSSC vacancies and eligible posts are confirmed only by the applicable official recruitment notification. Check the HSSC website for updates about Haryana government departments.",
         },
       },
       {
@@ -364,17 +364,17 @@ export default function HaryanaExamsPage() {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Get the most accurate HSSC CET Mock Test Series, Haryana Police Online Tests, and Previous Year Solved Papers for 2026. Trusted by 2,000+ Haryana aspirants.
+              Get the HSSC CET Mock Test Series, Haryana Police Online Tests, and Previous Year Solved Papers for 2026. Trusted by Haryana aspirants.
             </p>
 
             {/* Key Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">2K+</div>
+                <div className="text-2xl font-bold text-primary">Free</div>
                 <div className="text-xs text-muted-foreground">Active Aspirants</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">250+</div>
+                <div className="text-2xl font-bold text-primary">Available</div>
                 <div className="text-xs text-muted-foreground">Mock Tests</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
@@ -494,7 +494,7 @@ export default function HaryanaExamsPage() {
                   <Target className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">Latest Exam Pattern</h3>
-                <p className="text-sm text-muted-foreground">Updated for NTA & HSSC 2026 pattern with 100 questions in 90 minutes and no negative marking</p>
+                <p className="text-sm text-muted-foreground">HSSC 2026 CET: 100 questions in 105 minutes; wrong answers have no penalty. Fill the fifth OMR bubble for a skipped question.</p>
               </div>
               <div className="text-center p-4">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -508,14 +508,14 @@ export default function HaryanaExamsPage() {
                   <Brain className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">Detailed Solutions</h3>
-                <p className="text-sm text-muted-foreground">Step-by-step explanations for every question to ensure learning</p>
+                <p className="text-sm text-muted-foreground">Read available answer explanations and identify topics to revise</p>
               </div>
               <div className="text-center p-4">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Trophy className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="font-semibold mb-2">All-India Rank</h3>
-                <p className="text-sm text-muted-foreground">Compare your performance with 50K+ Haryana aspirants</p>
+                <h3 className="font-semibold mb-2">Performance Review</h3>
+                <p className="text-sm text-muted-foreground">Compare your performance with other test participants</p>
               </div>
             </div>
           </div>
@@ -550,7 +550,7 @@ export default function HaryanaExamsPage() {
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-2xl p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Crack Your Haryana Exam?</h2>
-            <p className="text-lg mb-8 opacity-90">Join 2,000+ Haryana aspirants and start your free preparation today</p>
+            <p className="text-lg mb-8 opacity-90">Join Haryana aspirants and start your free preparation today</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/signup">
                 <Button size="lg" variant="secondary" className="gap-2 cursor-pointer">

@@ -2,13 +2,12 @@
 
 import { useEffect, useRef, useState } from "react"
 import { BookOpen, BarChart3, Clock, Shield, Smartphone, Zap, Target, Users } from "lucide-react"
-import { SITE_FACTS } from "@/lib/site-config"
 
 const features = [
   {
     icon: BookOpen,
     title: "Comprehensive Test Bank",
-    description: `Access ${SITE_FACTS.questions} questions covering all HSSC CET subjects with detailed solutions.`,
+    description: "Browse exam-specific practice questions and review available answer explanations.",
   },
   {
     icon: BarChart3,
@@ -33,7 +32,7 @@ const features = [
   {
     icon: Zap,
     title: "Instant Results",
-    description: "Get immediate feedback with detailed explanations for every question.",
+    description: "Get immediate feedback, see the correct option, and read available explanations.",
   },
   {
     icon: Shield,
@@ -42,8 +41,8 @@ const features = [
   },
   {
     icon: Users,
-    title: "Live Rankings",
-    description: "Compare your performance with thousands of aspirants on our leaderboard.",
+    title: "Performance Review",
+    description: "Review your performance and compare available test results.",
   },
 ]
 

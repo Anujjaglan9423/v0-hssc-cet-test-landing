@@ -84,7 +84,7 @@ export default function SignupPage() {
             {/* Benefits */}
             <div className="space-y-4">
               {[
-                "31,068+ Practice Questions",
+                "Practice questions",
                 "Real CBT Exam Interface",
                 "Detailed Performance Analytics",
                 "24/7 Access on All Devices",
@@ -106,7 +106,7 @@ export default function SignupPage() {
               </div>
 
               <div>
-                <p className="text-white font-semibold">2,000+ Aspirants</p>
+                <p className="text-white font-semibold">Exam aspirants</p>
                 <p className="text-white/70 text-sm">Preparing daily with CET TEST</p>
               </div>
 

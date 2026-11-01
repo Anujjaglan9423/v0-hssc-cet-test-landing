@@ -74,8 +74,8 @@ export default function SyllabusLandingPage() {
             ],
             examPattern: {
                 totalQuestions: 100,
-                duration: "90 Minutes",
-                negativeMarking: "No negative marking",
+                duration: "105 Minutes",
+                negativeMarking: "Wrong: 0; unmarked skipped fifth bubble: −1",
                 language: "Hindi & English"
             },
             popularExams: [
@@ -361,7 +361,7 @@ export default function SyllabusLandingPage() {
                         <div className="p-4 bg-muted/20 border-t text-xs text-muted-foreground">
                             <p className="flex items-center gap-1">
                                 <span className="font-medium text-foreground">Note:</span>
-                                Haryana GK carries the highest weightage (25%). CET scores are valid for 3 years. The pattern used on this site has no negative marking; verify the current official notification before applying.
+                                Haryana GK is an important preparation area. HSSC CET Group C/D 2026 notices specify 100 questions in 105 minutes: wrong answers have no penalty, but a skipped question without the fifth OMR bubble costs one mark. Verify the relevant official advertisement.
                             </p>
                         </div>
                     </div>
@@ -443,11 +443,11 @@ export default function SyllabusLandingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>No Negative Marking:</strong> Wrong answers do not reduce the score</span>
+                                    <span><strong>Marking Rule:</strong> Wrong answers have no penalty; an unattempted question with its fifth OMR bubble left blank loses one mark</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>Exam Duration:</strong> 90 minutes</span>
+                                    <span><strong>Exam Duration:</strong> 105 minutes (1 hour 45 minutes)</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -611,7 +611,7 @@ export default function SyllabusLandingPage() {
                             },
                             {
                                 q: "What is the duration of these exams?",
-                                a: "HSSC CET is presented here as 100 questions in 90 minutes with no negative marking. UKSSSC Police Constable and VDO pages use 100 questions in 90 minutes with 0.25 negative marking; verify the current official notice before applying."
+                                a: "HSSC CET Group C/D notices specify 100 questions in 105 minutes, no penalty for incorrect answers and a one-mark deduction for an unmarked skipped fifth bubble. UKSSSC Police Constable and VDO pages use separate patterns; check each official notice."
                             },
                             {
                                 q: "Can I take these exams in Hindi language?",

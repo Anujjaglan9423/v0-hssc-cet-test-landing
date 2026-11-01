@@ -5,11 +5,9 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap, CheckCircle2, Sparkles, BookOpen } from "lucide-react"
 
-type HeroStats = {
-  students: string
-  tests: string
-  questions: string
-}
+import type { PublicSiteStats } from "@/lib/public-site-stats"
+
+type HeroStats = PublicSiteStats
 
 export default function HeroSection({ stats }: { stats: HeroStats }) {
   const [isVisible, setIsVisible] = useState(false)
@@ -19,7 +17,7 @@ export default function HeroSection({ stats }: { stats: HeroStats }) {
     return () => clearTimeout(timer)
   }, [])
 
-  const features = [`${stats.questions} Practice Questions`, `${stats.tests} Practice Tests`, "Detailed Solutions & Analytics"]
+  const features = [stats.questions !== null ? `${stats.questions.toLocaleString("en-IN")} Practice Questions` : "Practice Questions", stats.tests !== null ? `${stats.tests.toLocaleString("en-IN")} Practice Tests` : "Free Practice Tests", "Answer Reviews & Performance Analysis"]
 
   return (
     <section className="pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden relative">
@@ -157,7 +155,7 @@ export default function HeroSection({ stats }: { stats: HeroStats }) {
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-foreground">Review</p>
-                      <p className="text-sm text-muted-foreground">Every answer explained</p>
+                      <p className="text-sm text-muted-foreground">Answers reviewed</p>
                     </div>
                   </div>
                 </div>
@@ -169,7 +167,7 @@ export default function HeroSection({ stats }: { stats: HeroStats }) {
                       <BookOpen className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-foreground">{stats.questions}</p>
+                      <p className="text-2xl font-bold text-foreground">{stats.questions === null ? "Free" : stats.questions.toLocaleString("en-IN")}</p>
                       <p className="text-sm text-muted-foreground">Questions</p>
                     </div>
                   </div>

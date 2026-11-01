@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Railway Exams Mock Tests 2026 | RRB NTPC, Group D, ALP, Technician Free Online Practice | CBT Stage 1 & 2",
 
   // Description optimized for Google SGE / Bing Chat (GEO)
-  description: "Railway Exams 2026: Free mock tests for RRB NTPC, Group D, ALP & Technician. 31,068+ questions, previous year solved papers, bilingual (Hindi/English), CBT Stage 1 & 2 simulation. Complete preparation for Station Master, Goods Guard, ALP, JE, and all Railway Recruitment Board exams. Start free now!",
+  description: "Railway Exams 2026: Free mock tests for RRB NTPC, Group D, ALP & Technician. practice questions, previous year solved papers, bilingual (Hindi/English), CBT Stage 1 & 2 simulation. Complete preparation for Station Master, Goods Guard, ALP, JE, and all Railway Recruitment Board exams. Start free now!",
 
   // Keywords extended for long-tail & question-based queries (AEO)
   keywords: [
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   // Open Graph optimized for higher CTR
   openGraph: {
     title: "🚂 Railway Exams Mock Tests 2026 | RRB NTPC, Group D, ALP, Technician | Free Online Practice",
-    description: "✅ 4 Exams Covered (NTPC, Group D, ALP, Technician) | ✅ 31,068+ Questions | ✅ Previous Year Solved Papers | ✅ Bilingual (हिंदी & English) | ✅ CBT Stage 1 & 2 Simulation | ✅ 100% Free | ✅ Unlimited Attempts",
+    description: "✅ 4 Exams Covered (NTPC, Group D, ALP, Technician) | ✅ Practice questions | ✅ Previous Year Solved Papers | ✅ Bilingual (हिंदी & English) | ✅ CBT Stage 1 & 2 Simulation | ✅ 100% Free | ✅ Unlimited Attempts",
     url: "https://cettest.site/exams/railway",
     siteName: "CET TEST | Railway Exam Prep",
     locale: "en_IN",
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Railway Exams Mock Tests 2026 | RRB NTPC, Group D, ALP, Technician | Free Practice",
-    description: "Free mock tests for all Railway exams: NTPC (UG/Graduate), Group D, ALP & Technician. 31,068+ questions, previous year papers, bilingual, CBT simulation. Start free!",
+    description: "Free mock tests for all Railway exams: NTPC (UG/Graduate), Group D, ALP & Technician. practice questions, previous year papers, bilingual, CBT simulation. Start free!",
     images: ["/twitter-railway-exams.jpg"],
     creator: "@cet__test",
     site: "@cet__test",
@@ -143,7 +143,7 @@ export default function RailwayExamsPage() {
       slug: "rrb-ntpc",
       description: "Non-Technical Popular Categories - Station Master, Goods Guard, Commercial Apprentice, Clerk, Typist",
       link: "/mock-test",
-      features: ["CBT Stage 1 & 2 Tests", "100+ Mock Tests", "Previous Year Papers", "UG & Graduate Posts"],
+      features: ["CBT Stage 1 & 2 Tests", "Available Mock Tests", "Previous Year Papers", "UG & Graduate Posts"],
       icon: <Award className="w-6 h-6 text-blue-600" />,
       color: "blue",
       totalMocks: 150,
@@ -227,7 +227,7 @@ export default function RailwayExamsPage() {
             "@type": "EducationalOccupationalProgram",
             "@id": `${currentUrl}#program`,
             name: "Railway RRB Exams Complete Preparation Program 2026",
-            description: "Complete free mock test platform for all Railway Recruitment Board (RRB) examinations including NTPC (UG & Graduate), Group D, ALP, and Technician. Features: 31,068+ questions, previous year solved papers, bilingual (Hindi/English), CBT Stage 1 & 2 simulation, unlimited attempts, detailed analytics.",
+            description: "Complete free mock test platform for all Railway Recruitment Board (RRB) examinations including NTPC (UG & Graduate), Group D, ALP, and Technician. Features: practice questions, previous year solved papers, bilingual (Hindi/English), CBT Stage 1 & 2 simulation, unlimited attempts, detailed analytics.",
             educationalProgramMode: "Exam Preparation",
             timeToComplete: "P3M",
             occupationalCategory: "Railway Services - Indian Railways",
@@ -324,7 +324,7 @@ export default function RailwayExamsPage() {
                 name: "How many mock tests are available for Railway exams?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Our platform offers 400+ mock tests covering all RRB exams: RRB NTPC (150+ tests), Group D (100+ tests), ALP (120+ tests), Technician (80+ tests). Total 31,068+ questions with detailed solutions.",
+                  text: "Browse the mock tests currently available for RRB NTPC, Group D, ALP and Technician. Each published test shows its duration and question count before you begin.",
                 },
               },
               {
@@ -471,7 +471,7 @@ export default function RailwayExamsPage() {
               Railway Exams <span className="text-primary">Mock Tests</span> 2026
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Master all Railway exams with unlimited free mock tests for RRB NTPC, Group D, ALP & Technician. Previous year papers, CBT simulation, and detailed analytics.
+              Master all Railway exams with free mock tests for RRB NTPC, Group D, ALP & Technician. Previous year papers, CBT simulation, and detailed analytics.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
               <Link href="/signup">
@@ -491,15 +491,15 @@ export default function RailwayExamsPage() {
             <div className="flex flex-wrap justify-center gap-4 mt-8">
               <div className="flex items-center gap-2 text-sm bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-full border">
                 <Users className="w-4 h-4 text-primary" />
-                <span>2,000+ Active Users</span>
+                <span>Active learners</span>
               </div>
               <div className="flex items-center gap-2 text-sm bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-full border">
                 <FileText className="w-4 h-4 text-primary" />
-                <span>31,068+ Questions</span>
+                <span>Practice questions</span>
               </div>
               <div className="flex items-center gap-2 text-sm bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-full border">
                 <TrendingUp className="w-4 h-4 text-primary" />
-                <span>250+ Mock Tests</span>
+                <span>Available Mock Tests</span>
               </div>
             </div>
           </div>
@@ -595,7 +595,7 @@ export default function RailwayExamsPage() {
                 <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <BookOpen className="w-7 h-7 text-green-600" />
                 </div>
-                <h3 className="font-bold text-lg mb-2">31,068+ Questions</h3>
+                <h3 className="font-bold text-lg mb-2">Practice questions</h3>
                 <p className="text-sm text-muted-foreground">Comprehensive question bank covering all RRB exam patterns</p>
               </div>
               <div className="text-center p-6 bg-background rounded-xl border hover:shadow-lg transition">
@@ -610,7 +610,7 @@ export default function RailwayExamsPage() {
                   <CheckCircle2 className="w-7 h-7 text-orange-600" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">100% Free</h3>
-                <p className="text-sm text-muted-foreground">No hidden charges ever. Unlimited free mock tests</p>
+                <p className="text-sm text-muted-foreground">No hidden charges ever. Free mock tests</p>
               </div>
             </div>
           </div>
@@ -673,11 +673,11 @@ export default function RailwayExamsPage() {
               </div>
               <div className="p-6 bg-background rounded-2xl border">
                 <h4 className="font-bold text-lg mb-2">Can I attempt the mock tests multiple times?</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">Yes! Our platform allows unlimited free attempts for mock tests so you can improve your speed and accuracy by practicing until you reach 100% mastery.</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">Yes! Our platform allows repeat attempts for available free mock tests so you can review your answers and identify subjects to revise.</p>
               </div>
               <div className="p-6 bg-background rounded-2xl border">
                 <h4 className="font-bold text-lg mb-2">Are the mock tests bilingual (Hindi/English)?</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">Yes, all our Railway mock tests are available in both Hindi and English. You can switch between languages anytime during the test, just like the actual RRB CBT exam.</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">Yes, language availability depends on the selected test; check its instructions before starting. You can switch between languages anytime during the test, just like the actual RRB CBT exam.</p>
               </div>
             </div>
           </div>
@@ -688,7 +688,7 @@ export default function RailwayExamsPage() {
           <div className="max-w-4xl mx-auto bg-primary text-primary-foreground rounded-xl p-12 text-center">
             <Train className="w-12 h-12 mx-auto mb-4 opacity-90" />
             <h2 className="text-3xl font-bold mb-4">Ready to Crack Your Railway Exam?</h2>
-            <p className="text-lg mb-8 opacity-90">Join 2,000+ learners and start your free preparation today</p>
+            <p className="text-lg mb-8 opacity-90">Join learners and start your free preparation today</p>
             <Link href="/signup">
               <Button size="lg" variant="secondary" className="cursor-pointer">
                 Start Practicing for Free

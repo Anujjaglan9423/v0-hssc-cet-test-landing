@@ -74,7 +74,7 @@ import {
 } from "lucide-react"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
-import { staticBlogs } from "@/lib/blog-data"
+import { getBlogReadTime, staticBlogs } from "@/lib/blog-data"
 
 const siteUrl = "https://cettest.site"
 const pageUrl = `${siteUrl}/blog`
@@ -156,12 +156,10 @@ function PostCard({
                 {post.date}
               </span>
             )}
-            {post.readTime && (
-              <span className="inline-flex items-center gap-1.5">
-                <Clock3 className="size-3.5" aria-hidden="true" />
-                {post.readTime}
-              </span>
-            )}
+            <span className="inline-flex items-center gap-1.5">
+              <Clock3 className="size-3.5" aria-hidden="true" />
+              {getBlogReadTime(post)}
+            </span>
           </div>
           <span className="mt-4 inline-flex items-center gap-2 border-t border-border pt-4 text-sm font-semibold text-primary">
             Read guide <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transform-none" aria-hidden="true" />

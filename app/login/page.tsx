@@ -184,7 +184,7 @@ export default function LoginPage() {
               {[
                 "Real Exam Level Mock Tests",
                 "Performance & Rank Analysis",
-                "31,068+ Practice Questions",
+                "Practice questions",
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 text-white/90">
                   <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
@@ -203,7 +203,7 @@ export default function LoginPage() {
               </div>
 
               <div>
-                <p className="text-white font-semibold">2,000+ Aspirants</p>
+                <p className="text-white font-semibold">Exam aspirants</p>
                 <p className="text-white/70 text-sm">Preparing daily with CET TEST</p>
               </div>
 

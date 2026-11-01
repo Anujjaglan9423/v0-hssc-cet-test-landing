@@ -1,3 +1,1840 @@
+// "use server"
+
+// import { createClient, createAdminClient } from "@/lib/supabase/server"
+// import { revalidatePath } from "next/cache"
+// import { getCurrentUser } from "@/lib/auth"
+
+// // Get student dashboard data
+// export async function getStudentDashboard() {
+//   const supabase = await createClient()
+
+//   const user = await getCurrentUser()
+//   if (!user) return null
+
+//   const { data: results } = await supabase
+//     .from("test_results")
+//     .select(`
+//       id, score, total_questions, time_taken, created_at,
+//       test:tests (
+//         title,
+//         test_type,
+//         subject:subjects (name),
+//         topic:topics (name)
+//       )
+//     `)
+//     .eq("user_id", user.id)
+//     .order("created_at", { ascending: false })
+//     .limit(100)
+
+//   const testsAttempted = results?.length || 0
+//   const averageScore =
+//     testsAttempted > 0
+//       ? Math.round(
+//         results!.reduce((sum, r) => {
+//           const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
+//           return sum + percentage
+//         }, 0) / testsAttempted,
+//       )
+//       : 0
+//   const bestScore =
+//     testsAttempted > 0
+//       ? Math.max(...results!.map((r) => (r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0)))
+//       : 0
+//   const totalTime = results?.reduce((sum, r) => sum + (r.time_taken || 0), 0) || 0
+
+//   // Get performance trend (last 7 tests)
+//   const performanceTrend =
+//     results
+//       ?.slice(0, 7)
+//       .reverse()
+//       .map((r, i) => ({
+//         test: `Test ${i + 1}`,
+//         score: r.total_questions > 0 ? Math.round((r.score / r.total_questions) * 100) : 0,
+//       })) || []
+
+//   // Get subject-wise performance
+//   const subjectScores: Record<string, { total: number; count: number }> = {}
+//   results?.forEach((r) => {
+//     const subjectName = (r.test as any)?.subject?.name || "General"
+//     if (!subjectScores[subjectName]) {
+//       subjectScores[subjectName] = { total: 0, count: 0 }
+//     }
+//     const percentage = r.total_questions > 0 ? (r.score / r.total_questions) * 100 : 0
+//     subjectScores[subjectName].total += percentage
+//     subjectScores[subjectName].count += 1
+//   })
+
+//   const subjectPerformance = Object.entries(subjectScores).map(([subject, data]) => ({
+//     subject,
+//     score: Math.round(data.total / data.count),
+//   }))
+
+//   return {
+//     user,
+//     stats: {
+//       testsAttempted,
+//       averageScore,
+//       bestScore,
+//       totalTime: `${Math.floor(totalTime / 3600)}h`,
+//     },
+//     recentResults:
+//       results?.slice(0, 3).map((r) => ({
+//         ...r,
+//         marks: r.score,
+//         percentage: r.total_questions > 0 ? Math.round((r.score / r.total_questions) * 100) : 0,
+//       })) || [],
+//     performanceTrend,
+//     subjectPerformance,
+//   }
+// }
+
+// // Load the student dashboard in one authenticated server action.
+// // This avoids two separate auth lookups and lets the independent database reads run together.
+// export async function getStudentDashboardData() {
+//   const supabase = await createClient()
+//   const user = await getCurrentUser()
+//   if (!user) return null
+
+//   const [dashboardQuery, testsQuery, userResultsQuery] = await Promise.all([
+//     supabase
+//       .from("test_results")
+//       .select("id, score, total_questions, time_taken, created_at, test:tests(title, test_type, subject:subjects(name), topic:topics(name))")
+//       .eq("user_id", user.id)
+//       .order("created_at", { ascending: false })
+//       .limit(100),
+//     supabase
+//       .from("tests")
+//       .select("id, title, description, test_type, difficulty, duration, total_questions, created_at, exam:exams(id, name), subject:subjects(id, name), topic:topics(id, name)")
+//       .eq("is_active", true)
+//       .order("created_at", { ascending: false })
+//       .limit(100),
+//     supabase
+//       .from("test_results")
+//       .select("test_id, score, total_questions, percentage, attempt_id")
+//       .eq("user_id", user.id),
+//   ])
+
+//   const results = dashboardQuery.data ?? []
+//   const tests = testsQuery.data ?? []
+//   const testsAttempted = results.length
+//   const averageScore = testsAttempted
+//     ? Math.round(results.reduce((sum, result) => sum + (result.total_questions ? (result.score / result.total_questions) * 100 : 0), 0) / testsAttempted)
+//     : 0
+//   const bestScore = testsAttempted
+//     ? Math.max(...results.map((result) => result.total_questions ? (result.score / result.total_questions) * 100 : 0))
+//     : 0
+//   const totalTime = results.reduce((sum, result) => sum + (result.time_taken || 0), 0)
+//   const subjectScores: Record<string, { total: number; count: number }> = {}
+//   results.forEach((result) => {
+//     const subject = (result.test as any)?.subject?.name || "General"
+//     subjectScores[subject] ??= { total: 0, count: 0 }
+//     subjectScores[subject].total += result.total_questions ? (result.score / result.total_questions) * 100 : 0
+//     subjectScores[subject].count += 1
+//   })
+//   const userResults: Record<string, any> = {}
+//   userResultsQuery.data?.forEach((result) => {
+//     if (!userResults[result.test_id] || result.score > userResults[result.test_id].score) userResults[result.test_id] = result
+//   })
+
+//   const activityByDate: Record<string, number> = {}
+//   results.forEach((result) => {
+//     const date = result.created_at?.slice(0, 10)
+//     if (date) activityByDate[date] = (activityByDate[date] || 0) + 1
+//   })
+
+//   return {
+//     dashboard: {
+//       user,
+//       stats: { testsAttempted, averageScore, bestScore, totalTime: `${Math.floor(totalTime / 3600)}h` },
+//       activityByDate,
+//       recentResults: results.slice(0, 3).map((result) => ({ ...result, marks: result.score, percentage: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0 })),
+//       performanceTrend: results.slice(0, 7).reverse().map((result, index) => ({ test: `Test ${index + 1}`, score: result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0 })),
+//       subjectPerformance: Object.entries(subjectScores).map(([subject, data]) => ({ subject, score: Math.round(data.total / data.count) })),
+//     },
+//     tests: tests.map((test) => ({ ...test, questions_count: 0, attempts_count: 0, avg_score: 0, user_attempt: userResults[test.id] || null })),
+//   }
+// }
+
+// // Get every wrong answer from the student's completed attempts.
+// export async function getStudentMistakes() {
+//   const supabase = await createClient()
+//   const user = await getCurrentUser()
+//   if (!user) return { mistakes: [], total: 0, tests: 0 }
+
+//   const { data, error } = await supabase
+//     .from("user_answers")
+//     .select(`
+//       id, selected_answer, is_correct, created_at,
+//       question:questions (id, question_text, option_a, option_b, option_c, option_d, correct_answer, explanation, image_url),
+//       attempt:test_attempts!inner (user_id, test:tests (id, title, test_type))
+//     `)
+//     .eq("attempt.user_id", user.id)
+//     .eq("is_correct", false)
+//     .order("created_at", { ascending: false })
+
+//   if (error) {
+//     console.error("Error fetching mistake notebook:", error)
+//     return { mistakes: [], total: 0, tests: 0 }
+//   }
+
+//   const mistakes = (data ?? []).map((item: any) => ({
+//     ...item,
+//     test: item.attempt?.test,
+//     question: item.question,
+//   }))
+
+//   return {
+//     mistakes,
+//     total: mistakes.length,
+//     tests: new Set(mistakes.map((item: any) => item.test?.id).filter(Boolean)).size,
+//   }
+// }
+
+// // Get all available tests for students
+// export async function getAvailableTests() {
+//   const supabase = await createClient()
+//   const user = await getCurrentUser()
+
+//   const { data: tests, error } = await supabase
+//     .from("tests")
+//     .select(`
+//       id, title, description, test_type, difficulty, duration, total_questions, created_at,
+//       exam:exams (id, name),
+//       subject:subjects (id, name),
+//       topic:topics (id, name),
+//       questions (id),
+//       test_attempts (id),
+//       test_results (score)
+//     `)
+//     .eq("is_active", true)
+//     .order("created_at", { ascending: false })
+//     .limit(100)
+
+//   if (error) {
+//     console.error("Error fetching tests:", error)
+//     return []
+//   }
+
+//   // Get user's test results if logged in
+//   let userResults: Record<string, { score: number; totalQuestions: number; percentage: number; attemptId: string }> = {}
+
+//   if (user) {
+//     const { data: results } = await supabase
+//       .from("test_results")
+//       .select("test_id, score, total_questions, percentage, attempt_id")
+//       .eq("user_id", user.id)
+
+//     if (results) {
+//       // Keep the best attempt for each test
+//       results.forEach((r) => {
+//         if (!userResults[r.test_id] || r.score > userResults[r.test_id].score) {
+//           userResults[r.test_id] = {
+//             score: r.score,
+//             totalQuestions: r.total_questions,
+//             percentage: r.percentage,
+//             attemptId: r.attempt_id
+//           }
+//         }
+//       })
+//     }
+//   }
+
+//   return (
+//     tests?.map((test) => ({
+//       ...test,
+//       questions_count: test.questions?.length || 0,
+//       attempts_count: test.test_attempts?.length || 0,
+//       avg_score:
+//         test.test_results?.length > 0
+//           ? Math.round(test.test_results.reduce((sum: number, r: any) => sum + r.score, 0) / test.test_results.length)
+//           : 0,
+//       user_attempt: userResults[test.id] || null,
+//     })) || []
+//   )
+// }
+
+// // Start a test attempt
+// export async function startTestAttempt(testId: string) {
+//   const supabase = await createClient()
+
+//   const user = await getCurrentUser()
+//   if (!user) {
+//     return { success: false, error: "Not authenticated" }
+//   }
+
+//   // Check for existing in-progress attempt
+//   const { data: existingAttempt } = await supabase
+//     .from("test_attempts")
+//     .select("id, test_id, user_id, status, started_at, answers, flagged, current_question, time_remaining")
+//     .eq("test_id", testId)
+//     .eq("user_id", user.id)
+//     .eq("status", "in_progress")
+//     .maybeSingle()
+
+//   if (existingAttempt) {
+//     return { success: true, attempt: existingAttempt }
+//   }
+
+//   // Create new attempt
+//   const { data: attempt, error } = await supabase
+//     .from("test_attempts")
+//     .insert({
+//       test_id: testId,
+//       user_id: user.id,
+//       status: "in_progress",
+//     })
+//     .select()
+//     .single()
+
+//   if (error) {
+//     console.error("Error starting test:", error)
+//     return { success: false, error: error.message }
+//   }
+
+//   return { success: true, attempt }
+// }
+
+// // Submit answer
+// export async function submitAnswer(attemptId: string, questionId: string, answer: string | null, timeSpent: number) {
+//   const supabase = await createClient()
+
+//   // Get the correct answer
+//   const { data: question } = await supabase.from("questions").select("correct_answer").eq("id", questionId).single()
+
+//   const isCorrect = answer ? answer.toLowerCase() === question?.correct_answer : false
+
+//   // Check if answer already exists
+//   const { data: existingAnswer } = await supabase
+//     .from("user_answers")
+//     .select("id")
+//     .eq("attempt_id", attemptId)
+//     .eq("question_id", questionId)
+//     .maybeSingle()
+
+//   if (existingAnswer) {
+//     // Update existing answer
+//     const { error } = await supabase
+//       .from("user_answers")
+//       .update({
+//         selected_answer: answer,
+//         is_correct: isCorrect,
+//         time_spent: timeSpent,
+//       })
+//       .eq("id", existingAnswer.id)
+
+//     if (error) {
+//       console.error("Error updating answer:", error)
+//       return { success: false, error: error.message }
+//     }
+//   } else {
+//     // Insert new answer
+//     const { error } = await supabase.from("user_answers").insert({
+//       attempt_id: attemptId,
+//       question_id: questionId,
+//       selected_answer: answer,
+//       is_correct: isCorrect,
+//       time_spent: timeSpent,
+//     })
+
+//     if (error) {
+//       console.error("Error submitting answer:", error)
+//       return { success: false, error: error.message }
+//     }
+//   }
+
+//   return { success: true, isCorrect }
+// }
+
+// // Complete test and calculate results
+// export async function completeTest(attemptId: string, timeTaken: number) {
+//   const supabase = await createClient()
+
+//   const user = await getCurrentUser()
+//   if (!user) {
+//     return { success: false, error: "Not authenticated" }
+//   }
+
+//   // Get attempt details
+//   const { data: attempt } = await supabase
+//     .from("test_attempts")
+//     .select("*, test:tests(id)")
+//     .eq("id", attemptId)
+//     .single()
+
+//   if (!attempt) {
+//     return { success: false, error: "Attempt not found" }
+//   }
+
+//   // Get all questions for this test
+//   const [{ count: totalQuestions }, { data: answers }] = await Promise.all([
+//     supabase.from("questions").select("id", { count: "exact", head: true }).eq("test_id", attempt.test_id),
+//     supabase.from("user_answers").select("is_correct, selected_answer").eq("attempt_id", attemptId),
+//   ])
+
+//   const totalQuestionCount = totalQuestions || 0
+
+//   const correctAnswers = answers?.filter((a) => a.is_correct).length || 0
+//   const wrongAnswers = answers?.filter((a) => !a.is_correct && a.selected_answer).length || 0
+//   const unattempted = totalQuestionCount - (answers?.length || 0)
+//   const score = totalQuestionCount > 0 ? Math.round((correctAnswers / totalQuestionCount) * 100) : 0
+//   const percentage = score
+
+//   // Update attempt status
+//   await supabase
+//     .from("test_attempts")
+//     .update({
+//       status: "completed",
+//       completed_at: new Date().toISOString(),
+//       time_taken: timeTaken,
+//     })
+//     .eq("id", attemptId)
+
+//   // Create test result
+//   const { data: result, error } = await supabase
+//     .from("test_results")
+//     .insert({
+//       attempt_id: attemptId,
+//       user_id: user.id,
+//       test_id: attempt.test_id,
+//       total_questions: totalQuestionCount,
+//       correct_answers: correctAnswers,
+//       wrong_answers: wrongAnswers,
+//       unanswered: unattempted,
+//       score: score,
+//       percentage: percentage,
+//       time_taken: timeTaken,
+//     })
+//     .select()
+//     .single()
+
+//   if (error) {
+//     console.error("Error creating result:", error)
+//     return { success: false, error: error.message }
+//   }
+
+//   // Calculate rank
+//   const { data: allResults } = await supabase
+//     .from("test_results")
+//     .select("score")
+//     .eq("test_id", attempt.test_id)
+//     .order("score", { ascending: false })
+
+//   const rank = (allResults?.findIndex((r) => r.score <= score) || 0) + 1
+
+//   // Update with rank
+//   await supabase.from("test_results").update({ rank }).eq("id", result.id)
+
+//   revalidatePath("/student/results")
+//   return { success: true, result: { ...result, rank } }
+// }
+
+// // Get student's test results
+// // Get paginated student results (10 per page)
+// export async function getPaginatedStudentResults(page: number = 1, pageSize: number = 10) {
+//   const supabase = await createClient()
+
+//   const user = await getCurrentUser()
+//   if (!user) return { results: [], totalCount: 0, page, pageSize, totalPages: 0 }
+
+//   const offset = (page - 1) * pageSize
+
+//   // Selective field fetching to reduce data transfer
+//   const { data: results, error, count } = await supabase
+//     .from("test_results")
+//     .select(
+//       `
+//       id,
+//       attempt_id,
+//       test_id,
+//       score,
+//       total_questions,
+//       correct_answers,
+//       wrong_answers,
+//       unanswered,
+//       time_taken,
+//       rank,
+//       percentage,
+//       created_at,
+//       test:tests (
+//         title,
+//         test_type,
+//         duration
+//       )
+//     `,
+//       { count: "exact" }
+//     )
+//     .eq("user_id", user.id)
+//     .order("created_at", { ascending: false })
+//     .range(offset, offset + pageSize - 1)
+
+//   if (error) {
+//     console.error("Error fetching paginated results:", error)
+//     return { results: [], totalCount: 0, page, pageSize, totalPages: 0 }
+//   }
+
+//   const totalCount = count || 0
+//   const totalPages = Math.ceil(totalCount / pageSize)
+
+//   return {
+//     results: (results || []).map((result) => ({
+//       ...result,
+//       test: Array.isArray(result.test) ? result.test[0] : result.test,
+//     })),
+//     totalCount,
+//     page,
+//     pageSize,
+//     totalPages,
+//   }
+// }
+
+//   export async function getStudentLeaderboard(testId: string) {
+//   const supabase = await createClient()
+//   const user = await getCurrentUser()
+//   if (!user) return { topResults: [], currentStudent: null }
+
+//   const { data, error } = await supabase
+//     .from("test_results")
+//     .select("user_id, score, total_questions, percentage, created_at, user:users(full_name)")
+//     .eq("test_id", testId)
+//     .order("score", { ascending: false })
+//     .order("created_at", { ascending: true })
+
+//   if (error) {
+//     console.error("Error fetching leaderboard:", error)
+//     return { topResults: [], currentStudent: null }
+//   }
+
+//   const rankedResults = (data || []).map((result, index) => ({
+//     rank: index + 1,
+//     userId: result.user_id,
+//     name: Array.isArray(result.user) ? result.user[0]?.full_name : (result.user as any)?.full_name,
+//     score: result.score,
+//     totalQuestions: result.total_questions,
+//     percentage: result.percentage ?? (result.total_questions ? Math.round((result.score / result.total_questions) * 100) : 0),
+//   }))
+
+//   const currentStudent = rankedResults.find((result) => result.userId === user.id) || null
+
+//   return {
+//     topResults: rankedResults.slice(0, 10),
+//     currentStudent,
+//   }
+// }
+
+// export async function getPracticeLeaderboard(examId?: string) {
+//   const supabase = await createClient()
+//   const user = await getCurrentUser()
+//   if (!user) return { topResults: [], currentStudent: null, weekStart: null }
+
+//   const now = new Date()
+//   const day = now.getUTCDay()
+//   const daysSinceMonday = day === 0 ? 6 : day - 1
+//   const weekStartDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - daysSinceMonday))
+//   const weekStart = weekStartDate.toISOString()
+
+//   // Practice sessions save their score in test_results against the source test.
+//   // The tests table only supports full/subject/topic types, so filtering for a
+//   // non-existent "practice" type makes every leaderboard query return no rows.
+//   let leaderboardQuery = supabase
+//     .from("test_results")
+//     .select("user_id, correct_answers, created_at, user:users(full_name), test:tests!inner(exam_id)")
+//     .gte("created_at", weekStart)
+
+//   if (examId && examId !== "all") {
+//     leaderboardQuery = leaderboardQuery.eq("test.exam_id", examId)
+//   }
+
+//   const { data, error } = await leaderboardQuery
+
+
+//   if (error) {
+//     console.error("Error fetching practice leaderboard:", error)
+//     return { topResults: [], currentStudent: null, weekStart }
+//   }
+
+//   const totals = new Map<string, { userId: string; name: string; correctAnswers: number }>()
+//   for (const result of data || []) {
+//     const profile = Array.isArray(result.user) ? result.user[0] : result.user
+//     const existing = totals.get(result.user_id)
+//     totals.set(result.user_id, {
+//       userId: result.user_id,
+//       name: profile?.full_name || "Student",
+//       correctAnswers: (existing?.correctAnswers || 0) + (result.correct_answers || 0),
+//     })
+//   }
+
+//   const rankedResults = Array.from(totals.values())
+//     .sort((a, b) => b.correctAnswers - a.correctAnswers || a.name.localeCompare(b.name))
+//     .map((result, index) => ({ ...result, rank: index + 1 }))
+
+//   return {
+//     topResults: rankedResults.slice(0, 50),
+//     currentStudent: rankedResults.find((result) => result.userId === user.id) || null,
+//     weekStart,
+//   }
+// }
+
+// export async function getStudentResults() {
+//   const supabase = await createClient()
+
+//   const user = await getCurrentUser()
+//   if (!user) return []
+
+//   const { data: results, error } = await supabase
+//     .from("test_results")
+//     .select(`
+//       *,
+//       test:tests (
+//         title,
+//         test_type,
+//         duration,
+//         subject:subjects (name),
+//         topic:topics (name)
+//       )
+//     `)
+//     .eq("user_id", user.id)
+//     .order("created_at", { ascending: false })
+
+//   if (error) {
+//     console.error("Error fetching results:", error)
+//     return []
+//   }
+
+//   return results || []
+// }
+
+// // Get detailed result with answers
+// export async function getResultDetails(resultId: string) {
+//   const supabase = await createClient()
+
+//   const { data: result, error } = await supabase
+//     .from("test_results")
+//     .select(`
+//       id, attempt_id, test_id, score, total_questions, correct_answers, wrong_answers, unanswered, time_taken, rank, percentage, created_at,
+//       test:tests (
+//         title,
+//         test_type,
+//         duration,
+//         questions (id, question_text, option_a, option_b, option_c, option_d, explanation)
+//       ),
+//       attempt:test_attempts (
+//         user_answers (id, question_id, selected_answer, is_correct, time_spent, question:questions (id, question_text, option_a, option_b, option_c, option_d, explanation))
+//       )
+//     `)
+//     .eq("id", resultId)
+//     .single()
+
+//   if (error) {
+//     console.error("Error fetching result details:", error)
+//     return null
+//   }
+
+//   return result
+// }
+
+// // Get test by ID
+// export async function getTestById(testId: string) {
+//   const supabase = await createClient()
+
+//   const { data: test, error } = await supabase
+//     .from("tests")
+//     .select(`
+//       id,
+//       title,
+//       duration,
+//       has_negative_marking,
+//       negative_marking_percent,
+//       questions (
+//   id,
+//   test_id,
+//   question_text,
+//         option_a,
+//         option_b,
+//         option_c,
+//         option_d,
+//         correct_answer,
+//         explanation,
+//         image_url
+//       )
+//     `)
+//     .eq("id", testId)
+//     .maybeSingle()
+
+//   if (error) {
+//     console.error("Error fetching test:", error)
+//     return null
+//   }
+
+//   if (!test) {
+//     // console.log("Test not found with id:", testId)
+//     return null
+//   }
+
+//   return test
+// }
+
+// // Get detailed result with answers
+// export async function getTestResult(attemptId: string) {
+//   const supabase = await createClient()
+
+//   const user = await getCurrentUser()
+//   if (!user) return null
+
+//   // Get attempt with test info
+//   const { data: attempt, error: attemptError } = await supabase
+//     .from("test_attempts")
+//     .select(`
+//       id,
+//       test_id,
+//       time_taken,
+//       test:tests (
+//         id,
+//         title,
+//         duration,
+//         has_negative_marking,
+//         negative_marking_percent
+//       )
+//     `)
+//     .eq("id", attemptId)
+//     .eq("user_id", user.id)
+//     .single()
+
+//   if (attemptError || !attempt) {
+//     console.error("Error fetching attempt:", attemptError)
+//     return null
+//   }
+
+//   // Get questions
+//   const { data: questions } = await supabase
+//     .from("questions")
+//     .select("*")
+//     .eq("test_id", attempt.test_id)
+//     .order("created_at", { ascending: true })
+
+//   // Get user answers
+//   const { data: userAnswers } = await supabase
+//     .from("user_answers")
+//     .select("question_id, selected_answer, is_correct")
+//     .eq("attempt_id", attemptId)
+
+//   const answerMap: Record<string, { answer: string; isCorrect: boolean }> = {}
+//   userAnswers?.forEach((ua) => {
+//     answerMap[ua.question_id] = {
+//       answer: ua.selected_answer,
+//       isCorrect: ua.is_correct,
+//     }
+//   })
+
+//   // Calculate stats
+//   let correct = 0
+//   let incorrect = 0
+
+//   const questionsWithAnswers =
+//     questions?.map((q) => {
+//       const userAnswer = answerMap[q.id]
+//       if (userAnswer) {
+//         if (userAnswer.isCorrect) correct++
+//         else incorrect++
+//       }
+//       return {
+//         ...q,
+//         user_answer: userAnswer?.answer || null,
+//       }
+//     }) || []
+
+//   const totalQuestions = questionsWithAnswers.length
+//   const unattempted = totalQuestions - correct - incorrect
+//   const totalMarks = totalQuestions
+
+//   // Fetch the actual stored score with negative marking from test_results
+//   const { data: resultData } = await supabase
+//     .from("test_results")
+//     .select("rank, score, percentage")
+//     .eq("attempt_id", attemptId)
+//     .single()
+
+//   // Use stored score (which includes negative marking) or calculate if not found
+//   const storedScore = resultData?.score ?? correct
+//   const storedPercentage = resultData?.percentage ?? (totalMarks > 0 ? Math.round((correct / totalMarks) * 100) : 0)
+
+//   // Get total participants
+//   const { count: totalParticipants } = await supabase
+//     .from("test_results")
+//     .select("id", { count: "exact" })
+//     .eq("test_id", attempt.test_id)
+
+//   return {
+//     test: attempt.test,
+//     score: storedScore,
+//     total_marks: totalMarks,
+//     correct,
+//     incorrect,
+//     unattempted,
+//     total_questions: totalQuestions,
+//     percentage: storedPercentage,
+//     time_taken: attempt.time_taken || 0,
+//     questions: questionsWithAnswers,
+//     rank: resultData?.rank || 1,
+//     total_participants: totalParticipants || 1,
+//   }
+// }
+
+// // Submit test
+// export async function submitTest(testId: string, answers: Record<string, string>, isMockTest: boolean = false) {
+//   try {
+//     const supabase = await createClient()
+
+//     const user = await getCurrentUser()
+//     if (!user && !isMockTest) {
+//       console.log("[v0] User not authenticated in submitTest")
+//       return { success: false, error: "Not authenticated" }
+//     }
+
+//     if (user) {
+//       // console.log("[v0] User authenticated:", user.id)
+//     } else {
+//       // console.log("[v0] Mock test - no authentication required")
+//     }
+
+//     // Get test with questions and negative marking settings
+//     const { data: test } = await supabase
+//       .from("tests")
+//     .select(`
+//       id, title, duration, total_questions, has_negative_marking, negative_marking_percent,
+//       questions (id, correct_answer)
+//     `)
+//       .eq("id", testId)
+//       .single()
+
+//     if (!test) {
+//       return { success: false, error: "Test not found" }
+//     }
+
+//     const questions = test.questions || []
+//     const totalQuestions = questions.length
+//     const hasNegativeMarking = test.has_negative_marking || false
+//     const negativeMarkingPercent = test.negative_marking_percent || 0
+
+
+
+//     // Calculate scores - 1 mark per correct, apply negative marking for wrong if enabled
+//     let correct = 0
+//     let incorrect = 0
+
+//     questions.forEach((q: any) => {
+//       const userAnswer = answers[q.id]
+//       if (userAnswer) {
+//         if (userAnswer.toLowerCase() === q.correct_answer.toLowerCase()) {
+//           correct++
+//         } else {
+//           incorrect++
+//         }
+//       }
+//     })
+
+//     const unattempted = totalQuestions - correct - incorrect
+
+
+
+//     // Calculate score with negative marking
+//     let score = correct
+//     if (hasNegativeMarking && negativeMarkingPercent > 0) {
+//       const deductionPerWrong = negativeMarkingPercent / 100 // e.g., 25% = 0.25 marks deducted per wrong answer
+//       const totalDeduction = incorrect * deductionPerWrong
+//       score = Math.max(0, correct - totalDeduction)
+//       score = Math.round(score * 100) / 100 // Round to 2 decimal places
+//     }
+
+//     const totalMarks = totalQuestions
+//     const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
+
+//     // Create test attempt
+//     const { data: attempt, error: attemptError } = await supabase
+//       .from("test_attempts")
+//       .insert({
+//         test_id: testId,
+//         user_id: user?.id || null,
+//         status: "completed",
+//         completed_at: new Date().toISOString(),
+//         time_taken: test.duration * 60,
+//       })
+//       .select()
+//       .single()
+
+//     if (attemptError) {
+//       console.error("Error creating attempt:", attemptError)
+//       return { success: false, error: attemptError.message }
+//     }
+
+//     // Save user answers
+//     const userAnswersArray = Object.entries(answers).map(([questionId, answer]) => {
+//       const question = questions.find((q: any) => q.id === questionId)
+//       const isCorrect = question && answer.toLowerCase() === question.correct_answer.toLowerCase()
+//       return {
+//         attempt_id: attempt?.id,
+//         question_id: questionId,
+//         selected_answer: answer,
+//         is_correct: isCorrect,
+//         time_spent: 0,
+//       }
+//     })
+
+//     if (userAnswersArray.length > 0) {
+//       await supabase.from("user_answers").insert(userAnswersArray)
+//     }
+
+//     // Get all existing results for this test to calculate rank
+//     const { data: allResults } = await supabase
+//       .from("test_results")
+//       .select("id, score")
+//       .eq("test_id", testId)
+//       .order("score", { ascending: false })
+
+//     // Create test result first
+//     const { data: result, error: resultError } = await supabase
+//       .from("test_results")
+//       .insert({
+//         attempt_id: attempt?.id,
+//         user_id: user?.id || null,
+//         test_id: testId,
+//         total_questions: totalQuestions,
+//         correct_answers: correct,
+//         wrong_answers: incorrect,
+//         unanswered: unattempted,
+//         score: score,
+//         percentage: percentage,
+//         time_taken: test.duration * 60,
+//         rank: 1,
+//       })
+//       .select()
+//       .single()
+
+//     if (resultError) {
+//       console.error("Error creating result:", resultError)
+//       return { success: false, error: resultError.message }
+//     }
+
+//     // Now recalculate ranks for ALL results including the new one
+//     const allResultsWithNew = [...(allResults || []), { id: result.id, score: score }]
+
+//     // Sort by score descending
+//     const sortedResults = allResultsWithNew.sort((a, b) => b.score - a.score)
+
+//     // Update ranks for all results
+//     for (let i = 0; i < sortedResults.length; i++) {
+//       await supabase
+//         .from("test_results")
+//         .update({ rank: i + 1 })
+//         .eq("id", sortedResults[i].id)
+//     }
+
+//     revalidatePath("/student/results")
+//     // console.log("[v0] Test submitted successfully with attemptId:", attempt.id)
+//     return { success: true, attemptId: attempt.id }
+//   } catch (error) {
+//     console.error("[v0] submitTest error:", error)
+//     return { success: false, error: error instanceof Error ? error.message : "Unknown error occurred" }
+//   }
+// }
+
+// // Get student analytics
+// export async function getStudentAnalytics() {
+//   const supabase = await createClient()
+
+//   const user = await getCurrentUser()
+//   if (!user) return null
+
+//   const { data: results } = await supabase
+//     .from("test_results")
+//     .select(`
+//   id, test_id, attempt_id, score, percentage, correct_answers, wrong_answers, unanswered, total_questions, time_taken, created_at,
+//   test:tests (title, test_type, subject:subjects (name), topic:topics (name))
+//     `)
+//     .eq("user_id", user.id)
+//     .order("created_at", { ascending: true })
+//     .limit(500)
+
+//   const allResults = (results || []).map((result: any) => ({
+//     ...result,
+//     test: Array.isArray(result.test) ? result.test[0] : result.test,
+//   }))
+//   const totalAttempts = allResults.length
+//   const resultAttempted = (result: any) => Number(result.correct_answers ?? 0) + Number(result.wrong_answers ?? 0)
+//   const resultAccuracy = (result: any) => {
+//     const attempted = resultAttempted(result)
+//     return attempted > 0 ? Math.round((Number(result.correct_answers ?? 0) / attempted) * 100) : 0
+//   }
+//   const attemptIds = allResults.map((result) => result.attempt_id).filter(Boolean)
+//   const testIds = [...new Set(allResults.map((result) => result.test_id).filter(Boolean))]
+//   const [{ data: answers }, { data: peerResults }] = await Promise.all([
+//     attemptIds.length
+//       ? supabase.from("user_answers").select("attempt_id, question_id, selected_answer, is_correct, time_spent, question:questions(id, question_text, correct_answer, explanation, topic:topics(name), subject:subjects(name))").in("attempt_id", attemptIds)
+//       : Promise.resolve({ data: [] }),
+//     testIds.length
+//       ? createAdminClient().from("test_results").select("test_id, score, percentage, user_id").in("test_id", testIds)
+//       : Promise.resolve({ data: [] }),
+//   ])
+//   const answerStats = { attempted: 0, correct: 0, wrong: 0, skipped: 0 }
+//   // Supabase returns nested relationship records as arrays for some schemas.
+//   // Normalize them once so analytics never silently falls back to zeros or General.
+//   const answerRows = (answers || []).map((answer: any) => ({
+//     ...answer,
+//     question: Array.isArray(answer.question) ? answer.question[0] : answer.question,
+//   }))
+//   ;(answerRows || []).forEach((answer) => {
+//     if (answer.selected_answer) {
+//       answerStats.attempted++
+//       if (answer.is_correct) answerStats.correct++
+//       else answerStats.wrong++
+//     } else answerStats.skipped++
+//   })
+//   const rankByAttempt = new Map<string, { rank: number; total: number; percentile: number }>()
+//   allResults.forEach((result: any) => {
+//     const peerScores = (peerResults || [])
+//       .filter((peer: any) => peer.test_id === result.test_id)
+//       .map((peer: any) => Number(peer.percentage ?? peer.score ?? 0))
+//       .sort((a: number, b: number) => b - a)
+//     const mine = Number(result.percentage ?? result.score ?? 0)
+//     const rank = peerScores.findIndex((score: number) => score <= mine) + 1 || peerScores.length + 1
+//     rankByAttempt.set(result.attempt_id, { rank, total: peerScores.length, percentile: peerScores.length ? Math.round(((peerScores.length - rank) / peerScores.length) * 1000) / 10 : 0 })
+//   })
+//   const testRankings = allResults.map((result) => ({
+//     test: (result.test as any)?.title || "Test",
+//     testId: result.test_id,
+//     attemptId: result.attempt_id,
+//     resultId: result.id,
+//     date: result.created_at,
+//     timeTaken: result.time_taken || 0,
+//     score: Math.max(0, Math.min(100, Number(result.percentage ?? result.score ?? 0))),
+//     ...(rankByAttempt.get(result.attempt_id) || { rank: 0, total: 0, percentile: 0 }),
+//   }))
+//   const totalCorrectFromAnswers = answerStats.correct
+//   const totalAttemptedFromAnswers = answerStats.attempted
+//   const totalWrongFromAnswers = answerStats.wrong
+//   const totalSkippedFromAnswers = answerStats.skipped
+//   const answerTotal = totalAttemptedFromAnswers + totalSkippedFromAnswers
+
+//   if (totalAttempts === 0) {
+//     return {
+//       overallScore: 0,
+//       accuracyRate: 0,
+//       avgTimePerQuestion: 0,
+//       currentStreak: 0,
+//       bestStreak: 0,
+//       performanceTrend: [],
+//       subjectPerformance: [],
+//       topicStrengths: [],
+//       totalCorrect: 0,
+//       totalWrong: 0,
+//       totalAttempted: 0,
+//       accuracyDisplay: "0/0",
+//     }
+//   }
+
+//   // Calculate stats
+//   const resultPercentage = (r: any) => Math.max(0, Math.min(100, Number(r.percentage ?? r.score ?? 0)))
+//   const overallScore = Math.round(allResults.reduce((sum, r) => sum + resultPercentage(r), 0) / totalAttempts)
+
+//   const totalCorrect = totalCorrectFromAnswers || allResults.reduce((sum, r) => sum + Number(r.correct_answers ?? 0), 0)
+//   const totalQuestions = allResults.reduce((sum, r) => sum + Number(r.total_questions ?? 0), 0)
+//   const resultAttemptedTotal = allResults.reduce((sum, r) => sum + resultAttempted(r), 0)
+//   const accuracyDenominator = totalAttemptedFromAnswers || resultAttemptedTotal
+//   const accuracyRate = accuracyDenominator > 0 ? Math.round((totalCorrect / accuracyDenominator) * 100) : 0
+//   const accuracyDisplay = `${totalCorrect}/${accuracyDenominator}`
+
+//   const totalTime = allResults.reduce((sum, r) => sum + (r.time_taken || 0), 0)
+//   const resultWrongTotal = allResults.reduce((sum, r) => sum + Number(r.wrong_answers ?? 0), 0)
+//   const totalWrong = totalWrongFromAnswers || resultWrongTotal
+//   const avgTimePerQuestion = accuracyDenominator > 0 ? Math.round(totalTime / accuracyDenominator) : 0
+
+//   // Calculate streak
+//   let currentStreak = 0
+//   let bestStreak = 0
+//   let tempStreak = 0
+//   const today = new Date()
+//   today.setHours(0, 0, 0, 0)
+
+//   const sortedResults = [...allResults].sort(
+//     (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+//   )
+
+//   sortedResults.forEach((r, i) => {
+//     const date = new Date(r.created_at)
+//     date.setHours(0, 0, 0, 0)
+
+//     if (i === 0) {
+//       const diffDays = Math.floor((today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
+//       if (diffDays <= 1) {
+//         tempStreak = 1
+//         currentStreak = 1
+//       }
+//     } else {
+//       const prevDate = new Date(sortedResults[i - 1].created_at)
+//       prevDate.setHours(0, 0, 0, 0)
+//       const diffDays = Math.floor((prevDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
+
+//       if (diffDays === 1) {
+//         tempStreak++
+//         if (currentStreak > 0) currentStreak++
+//       } else if (diffDays > 1) {
+//         tempStreak = 1
+//       }
+//     }
+//     bestStreak = Math.max(bestStreak, tempStreak)
+//   })
+
+//   // Performance trend (last 7 tests)
+//   const performanceTrend = allResults.slice(-7).map((r, i) => {
+//     const relatedAnswers = answerRows.filter((answer: any) => answer.attempt_id === r.attempt_id)
+//     const attempted = relatedAnswers.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "").length
+//     const correct = relatedAnswers.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "" && answer.is_correct).length
+//     return {
+//       week: `Test ${i + 1}`,
+//       score: resultPercentage(r),
+//       accuracy: attempted > 0 ? Math.round((correct / attempted) * 100) : resultAccuracy(r),
+//       time: Math.round((r.time_taken || 0) / Math.max(1, attempted)),
+//       date: r.created_at,
+//       testId: r.test_id,
+//       attemptId: r.attempt_id,
+//     }
+//   })
+
+//   // Subject performance - Clamp to 0-100%
+//   const subjectScores: Record<string, { correct: number; attempted: number; time: number }> = {}
+//   answerRows.forEach((answer: any) => {
+//     const subjectName = answer.question?.subject?.name || "General"
+//     subjectScores[subjectName] ??= { correct: 0, attempted: 0, time: 0 }
+//     const attempted = answer.selected_answer !== null && answer.selected_answer !== ""
+//     if (attempted) {
+//       subjectScores[subjectName].attempted++
+//       if (answer.is_correct) subjectScores[subjectName].correct++
+//       subjectScores[subjectName].time += answer.time_spent || 0
+//     }
+//   })
+
+//   // When answer rows are unavailable because of RLS, retain useful subject data from results.
+//   allResults.forEach((result: any) => {
+//     const subjectName = result.test?.subject?.name || "General"
+//     subjectScores[subjectName] ??= { correct: 0, attempted: 0, time: 0 }
+//     if (subjectScores[subjectName].attempted === 0) {
+//       subjectScores[subjectName].correct += Number(result.correct_answers ?? 0)
+//       subjectScores[subjectName].attempted += resultAttempted(result)
+//       subjectScores[subjectName].time += Number(result.time_taken ?? 0)
+//     }
+//   })
+
+//   const subjectPerformance = Object.entries(subjectScores).map(([subject, data]) => ({
+//     subject,
+//     accuracy: data.attempted ? Math.round((data.correct / data.attempted) * 100) : 0,
+//     attempted: data.attempted,
+//     avgTime: data.attempted ? Math.round(data.time / data.attempted) : 0,
+//   }))
+
+//   // Topic strengths - Clamp to 0-100%
+//   const topicScores: Record<string, { correct: number; attempted: number; wrong: number; testId: string }> = {}
+//   answerRows.forEach((answer: any) => {
+//     const topicName = answer.question?.topic?.name || answer.question?.subject?.name || "General"
+//     topicScores[topicName] ??= { correct: 0, attempted: 0, wrong: 0, testId: allResults.find((result) => result.attempt_id === answer.attempt_id)?.test_id || "" }
+//     if (answer.selected_answer !== null && answer.selected_answer !== "") {
+//       topicScores[topicName].attempted++
+//       if (answer.is_correct) topicScores[topicName].correct++
+//       else topicScores[topicName].wrong++
+//     }
+//   })
+
+//   allResults.forEach((result: any) => {
+//     const topicName = result.test?.topic?.name || result.test?.subject?.name || "General"
+//   topicScores[topicName] ??= { correct: 0, attempted: 0, wrong: 0, testId: result.test_id }
+//   topicScores[topicName].correct += Number(result.correct_answers ?? 0)
+//   topicScores[topicName].attempted += resultAttempted(result)
+//   topicScores[topicName].wrong += Number(result.wrong_answers ?? 0)
+//   })
+
+//   const topicStrengths = Object.entries(topicScores)
+//   .filter(([, data]) => data.attempted > 0)
+//   .map(([topic, data]) => ({
+//   topic,
+//   strength: Math.round((data.correct / data.attempted) * 100),
+//   attempted: data.attempted,
+//   wrong: data.wrong,
+//   testId: data.testId,
+//   }))
+//   .sort((a, b) => b.strength - a.strength || b.attempted - a.attempted || a.topic.localeCompare(b.topic))
+
+//   const mistakeReview = answerRows
+//     .filter((answer: any) => answer.selected_answer && !answer.is_correct)
+//     .slice(-20)
+//     .reverse()
+//     .map((answer: any) => ({
+//       id: answer.question_id,
+//       topic: answer.question?.topic?.name || answer.question?.subject?.name || "General",
+//       question: answer.question?.question_text || "Question from your recent test",
+//       selectedAnswer: answer.selected_answer,
+//       correctAnswer: answer.question?.correct_answer || "See solution",
+//       explanation: answer.question?.explanation || "Review the solution to understand this mistake.",
+//     }))
+
+//   const totalAttempted = totalAttemptedFromAnswers || resultAttemptedTotal
+//   const attemptRate = totalQuestions > 0 ? Math.round((totalAttempted / totalQuestions) * 100) : 0
+//   const testRankingsWithDetails = testRankings.map((item) => ({
+//     ...item,
+//     accuracy: (() => {
+//       const related = answerRows.filter((answer: any) => answer.attempt_id === item.attemptId)
+//       const attempted = related.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "").length
+//       const correct = related.filter((answer: any) => answer.selected_answer !== null && answer.selected_answer !== "" && answer.is_correct).length
+//       return attempted ? Math.round((correct / attempted) * 100) : resultAccuracy(allResults.find((result: any) => result.attempt_id === item.attemptId) || {})
+//     })(),
+//   }))
+  
+//   return {
+//     overallScore: Math.min(overallScore, 100),
+//     accuracyRate,
+//     accuracyDisplay,
+//     avgTimePerQuestion,
+//     currentStreak,
+//     bestStreak,
+//     performanceTrend,
+//     subjectPerformance,
+//   topicStrengths,
+//   testRankings: testRankingsWithDetails,
+//   testsCompleted: totalAttempts,
+//   attemptRate,
+//   totalQuestions,
+//   mistakeReview,
+//   totalCorrect,
+//   totalWrong,
+//     totalAttempted,
+//   totalSkipped: totalSkippedFromAnswers,
+//   totalWrongFromAnswers: totalWrongFromAnswers,
+//   answerBreakdown: [
+//     { name: "Correct", value: totalCorrectFromAnswers },
+//     { name: "Wrong", value: totalWrongFromAnswers },
+//     { name: "Skipped", value: totalSkippedFromAnswers },
+//   ],
+//   }
+// }
+
+// // Get subjects and topics that have questions through tests
+// export async function getSubjectsAndTopics() {
+//   const supabase = await createClient()
+
+//   // Get subjects that have tests with questions
+//   const { data: testsWithQuestions } = await supabase
+//     .from("tests")
+//     .select(`
+//       subject_id,
+//       topic_id,
+//       exam_id,
+//       exam:exams (id, name),
+//       subject:subjects (id, name),
+//       topic:topics (id, name),
+//       questions (id)
+//     `)
+//     .not("subject_id", "is", null)
+
+//   if (!testsWithQuestions) return []
+
+//   // Build subjects map with only those that have questions
+//   const subjectsMap: Record<
+//     string,
+//     {
+//       id: string
+//       name: string
+//       examId: string | null
+//       examName: string
+//       topics: Map<string, { id: string; name: string; questionCount: number }>
+//       questionCount: number
+//     }
+//   > = {}
+
+//   testsWithQuestions.forEach((test) => {
+//     const questionsCount = test.questions?.length || 0
+//     if (questionsCount === 0) return // Skip tests without questions
+
+//     const subject = test.subject as any
+//     const exam = test.exam as any
+//     if (!subject) return
+
+//     const subjectKey = `${subject.id}:${exam?.id || "no-exam"}`
+//     if (!subjectsMap[subjectKey]) {
+//       subjectsMap[subjectKey] = {
+//         id: subject.id,
+//         name: subject.name,
+//         examId: exam?.id || null,
+//         examName: exam?.name || "General Practice",
+//         topics: new Map(),
+//         questionCount: 0,
+//       }
+//     }
+
+//     subjectsMap[subjectKey].questionCount += questionsCount
+
+//     // Add topic if exists
+//     const topic = test.topic as any
+//     if (topic) {
+//       const existingTopic = subjectsMap[subjectKey].topics.get(topic.id)
+//       if (existingTopic) {
+//         existingTopic.questionCount += questionsCount
+//       } else {
+//         subjectsMap[subjectKey].topics.set(topic.id, {
+//           id: topic.id,
+//           name: topic.name,
+//           questionCount: questionsCount,
+//         })
+//       }
+//     }
+//   })
+
+//   // Convert to array format
+//   const subjects = Object.values(subjectsMap).map((subject) => ({
+//     id: `${subject.id}:${subject.examId || "no-exam"}`,
+//     subjectId: subject.id,
+//     name: subject.name,
+//     examId: subject.examId,
+//     examName: subject.examName,
+//     questionCount: subject.questionCount,
+//     topics: Array.from(subject.topics.values()),
+//   }))
+
+//   return subjects.sort((a, b) => a.name.localeCompare(b.name))
+// }
+
+// // Fetch questions from tests correctly
+// export async function getPracticeQuestions(subjectId: string, topicIds: string[], count: number, difficulty: string) {
+//   const supabase = await createClient()
+
+//   // First get tests that match subject and optionally topics
+//   let testsQuery = supabase.from("tests").select("id").eq("subject_id", subjectId)
+
+//   if (topicIds.length > 0) {
+//     testsQuery = testsQuery.in("topic_id", topicIds)
+//   }
+
+//   if (difficulty !== "all") {
+//     testsQuery = testsQuery.eq("difficulty", difficulty)
+//   }
+
+//   const { data: tests } = await testsQuery
+
+//   if (!tests || tests.length === 0) return []
+
+//   const testIds = tests.map((t) => t.id)
+
+//   // Get questions from these tests
+//   const { data: questions } = await supabase
+//     .from("questions")
+//     .select(`
+//       id,
+//       test_id,
+//       question_text,
+//       option_a,
+//       option_b,
+//       option_c,
+//       option_d,
+//       correct_answer,
+//       explanation
+//     `)
+//     .in("test_id", testIds)
+
+//   if (!questions) return []
+
+//   // Shuffle questions
+//   const shuffled = questions.sort(() => Math.random() - 0.5)
+
+//   return shuffled.slice(0, count)
+// }
+
+// export async function submitPracticeResult(input: {
+//   testId: string
+//   totalQuestions: number
+//   correctAnswers: number
+//   wrongAnswers: number
+//   unanswered: number
+//   timeTaken: number
+// }) {
+//   const supabase = await createClient()
+//   const user = await getCurrentUser()
+//   if (!user) return { success: false, error: "Not authenticated" }
+
+//   const percentage = input.totalQuestions > 0
+//     ? Math.round((input.correctAnswers / input.totalQuestions) * 100)
+//     : 0
+
+//   const { data, error } = await supabase.from("test_results").insert({
+//     user_id: user.id,
+//     test_id: input.testId,
+//     total_questions: input.totalQuestions,
+//     correct_answers: input.correctAnswers,
+//     wrong_answers: input.wrongAnswers,
+//     unanswered: input.unanswered,
+//     score: input.correctAnswers,
+//     percentage,
+//     time_taken: input.timeTaken,
+//   }).select().single()
+
+//   if (error) {
+//     console.error("Error saving practice result:", error)
+//     return { success: false, error: error.message }
+//   }
+
+//   revalidatePath("/student/practice")
+//   revalidatePath("/student/results")
+//   return { success: true, result: data }
+// }
+
+// // Save test progress
+// export async function saveTestProgress(
+//   testId: string,
+//   answers: Record<string, string>,
+//   flagged: string[],
+//   currentQuestion: number,
+//   timeRemaining: number,
+// ) {
+//   const supabase = await createClient()
+
+//   const user = await getCurrentUser()
+//   if (!user) {
+//     return { success: false, error: "Not authenticated" }
+//   }
+
+//   // Check for existing paused or in_progress attempt
+//   const { data: existingAttempt } = await supabase
+//     .from("test_attempts")
+//     .select("id")
+//     .eq("test_id", testId)
+//     .eq("user_id", user.id)
+//     .in("status", ["paused", "in_progress"])
+//     .maybeSingle()
+
+//   if (existingAttempt) {
+//     // Update existing attempt
+//     const { error } = await supabase
+//       .from("test_attempts")
+//       .update({
+//         status: "paused",
+//         answers: answers,
+//         flagged: flagged,
+//         current_question: currentQuestion,
+//         time_remaining: timeRemaining,
+//       })
+//       .eq("id", existingAttempt.id)
+
+//     if (error) {
+//       console.error("Error saving progress:", error)
+//       return { success: false, error: error.message }
+//     }
+
+//     return { success: true, attemptId: existingAttempt.id }
+//   } else {
+//     // Create new paused attempt
+//     const { data: attempt, error } = await supabase
+//       .from("test_attempts")
+//       .insert({
+//         test_id: testId,
+//         user_id: user.id,
+//         status: "paused",
+//         answers: answers,
+//         flagged: flagged,
+//         current_question: currentQuestion,
+//         time_remaining: timeRemaining,
+//       })
+//       .select()
+//       .single()
+
+//     if (error) {
+//       console.error("Error creating paused attempt:", error)
+//       return { success: false, error: error.message }
+//     }
+
+//     return { success: true, attemptId: attempt.id }
+//   }
+// }
+
+// // Get paused test state
+// export async function getPausedTestState(testId: string) {
+//   const supabase = await createClient()
+
+//   const user = await getCurrentUser()
+//   if (!user) {
+//     return null
+//   }
+
+//   const { data: attempt, error } = await supabase
+//     .from("test_attempts")
+//     .select("id, answers, flagged, current_question, time_remaining, status")
+//     .eq("test_id", testId)
+//     .eq("user_id", user.id)
+//     .eq("status", "paused")
+//     .maybeSingle()
+
+//   if (error || !attempt) {
+//     return null
+//   }
+
+//   return {
+//     attemptId: attempt.id,
+//     answers: (attempt.answers as Record<string, string>) || {},
+//     flagged: (attempt.flagged as string[]) || [],
+//     currentQuestion: attempt.current_question || 0,
+//     timeRemaining: attempt.time_remaining || 0,
+//   }
+// }
+
+// // Clear paused test state
+// export async function clearPausedTestState(testId: string) {
+//   const supabase = await createClient()
+
+//   const user = await getCurrentUser()
+//   if (!user) {
+//     return { success: false }
+//   }
+
+//   // Delete paused attempt
+//   await supabase.from("test_attempts").delete().eq("test_id", testId).eq("user_id", user.id).eq("status", "paused")
+
+//   return { success: true }
+// }
+
+// export async function getExamCategories() {
+//   const supabase = await createClient()
+
+//   const { data: categories, error } = await supabase
+//     .from("exam_categories")
+//     .select(`
+//       *,
+//       exams (
+//         id,
+//         name,
+//         slug,
+//         description,
+//         image_url,
+//         display_order
+//       )
+//     `)
+//     .eq("is_active", true)
+//     .order("display_order", { ascending: true })
+
+//   if (error) {
+//     console.error("Error fetching exam categories:", error)
+//     return []
+//   }
+
+//   // Sort exams within each category
+//   return (
+//     categories?.map((cat) => ({
+//       ...cat,
+//       exams: cat.exams?.sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0)) || [],
+//     })) || []
+//   )
+// }
+
+// /**
+//  * Submit a free mock test - No authentication required
+//  * This is a dedicated function for free mock tests
+//  */
+// export async function submitMockTest(testId: string, answers: Record<string, string>) {
+//   try {
+//     const supabase = await createClient()
+//     // console.log("[v0] Submitting mock test:", testId)
+
+//     // Get test with questions
+//     const { data: test, error: testError } = await supabase
+//       .from("tests")
+//       .select(
+//         `
+//         id,
+//         title,
+//         duration,
+//         questions (id, correct_answer)
+//       `
+//       )
+//       .eq("id", testId)
+//       .single()
+
+//     if (testError || !test) {
+//       // console.error("[v0] Error fetching test:", testError)
+//       return { success: false, error: "Test not found" }
+//     }
+
+//     // console.log("[v0] Test fetched, calculating scores...")
+
+//     const questions = test.questions || []
+//     const totalQuestions = questions.length
+
+//     // Calculate scores
+//     let correct = 0
+//     let incorrect = 0
+
+//     questions.forEach((q: any) => {
+//       const userAnswer = answers[q.id]
+//       if (userAnswer) {
+//         if (userAnswer.toLowerCase() === q.correct_answer.toLowerCase()) {
+//           correct++
+//         } else {
+//           incorrect++
+//         }
+//       }
+//     })
+
+//     const unattempted = totalQuestions - correct - incorrect
+//     const score = correct
+//     const totalMarks = totalQuestions
+//     const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0
+
+//     // console.log("[v0] Scores calculated - Correct:", correct, "Incorrect:", incorrect, "Percentage:", percentage)
+
+//     // Create test attempt (no user_id for mock tests)
+//     const { data: attempt, error: attemptError } = await supabase
+//       .from("test_attempts")
+//       .insert({
+//         test_id: testId,
+//         user_id: null,
+//         status: "completed",
+//         completed_at: new Date().toISOString(),
+//         time_taken: test.duration * 60,
+//       })
+//       .select()
+//       .single()
+
+//     if (attemptError || !attempt) {
+//       console.error("[v0] Error creating attempt:", attemptError)
+//       return { success: false, error: "Failed to create attempt" }
+//     }
+
+//     // console.log("[v0] Attempt created:", attempt.id)
+
+//     // Save user answers
+//     const userAnswersArray = Object.entries(answers).map(([questionId, answer]) => {
+//       const question = questions.find((q: any) => q.id === questionId)
+//       const isCorrect = question && answer.toLowerCase() === question.correct_answer.toLowerCase()
+//       return {
+//         attempt_id: attempt.id,
+//         question_id: questionId,
+//         selected_answer: answer,
+//         is_correct: isCorrect,
+//         time_spent: 0,
+//       }
+//     })
+
+//     if (userAnswersArray.length > 0) {
+//       const { error: answersError } = await supabase.from("user_answers").insert(userAnswersArray)
+//       if (answersError) {
+//         console.error("[v0] Error saving answers:", answersError)
+//       }
+//     }
+
+//     // Create test result
+//     const { data: result, error: resultError } = await supabase
+//       .from("test_results")
+//       .insert({
+//         attempt_id: attempt.id,
+//         user_id: null,
+//         test_id: testId,
+//         total_questions: totalQuestions,
+//         correct_answers: correct,
+//         wrong_answers: incorrect,
+//         unanswered: unattempted,
+//         score: score,
+//         percentage: percentage,
+//         time_taken: test.duration * 60,
+//         rank: 1,
+//       })
+//       .select()
+//       .single()
+
+//     if (resultError) {
+//       console.error("[v0] Error creating result:", resultError)
+//       return { success: false, error: "Failed to create result" }
+//     }
+
+//     // console.log("[v0] Mock test submitted successfully - Result ID:", result?.id)
+
+//     return {
+//       success: true,
+//       attemptId: attempt.id,
+//       resultId: result?.id,
+//       score: score,
+//       percentage: percentage,
+//       correct: correct,
+//       incorrect: incorrect,
+//       unattempted: unattempted,
+//     }
+//   } catch (error) {
+//     console.error("[v0] submitMockTest error:", error)
+//     return { success: false, error: "Failed to submit mock test" }
+//   }
+// }
+
+// export async function getTestsByExam(examId: string) {
+//   const supabase = await createClient()
+//   const user = await getCurrentUser()
+
+//   const { data: tests, error } = await supabase
+//     .from("tests")
+//     .select(`
+//       *,
+//       exam:exams (id, name),
+//       subject:subjects (id, name),
+//       topic:topics (id, name),
+//       questions (id),
+//       test_attempts (id)
+//     `)
+//     .eq("exam_id", examId)
+//     .eq("is_active", true)
+//     .order("created_at", { ascending: false })
+
+//   if (error) {
+//     console.error("Error fetching tests by exam:", error)
+//     return []
+//   }
+
+//   // Get user's test results if logged in
+//   let userResults: Record<string, { score: number; totalQuestions: number; percentage: number; attemptId: string }> = {}
+
+//   if (user) {
+//     const { data: results } = await supabase
+//       .from("test_results")
+//       .select("test_id, score, total_questions, percentage, attempt_id")
+//       .eq("user_id", user.id)
+
+//     if (results) {
+//       // Keep only the latest attempt for each test
+//       results.forEach((r) => {
+//         if (!userResults[r.test_id] || r.score > userResults[r.test_id].score) {
+//           userResults[r.test_id] = {
+//             score: r.score,
+//             totalQuestions: r.total_questions,
+//             percentage: r.percentage,
+//             attemptId: r.attempt_id
+//           }
+//         }
+//       })
+//     }
+//   }
+
+//   return (
+//     tests?.map((test) => ({
+//       ...test,
+//       questions_count: test.questions?.length || 0,
+//       attempts_count: test.test_attempts?.length || 0,
+//       user_attempt: userResults[test.id] || null,
+//     })) || []
+//   )
+// }
+
+// export async function getExamsByCategory(categorySlug: string) {
+//   if (!categorySlug || categorySlug === "undefined") {
+//     return { category: null, exams: [] }
+//   }
+
+//   const supabase = await createClient()
+
+//   const { data: category, error: catError } = await supabase
+//     .from("exam_categories")
+//     .select("id, name, description")
+//     .eq("slug", categorySlug)
+//     .single()
+
+//   if (catError || !category) {
+//     console.error("Error fetching category:", catError?.message)
+//     return { category: null, exams: [] }
+//   }
+
+//   const { data: exams, error } = await supabase
+//     .from("exams")
+//     .select(`
+//       *,
+//       tests (id)
+//     `)
+//     .eq("category_id", category.id)
+//     .order("display_order", { ascending: true })
+
+//   if (error) {
+//     console.error("Error fetching exams:", error)
+//     return { category, exams: [] }
+//   }
+
+//   return {
+//     category,
+//     exams:
+//       exams?.map((exam) => ({
+//         ...exam,
+//         test_count: exam.tests?.length || 0,
+//       })) || [],
+//   }
+// }
+
+// /**
+//  * Submit a free mock test - Simple function for unauthenticated users
+//  * Calculates scores and returns result data for sessionStorage
+//  */
+// export async function submitFreeMockTest(
+//   testId: string,
+//   testTitle: string,
+//   answers: Record<string, string>,
+//   questions: any[]
+// ) {
+//   try {
+//     // console.log("[v0] submitFreeMockTest - testId:", testId)
+//     // console.log("[v0] submitFreeMockTest - answers count:", Object.keys(answers).length)
+//     // console.log("[v0] submitFreeMockTest - questions count:", questions.length)
+
+//     const totalQuestions = questions.length
+
+//     // Calculate scores
+//     let correct = 0
+//     let incorrect = 0
+
+//     questions.forEach((q: any) => {
+//       const userAnswer = answers[q.id]
+//       if (userAnswer) {
+//         const isCorrect = userAnswer.toLowerCase() === q.correct_answer.toLowerCase()
+//         if (isCorrect) {
+//           correct++
+//           // console.log(`[v0] Q${q.id} CORRECT`)
+//         } else {
+//           incorrect++
+//           // console.log(`[v0] Q${q.id} WRONG - User: ${userAnswer}, Correct: ${q.correct_answer}`)
+//         }
+//       }
+//     })
+
+//     const unattempted = totalQuestions - correct - incorrect
+//     const score = correct
+//     const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
+
+//     // console.log("[v0] Results - Correct:", correct, "Incorrect:", incorrect, "Unattempted:", unattempted, "Percentage:", percentage)
+
+//     // Generate a unique result ID
+//     const resultId = `mock-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+
+//     const resultData = {
+//       testId,
+//       testTitle,
+//       totalQuestions,
+//       correct,
+//       incorrect,
+//       unattempted,
+//       score,
+//       percentage,
+//       answers,
+//       questions,
+//     }
+
+//     // console.log("[v0] Returning success with resultId:", resultId)
+
+//     return {
+//       success: true,
+//       resultId,
+//       data: resultData,
+//     }
+//   } catch (error) {
+//     console.error("[v0] submitFreeMockTest error:", error)
+//     return { success: false, error: "Failed to submit mock test" }
+//   }
+// }
+
+
 "use server"
 
 import { createClient, createAdminClient } from "@/lib/supabase/server"
@@ -1770,66 +3607,53 @@ export async function getExamsByCategory(categorySlug: string) {
  */
 export async function submitFreeMockTest(
   testId: string,
-  testTitle: string,
+  _testTitle: string,
   answers: Record<string, string>,
-  questions: any[]
+  _clientQuestions: unknown[],
 ) {
   try {
-    // console.log("[v0] submitFreeMockTest - testId:", testId)
-    // console.log("[v0] submitFreeMockTest - answers count:", Object.keys(answers).length)
-    // console.log("[v0] submitFreeMockTest - questions count:", questions.length)
+    // Never trust correct-answer keys supplied by the browser.
+    // Use the same database-backed public test fetch as the test attempt screen.
+    const test = await getTestById(testId)
+    if (!test?.questions?.length) {
+      return { success: false as const, error: "Test questions are unavailable. Please retry from the mock-test page." }
+    }
 
+    const questions = test.questions
     const totalQuestions = questions.length
-
-    // Calculate scores
     let correct = 0
     let incorrect = 0
 
-    questions.forEach((q: any) => {
-      const userAnswer = answers[q.id]
-      if (userAnswer) {
-        const isCorrect = userAnswer.toLowerCase() === q.correct_answer.toLowerCase()
-        if (isCorrect) {
-          correct++
-          // console.log(`[v0] Q${q.id} CORRECT`)
-        } else {
-          incorrect++
-          // console.log(`[v0] Q${q.id} WRONG - User: ${userAnswer}, Correct: ${q.correct_answer}`)
-        }
-      }
-    })
+    for (const q of questions) {
+      const userAnswer = answers[q.id]?.trim().toLowerCase()
+      if (!userAnswer || !["a", "b", "c", "d"].includes(userAnswer)) continue
+      if (userAnswer === q.correct_answer?.trim().toLowerCase()) correct++
+      else incorrect++
+    }
 
     const unattempted = totalQuestions - correct - incorrect
     const score = correct
-    const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0
-
-    // console.log("[v0] Results - Correct:", correct, "Incorrect:", incorrect, "Unattempted:", unattempted, "Percentage:", percentage)
-
-    // Generate a unique result ID
-    const resultId = `mock-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-
-    const resultData = {
-      testId,
-      testTitle,
-      totalQuestions,
-      correct,
-      incorrect,
-      unattempted,
-      score,
-      percentage,
-      answers,
-      questions,
-    }
-
-    // console.log("[v0] Returning success with resultId:", resultId)
+    const percentage = Math.round((score / totalQuestions) * 100)
+    const resultId = `mock-${crypto.randomUUID()}`
 
     return {
-      success: true,
+      success: true as const,
       resultId,
-      data: resultData,
+      data: {
+        testId,
+        testTitle: test.title,
+        totalQuestions,
+        correct,
+        incorrect,
+        unattempted,
+        score,
+        percentage,
+        answers,
+        questions,
+      },
     }
   } catch (error) {
-    console.error("[v0] submitFreeMockTest error:", error)
-    return { success: false, error: "Failed to submit mock test" }
+    console.error("Free mock test submission failed:", error)
+    return { success: false as const, error: "Unable to score this test right now. Please try again." }
   }
 }

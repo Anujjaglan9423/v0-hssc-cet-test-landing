@@ -38,7 +38,7 @@ export default function HaryanaCETGroupDSyllabusPage() {
         },
         {
             question: "What is the negative marking in Haryana CET Group D?",
-            answer: "There is no negative marking in the HSSC CET pattern used on this site. Candidates should still verify the latest official HSSC notification before applying."
+            answer: "HSSC CET Group D: a wrong answer has no penalty. For a question you skip, fill the fifth bubble on the OMR sheet. An unmarked fifth bubble for an unattempted question results in a one-mark deduction; verify the current official HSSC notice."
         },
         {
             question: "What are the main topics in Haryana GK for Group D?",
@@ -97,7 +97,7 @@ export default function HaryanaCETGroupDSyllabusPage() {
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Clock className="w-4 h-4 text-primary" />
-                            <span>90 Minutes</span>
+                            <span>105 Minutes</span>
                         </div>
                     </div>
 
@@ -142,8 +142,8 @@ export default function HaryanaCETGroupDSyllabusPage() {
                             {[
                                 { label: "Total Questions", value: "100", color: "from-blue-500 to-blue-600" },
                                 { label: "Total Marks", value: "100", color: "from-green-500 to-green-600" },
-                                { label: "Duration", value: "90 Minutes", color: "from-orange-500 to-orange-600" },
-                                { label: "Negative Marking", value: "Skip: -1", color: "from-red-500 to-red-600" }
+                                { label: "Duration", value: "105 Minutes", color: "from-orange-500 to-orange-600" },
+                                { label: "Marking", value: "Wrong: 0 | blank skip: −1", color: "from-red-500 to-red-600" }
                             ].map((item, idx) => (
                                 <div key={idx} className="bg-card rounded-xl p-4 text-center border shadow-sm">
                                     <p className="text-sm text-muted-foreground mb-1">{item.label}</p>

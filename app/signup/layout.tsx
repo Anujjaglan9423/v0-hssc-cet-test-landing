@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sign Up Free | CET TEST - Start Haryana CET & HSSC Preparation",
     description:
-      "Join 2,000+ students. Create your free account & start Haryana CET, HSSC, SSC, Railway & UKSSSC mock test preparation instantly.",
+      "Join other students. Create your free account & start Haryana CET, HSSC, SSC, Railway & UKSSSC mock test preparation instantly.",
     url: "https://cettest.site/signup",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Sign Up Free - CET TEST" }],
   },

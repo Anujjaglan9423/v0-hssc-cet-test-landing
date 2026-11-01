@@ -95,7 +95,7 @@ export default function HaryanaCETGroupDSyllabusLayout({
                         name: "Haryana CET Group D Examination Syllabus",
                         description: "Complete syllabus for Haryana Common Eligibility Test (CET) for Group D posts conducted by HSSC as per Advertisement No. 1/2023",
                         educationalProgramMode: "Exam Preparation",
-                        timeToComplete: "PT90M",
+                        timeToComplete: "PT105M",
                         occupationalCategory: "Government Jobs",
                         provider: {
                             "@type": "Organization",
@@ -271,7 +271,7 @@ export default function HaryanaCETGroupDSyllabusLayout({
                         hasCourseInstance: {
                             "@type": "CourseInstance",
                             courseMode: "online",
-                            duration: "PT90M",
+                            duration: "PT105M",
                         },
                         teaches: [
                             {
@@ -323,7 +323,7 @@ export default function HaryanaCETGroupDSyllabusLayout({
                                 name: "How many questions are asked in Haryana CET Group D exam?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "The Haryana CET Group D exam consists of 100 questions for 100 marks, to be attempted in 90 minutes.",
+                                    text: "The 2026 HSSC CET Group D examination comprises 100 questions for 100 marks, to be attempted in 105 minutes (1 hour 45 minutes).",
                                 },
                             },
                             {
@@ -331,7 +331,7 @@ export default function HaryanaCETGroupDSyllabusLayout({
                                 name: "Is there negative marking in Haryana CET Group D?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "The current HSSC CET pattern used on this site has no negative marking. Candidates must still verify the latest official HSSC notification before applying.",
+                                    text: "Wrong answers carry no penalty. To leave a question unattempted, fill the fifth OMR bubble; otherwise one mark is deducted. Verify the applicable official HSSC notification.",
                                 },
                             },
                             {
@@ -363,7 +363,7 @@ export default function HaryanaCETGroupDSyllabusLayout({
                                 name: "What is the exam duration for Haryana CET Group D?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "The Haryana CET Group D exam is conducted for a duration of 90 minutes (1 hour 30 minutes).",
+                                    text: "The Haryana CET Group D 2026 examination duration is 105 minutes (1 hour 45 minutes), according to HSSC Advt. No. 05/2026.",
                                 },
                             },
                         ],
@@ -385,7 +385,7 @@ export default function HaryanaCETGroupDSyllabusLayout({
                             "https://www.facebook.com/Cet Test",
                             "https://www.instagram.com/cet__test",
                         ],
-                        description: "India's leading platform for Haryana CET, SSC, Railway, and UKSSSC exam preparation with free mock tests and study materials",
+                        description: "An independent platform for Haryana CET, SSC, Railway, and UKSSSC exam preparation with free mock tests and study materials",
                     }),
                 }}
             />

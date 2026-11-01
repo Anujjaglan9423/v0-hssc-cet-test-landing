@@ -45,7 +45,7 @@ export const currentAffairsEditorialNotes: Record<string, EditorialNote> = {
   "awards-honours-2026": {
     "source": {
       "url": "https://www.padmaawards.gov.in/Document/pdf/notifications/PadmaAwards/PadmaAwards2026.pdf",
-      "label": "Ministry of Home Affairs — Padma Awards 2026 list",
+      "label": "Government of India Gazette — Padma Awards 2026 conferral notification",
       "kind": "direct"
     },
     "explanationEn": "Official Padma Awards are organized as Vibhushan, Bhushan and Shri. Verify award counts, awardees, fields and home states against the published MHA list, not circulating summaries.",
@@ -245,8 +245,8 @@ export const currentAffairsEditorialNotes: Record<string, EditorialNote> = {
   "isp-index": {
     "source": {
       "url": "https://mospi.gov.in/faq",
-      "label": "MoSPI — Index of Services Production FAQs",
-      "kind": "direct"
+      "label": "MoSPI — FAQ overview (not an ISP report)",
+      "kind": "portal"
     },
     "explanationEn": "ISP measures short-term changes in real service-sector output. It complements the Index of Industrial Production (IIP), rather than measuring industrial output itself.",
     "explanationHi": "ISP सेवा क्षेत्र के वास्तविक उत्पादन में अल्पकालिक बदलाव मापता है। यह औद्योगिक उत्पादन सूचकांक (IIP) का पूरक है, उसका पर्याय नहीं।",
@@ -335,7 +335,7 @@ export const currentAffairsEditorialNotes: Record<string, EditorialNote> = {
   "padma-awards-2026": {
     "source": {
       "url": "https://www.padmaawards.gov.in/Document/pdf/notifications/PadmaAwards/PadmaAwards2026.pdf",
-      "label": "Ministry of Home Affairs — Padma Awards 2026 list",
+      "label": "Government of India Gazette — Padma Awards 2026 conferral notification",
       "kind": "direct"
     },
     "explanationEn": "The official 2026 list reports 131 awards: five Padma Vibhushan, thirteen Padma Bhushan and 113 Padma Shri. Remember categories and state/field details directly from the PDF.",
@@ -535,8 +535,8 @@ export const currentAffairsEditorialNotes: Record<string, EditorialNote> = {
   "unpaid-domestic-labour": {
     "source": {
       "url": "https://www.ilo.org/topics-and-sectors/care-economy",
-      "label": "International Labour Organization — Care economy",
-      "kind": "direct"
+      "label": "International Labour Organization — Care economy background",
+      "kind": "portal"
     },
     "explanationEn": "Unpaid care and domestic work has economic value even where national accounts do not record a direct wage. Valuation estimates depend on the method and assumptions.",
     "explanationHi": "बिना वेतन वाले घरेलू और देखभाल कार्य का आर्थिक महत्व है। उसके मूल्यांकन के नतीजे प्रयुक्त पद्धति और मान्यताओं पर निर्भर करते हैं।",

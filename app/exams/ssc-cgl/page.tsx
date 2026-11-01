@@ -198,7 +198,7 @@ export default function AllSSCExamsPage() {
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
             <Trophy className="w-10 h-10 text-primary mx-auto mb-2" />
-            <h4 className="text-2xl font-bold">10k+</h4>
+            <h4 className="text-2xl font-bold">Practice</h4>
             <p className="text-xs text-muted-foreground">Solved Questions</p>
           </div>
           <div>

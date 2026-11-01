@@ -88,7 +88,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "HSSC CET Mock Test 2026 | Free Haryana CET Group C & D Practice | NTA Pattern",
-    description: "Crack HSSC CET 2026 with unlimited free mock tests. Practice Haryana GK, previous year papers, NTA pattern questions, and get detailed analytics. Start your free preparation today!",
+    description: "Crack HSSC CET 2026 with free mock tests. Practice Haryana GK, previous year papers, exam-style practice questions, and get detailed analytics. Start your free preparation today!",
     url: "https://cettest.site/exams/hssc-cet",
     siteName: "CET TEST",
     locale: "en_IN",
@@ -137,10 +137,6 @@ export default function HSCSCETPage() {
       q: "What is HSSC CET exam and who conducts it?",
       a: "HSSC CET (Haryana Common Eligibility Test) is conducted by the Haryana Staff Selection Commission (HSSC) through NTA (National Testing Agency). It's a state-level exam for recruitment to Group C and Group D posts in Haryana government departments. The exam is mandatory for all direct recruitment in Haryana."
     },
-    // {
-    //   q: "Is the HSSC CET mock test based on the NTA pattern?",
-    //   a: "Yes, all our HSSC CET practice sets follow the latest NTA (National Testing Agency) pattern with 100 questions in 90 minutes. We cover the 95+5 marks distribution where 95 marks are for subject knowledge and 5 marks for Haryana residency. Our mock tests are updated for the 2026 exam pattern."
-    // },
     {
       q: "What is the eligibility criteria for HSSC CET 2026?",
       a: "Eligibility: 1) Educational Qualification: 10th/12th/Graduation as per post requirement. 2) Age: 18-42 years for General category (relaxation for SC/ST/OBC). 3) Knowledge of Hindi/Sanskrit up to 10th standard."
@@ -155,7 +151,7 @@ export default function HSCSCETPage() {
     },
     {
       q: "What is the exam pattern for HSSC CET 2026?",
-      a: "HSSC CET 2026 pattern: Total 100 questions (100 marks) in 90 minutes. Subject distribution: Haryana GK (25%), General Awareness (20%), Reasoning (20%), Mathematics (20%), Language (10%), Computers (5%). Questions are OMR-based with no negative marking. Follow the current official notification for the required option-marking instructions."
+      a: "The HSSC Group C examination pattern in the applicable official 2026 recruitment notice is 100 MCQs, 100 marks and 105 minutes (1 hour 45 minutes), on a bilingual OMR sheet. Wrong answers have no negative marking, but leaving the fifth bubble blank for an unattempted question deducts one mark. Check your specific HSSC advertisement for the relevant syllabus and selection stage."
     },
     {
       q: "What is the salary for HSSC CET qualified candidates?",
@@ -167,15 +163,15 @@ export default function HSCSCETPage() {
     },
     {
       q: "What is the selection process for HSSC CET?",
-      a: "HSSC CET selection process: 1) Written Exam (100 marks, 90 minutes, OMR-based) 2) Scrutiny of Documents 3) Socio-economic criteria and experience evaluation (if applicable) 4) Final merit list based on CET score + bonus marks (5 for Haryana domicile, 5 for women, etc.)"
+      a: "The CET score is used for eligibility and shortlisting under the relevant HSSC rules. Later written or skill tests, document checks and final merit criteria depend on the advertised Group C or Group D post. Refer to the applicable recruitment advertisement; do not assume automatic domicile or gender bonus marks."
     },
     {
       q: "Is there negative marking in HSSC CET?",
-      a: "No, HSSC CET has NO NEGATIVE MARKING. All 5 options for each question are compulsory to attempt. However, you must be careful as incorrect answers don't penalize you but you must not leave any question unanswered."
+      a: "There is no negative marking for a wrong answer under the cited HSSC notice. If you choose not to attempt a question, fill the fifth OMR bubble; leaving that bubble blank leads to a one-mark deduction. Confirm the rules for your specific advertisement."
     },
     {
       q: "How many vacancies are expected for HSSC CET 2026?",
-      a: "HSSC is expected to announce 20,000+ vacancies for HSSC CET 2026 across Group C and Group D posts including Clerk, Patwari, Accountant, Stenographer, Peon, Attendant, and various departmental posts in Haryana government."
+      a: "HSSC vacancy figures are announced in the relevant official recruitment notices; do not treat projected totals as confirmed. Posts including Clerk, Patwari, Accountant, Stenographer, Peon and Attendant may have separate eligibility and various departmental posts in Haryana government."
     },
     {
       q: "Can I attempt HSSC CET mock tests in Hindi?",
@@ -187,16 +183,16 @@ export default function HSCSCETPage() {
   // HARYANA GK TOPICS FOR CET (GEO-SPECIFIC)
   // ============================================
   const haryanaGKTopics = [
-    { name: "Haryana History (1966 onwards)", icon: "📜", questions: "200+" },
-    { name: "Haryana Culture & Traditions", icon: "🎭", questions: "150+" },
-    { name: "Haryana Geography & Rivers", icon: "🏔️", questions: "180+" },
-    { name: "Haryana Economy & Agriculture", icon: "🌾", questions: "120+" },
-    { name: "Haryana Polity & Governance", icon: "🏛️", questions: "140+" },
-    { name: "Haryana Welfare Schemes", icon: "🤝", questions: "200+" },
-    { name: "Haryana Current Affairs", icon: "📰", questions: "300+" },
-    { name: "Haryana Sports & Achievements", icon: "🏆", questions: "100+" },
-    { name: "Haryana Important Personalities", icon: "👤", questions: "90+" },
-    { name: "Haryana Festivals & Fairs", icon: "🎪", questions: "80+" },
+    { name: "Haryana History (1966 onwards)", icon: "📜", questions: "Practice" },
+    { name: "Haryana Culture & Traditions", icon: "🎭", questions: "Practice" },
+    { name: "Haryana Geography & Rivers", icon: "🏔️", questions: "Practice" },
+    { name: "Haryana Economy & Agriculture", icon: "🌾", questions: "Practice" },
+    { name: "Haryana Polity & Governance", icon: "🏛️", questions: "Practice" },
+    { name: "Haryana Welfare Schemes", icon: "🤝", questions: "Practice" },
+    { name: "Haryana Current Affairs", icon: "📰", questions: "Practice" },
+    { name: "Haryana Sports & Achievements", icon: "🏆", questions: "Practice" },
+    { name: "Haryana Important Personalities", icon: "👤", questions: "Practice" },
+    { name: "Haryana Festivals & Fairs", icon: "🎪", questions: "Practice" },
   ]
 
   // ============================================
@@ -257,10 +253,10 @@ export default function HSCSCETPage() {
       },
       {
         "@type": "Question",
-        name: "What are the bonus marks in HSSC CET?",
+        name: "Does HSSC CET automatically award bonus marks for domicile or gender?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "HSSC CET provides 5 bonus marks for Haryana domicile candidates, 5 marks for women candidates, 5 marks for widows/divorcees, and additional marks for NCC/NSS/Sports achievements as per Haryana government rules.",
+          text: "Do not assume automatic bonus marks. Recruitment criteria and any permitted weightage are controlled by the current HSSC policy and the specific advertisement. Always read the official notification.",
         },
       },
     ],
@@ -304,25 +300,25 @@ export default function HSCSCETPage() {
               Free <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">HSSC CET Mock Test</span> 2026
             </h1>
             <p className="text-xl text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Prepare for Haryana CET Group C & D with unlimited free practice tests, solved previous year papers (PYQs), expert-curated Haryana GK, and detailed performance analytics.
+              Prepare for Haryana CET Group C & D with free practice tests, previous-year exam practice, Haryana GK study notes, and detailed performance analytics.
             </p>
 
             {/* Key Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">2,000+</div>
+                <div className="text-2xl font-bold text-primary">Free</div>
                 <div className="text-xs text-muted-foreground">Students</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">312+</div>
+                <div className="text-2xl font-bold text-primary">Available</div>
                 <div className="text-xs text-muted-foreground">Total Tests</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">31,068+</div>
+                <div className="text-2xl font-bold text-primary">Practice</div>
                 <div className="text-xs text-muted-foreground">Questions</div>
               </div>
               <div className="bg-background/50 backdrop-blur rounded-lg p-3 border">
-                <div className="text-2xl font-bold text-primary">100+</div>
+                <div className="text-2xl font-bold text-primary">Available</div>
                 <div className="text-xs text-muted-foreground">Full Exam Tests</div>
               </div>
             </div>
@@ -379,7 +375,7 @@ export default function HSCSCETPage() {
                 <div className="mb-4 flex items-center justify-center w-14 h-14 rounded-xl bg-blue-500/10 group-hover:bg-blue-500/20 transition">
                   <FileText className="w-7 h-7 text-blue-600" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">31,068+ Questions</h3>
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">Practice questions</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Extensive question bank covering Haryana GK, Maths, Reasoning, and Computer topics.
                 </p>
@@ -403,7 +399,7 @@ export default function HSCSCETPage() {
                 </div>
                 <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">Rank Analysis</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Compare your performance with 50K+ aspirants and track your progress with detailed analytics.
+                  Compare your performance with other test participants and track your progress with detailed analytics.
                 </p>
               </div>
 
@@ -459,12 +455,12 @@ export default function HSCSCETPage() {
               </div>
               <div className="divide-y">
                 {[
-                  ["Conducting Body", "HSSC (Haryana Staff Selection Commission) via NTA"],
+                  ["Recruiting authority", "Haryana Staff Selection Commission (HSSC)"],
                   ["Mode of Exam", "Offline (OMR Based)"],
                   ["Total Questions", "100 Questions"],
                   ["Total Marks", "100 Marks"],
                   ["Duration", "1 Hour 45 Minutes"],
-                  ["Negative Marking", "no negative marking but 1 mark is deducted for each skipped question"],
+                  ["Negative Marking", "No penalty for wrong option; -1 only if an unattempted question's fifth bubble is left blank"],
                   // ["Bonus Marks", "5 for Haryana Domicile"],
                   ["Language Medium", "Bilingual (Hindi & English)"],
                 ].map(([label, value], i) => (
@@ -475,6 +471,10 @@ export default function HSCSCETPage() {
                 ))}
               </div>
             </div>
+
+            <p className="mb-8 text-center text-sm text-muted-foreground">
+              Source: <a href="https://www.hssc.gov.in/file/ac1f23cd-99c4-13a6-819c-32aaa1600063/advertisements" target="_blank" rel="noopener noreferrer" className="text-primary underline">HSSC 2026 Group C notice</a> and <a href="https://hssc.gov.in/file/ac1f23cd-9d9c-1328-819e-da8c1fe70055/advertisements" target="_blank" rel="noopener noreferrer" className="text-primary underline">HSSC 2026 Group D notice</a>. Post-specific examinations may have different rules and test timers.
+            </p>
 
             {/* Syllabus Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -563,7 +563,7 @@ export default function HSCSCETPage() {
         <section className="py-16 px-4">
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-2xl p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Crack Your HSSC CET Exam?</h2>
-            <p className="text-lg mb-8 opacity-90">Join 2,000+ Haryana aspirants and start your free preparation today</p>
+            <p className="text-lg mb-8 opacity-90">Join Haryana aspirants and start your free preparation today</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/signup">
                 <Button size="lg" variant="secondary" className="gap-2 cursor-pointer">

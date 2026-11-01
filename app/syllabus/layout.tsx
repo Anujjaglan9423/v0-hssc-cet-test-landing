@@ -253,12 +253,12 @@ export default function SyllabusLayout({
                             {
                                 "@type": "Course",
                                 name: "HSSC CET Group C Syllabus",
-                                description: "6 subjects: General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English, Hindi. 100 questions, 90 minutes with no negative marking.",
+                                description: "6 subjects: General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English, Hindi. 100 questions, 105 minutes; wrong: 0, unmarked skipped question: −1.",
                             },
                             {
                                 "@type": "Course",
                                 name: "HSSC CET Group D Syllabus",
-                                description: "7 subjects including Haryana GK (25% weightage). 100 questions, 90 minutes with no negative marking.",
+                                description: "7 subjects including Haryana GK (25% weightage). 100 questions, 105 minutes; wrong: 0, unmarked skipped question: −1.",
                             },
                             {
                                 "@type": "Course",
@@ -316,7 +316,7 @@ export default function SyllabusLayout({
                                 name: "What is the difference between HSSC and UKSSSC exams?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "HSSC conducts exams for Haryana government jobs with CET score valid for 3 years and 25% Haryana GK weightage. UKSSSC conducts exams for Uttarakhand with up to 40% state GK weightage and no negative marking.",
+                                    text: "HSSC conducts exams for Haryana government jobs with CET score valid for 3 years and a Haryana GK component. For the 2026 HSSC CET, wrong answers have no penalty but a skipped question with an unmarked fifth OMR bubble loses one mark. UKSSSC rules vary by recruitment and should be checked in its official notices.",
                                 },
                             },
                             {
@@ -356,7 +356,7 @@ export default function SyllabusLayout({
                                 name: "What is the duration of these exams?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "HSSC CET is presented as 100 questions in 90 minutes with no negative marking. UKSSSC Police Constable and VDO pages use 100 questions in 90 minutes with 0.25 negative marking; verify the current official notice.",
+                                    text: "HSSC CET Group C/D 2026 notices specify 100 questions in 105 minutes, zero penalty for wrong answers and a one-mark deduction for a skipped question when the fifth bubble is blank. UKSSSC exam patterns vary; verify their separate notices.",
                                 },
                             },
                             {

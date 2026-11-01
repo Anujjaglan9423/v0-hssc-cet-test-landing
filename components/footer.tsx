@@ -49,7 +49,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-muted-foreground text-sm mb-4">
-              India's leading test series platform for competitive exam preparation.
+              An independent exam practice platform for competitive exam preparation.
             </p>
             <div className="space-y-2">
               <a

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -66,6 +66,7 @@ export default function MockTestAttemptPage() {
   const [testStarted, setTestStarted] = useState(false)
   const [showFeedbackModal, setShowFeedbackModal] = useState(false)
   const [lastAttemptId, setLastAttemptId] = useState<string | null>(null)
+  const submittingRef = useRef(false)
 
   useEffect(() => {
     const loadTest = async () => {
@@ -84,21 +85,21 @@ export default function MockTestAttemptPage() {
     loadTest()
   }, [testId])
 
+  // Keep the clock independent of the submission side effect.
+  // Never dispatch a server action inside a React state updater.
   useEffect(() => {
-    if (!testStarted || timeLeft <= 0) return
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer)
-          handleSubmit()
-          return 0
-        }
-        return prev - 1
-      })
+    if (!testStarted || isSubmitting) return
+    const timer = window.setInterval(() => {
+      setTimeLeft((seconds) => Math.max(0, seconds - 1))
     }, 1000)
+    return () => window.clearInterval(timer)
+  }, [testStarted, isSubmitting])
 
-    return () => clearInterval(timer)
+  useEffect(() => {
+    if (testStarted && timeLeft === 0 && !submittingRef.current) {
+      void handleSubmit()
+    }
+    // Submission guard prevents duplicate requests when the timer reaches zero.
   }, [testStarted, timeLeft])
 
   const formatTime = (seconds: number) => {
@@ -124,7 +125,8 @@ export default function MockTestAttemptPage() {
   }
 
   const handleSubmit = async () => {
-    if (!test) return
+    if (!test || submittingRef.current) return
+    submittingRef.current = true
     setIsSubmitting(true)
 
     try {
@@ -138,18 +140,18 @@ export default function MockTestAttemptPage() {
         setShowSubmitDialog(false)
 
         // Redirect to results page
-        setTimeout(() => {
-          router.push(`/mock-test-results/${result.resultId}`)
-        }, 500)
+        router.push(`/mock-test-results/${result.resultId}`)
       } else {
         console.error("Submit failed:", result.error)
         alert("Failed to submit test. Please try again.")
+        submittingRef.current = false
         setIsSubmitting(false)
         setShowSubmitDialog(false)
       }
     } catch (error) {
       console.error("Error in handleSubmit:", error)
       alert("Error submitting test")
+      submittingRef.current = false
       setIsSubmitting(false)
       setShowSubmitDialog(false)
     }
@@ -224,7 +226,7 @@ export default function MockTestAttemptPage() {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                Unattempted questions carry no marks
+                Review the marking rules for this specific test before submitting
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
