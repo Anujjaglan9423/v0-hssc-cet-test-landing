@@ -127,6 +127,9 @@ import AdPlacement from "@/components/ad-placement"
 import ExamAlertsSection from "@/components/exam-alerts-section"
 import { createAdminClient } from "@/lib/supabase/server"
 import { SITE_FACTS } from "@/lib/site-config"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = { alternates: { canonical: "https://cettest.site" } }
 
 import type { Testimonial } from "@/components/testimonials-section"
 const SITE_URL = "https://cettest.site"

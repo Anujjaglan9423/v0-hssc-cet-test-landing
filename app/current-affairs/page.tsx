@@ -664,8 +664,8 @@ export default function CurrentAffairsPage() {
     const displayedMonths = filteredMonths.filter((month) => month.month === "September" && month.year === 2026)
 
     const totalAvailable = monthsData.filter(m => m.isAvailable).length
-    const totalTopics = monthsData.reduce((acc, m) => acc + m.majorTopics.length, 0)
-    const totalImportantDays = monthsData.reduce((acc, m) => acc + m.importantDays, 0)
+    const totalTopics = monthsData.filter(m => m.isAvailable).reduce((acc, m) => acc + m.majorTopics.length, 0)
+    const totalImportantDays = monthsData.filter(m => m.isAvailable).reduce((acc, m) => acc + m.importantDays, 0)
 
     const renderTopicIcon = (icon: TopicCard["icon"]) => {
         if (icon === "brics") return <Globe2 className="w-5 h-5" />
@@ -701,15 +701,15 @@ export default function CurrentAffairsPage() {
                     <div className="flex flex-wrap justify-center gap-6 mb-10">
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Calendar className="w-4 h-4 text-primary" />
-                            <span><strong>12 Months</strong> Available</span>
+                            <span><strong>{totalAvailable}</strong> Months Available</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <BookOpen className="w-4 h-4 text-primary" />
-                            <span><strong>{totalTopics}+</strong> Major Topics</span>
+                            <span><strong>{totalTopics}</strong> Listed Monthly Topics</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Clock className="w-4 h-4 text-primary" />
-                            <span><strong>{totalImportantDays}+</strong> Important Days</span>
+                            <span><strong>{totalImportantDays}</strong> Listed Important Days</span>
                         </div>
                     </div>
 
@@ -740,16 +740,16 @@ export default function CurrentAffairsPage() {
                             <div className="text-xs text-muted-foreground">Months Available</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-3xl font-bold text-primary">50+</div>
+                            <div className="text-3xl font-bold text-primary">{totalTopics}</div>
                             <div className="text-xs text-muted-foreground">Major Topics</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-3xl font-bold text-primary">80+</div>
+                            <div className="text-3xl font-bold text-primary">{totalImportantDays}</div>
                             <div className="text-xs text-muted-foreground">Important Days</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-3xl font-bold text-primary">500+</div>
-                            <div className="text-xs text-muted-foreground">Practice Questions</div>
+                            <div className="text-3xl font-bold text-primary">{totalAvailable}</div>
+                            <div className="text-xs text-muted-foreground">Available Monthly Digests</div>
                         </div>
                     </div>
                 </div>

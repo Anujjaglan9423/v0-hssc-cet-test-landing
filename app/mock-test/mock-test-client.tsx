@@ -60,9 +60,9 @@ function EmptyState({ title, description, retry }: { title: string; description:
     )
 }
 
-export default function MockTestClient() {
+export default function MockTestClient({ initialCategories = [] }: { initialCategories?: Category[] }) {
     const router = useRouter()
-    const [categories, setCategories] = useState<Category[]>([])
+    const [categories, setCategories] = useState<Category[]>(initialCategories)
     const [exams, setExams] = useState<Exam[]>([])
     const [tests, setTests] = useState<MockTest[]>([])
     const [category, setCategory] = useState<Category | null>(null)
@@ -88,6 +88,8 @@ export default function MockTestClient() {
 
     useEffect(() => {
         let active = true
+        // Server-provided categories are usable without another first-load request.
+        if (!category && !exam && refreshKey === 0 && initialCategories.length > 0) return
         setLoading(true)
         setError(null)
         async function load() {
@@ -117,7 +119,7 @@ export default function MockTestClient() {
         }
         void load()
         return () => { active = false }
-    }, [category, exam, refreshKey])
+    }, [category, exam, refreshKey, initialCategories])
 
     const retry = useCallback(() => setRefreshKey((value) => value + 1), [])
     const goBack = useCallback(() => {
@@ -168,7 +170,21 @@ export default function MockTestClient() {
                                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                                         {displayedCategories.map((item) => <button type="button" key={item.id} onClick={() => chooseCategory(item)} className="group flex min-h-56 flex-col items-start rounded-2xl border border-border bg-card p-6 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"><div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"><GraduationCap className="h-6 w-6" /></div><h3 className="text-lg font-bold">{item.name}</h3><p className="mt-2 flex-1 text-sm leading-6 text-muted-foreground">{item.description || "Browse available exam sections and mock tests."}</p><span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">Explore exams <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span></button>)}
                                     </div>
-                                ) : <EmptyState title="No matching categories" description="Try a different search term." />}
+                                ) : search.trim() ? (
+                                    <EmptyState title="No matching categories" description="Try another search term." />
+                                ) : (
+                                    <EmptyState title="No categories available" description="Exam categories are not available right now. Try again or explore our exam preparation guides below." retry={retry} />
+                                )}
+                                <nav aria-label="Exam preparation guides" className="mt-8 rounded-2xl border border-border bg-muted/30 p-5">
+                                    <h3 className="text-base font-semibold">Explore exam preparation guides</h3>
+                                    <p className="mt-1 text-sm text-muted-foreground">These guides are available even if the live mock-test list is temporarily unavailable.</p>
+                                    <div className="mt-4 flex flex-wrap gap-3 text-sm font-medium">
+                                        <Link href="/exams/hssc-cet" className="rounded-lg border border-border bg-background px-3 py-2 hover:border-primary">HSSC CET</Link>
+                                        <Link href="/exams/ssc" className="rounded-lg border border-border bg-background px-3 py-2 hover:border-primary">SSC</Link>
+                                        <Link href="/exams/railway" className="rounded-lg border border-border bg-background px-3 py-2 hover:border-primary">Railway</Link>
+                                        <Link href="/exams/uksssc" className="rounded-lg border border-border bg-background px-3 py-2 hover:border-primary">UKSSSC</Link>
+                                    </div>
+                                </nav>
                             </div>
                         </section>
                         <section className="border-y border-border/70 bg-muted/30 px-4 py-16 sm:px-6">

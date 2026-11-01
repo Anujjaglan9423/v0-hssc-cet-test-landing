@@ -15,7 +15,7 @@ const PATH = "/study-materials-hub"
 const PAGE_URL = `${SITE_URL}${PATH}`
 
 export const metadata: Metadata = {
-  title: "Free Study Material for HSSC CET, SSC, Railway & UKSSSC | CET TEST",
+  title: "Free Study Material for HSSC CET, SSC, Railway & UKSSSC",
   description:
     "Explore government exam study resources for Haryana HSSC CET, SSC, Railway RRB and Uttarakhand UKSSSC. Find syllabus guides, current affairs, Haryana GK and practice tests.",
   alternates: { canonical: PAGE_URL },

@@ -101,7 +101,7 @@ export default function HaryanaCETGroupCSyllabusPage() {
                     {/* Subheading */}
                     <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
                         Complete breakdown of subjects, topics, and exam pattern for
-                        <strong className="text-foreground"> HSSC Group C (CET)</strong> recruitment 2026-26
+                        <strong className="text-foreground"> HSSC Group C (CET)</strong> recruitment 2026
                     </p>
 
                     {/* Stats */}

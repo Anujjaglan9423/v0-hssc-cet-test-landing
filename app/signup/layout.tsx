@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Sign Up Free | CET TEST - Start Haryana CET & HSSC Mock Test Preparation",
+  title: "Sign Up Free | Start Haryana CET & HSSC Mock Test Preparation",
+  robots: { index: false, follow: false },
   description:
     "Create your free CET TEST account and start practicing Haryana CET, HSSC CET, HSSC Police Constable, SSC CGL, Railway RRB NTPC & UKSSSC mock tests instantly. No payment required to start!",
   keywords: [

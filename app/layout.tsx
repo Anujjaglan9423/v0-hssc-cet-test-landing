@@ -1,3 +1,538 @@
+// import type React from "react"
+// import type { Metadata, Viewport } from "next"
+// import { Geist_Mono, Inter, Noto_Sans_Devanagari } from "next/font/google"
+// import { Analytics } from "@vercel/analytics/next"
+// import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
+// import Script from "next/script"
+// import { GoogleAnalytics } from "@/components/google-analytics"
+// import { WhatsAppFloat } from "@/components/whatsapp-float"
+// import "./globals.css"
+
+// const geistMono = Geist_Mono({
+//   subsets: ["latin"],
+//   display: "swap",
+//   variable: "--font-geist-mono",
+// })
+
+// const inter = Inter({
+//   subsets: ["latin"],
+//   preload: true,
+//   variable: "--font-inter",
+// })
+
+// const devanagari = Noto_Sans_Devanagari({
+//   subsets: ["devanagari"],
+//   display: "swap",
+//   variable: "--font-devanagari",
+// })
+
+// // ============================================
+// // SITE CONFIGURATION
+// // ============================================
+// const SITE_URL = "https://cettest.site"
+// const SITE_NAME = "CET TEST"
+// const INSTAGRAM_HANDLE = "cet__test"
+// const INSTAGRAM_URL = `https://instagram.com/${INSTAGRAM_HANDLE}`
+// const SUPPORT_EMAIL = "anujjaglan9423@gmail.com"
+// const SUPPORT_PHONE = "+917291849546"
+// const SUPPORT_PHONE_DISPLAY = "7291849546"
+// const GA_MEASUREMENT_ID = "G-W5ZGFTDCTP"
+
+// // ============================================
+// // SEO, AEO & GEO OPTIMIZED METADATA
+// // ============================================
+// export const metadata: Metadata = {
+//   metadataBase: new URL(SITE_URL),
+
+//   title: {
+//     default: "CET TEST | Practice tests and study resources for government exams",
+//     template: "%s | CET TEST",
+//   },
+
+//   description:
+//     "CET TEST provides practice tests, exam guidance, study materials, and performance review tools for Haryana CET, HSSC, SSC, Railway, and related competitive exams.",
+
+//   keywords: [
+//     "Haryana CET preparation",
+//     "HSSC CET practice tests",
+//     "government exam study materials",
+//     "SSC practice tests",
+//     "Railway exam preparation",
+//     "Haryana GK notes",
+//   ],
+
+//   authors: [{ name: "CET TEST", url: SITE_URL }],
+//   creator: "CET TEST",
+//   publisher: "CET TEST",
+
+//   generator: "CET TEST Platform",
+//   manifest: "/manifest.json",
+
+//   alternates: {
+//     canonical: SITE_URL,
+//     languages: {
+//       "en-IN": SITE_URL,
+//     },
+//   },
+
+//   openGraph: {
+//     type: "website",
+//     locale: "en_IN",
+//     alternateLocale: ["hi_IN"],
+//     url: SITE_URL,
+//     title: "CET TEST - Free Mock Tests for Haryana CET, HSSC, SSC, Railway, UKSSSC & All Govt Exams 2026",
+//     description: "Free mock tests and study resources for Haryana CET, HSSC, SSC, Railway, UKSSSC and related government exams, with instant results and performance analytics.",
+//     siteName: SITE_NAME,
+//     images: [
+//       {
+//         url: "/og-image.png",
+//         width: 1200,
+//         height: 630,
+//         alt: "CET TEST - Free Mock Tests for All Government Exams 2026",
+//       },
+//     ],
+//     emails: [SUPPORT_EMAIL],
+//     phoneNumbers: [SUPPORT_PHONE],
+//     countryName: "India",
+//   },
+
+//   twitter: {
+//     card: "summary_large_image",
+//     title: "CET TEST - Free Mock Tests for All Government Exams 2026 | SSC, Railway, Banking, Haryana CET",
+//     description: "Unlimited free mock tests for SSC CGL, RRB NTPC, Haryana CET, Banking, Teaching, Defence & more. Get instant results, all-India rank & performance analytics.",
+//     images: ["/og-image.png"],
+//     site: INSTAGRAM_URL,
+//     creator: INSTAGRAM_HANDLE,
+//   },
+
+//   robots: {
+//     index: true,
+//     follow: true,
+//     googleBot: {
+//       index: true,
+//       follow: true,
+//       "max-video-preview": -1,
+//       "max-image-preview": "large",
+//       "max-snippet": -1,
+//     },
+//   },
+
+//   verification: {
+//     google: "lm_5SF7FbX7_uM8Ze3BkTudNFttvMjDieo6Tz0hQqEY",
+//   },
+
+//   category: "Education",
+//   classification: "Government Exam Preparation, Mock Tests, Online Education",
+
+//   appleWebApp: {
+//     capable: true,
+//     statusBarStyle: "black-translucent",
+//     title: SITE_NAME,
+//   },
+
+//   icons: {
+//     icon: [
+//       { url: "/favicon.ico", sizes: "any" },
+//       { url: "/icon.png", type: "image/png" },
+//       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+//       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+//     ],
+//     apple: [
+//       { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+//     ],
+//   },
+
+//   formatDetection: {
+//     email: true,
+//     address: true,
+//     telephone: true,
+//   },
+// }
+
+// export const viewport: Viewport = {
+//   width: "device-width",
+//   initialScale: 1,
+//   maximumScale: 2,
+//   userScalable: true,
+//   themeColor: "#0f172a",
+//   viewportFit: "cover",
+// }
+
+// // ============================================
+// // ROOT LAYOUT COMPONENT
+// // ============================================
+// export default function RootLayout({
+//   children,
+// }: Readonly<{
+//   children: React.ReactNode
+// }>) {
+
+//   // ============================================
+//   // COMPREHENSIVE STRUCTURED DATA FOR ALL EXAMS
+//   // ============================================
+//   const structuredData = {
+//     "@context": "https://schema.org",
+//     "@type": "EducationalOrganization",
+//     name: SITE_NAME,
+//     url: SITE_URL,
+//     logo: `${SITE_URL}/icon-512.png`,
+//     description: "India's largest free online mock test platform for all government job competitive exams including SSC, Railway, Banking, Teaching, Defence, Haryana CET, UKSSSC, and state-level exams.",
+
+//     // Contact Information
+//     contactPoint: {
+//       "@type": "ContactPoint",
+//       telephone: SUPPORT_PHONE,
+//       email: SUPPORT_EMAIL,
+//       contactType: "customer support",
+//       areaServed: "IN",
+//       availableLanguage: ["English", "Hindi"],
+//     },
+
+//     address: {
+//       "@type": "PostalAddress",
+//       addressCountry: "IN",
+//     },
+
+//     areaServed: {
+//       "@type": "Country",
+//       name: "India",
+//     },
+
+//     sameAs: [
+//       INSTAGRAM_URL,
+//     ],
+
+//     // Search action for site search
+//     potentialAction: {
+//       "@type": "SearchAction",
+//       target: `${SITE_URL}/search?q={search_term_string}`,
+//       "query-input": "required name=search_term_string",
+//     },
+
+//     // Free offering
+//     offers: {
+//       "@type": "Offer",
+//       category: "Free Educational Service",
+//       price: "0",
+//       priceCurrency: "INR",
+//       availability: "https://schema.org/OnlineOnly",
+//       eligibleRegion: {
+//         "@type": "Country",
+//         name: "IN",
+//       },
+//     },
+
+//     // ===== AEO: FAQ SECTION FOR ALL EXAMS =====
+//     mainEntity: [
+//       // SSC Exams FAQ
+//       {
+//         "@type": "Question",
+//         name: "What is SSC CGL exam and how to prepare?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "SSC CGL (Combined Graduate Level) is a national-level exam for Group B and Group C posts. Prepare using our free mock tests covering Tier 1 and Tier 2 patterns with detailed solutions.",
+//         },
+//       },
+//       {
+//         "@type": "Question",
+//         name: "Is SSC CHSL easy to crack?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "SSC CHSL requires strategic preparation. Our free mock tests help you understand the pattern, manage time, and identify weak areas with detailed performance analytics.",
+//         },
+//       },
+
+//       // Railway Exams FAQ
+//       {
+//         "@type": "Question",
+//         name: "How to prepare for RRB NTPC exam 2026?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "Prepare for RRB NTPC with our free mock tests covering CBT 1 and CBT 2 patterns. Practice with previous year papers and get all-India rank to assess your preparation.",
+//         },
+//       },
+//       {
+//         "@type": "Question",
+//         name: "What is the exam pattern for Railway Group D?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "Railway Group D exam has 100 questions on Mathematics, General Intelligence, General Science, and General Awareness. Practice our free mock tests aligned with latest pattern.",
+//         },
+//       },
+
+//       // Haryana Exams FAQ
+//       {
+//         "@type": "Question",
+//         name: "What is Haryana CET exam and eligibility?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "Haryana Common Eligibility Test (CET) is conducted by HSSC for Group C and Group D posts in Haryana. Eligibility includes 10th/12th/Graduation as per post requirement.",
+//         },
+//       },
+//       {
+//         "@type": "Question",
+//         name: "How to prepare for HSSC CET for free?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "Prepare for HSSC CET with our unlimited free mock tests, previous year papers, and detailed performance analytics. Track your progress and compare with other aspirants.",
+//         },
+//       },
+
+//       // Banking Exams FAQ
+//       {
+//         "@type": "Question",
+//         name: "How to prepare for IBPS PO exam at home?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "Prepare for IBPS PO using our free mock tests covering Prelims and Mains. Practice reasoning, quantitative aptitude, English, and general awareness sections.",
+//         },
+//       },
+//       {
+//         "@type": "Question",
+//         name: "What is the syllabus for SBI PO 2026?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "SBI PO syllabus includes Reasoning, Quantitative Aptitude, English Language, General Awareness, and Computer Knowledge. Access our free section-wise tests.",
+//         },
+//       },
+
+//       // Teaching Exams FAQ
+//       {
+//         "@type": "Question",
+//         name: "How to crack CTET exam in first attempt?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "Crack CTET with our free mock tests covering Paper 1 (Class 1-5) and Paper 2 (Class 6-8). Practice child development, pedagogy, subject-specific questions.",
+//         },
+//       },
+//       {
+//         "@type": "Question",
+//         name: "What is the difference between CTET and HTET?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "CTET is central eligibility test for teaching across India, while HTET is specific to Haryana state. Both exams have similar patterns but HTET has state-specific content.",
+//         },
+//       },
+
+//       // Defence Exams FAQ
+//       {
+//         "@type": "Question",
+//         name: "How to prepare for NDA exam after 12th?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "Prepare for NDA with our free mock tests covering Mathematics and General Ability Test. Practice with previous year papers and get detailed solutions.",
+//         },
+//       },
+//       {
+//         "@type": "Question",
+//         name: "What is the selection process for CDS exam?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "CDS selection includes written exam (English, GK, Elementary Mathematics for IMA/INA/AFA, plus Physics/Chemistry for Navy) followed by SSB interview.",
+//         },
+//       },
+
+//       // General FAQs
+//       {
+//         "@type": "Question",
+//         name: "Is CET TEST really free for all exams?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "Yes, CET TEST is 100% free for all exams including SSC, Railway, Banking, Teaching, Defence, Haryana CET, UKSSSC, and all state-level exams.",
+//         },
+//       },
+//       {
+//         "@type": "Question",
+//         name: "How can I contact CET TEST for support?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "You can contact us via email at anujjaglan9423@gmail.com or phone at 7291849546 for any queries or support. We respond within 24 hours.",
+//         },
+//       },
+//       {
+//         "@type": "Question",
+//         name: "Which exams are covered on CET TEST?",
+//         acceptedAnswer: {
+//           "@type": "Answer",
+//           text: "CET TEST covers over 250+ exams including SSC CGL, SSC CHSL, SSC MTS, RRB NTPC, Railway Group D, Haryana CET, HSSC CET, Police Constable, UKSSSC, IBPS PO, SBI PO, CTET, HTET, NDA, CDS, and more.",
+//         },
+//       },
+//     ],
+
+//     // ===== AEO: HOW-TO SECTION =====
+//     hasPart: {
+//       "@type": "HowTo",
+//       name: "How to Start Your Free Mock Test on CET TEST",
+//       step: [
+//         {
+//           "@type": "HowToStep",
+//           name: "Choose Your Exam",
+//           text: "Select from over 250+ government exams including SSC, Railway, Banking, Teaching, Defence, and State exams.",
+//         },
+//         {
+//           "@type": "HowToStep",
+//           name: "Select a Test",
+//           text: "Choose from full-length mock tests, sectional tests, or previous year papers.",
+//         },
+//         {
+//           "@type": "HowToStep",
+//           name: "Attempt the Test",
+//           text: "Take the test online with real exam interface and timer.",
+//         },
+//         {
+//           "@type": "HowToStep",
+//           name: "Analyze Performance",
+//           text: "Get instant results, detailed solutions, and performance analytics including all-India rank.",
+//         },
+//       ],
+//     },
+//   }
+
+//   return (
+//     <html lang="en-IN" className={`${inter.variable} ${geistMono.variable} ${devanagari.variable}`}>
+//       <head>
+//         {/* ===== BASE META TAGS ===== */}
+//         <meta charSet="utf-8" />
+
+//         {/* ===== GEO TARGETING FOR ALL INDIA ===== */}
+//         <meta name="geo.country" content="IN" />
+
+//         {/* ===== LANGUAGE TARGETING ===== */}
+//         <meta name="language" content="English, Hindi" />
+//         <meta name="target_country" content="India" />
+//         <meta name="audience" content="students, government job aspirants, competitive exam candidates, graduates, postgraduates" />
+//         <meta name="rating" content="General" />
+//         <meta name="distribution" content="Global" />
+
+//         {/* ===== AUTHOR & OWNERSHIP ===== */}
+//         <meta name="author" content="CET TEST" />
+//         <meta name="owner" content="CET TEST" />
+//         <meta name="copyright" content={`${new Date().getFullYear()} CET TEST`} />
+
+//         {/* ===== EXAM COVERAGE META ===== */}
+//         <meta name="exams-covered" content="SSC CGL, SSC CHSL, SSC MTS, RRB NTPC, Railway Group D, Haryana CET, HSSC CET, Police Constable, UKSSSC, IBPS PO, SBI PO, CTET, HTET, NDA, CDS, TET, UPSSSC, BPSC, MPPSC, REET, UPTET, DSSSB, KVS, NVS, LIC, GIC, FCI, ESIC, AIIMS, and more" />
+//         <meta name="features" content="free mock tests, unlimited attempts, instant results, detailed analytics, all-india rank, previous year papers, performance tracking" />
+
+//         {/* ===== ADDITIONAL SEO & ADSENSE META ===== */}
+//         <meta name="google-site-verification" content="lm_5SF7FbX7_uM8Ze3BkTudNFttvMjDieo6Tz0hQqEY" />
+//         <meta name="google-adsense-account" content="ca-pub-7892065085240733" />
+
+//         {/* ===== PWA & APPLE META ===== */}
+//         <meta name="apple-mobile-web-app-capable" content="yes" />
+//         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+//         <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
+
+//         {/* ===== SOCIAL MEDIA - INSTAGRAM ===== */}
+//         <meta property="og:see_also" content={INSTAGRAM_URL} />
+//         <meta name="instagram:creator" content={INSTAGRAM_HANDLE} />
+//         <meta name="instagram:official" content="true" />
+
+//         {/* ===== CONTACT INFORMATION META ===== */}
+//         <meta name="contact-email" content={SUPPORT_EMAIL} />
+//         <meta name="contact-phone" content={SUPPORT_PHONE_DISPLAY} />
+//         <meta name="support-hours" content="9 AM - 9 PM IST, Monday to Saturday" />
+
+//         {/* ===== FAVICON & ICONS ===== */}
+//         <link rel="icon" href="/favicon.ico" sizes="any" />
+//         <link rel="icon" href="/icon.png" type="image/png" />
+//         <link rel="apple-touch-icon" href="/apple-icon.png" />
+//         <link rel="manifest" href="/manifest.json" />
+
+//         {/* ===== PRELOAD & PERFORMANCE ===== */}
+//         <link rel="preconnect" href="https://fonts.googleapis.com" />
+//         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+//         <link rel="preconnect" href="https://vercel.live" />
+
+//         {/* ===== GOOGLE ADSENSE ===== */}
+//         <Script
+//           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7892065085240733"
+//           strategy="afterInteractive"
+//           async
+//           crossOrigin="anonymous"
+//         />
+
+//         {/* ===== GOOGLE ANALYTICS 4 ===== */}
+//         <Script
+//           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+//           strategy="afterInteractive"
+//         />
+//         <Script
+//           id="google-analytics"
+//           strategy="afterInteractive"
+//           dangerouslySetInnerHTML={{
+//             __html: `
+//               window.dataLayer = window.dataLayer || [];
+//               function gtag(){dataLayer.push(arguments);}
+//               gtag('js', new Date());
+//               gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });
+//             `,
+//           }}
+//         />
+
+//         {/* ===== GTRANSLATE LANGUAGE WIDGET ===== */}
+//         <Script
+//           id="gtranslate-settings"
+//           strategy="afterInteractive"
+//           dangerouslySetInnerHTML={{
+//             __html: `
+//               window.gtranslateSettings = {
+//                 default_language: "en",
+//                 languages: ["en", "hi"],
+//                 globe_color: "#66aaff",
+//                 wrapper_selector: ".gtranslate_wrapper"
+//               };
+//             `,
+//           }}
+//         />
+//         <Script
+//           id="gtranslate-widget"
+//           src="https://cdn.gtranslate.net/widgets/latest/float.js"
+//           strategy="afterInteractive"
+//         />
+
+//         {/* ===== STRUCTURED DATA (JSON-LD) FOR SEO/AEO ===== */}
+//         <Script
+//           id="structured-data-main"
+//           type="application/ld+json"
+//           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+//           strategy="afterInteractive"
+//         />
+
+//         {/* ===== SERVICE WORKER REGISTRATION ===== */}
+//         <Script
+//           id="sw-registration"
+//           strategy="afterInteractive"
+//           dangerouslySetInnerHTML={{
+//             __html: `
+//               if ('serviceWorker' in navigator) {
+//                 window.addEventListener('load', () => {
+//                   navigator.serviceWorker.register('/sw.js').catch((err) => {
+//                     console.log('ServiceWorker registration failed: ', err);
+//                   });
+//                 });
+//               }
+//             `,
+//           }}
+//         />
+//       </head>
+
+//       <body className={`${inter.className} antialiased`}>
+//         {children}
+//         <WhatsAppFloat />
+//         <div className="gtranslate_wrapper" aria-label="Website language options" />
+
+//         {/* PWA Install Prompt */}
+//         <PWAInstallPrompt />
+//         {/* Google Analytics page tracking */}
+//         <GoogleAnalytics />
+//         {/* Vercel Analytics */}
+//         <Analytics />
+//       </body>
+//     </html>
+//   )
+// }
+
+
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist_Mono, Inter, Noto_Sans_Devanagari } from "next/font/google"
@@ -68,12 +603,6 @@ export const metadata: Metadata = {
   generator: "CET TEST Platform",
   manifest: "/manifest.json",
 
-  alternates: {
-    canonical: SITE_URL,
-    languages: {
-      "en-IN": SITE_URL,
-    },
-  },
 
   openGraph: {
     type: "website",
@@ -101,8 +630,6 @@ export const metadata: Metadata = {
     title: "CET TEST - Free Mock Tests for All Government Exams 2026 | SSC, Railway, Banking, Haryana CET",
     description: "Unlimited free mock tests for SSC CGL, RRB NTPC, Haryana CET, Banking, Teaching, Defence & more. Get instant results, all-India rank & performance analytics.",
     images: ["/og-image.png"],
-    site: INSTAGRAM_URL,
-    creator: INSTAGRAM_HANDLE,
   },
 
   robots: {
@@ -170,222 +697,37 @@ export default function RootLayout({
   // ============================================
   // COMPREHENSIVE STRUCTURED DATA FOR ALL EXAMS
   // ============================================
+  // Sitewide organization identity only. Page-specific FAQ/Article schema belongs
+  // on the corresponding visible content page, not on every route.
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    name: SITE_NAME,
-    url: SITE_URL,
-    logo: `${SITE_URL}/icon-512.png`,
-    description: "India's largest free online mock test platform for all government job competitive exams including SSC, Railway, Banking, Teaching, Defence, Haryana CET, UKSSSC, and state-level exams.",
-
-    // Contact Information
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: SUPPORT_PHONE,
-      email: SUPPORT_EMAIL,
-      contactType: "customer support",
-      areaServed: "IN",
-      availableLanguage: ["English", "Hindi"],
-    },
-
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "IN",
-    },
-
-    areaServed: {
-      "@type": "Country",
-      name: "India",
-    },
-
-    sameAs: [
-      INSTAGRAM_URL,
-    ],
-
-    // Search action for site search
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${SITE_URL}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
-
-    // Free offering
-    offers: {
-      "@type": "Offer",
-      category: "Free Educational Service",
-      price: "0",
-      priceCurrency: "INR",
-      availability: "https://schema.org/OnlineOnly",
-      eligibleRegion: {
-        "@type": "Country",
-        name: "IN",
-      },
-    },
-
-    // ===== AEO: FAQ SECTION FOR ALL EXAMS =====
-    mainEntity: [
-      // SSC Exams FAQ
+    "@graph": [
       {
-        "@type": "Question",
-        name: "What is SSC CGL exam and how to prepare?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "SSC CGL (Combined Graduate Level) is a national-level exam for Group B and Group C posts. Prepare using our free mock tests covering Tier 1 and Tier 2 patterns with detailed solutions.",
+        "@type": "EducationalOrganization",
+        "@id": `${SITE_URL}/#organization`,
+        name: SITE_NAME,
+        url: SITE_URL,
+        logo: `${SITE_URL}/icon-512.png`,
+        description: "Free practice tests and study material for government exam preparation.",
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: SUPPORT_PHONE,
+          email: SUPPORT_EMAIL,
+          contactType: "customer support",
+          areaServed: "IN",
+          availableLanguage: ["English", "Hindi"],
         },
+        sameAs: [INSTAGRAM_URL],
       },
       {
-        "@type": "Question",
-        name: "Is SSC CHSL easy to crack?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "SSC CHSL requires strategic preparation. Our free mock tests help you understand the pattern, manage time, and identify weak areas with detailed performance analytics.",
-        },
-      },
-
-      // Railway Exams FAQ
-      {
-        "@type": "Question",
-        name: "How to prepare for RRB NTPC exam 2026?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Prepare for RRB NTPC with our free mock tests covering CBT 1 and CBT 2 patterns. Practice with previous year papers and get all-India rank to assess your preparation.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is the exam pattern for Railway Group D?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Railway Group D exam has 100 questions on Mathematics, General Intelligence, General Science, and General Awareness. Practice our free mock tests aligned with latest pattern.",
-        },
-      },
-
-      // Haryana Exams FAQ
-      {
-        "@type": "Question",
-        name: "What is Haryana CET exam and eligibility?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Haryana Common Eligibility Test (CET) is conducted by HSSC for Group C and Group D posts in Haryana. Eligibility includes 10th/12th/Graduation as per post requirement.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How to prepare for HSSC CET for free?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Prepare for HSSC CET with our unlimited free mock tests, previous year papers, and detailed performance analytics. Track your progress and compare with other aspirants.",
-        },
-      },
-
-      // Banking Exams FAQ
-      {
-        "@type": "Question",
-        name: "How to prepare for IBPS PO exam at home?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Prepare for IBPS PO using our free mock tests covering Prelims and Mains. Practice reasoning, quantitative aptitude, English, and general awareness sections.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is the syllabus for SBI PO 2026?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "SBI PO syllabus includes Reasoning, Quantitative Aptitude, English Language, General Awareness, and Computer Knowledge. Access our free section-wise tests.",
-        },
-      },
-
-      // Teaching Exams FAQ
-      {
-        "@type": "Question",
-        name: "How to crack CTET exam in first attempt?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Crack CTET with our free mock tests covering Paper 1 (Class 1-5) and Paper 2 (Class 6-8). Practice child development, pedagogy, subject-specific questions.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is the difference between CTET and HTET?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "CTET is central eligibility test for teaching across India, while HTET is specific to Haryana state. Both exams have similar patterns but HTET has state-specific content.",
-        },
-      },
-
-      // Defence Exams FAQ
-      {
-        "@type": "Question",
-        name: "How to prepare for NDA exam after 12th?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Prepare for NDA with our free mock tests covering Mathematics and General Ability Test. Practice with previous year papers and get detailed solutions.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is the selection process for CDS exam?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "CDS selection includes written exam (English, GK, Elementary Mathematics for IMA/INA/AFA, plus Physics/Chemistry for Navy) followed by SSB interview.",
-        },
-      },
-
-      // General FAQs
-      {
-        "@type": "Question",
-        name: "Is CET TEST really free for all exams?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, CET TEST is 100% free for all exams including SSC, Railway, Banking, Teaching, Defence, Haryana CET, UKSSSC, and all state-level exams.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How can I contact CET TEST for support?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "You can contact us via email at anujjaglan9423@gmail.com or phone at 7291849546 for any queries or support. We respond within 24 hours.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Which exams are covered on CET TEST?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "CET TEST covers over 250+ exams including SSC CGL, SSC CHSL, SSC MTS, RRB NTPC, Railway Group D, Haryana CET, HSSC CET, Police Constable, UKSSSC, IBPS PO, SBI PO, CTET, HTET, NDA, CDS, and more.",
-        },
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        name: SITE_NAME,
+        url: SITE_URL,
+        publisher: { "@id": `${SITE_URL}/#organization` },
+        inLanguage: ["en-IN", "hi-IN"],
       },
     ],
-
-    // ===== AEO: HOW-TO SECTION =====
-    hasPart: {
-      "@type": "HowTo",
-      name: "How to Start Your Free Mock Test on CET TEST",
-      step: [
-        {
-          "@type": "HowToStep",
-          name: "Choose Your Exam",
-          text: "Select from over 250+ government exams including SSC, Railway, Banking, Teaching, Defence, and State exams.",
-        },
-        {
-          "@type": "HowToStep",
-          name: "Select a Test",
-          text: "Choose from full-length mock tests, sectional tests, or previous year papers.",
-        },
-        {
-          "@type": "HowToStep",
-          name: "Attempt the Test",
-          text: "Take the test online with real exam interface and timer.",
-        },
-        {
-          "@type": "HowToStep",
-          name: "Analyze Performance",
-          text: "Get instant results, detailed solutions, and performance analytics including all-India rank.",
-        },
-      ],
-    },
   }
 
   return (
@@ -414,7 +756,7 @@ export default function RootLayout({
         <meta name="features" content="free mock tests, unlimited attempts, instant results, detailed analytics, all-india rank, previous year papers, performance tracking" />
 
         {/* ===== ADDITIONAL SEO & ADSENSE META ===== */}
-        <meta name="google-site-verification" content="lm_5SF7FbX7_uM8Ze3BkTudNFttvMjDieo6Tz0hQqEY" />
+         <meta name="google-site-verification" content="lm_5SF7FbX7_uM8Ze3BkTudNFttvMjDieo6Tz0hQqEY" />
         <meta name="google-adsense-account" content="ca-pub-7892065085240733" />
 
         {/* ===== PWA & APPLE META ===== */}
@@ -433,10 +775,6 @@ export default function RootLayout({
         <meta name="support-hours" content="9 AM - 9 PM IST, Monday to Saturday" />
 
         {/* ===== FAVICON & ICONS ===== */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
 
         {/* ===== PRELOAD & PERFORMANCE ===== */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -491,11 +829,10 @@ export default function RootLayout({
         />
 
         {/* ===== STRUCTURED DATA (JSON-LD) FOR SEO/AEO ===== */}
-        <Script
+        <script
           id="structured-data-main"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
         />
 
         {/* ===== SERVICE WORKER REGISTRATION ===== */}

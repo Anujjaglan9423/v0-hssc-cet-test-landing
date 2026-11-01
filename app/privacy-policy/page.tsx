@@ -122,7 +122,7 @@ const SITE_URL = "https://cettest.site"
 const LAST_REVIEWED = "2026-10-15"
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | CET TEST",
+  title: "Privacy Policy",
   description:
     "Read how CET TEST handles account details, mock-test progress, browser notifications, cookies and advertising data on its free government exam preparation platform.",
   alternates: { canonical: `${SITE_URL}/privacy-policy` },

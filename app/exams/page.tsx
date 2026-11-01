@@ -5,7 +5,7 @@ import { BookOpen, Users, Trophy, ArrowRight } from "lucide-react"
 import EditorialStandards, { ExamDisclaimer } from "@/components/editorial-standards"
 
 export const metadata: Metadata = {
-  title: "Government Exam Preparation Hub | CET TEST",
+  title: "Government Exam Preparation Hub",
   description:
     "Browse practice tests and study resources for SSC, Railway, Haryana HSSC, and Uttarakhand UKSSSC exams.",
   keywords: [

@@ -56,7 +56,7 @@ export default function HaryanaPoliceConstableSyllabusPage() {
                     {/* Subheading */}
                     <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
                         Complete selection process, physical standards, and syllabus for
-                        <strong className="text-foreground"> Haryana Police Constable (Male/Female)</strong> recruitment 2026-26
+                        <strong className="text-foreground"> Haryana Police Constable (Male/Female)</strong> recruitment 2026
                     </p>
 
                     {/* Stats */}

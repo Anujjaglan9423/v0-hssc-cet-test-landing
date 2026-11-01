@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Login | CET TEST - Sign In for Haryana CET & HSSC Mock Tests",
+  title: "Login | Sign In for Haryana CET & HSSC Mock Tests",
+  robots: { index: false, follow: false },
   description:
     "Sign in to CET TEST to access your personalized dashboard, resume Haryana CET, HSSC, SSC, Railway & UKSSSC mock test preparation, track performance & view results.",
   keywords: [

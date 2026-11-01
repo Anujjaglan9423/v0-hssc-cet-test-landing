@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Contact CET TEST | Haryana CET & HSSC Exam Help & Support",
+  title: { absolute: "Contact CET TEST | Haryana CET & HSSC Exam Help & Support" },
   description:
     "Get in touch with CET TEST for any queries about Haryana CET, HSSC CET, SSC, Railway or UKSSSC exam preparation. We respond within 24 hours. Contact us via email, phone or Instagram.",
   keywords: [

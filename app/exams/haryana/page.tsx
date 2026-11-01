@@ -21,7 +21,7 @@ const SUPPORT_PHONE_DISPLAY = "7291849546"
 // SEO, AEO & GEO OPTIMIZED METADATA FOR HARYANA
 // ============================================
 export const metadata: Metadata = {
-  title: "Haryana CET & HSSC Mock Tests 2026 | Free HSSC CET, Police, Group D Exam Practice | CET TEST",
+  title: "Haryana CET & HSSC Mock Tests 2026 | Group C, D & Police",
   description: "Free platform for Haryana government exam preparation. Attempt unlimited mock tests for HSSC CET (Group C & D), Haryana Police Constable, HSSC Group D, Patwari, VDO, and all Haryana state exams. Practice latest HSSC pattern, previous year papers (PYQs), Haryana GK, and section-wise tests with instant results, detailed solutions, and all-India rank. Start your 100% free HSSC exam preparation today!",
 
   keywords: [

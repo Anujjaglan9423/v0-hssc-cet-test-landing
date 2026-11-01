@@ -8,7 +8,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-  title: "About CET TEST | Independent exam practice and study resources",
+  title: { absolute: "About CET TEST | Independent exam practice and study resources" },
   description:
     "Learn how CET TEST creates practice tests and study resources for Haryana CET, HSSC, SSC, Railway, and related competitive exams.",
   keywords: [

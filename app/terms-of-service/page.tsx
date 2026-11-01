@@ -156,7 +156,7 @@ const SITE_URL = "https://cettest.site"
 const UPDATED_AT = "2026-10-15"
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Free Exam Preparation | CET TEST",
+  title: "Terms of Service | Free Exam Preparation",
   description:
     "Read CET TEST's terms for free government exam preparation, mock tests, study materials, exam alerts, accounts, content use and advertising.",
   alternates: { canonical: `${SITE_URL}/terms-of-service` },
