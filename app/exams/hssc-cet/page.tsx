@@ -464,7 +464,7 @@ export default function HSCSCETPage() {
                   ["Total Questions", "100 Questions"],
                   ["Total Marks", "100 Marks"],
                   ["Duration", "1 Hour 45 Minutes"],
-                  ["Negative Marking", "0.25 marks per incorrect answer"],
+                  ["Negative Marking", "no negative marking but 1 mark is deducted for each skipped question"],
                   // ["Bonus Marks", "5 for Haryana Domicile"],
                   ["Language Medium", "Bilingual (Hindi & English)"],
                 ].map(([label, value], i) => (
