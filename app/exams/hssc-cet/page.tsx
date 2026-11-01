@@ -388,7 +388,7 @@ export default function HSCSCETPage() {
                 </div>
                 <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">NTA Level Mocks</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Practice questions designed to match the real NTA exam difficulty level with 90-minute timer.
+                  Practice questions designed to match the real NTA exam difficulty level with 105-minute timer.
                 </p>
               </div>
 
