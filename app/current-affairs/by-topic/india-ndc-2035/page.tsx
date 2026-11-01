@@ -1,5 +1,6 @@
 "use client"
 
+import CurrentAffairsExamNotes from "@/components/current-affairs-exam-notes"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import Link from "next/link"
@@ -171,6 +172,7 @@ export default function IndiaNDC2035Page() {
                         <Link href="/mock-test"><Button className="gap-2 cursor-pointer">Practice Quiz <Target className="w-4 h-4" /></Button></Link>
                     </div>
                 </div>
+                <CurrentAffairsExamNotes slug="india-ndc-2035" />
             </main>
             <FooterLinkFooter />
         </div>

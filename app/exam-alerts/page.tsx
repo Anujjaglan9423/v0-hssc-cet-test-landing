@@ -18,7 +18,7 @@ const SITE_URL = "https://cettest.site"
 const PAGE_URL = `${SITE_URL}/exam-alerts`
 
 export const metadata: Metadata = {
-  title: "Government Exam Notifications | HSSC, SSC, RRB, UKSSSC | CET TEST",
+  title: "Government Exam Notifications | HSSC, SSC, RRB, UKSSSC",
   description: "Browse government exam notices for HSSC, HPSC, SSC, Railway RRB, UKSSSC and UKPSC. Find recruitment updates, results, admit cards and links to available official sources.",
   alternates: { canonical: PAGE_URL },
   openGraph: {

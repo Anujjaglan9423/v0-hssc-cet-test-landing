@@ -140,7 +140,7 @@ export default function HaryanaBasicInformationPage() {
         { labelHindi: "नाम का अर्थ", labelEn: "Name Meaning", value: "भगवान का निवास" },
         { labelHindi: "राजधानी", labelEn: "Capital", value: "चण्डीगढ़" },
         { labelHindi: "मंडल", labelEn: "Divisions", value: "6" },
-        { labelHindi: "जिले", labelEn: "Districts", value: "22" },
+        { labelHindi: "जिले", labelEn: "Districts", value: "23" },
         { labelHindi: "लोकसभा सीटें", labelEn: "Lok Sabha Seats", value: "10" },
         { labelHindi: "राज्यसभा सीटें", labelEn: "Rajya Sabha Seats", value: "5" },
         { labelHindi: "विधानसभा सीटें", labelEn: "Vidhan Sabha Seats", value: "90+1" },
@@ -320,7 +320,7 @@ export default function HaryanaBasicInformationPage() {
                     <div className="flex flex-wrap justify-center gap-6 mb-10">
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Landmark className="w-4 h-4 text-primary" />
-                            <span>{language === "hindi" ? "22 जिले" : "22 Districts"}</span>
+                            <span>{language === "hindi" ? "23 जिले" : "23 Districts"}</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Users className="w-4 h-4 text-primary" />

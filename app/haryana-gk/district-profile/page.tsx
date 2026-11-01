@@ -49,8 +49,8 @@ export default function HaryanaDistrictsPage() {
         {
             questionHindi: "हरियाणा का सबसे नया जिला कौन सा है?",
             questionEnglish: "Which is the newest district of Haryana?",
-            answerHindi: "चरखी-दादरी जिला हरियाणा का 22वां और सबसे नया जिला है, जिसका गठन 1 दिसंबर, 2016 को हुआ था।",
-            answerEnglish: "Charkhi-Dadri district is the 22nd and newest district of Haryana, formed on 1st December, 2016."
+            answerHindi: "हांसी हरियाणा का सबसे नया और 23वां जिला है। हरियाणा सरकार ने 22 दिसंबर, 2025 को इसे हिसार जिले से अलग कर नया जिला बनाया।",
+            answerEnglish: "Hansi is Haryana’s newest and 23rd district. It was designated on 22 December 2025, having previously been part of Hisar district."
         },
         {
             questionHindi: "हरियाणा में कितने प्रशासनिक प्रभाग हैं?",
@@ -95,7 +95,7 @@ export default function HaryanaDistrictsPage() {
         { name: "Ambala Division", districts: "Ambala, Kurukshetra, Yamunanagar, Panchkula" },
         { name: "Faridabad Division", districts: "Faridabad, Nuh, Palwal" },
         { name: "Gurugram Division", districts: "Gurugram, Mahendragarh, Rewari" },
-        { name: "Hisar Division", districts: "Hisar, Jind, Sirsa, Fatehabad" },
+        { name: "Hisar Division", districts: "Hisar, Jind, Sirsa, Fatehabad, Hansi" },
         { name: "Rohtak Division", districts: "Rohtak, Sonipat, Bhiwani, Jhajjar, Charkhi-Dadri" },
         { name: "Karnal Division", districts: "Karnal, Panipat, Kaithal" }
     ];
@@ -274,6 +274,21 @@ export default function HaryanaDistrictsPage() {
             facts: "Rakhigarhi, the biggest site of the Harappan civilisation, is located in Hisar district. Hisar was founded by Feroz Shah Tughlaq in 1354 AD. Central Buffalo Research Institute and National Research Centre on Equines (NRCE) are located here."
         },
         {
+            name: "Hansi",
+            nameHindi: "हांसी",
+            nickname: "City of Swords",
+            nicknameHindi: "तलवारों का शहर",
+            division: "Hisar Division",
+            established: "22nd December, 2025",
+            area: "1,349.76 sq km (official district profile)",
+            population: "5,40,994 (official district profile)",
+            sexRatio: "—",
+            literacy: "—",
+            density: "—",
+            touristPlaces: "Asigarh Fort (Prithviraj Chauhan's Fort)",
+            facts: "Hansi became Haryana's 23rd district on 22 December 2025 after being separated from Hisar. The official Hansi district website lists 3 blocks, 97 villages and a population of 5,40,994. Because it is a newly constituted district, older Census 2011 figures for the former Hisar administrative area should not be treated as Hansi district statistics."
+        },
+        {
             name: "Jind",
             nameHindi: "जींद",
             nickname: "Heart of Haryana",
@@ -387,13 +402,13 @@ export default function HaryanaDistrictsPage() {
             nickname: "-",
             division: "Rohtak Division",
             established: "1st December, 2016",
-            area: "-",
-            population: "44,892",
+            area: "1,370.11 sq km (official district profile)",
+            population: "5,02,276 (Census 2011)",
             sexRatio: "881",
-            literacy: "70%",
-            density: "-",
+            literacy: "67.04% (Census 2011)",
+            density: "—",
             touristPlaces: "Hanuman Temple, Kapuri Hill",
-            facts: "Charkhi-Dadri is the 22nd district of Haryana, formed on 1st December, 2016. A cement factory was established by Seth Ramakrishna Dalmia in 1939. Kaliyana village is the only place in India where flexible sandstone (Hilna stones) is found."
+            facts: "Charkhi-Dadri became Haryana's 22nd district on 1 December 2016; Hansi later became the 23rd district in 2025. A cement factory was established by Seth Ramakrishna Dalmia in 1939. Kaliyana village is the only place in India where flexible sandstone (Hilna stones) is found."
         },
         {
             name: "Karnal",
@@ -477,14 +492,14 @@ export default function HaryanaDistrictsPage() {
 
                     <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
                         {language === "hindi"
-                            ? "हरियाणा के 22 जिलों की संपूर्ण जानकारी - स्थापना, क्षेत्रफल, जनसंख्या, प्रमुख नदियाँ, पर्यटन स्थल और विशेष तथ्य"
-                            : "Complete information about the 22 districts of Haryana - establishment, area, population, major rivers, tourist places, and special facts"}
+                            ? "हरियाणा के 23 जिलों की संपूर्ण जानकारी - स्थापना, क्षेत्रफल, जनसंख्या, प्रमुख नदियाँ, पर्यटन स्थल और विशेष तथ्य"
+                            : "Complete information about the 23 districts of Haryana - establishment, area, population, major rivers, tourist places, and special facts"}
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-6 mb-10">
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Calendar className="w-4 h-4 text-emerald-600" />
-                            <span>{language === "hindi" ? "22 जिले" : "22 Districts"}</span>
+                            <span>{language === "hindi" ? "23 जिले" : "23 Districts"}</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Building2 className="w-4 h-4 text-emerald-600" />
@@ -515,8 +530,8 @@ export default function HaryanaDistrictsPage() {
                         </div>
                         <p className="text-muted-foreground leading-relaxed mb-4">
                             {language === "hindi"
-                                ? "हरियाणा 1 नवंबर, 1966 को एक अलग राज्य बना, जिसमें सात जिले थे - अंबाला, जींद, करनाल, हिसार, रोहतक, गुरुग्राम और महेंद्रगढ़। बाद में पुनर्गठन द्वारा 15 और जिले जोड़े गए। वर्तमान में, हरियाणा में 6 प्रशासनिक प्रभाग और 22 जिले हैं।"
-                                : "Haryana became a separate state on 1st November, 1966, with seven districts - Ambala, Jind, Karnal, Hisar, Rohtak, Gurugram and Mahendragarh. Later, 15 more districts were added by re-organising the erstwhile districts. At present, Haryana has 6 administrative divisions and 22 districts."}
+                                ? "हरियाणा 1 नवंबर, 1966 को एक अलग राज्य बना, जिसमें सात जिले थे - अंबाला, जींद, करनाल, हिसार, रोहतक, गुरुग्राम और महेंद्रगढ़। बाद में पुनर्गठन के माध्यम से 16 और जिले बने, जिनमें 22 दिसंबर 2025 को गठित हांसी भी शामिल है। वर्तमान में हरियाणा में 6 प्रशासनिक प्रभाग और 23 जिले हैं।"
+                                : "Haryana became a separate state on 1st November, 1966, with seven districts - Ambala, Jind, Karnal, Hisar, Rohtak, Gurugram and Mahendragarh. Later, 16 more districts were formed through administrative reorganisation, including Hansi on 22 December 2025. Haryana now has 6 administrative divisions and 23 districts."}
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
                             {divisions.map((div, idx) => (
@@ -536,8 +551,8 @@ export default function HaryanaDistrictsPage() {
                         </h2>
                         <p className="text-muted-foreground mb-4">
                             {language === "hindi"
-                                ? "नीचे हरियाणा के सभी 22 जिलों की विस्तृत जानकारी दी गई है, जिसमें स्थापना तिथि, क्षेत्रफल, जनसंख्या, साक्षरता दर, प्रमुख नदियाँ, पर्यटन स्थल और विशेष तथ्य शामिल हैं।"
-                                : "Detailed information of all 22 districts of Haryana is given below, including establishment date, area, population, literacy rate, major rivers, tourist places, and special facts."}
+                                ? "नीचे हरियाणा के सभी 23 जिलों की विस्तृत जानकारी दी गई है, जिसमें स्थापना तिथि, क्षेत्रफल, जनसंख्या, साक्षरता दर, प्रमुख नदियाँ, पर्यटन स्थल और विशेष तथ्य शामिल हैं।"
+                                : "Detailed information of all 23 districts of Haryana is given below, including establishment date, area, population, literacy rate, major rivers, tourist places, and special facts."}
                         </p>
 
                         <div className="grid grid-cols-1 gap-6">
@@ -605,7 +620,17 @@ export default function HaryanaDistrictsPage() {
                                         )}
                                         <div className="bg-muted/30 p-3 rounded-lg">
                                             <p className="text-xs text-muted-foreground mb-1">{language === "hindi" ? "विशेष तथ्य" : "Special Facts"}</p>
-                                            <p className="text-sm leading-relaxed">{language === "hindi" ? district.facts : district.facts}</p>
+                                            <p className="text-sm leading-relaxed">{district.facts}</p>
+                                            {district.name === "Hansi" && (
+                                                <a
+                                                    href="https://hansi.haryana.gov.in/about-district/"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="mt-2 inline-block text-sm text-emerald-700 dark:text-emerald-400 underline"
+                                                >
+                                                    {language === "hindi" ? "आधिकारिक स्रोत: जिला हांसी, हरियाणा सरकार" : "Official source: Hansi District, Government of Haryana"}
+                                                </a>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -623,7 +648,7 @@ export default function HaryanaDistrictsPage() {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-emerald-600 mb-2">1,574</div>
+                            <div className="text-3xl font-bold text-emerald-600 mb-2">741</div>
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "सबसे छोटा जिला (फरीदाबाद) वर्ग किमी" : "Smallest District (Faridabad) sq km"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
@@ -647,12 +672,12 @@ export default function HaryanaDistrictsPage() {
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "प्रशासनिक प्रभाग" : "Administrative Divisions"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-emerald-600 mb-2">22</div>
+                            <div className="text-3xl font-bold text-emerald-600 mb-2">23</div>
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "कुल जिले" : "Total Districts"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-emerald-600 mb-2">2016</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "नवीनतम जिला (चरखी-दादरी)" : "Newest District (Charkhi-Dadri)"}</p>
+                            <div className="text-3xl font-bold text-emerald-600 mb-2">2025</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "नवीनतम जिला (हांसी)" : "Newest District (Hansi)"}</p>
                         </div>
                     </div>
                 </div>
@@ -735,8 +760,8 @@ export default function HaryanaDistrictsPage() {
                     <h2 className="text-xl font-semibold mb-3">{language === "hindi" ? "हरियाणा के जिले - संपूर्ण संदर्भ" : "Districts of Haryana - Complete Reference"}</h2>
                     <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl mx-auto">
                         {language === "hindi"
-                            ? "यह पृष्ठ हरियाणा के 22 जिलों के बारे में व्यापक जानकारी प्रदान करता है - स्थापना तिथि, क्षेत्रफल, जनसंख्या, साक्षरता दर, लिंगानुपात, जनसंख्या घनत्व, प्रमुख नदियाँ, पर्यटन स्थल और विशेष तथ्य। हरियाणा CET, HSSC परीक्षाओं और अन्य प्रतियोगी परीक्षाओं की तैयारी करने वाले छात्रों के लिए एक संपूर्ण संदर्भ।"
-                            : "This page provides comprehensive information about the 22 districts of Haryana - establishment date, area, population, literacy rate, sex ratio, population density, major rivers, tourist places, and special facts. A complete reference for students preparing for Haryana CET, HSSC exams, and other competitive exams that include Haryana GK."}
+                            ? "यह पृष्ठ हरियाणा के 23 जिलों के बारे में व्यापक जानकारी प्रदान करता है - स्थापना तिथि, क्षेत्रफल, जनसंख्या, साक्षरता दर, लिंगानुपात, जनसंख्या घनत्व, प्रमुख नदियाँ, पर्यटन स्थल और विशेष तथ्य। हरियाणा CET, HSSC परीक्षाओं और अन्य प्रतियोगी परीक्षाओं की तैयारी करने वाले छात्रों के लिए एक संपूर्ण संदर्भ।"
+                            : "This page provides comprehensive information about the 23 districts of Haryana - establishment date, area, population, literacy rate, sex ratio, population density, major rivers, tourist places, and special facts. A complete reference for students preparing for Haryana CET, HSSC exams, and other competitive exams that include Haryana GK."}
                     </p>
                     <p className="text-xs text-muted-foreground mt-4">
                         © 2026 CET TEST | {language === "hindi" ? "जानकारी हरियाणा सरकार के आधिकारिक प्रकाशनों और जिला गजेटियर से स्रोतित" : "Information sourced from official Government of Haryana publications and district gazetteers"}

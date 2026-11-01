@@ -1,5 +1,6 @@
 "use client"
 
+import CurrentAffairsExamNotes from "@/components/current-affairs-exam-notes"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import Link from "next/link"
@@ -146,9 +147,9 @@ export default function SEHATPage() {
 
                 <section className="mb-10">
                     <div className="bg-slate-100 rounded-xl p-5 border border-slate-200">
-                        <h3 className="text-sm font-semibold mb-2 flex items-center gap-2"><BookOpen className="w-4 h-4" /> PYQ Linkage / पिछले वर्षों के प्रश्न</h3>
-                        <p className="text-sm"><strong>Q.</strong> पूर्वोत्तर के लिए महिला उद्यमिता कार्यक्रम "स्वावलंबिनी" किस मंत्रालय द्वारा शुरू किया गया?</p>
-                        <p className="text-sm text-muted-foreground mt-1"><strong>Answer:</strong> (c) केवल 3 — सूक्ष्म, लघु और मध्यम उद्यम मंत्रालय</p>
+                        <h3 className="text-sm font-semibold mb-2 flex items-center gap-2"><BookOpen className="w-4 h-4" /> Exam Linkage / परीक्षा संदर्भ</h3>
+                        <p className="text-sm"><strong>Concept:</strong> SEHAT combines agricultural research and public health. ICAR focuses on agricultural research; ICMR focuses on medical research. The mission uses evidence on nutrition, crops and preventive health to connect the two fields.</p>
+                        <p lang="hi" className="text-sm text-muted-foreground mt-2"><strong>संबंधित अवधारणा:</strong> SEHAT कृषि और स्वास्थ्य अनुसंधान को जोड़ता है। ICAR कृषि अनुसंधान तथा ICMR चिकित्सा अनुसंधान से संबंधित है। इसके प्रश्नों में दोनों संस्थाओं की भूमिका और निवारक स्वास्थ्य पर ध्यान दें।</p>
                     </div>
                 </section>
 
@@ -164,6 +165,7 @@ export default function SEHATPage() {
                         <Link href="/mock-test"><Button className="gap-2 cursor-pointer">Practice Quiz <Target className="w-4 h-4" /></Button></Link>
                     </div>
                 </div>
+                <CurrentAffairsExamNotes slug="seat-mission" />
             </main>
             <FooterLinkFooter />
         </div>

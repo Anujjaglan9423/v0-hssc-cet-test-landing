@@ -1,5 +1,6 @@
 "use client"
 
+import CurrentAffairsExamNotes from "@/components/current-affairs-exam-notes"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import Link from "next/link"
@@ -81,11 +82,11 @@ export default function SDReportPage() {
                 <div className="max-w-5xl mx-auto relative z-10">
                     <Link href="/current-affairs" className="inline-flex items-center gap-2 text-sm font-medium text-emerald-700 hover:text-emerald-900 mb-6"><ArrowLeft className="w-4 h-4" /> Back to Current Affairs</Link>
                     <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 text-sm font-medium"><Sparkles className="w-4 h-4" /> Topic Digest · Sustainable Development</div>
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-3">UN Sustainable Development Report 2026</h1>
-                    <p className="text-xl text-muted-foreground mb-6">संयुक्त राष्ट्र सतत विकास रिपोर्ट 2026</p>
+                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-3">Sustainable Development Report 2026 (SDSN)</h1>
+                    <p className="text-xl text-muted-foreground mb-6">SDSN सतत विकास रिपोर्ट 2026</p>
                     <div className="flex flex-wrap gap-4 text-sm">
                         <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-full border"><Calendar className="w-4 h-4 text-emerald-600" /><span>Released 2026</span></div>
-                        <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-full border"><Trophy className="w-4 h-4 text-emerald-600" /><span>UN SDSN</span></div>
+                        <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-full border"><Trophy className="w-4 h-4 text-emerald-600" /><span>SDSN</span></div>
                         <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-full border"><Target className="w-4 h-4 text-emerald-600" /><span>{mcqs.length} MCQs</span></div>
                     </div>
                 </div>
@@ -98,7 +99,7 @@ export default function SDReportPage() {
                         <div className="bg-emerald-50/60 rounded-xl p-5 border border-emerald-100">
                             <h3 className="text-xs font-semibold uppercase text-emerald-700 mb-3">English</h3>
                             <ul className="space-y-2 text-sm">
-                                <li className="flex items-start gap-2"><ChevronRight className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />UN Sustainable Development Solutions Network (SDSN) released the Sustainable Development Report 2026.</li>
+                                <li className="flex items-start gap-2"><ChevronRight className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />The Sustainable Development Solutions Network (SDSN) published the Sustainable Development Report 2026. It is distinct from the UN DESA Sustainable Development Goals Report.</li>
                                 <li className="flex items-start gap-2"><ChevronRight className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />Features Index of Countries' Support to UN-based Multilateralism (UN-Mi) to check state commitment to SDG 17.</li>
                                 <li className="flex items-start gap-2"><ChevronRight className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />East and South Asia fastest-improving regions since 2015.</li>
                             </ul>
@@ -106,7 +107,7 @@ export default function SDReportPage() {
                         <div className="bg-amber-50/60 rounded-xl p-5 border border-amber-100">
                             <h3 className="text-xs font-semibold uppercase text-amber-700 mb-3">हिन्दी</h3>
                             <ul className="space-y-2 text-sm">
-                                <li className="flex items-start gap-2"><ChevronRight className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />UN SDSN ने सतत विकास रिपोर्ट 2026 जारी की।</li>
+                                <li className="flex items-start gap-2"><ChevronRight className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />SDSN ने सतत विकास रिपोर्ट 2026 प्रकाशित की। यह संयुक्त राष्ट्र की अलग SDG प्रगति रिपोर्ट नहीं है।</li>
                                 <li className="flex items-start gap-2"><ChevronRight className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />UN-Mi सूचकांक — SDG 17 के प्रति प्रतिबद्धता।</li>
                                 <li className="flex items-start gap-2"><ChevronRight className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />पूर्वी और दक्षिण एशिया सबसे तेजी से सुधार करने वाले क्षेत्र।</li>
                             </ul>
@@ -168,6 +169,7 @@ export default function SDReportPage() {
                         <Link href="/mock-test"><Button className="gap-2 cursor-pointer">Practice Quiz <Target className="w-4 h-4" /></Button></Link>
                     </div>
                 </div>
+                <CurrentAffairsExamNotes slug="sd-report-2026" />
             </main>
             <FooterLinkFooter />
         </div>

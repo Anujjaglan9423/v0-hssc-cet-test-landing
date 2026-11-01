@@ -1,5 +1,6 @@
 "use client"
 
+import CurrentAffairsExamNotes from "@/components/current-affairs-exam-notes"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import Link from "next/link"
@@ -1234,6 +1235,7 @@ export default function TopicWisePage() {
                     </Link>
                 </div>
             </div>
+            <CurrentAffairsExamNotes slug="science-technology" />
             <FooterLinkFooter />
         </div>
     )

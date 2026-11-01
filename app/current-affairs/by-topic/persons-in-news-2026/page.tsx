@@ -1,5 +1,6 @@
 "use client"
 
+import CurrentAffairsExamNotes from "@/components/current-affairs-exam-notes"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import Link from "next/link"
@@ -100,5 +101,6 @@ export default function PersonsInNews2026Page() {
       <Link href="/mock-test"><Button className="cursor-pointer gap-2">Practice Quiz <Target className="h-4 w-4" /></Button></Link>
       </div>
       </div>
-    </main><FooterLinkFooter /></div>
+        <CurrentAffairsExamNotes slug="persons-in-news-2026" />
+            </main><FooterLinkFooter /></div>
 }

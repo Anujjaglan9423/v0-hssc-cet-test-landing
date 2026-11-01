@@ -1,5 +1,6 @@
 "use client"
 
+
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import Link from "next/link"
@@ -9,6 +10,7 @@ import {
     ArrowLeft, Globe2, Languages, Award, BookOpen, Handshake,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import CurrentAffairsExamNotes from "@/components/current-affairs-exam-notes"
 
 interface MCQ { id: string; questionEn: string; questionHi: string; options: { key: string; en: string; hi: string }[]; correctKey: string; explanationEn: string; explanationHi: string }
 
@@ -175,6 +177,7 @@ export default function AbrahamAccordsPage() {
                         <Link href="/mock-test"><Button className="gap-2 cursor-pointer">Practice Quiz <Target className="w-4 h-4" /></Button></Link>
                     </div>
                 </div>
+                <CurrentAffairsExamNotes slug="abraham-accords" />
             </main>
             <FooterLinkFooter />
         </div>

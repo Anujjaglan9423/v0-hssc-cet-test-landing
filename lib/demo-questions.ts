@@ -144,8 +144,8 @@ export const demoQuestions: Record<string, DemoQuestion[]> = {
       option_b: "21",
       option_c: "22",
       option_d: "23",
-      correct_answer: "c",
-      explanation: "हरियाणा में वर्तमान में 22 जिले हैं।",
+      correct_answer: "d",
+      explanation: "हरियाणा में 23 जिले हैं। 22 दिसंबर 2025 को हांसी को 23वां जिला बनाया गया।",
       subject: "Haryana GK",
     },
     {

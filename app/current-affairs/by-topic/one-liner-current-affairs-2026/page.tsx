@@ -1,5 +1,6 @@
 "use client"
 
+import CurrentAffairsExamNotes from "@/components/current-affairs-exam-notes"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import Link from "next/link"
@@ -787,5 +788,6 @@ export default function OneLinerCurrentAffairs2026Page() {
       <section className="mb-10"><div className="space-y-4">{filtered.map((q, i) => <QuestionCard key={q.id} item={q} number={i + 1} />)}{filtered.length === 0 && <p className="rounded-xl border p-5 text-sm text-muted-foreground">No matching questions found.</p>}</div></section>
       <section id="practice" className="mb-10"><div className="mb-4 flex items-center gap-2"><Target className="h-5 w-5 text-purple-700" /><h2 className="text-2xl font-bold">Probable MCQs / संभावित प्रश्न</h2></div><div className="space-y-4">{practice.map((item, i) => <MCQCard key={i} item={item} index={i} />)}</div></section>
       <div className="flex flex-col items-center justify-between gap-3 border-t pt-8 sm:flex-row"><Link href="/current-affairs"><Button variant="outline" className="cursor-pointer gap-2"><ArrowLeft className="h-4 w-4" />Back to Current Affairs</Button></Link><Link href="/mock-test"><Button className="cursor-pointer gap-2">Practice Quiz <Target className="h-4 w-4" /></Button></Link></div>
-    </main><FooterLinkFooter /></div>
+        <CurrentAffairsExamNotes slug="one-liner-current-affairs-2026" />
+            </main><FooterLinkFooter /></div>
 }

@@ -1,5 +1,8 @@
 "use client"
 
+import { usePathname } from "next/navigation"
+import CurrentAffairsExamNotes from "@/components/current-affairs-exam-notes"
+
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import Link from "next/link"
@@ -74,6 +77,8 @@ export function MCQBlock({ mcq }: { mcq: MCQ }) {
 }
 
 export default function TopicPage({ topic }: { topic: TopicData }) {
+    const pathname = usePathname()
+    const slug = pathname.split("/").filter(Boolean).pop() ?? ""
     return (
         <div className="min-h-screen bg-background">
             <FooterLinkNavbar />
@@ -139,6 +144,7 @@ export default function TopicPage({ topic }: { topic: TopicData }) {
                     </div>
                 </div>
             </main>
+            <CurrentAffairsExamNotes slug={slug} />
             <FooterLinkFooter />
         </div>
     )

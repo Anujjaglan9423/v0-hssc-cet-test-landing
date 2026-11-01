@@ -59,7 +59,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: MapPin,
             color: "from-slate-600 to-slate-700",
             slug: "haryana-basic-info",
-            subtopics: ["State Symbols", "Formation Day (1 Nov 1966)", "Capital: Chandigarh", "Total Districts: 22", "Borders with States", "Total Area", "Population Overview", "State Animal, Bird, Flower"]
+            subtopics: ["State Symbols", "Formation Day (1 Nov 1966)", "Capital: Chandigarh", "Total Districts: 23", "Borders with States", "Total Area", "Population Overview", "State Animal, Bird, Flower"]
         },
         {
             id: 3,
@@ -211,7 +211,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: MapPin,
             color: "from-teal-800 to-teal-900",
             slug: "district-profile",
-            subtopics: ["Ambala Division", "Gurugram Division", "Hisar Division", "Rohtak Division", "Karnal Division", "All 22 Districts Details", "District-wise Population", "District-wise Facts"]
+            subtopics: ["Ambala Division", "Gurugram Division", "Hisar Division", "Rohtak Division", "Karnal Division", "All 23 Districts Details", "District-wise Population", "District-wise Facts"]
         },
         {
             id: 22,

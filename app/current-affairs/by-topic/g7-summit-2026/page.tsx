@@ -1,5 +1,6 @@
 "use client"
 
+import CurrentAffairsExamNotes from "@/components/current-affairs-exam-notes"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 import Link from "next/link"
@@ -162,6 +163,7 @@ export default function G7Page() {
                         <Link href="/mock-test"><Button className="gap-2 cursor-pointer">Practice Quiz <Target className="w-4 h-4" /></Button></Link>
                     </div>
                 </div>
+                <CurrentAffairsExamNotes slug="g7-summit-2026" />
             </main>
             <FooterLinkFooter />
         </div>
