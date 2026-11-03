@@ -116,7 +116,7 @@ import FeaturesSection from "@/components/features-section"
 import ExamsSection from "@/components/exams-section"
 import DailyQuizSection from "@/components/daily-quiz-section"
 import TestSeriesSection from "@/components/test-series-section"
-import TestimonialsSection from "@/components/testimonials-section"
+import { StudentReviewsSection } from "@/components/student-reviews-section"
 import FAQSection from "@/components/faq-section"
 import CTASection from "@/components/cta-section"
 import Footer from "@/components/footer"
@@ -128,30 +128,17 @@ import ExamAlertsSection from "@/components/exam-alerts-section"
 import { DailyTopStudentsPopup } from "@/components/daily-top-students-popup"
 import type { DailyTopStudent } from "@/components/daily-top-students-popup"
 import { createAdminClient } from "@/lib/supabase/server"
+import { getCurrentUser } from "@/lib/auth"
 import { getPublicSiteStats } from "@/lib/public-site-stats"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = { alternates: { canonical: "https://cettest.site" } }
 
-import type { Testimonial } from "@/components/testimonials-section"
-const SITE_URL = "https://cettest.site"
+import type { StudentReview } from "@/components/student-reviews-section"
 
 
 interface RelatedUser {
   full_name: string | null
-}
-
-interface RelatedTest {
-  title: string | null
-}
-
-interface FeedbackReview {
-  id: string
-  rating: number | null
-  comments: string | null
-  created_at: string
-  user: RelatedUser | RelatedUser[] | null
-  test: RelatedTest | RelatedTest[] | null
 }
 
 // Get first related record safely
@@ -211,136 +198,34 @@ async function getDailyTopStudents(): Promise<DailyTopStudent[]> {
   }
 }
 
-// Fetch all public testimonials
+async function getPublicReviews(): Promise<StudentReview[]> {
+  const supabase = createAdminClient()
+  const { data, error } = await supabase
+    .from("student_reviews")
+    .select("id, display_name, rating, review_text, is_verified_student, created_at")
+    .eq("status", "approved")
+    .eq("consent_to_publish", true)
+    .order("created_at", { ascending: false })
+    .limit(12)
 
-async function getPublicReviews(): Promise<Testimonial[]> {
-  try {
-    const supabase = createAdminClient()
+  if (error || !data) return []
 
-    const PAGE_SIZE = 1000
-    let offset = 0
-    const allReviews: FeedbackReview[] = []
-
-    while (true) {
-      const { data, error } = await supabase
-        .from("test_feedback")
-        .select(`
-          id,
-          rating,
-          comments,
-          created_at,
-          user:users(full_name),
-          test:tests(title)
-        `)
-        .eq("would_recommend", true)
-        .not("comments", "is", null)
-        .neq("comments", "")
-        // .gte("rating", 4)
-        .order("created_at", { ascending: false })
-        .order("id", { ascending: false })
-        .range(offset, offset + PAGE_SIZE - 1)
-
-      if (error) {
-        return []
-      }
-
-      const reviews = (data ?? []) as unknown as FeedbackReview[]
-
-      allReviews.push(...reviews)
-
-      // Stop only when all available records are fetched
-      if (reviews.length < PAGE_SIZE) {
-        break
-      }
-
-      offset += PAGE_SIZE
-    }
-
-    return allReviews.flatMap((review): Testimonial[] => {
-      const comment =
-        typeof review.comments === "string"
-          ? review.comments.trim()
-          : ""
-
-      if (comment.length <= 10) return []
-
-      const user = getRelation(review.user)
-      const test = getRelation(review.test)
-
-      const fullName = user?.full_name
-      const testTitle = test?.title
-
-      return [
-        {
-          id: review.id,
-          name: fullName
-            ? fullName.trim().split(/\s+/)[0]
-            : "CET TEST student",
-          role: testTitle
-            ? `Student review · ${testTitle}`
-            : "CET TEST student",
-          content: comment,
-          rating: Math.min(
-            5,
-            Math.max(1, Number(review.rating) || 5)
-          ),
-          datePublished: String(review.created_at).slice(0, 10),
-        },
-      ]
-    })
-  } catch (error) {
-    return []
-  }
+  return data.map((review) => ({
+    id: review.id,
+    name: review.display_name,
+    content: review.review_text,
+    rating: review.rating,
+    datePublished: review.created_at,
+    isVerifiedStudent: review.is_verified_student,
+  }))
 }
 
-
 export default async function Home() {
-  const [testimonials, dailyTopStudents] = await Promise.all([
+  const [testimonials, dailyTopStudents, currentUser] = await Promise.all([
     getPublicReviews(),
     getDailyTopStudents(),
+    getCurrentUser(),
   ])
-
-  const aggregateRating =
-    testimonials.length > 0
-      ? {
-          "@type": "AggregateRating",
-          ratingValue: (
-            testimonials.reduce(
-              (sum, review) => sum + review.rating,
-              0
-            ) / testimonials.length
-          ).toFixed(1),
-          reviewCount: testimonials.length,
-          bestRating: "5",
-          worstRating: "1",
-        }
-      : undefined
-
-  const reviewStructuredData =
-    testimonials.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "EducationalOrganization",
-          name: "CET TEST",
-          url: SITE_URL,
-          aggregateRating,
-          review: testimonials.map((review) => ({
-            "@type": "Review",
-            author: {
-              "@type": "Person",
-              name: review.name,
-            },
-            datePublished: review.datePublished,
-            reviewBody: review.content,
-            reviewRating: {
-              "@type": "Rating",
-              ratingValue: review.rating,
-              bestRating: 5,
-              worstRating: 1,
-            },
-          })),
-        }
-      : undefined
 
   const stats = await getPublicSiteStats()
   return (
@@ -365,21 +250,7 @@ export default async function Home() {
 
       <TestSeriesSection />
 
-      {testimonials.length > 0 && (
-        <TestimonialsSection testimonials={testimonials} />
-      )}
-
-      {reviewStructuredData && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(reviewStructuredData).replace(
-              /</g,
-              "\\u003c"
-            ),
-          }}
-        />
-      )}
+      <StudentReviewsSection reviews={testimonials} viewerName={currentUser?.full_name ?? undefined} />
 
       <FAQSection />
 
