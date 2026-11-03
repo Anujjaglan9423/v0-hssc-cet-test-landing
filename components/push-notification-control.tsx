@@ -29,8 +29,8 @@ export default function PushNotificationControl({ compact = false }: { compact?:
       if (!publicKey) {
         await registration.showNotification("Exam alerts enabled", {
           body: "You will receive notifications when push delivery is configured.",
-          icon: "/icon-192.png",
-          badge: "/icon-192.png",
+icon: "/seasonal-icon",
+  badge: "/seasonal-icon",
         })
         setStatus("enabled")
         return
