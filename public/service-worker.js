@@ -32,7 +32,7 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("push", (event) => {
   let data = { title: "New exam alert", body: "A new government exam notification is available.", url: "/exam-alerts" }
   try { if (event.data) data = { ...data, ...event.data.json() } } catch {}
-  event.waitUntil(self.registration.showNotification(data.title, { body: data.body, icon: "/icons/icon-192x192.png", badge: "/icons/icon-192x192.png", data: { url: data.url } }))
+  event.waitUntil(self.registration.showNotification(data.title, { body: data.body, icon: "/seasonal-icon", badge: "/seasonal-icon", data: { url: data.url } }))
 })
 
 self.addEventListener("notificationclick", (event) => {

@@ -124,13 +124,10 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.png", type: "image/png" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/seasonal-icon", type: "image/png" },
     ],
     apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/seasonal-icon", sizes: "180x180", type: "image/png" },
     ],
   },
 
@@ -172,7 +169,7 @@ export default function RootLayout({
         "@id": `${SITE_URL}/#organization`,
         name: SITE_NAME,
         url: SITE_URL,
-        logo: `${SITE_URL}/icon-512.png`,
+        logo: `${SITE_URL}/seasonal-icon`,
         description: "Free practice tests and study material for government exam preparation.",
         contactPoint: {
           "@type": "ContactPoint",
