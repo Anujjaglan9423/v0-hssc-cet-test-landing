@@ -6,6 +6,7 @@ import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
 import Script from "next/script"
 import { GoogleAnalytics } from "@/components/google-analytics"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
+import { InstagramFloat } from "@/components/instagram-float"
 import "./globals.css"
 
 const geistMono = Geist_Mono({
@@ -317,6 +318,7 @@ export default function RootLayout({
 
       <body className={`${inter.className} antialiased`}>
         {children}
+        <InstagramFloat />
         <WhatsAppFloat />
         <div className="gtranslate_wrapper" aria-label="Website language options" />
 
