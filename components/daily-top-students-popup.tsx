@@ -51,7 +51,7 @@ export function DailyTopStudentsPopup({ students }: DailyTopStudentsPopupProps) 
           <Trophy className="mx-auto mb-2 size-10 text-amber-500" aria-hidden="true" />
           <p className="text-sm font-semibold uppercase tracking-wider text-primary">Today&apos;s champions</p>
           <h2 id="daily-toppers-title" className="mt-1 text-2xl font-bold">Top 3 performers</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Most correct answers across all tests today</p>
+          <p className="mt-1 text-sm text-muted-foreground">Correct questions from Test and Practice sections today</p>
         </div>
         <div className="space-y-3 p-5">
           {students.map((student, index) => (
@@ -59,7 +59,7 @@ export function DailyTopStudentsPopup({ students }: DailyTopStudentsPopupProps) 
               <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 font-bold text-primary">{index + 1}</span>
               <div className="min-w-0 flex-1">
                 <p className="truncate font-semibold">{student.name}</p>
-                <p className="text-xs text-muted-foreground">{student.testsAttempted} {student.testsAttempted === 1 ? "test" : "tests"} attempted</p>
+                <p className="text-xs text-muted-foreground">Test and Practice sections</p>
               </div>
               <p className="shrink-0 text-right font-bold text-emerald-600 dark:text-emerald-400">{student.correctAnswers} correct</p>
             </div>
