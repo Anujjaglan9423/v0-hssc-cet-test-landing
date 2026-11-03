@@ -125,6 +125,8 @@ import PreparationGuide, {
 } from "@/components/preparation-guide"
 import AdPlacement from "@/components/ad-placement"
 import ExamAlertsSection from "@/components/exam-alerts-section"
+import { DailyTopStudentsPopup } from "@/components/daily-top-students-popup"
+import type { DailyTopStudent } from "@/components/daily-top-students-popup"
 import { createAdminClient } from "@/lib/supabase/server"
 import { getPublicSiteStats } from "@/lib/public-site-stats"
 import type { Metadata } from "next"
@@ -161,6 +163,52 @@ function getRelation<T>(
   return Array.isArray(relation)
     ? relation[0] ?? null
     : relation
+}
+
+async function getDailyTopStudents(): Promise<DailyTopStudent[]> {
+  try {
+    const supabase = createAdminClient()
+    const todayInIndia = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(new Date())
+    const startOfDay = new Date(`${todayInIndia}T00:00:00+05:30`)
+    const startOfTomorrow = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000)
+
+    const { data, error } = await supabase
+      .from("test_results")
+      .select("user_id, correct_answers, created_at, user:users(full_name)")
+      .gte("created_at", startOfDay.toISOString())
+      .lt("created_at", startOfTomorrow.toISOString())
+      .not("user_id", "is", null)
+
+    if (error || !data) return []
+
+    const byStudent = new Map<string, DailyTopStudent>()
+    for (const result of data as Array<{ user_id: string; correct_answers: number; user: RelatedUser | RelatedUser[] | null }>) {
+      const user = getRelation(result.user)
+      if (!user?.full_name) continue
+      const existing = byStudent.get(result.user_id)
+      if (existing) {
+        existing.correctAnswers += Number(result.correct_answers) || 0
+        existing.testsAttempted += 1
+      } else {
+        byStudent.set(result.user_id, {
+          name: user.full_name.trim().split(/\\s+/)[0] || "CET TEST student",
+          correctAnswers: Number(result.correct_answers) || 0,
+          testsAttempted: 1,
+        })
+      }
+    }
+
+    return Array.from(byStudent.values())
+      .sort((a, b) => b.correctAnswers - a.correctAnswers || b.testsAttempted - a.testsAttempted)
+      .slice(0, 3)
+  } catch {
+    return []
+  }
 }
 
 // Fetch all public testimonials
@@ -247,7 +295,10 @@ async function getPublicReviews(): Promise<Testimonial[]> {
 
 
 export default async function Home() {
-  const testimonials = await getPublicReviews()
+  const [testimonials, dailyTopStudents] = await Promise.all([
+    getPublicReviews(),
+    getDailyTopStudents(),
+  ])
 
   const aggregateRating =
     testimonials.length > 0
@@ -295,6 +346,8 @@ export default async function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
+
+      <DailyTopStudentsPopup students={dailyTopStudents} />
 
       <HeroSection stats={stats} />
 
