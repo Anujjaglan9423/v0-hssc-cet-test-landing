@@ -15,6 +15,18 @@ export interface Testimonial {
   image?: string
 }
 
+function getInitials(name: string) {
+  const initials = name
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join("")
+
+  return initials || "CT"
+}
+
 interface TestimonialsSectionProps {
   testimonials: Testimonial[]
   totalRatings?: number
@@ -89,14 +101,23 @@ export default function TestimonialsSection({ testimonials, totalRatings = testi
                   <Quote className="w-12 h-12 text-primary/20 mb-6" />
                   <p className="text-lg md:text-xl text-foreground leading-relaxed mb-8">"{testimonial.content}"</p>
                   <div className="flex items-center gap-4">
-                    <Image
-                      src={testimonial.image || "/placeholder.svg"}
-                      alt={testimonial.name}
-                      width={56}
-                      height={56}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-primary/20"
-                      loading="lazy"
-                    />
+                    {testimonial.image ? (
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        width={56}
+                        height={56}
+                        className="h-14 w-14 rounded-full border-2 border-primary/20 object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div
+                        className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-primary/20 bg-primary/10 text-sm font-semibold text-primary"
+                        aria-label={`${testimonial.name} avatar`}
+                      >
+                        {getInitials(testimonial.name)}
+                      </div>
+                    )}
                     <div>
                       <p className="font-semibold text-foreground">{testimonial.name}</p>
                       <p className="text-sm text-muted-foreground">{testimonial.role}</p>
