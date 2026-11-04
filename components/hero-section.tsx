@@ -3,13 +3,14 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Zap, CheckCircle2, Sparkles, BookOpen } from "lucide-react"
+import { ArrowRight, Zap, CheckCircle2, Sparkles, BookOpen, Trophy } from "lucide-react"
 
 import type { PublicSiteStats } from "@/lib/public-site-stats"
+import type { DailyTopStudent } from "@/components/daily-top-students-popup"
 
 type HeroStats = PublicSiteStats
 
-export default function HeroSection({ stats }: { stats: HeroStats }) {
+export default function HeroSection({ stats, topStudents }: { stats: HeroStats; topStudents: DailyTopStudent[] }) {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -134,17 +135,32 @@ export default function HeroSection({ stats }: { stats: HeroStats }) {
               }`}
           >
             <div className="relative">
-              {/* Main Card */}
+              {/* Today&apos;s performance card */}
               <div className="bg-card rounded-3xl shadow-2xl border border-border p-6 relative z-10">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-muted">
-                  <Image
-                    src="/students-studying-online-exam-preparation-india.jpg"
-                    alt="Students preparing for exam"
-                    width={600}
-                    height={450}
-                    className="w-full h-full object-cover"
-                    priority
-                  />
+                <div className="rounded-2xl border border-primary/15 bg-primary/[0.03] p-5 sm:p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-wider text-primary">Today&apos;s performance</p>
+                      <h2 className="mt-1 text-2xl font-bold text-foreground">Top 3 performers</h2>
+                      <p className="mt-1 text-sm text-muted-foreground">Correct questions from Test and Practice sections</p>
+                    </div>
+                    <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-amber-400/15 text-amber-500">
+                      <Trophy className="size-6" aria-hidden="true" />
+                    </div>
+                  </div>
+                  {topStudents.length > 0 ? (
+                    <div className="mt-6 space-y-3">
+                      {topStudents.map((student, index) => (
+                        <div key={`${student.name}-${index}`} className="flex items-center gap-3 rounded-2xl border bg-background/80 px-3 py-3">
+                          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">{index + 1}</span>
+                          <p className="min-w-0 flex-1 truncate font-semibold text-foreground">{student.name}</p>
+                          <p className="shrink-0 text-sm font-bold text-emerald-600 dark:text-emerald-400">{student.correctAnswers} correct</p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mt-6 rounded-2xl border border-dashed px-4 py-8 text-center text-sm text-muted-foreground">Top performers will appear after today&apos;s tests.</div>
+                  )}
                 </div>
 
                 {/* Floating Stats Card */}

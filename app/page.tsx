@@ -324,7 +324,7 @@ export default async function Home() {
 
       <DailyTopStudentsPopup students={dailyTopStudents} />
 
-      <HeroSection stats={stats} />
+      <HeroSection stats={stats} topStudents={dailyTopStudents} />
 
       <ExamsSection />
   <AdPlacement className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
