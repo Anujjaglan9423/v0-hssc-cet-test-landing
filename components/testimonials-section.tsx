@@ -19,9 +19,10 @@ interface TestimonialsSectionProps {
   testimonials: Testimonial[]
   totalRatings?: number
   averageRating?: number | null
+  ratingCounts?: Record<1 | 2 | 3 | 4 | 5, number>
 }
 
-export default function TestimonialsSection({ testimonials, totalRatings = testimonials.length, averageRating }: TestimonialsSectionProps) {
+export default function TestimonialsSection({ testimonials, totalRatings = testimonials.length, averageRating, ratingCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } }: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
@@ -59,9 +60,21 @@ export default function TestimonialsSection({ testimonials, totalRatings = testi
           </p>
         </div>
 
-        <div className="mb-8 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
-          <span className="text-lg font-bold text-foreground">{averageRating?.toFixed(1) ?? "—"}/5</span>
-          <span aria-label={`${totalRatings} student ratings`}>Based on {totalRatings} student ratings</span>
+        <div className="mx-auto mb-8 grid max-w-3xl gap-6 rounded-2xl border bg-card p-5 sm:grid-cols-[180px_1fr] sm:items-center sm:p-6">
+          <div className="text-center sm:border-r sm:pr-6">
+            <p className="text-4xl font-bold tracking-tight text-foreground">{averageRating?.toFixed(2) ?? "—"}<span className="text-xl text-muted-foreground">/5</span></p>
+            <div className="mt-2 flex justify-center gap-0.5" aria-label={`${averageRating?.toFixed(2) ?? "0"} out of 5 average rating`}>
+              {Array.from({ length: 5 }, (_, index) => <span key={index} className={`text-lg ${index < Math.round(averageRating ?? 0) ? "text-amber-400" : "text-muted-foreground/30"}`} aria-hidden="true">★</span>)}
+            </div>
+            <p className="mt-1 text-xs text-muted-foreground">Based on {totalRatings} student ratings</p>
+          </div>
+          <div className="space-y-2" aria-label="Rating distribution">
+            {[5, 4, 3, 2, 1].map((rating) => {
+              const count = ratingCounts[rating as 1 | 2 | 3 | 4 | 5]
+              const percentage = totalRatings ? (count / totalRatings) * 100 : 0
+              return <div key={rating} className="grid grid-cols-[44px_1fr_32px] items-center gap-2 text-xs text-muted-foreground"><span>{rating} star</span><div className="h-2 overflow-hidden rounded-full bg-muted" role="progressbar" aria-label={`${rating} star ratings`} aria-valuemin={0} aria-valuemax={totalRatings} aria-valuenow={count}><div className="h-full rounded-full bg-amber-400 transition-[width]" style={{ width: `${percentage}%` }} /></div><span className="text-right tabular-nums">{count}</span></div>
+            })}
+          </div>
         </div>
 
         {/* Testimonial Carousel */}

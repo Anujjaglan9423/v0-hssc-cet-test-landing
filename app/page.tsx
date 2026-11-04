@@ -216,6 +216,7 @@ interface PublicReviews {
   testimonials: Testimonial[]
   totalRatings: number
   averageRating: number | null
+  ratingCounts: Record<1 | 2 | 3 | 4 | 5, number>
 }
 
 async function getPublicReviews(): Promise<PublicReviews> {
@@ -242,7 +243,7 @@ async function getPublicReviews(): Promise<PublicReviews> {
         .range(offset, offset + PAGE_SIZE - 1)
 
       if (error) {
-        return { testimonials: [], totalRatings: 0, averageRating: null }
+        return { testimonials: [], totalRatings: 0, averageRating: null, ratingCounts: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } }
       }
 
       const reviews = (data ?? []) as unknown as FeedbackReview[]
@@ -260,6 +261,10 @@ async function getPublicReviews(): Promise<PublicReviews> {
     const ratings = allReviews
       .map((review) => Number(review.rating))
       .filter((rating) => Number.isFinite(rating) && rating >= 1 && rating <= 5)
+    const ratingCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+    ratings.forEach((rating) => {
+      ratingCounts[rating as 1 | 2 | 3 | 4 | 5] += 1
+    })
     const testimonials = allReviews.flatMap((review): Testimonial[] => {
       const comment =
         typeof review.comments === "string"
@@ -297,9 +302,10 @@ async function getPublicReviews(): Promise<PublicReviews> {
       testimonials,
       totalRatings: ratings.length,
       averageRating: ratings.length ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length : null,
+      ratingCounts,
     }
   } catch (error) {
-    return { testimonials: [], totalRatings: 0, averageRating: null }
+    return { testimonials: [], totalRatings: 0, averageRating: null, ratingCounts: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } }
   }
 }
 
@@ -309,7 +315,7 @@ export default async function Home() {
     getPublicReviews(),
     getDailyTopStudents(),
   ])
-  const { testimonials, totalRatings, averageRating } = publicReviews
+  const { testimonials, totalRatings, averageRating, ratingCounts } = publicReviews
 
   const stats = await getPublicSiteStats()
   return (
@@ -335,7 +341,7 @@ export default async function Home() {
       <TestSeriesSection />
 
       {testimonials.length > 0 && (
-        <TestimonialsSection testimonials={testimonials} totalRatings={totalRatings} averageRating={averageRating} />
+        <TestimonialsSection testimonials={testimonials} totalRatings={totalRatings} averageRating={averageRating} ratingCounts={ratingCounts} />
       )}
 
       <FAQSection />
