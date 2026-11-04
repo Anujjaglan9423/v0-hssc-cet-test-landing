@@ -107,12 +107,12 @@ export default function TestimonialsSection({ testimonials, totalRatings = testi
                         alt={testimonial.name}
                         width={56}
                         height={56}
-                        className="h-14 w-14 rounded-full border-2 border-primary/20 object-cover"
+                        className="h-11 w-11 shrink-0 rounded-full border-2 border-primary/20 object-cover sm:h-14 sm:w-14"
                         loading="lazy"
                       />
                     ) : (
                       <div
-                        className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-primary/20 bg-primary/10 text-sm font-semibold text-primary"
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-primary/20 bg-primary/10 text-xs font-semibold text-primary sm:h-14 sm:w-14 sm:text-sm"
                         aria-label={`${testimonial.name} avatar`}
                       >
                         {getInitials(testimonial.name)}
