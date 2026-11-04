@@ -125,7 +125,6 @@ import PreparationGuide, {
 } from "@/components/preparation-guide"
 import AdPlacement from "@/components/ad-placement"
 import ExamAlertsSection from "@/components/exam-alerts-section"
-import { DailyTopStudentsPopup } from "@/components/daily-top-students-popup"
 import type { DailyTopStudent } from "@/components/daily-top-students-popup"
 import { createAdminClient } from "@/lib/supabase/server"
 import { getPublicSiteStats } from "@/lib/public-site-stats"
@@ -134,7 +133,6 @@ import type { Metadata } from "next"
 export const metadata: Metadata = { alternates: { canonical: "https://cettest.site" } }
 
 import type { Testimonial } from "@/components/testimonials-section"
-const SITE_URL = "https://cettest.site"
 
 
 interface RelatedUser {
@@ -213,7 +211,14 @@ async function getDailyTopStudents(): Promise<DailyTopStudent[]> {
 
 // Fetch all public testimonials
 
-async function getPublicReviews(): Promise<Testimonial[]> {
+interface PublicReviews {
+  testimonials: Testimonial[]
+  totalRatings: number
+  averageRating: number | null
+  ratingCounts: Record<1 | 2 | 3 | 4 | 5, number>
+}
+
+async function getPublicReviews(): Promise<PublicReviews> {
   try {
     const supabase = createAdminClient()
 
@@ -232,16 +237,12 @@ async function getPublicReviews(): Promise<Testimonial[]> {
           user:users(full_name),
           test:tests(title)
         `)
-        .eq("would_recommend", true)
-        .not("comments", "is", null)
-        .neq("comments", "")
-        // .gte("rating", 4)
         .order("created_at", { ascending: false })
         .order("id", { ascending: false })
         .range(offset, offset + PAGE_SIZE - 1)
 
       if (error) {
-        return []
+        return { testimonials: [], totalRatings: 0, averageRating: null, ratingCounts: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } }
       }
 
       const reviews = (data ?? []) as unknown as FeedbackReview[]
@@ -256,7 +257,14 @@ async function getPublicReviews(): Promise<Testimonial[]> {
       offset += PAGE_SIZE
     }
 
-    return allReviews.flatMap((review): Testimonial[] => {
+    const ratings = allReviews
+      .map((review) => Number(review.rating))
+      .filter((rating) => Number.isFinite(rating) && rating >= 1 && rating <= 5)
+    const ratingCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+    ratings.forEach((rating) => {
+      ratingCounts[rating as 1 | 2 | 3 | 4 | 5] += 1
+    })
+    const testimonials = allReviews.flatMap((review): Testimonial[] => {
       const comment =
         typeof review.comments === "string"
           ? review.comments.trim()
@@ -288,68 +296,34 @@ async function getPublicReviews(): Promise<Testimonial[]> {
         },
       ]
     })
+
+    return {
+      testimonials,
+      totalRatings: ratings.length,
+      averageRating: ratings.length ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length : null,
+      ratingCounts,
+    }
   } catch (error) {
-    return []
+    return { testimonials: [], totalRatings: 0, averageRating: null, ratingCounts: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } }
   }
 }
 
 
 export default async function Home() {
-  const [testimonials, dailyTopStudents] = await Promise.all([
+  const [publicReviews, dailyTopStudents] = await Promise.all([
     getPublicReviews(),
     getDailyTopStudents(),
   ])
-
-  const aggregateRating =
-    testimonials.length > 0
-      ? {
-          "@type": "AggregateRating",
-          ratingValue: (
-            testimonials.reduce(
-              (sum, review) => sum + review.rating,
-              0
-            ) / testimonials.length
-          ).toFixed(1),
-          reviewCount: testimonials.length,
-          bestRating: "5",
-          worstRating: "1",
-        }
-      : undefined
-
-  const reviewStructuredData =
-    testimonials.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "EducationalOrganization",
-          name: "CET TEST",
-          url: SITE_URL,
-          aggregateRating,
-          review: testimonials.map((review) => ({
-            "@type": "Review",
-            author: {
-              "@type": "Person",
-              name: review.name,
-            },
-            datePublished: review.datePublished,
-            reviewBody: review.content,
-            reviewRating: {
-              "@type": "Rating",
-              ratingValue: review.rating,
-              bestRating: 5,
-              worstRating: 1,
-            },
-          })),
-        }
-      : undefined
+  const { testimonials, totalRatings, averageRating, ratingCounts } = publicReviews
 
   const stats = await getPublicSiteStats()
   return (
     <main className="min-h-screen">
       <Navbar />
 
-      <DailyTopStudentsPopup students={dailyTopStudents} />
+      {/* Daily top performers are shown in the hero panel instead of a popup. */}
 
-      <HeroSection stats={stats} />
+      <HeroSection stats={stats} topStudents={dailyTopStudents} />
 
       <ExamsSection />
   <AdPlacement className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
@@ -366,19 +340,7 @@ export default async function Home() {
       <TestSeriesSection />
 
       {testimonials.length > 0 && (
-        <TestimonialsSection testimonials={testimonials} />
-      )}
-
-      {reviewStructuredData && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(reviewStructuredData).replace(
-              /</g,
-              "\\u003c"
-            ),
-          }}
-        />
+        <TestimonialsSection testimonials={testimonials} totalRatings={totalRatings} averageRating={averageRating} ratingCounts={ratingCounts} />
       )}
 
       <FAQSection />

@@ -17,9 +17,12 @@ export interface Testimonial {
 
 interface TestimonialsSectionProps {
   testimonials: Testimonial[]
+  totalRatings?: number
+  averageRating?: number | null
+  ratingCounts?: Record<1 | 2 | 3 | 4 | 5, number>
 }
 
-export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
+export default function TestimonialsSection({ testimonials, totalRatings = testimonials.length, averageRating, ratingCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } }: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
@@ -49,12 +52,29 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Success Stories
+            Student feedback
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">What Our Students Say</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">Trusted by Aspirants, Rated by Students</h2>
           <p className="text-lg text-muted-foreground">
-            Read recent learner feedback from CET TEST
+            Real feedback from students practising for government exams on CET TEST.
           </p>
+        </div>
+
+        <div className="mx-auto mb-8 grid max-w-3xl gap-6 rounded-2xl border bg-card p-5 sm:grid-cols-[180px_1fr] sm:items-center sm:p-6">
+          <div className="text-center sm:border-r sm:pr-6">
+            <p className="text-4xl font-bold tracking-tight text-foreground">{averageRating?.toFixed(2) ?? "—"}<span className="text-xl text-muted-foreground">/5</span></p>
+            <div className="mt-2 flex justify-center gap-0.5" aria-label={`${averageRating?.toFixed(2) ?? "0"} out of 5 average rating`}>
+              {Array.from({ length: 5 }, (_, index) => <span key={index} className={`text-lg ${index < Math.round(averageRating ?? 0) ? "text-amber-400" : "text-muted-foreground/30"}`} aria-hidden="true">★</span>)}
+            </div>
+            <p className="mt-1 text-xs text-muted-foreground">Based on {totalRatings} student ratings</p>
+          </div>
+          <div className="space-y-2" aria-label="Rating distribution">
+            {[5, 4, 3, 2, 1].map((rating) => {
+              const count = ratingCounts[rating as 1 | 2 | 3 | 4 | 5]
+              const percentage = totalRatings ? (count / totalRatings) * 100 : 0
+              return <div key={rating} className="grid grid-cols-[44px_1fr_32px] items-center gap-2 text-xs text-muted-foreground"><span>{rating} star</span><div className="h-2 overflow-hidden rounded-full bg-muted" role="progressbar" aria-label={`${rating} star ratings`} aria-valuemin={0} aria-valuemax={totalRatings} aria-valuenow={count}><div className="h-full rounded-full bg-amber-400 transition-[width]" style={{ width: `${percentage}%` }} /></div><span className="text-right tabular-nums">{count}</span></div>
+            })}
+          </div>
         </div>
 
         {/* Testimonial Carousel */}
