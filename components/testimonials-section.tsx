@@ -17,9 +17,11 @@ export interface Testimonial {
 
 interface TestimonialsSectionProps {
   testimonials: Testimonial[]
+  totalRatings?: number
+  averageRating?: number | null
 }
 
-export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
+export default function TestimonialsSection({ testimonials, totalRatings = testimonials.length, averageRating }: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
@@ -58,8 +60,8 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
         </div>
 
         <div className="mb-8 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
-          <span className="text-lg font-bold text-foreground">{(testimonials.reduce((sum, review) => sum + review.rating, 0) / testimonials.length).toFixed(1)}/5</span>
-          <span aria-label={`${testimonials.length} student ratings`}>Based on {testimonials.length} student ratings</span>
+          <span className="text-lg font-bold text-foreground">{averageRating?.toFixed(1) ?? "—"}/5</span>
+          <span aria-label={`${totalRatings} student ratings`}>Based on {totalRatings} student ratings</span>
         </div>
 
         {/* Testimonial Carousel */}

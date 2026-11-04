@@ -212,7 +212,13 @@ async function getDailyTopStudents(): Promise<DailyTopStudent[]> {
 
 // Fetch all public testimonials
 
-async function getPublicReviews(): Promise<Testimonial[]> {
+interface PublicReviews {
+  testimonials: Testimonial[]
+  totalRatings: number
+  averageRating: number | null
+}
+
+async function getPublicReviews(): Promise<PublicReviews> {
   try {
     const supabase = createAdminClient()
 
@@ -231,15 +237,12 @@ async function getPublicReviews(): Promise<Testimonial[]> {
           user:users(full_name),
           test:tests(title)
         `)
-        .not("comments", "is", null)
-        .neq("comments", "")
-        // .gte("rating", 4)
         .order("created_at", { ascending: false })
         .order("id", { ascending: false })
         .range(offset, offset + PAGE_SIZE - 1)
 
       if (error) {
-        return []
+        return { testimonials: [], totalRatings: 0, averageRating: null }
       }
 
       const reviews = (data ?? []) as unknown as FeedbackReview[]
@@ -254,7 +257,10 @@ async function getPublicReviews(): Promise<Testimonial[]> {
       offset += PAGE_SIZE
     }
 
-    return allReviews.flatMap((review): Testimonial[] => {
+    const ratings = allReviews
+      .map((review) => Number(review.rating))
+      .filter((rating) => Number.isFinite(rating) && rating >= 1 && rating <= 5)
+    const testimonials = allReviews.flatMap((review): Testimonial[] => {
       const comment =
         typeof review.comments === "string"
           ? review.comments.trim()
@@ -286,17 +292,24 @@ async function getPublicReviews(): Promise<Testimonial[]> {
         },
       ]
     })
+
+    return {
+      testimonials,
+      totalRatings: ratings.length,
+      averageRating: ratings.length ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length : null,
+    }
   } catch (error) {
-    return []
+    return { testimonials: [], totalRatings: 0, averageRating: null }
   }
 }
 
 
 export default async function Home() {
-  const [testimonials, dailyTopStudents] = await Promise.all([
+  const [publicReviews, dailyTopStudents] = await Promise.all([
     getPublicReviews(),
     getDailyTopStudents(),
   ])
+  const { testimonials, totalRatings, averageRating } = publicReviews
 
   const stats = await getPublicSiteStats()
   return (
@@ -322,7 +335,7 @@ export default async function Home() {
       <TestSeriesSection />
 
       {testimonials.length > 0 && (
-        <TestimonialsSection testimonials={testimonials} />
+        <TestimonialsSection testimonials={testimonials} totalRatings={totalRatings} averageRating={averageRating} />
       )}
 
       <FAQSection />
