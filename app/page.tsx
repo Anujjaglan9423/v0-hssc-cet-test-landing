@@ -125,7 +125,6 @@ import PreparationGuide, {
 } from "@/components/preparation-guide"
 import AdPlacement from "@/components/ad-placement"
 import ExamAlertsSection from "@/components/exam-alerts-section"
-import { DailyTopStudentsPopup } from "@/components/daily-top-students-popup"
 import type { DailyTopStudent } from "@/components/daily-top-students-popup"
 import { createAdminClient } from "@/lib/supabase/server"
 import { getPublicSiteStats } from "@/lib/public-site-stats"
@@ -322,7 +321,7 @@ export default async function Home() {
     <main className="min-h-screen">
       <Navbar />
 
-      <DailyTopStudentsPopup students={dailyTopStudents} />
+      {/* Daily top performers are shown in the hero panel instead of a popup. */}
 
       <HeroSection stats={stats} topStudents={dailyTopStudents} />
 
