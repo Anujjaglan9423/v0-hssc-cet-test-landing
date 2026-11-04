@@ -134,7 +134,6 @@ import type { Metadata } from "next"
 export const metadata: Metadata = { alternates: { canonical: "https://cettest.site" } }
 
 import type { Testimonial } from "@/components/testimonials-section"
-const SITE_URL = "https://cettest.site"
 
 
 interface RelatedUser {
@@ -232,7 +231,6 @@ async function getPublicReviews(): Promise<Testimonial[]> {
           user:users(full_name),
           test:tests(title)
         `)
-        .eq("would_recommend", true)
         .not("comments", "is", null)
         .neq("comments", "")
         // .gte("rating", 4)
@@ -300,48 +298,6 @@ export default async function Home() {
     getDailyTopStudents(),
   ])
 
-  const aggregateRating =
-    testimonials.length > 0
-      ? {
-          "@type": "AggregateRating",
-          ratingValue: (
-            testimonials.reduce(
-              (sum, review) => sum + review.rating,
-              0
-            ) / testimonials.length
-          ).toFixed(1),
-          reviewCount: testimonials.length,
-          bestRating: "5",
-          worstRating: "1",
-        }
-      : undefined
-
-  const reviewStructuredData =
-    testimonials.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "EducationalOrganization",
-          name: "CET TEST",
-          url: SITE_URL,
-          aggregateRating,
-          review: testimonials.map((review) => ({
-            "@type": "Review",
-            author: {
-              "@type": "Person",
-              name: review.name,
-            },
-            datePublished: review.datePublished,
-            reviewBody: review.content,
-            reviewRating: {
-              "@type": "Rating",
-              ratingValue: review.rating,
-              bestRating: 5,
-              worstRating: 1,
-            },
-          })),
-        }
-      : undefined
-
   const stats = await getPublicSiteStats()
   return (
     <main className="min-h-screen">
@@ -367,18 +323,6 @@ export default async function Home() {
 
       {testimonials.length > 0 && (
         <TestimonialsSection testimonials={testimonials} />
-      )}
-
-      {reviewStructuredData && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(reviewStructuredData).replace(
-              /</g,
-              "\\u003c"
-            ),
-          }}
-        />
       )}
 
       <FAQSection />

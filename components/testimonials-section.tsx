@@ -49,12 +49,17 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Success Stories
+            Student feedback
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">What Our Students Say</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">Trusted by Aspirants, Rated by Students</h2>
           <p className="text-lg text-muted-foreground">
-            Read recent learner feedback from CET TEST
+            Real feedback from students practising for government exams on CET TEST.
           </p>
+        </div>
+
+        <div className="mb-8 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
+          <span className="text-lg font-bold text-foreground">{(testimonials.reduce((sum, review) => sum + review.rating, 0) / testimonials.length).toFixed(1)}/5</span>
+          <span aria-label={`${testimonials.length} student ratings`}>Based on {testimonials.length} student ratings</span>
         </div>
 
         {/* Testimonial Carousel */}
