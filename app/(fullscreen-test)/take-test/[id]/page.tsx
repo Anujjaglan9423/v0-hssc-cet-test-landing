@@ -45,6 +45,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { FeedbackModal } from "@/components/student/feedback-modal"
 import { BilingualText } from "@/components/bilingual-text"
+import { createQuestionReport } from "@/lib/actions/question-reports"
 
 interface Question {
   id: string
@@ -190,6 +191,15 @@ export default function FullscreenTestPage() {
 
   const handleAnswer = (questionId: string, answer: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: answer }))
+  }
+
+  const handleReportQuestion = async () => {
+    const reason = window.prompt("Why are you reporting this question? (e.g. incorrect answer, unclear wording)")
+    if (!reason?.trim()) return
+    const details = window.prompt("Add more details (optional)") || ""
+    const result = await createQuestionReport({ testId, questionId: question.id, reason, details })
+    if (result.success) window.alert("Question reported. You can track the admin action in Reported Questions.")
+    else window.alert(result.error || "Unable to submit report")
   }
 
   const toggleFlag = (questionId: string) => {
@@ -680,7 +690,12 @@ export default function FullscreenTestPage() {
                   of {test.questions.length}
                 </span>
               </div>
-              <Button
+              <div className="flex items-center gap-1">
+                <Button variant="ghost" size="sm" onClick={handleReportQuestion} className="gap-1.5 cursor-pointer text-muted-foreground hover:text-destructive">
+                  <AlertCircle className="w-4 h-4" />
+                  <span className="hidden sm:inline text-xs font-medium">Report</span>
+                </Button>
+                <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => toggleFlag(question.id)}
@@ -691,6 +706,7 @@ export default function FullscreenTestPage() {
                   {flagged.has(question.id) ? "Flagged" : "Flag"}
                 </span>
               </Button>
+              </div>
             </div>
 
             {/* Question Text */}

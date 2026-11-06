@@ -50,6 +50,7 @@ const adminLinks = [
   { href: "/admin/analytics", icon: BarChart3, label: "Analytics" },
   { href: "/admin/contacts", icon: Mail, label: "Contacts" },
   { href: "/admin/feedback", icon: MessageSquare, label: "Feedback" },
+  { href: "/admin/question-reports", icon: MessageCircle, label: "Question Reports" },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ]
 
@@ -60,6 +61,7 @@ const studentLinks = [
   { href: "/student/practice", icon: Target, label: "Practice" },
   { href: "/student/results", icon: Trophy, label: "Results" },
   { href: "/student/mistakes", icon: NotebookPen, label: "Mistake Notebook" },
+  { href: "/student/reports", icon: MessageCircle, label: "Reported Questions" },
   { href: "/student/analytics", icon: BarChart3, label: "My Analytics" },
   { href: "/exam-alerts", icon: BellRing, label: "Exam Alerts" },
 ]
