@@ -99,7 +99,7 @@ export default function CareersPage() {
                         </span>
                       </div>
                     </div>
-                    <a href="mailto:anujjaglan9423@gmail.com?subject=Application for ${job.title}">
+                    <a href="mailto:cettest.education@gmail.com?subject=Application for ${job.title}">
                       <Button>Apply Now</Button>
                     </a>
                   </div>
@@ -120,7 +120,7 @@ export default function CareersPage() {
           <p className="text-muted-foreground mb-6">
             We're always looking for talented people. Send us your resume and we'll reach out when there's a match.
           </p>
-          <a href="mailto:anujjaglan9423@gmail.com?subject=General Application">
+          <a href="mailto:cettest.education@gmail.com?subject=General Application">
             <Button size="lg">Send Your Resume</Button>
           </a>
         </div>

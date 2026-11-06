@@ -14,7 +14,7 @@ const SITE_URL = "https://cettest.site"
 const SITE_NAME = "CET TEST"
 const INSTAGRAM_HANDLE = "cet__test"
 const INSTAGRAM_URL = `https://instagram.com/${INSTAGRAM_HANDLE}`
-const SUPPORT_EMAIL = "anujjaglan9423@gmail.com"
+const SUPPORT_EMAIL = "cettest.education@gmail.com"
 const SUPPORT_PHONE = "+917291849546"
 const SUPPORT_PHONE_DISPLAY = "7291849546"
 

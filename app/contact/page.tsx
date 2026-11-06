@@ -127,8 +127,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-muted-foreground uppercase">Support Email</p>
-                  <a href="mailto:anujjaglan9423@gmail.com" className="text-sm font-medium hover:text-blue-600">
-                    anujjaglan9423@gmail.com
+                  <a href="mailto:cettest.education@gmail.com" className="text-sm font-medium hover:text-blue-600">
+                    cettest.education@gmail.com
                   </a>
                 </div>
               </div>

@@ -79,8 +79,8 @@
 //               <ul className="list-none text-muted-foreground space-y-2 mt-4">
 //                 <li>
 //                   Email:{" "}
-//                   <a href="mailto:anujjaglan9423@gmail.com" className="text-primary hover:underline">
-//                     anujjaglan9423@gmail.com
+//                   <a href="mailto:cettest.education@gmail.com" className="text-primary hover:underline">
+//                     cettest.education@gmail.com
 //                   </a>
 //                 </li>
 //                 <li>
@@ -344,7 +344,7 @@ export default function PrivacyPolicyPage() {
                 <p>For questions about this policy or requests relating to personal information, contact:</p>
                 <div className="mt-5 rounded-xl border border-border bg-card p-5 sm:p-6">
                   <p className="font-semibold text-foreground">CET TEST Support</p>
-                  <p className="mt-2">Email: <a className={externalClass} href="mailto:anujjaglan9423@gmail.com">anujjaglan9423@gmail.com</a></p>
+                  <p className="mt-2">Email: <a className={externalClass} href="mailto:cettest.education@gmail.com">cettest.education@gmail.com</a></p>
                   <p>Phone: <a className={externalClass} href="tel:+917291849546">+91 7291849546</a></p>
                   <p>Instagram: <a className={externalClass} href="https://instagram.com/cet__test" target="_blank" rel="noopener noreferrer">@cet__test</a></p>
                 </div>

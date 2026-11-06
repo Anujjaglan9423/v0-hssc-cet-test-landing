@@ -79,7 +79,7 @@ export const metadata: Metadata = {
         type: "image/jpeg",
       },
     ],
-    emails: ["anujjaglan9423@gmail.com"],
+    emails: ["cettest.education@gmail.com"],
     phoneNumbers: ["+91 7291849546"],
   },
 
@@ -133,7 +133,7 @@ export default function RailwayExamsPage() {
   const baseUrl = "https://cettest.site"
   const currentUrl = "https://cettest.site/exams/railway"
   const socialMedia = "cet__test"
-  const email = "anujjaglan9423@gmail.com"
+  const email = "cettest.education@gmail.com"
   const phone = "+917291849546"
   const currentYear = new Date().getFullYear()
 
@@ -356,7 +356,7 @@ export default function RailwayExamsPage() {
                 name: "How can I contact CET TEST for Railway exam preparation?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Contact CET TEST via email at anujjaglan9423@gmail.com or call/whatsapp at 7291849546. Follow @cet__test on Instagram & Twitter for daily updates, free mock tests, and preparation tips.",
+                  text: "Contact CET TEST via email at cettest.education@gmail.com or call/whatsapp at 7291849546. Follow @cet__test on Instagram & Twitter for daily updates, free mock tests, and preparation tips.",
                 },
               },
               {

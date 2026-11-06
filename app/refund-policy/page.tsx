@@ -20,7 +20,7 @@ export default function RefundPolicyPage() {
             </section>
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">Contact</h2>
-              <p className="text-muted-foreground leading-relaxed">For questions about an unexpected charge or this policy, contact <a href="mailto:anujjaglan9423@gmail.com" className="text-primary hover:underline">anujjaglan9423@gmail.com</a> with the account email and transaction reference, if applicable.</p>
+              <p className="text-muted-foreground leading-relaxed">For questions about an unexpected charge or this policy, contact <a href="mailto:cettest.education@gmail.com" className="text-primary hover:underline">cettest.education@gmail.com</a> with the account email and transaction reference, if applicable.</p>
             </section>
           </div>
         </div>

@@ -95,8 +95,8 @@
 //               <ul className="list-none text-muted-foreground space-y-2 mt-4">
 //                 <li>
 //                   Email:{" "}
-//                   <a href="mailto:anujjaglan9423@gmail.com" className="text-primary hover:underline">
-//                     anujjaglan9423@gmail.com
+//                   <a href="mailto:cettest.education@gmail.com" className="text-primary hover:underline">
+//                     cettest.education@gmail.com
 //                   </a>
 //                 </li>
 //                 <li>
@@ -344,7 +344,7 @@ export default function TermsOfServicePage() {
                 <div className="mt-4 rounded-2xl border bg-card p-5 sm:p-6">
                   <div className="mb-4 flex items-center gap-2 font-semibold text-foreground"><Mail className="size-5 text-primary" aria-hidden="true" /> CET TEST Support</div>
                   <ul className="space-y-2 text-sm sm:text-base">
-                    <li>Email: <a className={linkClass} href="mailto:anujjaglan9423@gmail.com">anujjaglan9423@gmail.com</a></li>
+                    <li>Email: <a className={linkClass} href="mailto:cettest.education@gmail.com">cettest.education@gmail.com</a></li>
                     <li>Phone: <a className={linkClass} href="tel:+917291849546">+91 7291849546</a></li>
                     <li>WhatsApp: <a className={linkClass} href="https://wa.me/917291849546" target="_blank" rel="noopener noreferrer">Contact on WhatsApp <ArrowUpRight className="inline size-4" aria-hidden="true" /></a></li>
                     <li>Instagram: <a className={linkClass} href="https://instagram.com/cet__test" target="_blank" rel="noopener noreferrer">@cet__test <ArrowUpRight className="inline size-4" aria-hidden="true" /></a></li>

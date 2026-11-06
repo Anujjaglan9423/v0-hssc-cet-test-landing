@@ -12,7 +12,7 @@ import { Save, Bell, Shield, Mail, User } from "lucide-react"
 export default function AdminSettingsPage() {
   const adminInfo = {
     name: "Admin",
-    email: "anujjaglan9423@gmail.com",
+    email: "cettest.education@gmail.com",
   }
 
   const [settings, setSettings] = useState({

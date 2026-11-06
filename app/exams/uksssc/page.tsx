@@ -21,7 +21,7 @@ import Script from "next/script";
 const SITE_URL = "https://cettest.site";
 const INSTAGRAM_HANDLE = "cet__test";
 const INSTAGRAM_URL = `https://instagram.com/${INSTAGRAM_HANDLE}`;
-const SUPPORT_EMAIL = "anujjaglan9423@gmail.com";
+const SUPPORT_EMAIL = "cettest.education@gmail.com";
 const SUPPORT_PHONE = "+917291849546";
 
 // ============================================

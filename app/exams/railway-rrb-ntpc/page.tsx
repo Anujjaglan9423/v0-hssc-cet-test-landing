@@ -79,7 +79,7 @@ export const metadata: Metadata = {
         type: "image/jpeg",
       },
     ],
-    emails: ["anujjaglan9423@gmail.com"],
+    emails: ["cettest.education@gmail.com"],
     phoneNumbers: ["+91 7291849546"],
   },
 
@@ -133,7 +133,7 @@ export default function RRBNTPCPage() {
   const baseUrl = "https://cettest.site"
   const currentUrl = "https://cettest.site/exams/railway-rrb-ntpc"
   const socialMedia = "cet__test"
-  const email = "anujjaglan9423@gmail.com"
+  const email = "cettest.education@gmail.com"
   const phone = "+917291849546"
   const currentYear = new Date().getFullYear()
 
@@ -343,7 +343,7 @@ export default function RRBNTPCPage() {
                 name: "How can I contact CET TEST for RRB study material?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "You can contact CET TEST via email at anujjaglan9423@gmail.com or call/whatsapp at 7291849546. Follow us on Instagram and Twitter @cet__test for daily RRB current affairs updates, free mock tests, and preparation tips.",
+                  text: "You can contact CET TEST via email at cettest.education@gmail.com or call/whatsapp at 7291849546. Follow us on Instagram and Twitter @cet__test for daily RRB current affairs updates, free mock tests, and preparation tips.",
                 },
               },
             ],
