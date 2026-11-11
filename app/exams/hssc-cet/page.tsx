@@ -22,8 +22,8 @@ const SUPPORT_PHONE_DISPLAY = "7291849546"
 // SEO, AEO & GEO OPTIMIZED METADATA FOR HSSC CET
 // ============================================
 export const metadata: Metadata = {
-  title: "HSSC CET Mock Test 2026 | Free Haryana CET Group C & D Practice Sets | NTA Pattern & PYQs",
-  description: "Crack HSSC CET 2026 with Free mock test platform Attempt unlimited tests for Haryana CET Group C & D with NTA pattern, Haryana GK, previous year papers (PYQs), detailed solutions, and all-India rank. Start your 100% free preparation today!",
+  title: "HSSC CET Mock Test 2026 | Free Haryana CET Group C & D Practice Sets | Exam-Focused Practice",
+  description: "Crack HSSC CET 2026 with Free mock test platform Explore mock tests for Haryana CET Group C & D with exam-focused questions, Haryana GK study resources and answer reviews. Start your 100% free preparation today!",
 
   keywords: [
     // ===== PRIMARY HSSC CET KEYWORDS =====
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "HSSC CET Mock Test 2026 | Free Haryana CET Group C & D Practice | NTA Pattern",
+    title: "HSSC CET Mock Test 2026 | Free Haryana CET Group C & D Practice | Practice Questions",
     description: "Crack HSSC CET 2026 with free mock tests. Practice Haryana GK, previous year papers, exam-style practice questions, and get detailed analytics. Start your free preparation today!",
     url: "https://cettest.site/exams/hssc-cet",
     siteName: "CET TEST",
@@ -151,7 +151,7 @@ export default function HSCSCETPage() {
     },
     {
       q: "What is the exam pattern for HSSC CET 2026?",
-      a: "The HSSC Group C examination pattern in the applicable official 2026 recruitment notice is 100 MCQs, 100 marks and 105 minutes (1 hour 45 minutes), on a bilingual OMR sheet. Wrong answers have no negative marking, but leaving the fifth bubble blank for an unattempted question deducts one mark. Check your specific HSSC advertisement for the relevant syllabus and selection stage."
+      a: "Question counts, duration, marking and treatment of unanswered questions depend on the recruitment stage and the specific HSSC advertisement. Check the latest official notification before relying on any pattern described in a practice test."
     },
     {
       q: "What is the salary for HSSC CET qualified candidates?",
@@ -198,13 +198,15 @@ export default function HSCSCETPage() {
   // ============================================
   // HSSC CET SECTION-WISE WEIGHTAGE
   // ============================================
-  const sectionWeightage = [
-    { name: "Haryana GK", percentage: 25, color: "bg-blue-500" },
-    { name: "General Awareness", percentage: 20, color: "bg-green-500" },
-    { name: "Reasoning", percentage: 20, color: "bg-purple-500" },
-    { name: "Mathematics", percentage: 20, color: "bg-orange-500" },
-    { name: "Language (Hindi/English)", percentage: 10, color: "bg-red-500" },
-    { name: "Computer Knowledge", percentage: 5, color: "bg-teal-500" },
+  // Editorial study priorities, NOT official exam weightages.
+  // Actual distributions vary by CET stage, post group and HSSC advertisement.
+  const studyAreas = [
+    { name: "Haryana history, geography and culture" },
+    { name: "General awareness and current affairs" },
+    { name: "Logical reasoning and problem solving" },
+    { name: "Quantitative aptitude and arithmetic" },
+    { name: "Hindi and English language practice" },
+    { name: "Computer fundamentals (where applicable)" },
   ]
 
   // ============================================
@@ -240,7 +242,7 @@ export default function HSCSCETPage() {
         name: "What is the best way to prepare for HSSC CET 2026?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The best preparation strategy: 1) Understand latest NTA pattern, 2) Focus on Haryana GK (25% weightage), 3) Take daily mock tests on CET TEST, 4) Solve previous year papers, 5) Analyze weak areas using performance reports. All for free!",
+          text: "Start with the applicable official HSSC advertisement and stage-specific syllabus, revise Haryana GK and other tested subjects, practise with clearly labelled mock tests, and review errors after every attempt.",
         },
       },
       {
@@ -248,7 +250,7 @@ export default function HSCSCETPage() {
         name: "Is CET TEST really free for HSSC CET preparation?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, CET TEST is 100% free for HSSC CET Group C and Group D preparation. No hidden charges, no premium plans. Unlimited mock tests, PYQs, and performance analytics available at zero cost.",
+          text: "Yes, CET TEST is 100% free for HSSC CET Group C and Group D preparation. The first test in each section is available without signup; a free account is needed for additional tests.",
         },
       },
       {
@@ -386,9 +388,9 @@ export default function HSCSCETPage() {
                 <div className="mb-4 flex items-center justify-center w-14 h-14 rounded-xl bg-green-500/10 group-hover:bg-green-500/20 transition">
                   <Target className="w-7 h-7 text-green-600" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">NTA Level Mocks</h3>
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition">Exam-focused Practice</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Practice questions designed to match the real NTA exam difficulty level with 105-minute timer.
+                  Practice exam-style questions using the duration and marking scheme displayed for each individual CET TEST mock. Mock settings are not official recruitment rules.
                 </p>
               </div>
 
@@ -420,18 +422,12 @@ export default function HSCSCETPage() {
         {/* ===== Section-wise Weightage ===== */}
         <section className="py-16 px-4 bg-muted/30">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">HSSC CET Section-wise Weightage</h2>
-            <p className="text-muted-foreground mb-10">Know the marks distribution to plan your preparation strategy</p>
+            <h2 className="text-3xl font-bold mb-4">HSSC CET Study Areas</h2>
+            <p className="text-muted-foreground mb-10">These are suggested areas to revise, not a fixed marks distribution. Check the current official HSSC notice for your recruitment stage and post-specific syllabus.</p>
             <div className="space-y-3">
-              {sectionWeightage.map((section, idx) => (
-                <div key={idx} className="bg-card rounded-lg p-4">
-                  <div className="flex justify-between mb-2">
-                    <span className="font-semibold">{section.name}</span>
-                    <span className="text-primary font-bold">{section.percentage}%</span>
-                  </div>
-                  <div className="w-full bg-muted rounded-full h-2.5">
-                    <div className={`${section.color} h-2.5 rounded-full transition-all duration-1000`} style={{ width: `${section.percentage}%` }}></div>
-                  </div>
+              {studyAreas.map((section) => (
+                <div key={section.name} className="bg-card rounded-lg p-4 text-left">
+                  <span className="font-semibold">{section.name}</span>
                 </div>
               ))}
             </div>
@@ -484,12 +480,12 @@ export default function HSCSCETPage() {
                   Syllabus Focus Areas
                 </h3>
                 <ul className="space-y-3 text-sm">
-                  <li><strong>Haryana GK:</strong> History, Culture, Geography, Welfare Schemes (25 marks)</li>
-                  <li><strong>General Awareness:</strong> India GK, Current Affairs, National Events (20 marks)</li>
-                  <li><strong>Reasoning:</strong> Verbal & Non-Verbal Reasoning, Analogies (20 marks)</li>
-                  <li><strong>Mathematics:</strong> Arithmetic, Algebra, Geometry, Data Interpretation (20 marks)</li>
-                  <li><strong>Languages:</strong> English & Hindi Grammar, Comprehension (10 marks)</li>
-                  <li><strong>Computer Knowledge:</strong> Basic Fundamentals, Internet, MS Office (5 marks)</li>
+                  <li><strong>Haryana GK:</strong> History, Culture, Geography, Welfare Schemes</li>
+                  <li><strong>General Awareness:</strong> India GK, Current Affairs, National Events</li>
+                  <li><strong>Reasoning:</strong> Verbal & Non-Verbal Reasoning, Analogies</li>
+                  <li><strong>Mathematics:</strong> Arithmetic, Algebra, Geometry, Data Interpretation</li>
+                  <li><strong>Languages:</strong> English & Hindi Grammar, Comprehension</li>
+                  <li><strong>Computer Knowledge:</strong> Basic Fundamentals, Internet, MS Office</li>
                 </ul>
               </div>
 
@@ -519,7 +515,7 @@ export default function HSCSCETPage() {
               </div>
               <h2 className="text-3xl font-bold mb-4">Master Haryana GK for HSSC CET</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                25% of total marks come from Haryana GK. Our dedicated question banks cover everything you need.
+                Haryana GK is an important study area for Haryana recruitments. Exact topic weightages vary by the relevant notification and selection stage.
               </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">

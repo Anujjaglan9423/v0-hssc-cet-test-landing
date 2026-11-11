@@ -313,20 +313,20 @@ export default function HaryanaGKStudyMaterialPage() {
 
     const faqs = [
         {
-            question: "How many marks come from Haryana GK in CET Group C?",
-            answer: "In Haryana CET Group C exam, Haryana GK is a separate section of 25 marks. Along with that, General Awareness section also has 5-8 questions from Haryana. Total approximately 30-33 marks come from Haryana-specific topics."
+            question: "How should I plan Haryana GK preparation for CET Group C?",
+            answer: "Haryana GK is a useful study area, but the marks and number of questions depend on the current selection stage, post group and recruitment notification. Consult the official HSSC syllabus for the exact pattern."
         },
         {
-            question: "Which Haryana GK topics are most important for 25 marks?",
-            answer: "For 25 marks Haryana GK section, focus on: History (8-10 marks), Geography (5-6 marks), Culture & Fairs (4-5 marks), Sports (3-4 marks), Current Affairs (3-4 marks)."
+            question: "Which Haryana GK topics should I prioritise?",
+            answer: "Review Haryana history, geography, culture, fairs, sports, administration and current affairs. Use official topic descriptions and practise across the syllabus rather than relying on unverified marks estimates."
         },
         {
-            question: "How to score full 25 marks in Haryana GK?",
-            answer: "To score full 25 marks: 1) Master all 33 chapters from this guide, 2) Practice previous year papers, 3) Take weekly mock tests, 4) Keep Haryana Current Affairs notes, 5) Revise district-wise facts regularly."
+            question: "How can I improve my Haryana GK score?",
+            answer: "Work through the chapters, practise with explained questions, check the applicable official syllabus and regularly revise district-wise facts and Haryana current affairs."
         },
         {
-            question: "Is Haryana GK a separate section in CET?",
-            answer: "Yes, Haryana GK is a separate section of 25 marks in Haryana CET Group C examination. It is different from the General Awareness section and focuses only on Haryana-specific topics."
+            question: "Is the Haryana GK pattern the same for every recruitment?",
+            answer: "No fixed question or marks distribution should be assumed for every HSSC recruitment. Check the official advertisement and selection stage before planning your exam strategy."
         }
     ]
 
@@ -394,22 +394,22 @@ export default function HaryanaGKStudyMaterialPage() {
                                 <div className="p-2 rounded-xl bg-primary/20">
                                     <Award className="w-5 h-5 text-primary" />
                                 </div>
-                                <h2 className="text-2xl font-bold">Haryana GK: 25 Marks Separate Section</h2>
+                                <h2 className="text-2xl font-bold">Haryana GK Study Guide</h2>
                             </div>
                             <Link href="https://hssc.gov.in" target="_blank" rel="noopener noreferrer">
                                 <Button variant="default" size="lg" className="gap-2 bg-primary hover:bg-primary/90 cursor-pointer">
                                     <FileText className="w-4 h-4" />
-                                    Official HSSC Notification
+                                    HSSC Official Website (check latest notification)
                                     <ChevronRight className="w-4 h-4" />
                                 </Button>
                             </Link>
                         </div>
                         <div className="grid md:grid-cols-4 gap-4 mt-6">
                             {[
-                                { label: "Total Haryana GK Marks", value: "25", color: "from-blue-500 to-blue-600" },
-                                { label: "Separate Section", value: "Yes", color: "from-green-500 to-green-600" },
-                                { label: "Expected Questions", value: "25 Qs", color: "from-orange-500 to-orange-600" },
-                                { label: "Cutoff Score", value: "16-18", color: "from-red-500 to-red-600" }
+                                { label: "Official Weightage", value: "Check HSSC", color: "from-blue-500 to-blue-600" },
+                                { label: "Study Resource", value: "Haryana GK", color: "from-green-500 to-green-600" },
+                                { label: "Question Count", value: "Varies", color: "from-orange-500 to-orange-600" },
+                                { label: "Official Cutoff", value: "By notice", color: "from-red-500 to-red-600" }
                             ].map((item, idx) => (
                                 <div key={idx} className="bg-card rounded-xl p-4 text-center border shadow-sm">
                                     <p className="text-sm text-muted-foreground mb-1">{item.label}</p>

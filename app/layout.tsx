@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
 import Script from "next/script";
+import AdSenseLoader from "@/components/adsense-loader";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { InstagramFloat } from "@/components/instagram-float";
@@ -258,13 +259,7 @@ export default function RootLayout({
         {/* ===== PRELOAD & PERFORMANCE ===== */}
         <link rel="preconnect" href="https://vercel.live" />
 
-        {/* ===== GOOGLE ADSENSE ===== */}
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7892065085240733"
-          strategy="afterInteractive"
-          async
-          crossOrigin="anonymous"
-        />
+
 
         {/* ===== GOOGLE ANALYTICS 4 ===== */}
         <Script
@@ -334,6 +329,7 @@ export default function RootLayout({
 
       <body className="antialiased">
         {children}
+        <AdSenseLoader />
         <InstagramFloat />
         <WhatsAppFloat />
         <div

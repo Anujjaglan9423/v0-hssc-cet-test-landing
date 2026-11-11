@@ -12,7 +12,7 @@ export function generateStaticParams() { return articles.map(a=>({slug:a.slug}))
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {slug} = await params
   const article = articleBySlug(slug)
-  if(!article) return { title:'Topic not found' }
+  if(!article) return { title:'Topic not found', robots:{index:false,follow:false} }
   return {
     title: `${article.title} – September 2026 Current Affairs`,
     description: `${article.summary} Read important facts, quick revision takeaway and exam practice question on CET TEST.`,
