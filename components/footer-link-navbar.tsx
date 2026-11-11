@@ -38,7 +38,7 @@ export default function FooterLinkNavbar() {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden xl:flex items-center gap-4">
+                    <div className="hidden xl:flex items-center gap-6">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}

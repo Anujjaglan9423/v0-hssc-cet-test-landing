@@ -61,13 +61,13 @@ export default function HaryanaBasicInformationPage() {
         {
             questionHindi: "कुरुक्षेत्र क्यों प्रसिद्ध है?",
             questionEnglish: "Why is Kurukshetra famous?",
-            answerHindi: "कुरुक्षेत्र महाभारत युद्ध की भूमि के रूप में प्रसिद्ध है। इसे 'धर्मक्षेत्र' और 'पार्कों का शहर' भी कहा जाता है।",
+            answerHindi: "कुरुक्षेत्र का धार्मिक एवं सांस्कृतिक महत्व महाभारत परंपरा और भगवद्गीता से जुड़ा है। इसे धर्मक्षेत्र भी कहा जाता है।",
             answerEnglish: "Kurukshetra is famous as the land of the epic Mahabharata war. It is also known as 'Dharmashetra' and 'City of Parks'."
         },
         {
-            questionHindi: "हरियाणा का सबसे दक्षिणी जिला कौन सा है?",
-            questionEnglish: "Which is the southernmost district of Haryana?",
-            answerHindi: "मेवात हरियाणा का सबसे दक्षिणी जिला है।",
+            questionHindi: "हरियाणा की राजधानी क्या है?",
+            questionEnglish: "What is the capital of Haryana?",
+            answerHindi: "हरियाणा की राजधानी चंडीगढ़ है, जो पंजाब की राजधानी भी है।",
             answerEnglish: "Mewat is the southernmost district of Haryana."
         },
         {
@@ -143,7 +143,7 @@ export default function HaryanaBasicInformationPage() {
         { labelHindi: "जिले", labelEn: "Districts", value: "23" },
         { labelHindi: "लोकसभा सीटें", labelEn: "Lok Sabha Seats", value: "10" },
         { labelHindi: "राज्यसभा सीटें", labelEn: "Rajya Sabha Seats", value: "5" },
-        { labelHindi: "विधानसभा सीटें", labelEn: "Vidhan Sabha Seats", value: "90+1" },
+        { labelHindi: "विधानसभा सीटें", labelEn: "Vidhan Sabha Seats", value: "90" },
         { labelHindi: "उच्च न्यायालय", labelEn: "High Court", value: "पंजाब एवं हरियाणा उच्च न्यायालय" }
     ];
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback, useMemo } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -39,7 +39,7 @@ export default function TestimonialsSection({ testimonials, totalRatings = testi
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
   useEffect(() => {
-    if (!isAutoPlaying) return
+    if (!isAutoPlaying || testimonials.length < 2) return
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length)
@@ -123,15 +123,11 @@ export default function TestimonialsSection({ testimonials, totalRatings = testi
                       <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                     </div>
                     <div className="ml-auto flex gap-1">
-                      {useMemo(
-                        () =>
-                          [...Array(testimonial.rating)].map((_, i) => (
-                            <svg key={i} className="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
-                              <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                            </svg>
-                          )),
-                        [testimonial.rating]
-                      )}
+                      {Array.from({ length: Math.max(0, Math.min(5, testimonial.rating)) }, (_, i) => (
+                        <svg key={i} className="w-5 h-5 fill-current text-yellow-500" viewBox="0 0 20 20" aria-hidden="true">
+                          <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                      ))}
                     </div>
                   </div>
                 </div>
