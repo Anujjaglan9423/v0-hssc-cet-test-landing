@@ -188,14 +188,14 @@ export default function RailwayExamsPage() {
     "RRB NTPC": {
       ageLimit: "UG: 18-30 years | Graduate: 18-33 years",
       qualification: "12th Pass (UG) or Bachelor's Degree (Graduate)",
-      negativeMarking: "0.25 per wrong answer",
+      negativeMarking: "1/3 of the marks allotted per wrong answer",
       totalQuestions: "100-120",
       duration: "90 minutes",
     },
     "RRB Group D": {
       ageLimit: "18-33 years",
       qualification: "10th Pass or ITI",
-      negativeMarking: "0.25 per wrong answer",
+      negativeMarking: "1/3 of the marks allotted per wrong answer",
       totalQuestions: "100",
       duration: "90 minutes",
       physicalStandard: "Male: 4.8 km/25 min, Female: 2.4 km/18 min",
@@ -203,14 +203,14 @@ export default function RailwayExamsPage() {
     "RRB ALP": {
       ageLimit: "18-30 years",
       qualification: "10th + ITI / Diploma / B.E / B.Tech",
-      negativeMarking: "0.25 per wrong answer",
+      negativeMarking: "1/3 of the marks allotted per wrong answer",
       totalQuestions: "75 (Stage 1) + 175 (Stage 2)",
       duration: "60 min (Stage 1) + 150 min (Stage 2)",
     },
     "RRB Technician": {
       ageLimit: "18-30 years",
       qualification: "10th + ITI / Diploma / B.E / B.Tech",
-      negativeMarking: "0.25 per wrong answer",
+      negativeMarking: "1/3 of the marks allotted per wrong answer",
       totalQuestions: "75 (Stage 1) + 100 (Stage 2)",
       duration: "60 min (Stage 1) + 90 min (Stage 2)",
     },
@@ -284,7 +284,7 @@ export default function RailwayExamsPage() {
                 name: "Is there negative marking in Railway exams?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Yes, RRB exams have negative marking. For NTPC, Group D, ALP, Technician: 0.25 marks deducted per wrong answer. For RRB JE: 0.33 marks deducted. Unanswered questions have no penalty.",
+                  text: "Yes, RRB exams have negative marking. For the relevant RRB NTPC, Group D, ALP and Technician CBT papers, one-third of the marks allotted to a question are deducted for an incorrect answer. Check the official notification for the specific recruitment and stage; unanswered questions carry no penalty.",
                 },
               },
               {

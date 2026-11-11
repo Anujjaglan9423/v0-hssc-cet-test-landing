@@ -44,9 +44,9 @@ export default function HeroSection({ stats, topStudents }: { stats: HeroStats; 
 
             {/* Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-balance">
-              Master Your{" "}
+              Practice for{" "}
               <span className="text-primary relative">
-                Competitive Exam
+                Government Exams
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                   <path
                     d="M2 10C50 4 150 4 198 10"

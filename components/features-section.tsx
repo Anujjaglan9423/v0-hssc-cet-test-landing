@@ -81,7 +81,7 @@ export default function FeaturesSection() {
             Everything You Need to Succeed
           </h2>
           <p className="text-lg text-muted-foreground">
-            Our platform is designed with one goal in mind - to help you crack HSSC CET on your first attempt.
+            Prepare for HSSC CET, UKSSSC, SSC and Railway exams using focused mock tests, topic-wise questions and detailed performance reviews.
           </p>
         </div>
 

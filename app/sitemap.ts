@@ -108,7 +108,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9,
     },
-
+ { url: `${baseUrl}/editorial-policy`, changeFrequency: 'monthly', priority: 0.5 },
     // ⚖️ Legal
     {
       url: `${baseUrl}/privacy-policy`,

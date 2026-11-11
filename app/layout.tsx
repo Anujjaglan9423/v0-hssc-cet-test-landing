@@ -51,12 +51,12 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "CET TEST | Practice tests and study resources for government exams",
+      "Free Mock Tests for HSSC, UKSSSC, SSC & RRB | CET TEST",
     template: "%s | CET TEST",
   },
 
   description:
-    "CET TEST provides practice tests, exam guidance, study materials, and performance review tools for Haryana CET, HSSC, SSC, Railway, and related competitive exams.",
+    "Practice free mock tests for HSSC CET, UKSSSC, SSC CGL, RRB NTPC and more. Prepare with exam-wise quizzes, study materials and detailed answer reviews.",
 
   keywords: [
     "Haryana CET preparation",
