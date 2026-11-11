@@ -1,6 +1,7 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   title: "HSSC, SSC, Railway & UKSSSC Study Material | CETTest",
   description:
     "Prepare for HSSC, SSC, Railway, and UKSSSC exams with updated syllabus, current affairs, Haryana GK, exam resources, and practical preparation guidance.",
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     "geo.placename": "India",
     "content-language": "en-IN",
   },
-}
+}, "/study-materials-hub")
 
 export default function StudyMaterialsHubLayout({ children }: { children: React.ReactNode }) {
   return children

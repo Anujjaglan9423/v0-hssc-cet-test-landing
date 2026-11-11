@@ -291,3 +291,12 @@
     opacity: 0;
   }
 }
+
+/* Keep Devanagari glyphs available across all bilingual pages. */
+body { font-family: var(--font-inter), var(--font-devanagari), system-ui, sans-serif; }
+:lang(hi) { font-family: var(--font-devanagari), var(--font-inter), sans-serif; }
+code, pre { font-family: var(--font-geist-mono), ui-monospace, monospace; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

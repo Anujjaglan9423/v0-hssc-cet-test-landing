@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -22,7 +23,7 @@ const PAGE_TITLE_HI =
 const PAGE_DESCRIPTION_HI =
   "क्या अमेरिका NATO छोड़ सकता है? नाटो के अनुच्छेद 5 और 13, सदस्य देशों, मुख्यालय, सामूहिक रक्षा और अमेरिकी वापसी की बहस को हिंदी-अंग्रेज़ी में समझें। प्रतियोगी परीक्षाओं के लिए नोट्स व MCQ।";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: PAGE_TITLE,
@@ -228,7 +229,7 @@ export const metadata: Metadata = {
 
     description: PAGE_DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/nato-withdrawal");
 
 // -----------------------------------------------------
 // STRUCTURED DATA

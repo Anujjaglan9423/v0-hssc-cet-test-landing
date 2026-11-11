@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -12,7 +13,7 @@ const TITLE =
 const DESCRIPTION =
   "Learn about Ganga Expressway 2026: 594-km Meerut–Prayagraj route, 12 districts, inauguration, cost and IAF airstrip. Free Hindi-English notes and MCQs for UKPSC, UKSSSC and UPPSC.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -225,7 +226,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/ganga-expressway");
 
 const structuredData = {
   "@context": "https://schema.org",

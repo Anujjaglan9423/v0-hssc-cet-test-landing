@@ -914,7 +914,7 @@ export default function HaryanaEducationHealthPage() {
                         </Link>
                     </div>
                     <div className="mt-12 pt-8 border-t flex justify-between items-center max-w-6xl mx-auto">
-                        <Link href="/haryana-gk/language-literature" className="text-muted-foreground hover:text-foreground flex items-center gap-1">
+                        <Link href="/haryana-gk/languages-literature" className="text-muted-foreground hover:text-foreground flex items-center gap-1">
                             <ArrowLeft className="w-4 h-4" />
                             {language === "hindi" ? "भाषा और साहित्य" : "Language and Literature"}
                         </Link>

@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -12,7 +13,7 @@ const TITLE =
 const DESCRIPTION =
   "Learn about the 52nd G7 Summit 2026 in Évian, France, its members, India’s participation, key discussions and G7 history. Free Hindi-English notes and MCQs for UKPSC, UKSSSC and UPSC.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -225,7 +226,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/g7-summit-2026");
 
 const structuredData = {
   "@context": "https://schema.org",

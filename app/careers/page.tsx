@@ -1,8 +1,16 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
+import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BookOpen, ArrowLeft, MapPin, Clock, Briefcase } from "lucide-react"
 import Footer from "@/components/footer"
+
+export const metadata: Metadata = withPageMetadata({
+  title: "Careers and Contributions",
+  description: "Contact CET TEST about contributing to exam content, development or student support. Confirm current opportunities with the team before applying.",
+  alternates: { canonical: "https://cettest.site/careers" },
+}, "/careers")
 
 const openings = [
   {
@@ -76,7 +84,7 @@ export default function CareersPage() {
       {/* Openings */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-foreground text-center mb-12">Current Openings</h2>
+          <h2 className="text-3xl font-bold text-foreground text-center mb-12">Areas of contribution</h2>
           <div className="space-y-6">
             {openings.map((job, index) => (
               <Card key={index} className="border-border bg-card hover:shadow-lg transition-shadow">
@@ -99,8 +107,8 @@ export default function CareersPage() {
                         </span>
                       </div>
                     </div>
-                    <a href="mailto:cettest.education@gmail.com?subject=Application for ${job.title}">
-                      <Button>Apply Now</Button>
+                    <a href={`mailto:cettest.education@gmail.com?subject=${encodeURIComponent(`Application for ${job.title}`)}`}>
+                      <Button>Enquire about this role</Button>
                     </a>
                   </div>
                 </CardHeader>

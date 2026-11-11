@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -15,7 +16,7 @@ const TITLE =
 const DESCRIPTION =
   "Learn about the 2026 Ebola outbreak, WHO PHEIC declaration, Bundibugyo virus, DRC, Uganda and transmission. Free Hindi-English notes and MCQs for UKPSC, UKSSSC and UPSC.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -212,7 +213,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/ebola-outbreak-2026");
 
 const structuredData = {
   "@context": "https://schema.org",

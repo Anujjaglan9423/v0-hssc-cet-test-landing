@@ -475,7 +475,7 @@ export default function HaryanaPoliceConstableSyllabusPage() {
                             <ul className="space-y-3">
                                 {[
                                     "Focus on Haryana GK - 20% weightage, crucial for scoring high",
-                                    "Practice Computer basics - Minimum 10% questions guaranteed",
+                                    "Practise computer fundamentals; confirm the weighting in the current recruitment notice",
                                     "Prepare Agriculture & Animal Husbandry for specialized section",
                                     "Don't leave any question unattempted (negative marking applies)",
                                     "Maintain physical fitness for PMT & PST requirements",

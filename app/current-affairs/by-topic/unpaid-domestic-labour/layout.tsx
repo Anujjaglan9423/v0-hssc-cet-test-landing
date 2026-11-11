@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
@@ -56,7 +57,7 @@ const KEYWORDS = [
   "यूपीएससी करेंट अफेयर्स",
 ]
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: TITLE,
@@ -107,7 +108,7 @@ export const metadata: Metadata = {
     "article:tag":
       "Unpaid Domestic Labour, Supreme Court, Women and Labour, Current Affairs 2026",
   },
-}
+}, "/current-affairs/by-topic/unpaid-domestic-labour")
 
 const organizationSchema = {
   "@context": "https://schema.org",

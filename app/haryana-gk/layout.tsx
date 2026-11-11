@@ -1,10 +1,11 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 // app/haryana-gk-study-material/layout.tsx
 import type { Metadata, Viewport } from "next";
 
 // ============================================
 // 1. SEO + AEO + GEO OPTIMIZED METADATA
 // ============================================
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
     // Primary Title with Power Words
     title: "Haryana GK 2026: Complete Syllabus | HSSC CET Group C 25 Marks",
 
@@ -97,7 +98,7 @@ export const metadata: Metadata = {
     // Additional SEO tags
     category: "Government Exam Preparation",
     classification: "HSSC CET Study Material | Haryana GK Syllabus 2026",
-};
+}, "/haryana-gk");
 
 export const viewport: Viewport = {
     width: "device-width",

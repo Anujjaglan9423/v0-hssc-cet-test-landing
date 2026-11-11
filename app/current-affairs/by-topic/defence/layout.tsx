@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -12,7 +13,7 @@ const TITLE =
 const DESCRIPTION =
   "Study Defence Current Affairs 2026: DRDO missiles, Indian Navy ships, military exercises, defence policies and technology. Free Hindi-English notes and MCQs for UKPSC, UKSSSC, UPSC, SSC, NDA and CDS.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -260,7 +261,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/defence");
 
 const structuredData = {
   "@context": "https://schema.org",

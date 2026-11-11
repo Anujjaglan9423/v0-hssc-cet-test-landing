@@ -107,7 +107,7 @@ export default function SyllabusLandingPage() {
             ],
             examPattern: {
                 totalQuestions: 100,
-                duration: "90 Minutes",
+                duration: "Varies by recruitment",
                 negativeMarking: "0.25 marks per wrong answer",
                 language: "Hindi & English"
             },
@@ -128,15 +128,15 @@ export default function SyllabusLandingPage() {
 
     // Statistics for HSSC
     const hsscStats = [
-        { label: "Vacancies (2026)", value: "3,112+", icon: <Users className="w-3.5 h-3.5" />, color: "text-orange-600" },
-        { label: "Exam Categories", value: "35+", icon: <BookOpen className="w-3.5 h-3.5" />, color: "text-red-600" },
+        { label: "Vacancies", value: "See notice", icon: <Users className="w-3.5 h-3.5" />, color: "text-orange-600" },
+        { label: "Exam Categories", value: "Post-specific", icon: <BookOpen className="w-3.5 h-3.5" />, color: "text-red-600" },
         { label: "CET Validity", value: "3 Years", icon: <Calendar className="w-3.5 h-3.5" />, color: "text-orange-600" }
     ]
 
     // Statistics for UKSSSC
     const ukssscStats = [
         { label: "State GK Weightage", value: "40%", icon: <Globe className="w-3.5 h-3.5" />, color: "text-green-600" },
-        { label: "Exam Duration", value: "90 Minutes", icon: <Clock className="w-3.5 h-3.5" />, color: "text-teal-600" },
+        { label: "Exam Duration", value: "Post-specific", icon: <Clock className="w-3.5 h-3.5" />, color: "text-teal-600" },
         { label: "Negative Marking", value: "0.25", icon: <Target className="w-3.5 h-3.5" />, color: "text-green-600" }
     ]
 
@@ -372,7 +372,7 @@ export default function SyllabusLandingPage() {
                             <div className="flex items-center gap-2">
                                 <Mountain className="w-5 h-5 text-white" />
                                 <h3 className="font-bold text-white">UKSSSC Exam Syllabus</h3>
-                                <span className="ml-auto text-xs bg-white/20 text-white px-2 py-1 rounded-full">100 Questions | 120 Minutes</span>
+                                <span className="ml-auto text-xs bg-white/20 text-white px-2 py-1 rounded-full">Post-specific pattern: verify the recruitment notice</span>
                             </div>
                         </div>
                         <div className="overflow-x-auto">
@@ -475,7 +475,7 @@ export default function SyllabusLandingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>Exam Duration:</strong> 90 minutes for the standard patterns shown here</span>
+                                    <span><strong>Exam Duration:</strong> Varies by recruitment; use the Police Constable or VDO notice</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -529,7 +529,7 @@ export default function SyllabusLandingPage() {
                                     <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-orange-600">3</span>
                                     </div>
-                                    <span><strong>Attempt Carefully:</strong> 0.25 marks are deducted for each incorrect answer; unattempted questions receive no deduction</span>
+                                    <span><strong>Attempt Carefully:</strong> Incorrect answers have no penalty in the cited CET pattern. For a skipped question, mark the fifth OMR option to avoid a one-mark deduction. Follow your recruitment notice.</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -569,7 +569,7 @@ export default function SyllabusLandingPage() {
                                     <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-green-600">4</span>
                                     </div>
-                                    <span><strong>Time Management:</strong> 90 minutes for 100 questions - allocate time by section</span>
+                                    <span><strong>Time Management:</strong> Use the question count and duration in your recruitment notice to set time checkpoints</span>
                                 </li>
                             </ul>
                         </div>
@@ -667,6 +667,15 @@ export default function SyllabusLandingPage() {
                 </div>
             </section>
 
+            <section className="mx-auto max-w-5xl px-4 pb-12" aria-labelledby="syllabus-sources">
+              <h2 id="syllabus-sources" className="text-xl font-bold">Official notices and how to use this guide</h2>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">A subject comparison is a study aid, not a universal exam pattern. Match the post, advertisement number and examination year before using a duration, marking rule or weightage.</p>
+              <ul className="mt-4 space-y-3 text-sm">
+                <li><a className="underline" href="https://hssc.gov.in/">HSSC CET Group C advertisement 01/2025 (official PDF)</a></li>
+                <li><a className="underline" href="https://hssc.gov.in/file/ac1f23cd-9d9c-1328-819e-da8c1fe70055/advertisements">HSSC CET Group D advertisement 05/2026 (official PDF)</a></li>
+                <li><a className="underline" href="https://sssc.uk.gov.in">UKSSSC official recruitment portal: locate the post-specific notice and subsequent corrections</a></li>
+              </ul>
+            </section>
             <FooterLinkFooter />
         </div>
     )

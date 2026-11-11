@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -26,7 +27,7 @@ const PAGE_DESCRIPTION_HI =
 // SEO METADATA
 // ------------------------------------------------------
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: PAGE_TITLE,
@@ -214,7 +215,7 @@ export const metadata: Metadata = {
 
     description: PAGE_DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/national-honour-amendment-2026");
 
 // ------------------------------------------------------
 // SCHEMA.ORG STRUCTURED DATA

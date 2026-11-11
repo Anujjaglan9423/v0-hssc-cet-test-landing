@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -92,7 +93,7 @@ const topics = [
   },
 ] as const;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: PAGE_TITLE,
@@ -268,7 +269,7 @@ export const metadata: Metadata = {
     title: "Sports Current Affairs 2026 | CET Test",
     description: PAGE_DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/sports");
 
 // --------------------------------------------------
 // STRUCTURED DATA

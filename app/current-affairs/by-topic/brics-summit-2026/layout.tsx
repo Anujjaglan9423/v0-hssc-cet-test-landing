@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -15,7 +16,7 @@ const TITLE =
 const DESCRIPTION =
   "Learn about the 18th BRICS Summit 2026 in New Delhi, its theme, member countries, key outcomes, New Delhi Declaration and India’s chairship. Free Hindi-English notes and MCQs.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -173,7 +174,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/brics-summit-2026");
 
 const structuredData = {
   "@context": "https://schema.org",

@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -26,7 +27,7 @@ const DESCRIPTION_HI =
 // SEO METADATA
 // -----------------------------------------------------
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: TITLE,
@@ -199,7 +200,7 @@ export const metadata: Metadata = {
 
     description: DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/kishau-dam");
 
 // -----------------------------------------------------
 // STRUCTURED DATA

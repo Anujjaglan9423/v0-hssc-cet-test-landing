@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 
@@ -17,7 +18,7 @@ const TITLE =
 const DESCRIPTION =
     "Read the Sustainable Development Report 2026: India's 94th rank, SDG Index score, top countries, UN-Mi rankings, global progress, Hindi-English notes and MCQs for UPSC, SSC, HSSC CET and state exams."
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
     metadataBase: new URL(SITE_URL),
 
     title: TITLE,
@@ -186,7 +187,7 @@ export const metadata: Metadata = {
     other: {
         "content-language": "en-IN, hi-IN",
     },
-}
+}, "/current-affairs/by-topic/sd-report-2026")
 
 // ============================================
 // STRUCTURED DATA

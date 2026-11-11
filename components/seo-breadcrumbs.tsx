@@ -45,7 +45,7 @@ export function AuthorBio() {
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Written and reviewed by</p>
       <h2 id="author-bio-title" className="mt-2 text-xl font-bold text-foreground">CET TEST Editorial Team</h2>
       <p className="mt-2 leading-relaxed text-muted-foreground">Our editorial team creates and reviews exam preparation content using official syllabi, published notices, and previous-year question trends. We update time-sensitive guidance and clearly distinguish independent study advice from official recruitment information.</p>
-      <Link href="/about" className="mt-4 inline-flex text-sm font-semibold text-primary hover:underline">Meet the team and read our editorial policy</Link>
+      <Link href="/editorial-policy" className="mt-4 inline-flex text-sm font-semibold text-primary hover:underline">Read our editorial policy and correction process</Link>
     </aside>
   )
 }

@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -15,7 +16,7 @@ const TITLE =
 const DESCRIPTION =
   "Understand the Constitution 131st Amendment Bill 2026, women's reservation, Lok Sabha seat expansion, delimitation and Article 368. Hindi-English notes and MCQs for UKPSC, UKSSSC and UPSC.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -222,7 +223,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/constitution-131st-amendment");
 
 const structuredData = {
   "@context": "https://schema.org",

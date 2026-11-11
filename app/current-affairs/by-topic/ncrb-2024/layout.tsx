@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -22,7 +23,7 @@ const PAGE_TITLE_HI =
 const PAGE_DESCRIPTION_HI =
   "NCRB की भारत में अपराध रिपोर्ट 2024 और आकस्मिक मृत्यु एवं आत्महत्या रिपोर्ट (ADSI) 2024 के प्रमुख आँकड़े पढ़ें। साइबर अपराध, महिला सुरक्षा, SC/ST अपराध और आत्महत्या संबंधी तथ्य हिंदी-अंग्रेज़ी में जानें।";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: PAGE_TITLE,
@@ -245,7 +246,7 @@ export const metadata: Metadata = {
 
     description: PAGE_DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/ncrb-2024");
 
 // -----------------------------------------------------
 // STRUCTURED DATA

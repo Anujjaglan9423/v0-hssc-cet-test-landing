@@ -1,10 +1,11 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 
 const SITE_URL = "https://cettest.site"
 
-const SLUG = "vb-g-ram-g"
+const SLUG = "vb-ram-g"
 
 const PAGE_URL = `${SITE_URL}/current-affairs/by-topic/${SLUG}`
 
@@ -58,7 +59,7 @@ const KEYWORDS = [
   "प्रतियोगी परीक्षा करेंट अफेयर्स",
 ]
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: TITLE,
@@ -109,7 +110,7 @@ export const metadata: Metadata = {
     "article:tag":
       "VB-G RAM G Act, MGNREGA, Rural Development, Employment Guarantee, Current Affairs",
   },
-}
+}, "/current-affairs/by-topic/vb-ram-g")
 
 const organizationSchema = {
   "@type": "EducationalOrganization",

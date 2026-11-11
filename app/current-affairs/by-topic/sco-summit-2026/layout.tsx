@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 
@@ -105,7 +106,7 @@ const PAGE_KEYWORDS = [
     "प्रतियोगी परीक्षा करंट अफेयर्स 2026",
 ]
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
     metadataBase: new URL(SITE_URL),
 
     title: PAGE_TITLE,
@@ -190,7 +191,7 @@ export const metadata: Metadata = {
     other: {
         "content-language": "en-IN, hi-IN",
     },
-}
+}, "/current-affairs/by-topic/sco-summit-2026")
 
 // ----------------------------------------------------
 // STRUCTURED DATA

@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -15,7 +16,7 @@ const TITLE =
 const DESCRIPTION =
   "Learn India's Coal/Lignite Gasification Scheme 2026, ₹37,500 crore outlay, 75 MT target, syngas and incentives. Free Hindi-English MCQs for UKPSC, UKSSSC and UPSC.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -198,7 +199,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/coal-gasification");
 
 const structuredData = {
   "@context": "https://schema.org",

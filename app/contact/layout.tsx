@@ -1,6 +1,7 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   title: { absolute: "Contact CET TEST | Haryana CET & HSSC Exam Help & Support" },
   description:
     "Get in touch with CET TEST for any queries about Haryana CET, HSSC CET, SSC, Railway or UKSSSC exam preparation. We respond within 24 hours. Contact us via email, phone or Instagram.",
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     url: "https://cettest.site/contact",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Contact CET TEST" }],
   },
-}
+}, "/contact")
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>

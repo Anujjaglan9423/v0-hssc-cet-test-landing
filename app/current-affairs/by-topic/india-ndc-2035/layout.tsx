@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
@@ -31,7 +32,7 @@ const UNFCCC_SOURCE =
 // NEXT.JS METADATA
 // ======================================================
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -306,7 +307,7 @@ export const metadata: Metadata = {
 
     "description:hi": PAGE_DESCRIPTION_HI,
   },
-};
+}, "/current-affairs/by-topic/india-ndc-2035");
 
 // ======================================================
 // STRUCTURED DATA

@@ -742,7 +742,7 @@ export default function UKSSSCPoliceSyllabusPage() {
                                         <div className="grid md:grid-cols-2 gap-3 pl-4">
                                             {[
                                                 "दर्पण एवं जल प्रतिबिंब (Mirror & Water Images)",
-                                                "कागज मोड़ना ���वं काटना (Paper Folding & Cutting)",
+                                                "कागज मोड़ना एवं काटना (Paper Folding & Cutting)",
                                                 "अंतर्निहित आकृतियाँ (Embedded Figures)",
                                                 "आकृतियों का पूर्णीकरण (Figure Completion)",
                                                 "आकृति श्रेणी (Figure Series)",
@@ -816,7 +816,7 @@ export default function UKSSSCPoliceSyllabusPage() {
                                                 "बट्टा/छूट (Discount - Successive Discount)",
                                                 "साधारण एवं चक्रवृद्धि ब्याज (Simple & Compound Interest)",
                                                 "औसत (Average - Weighted Average, Age Problems)",
-                                                "���मय एवं कार्य (Time & Work - Efficiency, Wages)",
+                                                "समय एवं कार्य (Time & Work - Efficiency, Wages)",
                                                 "नल एवं हौज (Pipe & Cistern - Inlet/Outlet)",
                                                 "समय, चाल एवं दूरी (Time, Speed & Distance - Average Speed)",
                                                 "रेलगाड़ी (Train - Platform, Relative Speed)",
@@ -842,7 +842,7 @@ export default function UKSSSCPoliceSyllabusPage() {
                                             {[
                                                 "बीजगणित (Algebra - Basic Algebraic Identities)",
                                                 "रेखीय एवं द्विघात समीकरण (Linear & Quadratic Equations)",
-                                                "ज���यामिति (Geometry - Lines, Angles, Triangles)",
+                                                "ज्यामिति (Geometry - Lines, Angles, Triangles)",
                                                 "त्रिभुज (Triangles - Pythagoras Theorem, Congruence)",
                                                 "वृत्त (Circle - Radius, Diameter, Chord, Arc)",
                                                 "चतुर्भुज (Quadrilaterals - Square, Rectangle, Rhombus)",

@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 
@@ -16,7 +17,7 @@ const PAGE_DESCRIPTION =
 
 const PAGE_IMAGE = `${SITE_URL}/og-image.png`
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: PAGE_TITLE,
@@ -201,7 +202,7 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     images: [PAGE_IMAGE],
   },
-}
+}, "/current-affairs/by-topic/relos")
 
 const organizationSchema = {
   "@type": "Organization",

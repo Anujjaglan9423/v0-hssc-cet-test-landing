@@ -82,15 +82,15 @@ function MCQBlock({ mcq }: { mcq: MCQ }) {
                         else if (opt.key === selected) extra = "bg-red-100 border-red-400 dark:bg-red-900/20 dark:border-red-700"
                     }
                     return (
-                        <div key={opt.key} onClick={() => selected === null && setSelected(opt.key)} className={`flex items-start gap-3 rounded-lg border p-3 text-sm cursor-pointer hover:bg-muted/50 ${extra}`}>
+                        <button type="button" aria-pressed={selected === opt.key} disabled={selected !== null} key={opt.key} onClick={() => selected === null && setSelected(opt.key)} className={`w-full text-left focus-visible:ring-2 focus-visible:ring-primary flex items-start gap-3 rounded-lg border p-3 text-sm cursor-pointer hover:bg-muted/50 ${extra}`}>
                             <span className="font-bold uppercase w-5 shrink-0 text-muted-foreground">{opt.key}.</span>
-                            <div><div>{opt.en}</div><div className="text-xs text-muted-foreground mt-0.5">{opt.hi}</div></div>
-                        </div>
+                            <span><span className="block">{opt.en}</span><span className="block text-xs text-muted-foreground mt-0.5">{opt.hi}</span></span>
+                        </button>
                     )
                 })}
             </div>
             {selected !== null && (
-                <div className={`p-3 rounded-lg border-l-4 ${isCorrect ? "bg-green-50 border-green-500" : "bg-red-50 border-red-400"}`}>
+                <div role="status" className={`p-3 rounded-lg border-l-4 ${isCorrect ? "bg-green-50 border-green-500" : "bg-red-50 border-red-400"}`}>
                     <div className="flex items-center gap-2 mb-1">{isCorrect ? <CheckCircle2 className="w-4 h-4 text-green-600" /> : <HelpCircle className="w-4 h-4 text-red-500" />}<span className="text-sm font-semibold">{isCorrect ? "Correct! / सही उत्तर!" : `Correct: ${mcq.correctKey.toUpperCase()}`}</span></div>
                     <p className="text-sm text-muted-foreground">{mcq.explanationEn}</p>
                     <p className="text-sm text-muted-foreground mt-1">{mcq.explanationHi}</p>

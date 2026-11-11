@@ -151,16 +151,16 @@ export default function HaryanaExamsPage() {
   const exams = [
     {
       name: "HSSC CET (Group C & D)",
-      description: "Complete preparation for Haryana Common Entrance Test with latest NTA pattern questions for all Group C and Group D posts.",
-      link: "/mock-test",
-      features: ["Full-Length Mock Tests", "NTA Pattern Based", "HSSC CET PYQs", "Haryana GK Focus"],
+      description: "Explore the Haryana CET guide, marking instructions and related practice resources.",
+      link: "/exams/hssc-cet",
+      features: ["Full-Length Mock Tests", "Exam Pattern Guide", "HSSC CET PYQs", "Haryana GK Focus"],
       badge: "Most Popular",
       color: "from-blue-500 to-cyan-500"
     },
     {
       name: "Haryana Police Constable",
       description: "Targeted mock tests for Haryana Police recruitment including Physical & Written exam focus with latest syllabus.",
-      link: "/mock-test",
+      link: "/haryana-police-constable-syllabus",
       features: ["Subject-wise Practice", "Haryana GK Special", "Timed Mock Tests", "Performance Review"],
       badge: "High Demand",
       color: "from-red-500 to-orange-500"
@@ -168,7 +168,7 @@ export default function HaryanaExamsPage() {
     {
       name: "HSSC Group D",
       description: "Dedicated test series for upcoming HSSC Group D vacancies with 2026 updated syllabus and exam pattern.",
-      link: "/mock-test",
+      link: "/haryana-cet-group-d-syllabus",
       features: ["Sectional Practice Tests", "Focus on Reasoning & Math", "Instant Scorecards", "Previous Year Papers"],
       badge: "New Updates",
       color: "from-green-500 to-emerald-500"
@@ -176,23 +176,23 @@ export default function HaryanaExamsPage() {
     {
       name: "Haryana Patwari",
       description: "Practice sets for Patwari examination with focus on land records, revenue laws, and Haryana specific GK.",
-      link: "/mock-test",
+      link: "/haryana-exam-syllabus",
       features: ["Mock Tests", "Revenue Law Focus", "Haryana Land Records", "Previous Year Analysis"],
-      badge: "Limited Seats",
+      badge: "Preparation Guide",
       color: "from-purple-500 to-pink-500"
     },
     {
       name: "Haryana VDO",
       description: "Village Development Officer exam preparation with rural development focus and Haryana scheme coverage.",
-      link: "/mock-test",
-      features: ["50+ Full Tests", "Rural Development Focus", "Haryana Welfare Schemes", "GK & Current Affairs"],
-      badge: "Coming Soon",
+      link: "/haryana-exam-syllabus",
+      features: ["Rural Development Topics", "Rural Development Focus", "Haryana Welfare Schemes", "GK & Current Affairs"],
+      badge: "Study Guide",
       color: "from-yellow-500 to-amber-500"
     },
     {
       name: "HSSC Clerk & Jr. Assistant",
       description: "Office management and clerical exam preparation with computer knowledge and typing test guidance.",
-      link: "/mock-test",
+      link: "/haryana-exam-syllabus",
       features: ["Practice Tests", "Computer Knowledge", "Typing Test Guide", "Previous Year Papers"],
       badge: "New",
       color: "from-indigo-500 to-blue-500"
@@ -203,16 +203,16 @@ export default function HaryanaExamsPage() {
   // HARYANA GK TOPICS (GEO-SPECIFIC)
   // ============================================
   const haryanaGKTopics = [
-    "Haryana History & Formation",
-    "Haryana Culture & Traditions",
-    "Haryana Geography & Rivers",
-    "Haryana Economy",
-    "Haryana Polity & Governance",
-    "Haryana Welfare Schemes",
-    "Haryana Current Affairs",
-    "Haryana Sports & Achievements",
-    "Haryanvi Language & Literature",
-    "Haryana Important Personalities",
+    { name: "Haryana History & Formation", href: "/haryana-gk/formation-of-haryana" },
+    { name: "Haryana Culture & Traditions", href: "/haryana-gk/cultural-heritage" },
+    { name: "Haryana Geography & Rivers", href: "/haryana-gk/geographical-structure" },
+    { name: "Haryana Economy", href: "/haryana-gk/industries" },
+    { name: "Haryana Polity & Governance", href: "/haryana-gk/administration" },
+    { name: "Haryana Welfare Schemes", href: "/haryana-gk/welfare-schemes" },
+    { name: "Haryana Current Affairs", href: "/current-affairs" },
+    { name: "Haryana Sports & Achievements", href: "/haryana-gk/sports-awards" },
+    { name: "Haryanvi Language & Literature", href: "/haryana-gk/languages-literature" },
+    { name: "Haryana Important Personalities", href: "/haryana-gk/famous-personalities" },
   ]
 
   // ============================================
@@ -450,7 +450,7 @@ export default function HaryanaExamsPage() {
                   </div>
                   <Link href={exam.link}>
                     <Button className="w-full cursor-pointer">
-                      {exam.link === "#" ? "Coming Soon" : "Start Free Mock Test →"}
+                      Read preparation guide →
                     </Button>
                   </Link>
                 </div>
@@ -474,9 +474,9 @@ export default function HaryanaExamsPage() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               {haryanaGKTopics.map((topic, idx) => (
-                <Link key={idx} href={`/mock-test`}>
-                  <Button variant="outline" className="w-full hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
-                    {topic}
+                <Link key={idx} href={topic.href}>
+                  <Button variant="outline" className="h-auto min-h-11 w-full whitespace-normal py-3 hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
+                    {topic.name}
                   </Button>
                 </Link>
               ))}

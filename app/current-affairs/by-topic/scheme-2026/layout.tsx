@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 
@@ -167,7 +168,7 @@ const schemeTopics = [
   },
 ] as const
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: PAGE_TITLE,
@@ -371,7 +372,7 @@ export const metadata: Metadata = {
     "subject":
       "Indian Government Schemes and Initiatives 2026",
   },
-}
+}, "/current-affairs/by-topic/scheme-2026")
 
 // ------------------------------------------------------------------
 // Structured data: SEO, AEO and machine-readable educational content

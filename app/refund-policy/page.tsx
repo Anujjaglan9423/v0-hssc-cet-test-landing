@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
+
+export const metadata: Metadata = {
+  title: "Refund Policy and Free Resources",
+  description: "CET TEST currently offers its listed preparation resources without subscription fees. Read the policy and contact support about unexpected charges.",
+  alternates: { canonical: "https://cettest.site/refund-policy" },
+}
 
 export default function RefundPolicyPage() {
   return (

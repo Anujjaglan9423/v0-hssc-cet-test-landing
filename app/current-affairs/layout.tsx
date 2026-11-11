@@ -1,7 +1,8 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 // app/current-affairs/layout.tsx
 import type { Metadata } from "next"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
     title: "Monthly Current Affairs 2026 | Complete Bilingual Digest for Competitive Exams",
     description: "Study monthly current affairs 2026 in English & Hindi. Complete coverage of national, international, economy, science & tech, environment news. Exam-oriented analysis for UPSC, SSC, Banking, HSSC, UKSSSC, and all state exams.",
     keywords: [
@@ -79,7 +80,7 @@ export const metadata: Metadata = {
     },
     category: "current-affairs",
     classification: "Competitive Exam Current Affairs Resource - Bilingual",
-}
+}, "/current-affairs")
 
 // Article pages provide their own canonical metadata and JSON-LD.
 // Keep this layout presentation-only so the Current Affairs hub's schema

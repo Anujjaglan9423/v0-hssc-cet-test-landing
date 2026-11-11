@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -22,7 +23,7 @@ const PAGE_TITLE_HI =
 const PAGE_DESCRIPTION_HI =
   "26 अगस्त 2026 की नेपाल फ्लैश फ्लड, लांगटांग लिरुंग हिमस्खलन, रॉक-आइस मलबा प्रवाह, GLOF और आपदा प्रबंधन के महत्वपूर्ण तथ्य हिंदी और अंग्रेज़ी में पढ़ें। UPSC, UKPSC, UKSSSC, HSSC CET के लिए MCQ।";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: PAGE_TITLE,
@@ -251,7 +252,7 @@ export const metadata: Metadata = {
 
     description: PAGE_DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/nepal-flash-flood-2026");
 
 // -----------------------------------------------------
 // STRUCTURED DATA

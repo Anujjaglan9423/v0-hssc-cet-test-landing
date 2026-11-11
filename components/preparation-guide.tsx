@@ -59,7 +59,7 @@ export function EditorialNote() {
       <div className="mx-auto max-w-4xl rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
         <h2 id="editorial-note-title" className="text-2xl font-bold text-foreground">Our content standard</h2>
         <p className="mt-4 leading-relaxed text-muted-foreground">CET TEST is an independent practice platform. We aim to explain questions clearly, keep exam guidance separate from official notifications, and review time-sensitive material before publishing updates. Always confirm dates, eligibility, and rules with the relevant recruiting authority.</p>
-        <Link href="/about" className="mt-5 inline-flex text-sm font-semibold text-primary hover:underline">Read about our editorial approach <ArrowRight aria-hidden="true" /></Link>
+        <Link href="/editorial-policy" className="mt-5 inline-flex text-sm font-semibold text-primary hover:underline">Read about our editorial approach <ArrowRight aria-hidden="true" /></Link>
       </div>
       <AuthorBio />
     </section>

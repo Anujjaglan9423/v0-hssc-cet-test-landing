@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 
@@ -16,7 +17,7 @@ const PAGE_TITLE =
 const PAGE_DESCRIPTION =
     "Learn about SEHAT Mission 2026, launched on 11 May by J. P. Nadda and Shivraj Singh Chouhan. Explore its full form, ICAR–ICMR partnership, nutrition and agriculture objectives, Hindi-English notes and MCQs."
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
     metadataBase: new URL(SITE_URL),
 
     title: PAGE_TITLE,
@@ -186,7 +187,7 @@ export const metadata: Metadata = {
     other: {
         "content-language": "en-IN, hi-IN",
     },
-}
+}, "/current-affairs/by-topic/seat-mission")
 
 // ============================================
 // STRUCTURED DATA

@@ -77,7 +77,7 @@ export default function CurrentAffairsPage() {
             majorTopics: ["16th Finance Commission", "QUAD Summit", "Offline Digital Rupee", "NISAR Satellite", "5 New Ramsar Sites"],
             importantDays: 8,
             keyHighlights: ["Lakshya Sen wins All England", "Anupama Kundoo gets Pritzker Prize", "ICC Women's ODI World Cup begins"],
-            pdfUrl: "/pdf/march-2026-ca.pdf", isAvailable: true, isCurrent: false,
+            pdfUrl: undefined, isAvailable: true, isCurrent: false,
             featuredTopics: ["National Affairs", "International Relations", "Economy & Banking", "Science & Tech", "Environment"]
         },
         {
@@ -85,7 +85,7 @@ export default function CurrentAffairsPage() {
             description: "February 2026 current affairs covering Union Budget 2026-27, Economic Survey, new space missions, and key appointments.",
             majorTopics: ["Union Budget 2026", "Economic Survey", "RBI Monetary Policy", "Defense Deals"],
             importantDays: 6, keyHighlights: ["Budget Highlights", "GDP Projections", "New CJI Appointment"],
-            pdfUrl: "/pdf/february-2026-ca.pdf", isAvailable: true, isCurrent: false,
+            pdfUrl: undefined, isAvailable: true, isCurrent: false,
             featuredTopics: ["Economy", "National Affairs", "Appointments"]
         },
         {
@@ -93,7 +93,7 @@ export default function CurrentAffairsPage() {
             description: "January 2026 current affairs including Republic Day parade highlights, new space missions, and international summits.",
             majorTopics: ["Republic Day 2026", "Startup India Initiatives", "Defense Exports", "Climate Summit"],
             importantDays: 5, keyHighlights: ["Tableau Winners", "New Space Missions", "Trade Agreements"],
-            pdfUrl: "/pdf/january-2026-ca.pdf", isAvailable: true, isCurrent: false,
+            pdfUrl: undefined, isAvailable: true, isCurrent: false,
             featuredTopics: ["National Affairs", "Science & Tech", "International Relations"]
         },
         {
@@ -152,21 +152,21 @@ export default function CurrentAffairsPage() {
             description: "December 2025 current affairs archive - year-end review and important events.",
             majorTopics: ["Year-End Review", "Space Missions 2025", "Key Appointments", "Important Summits"],
             importantDays: 7, keyHighlights: ["ISRO Milestones", "Economic Indicators", "Sports Achievements"],
-            pdfUrl: "/pdf/december-2025-ca.pdf", isAvailable: true, isCurrent: false
+            pdfUrl: undefined, isAvailable: true, isCurrent: false
         },
         {
             month: "November", year: 2025, shortName: "Nov",
             description: "November 2025 current affairs archive - G20 Summit and key developments.",
             majorTopics: ["G20 Summit", "Climate Initiatives", "Trade Agreements", "Space Research"],
             importantDays: 6, keyHighlights: ["International Summits", "Defense Updates", "Banking Reforms"],
-            pdfUrl: "/pdf/november-2025-ca.pdf", isAvailable: true, isCurrent: false
+            pdfUrl: undefined, isAvailable: true, isCurrent: false
         },
         {
             month: "October", year: 2025, shortName: "Oct",
             description: "October 2025 current affairs archive - festive season and major policy announcements.",
             majorTopics: ["Policy Reforms", "Agricultural Schemes", "Digital India Updates", "International Relations"],
             importantDays: 7, keyHighlights: ["Cabinet Approvals", "Economic Data", "Awards & Honors"],
-            pdfUrl: "/pdf/october-2025-ca.pdf", isAvailable: true, isCurrent: false
+            pdfUrl: undefined, isAvailable: true, isCurrent: false
         }
     ]
 
@@ -412,7 +412,7 @@ export default function CurrentAffairsPage() {
         { id: "unpaid-domestic-labour", titleEn: "Unpaid Domestic Labour", titleHi: "अवैतनिक घरेलू श्रम", category: "Women & Labour", shortDescEn: "SC ruling: monetise homemakers' work at ₹30,000/month minimum, revised 10% every 3 years. Contributes ~15-17% to GDP.", shortDescHi: "SC: ₹30,000/माह न्यूनतम, 3 वर्ष में 10% वृद्धि। GDP में ~15-17% योगदान।", tag: "Judiciary", color: "from-pink-600 to-pink-800", mcqCount: 2, icon: "generic" },
         { id: "g7-summit-2026", titleEn: "G7 Summit 2026 (Évian)", titleHi: "G7 शिखर सम्मेलन 2026", category: "International Relations", shortDescEn: "52nd G7 Summit in Évian, France. India–Canada announced Raisina Americas Forum. G7 2027 in US. Informal bloc — no secretariat.", shortDescHi: "52वां G7 एवियन में। रायसीना अमेरिकास फोरम। 2027 US में। अनौपचारिक — कोई सचिवालय नहीं।", tag: "Summit", color: "from-indigo-600 to-indigo-800", mcqCount: 2, icon: "generic" },
         { id: "relos", titleEn: "India–Russia RELOS", titleHi: "भारत–रूस RELOS", category: "Defense", shortDescEn: "Reciprocal logistics pact operationalised Jan 2026 (signed Feb 2025). NOT a military alliance; bars permanent bases. LEMOA was India's first.", shortDescHi: "जनवरी 2026 में लागू। सैन्य गठबंधन नहीं; स्थायी अड्डों पर प्रतिबंध। LEMOA पहला।", tag: "Defense", color: "from-red-600 to-red-800", mcqCount: 2, icon: "generic" },
-        { id: "kishau-dam", titleEn: "Kishau Multipurpose Dam", titleHi: "किशाउ बहुउद्देशीय बांध", category: "Infrastructure", shortDescEn: "On Tons River (Yamuna tributary). 660 MW hydropower. Six states reached historic consensus — 90% cost by Centre. HP-Uttarakhand border.", shortDescHi: "टोंस नदी ��र। 660 MW। छह राज्यों ने सहमति — 90% केंद्र। HP-उत्तराखंड सीमा।", tag: "Infrastructure", color: "from-sky-600 to-sky-800", mcqCount: 2, icon: "generic" },
+        { id: "kishau-dam", titleEn: "Kishau Multipurpose Dam", titleHi: "किशाउ बहुउद्देशीय बांध", category: "Infrastructure", shortDescEn: "On Tons River (Yamuna tributary). 660 MW hydropower. Six states reached historic consensus — 90% cost by Centre. HP-Uttarakhand border.", shortDescHi: "टोंस नदी पर। 660 MW। छह राज्यों ने सहमति — 90% केंद्र। HP-उत्तराखंड सीमा।", tag: "Infrastructure", color: "from-sky-600 to-sky-800", mcqCount: 2, icon: "generic" },
         { id: "project-ganga", titleEn: "Project GANGA (UP)", titleHi: "प्रोजेक्ट गंगा (UP)", category: "Digital India", shortDescEn: "UP broadband expansion — ~20 lakh households; 8,000-10,000 Digital Service Providers; 1 lakh+ jobs; ₹5 lakh interest-free loans under CM Yuva Scheme.", shortDescHi: "UP ब्रॉडबैंड विस्तार — ~20 लाख घर; 8-10 हजार DSP; 1 लाख+ नौकरी; ₹5 लाख ब्याज-मुक्त।", tag: "Digital", color: "from-blue-600 to-blue-800", mcqCount: 2, icon: "generic" },
         { id: "india-japan-summit", titleEn: "16th India–Japan Summit", titleHi: "16वां भारत-जापान शिखर सम्मेलन", category: "International Relations", shortDescEn: "UNICORN stealth antenna project — first India-Japan defense co-development. NGMP; 1,000 biogas plants; MAHASAGAR doctrine.", shortDescHi: "UNICORN स्टेल्थ एंटीना — पहला रक्षा सह-विकास। NGMP; 1,000 बायोगैस संयंत्र; MAHASAGAR।", tag: "Summit", color: "from-rose-600 to-rose-800", mcqCount: 2, icon: "generic" },
         { id: "sd-report-2026", titleEn: "UN SD Report 2026", titleHi: "UN सतत विकास रिपोर्ट 2026", category: "Sustainable Development", shortDescEn: "None of 17 SDGs on track globally. India 94th (highest ever); SDG 2 most critical. Barbados tops UN-Mi; US last.", shortDescHi: "17 में से कोई भी SDG ट्रैक पर नहीं। भारत 94वां (सर्वश्रेष्ठ); SDG 2 सबसे गंभीर। बारबाडोस प्रथम।", tag: "SDG", color: "from-emerald-600 to-emerald-800", mcqCount: 2, icon: "generic" },
@@ -474,7 +474,7 @@ export default function CurrentAffairsPage() {
     shortDescEn:
         "Glaw Lake in Arunachal Pradesh became India's 101st Ramsar Site. Covers the Ramsar Convention, India's 100th Ramsar Site (Surha Tal), Montreux Record, Tamil Nadu's Ramsar sites, and all 13 Ramsar sites in Uttar Pradesh. Includes bilingual notes and practice MCQs.",
     shortDescHi:
-        "अरुणाचल प्रदेश की ग्लॉ झील भारत का 101वाँ रामसर स्थल बनी। रामसर कन्वेंश��, 100वाँ रामसर स्थल (सुरहा ताल), मॉन्ट्रो रिकॉर्ड, तमिलनाडु के रामसर स्थल और उत्तर प्रदेश के सभी 13 रामसर स्थलों की जानकारी। हिंदी-अंग्रेजी नोट्स और अभ्यास प्रश्न।",
+        "अरुणाचल प्रदेश की ग्लॉ झील भारत का 101वाँ रामसर स्थल बनी। रामसर कन्वेंशन, 100वाँ रामसर स्थल (सुरहा ताल), मॉन्ट्रो रिकॉर्ड, तमिलनाडु के रामसर स्थल और उत्तर प्रदेश के सभी 13 रामसर स्थलों की जानकारी। हिंदी-अंग्रेजी नोट्स और अभ्यास प्रश्न।",
     tag: "Environment",
     color: "from-emerald-600 to-teal-800",
     mcqCount: 1,

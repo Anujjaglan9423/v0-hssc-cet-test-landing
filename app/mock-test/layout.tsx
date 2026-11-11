@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
@@ -11,7 +12,7 @@ const title =
 const description =
   "Practice free mock tests for Haryana HSSC CET, Group C, Group D, SSC CGL, CHSL, Railway RRB NTPC, Group D and Uttarakhand UKSSSC exams. Start your first online test without registration on CET TEST."
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   title,
   description,
 
@@ -104,7 +105,7 @@ export const metadata: Metadata = {
   },
 
   category: "education",
-}
+}, "/mock-test")
 
 const structuredData = {
   "@context": "https://schema.org",

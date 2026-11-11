@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -14,7 +15,7 @@ const TITLE =
 const DESCRIPTION =
   "Study Awards and Honours Current Affairs 2026 with national and international winners, award categories, Hindi-English GK notes, one-liners and free MCQs.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -154,7 +155,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/awards-honours-2026");
 
 const structuredData = {
   "@context": "https://schema.org",

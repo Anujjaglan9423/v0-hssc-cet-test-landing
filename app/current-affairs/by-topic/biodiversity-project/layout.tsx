@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -15,7 +16,7 @@ const TITLE =
 const DESCRIPTION =
   "Learn about the MoEFCC–NBA 5-year biodiversity project (2025–2030), GEF–UNDP funding, Tamil Nadu, Meghalaya, ABS and conservation goals. Free Hindi-English MCQs.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -167,7 +168,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-};
+}, "/current-affairs/by-topic/biodiversity-project");
 
 const structuredData = {
   "@context": "https://schema.org",

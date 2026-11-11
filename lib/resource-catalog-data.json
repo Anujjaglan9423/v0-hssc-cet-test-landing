@@ -1,0 +1,962 @@
+[
+  {
+    "path": "/blog/current-affairs-preparation-for-state-exams",
+    "title": "Current Affairs for Haryana CET and UKSSSC: A Practical Revision System",
+    "description": "Stop collecting endless news. Build a focused current-affairs routine with state, national, monthly and exam-oriented revision tables.",
+    "group": "Preparation guides"
+  },
+  {
+    "path": "/blog/exam-day-strategy-and-time-management",
+    "title": "Exam-Day Strategy and Time Management: A Calm Plan for Better Attempts",
+    "description": "Prepare your documents, section order, skip rules and time checkpoints so your exam performance reflects your preparation.",
+    "group": "Preparation guides"
+  },
+  {
+    "path": "/blog/government-exam-preparation-guide-for-aspirants",
+    "title": "Government Exam Preparation Guide: Build a System That Actually Works",
+    "description": "A complete, practical guide to choosing an exam, understanding the syllabus, building a daily routine, revising intelligently and improving through mock tests.",
+    "group": "Preparation guides"
+  },
+  {
+    "path": "/blog/haryana-cet-complete-preparation-guide",
+    "title": "Haryana CET Complete Preparation Guide: Syllabus, Strategy and Smart Practice",
+    "description": "Understand the Haryana CET preparation approach, Haryana GK priorities, common subjects, mock-test method and a practical week-by-week plan.",
+    "group": "Preparation guides"
+  },
+  {
+    "path": "/blog/haryana-cet-vs-uksssc-study-plan",
+    "title": "Haryana CET vs UKSSSC: How to Plan When You Are Preparing for State Exams",
+    "description": "Compare overlapping subjects, state-specific sections and study methods so you can prepare for Haryana CET and UKSSSC without duplicating effort.",
+    "group": "Preparation guides"
+  },
+  {
+    "path": "/blog/how-to-make-effective-study-notes",
+    "title": "How to Make Effective Notes for Competitive Exams: Short, Searchable and Revisable",
+    "description": "Build notes that help you recall Haryana GK, Uttarakhand GK, formulas and current affairs quickly instead of creating another textbook.",
+    "group": "Preparation guides"
+  },
+  {
+    "path": "/blog/how-to-read-exam-syllabus-and-notification",
+    "title": "How to Read Any Government Exam Syllabus and Notification Like a Topper",
+    "description": "Learn how to decode eligibility, selection stages, syllabus, marking rules and important dates before you begin serious exam preparation.",
+    "group": "Preparation guides"
+  },
+  {
+    "path": "/blog/mock-test-analysis-and-final-revision-plan",
+    "title": "Mock Tests and Final Revision: The Complete Score-Improvement Method",
+    "description": "Learn how to use mock tests, error logs, revision tables and exam-day practice to convert preparation into reliable marks.",
+    "group": "Preparation guides"
+  },
+  {
+    "path": "/blog/reasoning-and-quantitative-aptitude-strategy",
+    "title": "Reasoning and Quantitative Aptitude Strategy: From Basics to Speed",
+    "description": "A step-by-step plan for building accuracy in arithmetic and reasoning before adding shortcuts, timed sets and exam-level pressure.",
+    "group": "Preparation guides"
+  },
+  {
+    "path": "/blog/uksssc-exam-preparation-guide",
+    "title": "UKSSSC Exam Preparation Guide: Uttarakhand GK, Syllabus Planning and Revision",
+    "description": "A clear UKSSSC preparation framework covering Uttarakhand-specific knowledge, general subjects, practice strategy and the final-month routine.",
+    "group": "Preparation guides"
+  },
+  {
+    "path": "/blog",
+    "title": "Government Exam Preparation Blog | HSSC CET, SSC & More",
+    "description": "Read free government exam preparation guides, study plans and revision tips for Haryana HSSC CET, SSC, Railway and UKSSSC on CET TEST.",
+    "group": "Start here"
+  },
+  {
+    "path": "/current-affairs/by-topic/abraham-accords",
+    "title": "Abraham Accords Explained: Countries, Facts & MCQs",
+    "description": "What are the Abraham Accords? Learn the 2020 agreement, signatory countries, objectives, history and importance in Hindi and English, with MCQs for exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/adi-shankaracharya",
+    "title": "Adi Shankaracharya & Advaita Vedanta: Notes, MCQs",
+    "description": "Learn about Adi Shankaracharya, Advaita Vedanta philosophy, four Mathas, teachings, books and Statue of Oneness. Free Hindi-English notes and MCQs for exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/artemis-ii",
+    "title": "NASA Artemis II Mission 2026: Crew, Facts & MCQs",
+    "description": "Explore NASA Artemis II Mission 2026: launch, crew, SLS rocket, Orion spacecraft, lunar flyby, records and splashdown. Free Hindi-English notes and MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/awards-honours-2026",
+    "title": "Awards & Honours 2026: Winners List, GK & MCQs",
+    "description": "Study Awards and Honours Current Affairs 2026 with national and international winners, award categories, Hindi-English GK notes, one-liners and free MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/biodiversity-project",
+    "title": "MoEFCC–NBA Biodiversity Project 2025–2030: Notes & MCQs",
+    "description": "Learn about the MoEFCC–NBA 5-year biodiversity project (2025–2030), GEF–UNDP funding, Tamil Nadu, Meghalaya, ABS and conservation goals. Free Hindi-English MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/brics-summit-2026",
+    "title": "18th BRICS Summit 2026: India, Theme, Members & MCQs",
+    "description": "Learn about the 18th BRICS Summit 2026 in New Delhi, its theme, member countries, key outcomes, New Delhi Declaration and India’s chairship. Free Hindi-English notes and MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/capf-act-2026",
+    "title": "CAPF General Administration Act 2026: Notes & MCQs",
+    "description": "Learn the CAPF General Administration Act 2026, IPS deputation quotas, five forces and key provisions. Free Hindi-English notes and MCQs for UPSC, UKPSC, UKSSSC and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/coal-gasification",
+    "title": "Coal Gasification Scheme 2026: ₹37,500 Cr, MCQs",
+    "description": "Learn India's Coal/Lignite Gasification Scheme 2026, ₹37,500 crore outlay, 75 MT target, syngas and incentives. Free Hindi-English MCQs for UKPSC, UKSSSC and UPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/commonwealth-games-2026",
+    "title": "Commonwealth Games 2026: India Medals, Winners & MCQs",
+    "description": "Glasgow Commonwealth Games 2026: India's 39 medals, 13 golds, 4th rank, winners and medal table. Free Hindi-English GK and MCQs for UKPSC, UKSSSC, UPSC and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/constitution-131st-amendment",
+    "title": "131st Amendment Bill 2026: Women's Quota & MCQs",
+    "description": "Understand the Constitution 131st Amendment Bill 2026, women's reservation, Lok Sabha seat expansion, delimitation and Article 368. Hindi-English notes and MCQs for UKPSC, UKSSSC and UPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/defence",
+    "title": "Defence Current Affairs 2026: Notes, GK & MCQs",
+    "description": "Study Defence Current Affairs 2026: DRDO missiles, Indian Navy ships, military exercises, defence policies and technology. Free Hindi-English notes and MCQs for UKPSC, UKSSSC, UPSC, SSC, NDA and CDS.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/ebola-outbreak-2026",
+    "title": "Ebola Outbreak 2026: WHO PHEIC, Facts & MCQs",
+    "description": "Learn about the 2026 Ebola outbreak, WHO PHEIC declaration, Bundibugyo virus, DRC, Uganda and transmission. Free Hindi-English notes and MCQs for UKPSC, UKSSSC and UPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/fcra-amendment-2026",
+    "title": "FCRA Amendment Bill 2026: Key Provisions & MCQs",
+    "description": "Understand the FCRA Amendment Bill 2026, NGO asset rules, Designated Authority, penalties and investigation approval. Free Hindi-English notes and MCQs for UKPSC, UKSSSC, UPSC and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/g7-summit-2026",
+    "title": "G7 Summit 2026: France, Members, India & MCQs",
+    "description": "Learn about the 52nd G7 Summit 2026 in Évian, France, its members, India’s participation, key discussions and G7 history. Free Hindi-English notes and MCQs for UKPSC, UKSSSC and UPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/ganga-expressway",
+    "title": "Ganga Expressway 2026: Route, 594 KM, Facts & MCQs",
+    "description": "Learn about Ganga Expressway 2026: 594-km Meerut–Prayagraj route, 12 districts, inauguration, cost and IAF airstrip. Free Hindi-English notes and MCQs for UKPSC, UKSSSC and UPPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/important-days-themes-2026",
+    "title": "Important Days & Themes 2026 | Hindi & English",
+    "description": "Important Days and Themes 2026 from January to September in Hindi and English. Explore dates, significance, books and authors, and MCQs for UKPSC, UKSSSC, SSC and UPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/indexes-rankings-reports-2026",
+    "title": "Indexes, Rankings & Reports 2026 | India's Rank",
+    "description": "Explore indexes, rankings and reports 2026 in Hindi and English. Study India's ranks, report publishers, key findings and MCQs for UKPSC, UKSSSC, UPSC and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/india-japan-summit",
+    "title": "16th India-Japan Summit 2026 | Key Outcomes & MCQs",
+    "description": "16th India-Japan Annual Summit 2026 in New Delhi: dates, Modi-Takaichi meeting, UNICORN project, defence ties, FOIP, clean energy and MCQs in Hindi and English.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/india-ndc-2035",
+    "title": "India NDC 2035: 47%, 60% & Carbon Sink Targets",
+    "description": "India's updated NDC 2031–2035 explained: 47% emissions-intensity reduction, 60% non-fossil power capacity and 3.5–4.0 billion tonnes carbon sink. Hindi, English and MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/india-nz-fta",
+    "title": "India–New Zealand FTA 2026: Key Features & MCQs",
+    "description": "India–New Zealand FTA 2026 explained: signing date, 100% duty-free market access, India's tariff exclusions, $20 billion investment, Rules of Origin and MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/india-uae-agreements",
+    "title": "India–UAE Agreements 2026: Key Outcomes & MCQs",
+    "description": "India–UAE agreements 2026 explained: Modi's Abu Dhabi visit, 30-million-barrel strategic oil storage proposal, 8-exaflop AI project and Vadinar ship repair hub. Hindi and English MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/india-unsc-2028",
+    "title": "India UNSC 2028–29 Campaign & SHANTI Vision",
+    "description": "India's UNSC 2028–29 campaign explained: SHANTI vision, Jaishankar's announcement, Security Council membership, election rules, India's eight terms and MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/ircc-india",
+    "title": "India Leads IRCCs 2026 | Nagoya Protocol & MCQs",
+    "description": "India leads global IRCC issuance under the Nagoya Protocol. Learn about 3,561 certificates, ABS, National Biodiversity Authority, CBD and MCQs in Hindi and English.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/isp-index",
+    "title": "Index of Services Production (ISP) 2026 | MCQs",
+    "description": "Index of Services Production (ISP) 2026 explained: MoSPI's monthly trial index, 2024–25 base year, 19 services subsectors, 60% coverage and ISP vs IIP. Hindi-English MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/kishau-dam",
+    "title": "Kishau Multipurpose Dam 2026: River, States & MCQs",
+    "description": "Learn about Kishau Multipurpose Dam 2026 on the Tons River: location, six participating states, 660 MW capacity and 90% central funding. Read Hindi-English notes and MCQs for UKSSSC, UKPSC, UPSC, HSSC CET and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/national-honour-amendment-2026",
+    "title": "National Honour Amendment Bill 2026: Vande Mataram & MCQs",
+    "description": "Study the Prevention of Insults to National Honour (Amendment) Bill, 2026. Learn about Vande Mataram, Section 3 of the 1971 Act, penalties, key facts and bilingual MCQs for UKSSSC, UKPSC, UPSC, HSSC CET and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/national-international-current-affairs-2026",
+    "title": "Nano News 2026 | Current Affairs in Hindi & English",
+    "description": "Nano News 2026: bilingual current affairs covering government schemes, REC-PFC merger, Zojila Tunnel, nine core industries, international summits and MCQs for competitive exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/nato-withdrawal",
+    "title": "US Withdrawal from NATO 2026: Article 5, 13 & MCQs",
+    "description": "Could the US leave NATO? Study the 2026 withdrawal debate, NATO Article 5 and Article 13, 32 members, headquarters and key facts. Bilingual notes and MCQs for UKSSSC, UKPSC, UPSC, HSSC CET and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/ncrb-2024",
+    "title": "NCRB Report 2024: Crime in India, ADSI & MCQs",
+    "description": "Study NCRB Crime in India and ADSI Report 2024, released in 2026. Explore cybercrime, crimes against women, SC/ST cases and suicide statistics with bilingual notes and MCQs for UPSC, UKPSC, UKSSSC, HSSC CET and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/nepal-flash-flood-2026",
+    "title": "Nepal Flash Flood 2026: Causes, GLOF & MCQs",
+    "description": "Study the 26 August 2026 Nepal flash flood, Langtang Lirung rock-ice avalanche, causes, GLOF differences and disaster management. Get Hindi-English notes and MCQs for UPSC, UKPSC, UKSSSC, HSSC CET and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/nfhs-6",
+    "title": "NFHS-6 Report 2023–24: Key Findings & MCQs",
+    "description": "Explore NFHS-6 Report 2023–24, released in 2026. Study India's fertility rate, institutional deliveries, stunting, health insurance and women's internet use with Hindi-English notes and MCQs for UPSC, UKPSC, UKSSSC and HSSC CET.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/one-liner-current-affairs-2026",
+    "title": "One-Liner Current Affairs 2026 | 121 Q&A & MCQs",
+    "description": "Practice 121 one-liner current affairs questions and answers for 2026, covering GK, economy, awards, science, schemes and international news. Free MCQs for SSC, UKPSC, UKSSSC and UPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/padma-awards-2026",
+    "title": "Padma Awards 2026: Full List, Winners & MCQs",
+    "description": "Padma Awards 2026: Explore 131 awards, Padma Vibhushan, Bhushan and Shri winners, Uttar Pradesh awardees, Hindi-English notes and MCQs for UKPSC, UKSSSC, HSSC CET, SSC and UPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/persons-in-news-2026",
+    "title": "Persons in News 2026: Appointments, Obituaries & MCQs",
+    "description": "Study Persons in News 2026 in Hindi and English: important appointments, defence chiefs, world leaders, famous personalities, obituaries and MCQs for UKSSSC, UKPSC, HSSC CET, SSC and UPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/posh-act",
+    "title": "PoSH Act 2013: Key Provisions, ICC, SHe-Box & MCQs",
+    "description": "Learn PoSH Act 2013 in Hindi and English: workplace sexual harassment law, Internal Committee, complaint procedure, Vishaka Guidelines, SHe-Box and MCQs for UPSC, UKPSC, UKSSSC, SSC and HSSC CET.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/project-ganga",
+    "title": "Project GANGA 2026 UP: Launch, Benefits & MCQs",
+    "description": "Learn about UP Project GANGA 2026: full form, launch date, broadband connectivity, 20 lakh households, Digital Service Providers, jobs and MCQs in Hindi-English for UKPSC, UKSSSC, HSSC CET, SSC and UPPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/public-exams-amendment-2026",
+    "title": "Public Examinations Amendment Act 2026: Penalties & MCQs",
+    "description": "Study the Public Examinations Amendment Act 2026: paper leak penalties, 60-day investigations, fast-track courts, fines and Hindi-English MCQs for UPSC, SSC, UKPSC, UKSSSC, UPPSC and HSSC CET.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/ramsar-sites-2026",
+    "title": "India's 101st Ramsar Site 2026: Glaw Lake & MCQs",
+    "description": "Learn about Glaw Lake, India's 101st Ramsar Site in Arunachal Pradesh. Explore the Ramsar Convention, 100th site Surha Tal, Montreux Record, UP wetlands and bilingual MCQs for UKPSC, UKSSSC, SSC and UPSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/relos",
+    "title": "India-Russia RELOS Pact 2026: Full Form, Details & MCQs",
+    "description": "Understand the India-Russia RELOS Agreement: full form, signing date, logistics support, military cooperation, comparison with LEMOA and bilingual MCQs for UPSC, UKPSC, UKSSSC, SSC and HSSC CET.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/sarnath-unesco",
+    "title": "Sarnath: India's 45th UNESCO Site 2026 & MCQs",
+    "description": "Study Sarnath, India's 45th UNESCO World Heritage Site in 2026. Learn its history, Buddha's first sermon, Dhamek Stupa, Ashokan Lion Capital and bilingual MCQs for UPSC, UKPSC, UKSSSC, HSSC CET and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/scheme-2026",
+    "title": "Government Schemes 2026: 35 Important Schemes & MCQs",
+    "description": "Study 35 important government schemes and initiatives of 2026 in Hindi and English. Get ministry details, key facts and one-liner questions for UKSSSC, UKPSC, HSSC CET, UPSC, SSC and State PCS exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/science-technology",
+    "title": "Science & Technology Current Affairs 2026 | MCQs & Notes",
+    "description": "Study 18 Science and Technology current affairs topics for 2026 in Hindi and English. Explore space, AI, health, defence, environment and technology with MCQs for UKSSSC, UKPSC, HSSC CET, UPSC and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/sco-summit-2026",
+    "title": "26th SCO Summit 2026: Bishkek Declaration, Key Facts & MCQs",
+    "description": "Study the 26th SCO Summit 2026 held in Bishkek, Kyrgyzstan. Learn about the Bishkek Declaration, Pakistan's SCO chairmanship, India, SCO Plus, important facts, and bilingual MCQs for competitive exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/sd-report-2026",
+    "title": "Sustainable Development Report 2026: India Rank, SDG Index & MCQs",
+    "description": "Read the Sustainable Development Report 2026: India's 94th rank, SDG Index score, top countries, UN-Mi rankings, global progress, Hindi-English notes and MCQs for UPSC, SSC, HSSC CET and state exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/seat-mission",
+    "title": "SEHAT Mission 2026: Full Form, Launch, ICAR–ICMR & MCQs",
+    "description": "Learn about SEHAT Mission 2026, launched on 11 May by J. P. Nadda and Shivraj Singh Chouhan. Explore its full form, ICAR–ICMR partnership, nutrition and agriculture objectives, Hindi-English notes and MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/semiconductor-roadmap",
+    "title": "India Semiconductor Roadmap 2026: NITI Aayog, ISM 2.0 & MCQs",
+    "description": "Study NITI Aayog's 2026 semiconductor roadmap: the $120–150 billion target by 2035, India Semiconductor Mission 2.0, chip manufacturing, doping, and bilingual MCQs for UPSC, SSC and state exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/somnath-amrut-parv",
+    "title": "Somnath Amrut Mahotsav 2026: 75 Years, History & MCQs",
+    "description": "Learn about Somnath Amrut Mahotsav 2026, the temple's 75th anniversary, 1951 Pran Pratishtha, Dr. Rajendra Prasad, Maru-Gurjara architecture, history and bilingual MCQs for competitive exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/sports",
+    "title": "Sports Current Affairs 2026: Winners, Records & MCQs",
+    "description": "Study Sports Current Affairs 2026 in Hindi and English. Explore 18 topics covering ICC cricket, IPL, FIFA World Cup, Grand Slams, Khelo India and more, with winners, records, one-liners and MCQs for UKSSSC, UKPSC, HSSC CET, UPSC and SSC.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/srs-2024",
+    "title": "SRS Statistical Report 2024: India TFR, Birth Rate & MCQs",
+    "description": "Study SRS Statistical Report 2024, released in 2026. Explore India's fertility rate, birth rate, infant mortality, sex ratio, institutional deliveries and bilingual MCQs for competitive exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/super-el-nino",
+    "title": "Super El Niño 2026: ENSO Forecast, Indian Monsoon & MCQs",
+    "description": "Understand Super El Niño 2026, ENSO forecasts, Pacific Ocean warming, Walker circulation, trade winds, upwelling and possible Indian monsoon impacts. Includes Hindi-English notes and MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/tribunals-reforms-bill-2026",
+    "title": "Tribunals Reforms Bill 2026: NTC, Key Provisions & MCQs",
+    "description": "Study Tribunals Reforms Bill 2026, the National Tribunals Commission, judicial and technical members, appointments, tenure, Articles 323A–323B and bilingual polity MCQs for competitive exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/uae-exit-opec",
+    "title": "UAE Exits OPEC in 2026: Reasons, 11 Members & MCQs",
+    "description": "Learn why the UAE exited OPEC and OPEC+ on 1 May 2026, its effects on oil markets and India, OPEC's founding members, headquarters, current membership and bilingual current affairs MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/unpaid-domestic-labour",
+    "title": "Monetization of Unpaid Domestic Labour 2026 | Supreme Court Judgment, MCQs",
+    "description": "Study the Supreme Court's 2026 ruling on the economic value of unpaid domestic labour in motor accident compensation cases. Read bilingual Hindi-English notes, important facts, and practice MCQs for competitive exams.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/by-topic/vb-ram-g",
+    "title": "VB-G RAM G Act 2025: 125 Days Employment Guarantee, Features & MCQs",
+    "description": "Learn about VB-G RAM G Act 2025, effective 1 July 2026, replacing MGNREGA. Explore 125-day rural employment guarantee, funding pattern, key provisions, Hindi-English notes and free MCQs.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/december-2025",
+    "title": "December 2025 | Current Affairs Study Material",
+    "description": "December 2025 Current Affairs notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Monthly current affairs"
+  },
+  {
+    "path": "/current-affairs/february-2026",
+    "title": "February 2026 | Current Affairs Study Material",
+    "description": "February 2026 Current Affairs notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Monthly current affairs"
+  },
+  {
+    "path": "/current-affairs/january-2026",
+    "title": "January 2026 | Current Affairs Study Material",
+    "description": "January 2026 Current Affairs notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Monthly current affairs"
+  },
+  {
+    "path": "/current-affairs/march-2026",
+    "title": "March 2026 | Current Affairs Study Material",
+    "description": "March 2026 Current Affairs notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Monthly current affairs"
+  },
+  {
+    "path": "/current-affairs/november-2025",
+    "title": "November 2025 | Current Affairs Study Material",
+    "description": "November 2025 Current Affairs notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Monthly current affairs"
+  },
+  {
+    "path": "/current-affairs/october-2025",
+    "title": "October 2025 | Current Affairs Study Material",
+    "description": "October 2025 Current Affairs notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Monthly current affairs"
+  },
+  {
+    "path": "/current-affairs/september-2026/arrest-rights-article-22",
+    "title": "Arrest Safeguards and Article 22 – September 2026 Current Affairs",
+    "description": "The Supreme Court discussion highlighted the need to promptly communicate the grounds of arrest and the limits on re-arrest after unconstitutional detention. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/article-142-supreme-court",
+    "title": "Article 142: Power to Do Complete Justice – September 2026 Current Affairs",
+    "description": "Article 142 permits the Supreme Court to issue orders needed to secure complete justice in a pending case, while raising questions about limits and separation of powers. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/bamboo-economy",
+    "title": "Bamboo Economy and Rural Livelihoods – September 2026 Current Affairs",
+    "description": "Bamboo supports handicrafts, construction materials and livelihood diversification, especially across the Northeast. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/brics-reform-roadmap",
+    "title": "BRICS: India’s Proposed Reform Roadmap – September 2026 Current Affairs",
+    "description": "The digest discusses proposals to strengthen cooperation among emerging economies and make multilateral governance more representative. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/census-2027-privacy",
+    "title": "Census 2027: Enumeration and Data Protection – September 2026 Current Affairs",
+    "description": "The September digest examines privacy, data quality and participation concerns around an expanded digital population-enumeration questionnaire. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/ddu-gky-2",
+    "title": "DDU-GKY 2.0: Skill Training for Rural Youth – September 2026 Current Affairs",
+    "description": "DDU-GKY provides placement-linked skill training to young people from economically disadvantaged rural households. Its updated framework places stronger emphasis on job retention, employer connections and digital monitoring. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/dedicated-freight-corridors",
+    "title": "Dedicated Freight Corridors: Logistics Infrastructure – September 2026 Current Affairs",
+    "description": "Dedicated freight railway routes separate goods movement from passenger trains to improve capacity, reliability and logistical efficiency. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/deep-sea-mining",
+    "title": "Deep-Sea Mining: Resources and Conservation – September 2026 Current Affairs",
+    "description": "Seabed minerals could support clean-energy technologies, but exploration and extraction bring difficult ecological trade-offs. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/disability-support",
+    "title": "RPwD Act and Support After Age 18 – September 2026 Current Affairs",
+    "description": "The digest identifies support gaps affecting persons with disabilities after they turn 18, highlighting questions of transition, inclusion and access to services. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/e-shram-five-years",
+    "title": "e-Shram Portal: Five-Year Milestone – September 2026 Current Affairs",
+    "description": "The e-Shram portal functions as a national registration and welfare-linkage platform for workers in the unorganised sector. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/electric-mobility-index-2025",
+    "title": "India Electric Mobility Index 2025 – September 2026 Current Affairs",
+    "description": "NITI Aayog’s index compares states and Union Territories on EV adoption, charging readiness and research innovation. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/fintech-india-2026",
+    "title": "India’s FinTech Ecosystem and Digital Public Infrastructure – September 2026 Current Affairs",
+    "description": "Digital public infrastructure including UPI, Aadhaar and DBT has helped scale India’s financial technology services while increasing the need for safeguards. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/gorkhaland-issue",
+    "title": "Gorkhaland: Statehood and Regional Identity – September 2026 Current Affairs",
+    "description": "The Gorkhaland debate centres on political representation, culture and demands for greater autonomy in the Darjeeling hills and adjoining areas of West Bengal. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/hindi-diwas",
+    "title": "Hindi Diwas 2026 – September 2026 Current Affairs",
+    "description": "Hindi Diwas recognises the constitutional significance of Hindi as an official language and the wider history of India’s language policy. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/india-sri-lanka-defence",
+    "title": "India–Sri Lanka Defence Cooperation – September 2026 Current Affairs",
+    "description": "India and Sri Lanka’s defence engagement matters to maritime security and regional stability in the Indian Ocean. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/montreal-protocol-ozone",
+    "title": "Montreal Protocol and World Ozone Day – September 2026 Current Affairs",
+    "description": "Ozone-layer protection is an example of global environmental cooperation, focused on controlling substances that damage stratospheric ozone. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/namami-gange",
+    "title": "Namami Gange Programme – September 2026 Current Affairs",
+    "description": "The Namami Gange Programme addresses pollution, river health and restoration of the Ganga river system. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/national-space-day",
+    "title": "National Space Day 2026 – September 2026 Current Affairs",
+    "description": "National Space Day celebrates India’s scientific achievements and raises public awareness of space research. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/pm-kisan-maandhan",
+    "title": "PM-KMY: Pension for Small Farmers – September 2026 Current Affairs",
+    "description": "Pradhan Mantri Kisan Maandhan Yojana is a voluntary, contributory pension scheme for eligible small and marginal farmers. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/pm-matsya-sampada",
+    "title": "Six Years of PM Matsya Sampada Yojana – September 2026 Current Affairs",
+    "description": "PMMSY supports fisheries production, infrastructure, post-harvest facilities and sustainable coastal and inland livelihoods. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/pm-shri-schools",
+    "title": "PM SHRI Schools and NEP 2020 – September 2026 Current Affairs",
+    "description": "The PM SHRI scheme develops selected existing schools into model institutions demonstrating the goals of the National Education Policy 2020. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/pm-vishwakarma-three-years",
+    "title": "Three Years of PM Vishwakarma – September 2026 Current Affairs",
+    "description": "PM Vishwakarma supports traditional artisans through recognition, skill development, tools, credit and market access. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/prelims-important-days",
+    "title": "September Important Days: Quick Revision – September 2026 Current Affairs",
+    "description": "Date-based questions are useful for fast revision. These selected dates appear in the wider digest and can be revised together. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/rare-earth-magnets",
+    "title": "India’s Rare-Earth Permanent Magnet Scheme – September 2026 Current Affairs",
+    "description": "A manufacturing incentive scheme seeks to strengthen domestic production of permanent magnets needed in electric vehicles, renewable energy and electronics. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/rashtriya-poshan-maah",
+    "title": "9th Rashtriya Poshan Maah 2026 – September 2026 Current Affairs",
+    "description": "Rashtriya Poshan Maah seeks greater awareness of nutrition, maternal and child health, and community participation. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/sco-summit-2026",
+    "title": "26th Shanghai Cooperation Organisation Summit – September 2026 Current Affairs",
+    "description": "The SCO summit features in the digest’s review of regional diplomacy and cooperation across Eurasia. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/semicon-india-2026",
+    "title": "SEMICON India 2026 – September 2026 Current Affairs",
+    "description": "The semiconductor sector is central to India’s plans for stronger electronics supply chains, chip design and manufacturing capability. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/unep-limiting-overshoot",
+    "title": "UNEP and the Risk of Exceeding 1.5°C – September 2026 Current Affairs",
+    "description": "The UNEP discussion explores the environmental and policy implications of temporarily exceeding the 1.5°C global warming limit. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/uniform-civil-code",
+    "title": "Uniform Civil Code: Constitutional Debate – September 2026 Current Affairs",
+    "description": "A Uniform Civil Code would create common rules for matters such as marriage, inheritance and divorce. The debate weighs legal equality against religious and cultural diversity. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/vibrant-villages",
+    "title": "Vibrant Villages Programme – September 2026 Current Affairs",
+    "description": "The programme combines livelihoods, infrastructure and public services to address out-migration and strengthen communities in sensitive border areas. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/vivekananda-chicago",
+    "title": "Swami Vivekananda’s Chicago Address – September 2026 Current Affairs",
+    "description": "Swami Vivekananda’s 1893 address introduced audiences at the Parliament of Religions to Indian ideas of spiritual pluralism and religious understanding. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/women-farmers-recognition",
+    "title": "Recognising Women Farmers in India – September 2026 Current Affairs",
+    "description": "The digest examines how legal recognition and access to resources can improve women farmers’ economic security and participation in agriculture. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026/world-rhino-day",
+    "title": "World Rhino Day 2026 – September 2026 Current Affairs",
+    "description": "World Rhino Day draws attention to threats facing rhinoceros species and the need for habitat conservation and anti-poaching action. Read important facts, quick revision takeaway and exam practice question on CET TEST.",
+    "group": "Current affairs topics"
+  },
+  {
+    "path": "/current-affairs/september-2026",
+    "title": "September 2026 Current Affairs Notes, MCQs & Monthly Revision",
+    "description": "Revise September 2026 current affairs for HSSC CET, SSC, UKSSSC and state exams. Explore topic-wise study notes, important facts and practice MCQs.",
+    "group": "Monthly current affairs"
+  },
+  {
+    "path": "/current-affairs",
+    "title": "Monthly Current Affairs 2026 | Complete Bilingual Digest for Competitive Exams",
+    "description": "Study monthly current affairs 2026 in English & Hindi. Complete coverage of national, international, economy, science & tech, environment news. Exam-oriented analysis for UPSC, SSC, Banking, HSSC, UKSSSC, and all state exams.",
+    "group": "Start here"
+  },
+  {
+    "path": "/exams/haryana",
+    "title": "Haryana CET & HSSC Mock Tests 2026 | Group C, D & Police",
+    "description": "Free platform for Haryana government exam preparation. Attempt unlimited mock tests for HSSC CET (Group C & D), Haryana Police Constable, HSSC Group D, Patwari, VDO, and all Haryana state exams. Practice latest HSSC pattern, previous year papers (PYQs), Haryana GK, and section-wise tests with instant results, detailed solutions, and all-India rank. Start your 100% free HSSC exam preparation today!",
+    "group": "Exam guides"
+  },
+  {
+    "path": "/exams/hssc-cet",
+    "title": "HSSC CET Mock Test 2026 | Free Haryana CET Group C & D Practice Sets | NTA Pattern & PYQs",
+    "description": "Crack HSSC CET 2026 with Free mock test platform Attempt unlimited tests for Haryana CET Group C & D with NTA pattern, Haryana GK, previous year papers (PYQs), detailed solutions, and all-India rank. Start your 100% free preparation today!",
+    "group": "Exam guides"
+  },
+  {
+    "path": "/exams/railway-rrb-ntpc",
+    "title": "Indian Railway RRB Mock Tests 2026",
+    "description": "RRB NTPC, Group D, ALP & JE 2026: Free mock tests with latest exam pattern. practice questions, previous year solved papers, bilingual (Hindi/English), CBT Stage 1 & 2 practice. Railway Recruitment Board complete preparation for Station Master, Goods Guard, ALP, Technician, JE. Start free now!",
+    "group": "Exam guides"
+  },
+  {
+    "path": "/exams/railway",
+    "title": "Railway Exams Mock Tests 2026",
+    "description": "Railway Exams 2026: Free mock tests for RRB NTPC, Group D, ALP & Technician. practice questions, previous year solved papers, bilingual (Hindi/English), CBT Stage 1 & 2 simulation. Complete preparation for Station Master, Goods Guard, ALP, JE, and all Railway Recruitment Board exams. Start free now!",
+    "group": "Exam guides"
+  },
+  {
+    "path": "/exams/ssc-cgl",
+    "title": "SSC Exams 2026: Complete Guide, Syllabus & Free Mock Tests",
+    "description": "Explore detailed guides for all SSC exams including CGL, CHSL, MTS, GD, and CPO. Get the latest 2026 exam patterns, eligibility criteria, and free online practice tests. Start your preparation now!",
+    "group": "Exam guides"
+  },
+  {
+    "path": "/exams/ssc",
+    "title": "SSC Mock Test 2026 | Free SSC CGL, CHSL, MTS & GD Online Practice Tests",
+    "description": "Crack SSC CGL, CHSL, MTS, and GD exams with 2026's best free mock test series. Access previous year question papers, daily current affairs, and subject-wise practice sets. Start your Staff Selection Commission preparation for free!",
+    "group": "Exam guides"
+  },
+  {
+    "path": "/exams/uksssc",
+    "title": "UKSSSC & UKPSC Mock Tests 2026 | Uttarakhand Govt Exam Preparation Online | Free Practice",
+    "description": "Crack UKSSSC & UKPSC 2026 exams with Free mock test platform. Attempt unlimited mock tests for UK VDO/VPDO, Patwari, Lekhpal, Forest Guard, UK Police Constable, SI, Junior Assistant (Kanisth Sahayak), RO/ARO, and Group C. Practice latest Uttarakhand GK, previous year papers (PYQs), full-length test series with instant results, detailed solutions, and answer reviews. Start your 100% free preparation today!",
+    "group": "Exam guides"
+  },
+  {
+    "path": "/exams",
+    "title": "Government Exam Preparation Hub",
+    "description": "Browse practice tests and study resources for SSC, Railway, Haryana HSSC, and Uttarakhand UKSSSC exams.",
+    "group": "Start here"
+  },
+  {
+    "path": "/haryana-cet-group-c-syllabus",
+    "title": "HSSC CET Group C Syllabus 2026 | Complete Haryana CET Exam Pattern Topic-wise",
+    "description": "HSSC CET Group C Syllabus 2026 with topic-wise coverage: Haryana GK (25 marks), General Awareness, Reasoning, Quantitative Aptitude, Computer Knowledge, English and Hindi. Exam pattern: 100 questions, 105 minutes, no penalty for wrong answers; −1 for an unmarked skipped question. Free mock tests included.",
+    "group": "Syllabus guides"
+  },
+  {
+    "path": "/haryana-cet-group-d-syllabus",
+    "title": "Haryana CET Group D Syllabus 2026 | Complete HSSC Group D Syllabus PDF View",
+    "description": "View Haryana CET Group D syllabus 2026 PDF. Complete HSSC Group D syllabus with weightage: Haryana GK (25%), General Awareness (30%), Reasoning (10%), Maths (15%), English (10%), Hindi (10%). Free mock tests available.",
+    "group": "Syllabus guides"
+  },
+  {
+    "path": "/haryana-exam-syllabus",
+    "title": "Haryana Exam Syllabus",
+    "description": "Download complete Haryana CET exam syllabus 2025-26. Get HSSC Group C, Group D, TGT Punjabi, TGT Various Posts, TGT Sanskrit, TGT Hindi, TGT English, TGT Social Studies, TGT Science, TGT Maths, Scientific Assistant, Group 49 & 25+ Skill Test syllabi (Clerk, Stenographer, JE, Programmer, Accountant, Patwari, Lab Technician, Nurse, Pharmacist, Forest Guard, Fire Operator, Driver, Technician, Welder, Carpenter, Plumber, Security Guard, MTS & more). Free mock tests at cettest.site.",
+    "group": "Syllabus guides"
+  },
+  {
+    "path": "/haryana-gk/administration",
+    "title": "Administration | Haryana GK Study Material",
+    "description": "Administration Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/agriculture",
+    "title": "Agriculture | Haryana GK Study Material",
+    "description": "Agriculture Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/ancient-history",
+    "title": "Ancient History | Haryana GK Study Material",
+    "description": "Ancient History Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/archaeological-sites",
+    "title": "Archaeological Sites | Haryana GK Study Material",
+    "description": "Archaeological Sites Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/art-crafts",
+    "title": "Art Crafts | Haryana GK Study Material",
+    "description": "Art Crafts Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/climate",
+    "title": "Climate | Haryana GK Study Material",
+    "description": "Climate Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/cultural-heritage",
+    "title": "Cultural Heritage | Haryana GK Study Material",
+    "description": "Cultural Heritage Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/demographics",
+    "title": "Demographics | Haryana GK Study Material",
+    "description": "Demographics Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/district-profile",
+    "title": "District Profile | Haryana GK Study Material",
+    "description": "District Profile Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/drainage-system",
+    "title": "Drainage System | Haryana GK Study Material",
+    "description": "Drainage System Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/education-health",
+    "title": "Education Health | Haryana GK Study Material",
+    "description": "Education Health Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/fairs-festivals",
+    "title": "Fairs Festivals | Haryana GK Study Material",
+    "description": "Fairs Festivals Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/famous-personalities",
+    "title": "Famous Personalities | Haryana GK Study Material",
+    "description": "Famous Personalities Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/forest-resources",
+    "title": "Forest Resources | Haryana GK Study Material",
+    "description": "Forest Resources Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/formation-of-haryana",
+    "title": "Formation Of Haryana | Haryana GK Study Material",
+    "description": "Formation Of Haryana Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/geographical-structure",
+    "title": "Geographical Structure | Haryana GK Study Material",
+    "description": "Geographical Structure Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/haryana-basic-info",
+    "title": "Haryana Basic Info | Haryana GK Study Material",
+    "description": "Haryana Basic Info Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/industries",
+    "title": "Industries | Haryana GK Study Material",
+    "description": "Industries Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/irrigation",
+    "title": "Irrigation | Haryana GK Study Material",
+    "description": "Irrigation Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/judiciary",
+    "title": "Judiciary | Haryana GK Study Material",
+    "description": "Judiciary Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/languages-literature",
+    "title": "Languages Literature | Haryana GK Study Material",
+    "description": "Languages Literature Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/medieval-history",
+    "title": "Medieval History | Haryana GK Study Material",
+    "description": "Medieval History Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/minerals-energy",
+    "title": "Minerals Energy | Haryana GK Study Material",
+    "description": "Minerals Energy Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/modern-history",
+    "title": "Modern History | Haryana GK Study Material",
+    "description": "Modern History Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/music-dance",
+    "title": "Music Dance | Haryana GK Study Material",
+    "description": "Music Dance Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/national-parks",
+    "title": "National Parks | Haryana GK Study Material",
+    "description": "National Parks Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/panchayati-raj",
+    "title": "Panchayati Raj | Haryana GK Study Material",
+    "description": "Panchayati Raj Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/soil-resources",
+    "title": "Soil Resources | Haryana GK Study Material",
+    "description": "Soil Resources Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/sports-awards",
+    "title": "Sports Awards | Haryana GK Study Material",
+    "description": "Sports Awards Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/tourism",
+    "title": "Tourism | Haryana GK Study Material",
+    "description": "Tourism Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/transport",
+    "title": "Transport | Haryana GK Study Material",
+    "description": "Transport Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk/welfare-schemes",
+    "title": "Welfare Schemes | Haryana GK Study Material",
+    "description": "Welfare Schemes Haryana GK notes, important facts and practice questions for government exam preparation on CET TEST.",
+    "group": "Haryana GK chapters"
+  },
+  {
+    "path": "/haryana-gk",
+    "title": "Haryana GK 2026: Complete Syllabus | HSSC CET Group C 25 Marks",
+    "description": "Complete Haryana GK syllabus for HSSC CET Group C: Haryana history, geography, polity, economy, animal husbandry, Panchayati Raj, sports and current affairs.",
+    "group": "Start here"
+  },
+  {
+    "path": "/haryana-police-constable-syllabus",
+    "title": "Haryana Police Constable Syllabus 2026 | Complete Selection Process & Exam Pattern",
+    "description": "View the Haryana Police Constable syllabus 2026. Complete selection process including PMT, PST, Knowledge Test (97% weightage), NCC bonus marks, physical standards, and exam pattern. Free mock tests available at cettest.site.",
+    "group": "Syllabus guides"
+  },
+  {
+    "path": "/haryana-previous-year-papers",
+    "title": "HSSC Previous Papers: Find Official Question Papers & Review Answers",
+    "description": "Find and verify HSSC previous-year papers, match shifts with answer keys and use an error log to turn a past paper into a focused revision plan.",
+    "group": "Study resources"
+  },
+  {
+    "path": "/study-materials-hub/asian-games-2026",
+    "title": "Asian Games 2026: India Medal Table, Revision Notes & Questions",
+    "description": "Source-linked Asian Games 2026 revision: India's 85 medals, complete sport breakdown, worked comparisons and explained practice questions.",
+    "group": "Study resources"
+  },
+  {
+    "path": "/study-materials-hub",
+    "title": "Free Study Material for HSSC CET, SSC, Railway & UKSSSC",
+    "description": "Explore government exam study resources for Haryana HSSC CET, SSC, Railway RRB and Uttarakhand UKSSSC. Find syllabus guides, current affairs, Haryana GK and practice tests.",
+    "group": "Start here"
+  },
+  {
+    "path": "/syllabus",
+    "title": "State Exam Syllabus 2026 | HSSC & UKSSSC Complete Syllabus Guide",
+    "description": "Complete syllabus guide for Haryana HSSC and Uttarakhand UKSSSC state exams. Get detailed exam patterns, subject-wise weightage, preparation tips, and free mock tests for CET, Police Constable, VDO and more.",
+    "group": "Syllabus guides"
+  },
+  {
+    "path": "/uksssc-exam-syllabus",
+    "title": "Uttarakhand Exam Syllabus",
+    "description": "UKSSSC Exam Syllabus 2026: डाउनलोड करें Police Constable (5 subjects: Computer, GK, Hindi, Reasoning, Maths) और VDO (4 subjects: GK, Hindi, Reasoning, Maths) का complete syllabus PDF. Uttarakhand GK, exam pattern, negative marking (0.25), physical standards, selection process & free mock tests. Official UKSSSC syllabus for all Group C posts.",
+    "group": "Syllabus guides"
+  },
+  {
+    "path": "/uksssc-police-constable-syllabus",
+    "title": "UKSSSC Police Constable Complete Syllabus",
+    "description": "UKSSSC Police Constable & Forest Guard Syllabus 2026: डाउनलोड करें complete syllabus PDF. Same syllabus for both posts: Computer Knowledge (5 Units: Basic Concepts, OS, MS Office, Internet, Cyber Security), Uttarakhand GK, General Hindi, Reasoning, Numerical Ability. Exam pattern: 100 questions, 90 minutes, negative marking 0.25. Physical standards (168cm/81cm Male, 147cm Female). Free mock tests at CET TEST.",
+    "group": "Syllabus guides"
+  },
+  {
+    "path": "/uksssc-vdo-syllabus",
+    "title": "UKSSSC VDO Syllabus 2026 | Gram Vikas Adhikari Exam Pattern | Uttarakhand VDO Selection Process",
+    "description": "UKSSSC VDO Syllabus 2026: डाउनलोड करें Gram Vikas Adhikari complete syllabus PDF. 4 subjects: Uttarakhand GK (30-35 Qs), General Hindi (20-25 Qs), Reasoning (15-20 Qs), Numerical Ability (15-20 Qs). Exam pattern, negative marking (0.25), 100 questions, 90 minutes, selection process, eligibility, salary ₹35,000-45,000, and free mock tests. Computer Knowledge NOT included.",
+    "group": "Syllabus guides"
+  },
+  {
+    "path": "/mock-test",
+    "title": "Free government exam mock tests",
+    "description": "Browse available exam categories and try the first test in each exam section without signing up. Additional tests require a free account.",
+    "group": "Start here"
+  },
+  {
+    "path": "/exam-alerts",
+    "title": "Government exam alerts and official-source links",
+    "description": "Browse published recruitment notices, results and admit-card updates. Verify dates and eligibility with the linked recruiting authority.",
+    "group": "Start here"
+  }
+]

@@ -122,7 +122,7 @@ export function AvatarImage({
 }: OptimizedImageProps & { size?: number }) {
   return (
     <OptimizedImage
-      src={src || '/default-avatar.png'}
+      src={src || '/placeholder-user.jpg'}
       alt={alt}
       width={size}
       height={size}

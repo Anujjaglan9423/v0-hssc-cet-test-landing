@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next"
 import Image from "next/image"
 import { Avatar } from "@/components/ui/avatar"
@@ -7,7 +8,7 @@ import FooterLinkFooter from "@/components/footer-link-footer"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   title: { absolute: "About CET TEST | Independent exam practice and study resources" },
   description:
     "Learn how CET TEST creates practice tests and study resources for Haryana CET, HSSC, SSC, Railway, and related competitive exams.",
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     url: "https://cettest.site/about",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "About CET TEST exam preparation resources" }],
   },
-}
+}, "/about")
 
 const team = [
   {
@@ -306,6 +307,11 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-5xl px-4 pb-14" id="editorial-approach">
+        <h2 className="text-2xl font-bold">Editorial approach and corrections</h2>
+        <p className="mt-4 leading-7 text-muted-foreground">Our study guides are independent summaries. Official notices take precedence for exam rules, and dated primary sources should support changing facts. Report errors with the page URL and supporting evidence.</p>
+        <Link href="/editorial-policy" className="mt-4 inline-block font-semibold text-primary underline">Read the publishing standard and correction process</Link>
+      </section>
       <FooterLinkFooter />
     </div>
   )

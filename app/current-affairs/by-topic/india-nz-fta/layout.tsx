@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
@@ -31,7 +32,7 @@ const COMMERCE_SOURCE =
 // SEO METADATA
 // ======================================================
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -317,7 +318,7 @@ export const metadata: Metadata = {
 
     "description:hi": DESCRIPTION_HI,
   },
-};
+}, "/current-affairs/by-topic/india-nz-fta");
 
 // ======================================================
 // SCHEMA.ORG STRUCTURED DATA

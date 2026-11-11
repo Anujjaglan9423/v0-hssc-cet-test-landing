@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 
@@ -106,7 +107,7 @@ const keywords = [
   "Padma Awards 2026 exam preparation",
 ]
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: PAGE_TITLE,
@@ -174,7 +175,7 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     images: [PAGE_IMAGE],
   },
-}
+}, "/current-affairs/by-topic/padma-awards-2026")
 
 const organizationSchema = {
   "@type": "Organization",

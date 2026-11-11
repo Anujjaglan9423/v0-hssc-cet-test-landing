@@ -11,8 +11,8 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Exams", href: "#exams" },
-    { name: "Daily Quiz", href: "#daily-quiz" },
+    { name: "Exams", href: "/#exams" },
+    { name: "Daily Quiz", href: "/#daily-quiz" },
     { name: "Mock Test", href: "/mock-test" },
     // { name: "Test Series", href: "#test-series" },
     { name: "Haryana GK", href: "/haryana-gk" },
@@ -40,7 +40,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -53,7 +53,7 @@ export default function Navbar() {
           </div>
 
           {/* Auth Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <Link href="/login">
               <Button variant="ghost" className="text-sm cursor-pointer">
                 Log in
@@ -66,7 +66,11 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+            type="button"
+            aria-label={isOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={isOpen}
+            aria-controls="home-mobile-navigation"
+            className="lg:hidden p-3 rounded-lg hover:bg-muted transition-colors"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -76,7 +80,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-background border-b border-border animate-in slide-in-from-top-2">
+        <div id="home-mobile-navigation" className="lg:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto bg-background border-b border-border animate-in slide-in-from-top-2">
           <div className="px-4 py-4 space-y-3">
             {navLinks.map((link) => (
               <Link

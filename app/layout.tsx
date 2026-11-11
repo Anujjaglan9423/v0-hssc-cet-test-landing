@@ -1,43 +1,47 @@
-import type React from "react"
-import type { Metadata, Viewport } from "next"
-import { Geist_Mono, Inter, Noto_Sans_Devanagari } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import { PWAInstallPrompt } from "@/components/pwa-install-prompt"
-import Script from "next/script"
-import { GoogleAnalytics } from "@/components/google-analytics"
-import { WhatsAppFloat } from "@/components/whatsapp-float"
-import { InstagramFloat } from "@/components/instagram-float"
-import "./globals.css"
+import type React from "react";
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
+import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
+import Script from "next/script";
+import { GoogleAnalytics } from "@/components/google-analytics";
+import { WhatsAppFloat } from "@/components/whatsapp-float";
+import { InstagramFloat } from "@/components/instagram-float";
+import "./globals.css";
 
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
+// Vendored, OFL-licensed fonts keep production builds independent of Google Fonts.
+const geistMono = localFont({
+  src: "../public/fonts/geist-mono-latin.woff2",
   display: "swap",
   variable: "--font-geist-mono",
-})
-
-const inter = Inter({
-  subsets: ["latin"],
-  preload: true,
+  weight: "100 900",
+  preload: false,
+});
+const inter = localFont({
+  src: "../public/fonts/inter-latin.woff2",
+  display: "swap",
   variable: "--font-inter",
-})
-
-const devanagari = Noto_Sans_Devanagari({
-  subsets: ["devanagari"],
+  weight: "100 900",
+});
+const devanagari = localFont({
+  src: "../public/fonts/noto-sans-devanagari.woff2",
   display: "swap",
   variable: "--font-devanagari",
-})
+  weight: "100 900",
+  preload: false,
+});
 
 // ============================================
 // SITE CONFIGURATION
 // ============================================
-const SITE_URL = "https://cettest.site"
-const SITE_NAME = "CET TEST"
-const INSTAGRAM_HANDLE = "cet__test"
-const INSTAGRAM_URL = `https://instagram.com/${INSTAGRAM_HANDLE}`
-const SUPPORT_EMAIL = "cettest.education@gmail.com"
-const SUPPORT_PHONE = "+917291849546"
-const SUPPORT_PHONE_DISPLAY = "7291849546"
-const GA_MEASUREMENT_ID = "G-W5ZGFTDCTP"
+const SITE_URL = "https://cettest.site";
+const SITE_NAME = "CET TEST";
+const INSTAGRAM_HANDLE = "cet__test";
+const INSTAGRAM_URL = `https://instagram.com/${INSTAGRAM_HANDLE}`;
+const SUPPORT_EMAIL = "cettest.education@gmail.com";
+const SUPPORT_PHONE = "+917291849546";
+const SUPPORT_PHONE_DISPLAY = "7291849546";
+const GA_MEASUREMENT_ID = "G-W5ZGFTDCTP";
 
 // ============================================
 // SEO, AEO & GEO OPTIMIZED METADATA
@@ -46,7 +50,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: "CET TEST | Practice tests and study resources for government exams",
+    default:
+      "CET TEST | Practice tests and study resources for government exams",
     template: "%s | CET TEST",
   },
 
@@ -69,14 +74,15 @@ export const metadata: Metadata = {
   generator: "CET TEST Platform",
   manifest: "/manifest.json",
 
-
   openGraph: {
     type: "website",
     locale: "en_IN",
     alternateLocale: ["hi_IN"],
     url: SITE_URL,
-    title: "CET TEST - Free Mock Tests for Haryana CET, HSSC, SSC, Railway, UKSSSC & All Govt Exams 2026",
-    description: "Free mock tests and study resources for Haryana CET, HSSC, SSC, Railway, UKSSSC and related government exams, with instant results and performance analytics.",
+    title:
+      "CET TEST - Free Mock Tests for Haryana CET, HSSC, SSC, Railway, UKSSSC & All Govt Exams 2026",
+    description:
+      "Free mock tests and study resources for Haryana CET, HSSC, SSC, Railway, UKSSSC and related government exams, with instant results and performance analytics.",
     siteName: SITE_NAME,
     images: [
       {
@@ -93,21 +99,11 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "CET TEST - Free Mock Tests for All Government Exams 2026 | SSC, Railway, Banking, Haryana CET",
-    description: "Explore government exam practice tests and study resources. Review test answers and track your progress on CET TEST.",
+    title:
+      "CET TEST - Free Mock Tests for All Government Exams 2026 | SSC, Railway, Banking, Haryana CET",
+    description:
+      "Explore government exam practice tests and study resources. Review test answers and track your progress on CET TEST.",
     images: ["/og-image.png"],
-  },
-
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
 
   verification: {
@@ -124,12 +120,8 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: [
-      { url: "/seasonal-icon", type: "image/png" },
-    ],
-    apple: [
-      { url: "/seasonal-icon", sizes: "180x180", type: "image/png" },
-    ],
+    icon: [{ url: "/seasonal-icon", type: "image/png" }],
+    apple: [{ url: "/seasonal-icon", sizes: "180x180", type: "image/png" }],
   },
 
   formatDetection: {
@@ -137,16 +129,16 @@ export const metadata: Metadata = {
     address: true,
     telephone: true,
   },
-}
+};
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 2,
+  maximumScale: 5,
   userScalable: true,
   themeColor: "#0f172a",
   viewportFit: "cover",
-}
+};
 
 // ============================================
 // ROOT LAYOUT COMPONENT
@@ -154,9 +146,8 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
-
   // ============================================
   // COMPREHENSIVE STRUCTURED DATA FOR ALL EXAMS
   // ============================================
@@ -171,7 +162,8 @@ export default function RootLayout({
         name: SITE_NAME,
         url: SITE_URL,
         logo: `${SITE_URL}/seasonal-icon`,
-        description: "Free practice tests and study material for government exam preparation.",
+        description:
+          "Free practice tests and study material for government exam preparation.",
         contactPoint: {
           "@type": "ContactPoint",
           telephone: SUPPORT_PHONE,
@@ -191,10 +183,13 @@ export default function RootLayout({
         inLanguage: ["en-IN", "hi-IN"],
       },
     ],
-  }
+  };
 
   return (
-    <html lang="en-IN" className={`${inter.variable} ${geistMono.variable} ${devanagari.variable}`}>
+    <html
+      lang="en-IN"
+      className={`${inter.variable} ${geistMono.variable} ${devanagari.variable}`}
+    >
       <head>
         {/* ===== BASE META TAGS ===== */}
         <meta charSet="utf-8" />
@@ -205,26 +200,44 @@ export default function RootLayout({
         {/* ===== LANGUAGE TARGETING ===== */}
         <meta name="language" content="English, Hindi" />
         <meta name="target_country" content="India" />
-        <meta name="audience" content="students, government job aspirants, competitive exam candidates, graduates, postgraduates" />
+        <meta
+          name="audience"
+          content="students, government job aspirants, competitive exam candidates, graduates, postgraduates"
+        />
         <meta name="rating" content="General" />
         <meta name="distribution" content="Global" />
 
         {/* ===== AUTHOR & OWNERSHIP ===== */}
         <meta name="author" content="CET TEST" />
         <meta name="owner" content="CET TEST" />
-        <meta name="copyright" content={`${new Date().getFullYear()} CET TEST`} />
+        <meta
+          name="copyright"
+          content={`${new Date().getFullYear()} CET TEST`}
+        />
 
         {/* ===== EXAM COVERAGE META ===== */}
-        <meta name="exams-covered" content="SSC CGL, SSC CHSL, SSC MTS, RRB NTPC, Railway Group D, Haryana CET, HSSC CET, Police Constable, UKSSSC, IBPS PO, SBI PO, CTET, HTET, NDA, CDS, TET, UPSSSC, BPSC, MPPSC, REET, UPTET, DSSSB, KVS, NVS, LIC, GIC, FCI, ESIC, AIIMS, and more" />
-        <meta name="features" content="government exam mock tests, study materials, practice questions, answer review" />
+        <meta
+          name="exams-covered"
+          content="SSC CGL, SSC CHSL, SSC MTS, RRB NTPC, Railway Group D, Haryana CET, HSSC CET, Police Constable, UKSSSC, IBPS PO, SBI PO, CTET, HTET, NDA, CDS, TET, UPSSSC, BPSC, MPPSC, REET, UPTET, DSSSB, KVS, NVS, LIC, GIC, FCI, ESIC, AIIMS, and more"
+        />
+        <meta
+          name="features"
+          content="government exam mock tests, study materials, practice questions, answer review"
+        />
 
         {/* ===== ADDITIONAL SEO & ADSENSE META ===== */}
-          <meta name="google-site-verification" content="lm_5SF7FbX7_uM8Ze3BkTudNFttvMjDieo6Tz0hQqEY" />
+        <meta
+          name="google-site-verification"
+          content="lm_5SF7FbX7_uM8Ze3BkTudNFttvMjDieo6Tz0hQqEY"
+        />
         <meta name="google-adsense-account" content="ca-pub-7892065085240733" />
 
         {/* ===== PWA & APPLE META ===== */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
         <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
 
         {/* ===== SOCIAL MEDIA - INSTAGRAM ===== */}
@@ -235,13 +248,14 @@ export default function RootLayout({
         {/* ===== CONTACT INFORMATION META ===== */}
         <meta name="contact-email" content={SUPPORT_EMAIL} />
         <meta name="contact-phone" content={SUPPORT_PHONE_DISPLAY} />
-        <meta name="support-hours" content="9 AM - 9 PM IST, Monday to Saturday" />
+        <meta
+          name="support-hours"
+          content="9 AM - 9 PM IST, Monday to Saturday"
+        />
 
         {/* ===== FAVICON & ICONS ===== */}
 
         {/* ===== PRELOAD & PERFORMANCE ===== */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="preconnect" href="https://vercel.live" />
 
         {/* ===== GOOGLE ADSENSE ===== */}
@@ -295,7 +309,9 @@ export default function RootLayout({
         <script
           id="structured-data-main"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          }}
         />
 
         {/* ===== SERVICE WORKER REGISTRATION ===== */}
@@ -316,11 +332,14 @@ export default function RootLayout({
         />
       </head>
 
-      <body className={`${inter.className} antialiased`}>
+      <body className="antialiased">
         {children}
         <InstagramFloat />
         <WhatsAppFloat />
-        <div className="gtranslate_wrapper" aria-label="Website language options" />
+        <div
+          className="gtranslate_wrapper"
+          aria-label="Website language options"
+        />
 
         {/* PWA Install Prompt */}
         <PWAInstallPrompt />
@@ -330,5 +349,5 @@ export default function RootLayout({
         <Analytics />
       </body>
     </html>
-  )
+  );
 }

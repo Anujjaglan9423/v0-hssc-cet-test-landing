@@ -75,7 +75,7 @@ const topic: TopicData = {
             explanationHi: "PDF के अनुसार चारों खिलाड़ियों का उनके खेल से मिलान सही है।",
         },
     ],
-    previous: { title: "Ramsar Site", href: "/current-affairs/by-topic/india-101st-ramsar-site-2026" },
+    previous: { title: "Ramsar Site", href: "/current-affairs/by-topic/ramsar-sites-2026" },
     next: { title: "Padma Awards", href: "/current-affairs/by-topic/padma-awards-2026" },
 }
 

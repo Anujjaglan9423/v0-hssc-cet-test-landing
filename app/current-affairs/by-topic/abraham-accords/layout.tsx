@@ -1,3 +1,4 @@
+import { withPageMetadata } from "@/lib/seo-metadata"
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -12,7 +13,7 @@ const TITLE =
 const DESCRIPTION =
   "What are the Abraham Accords? Learn the 2020 agreement, signatory countries, objectives, history and importance in Hindi and English, with MCQs for exams.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMetadata({
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -114,7 +115,7 @@ export const metadata: Metadata = {
   other: {
     "content-language": "en-IN, hi-IN",
   },
-};
+}, "/current-affairs/by-topic/abraham-accords");
 
 const structuredData = {
   "@context": "https://schema.org",
