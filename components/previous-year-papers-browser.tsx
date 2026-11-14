@@ -26,6 +26,7 @@ export function PreviousYearPapersBrowser({ papers }: { papers: Paper[] }) {
   const [notice, setNotice] = useState("")
 
   const exams = useMemo(() => ["All exams", ...Array.from(new Set(papers.map((paper) => paper.exam_name))).sort()], [papers])
+  const examCategories = useMemo(() => Array.from(new Set(papers.map((paper) => paper.exam_name))).sort().map((name) => ({ name, count: papers.filter((paper) => paper.exam_name === name).length })), [papers])
   const subExams = useMemo(() => ["All sub-exams", ...Array.from(new Set(papers.filter((paper) => exam === "All exams" || paper.exam_name === exam).map((paper) => paper.sub_exam_name).filter((name): name is string => Boolean(name)))).sort()], [papers, exam])
   const filtered = useMemo(() => papers.filter((paper) => {
     const query = search.trim().toLowerCase()
@@ -48,6 +49,22 @@ export function PreviousYearPapersBrowser({ papers }: { papers: Paper[] }) {
   }
 
   return <>
+    {examCategories.length > 0 && <section className="mb-5" aria-labelledby="paper-categories-title">
+      <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
+        <div><h2 id="paper-categories-title" className="text-xl font-semibold tracking-tight">Browse by exam category</h2><p className="mt-1 text-sm text-muted-foreground">Choose a category to see its available papers.</p></div>
+        <span className="text-sm text-muted-foreground">{examCategories.length} {examCategories.length === 1 ? "category" : "categories"}</span>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <button type="button" aria-pressed={exam === "All exams"} onClick={() => { setExam("All exams"); setSubExam("All sub-exams") }} className={`rounded-2xl border p-4 text-left transition-colors hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${exam === "All exams" ? "border-primary bg-primary/5" : "border-border bg-card"}`}>
+          <span className="flex items-center justify-between gap-3"><span className="font-semibold">All categories</span><FileText aria-hidden="true" className="size-4 text-primary" /></span>
+          <span className="mt-2 block text-sm text-muted-foreground">{papers.length} {papers.length === 1 ? "paper" : "papers"}</span>
+        </button>
+        {examCategories.map((category) => <button key={category.name} type="button" aria-pressed={exam === category.name} onClick={() => { setExam(category.name); setSubExam("All sub-exams") }} className={`rounded-2xl border p-4 text-left transition-colors hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${exam === category.name ? "border-primary bg-primary/5" : "border-border bg-card"}`}>
+          <span className="flex items-center justify-between gap-3"><span className="font-semibold">{category.name}</span><FileText aria-hidden="true" className="size-4 text-primary" /></span>
+          <span className="mt-2 block text-sm text-muted-foreground">{category.count} {category.count === 1 ? "paper" : "papers"}</span>
+        </button>)}
+      </div>
+    </section>}
     <section className="rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-7" aria-label="Filter question papers">
       <div className="grid gap-3 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
         <label className="relative block"><span className="sr-only">Search papers</span><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search exam, subject, topic or year" className="h-11 w-full rounded-xl border border-input bg-background pl-10 pr-3 text-sm outline-none focus:ring-2 focus:ring-ring" /></label>

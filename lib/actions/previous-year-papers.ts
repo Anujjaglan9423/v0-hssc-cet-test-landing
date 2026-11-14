@@ -84,7 +84,7 @@ export async function savePreviousYearPaper(rawInput: unknown, storageKey: strin
     await client.send(new DeleteObjectCommand({ Bucket: bucket, Key: storageKey }))
     throw new Error("Could not save this paper. Check the exam details and try again.")
   }
-  revalidatePath("/haryana-previous-year-papers")
+  revalidatePath("/previous-year-papers")
   revalidatePath("/admin/previous-year-papers")
   return { success: true }
 }
@@ -117,7 +117,7 @@ export async function setPreviousYearPaperActive(id: string, isActive: boolean) 
   const db = createAdminClient()
   const { error } = await db.from("previous_year_papers").update({ is_active: isActive }).eq("id", parsedId)
   if (error) throw new Error("Could not update this paper.")
-  revalidatePath("/haryana-previous-year-papers")
+  revalidatePath("/previous-year-papers")
   revalidatePath("/admin/previous-year-papers")
   return { success: true }
 }
@@ -130,7 +130,7 @@ export async function deletePreviousYearPaper(id: string) {
   if (error) throw new Error("Could not delete this paper.")
   const { bucket, client } = getR2Config()
   await client.send(new DeleteObjectCommand({ Bucket: bucket, Key: data.storage_key }))
-  revalidatePath("/haryana-previous-year-papers")
+  revalidatePath("/previous-year-papers")
   revalidatePath("/admin/previous-year-papers")
   return { success: true }
 }

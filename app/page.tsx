@@ -3,6 +3,7 @@ import HeroSection from "@/components/hero-section"
 import StatsSection from "@/components/stats-section"
 import FeaturesSection from "@/components/features-section"
 import ExamsSection from "@/components/exams-section"
+import PreviousYearPapersPromo from "@/components/previous-year-papers-promo"
 import DailyQuizSection from "@/components/daily-quiz-section"
 import TestSeriesSection from "@/components/test-series-section"
 import TestimonialsSection from "@/components/testimonials-section"
@@ -215,6 +216,9 @@ export default async function Home() {
       <HeroSection stats={stats} topStudents={dailyTopStudents} />
 
       <ExamsSection />
+
+      <PreviousYearPapersPromo />
+
   <AdPlacement className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
       <DailyQuizSection />
 

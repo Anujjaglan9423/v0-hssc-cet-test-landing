@@ -12,7 +12,7 @@ export default function FooterLinkNavbar() {
     const navLinks = [
         { name: "Home", href: "/" },
         { name: "Study Material", href: "/study-materials-hub" },
-        { name: "Previous Papers", href: "/haryana-previous-year-papers" },
+        { name: "Previous Papers", href: "/previous-year-papers" },
         { name: "Mock Test", href: "/mock-test" },
         { name: "Haryana GK", href: "/haryana-gk" },
         { name: "Current Affairs", href: "/current-affairs" },
