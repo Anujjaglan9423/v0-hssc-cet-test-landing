@@ -30,8 +30,20 @@ export function PreviousYearPapersManager({ initialPapers }: { initialPapers: Pa
     setUploading(true)
     try {
       const { uploadUrl, storageKey } = await createPaperUploadUrl(file.name, file.size)
-      const response = await fetch(uploadUrl, { method: "PUT", headers: { "Content-Type": "application/pdf" }, body: file })
-      if (!response.ok) throw new Error("The PDF upload failed. Check your R2 bucket CORS configuration and try again.")
+      let response: Response
+      try {
+        response = await fetch(uploadUrl, { method: "PUT", headers: { "Content-Type": "application/pdf" }, body: file })
+      } catch (networkError) {
+        console.error("[previous-year-papers] R2 upload request could not connect", {
+          origin: window.location.origin,
+          message: networkError instanceof Error ? networkError.message : "Unknown network error",
+        })
+        throw new Error(`Could not connect to Cloudflare R2 from ${window.location.origin}. Check that this exact origin is allowed in the bucket CORS settings for PUT requests with the Content-Type header.`)
+      }
+      if (!response.ok) {
+        console.error("[previous-year-papers] R2 rejected upload", { status: response.status, origin: window.location.origin })
+        throw new Error(`Cloudflare R2 rejected the PDF upload (HTTP ${response.status}). Check the bucket CORS rule and R2 bucket access.`)
+      }
       await savePreviousYearPaper({ ...form, exam_year: Number(form.exam_year), file_name: file.name, file_size_bytes: file.size }, storageKey)
       setForm(initialForm); setFile(null)
       const fileInput = document.getElementById("paper-pdf") as HTMLInputElement | null
@@ -48,7 +60,7 @@ export function PreviousYearPapersManager({ initialPapers }: { initialPapers: Pa
   return <div className="space-y-7">
     <div><p className="text-sm font-medium text-primary">CONTENT LIBRARY</p><h1 className="mt-1 text-3xl font-bold tracking-tight">Previous year papers</h1><p className="mt-2 max-w-2xl text-muted-foreground">Upload PDFs and organize them by exam, sub-exam, subject and topic. Published papers are visible before student sign-in.</p></div>
     <Card className="rounded-2xl p-5 sm:p-7"><div className="mb-6 flex items-center gap-3"><span className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary"><Upload /></span><div><h2 className="font-semibold">Add a question paper</h2><p className="text-sm text-muted-foreground">PDF only · up to 50 MB</p></div></div>
-      <p className="mb-5 rounded-xl border border-border bg-muted/50 p-3 text-sm leading-6 text-muted-foreground">Uploads use Cloudflare R2 direct-to-bucket. In your R2 bucket settings, allow <code className="rounded bg-background px-1 py-0.5 text-foreground">PUT, GET, HEAD</code> with the <code className="rounded bg-background px-1 py-0.5 text-foreground">Content-Type</code> header for <code className="rounded bg-background px-1 py-0.5 text-foreground">https://cettest.site</code>, <code className="rounded bg-background px-1 py-0.5 text-foreground">https://www.cettest.site</code>, and this v0 preview origin: <code className="rounded bg-background px-1 py-0.5 text-foreground">https://workspace-uqgubbth.v0.build</code>.</p>
+      <p className="mb-5 rounded-xl border border-border bg-muted/50 p-3 text-sm leading-6 text-muted-foreground">PDFs upload directly to Cloudflare R2. If an upload reports a connection error, add the page&apos;s exact origin (including <code className="rounded bg-background px-1 py-0.5 text-foreground">https://</code> and any <code className="rounded bg-background px-1 py-0.5 text-foreground">www</code>) to your bucket&apos;s CORS allowed origins. Allow the <code className="rounded bg-background px-1 py-0.5 text-foreground">PUT</code> method and <code className="rounded bg-background px-1 py-0.5 text-foreground">Content-Type</code> request header. The current site origins are <code className="rounded bg-background px-1 py-0.5 text-foreground">https://cettest.site</code>, <code className="rounded bg-background px-1 py-0.5 text-foreground">https://www.cettest.site</code>, and <code className="rounded bg-background px-1 py-0.5 text-foreground">https://workspace-uqgubbth.v0.build</code>.</p>
       <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
         <label className="text-sm font-medium">Display title<input required minLength={2} maxLength={160} className={inputClass} placeholder="e.g. CET Group C — General Awareness" value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} /></label>
         <label className="text-sm font-medium">Exam<input required maxLength={120} className={inputClass} placeholder="e.g. HSSC CET" value={form.exam_name} onChange={(event) => setForm({ ...form, exam_name: event.target.value })} /></label>
