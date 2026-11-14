@@ -44,6 +44,7 @@ const adminLinks = [
   { href: "/admin/manage", icon: FolderTree, label: "Manage" },
   { href: "/admin/alerts", icon: BellRing, label: "Exam Alerts" },
   { href: "/admin/study-materials", icon: Library, label: "Study Materials" },
+  { href: "/admin/previous-year-papers", icon: BookOpen, label: "Previous Papers" },
   { href: "/admin/blog", icon: PenSquare, label: "Blog" },
   { href: "/admin/payments", icon: BarChart3, label: "Payments" },
   { href: "/admin/results", icon: Trophy, label: "Results" },
