@@ -28,6 +28,28 @@ async function requireAdmin() {
   return user
 }
 
+const batchPaperFields = paperFields.extend({
+  storage_key: z.string().regex(/^previous-year-papers\/[a-f0-9-]+\.pdf$/i),
+})
+
+async function deleteUnlinkedPaperUploads(storageKeys: string[]) {
+  if (storageKeys.length === 0) return
+
+  const db = createAdminClient()
+  const { data, error } = await db.from("previous_year_papers").select("storage_key").in("storage_key", storageKeys)
+  if (error) throw new Error("Could not verify uploaded files for cleanup.")
+
+  const linkedKeys = new Set((data ?? []).map((paper) => paper.storage_key))
+  const unlinkedKeys = storageKeys.filter((key) => !linkedKeys.has(key))
+  if (unlinkedKeys.length === 0) return
+
+  const { bucket, client } = getR2Config()
+  const results = await Promise.allSettled(unlinkedKeys.map((key) => client.send(new DeleteObjectCommand({ Bucket: bucket, Key: key }))))
+  if (results.some((result) => result.status === "rejected")) {
+    console.error("Unable to clean up every unlinked previous-year paper upload.")
+  }
+}
+
 function validatePaperScope(input: z.infer<typeof paperFields>) {
   if (input.paper_type === "full" && (input.subject || input.topic)) throw new Error("Full exam PDFs cannot have a subject or topic.")
   if (input.paper_type === "subject" && (!input.subject || input.topic)) throw new Error("Choose a subject for a subject-wise PDF.")
@@ -76,6 +98,52 @@ export async function savePreviousYearPaper(rawInput: unknown, storageKey: strin
   }
   revalidatePath("/previous-year-papers")
   revalidatePath("/admin/previous-year-papers")
+  return { success: true }
+}
+
+export async function savePreviousYearPapersBatch(rawInput: unknown) {
+  const user = await requireAdmin()
+  const papers = z.array(batchPaperFields).min(1).max(50).parse(rawInput)
+  const storageKeys = papers.map((paper) => paper.storage_key)
+  const { bucket, client } = getR2Config()
+  try {
+    if (new Set(storageKeys).size !== storageKeys.length) throw new Error("Each CSV row must reference a different PDF file.")
+    papers.forEach(validatePaperScope)
+
+    for (let offset = 0; offset < papers.length; offset += 5) {
+      const group = papers.slice(offset, offset + 5)
+      const objects = await Promise.all(group.map((paper) => client.send(new HeadObjectCommand({ Bucket: bucket, Key: paper.storage_key }))))
+      if (objects.some((object, index) => object.ContentType !== "application/pdf" || object.ContentLength !== group[index].file_size_bytes)) {
+        throw new Error("One or more uploaded files could not be verified as PDFs.")
+      }
+    }
+
+    const db = createAdminClient()
+    const { error } = await db.from("previous_year_papers").insert(papers.map(({ storage_key, ...paper }) => ({
+      ...paper,
+      sub_exam_name: paper.sub_exam_name || null,
+      subject: paper.subject || null,
+      topic: paper.topic || null,
+      storage_key,
+      created_by: user.id,
+      is_active: true,
+    })))
+    if (error) throw new Error("Could not save these papers. Check the CSV data and try again.")
+  } catch (error) {
+    try { await deleteUnlinkedPaperUploads(storageKeys) }
+    catch (cleanupError) { console.error("Unable to clean up unlinked previous-year paper uploads.", cleanupError) }
+    throw error instanceof Error ? error : new Error("Could not import these papers.")
+  }
+
+  revalidatePath("/previous-year-papers")
+  revalidatePath("/admin/previous-year-papers")
+  return { success: true, count: papers.length }
+}
+
+export async function cleanupUnlinkedPreviousYearPaperUploads(rawInput: unknown) {
+  await requireAdmin()
+  const storageKeys = z.array(z.string().regex(/^previous-year-papers\/[a-f0-9-]+\.pdf$/i)).max(50).parse(rawInput)
+  await deleteUnlinkedPaperUploads(storageKeys)
   return { success: true }
 }
 
