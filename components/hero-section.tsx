@@ -96,6 +96,11 @@ export default function HeroSection({ stats, topStudents }: { stats: HeroStats; 
                   Try Free Mock Test
                 </Button>
               </Link>
+              <Link href="/previous-year-papers" className="inline-flex items-center gap-2 px-2 text-sm font-semibold text-primary hover:underline">
+                <BookOpen aria-hidden="true" className="size-4" />
+                Browse previous year papers
+                <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
             </div>
 
             {/* Trust Badges */}

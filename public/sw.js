@@ -1,6 +1,5 @@
-const CACHE_NAME = 'cet-test-v1'
+const CACHE_NAME = 'cet-test-v2'
 const STATIC_ASSETS = [
-  '/',
   '/icon.png',
   '/icon-192.png',
   '/icon-512.png',
@@ -31,38 +30,25 @@ self.addEventListener('activate', (event) => {
   self.clients.claim()
 })
 
-// Fetch event - network first, fallback to cache
+// Cache only known static assets; let Next.js serve all page and RSC responses.
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
   if (event.request.method !== 'GET') return
 
-  // Skip API and auth requests
   const url = new URL(event.request.url)
-  if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/auth/')) {
-    return
-  }
+  if (url.origin !== self.location.origin || !STATIC_ASSETS.includes(url.pathname)) return
 
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // Clone response for caching
-        const responseClone = response.clone()
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseClone)
-        })
+        if (response.ok) {
+          const responseClone = response.clone()
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone))
+        }
         return response
       })
-      .catch(() => {
-        return caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse
-          }
-          // Return offline page for navigation requests
-          if (event.request.mode === 'navigate') {
-            return caches.match('/')
-          }
-          return new Response('Offline', { status: 503 })
-        })
+      .catch(async () => {
+        const cachedResponse = await caches.match(event.request)
+        return cachedResponse || new Response('Offline', { status: 503 })
       })
   )
 })

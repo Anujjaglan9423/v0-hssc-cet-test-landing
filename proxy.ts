@@ -23,9 +23,9 @@ export async function proxy(request: NextRequest) {
     response.headers.set("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=604800")
   }
   
-  // Landing page - cache for 10 minutes, revalidate for 24 hours
+  // Avoid replaying HTML from a previous deployment against newer client bundles.
   if (pathname === "/") {
-    response.headers.set("Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400")
+    response.headers.set("Cache-Control", "no-store")
   }
   
   // Public demo pages - cache for 1 hour

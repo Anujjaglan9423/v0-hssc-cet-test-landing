@@ -300,15 +300,6 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        {/* ===== STRUCTURED DATA (JSON-LD) FOR SEO/AEO ===== */}
-        <script
-          id="structured-data-main"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
-          }}
-        />
-
         {/* ===== SERVICE WORKER REGISTRATION ===== */}
         <Script
           id="sw-registration"
@@ -328,6 +319,14 @@ export default function RootLayout({
       </head>
 
       <body className="antialiased">
+        {/* Keep JSON-LD out of <head> so preview-injected head scripts cannot disrupt hydration. */}
+        <script
+          id="structured-data-main"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          }}
+        />
         {children}
         <AdSenseLoader />
         <InstagramFloat />
