@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, type FormEvent } from "react"
-import { createPaperUploadUrl, deletePreviousYearPaper, listAdminPreviousYearPapers, savePreviousYearPaper, setPreviousYearPaperActive } from "@/lib/actions/previous-year-papers"
+import { deletePreviousYearPaper, listAdminPreviousYearPapers, savePreviousYearPaper, setPreviousYearPaperActive } from "@/lib/actions/previous-year-papers"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -29,7 +29,17 @@ export function PreviousYearPapersManager({ initialPapers }: { initialPapers: Pa
     if (file.size > 50 * 1024 * 1024) { setError("The PDF must be 50 MB or smaller."); return }
     setUploading(true)
     try {
-      const { uploadUrl, storageKey } = await createPaperUploadUrl(file.name, file.size)
+      const uploadUrlResponse = await fetch("/api/previous-year-papers/upload-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileName: file.name, fileSizeBytes: file.size }),
+      })
+      const uploadUrlResult = (await uploadUrlResponse.json().catch(() => null)) as { uploadUrl?: unknown; storageKey?: unknown; error?: string } | null
+      if (!uploadUrlResponse.ok) throw new Error(uploadUrlResult?.error || `Could not prepare the upload (HTTP ${uploadUrlResponse.status}).`)
+      if (typeof uploadUrlResult?.uploadUrl !== "string" || typeof uploadUrlResult.storageKey !== "string") {
+        throw new Error("The server returned an invalid upload URL response. Please refresh and try again.")
+      }
+      const { uploadUrl, storageKey } = uploadUrlResult
       let response: Response
       try {
         response = await fetch(uploadUrl, { method: "PUT", headers: { "Content-Type": "application/pdf" }, body: file })

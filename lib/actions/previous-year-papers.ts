@@ -1,7 +1,7 @@
 "use server"
 
 import { HeadObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3"
-import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3"
+import { GetObjectCommand } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
@@ -46,16 +46,6 @@ export async function listActivePreviousYearPapers() {
     console.error("Unable to load previous-year papers:", error)
     return []
   }
-}
-
-export async function createPaperUploadUrl(fileName: string, fileSizeBytes: number) {
-  await requireAdmin()
-  const parsed = z.object({ fileName: z.string().min(1).max(255), fileSizeBytes: z.number().int().positive().max(MAX_PDF_BYTES) }).parse({ fileName, fileSizeBytes })
-  if (!parsed.fileName.toLowerCase().endsWith(".pdf")) throw new Error("Only PDF files are supported.")
-  const { bucket, client } = getR2Config()
-  const storageKey = `previous-year-papers/${crypto.randomUUID()}.pdf`
-  const uploadUrl = await getSignedUrl(client, new PutObjectCommand({ Bucket: bucket, Key: storageKey, ContentType: "application/pdf" }), { expiresIn: 600 })
-  return { uploadUrl, storageKey }
 }
 
 export async function savePreviousYearPaper(rawInput: unknown, storageKey: string) {
