@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react"
 import { deletePreviousYearPaper, listAdminPreviousYearPapers, savePreviousYearPaper, setPreviousYearPaperActive } from "@/lib/actions/previous-year-papers"
+import { PreviousYearPapersCsvImport } from "@/components/admin/previous-year-papers-csv-import"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -84,6 +85,7 @@ export function PreviousYearPapersManager({ initialPapers }: { initialPapers: Pa
         <div className="sm:col-span-2"><Button type="submit" disabled={uploading} className="rounded-xl">{uploading ? <><Loader2 className="animate-spin" data-icon="inline-start" />Uploading PDF…</> : <><Upload data-icon="inline-start" />Upload and publish</>}</Button></div>
       </form>
     </Card>
+    <PreviousYearPapersCsvImport onImported={refreshList} />
     <section><div className="mb-4 flex items-end justify-between gap-4"><div><h2 className="text-xl font-semibold">Uploaded papers</h2><p className="mt-1 text-sm text-muted-foreground">{papers.length} total · {papers.filter((paper) => paper.is_active).length} published</p></div></div>
       {papers.length === 0 ? <Card className="rounded-2xl border-dashed p-10 text-center text-sm text-muted-foreground">No question papers have been uploaded yet.</Card> : <div className="grid gap-3">{papers.map((paper) => <Card key={paper.id} className="flex flex-col gap-4 rounded-xl p-4 sm:flex-row sm:items-center sm:justify-between"><div className="flex min-w-0 items-start gap-3"><span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"><FileText /></span><div className="min-w-0"><p className="truncate font-semibold">{paper.title}</p><p className="mt-1 text-sm text-muted-foreground">{paper.exam_name}{paper.sub_exam_name ? ` · ${paper.sub_exam_name}` : ""} · {paper.exam_year} · {typeLabel[paper.paper_type]}</p><p className="mt-1 truncate text-xs text-muted-foreground">{paper.file_name} · {formatSize(paper.file_size_bytes)}</p></div></div><div className="flex shrink-0 items-center gap-2"><Badge variant={paper.is_active ? "default" : "secondary"}>{paper.is_active ? "Published" : "Hidden"}</Badge><Button type="button" variant="outline" size="sm" onClick={() => void toggleActive(paper)} aria-label={`${paper.is_active ? "Hide" : "Publish"} ${paper.title}`}>{paper.is_active ? <EyeOff /> : <Eye />}</Button><Button type="button" variant="outline" size="sm" className="text-destructive" onClick={() => void removePaper(paper)} aria-label={`Delete ${paper.title}`}><Trash2 /></Button></div></Card>)}</div>}
     </section>
