@@ -6,9 +6,9 @@ import FooterLinkNavbar from "@/components/footer-link-navbar"
 import FooterLinkFooter from "@/components/footer-link-footer"
 
 export const metadata: Metadata = {
-  title: "SSC Mock Test 2026 | Free SSC CGL, CHSL, MTS & GD Online Practice Tests",
+  title: "SSC Exam Preparation 2026 | CGL, CHSL, MTS Guides & Available Tests",
   description:
-    "Crack SSC CGL, CHSL, MTS, and GD exams with 2026's best free mock test series. Access previous year question papers, daily current affairs, and subject-wise practice sets. Start your Staff Selection Commission preparation for free!",
+    "Explore SSC CGL, CHSL, MTS and GD exam guides; check the live test catalog for currently available practice tests and past papers. Consult official SSC notices for 2026 eligibility and patterns.",
   keywords: [
     "SSC CGL mock test 2026",
     "SSC CHSL free online test series",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: "https://cettest.site/exams/ssc",
   },
   openGraph: {
-    title: "SSC Exams Mock Tests 2026 | Free CGL, CHSL, MTS Practice",
+    title: "SSC Exam Preparation 2026 | Check Available Practice Tests",
     description: "Prepare for all SSC exams with practice questions, detailed solutions, and answer reviews.",
     url: "https://cettest.site/exams/ssc",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "SSC Exams Free Mock Test Series" }],
@@ -63,15 +63,15 @@ export default function SSCExamsPage() {
   const faqs = [
     {
       q: "Are the SSC Mock Tests on CET TEST free?",
-      a: "Yes, we provide 100% free access to SSC CGL, CHSL, and MTS mock tests. You can practice full-length mocks and sectional tests without any subscription."
+      a: "You can review available free SSC practice tests in the CET TEST catalog. The presence of SSC CGL, CHSL or MTS guides does not mean a full-length or sectional test is currently published for every exam."
     },
     {
       q: "Do you provide SSC Previous Year Papers (PYP)?",
-      a: "Yes, we offer solved previous year question papers for SSC exams from 2018 to 2025 to help you understand the actual exam difficulty."
+      a: "Previous-year papers may be available for selected SSC exams and years. Check the current test and paper catalog for the precise exam, year and source; do not assume complete 2018-2025 coverage."
     },
     {
       q: "Is the content updated for the 2026 SSC Calendar?",
-      a: "Absolutely. Our question bank is updated according to the latest Staff Selection Commission calendar and exam patterns for the 2026 cycle."
+      a: "For 2026 exam patterns and dates, use the current SSC notification. Individual practice tests may cover different cycles, so check their title and instructions before attempting."
     }
   ];
 
@@ -117,7 +117,7 @@ export default function SSCExamsPage() {
               SSC Exam Categories
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Choose your target SSC exam and start practicing with real exam-level mock tests
+              Explore the exam overview; use the test catalog to confirm which practice papers are available
             </p>
           </div>
 
@@ -191,7 +191,7 @@ export default function SSCExamsPage() {
 
           <p className="text-muted-foreground max-w-2xl mx-auto mb-10">
             Staff Selection Commission (SSC) conducts some of the most popular government exams in India.
-            Prepare for SSC CGL, CHSL, and MTS with free mock tests, previous year questions, and detailed solutions.
+            Review SSC CGL, CHSL and MTS exam topics; check the available test catalog for actual practice papers.
           </p>
 
         </div>
@@ -328,8 +328,8 @@ export default function SSCExamsPage() {
             </div>
             <div>
               <CheckCircle2 className="w-12 h-12 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">Updated for 2026</h3>
-              <p className="text-sm text-muted-foreground">Always in sync with the latest SSC Calendar.</p>
+              <h3 className="font-semibold mb-2">Official 2026 patterns</h3>
+              <p className="text-sm text-muted-foreground">Check dated SSC notices for current calendars and exam stages.</p>
             </div>
           </div>
         </div>

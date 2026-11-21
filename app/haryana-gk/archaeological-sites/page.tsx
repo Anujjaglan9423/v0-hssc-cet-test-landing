@@ -34,22 +34,22 @@ export default function HaryanaArchaeologicalSitesPage() {
     // FAQ data bilingual
     const faqs = [
         {
-            questionHindi: "हरियाणा का सबसे पुराना किला कौन सा है?",
-            questionEnglish: "Which is the oldest fort in Haryana?",
-            answerHindi: "हांसी का किला हरियाणा का सबसे पुराना किला है, जिसे तोमर शासक अनंगपाल प्रथम ने बनवाया था। इसे पृथ्वीराज चौहान का किला भी कहा जाता है।",
-            answerEnglish: "The Fort of Hansi is the oldest fort in Haryana, built by Tomar ruler Anangpal I. It is also called the fort of Prithviraj Chauhan."
+            questionHindi: "असीगढ़ किला कहाँ स्थित है और इसे किस नाम से भी जानते हैं?",
+            questionEnglish: "Where is Asigarh Fort located and what is its other name?",
+            answerHindi: "असीगढ़ किला हरियाणा के हांसी जिले में स्थित है। इसे पृथ्वीराज का किला भी कहा जाता है। इसका सटीक मूल निर्माता प्रमाणित नहीं है।",
+            answerEnglish: "Asigarh Fort is located in Hansi district, Haryana. It is also known as Prithviraj-ka-Quila. Its original builder has not been conclusively established."
         },
         {
-            questionHindi: "हरियाणा का सबसे बड़ा और सबसे पुराना संग्रहालय कौन सा है?",
-            questionEnglish: "Which is the largest and oldest museum in Haryana?",
-            answerHindi: "गुरुकुल झज्जर पुरातत्व संग्रहालय हरियाणा का सबसे बड़ा और सबसे पुराना संग्रहालय है, जिसकी स्थापना 1959 में स्वामी ओमानंद सरस्वती द्वारा की गई थी।",
-            answerEnglish: "The Archaeological Museum (Gurukul Jhajjar Museum) is the largest and oldest museum in Haryana, established in 1959 by Swami Omanand Saraswati."
+            questionHindi: "गुरुकुल झज्जर पुरातत्व संग्रहालय की स्थापना किसने की थी?",
+            questionEnglish: "Who established the Gurukul Jhajjar archaeological museum?",
+            answerHindi: "स्वामी ओमानंद सरस्वती के प्रयासों से 1959 में गुरुकुल झज्जर पुरातत्व संग्रहालय की शुरुआत हुई थी।",
+            answerEnglish: "The Gurukul Jhajjar archaeological museum began in 1959 through the collecting efforts of Swami Omanand Saraswati."
         },
         {
             questionHindi: "हिसार का किला किसने बनवाया था?",
             questionEnglish: "Who built the Fort of Hisar?",
-            answerHindi: "हिसार का किला 1354 ईस्वी में फिरोज शाह तुगलक ने बनवाया था। यह एक अर्धचंद्राकार किला है जिसके चार द्वार हैं - दिल्ली गेट, नागौरी गेट, तलाकी गेट और मोरी गेट।",
-            answerEnglish: "The Fort of Hisar was constructed by Feroz Shah Tughlaq in 1354 AD. It is a crescent shaped fort with four gates - Delhi Gate, Nagauri Gate, Talaqi Gate and Mori Gate."
+            answerHindi: "फिरोज शाह तुगलक ने 1354 ईस्वी में हिसार-ए-फिरोजा किले का निर्माण शुरू कराया। इसके चार ऐतिहासिक द्वार दिल्ली, नागौरी, तलाकी और मोरी थे।",
+            answerEnglish: "Firoz Shah Tughlaq began constructing Hisar-e-Firoza Fort in 1354 CE. Its four historic gateways were Delhi, Nagauri, Talaqi and Mori."
         },
         {
             questionHindi: "पानीपत संग्रहालय का उद्देश्य क्या है?",
@@ -78,108 +78,96 @@ export default function HaryanaArchaeologicalSitesPage() {
         {
             questionHindi: "गुरु गोबिंद सिंह मार्शल आर्ट्स संग्रहालय कहाँ है?",
             questionEnglish: "Where is Guru Gobind Singh Martial Arts Museum located?",
-            answerHindi: "गुरु गोबिंद सिंह मार्शल आर्ट्स संग्रहालय यमुनानगर जिले के कपालमोहन में स्थित है। यह स्थान दो सिख गुरुओं के आगमन के लिए गौरवपूर्ण स्थान है।",
-            answerEnglish: "Guru Gobind Singh Martial Arts Museum is located at Kapalmohan in Yamunanagar district. It is a proud place for the arrival of two Sikh Gurus."
+            answerHindi: "गुरु गोबिंद सिंह युद्ध कला संग्रहालय यमुनानगर के कपाल मोचन (बिलासपुर) में स्थित है। इसकी आधारशिला 15 अगस्त 2000 को रखी गई थी।",
+            answerEnglish: "Guru Gobind Singh Martial Art Museum is at Kapal Mochan (Bilaspur), Yamunanagar. Its foundation stone was laid on 15 August 2000."
         }
     ];
 
     // Archaeological Forts Data
     const archaeologicalForts = [
         {
-            name: "Fort of Hansi",
-            nameHindi: "हांसी का किला",
-            location: "Hansi, Hisar",
-            locationHindi: "हांसी, हिसार",
-            period: "11th Century",
-            periodHindi: "11वीं शताब्दी",
-            builtBy: "Anangpal I (Tomar ruler)",
-            builtByHindi: "अनंगपाल प्रथम (तोमर शासक)",
-            features: "Crescent shaped fort, also known as Prithviraj Chauhan's fort. George Thomas made Hansi the capital of his empire. Contains stable, step-well, and mosques. A mint was also established here during George Thomas's reign.",
-            featuresHindi: "अर्धचंद्राकार किला, जिसे पृथ्वीराज चौहान का किला भी कहा जाता है। जॉर्ज थॉमस ने हांसी को अपने साम्राज्य की राजधानी बनाया। इसमें अस्तबल, बावड़ी और मस्जिदें हैं। जॉर्ज थॉमस के शासनकाल में यहाँ एक टकसाल भी स्थापित की गई थी।"
-        },
-        {
-            name: "Fort of Asigarh",
-            nameHindi: "असीगढ़ का किला",
-            location: "Hansi, Hisar",
-            locationHindi: "हांसी, हिसार",
-            period: "12th Century",
-            periodHindi: "12वीं शताब्दी",
-            builtBy: "Prithviraj Chauhan",
-            builtByHindi: "पृथ्वीराज चौहान",
-            features: "Also known as the fort of the sword. Prithviraj Chauhan also built a fort at Gohana.",
-            featuresHindi: "तलवार के किले के नाम से भी जाना जाता है। पृथ्वीराज चौहान ने गोहाना में भी एक किला बनवाया था।"
+            name: "Asigarh (Prithviraj) Fort, Hansi",
+            nameHindi: "असीगढ़ (पृथ्वीराज) किला, हांसी",
+            location: "Hansi, Haryana (formerly Hisar district)",
+            locationHindi: "हांसी, हरियाणा (पूर्व में हिसार जिला)",
+            period: "Medieval; origins are older and exact founding date disputed",
+            periodHindi: "मध्यकाल; मूल स्थापना तिथि विवादित",
+            builtBy: "Original founder not conclusively established",
+            builtByHindi: "मूल निर्माता का निश्चित प्रमाण उपलब्ध नहीं",
+            features: "Asigarh Fort is also known as Prithviraj-ka-Quila. Hansi became a separate district on 22 December 2025. The historic complex includes the remains of fortifications; Barsi Gate survives as a notable entrance built in the early 14th century.",
+            featuresHindi: "असीगढ़ किले को पृथ्वीराज का किला भी कहा जाता है। 22 दिसंबर 2025 को हांसी अलग जिला बना। यहाँ किलेबंदी के अवशेष और 14वीं शताब्दी के प्रारंभ में निर्मित ऐतिहासिक बरसी द्वार जैसे स्मारक मौजूद हैं।"
         },
         {
             name: "Fort of Tohana",
             nameHindi: "तोहाना का किला",
             location: "Tohana, Fatehabad",
             locationHindi: "तोहाना, फतेहाबाद",
-            period: "11th Century",
-            periodHindi: "11वीं शताब्दी",
-            builtBy: "Anangpal Tomar",
-            builtByHindi: "अनंगपाल तोमर",
-            features: "Crescent shaped fort with a step-well. Sultan Balban renovated this fort. In 1398 AD, Timur Lang completely destroyed this fort. Presently, it is in ruins.",
-            featuresHindi: "अर्धचंद्राकार किला जिसमें बावड़ी है। सुल्तान बलबन ने इस किले का जीर्णोद्धार करवाया। 1398 ईस्वी में तैमूर लंग ने इस किले को पूरी तरह नष्ट कर दिया। वर्तमान में, यह खंडहर में है।"
+            period: "Historical; precise construction date unverified",
+            periodHindi: "ऐतिहासिक; निर्माण तिथि सत्यापित नहीं",
+            builtBy: "Attribution to Anangpal Tomar needs verification",
+            builtByHindi: "अनंगपाल तोमर से जुड़ा निर्माण दावा अपुष्ट",
+            features: "Historical fort remains associated with Tohana. Claims that Balban renovated it and Timur completely destroyed it in 1398 require stronger documentary evidence.",
+            featuresHindi: "तोहाना से जुड़े ऐतिहासिक किले के अवशेष। बलबन द्वारा जीर्णोद्धार और 1398 में तैमूर द्वारा पूर्ण विनाश के दावों के लिए स्वतंत्र ऐतिहासिक प्रमाण आवश्यक हैं।"
         },
         {
             name: "Ramgarh Fort",
             nameHindi: "रामगढ़ का किला",
             location: "Ramgarh, Panchkula",
             locationHindi: "रामगढ़, पंचकूला",
-            period: "350 years old",
-            periodHindi: "350 वर्ष पुराना",
-            builtBy: "Chandel dynasty Rajput rulers",
-            builtByHindi: "चंदेल वंश के राजपूत शासक",
-            features: "The height of the main gate is 37 feet, which is a record. Haryana Tourism Department has maintained a heritage hotel here.",
-            featuresHindi: "मुख्य द्वार की ऊंचाई 37 फीट है, जो एक रिकॉर्ड है। हरियाणा पर्यटन विभाग ने यहाँ एक हेरिटेज होटल बनाया है।"
+            period: "Historical; exact age needs confirmation",
+            periodHindi: "ऐतिहासिक; सटीक आयु की पुष्टि आवश्यक",
+            builtBy: "Attribution to Chandel Rajput rulers requires confirmation",
+            builtByHindi: "चंदेल राजपूत शासकों से संबंध की पुष्टि आवश्यक",
+            features: "A historical fort complex at Ramgarh in Panchkula district. The claims that the gateway is a record 37 feet tall and that it is maintained as a government heritage hotel are not treated as verified facts.",
+            featuresHindi: "पंचकूला जिले के रामगढ़ स्थित ऐतिहासिक किला परिसर। मुख्य द्वार की 37 फीट रिकॉर्ड ऊँचाई और सरकारी हेरिटेज होटल के संचालन संबंधी दावों की स्वतंत्र पुष्टि आवश्यक है।"
         },
         {
             name: "Taraori Fort",
             nameHindi: "तराओरी का किला",
             location: "Taraori, Karnal",
             locationHindi: "तराओरी, करनाल",
-            period: "12th Century",
-            periodHindi: "12वीं शताब्दी",
-            builtBy: "Prithviraj Chauhan",
-            builtByHindi: "पृथ्वीराज चौहान",
-            features: "Taraori is famous for the Battle of Tarain (1191-1192 AD). Aurangzeb built a pond and mosque inside the boundary wall.",
-            featuresHindi: "तराओरी तराइन के युद्ध (1191-1192 ईस्वी) के लिए प्रसिद्ध है। औरंगजेब ने यहाँ एक तालाब और मस्जिद बनवाई थी।"
+            period: "Medieval; precise fort foundation date unverified",
+            periodHindi: "मध्यकाल; किले की सटीक स्थापना तिथि अपुष्ट",
+            builtBy: "Prithviraj Chauhan (traditional attribution; unverified)",
+            builtByHindi: "पृथ्वीराज चौहान (पारंपरिक मान्यता; अपुष्ट)",
+            features: "Taraori (Tarain) near Karnal is historically associated with the Battles of Tarain of 1191 and 1192. This association does not establish the builder of the fort.",
+            featuresHindi: "करनाल के निकट तराओरी (तराइन) 1191 और 1192 के तराइन युद्धों से जुड़ा है। इससे किले के निर्माता की निश्चित पहचान प्रमाणित नहीं होती।"
         },
         {
             name: "Fort of Hisar",
             nameHindi: "हिसार का किला",
             location: "Hisar",
             locationHindi: "हिसार",
-            period: "1354 AD",
-            periodHindi: "1354 ईस्वी",
+            period: "Construction began in 1354 CE",
+            periodHindi: "निर्माण 1354 ईस्वी में आरंभ",
             builtBy: "Feroz Shah Tughlaq",
             builtByHindi: "फिरोज शाह तुगलक",
-            features: "Crescent shaped fort with four gates - Delhi Gate, Nagauri Gate, Talaqi Gate and Mori Gate. Gujar Mahal was built by Feroz Shah Tughlaq for his beloved Gujri.",
-            featuresHindi: "अर्धचंद्राकार किला जिसके चार द्वार हैं - दिल्ली गेट, नागौरी गेट, तलाकी गेट और मोरी गेट। गुजरी महल फिरोज शाह तुगलक ने अपनी प्रिय गुजरी के लिए बनवाया था।"
+            features: "Firoz Shah Tughlaq began building the fort of Hisar-e-Firoza in 1354. Its historic gateways included Delhi, Mori, Nagauri and Talaqi Gates. Gujri Mahal is part of the fortified complex; the association with Gujri is recorded in local tradition.",
+            featuresHindi: "फिरोज शाह तुगलक ने 1354 ईस्वी में हिसार-ए-फिरोजा किले का निर्माण आरंभ कराया। इसके ऐतिहासिक द्वार दिल्ली, मोरी, नागौरी और तलाकी थे। गुजरी महल इस परिसर का भाग है; गुजरी से इसका संबंध स्थानीय परंपरा में दर्ज है।"
         },
         {
             name: "Palwal Fort (Matia Fort)",
             nameHindi: "पलवल का किला (मटिया किला)",
             location: "Palwal",
             locationHindi: "पलवल",
-            period: "16th Century",
-            periodHindi: "16वीं शताब्दी",
-            builtBy: "Sher Shah Suri",
-            builtByHindi: "शेर शाह सूरी",
-            features: "A lake has been constructed near this fort. Archaeological excavation revealed a grand palace at the bottom. Presently, the fort has become a ruin.",
-            featuresHindi: "इस किले के पास एक झील बनाई गई है। पुरातात्विक उत्खनन से किले के तल पर एक भव्य महल का पता चला है। वर्तमान में, किला खंडहर हो चुका है।"
+            period: "Historical; date unverified",
+            periodHindi: "ऐतिहासिक; काल की पुष्टि नहीं",
+            builtBy: "Attribution to Sher Shah Suri not independently verified",
+            builtByHindi: "शेरशाह सूरी से जुड़ा निर्माण दावा अपुष्ट",
+            features: "This local fort identification and the claim of a palace revealed by excavation have not been substantiated from a primary archaeology record. Do not use a definitive 16th-century date or builder for exam preparation without a citation.",
+            featuresHindi: "इस स्थानीय किले की पहचान और उत्खनन में महल मिलने के दावे की पुष्टि प्राथमिक पुरातात्विक अभिलेख से नहीं हुई है। प्रमाण के बिना 16वीं शताब्दी और निर्माता को परीक्षा तथ्य के रूप में प्रस्तुत न करें।"
         },
         {
-            name: "Fort of Fatehabad",
-            nameHindi: "फतेहाबाद का किला",
+            name: "Fatehabad Historic Fort Area and Humayun’s Mosque",
+            nameHindi: "फतेहाबाद का ऐतिहासिक किला क्षेत्र और हुमायूँ की मस्जिद",
             location: "Fatehabad",
             locationHindi: "फतेहाबाद",
-            period: "14th Century",
-            periodHindi: "14वीं शताब्दी",
-            builtBy: "Feroz Shah Tughlaq",
-            builtByHindi: "फिरोज शाह तुगलक",
-            features: "Also known as Sher Shah's Fort and Humayun's Masjid. Contains a pillar called Ferozi Lat, believed by some to be related to Mauryan Emperor Ashoka.",
-            featuresHindi: "शेर शाह के किले और हुमायूँ मस्जिद के नाम से भी जाना जाता है। इसमें फिरोजी लाट नामक एक स्तंभ है, जिसे कुछ इतिहासकार मौर्य सम्राट अशोक से संबंधित मानते हैं।"
+            period: "14th–16th century historic structures",
+            periodHindi: "14वीं–16वीं शताब्दी के ऐतिहासिक स्मारक",
+            builtBy: "Firoz Shah Tughlaq (town); mosque dates to Humayun’s reign",
+            builtByHindi: "फिरोज शाह तुगलक (नगर); मस्जिद हुमायूँ काल की",
+            features: "Fatehabad has remains associated with Firoz Shah Tughlaq. Nearby Humayun’s Mosque is a separate 16th-century monument; an Ashokan-period pillar was re-erected by Firoz Shah. The mosque and pillar should not be described as a single fort.",
+            featuresHindi: "फतेहाबाद में फिरोज शाह तुगलक से जुड़े ऐतिहासिक अवशेष हैं। पास की हुमायूँ की मस्जिद 16वीं शताब्दी का अलग स्मारक है; अशोक कालीन स्तंभ को फिरोज शाह ने पुनः स्थापित कराया था। मस्जिद और स्तंभ को एक ही किला नहीं समझना चाहिए।"
         },
         {
             name: "Loharu Fort",
@@ -188,82 +176,82 @@ export default function HaryanaArchaeologicalSitesPage() {
             locationHindi: "लोहारू, भिवानी",
             period: "1570 AD",
             periodHindi: "1570 ईस्वी",
-            builtBy: "Arjun Singh",
-            builtByHindi: "अर्जुन सिंह",
-            features: "Main features were Diwan-e-Khas and Sheesh Mahal. From 1805 to 1947, Loharu Princely State was dominated by Muslim rulers.",
-            featuresHindi: "मुख्य विशेषताएँ दीवान-ए-खास और शीश महल थीं। 1805 से 1947 तक, लोहारू रियासत पर मुस्लिम शासकों का प्रभुत्व रहा।"
+            builtBy: "Thakur Arjun Singh (original mud fort); later rebuilt under Nawab Ahmad Bakhsh Khan",
+            builtByHindi: "ठाकुर अर्जुन सिंह (मूल कच्चा किला); बाद में नवाब अहमद बख्श खान के काल में पुनर्निर्माण",
+            features: "The earliest mud fort was built in 1570 by Thakur Arjun Singh. The site was substantially rebuilt in the early 19th century under Nawab Ahmad Bakhsh Khan. Loharu Fort is a state-protected monument.",
+            featuresHindi: "मूल कच्चा किला 1570 में ठाकुर अर्जुन सिंह ने बनवाया था। 19वीं शताब्दी के आरंभ में नवाब अहमद बख्श खान के शासन में इसका व्यापक पुनर्निर्माण हुआ। लोहारू किला राज्य-संरक्षित स्मारक है।"
         },
         {
             name: "Fort of Taoru",
             nameHindi: "तावड़ू का किला",
             location: "Taoru, Nuh",
             locationHindi: "तावड़ू, नूंह",
-            period: "18th Century",
-            periodHindi: "18वीं शताब्दी",
-            builtBy: "Ruler Nahar Singh",
-            builtByHindi: "शासक नाहर सिंह",
-            features: "High walls are built around this fort. Presently, the Fort of Taoru has been converted into a police station.",
-            featuresHindi: "इस किले के चारों ओर ऊँची दीवारें बनी हैं। वर्तमान में, तावड़ू के किले को पुलिस स्टेशन में बदल दिया गया है।"
+            period: "Historic; date not conclusively verified",
+            periodHindi: "ऐतिहासिक; तिथि की पुष्टि नहीं",
+            builtBy: "Builder not independently verified",
+            builtByHindi: "मूल निर्माता की पुष्टि नहीं",
+            features: "Historic structures are recorded in the Tauru area of Nuh district. The attribution of this fort to Raja Nahar Singh and the present use as a police station need independent confirmation.",
+            featuresHindi: "नूंह जिले के तावड़ू क्षेत्र में ऐतिहासिक संरचनाओं का उल्लेख मिलता है। इस किले को राजा नाहर सिंह से जोड़ने तथा इसके वर्तमान पुलिस थाने के रूप में उपयोग की स्वतंत्र पुष्टि आवश्यक है।"
         },
         {
-            name: "Fort of Farrukhnagar",
-            nameHindi: "फर्रुखनगर का किला",
+            name: "Historic Farrukhnagar and Shish Mahal",
+            nameHindi: "ऐतिहासिक फर्रुखनगर और शीश महल",
             location: "Farrukhnagar, Gurugram",
             locationHindi: "फर्रुखनगर, गुरुग्राम",
-            period: "1732 AD",
-            periodHindi: "1732 ईस्वी",
-            builtBy: "Faujdar Khan",
-            builtByHindi: "फौजदार खान",
-            features: "Faujdar Khan was the Nawab of Mughal Emperor Mohammad Shah Rangeela. After the revolt of 1857, the British established control over this fort. Presently, completely ruined.",
-            featuresHindi: "फौजदार खान मुगल सम्राट मोहम्मद शाह रंगीला के नवाब थे। 1857 के विद्रोह के बाद, अंग्रेजों ने इस किले पर नियंत्रण स्थापित कर लिया। वर्तमान में, पूरी तरह से खंडहर हो चुका है।"
+            period: "18th century; Shish Mahal built in 1733 CE",
+            periodHindi: "18वीं शताब्दी; शीश महल का निर्माण 1733 ईस्वी",
+            builtBy: "Faujdar Khan (Shish Mahal)",
+            builtByHindi: "फौजदार खान (शीश महल)",
+            features: "Farrukhnagar is known for its historic fortifications and Shish Mahal. Haryana Archaeology identifies Shish Mahal as the residential palace of Faujdar Khan, built in 1733. The palace should not be confused with a separately established 1732 fort.",
+            featuresHindi: "फर्रुखनगर ऐतिहासिक किलेबंदी और शीश महल के लिए प्रसिद्ध है। हरियाणा पुरातत्व विभाग के अनुसार, फौजदार खान का आवासीय शीश महल 1733 में बना। इसे 1732 में स्थापित किसी अलग किले के साथ नहीं मिलाना चाहिए।"
         },
         {
             name: "Fort of Madhogarh",
             nameHindi: "मधोगढ़ का किला",
             location: "Madhogarh, Mahendragarh",
             locationHindi: "मधोगढ़, महेंद्रगढ़",
-            period: "18th Century",
-            periodHindi: "18वीं शताब्दी",
-            builtBy: "Sawai Madho Singh",
-            builtByHindi: "सवाई माधो सिंह",
-            features: "Inaccessible fort situated on top of a hill. Stairs constructed by cutting the hills. In 1755 AD, Maratha rulers captured this fort.",
-            featuresHindi: "पहाड़ी की चोटी पर स्थित दुर्गम किला। पहाड़ियों को काटकर सीढ़ियाँ बनाई गई हैं। 1755 ईस्वी में, मराठा शासकों ने इस किले पर कब्जा कर लिया।"
+            period: "18th-century historical association; exact date unverified",
+            periodHindi: "18वीं शताब्दी से ऐतिहासिक संबंध; तिथि अपुष्ट",
+            builtBy: "Attribution to Sawai Madho Singh requires stronger documentation",
+            builtByHindi: "सवाई माधो सिंह द्वारा निर्माण की पुष्टि के लिए अधिक प्रमाण आवश्यक",
+            features: "A hill fort at Madhogarh in Mahendragarh district. The claim of a Maratha capture in 1755 is not presented as established without a specific historical source.",
+            featuresHindi: "महेंद्रगढ़ जिले के माधोगढ़ में स्थित पहाड़ी किला। 1755 में मराठों के कब्जे का दावा विशिष्ट ऐतिहासिक स्रोत के बिना प्रमाणित तथ्य के रूप में नहीं दिया गया है।"
         },
         {
-            name: "Fort of Maham",
-            nameHindi: "महम का किला",
+            name: "Historic Maham Fort Area",
+            nameHindi: "महम का ऐतिहासिक किला क्षेत्र",
             location: "Maham, Rohtak",
             locationHindi: "महम, रोहतक",
-            period: "1656 AD",
-            periodHindi: "1656 ईस्वी",
-            builtBy: "Saidu Kalal",
-            builtByHindi: "सईदू कलाल",
-            features: "Built during the reign of Shah Jahan. There is also a step-well in this fort. Made of gravel, sand and stone.",
-            featuresHindi: "शाहजहाँ के शासनकाल में निर्मित। इस किले में एक बावड़ी भी है। बजरी, रेत और पत्थर से बना है।"
+            period: "Mughal-era association; precise fort date uncertain",
+            periodHindi: "मुगलकालीन संबंध; किले की सटीक तिथि अनिश्चित",
+            builtBy: "Not conclusively verified for the fort",
+            builtByHindi: "किले के निर्माता का निश्चित प्रमाण नहीं",
+            features: "Maham in Rohtak district has notable Mughal-period remains, including its historic baoli. The construction date 1656 and attribution to Saidu Kalal should not be assigned automatically to a fort without a specific source.",
+            featuresHindi: "रोहतक जिले के महम में ऐतिहासिक बावड़ी सहित मुगलकालीन अवशेष हैं। 1656 की तिथि और सईदू कलाल का नाम किसी विशिष्ट स्रोत के बिना सीधे किले के निर्माण से नहीं जोड़ा जाना चाहिए।"
         },
         {
             name: "Bahadurgarh Fort",
             nameHindi: "बहादुरगढ़ का किला",
             location: "Bahadurgarh, Jhajjar",
             locationHindi: "बहादुरगढ़, झज्जर",
-            period: "18th Century",
-            periodHindi: "18वीं शताब्दी",
-            builtBy: "Bahadur Khan",
-            builtByHindi: "बहादुर खान",
-            features: "Also known as Singh Dwar or Gateway of Haryana. In 1803 AD, the Marathas were defeated by the British and had to hand over this fort.",
-            featuresHindi: "सिंह द्वार या हरियाणा के प्रवेश द्वार के रूप में भी जाना जाता है। 1803 ईस्वी में, मराठों को अंग्रेजों ने हराया और उन्हें यह किला सौंपना पड़ा।"
+            period: "Historical; original date unverified",
+            periodHindi: "ऐतिहासिक; मूल तिथि अपुष्ट",
+            builtBy: "Attribution to Bahadur Khan requires verification",
+            builtByHindi: "बहादुर खान से जुड़ा निर्माण दावा सत्यापनाधीन",
+            features: "Bahadurgarh is historically associated with the Delhi-region political and military developments of the 18th and early 19th centuries. Specific construction and surrender details are not independently verified here.",
+            featuresHindi: "बहादुरगढ़ 18वीं और 19वीं शताब्दी के आरंभ में दिल्ली क्षेत्र की राजनीतिक एवं सैन्य गतिविधियों से जुड़ा रहा। निर्माण तथा आत्मसमर्पण के विशिष्ट विवरणों की यहाँ स्वतंत्र पुष्टि नहीं हुई है।"
         },
         {
             name: "Fort of Kanod (Mahendragarh)",
             nameHindi: "कनोद का किला (महेंद्रगढ़)",
             location: "Mahendragarh",
             locationHindi: "महेंद्रगढ़",
-            period: "1755 AD",
-            periodHindi: "1755 ईस्वी",
-            builtBy: "Maratha rulers",
-            builtByHindi: "मराठा शासक",
-            features: "In 1860 AD, this region became part of Patiala Princely State. Maharaja Narendra Singh renamed Kanod Fort to Mahendragarh after his son Mahendra.",
-            featuresHindi: "1860 ईस्वी में, यह क्षेत्र पटियाला रियासत का हिस्सा बन गया। महाराजा नरेंद्र सिंह ने कनोद किले का नाम बदलकर अपने पुत्र महेंद्र के नाम पर महेंद्रगढ़ रख दिया।"
+            period: "Historic; foundation date unverified",
+            periodHindi: "ऐतिहासिक; स्थापना तिथि अपुष्ट",
+            builtBy: "Original founder not conclusively established",
+            builtByHindi: "मूल निर्माता का निश्चित प्रमाण नहीं",
+            features: "Kanod is the older name associated with Mahendragarh. The account of its renaming under Maharaja Narendra Singh of Patiala should be identified as historical context, not proof that Maratha rulers built the fort in 1755.",
+            featuresHindi: "कनोद महेंद्रगढ़ का पुराना नाम है। पटियाला के महाराजा नरेंद्र सिंह के समय नामकरण की ऐतिहासिक पृष्ठभूमि को 1755 में मराठों द्वारा किले के निर्माण का प्रमाण नहीं माना जाना चाहिए।"
         },
         {
             name: "Fort of Jind",
@@ -274,8 +262,8 @@ export default function HaryanaArchaeologicalSitesPage() {
             periodHindi: "1775 ईस्वी",
             builtBy: "Gajpat Singh",
             builtByHindi: "गजपत सिंह",
-            features: "Contains mausoleums of Maharaja Ranjit Singh and Maharaja Kharag Singh. Presently, this fort has been demolished.",
-            featuresHindi: "इसमें महाराजा रणजीत सिंह और महाराजा खड़ग सिंह की समाधियाँ हैं। वर्तमान में, यह किला ध्वस्त कर दिया गया है।"
+            features: "The historic fort is associated with the former Jind princely state and Raja Gajpat Singh. The claim that it contains the tombs of Maharaja Ranjit Singh and Maharaja Kharak Singh is incorrect and has been removed.",
+            featuresHindi: "ऐतिहासिक जींद किला पूर्व जींद रियासत और राजा गजपत सिंह से जुड़ा है। इसमें महाराजा रणजीत सिंह और महाराजा खड़क सिंह की समाधियाँ होने का गलत दावा हटाया गया है।"
         },
         {
             name: "Fort of Georgegarh (Jahazgarh)",
@@ -296,34 +284,34 @@ export default function HaryanaArchaeologicalSitesPage() {
             locationHindi: "सोहना, गुरुग्राम",
             period: "18th Century",
             periodHindi: "18वीं शताब्दी",
-            builtBy: "Sohan Singh",
-            builtByHindi: "सोहन सिंह",
-            features: "Built by Sohan Singh in the 18th century. At present, this fort is completely ruined.",
-            featuresHindi: "18वीं शताब्दी में सोहन सिंह द्वारा निर्मित। वर्तमान में, यह किला पूरी तरह से खंडहर हो चुका है।"
+            builtBy: "Attribution to Sohan Singh requires verification",
+            builtByHindi: "सोहन सिंह द्वारा निर्माण की पुष्टि आवश्यक",
+            features: "The Haryana Archaeology Department lists Sohna Fort in Gurugram district as a state-protected site. A precise founder and construction date should not be stated without documentary verification.",
+            featuresHindi: "हरियाणा पुरातत्व विभाग ने गुरुग्राम जिले के सोहना किले को राज्य-संरक्षित स्थल के रूप में सूचीबद्ध किया है। प्रामाणिक दस्तावेज के बिना निर्माता या सटीक निर्माण तिथि निश्चित रूप से नहीं बतानी चाहिए।"
         },
         {
             name: "Fort of Raja Nahar Singh",
             nameHindi: "राजा नाहर सिंह का किला",
             location: "Ballabhgarh, Faridabad",
             locationHindi: "बल्लभगढ़, फरीदाबाद",
-            period: "18th-19th Century",
-            periodHindi: "18वीं-19वीं शताब्दी",
+            period: "18th–19th centuries; earliest palace sections after 1739",
+            periodHindi: "18वीं–19वीं शताब्दी; प्रारंभिक भाग 1739 के बाद",
             builtBy: "Raja Balram Singh (completed by Raja Nahar Singh)",
             builtByHindi: "राजा बलराम सिंह (राजा नाहर सिंह द्वारा पूरा किया गया)",
-            features: "Resembles Bharatpur Fort. Has two main gates - Ajit Singh Gate and Ballu Singh Gate. In 2003, it became a Heritage Hotel. Currently known as Nahar Singh Palace.",
-            featuresHindi: "भरतपुर किले से मिलती जुलती संरचना। इसके दो मुख्य द्वार हैं - अजीत सिंह गेट और बल्लू सिंह गेट। 2003 में, यह एक हेरिटेज होटल बन गया। वर्तमान में नाहर सिंह पैलेस के नाम से जाना जाता है।"
+            features: "Raja Nahar Singh Palace is at Ballabhgarh, Faridabad. Haryana Tourism states that its earliest sections were built by Rao Balram, who came to power in 1739. It is known for its historic palace architecture and heritage tourism use.",
+            featuresHindi: "राजा नाहर सिंह महल बल्लभगढ़, फरीदाबाद में स्थित है। हरियाणा पर्यटन के अनुसार, इसके सबसे पुराने हिस्से राव बलराम ने बनवाए, जो 1739 में सत्ता में आए थे। यह ऐतिहासिक महल की वास्तुकला और विरासत पर्यटन के लिए प्रसिद्ध है।"
         },
         {
             name: "Fort of Kunjpura",
             nameHindi: "कुंजपुरा का किला",
             location: "Kunjpura, Karnal",
             locationHindi: "कुंजपुरा, करनाल",
-            period: "18th Century",
-            periodHindi: "18वीं शताब्दी",
+            period: "Historical; precise date not verified",
+            periodHindi: "ऐतिहासिक; सटीक तिथि अपुष्ट",
             builtBy: "Unknown",
             builtByHindi: "अज्ञात",
-            features: "Constructed with small bricks. At present, a military school is operated here.",
-            featuresHindi: "छोटी ईंटों से निर्मित। वर्तमान में, यहाँ एक सैन्य स्कूल संचालित होता है।"
+            features: "Kunjpura in Karnal district is associated with a historic fort and with Sainik School Kunjpura. The exact relationship between surviving fort structures and the present school campus should be checked against heritage records.",
+            featuresHindi: "करनाल जिले का कुंजपुरा ऐतिहासिक किले और सैनिक स्कूल कुंजपुरा से जुड़ा है। बचे हुए किले के ढाँचों और वर्तमान विद्यालय परिसर के संबंध की पुष्टि विरासत अभिलेखों से करनी चाहिए।"
         }
     ];
 
@@ -334,10 +322,10 @@ export default function HaryanaArchaeologicalSitesPage() {
             nameHindi: "चनेटी बौद्ध स्तूप",
             location: "Chaneti, Yamunanagar",
             locationHindi: "चनेटी, यमुनानगर",
-            period: "Ashoka Period",
-            periodHindi: "अशोक काल",
-            features: "About 100 m in circumference. Yellow and paved bricks have been used. According to Chinese traveller Hiuen Tsang, it is a relic of Ashoka's stupa.",
-            featuresHindi: "लगभग 100 मीटर परिधि में। पीली और पक्की ईंटों का उपयोग किया गया है। चीनी यात्री ह्वेनसांग के अनुसार, यह अशोक के स्तूप का अवशेष है।"
+            period: "Approximately 3rd century BCE (Mauryan period)",
+            periodHindi: "लगभग तीसरी शताब्दी ईसा पूर्व (मौर्यकाल)",
+            features: "The Buddhist brick stupa at Chaneti near Sugh, Yamunanagar is associated with the Mauryan-period Buddhist landscape. Its concentric circular brick courses create a hemispherical form; a link to Xuanzang’s account is a historical interpretation.",
+            featuresHindi: "यमुनानगर में सुघ के निकट चनेटी का ईंटों से बना बौद्ध स्तूप मौर्यकालीन बौद्ध परंपरा से जुड़ा है। इसकी संकेंद्रित ईंट-परतों से अर्धगोलाकार आकृति बनती है। ह्वेनसांग के वर्णन से इसका संबंध ऐतिहासिक व्याख्या है।"
         },
         {
             name: "Chor Gumbad",
@@ -346,8 +334,8 @@ export default function HaryanaArchaeologicalSitesPage() {
             locationHindi: "नारनौल, महेंद्रगढ़",
             period: "Medieval Period",
             periodHindi: "मध्यकाल",
-            features: "Built by Afghan Sardar Jamal Khan as his tomb. Gives an appearance of a double storeyed structure. The verandah has twenty gates.",
-            featuresHindi: "अफगान सरदार जमाल खान द्वारा अपने मकबरे के रूप में निर्मित। दो मंजिला संरचना का आभास देता है। बरामदे में बीस द्वार हैं।"
+            features: "Chor Gumbad is a square, single-chamber tomb with four corner minarets standing on a rocky rise in Narnaul. It is traditionally linked to Jamal Khan; its two-storey appearance does not mean it has two functional storeys.",
+            featuresHindi: "चोर गुंबद नारनौल में चट्टानी ऊँचाई पर बना वर्गाकार, एक-कक्षीय मकबरा है, जिसके चार कोनों पर मीनारें हैं। इसे परंपरागत रूप से जमाल खान से जोड़ा जाता है; दो-मंजिला दिखने का अर्थ वास्तविक दो कार्यशील मंजिलें होना नहीं है।"
         },
         {
             name: "War Memorial in Ludesar Village",
@@ -374,20 +362,20 @@ export default function HaryanaArchaeologicalSitesPage() {
             nameHindi: "तोशाम की बारादरी (पृथ्वीराज की कचहरी)",
             location: "Tosham, Bhiwani",
             locationHindi: "तोशाम, भिवानी",
-            period: "12th Century",
-            periodHindi: "12वीं शताब्दी",
-            features: "Not a single frame has been constructed. Has 12 gates constructed in such a way that a person sitting in the central room can easily observe all four sides.",
-            featuresHindi: "एक भी फ्रेम नहीं बनाया गया है। इसमें 12 द्वार इस प्रकार बनाए गए हैं कि केंद्रीय कक्ष में बैठा व्यक्ति आसानी से चारों ओर देख सकता है।"
+            period: "Historical structure; exact date not independently established",
+            periodHindi: "ऐतिहासिक संरचना; सटीक तिथि स्वतंत्र रूप से प्रमाणित नहीं",
+            features: "Tosham’s Baradari, also called Prithviraj ki Kachheri, is listed among Haryana’s state heritage sites. Its traditional name is not proof of construction by Prithviraj Chauhan.",
+            featuresHindi: "तोशाम की बारादरी, जिसे पृथ्वीराज की कचहरी भी कहते हैं, हरियाणा के राज्य विरासत स्थलों की सूची में शामिल है। पारंपरिक नाम से पृथ्वीराज चौहान द्वारा इसका निर्माण प्रमाणित नहीं होता।"
         },
         {
-            name: "Chatta Rai Bal Mukund Das (Birbal ka Chhatta)",
-            nameHindi: "छत्ता राय बाल मुकुंद दास (बीरबल का छत्ता)",
+            name: "Chhatta Rai Bal Mukund Das",
+            nameHindi: "छत्ता राय बाल मुकुंद दास",
             location: "Narnaul, Mahendragarh",
             locationHindi: "नारनौल, महेंद्रगढ़",
             period: "Mughal Period (Shah Jahan)",
             periodHindi: "मुगल काल (शाहजहाँ)",
-            features: "Built by Rai Bal Mukund Das, Diwan of Narnaul. Connected by tunnel route with Delhi, Jaipur, Mahendragarh and Dhosi. Birbal often visited here, hence the name.",
-            featuresHindi: "नारनौल के दीवान राय बाल मुकुंद दास द्वारा निर्मित। दिल्ली, जयपुर, महेंद्रगढ़ और धोसी से सुरंग मार्ग से जुड़ा हुआ। बीरबल अक्सर यहाँ आते थे, इसलिए यह नाम पड़ा।"
+            features: "A historic Narnaul building associated with Rai Bal Mukund Das, who served as diwan during Shah Jahan’s reign. Claims that Akbar-era Birbal visited this later structure, or that tunnels connected it to distant cities, are unsupported.",
+            featuresHindi: "नारनौल का ऐतिहासिक भवन राय बाल मुकुंद दास से जुड़ा है, जो शाहजहाँ के शासनकाल में दीवान थे। अकबरकालीन बीरबल के इस बाद के भवन में आने तथा दूरस्थ नगरों तक सुरंगों के दावों के विश्वसनीय प्रमाण नहीं मिले।"
         },
         {
             name: "Salarganj Gate",
@@ -400,24 +388,24 @@ export default function HaryanaArchaeologicalSitesPage() {
             featuresHindi: "ब्रिटिश काल के दौरान निर्मित। मार्ग के दोनों छोर पर दो धनुषाकार द्वार हैं। पानीपत शहर के प्रवेश द्वार के रूप में कार्य करता था।"
         },
         {
-            name: "Kishori Mahal and Barakhamba Chhatri",
-            nameHindi: "किशोरी महल और बारहखंबा छतरी",
-            location: "Hodal, Faridabad",
-            locationHindi: "होडल, फरीदाबाद",
+            name: "Maharani Kishori Shahi Mahal and Barakhamba Chhatri",
+            nameHindi: "महारानी किशोरी शाही महल और बारहखंभा छतरी",
+            location: "Hodal, Palwal district",
+            locationHindi: "होडल, पलवल जिला",
             period: "1754-1761 AD",
             periodHindi: "1754-1761 ईस्वी",
-            features: "Built by Jat ruler Suraj Mal in the name of his wife. Major historical monument of Haryana. Royal palace, Kutcheri and Barakhamba Chhatri are prominent.",
-            featuresHindi: "जाट शासक सूरज मल द्वारा अपनी पत्नी के नाम पर निर्मित। हरियाणा का एक प्रमुख ऐतिहासिक स्मारक। शाही महल, कचहरी और बारहखंबा छतरी प्रमुख हैं।"
+            features: "The Maharani Kishori Shahi Mahal complex at Hodal is in present-day Palwal district, not Faridabad. It is associated with Maharani Kishori and the Bharatpur Jat royal family; construction details should be tied to an identified source.",
+            featuresHindi: "होडल का महारानी किशोरी शाही महल परिसर वर्तमान पलवल जिले में है, फरीदाबाद में नहीं। यह महारानी किशोरी और भरतपुर के जाट राजपरिवार से जुड़ा है; निर्माण के विशिष्ट विवरणों के लिए प्रमाणित स्रोत जरूरी है।"
         },
         {
             name: "Birbal Ka Rang Mahal",
             nameHindi: "बीरबल का रंग महल",
             location: "Buria, Yamunanagar",
             locationHindi: "बुड़िया, यमुनानगर",
-            period: "Akbar's Reign",
-            periodHindi: "अकबर का शासनकाल",
-            features: "Built by Birbal as his residence. Lakhauri bricks and lime have been used. No wood used in this palace. Fully ventilated.",
-            featuresHindi: "बीरबल द्वारा अपने निवास के रूप में निर्मित। लखौरी ईंटों और चूने का उपयोग किया गया है। इस महल में लकड़ी का उपयोग नहीं किया गया है। पूरी तरह हवादार।"
+            period: "Historical; exact date disputed",
+            periodHindi: "ऐतिहासिक; सटीक तिथि विवादित",
+            features: "Buria has a historic structure popularly known as Birbal ka Rang Mahal. The attribution of its construction or residence to Akbar’s courtier Birbal is traditional and should not be presented as a verified archaeological finding.",
+            featuresHindi: "बुड़िया में बीरबल का रंग महल नाम से प्रसिद्ध ऐतिहासिक संरचना है। इसका निर्माण या निवास अकबर के दरबारी बीरबल से जोड़ना स्थानीय परंपरा है, सत्यापित पुरातात्विक निष्कर्ष नहीं।"
         }
     ];
 
@@ -432,8 +420,8 @@ export default function HaryanaArchaeologicalSitesPage() {
             yearHindi: "1959",
             establishedBy: "Swami Omanand Saraswati",
             establishedByHindi: "स्वामी ओमानंद सरस्वती",
-            features: "Oldest and largest museum in the state. Contains coins, seals, inscriptions, copper sheets, weapons, terracotta, pottery, stone sculptures, jewellery, manuscripts and beads. Also has ancient statue of Panchavati deer, Nilgiri drums, seamless chain and plows.",
-            featuresHindi: "राज्य का सबसे पुराना और सबसे बड़ा संग्रहालय। इसमें सिक्के, मुहरें, शिलालेख, तांबे की चादरें, हथियार, टेराकोटा, मिट्टी के बर्तन, पत्थर की मूर्तियाँ, आभूषण, पांडुलिपियाँ और मनके संरक्षित हैं। पंचवटी हिरण की प्राचीन मूर्ति, नीलगिरी ड्रम, बिना सीवन की चेन और हल भी यहाँ रखे गए हैं।"
+            features: "The Gurukul Jhajjar archaeological museum grew from the collection assembled by Swami Omanand Saraswati in 1959. Haryana Tourism confirms its origins; “the oldest and largest museum in Haryana” is not an independently established statewide ranking.",
+            featuresHindi: "गुरुकुल झज्जर पुरातत्व संग्रहालय की शुरुआत 1959 में स्वामी ओमानंद सरस्वती के संग्रह से हुई। हरियाणा पर्यटन इसकी स्थापना का उल्लेख करता है; इसे हरियाणा का निर्विवाद सबसे पुराना और सबसे बड़ा संग्रहालय कहना अलग रैंकिंग-स्रोत के बिना उचित नहीं है।"
         },
         {
             name: "Home of Folk Arts Museum",
@@ -454,34 +442,34 @@ export default function HaryanaArchaeologicalSitesPage() {
             locationHindi: "कुरुक्षेत्र",
             year: "1987",
             yearHindi: "1987",
-            establishedBy: "Government of Haryana",
-            establishedByHindi: "हरियाणा सरकार",
-            features: "Three storied, 8885 square meters wide. Contains remains from excavation, sculptures of brass, bronze and wood, leather puppets, Madhubani painting specimens, ancient coins and manuscripts. Special sculptures of elephant teeth from Odisha and Tamil Nadu.",
-            featuresHindi: "तीन मंजिला, 8885 वर्ग मीटर चौड़ा। उत्खनन से प्राप्त अवशेष, पीतल, कांस्य और लकड़ी की मूर्तियाँ, चमड़े की कठपुतलियाँ, मधुबनी पेंटिंग के नमूने, प्राचीन सिक्के और पांडुलिपियाँ शामिल हैं। ओडिशा और तमिलनाडु के कलाकारों द्वारा बनाई गई हाथी दांत की विशेष मूर्तियाँ भी यहाँ रखी गई हैं।"
-        },
-        {
-            name: "Panorama and Science Centre",
-            nameHindi: "पैनोरमा एंड साइंस सेंटर",
-            location: "Kurukshetra",
-            locationHindi: "कुरुक्षेत्र",
-            year: "1990s",
-            yearHindi: "1990 के दशक",
             establishedBy: "Kurukshetra Development Board",
             establishedByHindi: "कुरुक्षेत्र विकास बोर्ड",
-            features: "Uses modern tools to provide information about science, culture, religion, human civilisation and history. Displays scientific interpretation related to Mahabharata war. Exhibition theme: 'India: A Heritage in Signs, Technology and Culture'.",
-            featuresHindi: "विज्ञान, संस्कृति, धर्म, मानव सभ्यता और इतिहास के बारे में जानकारी प्रदान करने के लिए आधुनिक उपकरणों का उपयोग करता है। महाभारत युद्ध से संबंधित वैज्ञानिक व्याख्या प्रदर्शित करता है। प्रदर्शनी का विषय: 'भारत: एक विरासत संकेतों, प्रौद्योगिकी और संस्कृति में'।"
+            features: "Established in 1987 by the Kurukshetra Development Board and dedicated to the life and cultural depictions of Shri Krishna. Collections include sculptures, paintings, manuscripts and regional artistic representations. It moved to its present building in 1991.",
+            featuresHindi: "कुरुक्षेत्र विकास बोर्ड ने 1987 में श्रीकृष्ण के जीवन एवं सांस्कृतिक चित्रण को समर्पित संग्रहालय स्थापित किया। इसमें मूर्तियाँ, चित्र, पांडुलिपियाँ और क्षेत्रीय कला के उदाहरण हैं। 1991 में इसे वर्तमान भवन में स्थानांतरित किया गया।"
+        },
+        {
+            name: "Kurukshetra Panorama & Science Centre",
+            nameHindi: "कुरुक्षेत्र पैनोरमा एवं विज्ञान केंद्र",
+            location: "Kurukshetra",
+            locationHindi: "कुरुक्षेत्र",
+            year: "6 March 2001 (inauguration)",
+            yearHindi: "6 मार्च 2001 (उद्घाटन)",
+            establishedBy: "National Council of Science Museums (NCSM), Ministry of Culture, Government of India",
+            establishedByHindi: "राष्ट्रीय विज्ञान संग्रहालय परिषद (NCSM), भारत सरकार का संस्कृति मंत्रालय",
+            features: "Opened on 6 March 2001 by Prime Minister Atal Bihari Vajpayee. A unit of NCSM, the centre combines a Mahabharata-themed panoramic display with interactive science exhibits and educational activities.",
+            featuresHindi: "6 मार्च 2001 को प्रधानमंत्री अटल बिहारी वाजपेयी ने इसका उद्घाटन किया। यह राष्ट्रीय विज्ञान संग्रहालय परिषद की इकाई है, जहाँ महाभारत-विषयक पैनोरमा, विज्ञान की इंटरैक्टिव प्रदर्शनियाँ और शैक्षणिक गतिविधियाँ होती हैं।"
         },
         {
             name: "Panipat Museum",
             nameHindi: "पानीपत संग्रहालय",
-            location: "Panipat",
-            locationHindi: "पानीपत",
-            year: "2000",
-            yearHindi: "2000",
-            establishedBy: "Panipat War Memorial Committee",
-            establishedByHindi: "पानीपत युद्ध स्मारक समिति",
-            features: "Provides comprehensive information on art, history, crafts and archaeology of the three Battles of Panipat. Contains pottery, ornaments, important documents, weapons, maps, manuscripts and sculptures.",
-            featuresHindi: "पानीपत की तीनों लड़ाइयों से उत्पन्न कला, इतिहास, शिल्प और पुरातत्व पर व्यापक जानकारी प्रदान करता है। इसमें मिट्टी के बर्तन, आभूषण, महत्वपूर्ण दस्तावेज, हथियार, मानचित्र, पांडुलिपियाँ और मूर्तियाँ शामिल हैं।"
+            location: "Binjhol, Panipat",
+            locationHindi: "बिंझौल, पानीपत",
+            year: "Year not independently verified",
+            yearHindi: "वर्ष की स्वतंत्र पुष्टि नहीं",
+            establishedBy: "Haryana Directorate of Archaeology & Museums (museum listing)",
+            establishedByHindi: "हरियाणा पुरातत्व एवं संग्रहालय निदेशालय (संग्रहालय सूची)",
+            features: "The Panipat Museum at Binjhol displays arms, armour, pottery, sculptures, inscriptions, archival objects and reproductions linked with the history of the Battles of Panipat. The museum’s exact founding year should not be inferred from the display collection.",
+            featuresHindi: "बिंझौल स्थित पानीपत संग्रहालय में युद्धों के इतिहास से जुड़े शस्त्र, कवच, मृद्भांड, मूर्तियाँ, अभिलेख, ऐतिहासिक वस्तुएँ और प्रतिकृतियाँ प्रदर्शित हैं। संग्रहालय की स्थापना का वर्ष संग्रह के आधार पर अनुमानित नहीं करना चाहिए।"
         },
         {
             name: "Lila Dhar Dukhi Smarak Sarasvati Museum",
@@ -524,84 +512,86 @@ export default function HaryanaArchaeologicalSitesPage() {
             nameHindi: "सर छोटू राम स्मारक संग्रहालय",
             location: "Garhi Sampla, Rohtak",
             locationHindi: "गढ़ी सांपला, रोहतक",
-            year: "2013",
-            yearHindi: "2013",
+            year: "Handed to State Archaeology Department on 6 September 2013",
+            yearHindi: "6 सितंबर 2013 को राज्य पुरातत्व विभाग को हस्तांतरित",
             establishedBy: "Government of Haryana",
             establishedByHindi: "हरियाणा सरकार",
-            features: "Historical items related to Chaudhary Chhotu Ram. On 9th October, 2018, Prime Minister Narendra Modi unveiled a 64 feet high statue of Chaudhary Chhotu Ram.",
-            featuresHindi: "चौधरी छोटू राम से संबंधित ऐतिहासिक वस्तुएँ। 9 अक्टूबर, 2018 को प्रधानमंत्री नरेंद्र मोदी ने चौधरी छोटू राम की 64 फीट ऊँची प्रतिमा का अनावरण किया।"
+            features: "Museum at Garhi Sampla, Rohtak, displaying personal belongings, documents and photographs related to farmer leader Sir Chhotu Ram. Haryana Archaeology records its handover to the department on 6 September 2013. This is not necessarily its original foundation date.",
+            featuresHindi: "गढ़ी सांपला, रोहतक का संग्रहालय किसान नेता सर छोटू राम के निजी सामान, दस्तावेज और चित्र प्रदर्शित करता है। हरियाणा पुरातत्व विभाग के अनुसार 6 सितंबर 2013 को संग्रहालय उसे हस्तांतरित हुआ; यह मूल स्थापना तिथि होना आवश्यक नहीं है।"
         },
         {
             name: "Archaeological Museum Thanesar",
             nameHindi: "पुरातत्व संग्रहालय थानेसर",
             location: "Thanesar, Kurukshetra",
             locationHindi: "थानेसर, कुरुक्षेत्र",
-            year: "Archaeological Survey of India",
-            yearHindi: "भारतीय पुरातत्व सर्वेक्षण",
-            establishedBy: "ASI (Chandigarh Division)",
-            establishedByHindi: "एएसआई (चंडीगढ़ प्रभाग)",
-            features: "Located in the courtyard of the tomb of Sheikh Chilli.",
-            featuresHindi: "शेख चिल्ली के मकबरे के प्रांगण में स्थित है।"
+            year: "Establishment year not independently verified",
+            yearHindi: "स्थापना वर्ष की स्वतंत्र पुष्टि नहीं",
+            establishedBy: "Archaeological Survey of India (ASI)",
+            establishedByHindi: "भारतीय पुरातत्व सर्वेक्षण (ASI)",
+            features: "An archaeological museum associated with the Sheikh Chilli (Sheikh Chaheli) tomb complex at Thanesar, Kurukshetra. The complex is associated with Mughal-period archaeology and displays regional historical material.",
+            featuresHindi: "थानेसर, कुरुक्षेत्र में शेख चिल्ली (शेख चहेली) के मकबरा परिसर से जुड़ा पुरातत्व संग्रहालय। यह मुगलकालीन पुरातत्व और क्षेत्रीय ऐतिहासिक सामग्री से संबंधित है।"
         },
         {
             name: "Manuscript Museum",
             nameHindi: "पांडुलिपि संग्रहालय",
             location: "Kurukshetra University, Kurukshetra",
             locationHindi: "कुरुक्षेत्र विश्वविद्यालय, कुरुक्षेत्र",
-            year: "Kurukshetra University",
-            yearHindi: "कुरुक्षेत्र विश्वविद्यालय",
+            year: "Establishment year not verified",
+            yearHindi: "स्थापना वर्ष की पुष्टि नहीं",
             establishedBy: "Pandit Sthanu Dutt Sharma",
             establishedByHindi: "पंडित स्थाणु दत्त शर्मा",
-            features: "Five texts of Nath Community written in Sharda script have been found. Collection of ancient handcrafts considered as heritage.",
-            featuresHindi: "शारदा लिपि में लिखित नाथ संप्रदाय के पाँच ग्रंथ मिले हैं। प्राचीन हस्तशिल्प का संग्रह जिन्हें विरासत माना जाता है।"
+            features: "A manuscript-related collection is associated with Kurukshetra University. Exact institutional status, the number of Sharada-script manuscripts and attribution to a particular founder require primary university documentation.",
+            featuresHindi: "कुरुक्षेत्र विश्वविद्यालय से पांडुलिपि-संबंधी संग्रह जुड़ा बताया जाता है। इसका संस्थागत स्वरूप, शारदा लिपि के ग्रंथों की संख्या और विशिष्ट संस्थापक का दावा विश्वविद्यालय के प्राथमिक अभिलेख से सत्यापित करना चाहिए।"
         },
         {
             name: "Gulzarilal Nanda Museum",
             nameHindi: "गुलजारीलाल नंदा संग्रहालय",
             location: "Sadachar Sthal, Kurukshetra",
             locationHindi: "सदाचार स्थल, कुरुक्षेत्र",
-            year: "Kurukshetra Development Board",
-            yearHindi: "कुरुक्षेत्र विकास बोर्ड",
-            establishedBy: "Shri Krishna Museum",
-            establishedByHindi: "श्री कृष्ण संग्रहालय",
-            features: "First personality museum of Haryana dedicated to Gulzarilal Nanda, former Prime Minister and Bharat Ratna awardee.",
-            featuresHindi: "हरियाणा का पहला व्यक्तित्व संग्रहालय जो पूर्व प्रधानमंत्री और भारत रत्न गुलजारीलाल नंदा को समर्पित है।"
+            year: "Establishment year not independently verified",
+            yearHindi: "स्थापना वर्ष की स्वतंत्र पुष्टि नहीं",
+            establishedBy: "Institutional founder not conclusively verified",
+            establishedByHindi: "संस्थापक संस्था की पुष्टि नहीं",
+            features: "A museum or memorial collection associated with Gulzarilal Nanda, former acting Prime Minister of India and Bharat Ratna recipient, at Kurukshetra. “First personality museum in Haryana” needs separate documentary proof.",
+            featuresHindi: "कुरुक्षेत्र में भारत रत्न और भारत के पूर्व कार्यवाहक प्रधानमंत्री गुलजारीलाल नंदा से संबंधित संग्रहालय अथवा स्मृति-संग्रह। “हरियाणा का पहला व्यक्तित्व संग्रहालय” होने के लिए अलग प्रामाणिक स्रोत आवश्यक है।"
         },
+
         {
-            name: "Guru Gobind Singh Martial Arts Museum",
-            nameHindi: "गुरु गोबिंद सिंह मार्शल आर्ट्स संग्रहालय",
-            location: "Kapalmohan, Yamunanagar",
-            locationHindi: "कपालमोहन, यमुनानगर",
-            year: "Government of Haryana",
-            yearHindi: "हरियाणा सरकार",
+            name: "Guru Gobind Singh Martial Art Museum",
+            nameHindi: "गुरु गोबिंद सिंह युद्ध कला संग्रहालय",
+            location: "Kapal Mochan, Bilaspur, Yamunanagar, Haryana",
+            locationHindi: "कपाल मोचन, बिलासपुर, यमुनानगर, हरियाणा",
+            year: "2000 (foundation stone)",
+            yearHindi: "2000 (शिलान्यास)",
             establishedBy: "Government of Haryana",
             establishedByHindi: "हरियाणा सरकार",
-            features: "First Guru Nanak Dev stayed here in 1584 AD and tenth Guru, Guru Gobind Singh in 1686 AD. Proud place for the arrival of two Sikh Gurus.",
-            featuresHindi: "प्रथम गुरु नानक देव 1584 ईस्वी में यहाँ रुके थे और दसवें गुरु, गुरु गोबिंद सिंह 1686 ईस्वी में। दो सिख गुरुओं के आगमन के लिए गौरवपूर्ण स्थान।"
+            features: "The Guru Gobind Singh Martial Art Museum is located near the sacred Kapal Mochan pilgrimage site in Yamunanagar district, Haryana. The site is traditionally associated with visits by Guru Nanak Dev Ji and Guru Gobind Singh Ji. The museum's foundation stone was laid on 15 August 2000. It commemorates Sikh martial heritage and the legacy of Guru Gobind Singh Ji. The museum was handed over to the Haryana State Archaeology Department in June 2011.",
+            featuresHindi: "गुरु गोबिंद सिंह युद्ध कला संग्रहालय हरियाणा के यमुनानगर जिले में पवित्र कपाल मोचन तीर्थस्थल के निकट स्थित है। मान्यता के अनुसार, इस स्थान पर गुरु नानक देव जी और गुरु गोबिंद सिंह जी पधारे थे। संग्रहालय की आधारशिला 15 अगस्त 2000 को रखी गई थी। यह संग्रहालय सिख युद्ध-कला की विरासत और गुरु गोबिंद सिंह जी के ऐतिहासिक योगदान की स्मृति से जुड़ा है। जून 2011 में संग्रहालय को हरियाणा राज्य पुरातत्व विभाग को सौंप दिया गया था।"
         },
+
         {
             name: "Guru Tegh Bahadur Memorial Museum",
             nameHindi: "गुरु तेग बहादुर स्मारक संग्रहालय",
             location: "Badkhalsa, Sonipat",
             locationHindi: "बादखालसा, सोनीपत",
-            year: "Government of Haryana",
-            yearHindi: "हरियाणा सरकार",
+            year: "Establishment year not independently verified",
+            yearHindi: "स्थापना वर्ष की स्वतंत्र पुष्टि नहीं",
             establishedBy: "Government of Haryana",
             establishedByHindi: "हरियाणा सरकार",
-            features: "Dedicated to Guru Tegh Bahadur, the 9th Guru of the Sikhs. Major historical site of Sikhs.",
-            featuresHindi: "सिखों के 9वें गुरु, गुरु तेग बहादुर को समर्पित। सिखों का एक प्रमुख ऐतिहासिक स्थल।"
+            features: "A memorial site at Bad Khalsa, Sonipat, associated with Guru Tegh Bahadur, the ninth Sikh Guru. The official designation and founding date of any museum facility at this site require confirmation.",
+            featuresHindi: "सोनीपत के बड़खालसा में नौवें सिख गुरु गुरु तेग बहादुर जी से जुड़ा स्मृति स्थल है। यहाँ संग्रहालय की आधिकारिक स्थिति और स्थापना वर्ष की अलग पुष्टि आवश्यक है।"
         },
         {
             name: "Jahaj Kothi Zonal Museum",
             nameHindi: "जहाज कोठी जोनल संग्रहालय",
             location: "Hisar",
             locationHindi: "हिसार",
-            year: "1796 AD (Building)",
-            yearHindi: "1796 ईस्वी (भवन)",
-            establishedBy: "George Thomas (Converted by ASI)",
-            establishedByHindi: "जॉर्ज थॉमस (एएसआई द्वारा परिवर्तित)",
-            features: "Built in 1796 AD by George Thomas, a resident of Ireland. This historical monument has been converted into a regional archaeological museum.",
-            featuresHindi: "1796 ईस्वी में आयरलैंड के निवासी जॉर्ज थॉमस द्वारा निर्मित। इस ऐतिहासिक स्मारक को एक क्षेत्रीय पुरातत्व संग्रहालय में बदल दिया गया है।"
+            year: "Late 18th century (building date disputed)",
+            yearHindi: "18वीं शताब्दी का उत्तरार्ध (तिथि विवादित)",
+            establishedBy: "George Thomas (historic residence); Haryana Archaeology manages the museum",
+            establishedByHindi: "जॉर्ज थॉमस (ऐतिहासिक निवास); संग्रहालय का प्रबंधन हरियाणा पुरातत्व विभाग",
+            features: "Jahaj Kothi in Hisar served as a residence of George Thomas and later became a zonal museum. Haryana Archaeology lists 1766, but that date conflicts with Thomas’s lifetime and arrival in India; historical accounts point to the 1790s, often 1796. The exact construction date requires reconciliation.",
+            featuresHindi: "हिसार की जहाज कोठी जॉर्ज थॉमस के निवास के रूप में उपयोग हुई और बाद में क्षेत्रीय संग्रहालय बनी। हरियाणा पुरातत्व विभाग 1766 लिखता है, लेकिन यह तिथि थॉमस के जीवनकाल और भारत आगमन के समय से मेल नहीं खाती। ऐतिहासिक विवरण 1790 के दशक, प्रायः 1796, का संकेत देते हैं। सटीक निर्माण तिथि का मिलान आवश्यक है।"
         }
     ];
 
@@ -628,7 +618,7 @@ export default function HaryanaArchaeologicalSitesPage() {
 
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-sm font-medium backdrop-blur-sm">
                         <Castle className="w-4 h-4" />
-                        {language === "hindi" ? "पुरातात्विक स्थल और संग्रहालय - हरियाणा सरकार" : "Archaeological Sites and Museums - Government of Haryana"}
+                        {language === "hindi" ? "हरियाणा की पुरातत्व एवं संग्रहालय जानकारी" : "Haryana Archaeology & Museum Study Guide"}
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
@@ -637,18 +627,18 @@ export default function HaryanaArchaeologicalSitesPage() {
 
                     <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
                         {language === "hindi"
-                            ? "हरियाणा के ऐतिहासिक किलों, पुरातात्विक स्थलों और संग्रहालयों की संपूर्ण जानकारी - हांसी का किला, राजा नाहर सिंह का किला, पुरातत्व संग्रहालय, श्री कृष्ण संग्रहालय और बहुत कुछ"
-                            : "Complete information about historical forts, archaeological sites, and museums of Haryana - Fort of Hansi, Raja Nahar Singh's Fort, Archaeological Museum, Shri Krishna Museum, and much more"}
+                            ? "हरियाणा के प्रमुख किलों, स्मारकों और संग्रहालयों का स्रोत-आधारित विवरण — असीगढ़, राजा नाहर सिंह महल, श्रीकृष्ण संग्रहालय और अन्य धरोहरें"
+                            : "A source-based guide to Haryana’s major forts, monuments and museums, including Asigarh, Raja Nahar Singh Palace, Shri Krishna Museum and other heritage sites"}
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-6 mb-10">
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Castle className="w-4 h-4 text-amber-600" />
-                            <span>{language === "hindi" ? "20+ किले" : "20+ Forts"}</span>
+                            <span>{language === "hindi" ? `${archaeologicalForts.length} किले/स्थल` : `${archaeologicalForts.length} Fort/heritage entries`}</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             {/* <Museum className="w-4 h-4 text-amber-600" /> */}
-                            <span>{language === "hindi" ? "15+ संग्रहालय" : "15+ Museums"}</span>
+                            <span>{language === "hindi" ? `${museums.length} संग्रहालय प्रविष्टियाँ` : `${museums.length} Museum entries`}</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Church className="w-4 h-4 text-amber-600" />
@@ -675,8 +665,8 @@ export default function HaryanaArchaeologicalSitesPage() {
                         </div>
                         <p className="text-muted-foreground leading-relaxed">
                             {language === "hindi"
-                                ? "पुरातात्विक किलों और संग्रहालयों का ऐतिहासिक रूप से महत्वपूर्ण स्थान है। एक किला न केवल ईंटों और पत्थरों से बनी संरचना है, बल्कि यह एक शासक के पराक्रम को भी प्रदर्शित करता है। इसी प्रकार, संग्रहालय हमारी विरासत को सुरक्षित रखते हुए हमारी धरोहर हैं। शुक्र नीति, जो शुक्राचार्य का प्रमुख ग्रंथ है, में राज्य के सात प्रमुख अंगों का उल्लेख है जिसमें किले को भी विशेष अंग की श्रेणी में शामिल किया गया है।"
-                                : "Archaeological forts and museums have a historically significant place. A fort is not only a structure made of bricks and stones, but also displays the valor of a ruler. Similarly, museums are our heritage while keeping our heritage safe. Shukra Niti, the major text of the sage Shukracharya, has mention of the seven major organs of the state in which the fort has also been included in the category of special organs."}
+                                ? "हरियाणा के किले, प्राचीन अवशेष, स्मारक और संग्रहालय राज्य की ऐतिहासिक तथा सांस्कृतिक विरासत को समझने के प्रमुख स्रोत हैं। किले सुरक्षा एवं शासन से जुड़े थे, जबकि संग्रहालय पुरातात्विक वस्तुओं, अभिलेखों और कला सामग्री का संरक्षण करते हैं। इस पृष्ठ में प्रमाणित इतिहास और स्थानीय परंपराओं को अलग-अलग समझाया गया है।"
+                                : "The forts, ancient sites, monuments and museums of Haryana provide important evidence of the state’s history and cultural heritage. Forts served defensive and administrative functions, while museums preserve archaeological finds, inscriptions, art and other records. This guide distinguishes documented history from traditional attributions that require further verification."}
                         </p>
                     </div>
 
@@ -739,8 +729,8 @@ export default function HaryanaArchaeologicalSitesPage() {
                         </div>
                         <p className="text-muted-foreground mb-6">
                             {language === "hindi"
-                                ? "सांस्कृतिक विरासत को संरक्षित करने के उद्देश्य से हरियाणा में कई संग्रहालय स्थापित किए गए हैं। ऐतिहासिक रूप से, हरियाणा देश का एक प्रमुख राज्य है। ऐतिहासिक और सांस्कृतिक विरासत इन संग्रहालयों में संरक्षित हैं। रोहतक और अग्रोहा से प्राप्त सिक्के भी यहाँ रखे गए हैं।"
-                                : "Many museums have been established with a view to preserving cultural heritage in Haryana. Historically, Haryana is a major state of the country. Historical and cultural heritage are preserved in these museums. Coins obtained from Rohtak and Agroha are also kept here."}
+                                ? "हरियाणा में विभिन्न संस्थाओं के संग्रहालय पुरातात्विक सामग्री, सिक्कों, मूर्तियों, पांडुलिपियों और लोक-सांस्कृतिक धरोहरों को संरक्षित करते हैं। नीचे दिए गए स्थापना-वर्ष, भवन-वर्ष और हस्तांतरण-वर्ष अलग-अलग प्रकार की तिथियाँ हैं; जहाँ प्रमाण उपलब्ध नहीं है, वहाँ यह स्पष्ट किया गया है।"
+                                : "Museums managed by various institutions in Haryana preserve archaeological materials, coins, sculptures, manuscripts and folk-cultural heritage. Establishment dates, building dates and departmental handover dates are different kinds of dates; where reliable confirmation is missing, this is stated explicitly."}
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {museums.map((museum, idx) => (
@@ -766,8 +756,8 @@ export default function HaryanaArchaeologicalSitesPage() {
                         </div>
                         <p className="text-muted-foreground leading-relaxed">
                             {language === "hindi"
-                                ? "हरियाणा की सांस्कृतिक विरासत को संरक्षित करने के लिए, राज्य सरकार द्वारा पंचकूला और हिसार के राखीगढ़ी में क्रमशः 30 करोड़ और 5 करोड़ रुपये की लागत से दो राज्य स्तरीय संग्रहालय बनाए गए हैं।"
-                                : "In order to preserve the cultural heritage of Haryana, two state-level museums have been constructed by the State Government at Panchkula and Rakhigarhi in Hisar at a cost of 30 crore and 5 crore, respectively."}
+                                ? "हरियाणा सरकार के 2026–27 बजट विवरण के अनुसार, पंचकूला में राज्य पुरातत्व संग्रहालय और राखीगढ़ी में स्थल संग्रहालय एवं व्याख्या केंद्र का निर्माण लगभग पूरा था, जबकि आंतरिक और बाहरी विकास कार्य शेष थे। इसलिए इन्हें पहले से पूर्ण और चालू संग्रहालय नहीं कहा जाना चाहिए।"
+                                : "According to Haryana’s 2026–27 budget documents, construction of the State Archaeological Museum at Panchkula and the Site Museum & Interpretation Centre at Rakhigarhi was nearing completion, while further internal and external development remained. These facilities should not be described as already completed and operational."}
                         </p>
                     </div>
                 </div>
@@ -781,20 +771,20 @@ export default function HaryanaArchaeologicalSitesPage() {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-amber-600 mb-2">20+</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "ऐतिहासिक किले" : "Historical Forts"}</p>
+                            <div className="text-3xl font-bold text-amber-600 mb-2">{archaeologicalForts.length}</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सूचीबद्ध किला/विरासत स्थल" : "Listed fort/heritage entries"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-amber-600 mb-2">15+</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "संग्रहालय" : "Museums"}</p>
+                            <div className="text-3xl font-bold text-amber-600 mb-2">{museums.length}</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सूचीबद्ध संग्रहालय" : "Listed museums"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
                             <div className="text-3xl font-bold text-amber-600 mb-2">1959</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सबसे पुराना संग्रहालय (झज्जर)" : "Oldest Museum (Jhajjar)"}</p>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "गुरुकुल झज्जर संग्रह की शुरुआत" : "Gurukul Jhajjar collection began"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-amber-600 mb-2">37 ft</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "रामगढ़ किले के मुख्य द्वार की ऊँचाई" : "Ramgarh Fort Main Gate Height"}</p>
+                            <div className="text-3xl font-bold text-amber-600 mb-2">2001</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "कुरुक्षेत्र पैनोरमा केंद्र का उद्घाटन वर्ष" : "Kurukshetra Panorama inauguration year"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
                             <div className="text-3xl font-bold text-amber-600 mb-2">12</div>
@@ -809,8 +799,8 @@ export default function HaryanaArchaeologicalSitesPage() {
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "हिसार किले का निर्माण" : "Hisar Fort Construction"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-amber-600 mb-2">8,885</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "श्री कृष्ण संग्रहालय का क्षेत्रफल (वर्ग मीटर)" : "Shri Krishna Museum Area (sq m)"}</p>
+                            <div className="text-3xl font-bold text-amber-600 mb-2">1987</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "श्रीकृष्ण संग्रहालय की स्थापना" : "Shri Krishna Museum founded"}</p>
                         </div>
                     </div>
                 </div>
@@ -887,6 +877,22 @@ export default function HaryanaArchaeologicalSitesPage() {
                 </div>
             </section>
 
+
+            {/* Sources and editorial verification note */}
+            <section className="py-8 px-4 sm:px-6 lg:px-8 border-t">
+                <div className="max-w-5xl mx-auto space-y-3 text-sm text-muted-foreground">
+                    <h2 className="font-semibold text-foreground text-lg">{language === "hindi" ? "प्रामाणिक स्रोत और तथ्य संबंधी सावधानी" : "Official Sources and Verification Notes"}</h2>
+                    <p>{language === "hindi" ? "'पारंपरिक मान्यता' या 'पुष्टि आवश्यक' वाले विवरण निश्चित ऐतिहासिक तथ्य नहीं हैं। भवन निर्माण, संग्रहालय स्थापना और विभागीय हस्तांतरण की तिथियों में अंतर रखें।" : "Descriptions marked as traditional attributions or requiring verification must not be treated as established historical facts. Distinguish building dates, museum founding dates and departmental handovers."}</p>
+                    <div className="flex flex-wrap gap-x-5 gap-y-2">
+                        <a className="underline hover:text-foreground" target="_blank" rel="noopener noreferrer" href="https://archaeology.haryana.gov.in/sites-and-monuments">Haryana Archaeology — Monuments</a>
+                        <a className="underline hover:text-foreground" target="_blank" rel="noopener noreferrer" href="https://archaeology.haryana.gov.in/museums-listings-be-added-their-details">Haryana Archaeology — Museums</a>
+                        <a className="underline hover:text-foreground" target="_blank" rel="noopener noreferrer" href="https://kpsc.nscd.gov.in/en_us/about-us/">NCSM — Kurukshetra Panorama</a>
+                        <a className="underline hover:text-foreground" target="_blank" rel="noopener noreferrer" href="https://hansi.haryana.gov.in/culture-heritage/">Hansi District — Heritage</a>
+                        <a className="underline hover:text-foreground" target="_blank" rel="noopener noreferrer" href="https://palwal.gov.in/tourist-places/">Palwal District — Tourism</a>
+                    </div>
+                </div>
+            </section>
+
             {/* SEO Footer */}
             <section className="py-12 px-4 bg-muted/30 border-t">
                 <div className="max-w-5xl mx-auto text-center">
@@ -897,7 +903,7 @@ export default function HaryanaArchaeologicalSitesPage() {
                             : "This page provides comprehensive information about archaeological forts, archaeological sites, and museums of Haryana. A complete reference for students preparing for Haryana CET, HSSC exams, and other competitive exams that include Haryana GK."}
                     </p>
                     <p className="text-xs text-muted-foreground mt-4">
-                        © 2026 CET TEST | {language === "hindi" ? "जानकारी हरियाणा सरकार के आधिकारिक प्रकाशनों और पुरातत्व अभिलेखों से स्रोतित" : "Information sourced from official Government of Haryana publications and archaeological records"}
+                        © 2026 CET TEST | {language === "hindi" ? "संदर्भ: हरियाणा पुरातत्व निदेशालय, जिला पोर्टल, भारतीय पुरातत्व सर्वेक्षण एवं राष्ट्रीय विज्ञान संग्रहालय परिषद; अनिश्चित दावे चिह्नित हैं" : "References: Haryana Archaeology, district portals, ASI and NCSM; uncertain claims are identified"}
                     </p>
                 </div>
             </section>

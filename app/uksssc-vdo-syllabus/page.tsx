@@ -55,7 +55,7 @@ export default function UKSSSCVDOSyllabusPage() {
         },
         {
             question: "What is the duration of UK VDO exam?",
-            answer: "The written examination is typically conducted for 1.5 hours (90 minutes) with objective-type multiple choice questions."
+            answer: "For UKSSSC VDO under graduate-level Advertisement 70/2025, the written paper lasted 2 hours (120 minutes), as reflected in the September 2025 exam notice. Check a later VDO advertisement separately if applying for a new cycle."
         },
         {
             question: "Where can I download UKSSSC VDO syllabus PDF?",
@@ -127,7 +127,7 @@ export default function UKSSSCVDOSyllabusPage() {
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Clock className="w-4 h-4 text-primary" />
-                            <span>90 Minutes</span>
+                            <span>120 Minutes</span>
                         </div>
                     </div>
 
@@ -171,7 +171,7 @@ export default function UKSSSCVDOSyllabusPage() {
                             {[
                                 { label: "Total Sections", value: "4", color: "from-blue-500 to-blue-600" },
                                 { label: "Total Questions", value: "100", color: "from-green-500 to-green-600" },
-                                { label: "Duration", value: "90 Minutes", color: "from-orange-500 to-orange-600" },
+                                { label: "Duration", value: "120 Minutes", color: "from-orange-500 to-orange-600" },
                                 { label: "Negative Marking", value: "-0.25", color: "from-red-500 to-red-600" }
                             ].map((item, idx) => (
                                 <div key={idx} className="bg-card rounded-xl p-4 text-center border shadow-sm">
@@ -202,7 +202,7 @@ export default function UKSSSCVDOSyllabusPage() {
                             Complete <span className="text-primary">Syllabus</span> Breakdown
                         </h2>
                         <p className="text-muted-foreground max-w-2xl mx-auto">
-                            Topic-wise complete syllabus for UKSSSC VDO (Village Development Officer) examination as per latest official notification
+                            Topic-wise VDO preparation guide based on the 2025 graduate-level recruitment cycle; verify future post-specific notices
                         </p>
                     </div>
 

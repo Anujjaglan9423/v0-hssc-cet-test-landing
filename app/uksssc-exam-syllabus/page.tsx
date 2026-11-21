@@ -57,12 +57,12 @@ export default function UKSSSCExamSyllabusPage() {
             features: [
                 "5 Main Subjects",
                 "100 Questions",
-                "90 Minutes Duration",
+                "120 Minutes Duration",
                 "Negative Marking: -0.25",
                 "Computer Knowledge Included"
             ],
             totalQuestions: 100,
-            duration: "90 Minutes",
+            duration: "120 Minutes",
             link: "/uksssc-police-constable-syllabus",
             icon: <Shield className="w-6 h-6" />,
             subjects: ["Computer Knowledge", "GK & Current Affairs", "General Hindi", "Reasoning", "Numerical Ability"],
@@ -77,12 +77,12 @@ export default function UKSSSCExamSyllabusPage() {
             features: [
                 "4 Main Subjects",
                 "100 Questions",
-                "90 Minutes Duration",
+                "120 Minutes Duration",
                 "Negative Marking: -0.25",
                 "No Computer Section"
             ],
             totalQuestions: "100",
-            duration: "90 Minutes",
+            duration: "120 Minutes",
             link: "/uksssc-vdo-syllabus",
             icon: <Users className="w-6 h-6" />,
             subjects: ["GK & Current Affairs", "General Hindi", "Reasoning", "Numerical Ability"],
@@ -293,7 +293,7 @@ export default function UKSSSCExamSyllabusPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>100 Questions</strong> | <strong>90 Minutes</strong> duration</span>
+                                    <span><strong>100 Questions</strong> | <strong>120 Minutes</strong> duration</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -319,7 +319,7 @@ export default function UKSSSCExamSyllabusPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>100 Questions</strong> | <strong>90 Minutes</strong> duration</span>
+                                    <span><strong>100 Questions</strong> | <strong>120 Minutes</strong> duration</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -415,11 +415,11 @@ export default function UKSSSCExamSyllabusPage() {
                             },
                             {
                                 question: "What is the duration of UKSSSC Police Constable exam?",
-                                answer: "The written examination for Police Constable is typically conducted for 90 minutes (1.5 hours) with 100 objective-type multiple choice questions."
+                                answer: "For UKSSSC Police Constable Advt. 84/2026 (17 November 2026), the written paper is 100 marks with a duration of 120 minutes. Check the original notification for the current subject allocation."
                             },
                             {
                                 question: "What is the duration of UKSSSC VDO exam?",
-                                answer: "The VDO written examination is typically conducted for 1.5 hours (90 minutes) with 100 objective-type multiple choice questions."
+                                answer: "For the graduate-level UKSSSC VDO cycle under Advt. 70/2025, the 100-mark written examination was scheduled for 2 hours (120 minutes). Check for later VDO notifications or changes separately."
                             },
                             {
                                 question: "Which topics are most important for Uttarakhand GK?",

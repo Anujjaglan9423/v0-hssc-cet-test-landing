@@ -245,7 +245,7 @@ export default function HaryanaExamsPage() {
     },
     {
       question: "Does CET TEST provide Haryana Police physical test preparation?",
-      answer: "Yes! We provide comprehensive guides for Haryana Police physical tests including running (2.5 km in 12 minutes), long jump (3.8m), high jump, and medical standards. Our mock tests also include sectional tests for physical efficiency."
+      answer: "Haryana Police has notice-specific Physical Measurement (PMT) and Physical Screening (PST) requirements. Refer to HSSC Advt. 01/2026 and corrigenda for exact category-wise standards; online question mocks do not replace physical training."
     },
     {
       question: "Can I attempt HSSC mock tests in both Hindi and English?",
@@ -253,7 +253,7 @@ export default function HaryanaExamsPage() {
     },
     {
       question: "What is the age limit for Haryana government exams?",
-      answer: "For most Haryana government exams (HSSC CET, Police, Group D), the age limit is 18-42 years for General category. Age relaxation: SC/ST/OBC: +5 years, PwD: +10 years, Ex-servicemen: as per Haryana government rules."
+      answer: "Age limits depend on the specific Haryana recruitment. For Haryana Police Constable Advt. 01/2026, the basic age range was 18-25 years as on 1 January 2026, subject to category relaxations and the subsequent one-time three-year upper-age relaxation notice of 22 January 2026. HSSC CET/Group D age rules must be checked separately."
     },
     {
       question: "How does the performance review feature work for Haryana exams?",
@@ -310,7 +310,7 @@ export default function HaryanaExamsPage() {
         name: "What is the selection process for Haryana Police Constable?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Haryana Police Constable selection includes: 1) Written Exam (100 marks, 100 questions, 2 hours), 2) Physical Efficiency Test (PET) - 2.5 km run in 12 minutes, 3) Physical Standard Test (PST), 4) Document Verification, and 5) Medical Examination.",
+          text: "Under Haryana Police Constable Advt. 01/2026, CET-based shortlisting leads to qualifying Physical Measurement Test (PMT) and Physical Screening Test (PST), followed by shortlisting for the Knowledge Test (97% weightage); eligible NCC certificates may add up to 3 marks. Document verification and medical fitness follow applicable HSSC instructions. Confirm amendments in the official notice.",
         },
       },
       {

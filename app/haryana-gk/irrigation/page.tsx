@@ -42,396 +42,404 @@ export default function IrrigationInHaryanaPage() {
     // FAQ data bilingual
     const faqs = [
         {
-            questionHindi: "हरियाणा में सिंचाई का सबसे बड़ा स्रोत क्या है?",
-            questionEnglish: "What is the largest source of irrigation in Haryana?",
-            answerHindi: "हरियाणा में सिंचाई का सबसे बड़ा स्रोत ट्यूबवेल है। लगभग 51.12% सिंचाई ट्यूबवेल के माध्यम से होती है।",
-            answerEnglish: "The largest source of irrigation in Haryana is tubewells. About 51.12% of irrigation is done through tubewells."
+                "questionHindi": "2024-25 के अनुसार हरियाणा में सिंचाई का प्रमुख स्रोत क्या है?",
+                "questionEnglish": "What was the largest source of net irrigated area in Haryana in 2024–25?",
+                "answerHindi": "भारत सरकार के भूमि उपयोग आँकड़े 2024-25 (अनंतिम) के अनुसार, हरियाणा में ट्यूबवेल द्वारा 20.65 लाख हेक्टेयर (लगभग 62.5%) तथा नहरों द्वारा 12.37 लाख हेक्टेयर (लगभग 37.5%) शुद्ध क्षेत्र की सिंचाई की गई।",
+                "answerEnglish": "According to India’s Land Use Statistics 2024–25 (provisional), tubewells irrigated 20.65 lakh hectares (about 62.5%) of Haryana’s net irrigated area and canals irrigated 12.37 lakh hectares (about 37.5%)."
         },
         {
-            questionHindi: "हरियाणा में सबसे पुरानी नहर कौन सी है?",
-            questionEnglish: "Which is the oldest canal in Haryana?",
-            answerHindi: "पश्चिमी यमुना नहर हरियाणा की सबसे पुरानी नहर है। इसका निर्माण मूल रूप से फिरोज शाह तुगलक ने करवाया था और यह 1879 में ताजेवाला से शुरू हुई थी।",
-            answerEnglish: "The Western Yamuna Canal is the oldest canal in Haryana. It was originally built by Feroz Shah Tughlaq and started from Tajewala in 1879."
+                "questionHindi": "हरियाणा की सबसे पुरानी प्रमुख नहर प्रणाली कौन-सी है?",
+                "questionEnglish": "Which is the oldest major canal system in Haryana?",
+                "answerHindi": "पश्चिमी यमुना नहर प्रणाली का इतिहास 14वीं शताब्दी में फिरोज शाह तुगलक के समय से जुड़ा है। ब्रिटिश काल में इसका पुनरुद्धार और विस्तार किया गया। 1879 को इसका प्रारंभ-वर्ष कहना गलत है।",
+                "answerEnglish": "The Western Yamuna Canal system traces its history to the 14th century under Firoz Shah Tughlaq. It was subsequently restored and expanded during the British period; 1879 is not its original commencement year."
         },
         {
-            questionHindi: "हरियाणा में सबसे बड़ी नहर प्रणाली कौन सी है?",
-            questionEnglish: "Which is the largest canal system in Haryana?",
-            answerHindi: "भाखड़ा नहर प्रणाली हरियाणा की सबसे बड़ी नहर प्रणाली है, जिसकी कुल लंबाई 5867 किमी है और इसमें 521 चैनल हैं।",
-            answerEnglish: "The Bhakra Canal System is the largest canal system in Haryana with a total length of 5867 kms and 521 channels."
+                "questionHindi": "हरियाणा में प्रमुख नहर प्रणालियाँ कौन-सी हैं?",
+                "questionEnglish": "What are the major canal systems in Haryana?",
+                "answerHindi": "हरियाणा जल संसाधन प्राधिकरण की 2025–27 कार्ययोजना में चार समूह बताए गए हैं: पश्चिमी यमुना नहर, भाखड़ा नहर, लिफ्ट नहर और आगरा–गुरुग्राम नहर प्रणाली। भाखड़ा प्रणाली का सिंचनीय कमांड क्षेत्र लगभग 33.14 लाख एकड़ दर्ज है।",
+                "answerEnglish": "The Haryana Water Resources Authority’s 2025–27 plan groups the network into four systems: Western Yamuna Canal, Bhakra Canal, Lift Canal, and Agra–Gurugram Canal. The Bhakra system has a reported culturable command area of about 33.14 lakh acres."
         },
         {
-            questionHindi: "हरियाणा का सबसे बड़ा बांध कौन सा है?",
-            questionEnglish: "Which is the largest dam in Haryana?",
-            answerHindi: "पठराला बांध यमुनानगर जिले में सोम्ब नदी पर बना है। इसकी लंबाई 460 मीटर और ऊंचाई 34 मीटर है। यह 1875-76 में बनाया गया था।",
-            answerEnglish: "Pathrala Dam is built on the Somb river in Yamunanagar district. It has a length of 460m and height of 34m. It was built in 1875-76."
+                "questionHindi": "पथराला बैराज किस नदी पर स्थित है?",
+                "questionEnglish": "On which river is the Pathrala Barrage located?",
+                "answerHindi": "पथराला बैराज हरियाणा के यमुनानगर जिले में सोम (Somb) नदी पर स्थित है। इसे राज्य का निर्विवाद रूप से सबसे बड़ा बाँध कहना उचित नहीं है।",
+                "answerEnglish": "Pathrala Barrage is located on the Somb River in Yamunanagar district, Haryana. It should not be described as Haryana’s definitive largest dam."
         },
         {
-            questionHindi: "अटल भूजल योजना कब शुरू की गई थी?",
-            questionEnglish: "When was Atal Bhujal Yojana launched?",
-            answerHindi: "अटल भूजल योजना 25 दिसंबर, 2019 को अटल बिहारी वाजपेयी की 95वीं जयंती पर शुरू की गई थी।",
-            answerEnglish: "Atal Bhujal Yojana was launched on 25th December, 2019 on the 95th birth anniversary of Atal Bihari Vajpayee."
+                "questionHindi": "अटल भूजल योजना कब शुरू की गई थी?",
+                "questionEnglish": "When was Atal Bhujal Yojana launched?",
+                "answerHindi": "अटल भूजल योजना (अटल जल) 25 दिसंबर 2019 को शुरू की गई। इसका मूल पाँच-वर्षीय कार्यान्वयन काल 1 अप्रैल 2020 से था और इसका लक्ष्य समुदाय की भागीदारी से टिकाऊ भूजल प्रबंधन है।",
+                "answerEnglish": "Atal Bhujal Yojana (Atal Jal) was launched on 25 December 2019. Its original five-year implementation period began on 1 April 2020, with a focus on community-led sustainable groundwater management."
         },
         {
-            questionHindi: "हरियाणा में कितने प्रतिशत कृषि भूमि में सिंचाई सुविधाएं हैं?",
-            questionEnglish: "What percentage of agricultural land in Haryana has irrigation facilities?",
-            answerHindi: "हरियाणा में लगभग 60% कृषि भूमि में सिंचाई सुविधाएं हैं।",
-            answerEnglish: "Around 60% of the agricultural land in Haryana has irrigation facilities."
+                "questionHindi": "2024-25 में हरियाणा के शुद्ध बोए गए क्षेत्र का कितना भाग सिंचित था?",
+                "questionEnglish": "What share of Haryana’s net sown area was irrigated in 2024–25?",
+                "answerHindi": "भारत सरकार के अनंतिम 2024-25 भूमि उपयोग आँकड़ों में शुद्ध बोया क्षेत्र 35.41 लाख हेक्टेयर और शुद्ध सिंचित क्षेत्र 33.02 लाख हेक्टेयर था; यानी लगभग 93.3%। यह पूरे राज्य के भौगोलिक क्षेत्र का प्रतिशत नहीं है।",
+                "answerEnglish": "In the provisional 2024–25 land-use statistics, Haryana had 35.41 lakh hectares of net sown area and 33.02 lakh hectares of net irrigated area—about 93.3%. This percentage is of net sown land, not the state’s entire geographical area."
         },
         {
-            questionHindi: "सतलुज-यमुना लिंक परियोजना (SYL) कितनी लंबी है?",
-            questionEnglish: "What is the length of the Sutlej-Yamuna Link (SYL) project?",
-            answerHindi: "SYL परियोजना 214 किमी लंबी है, जिसमें 92 किमी हरियाणा में और 122 किमी पंजाब में फैली हुई है।",
-            answerEnglish: "The SYL project is 214 kms long, of which 92 km is in Haryana and 122 kms in Punjab."
+                "questionHindi": "सतलुज–यमुना लिंक (SYL) नहर की प्रस्तावित लंबाई कितनी है?",
+                "questionEnglish": "What is the planned length of the Sutlej–Yamuna Link (SYL) Canal?",
+                "answerHindi": "SYL नहर की प्रस्तावित कुल लंबाई लगभग 214 किमी है, जिसमें 92 किमी हरियाणा तथा 122 किमी पंजाब में है। पंजाब वाले हिस्से की अपूर्णता को लेकर लंबे समय से विवाद है।",
+                "answerEnglish": "The planned SYL Canal is approximately 214 km long, with 92 km in Haryana and 122 km in Punjab. Completion of the Punjab portion has remained the subject of prolonged litigation."
         },
         {
-            questionHindi: "हाथनीकुंड बैराज कहाँ स्थित है?",
-            questionEnglish: "Where is Hathnikund Barrage located?",
-            answerHindi: "हाथनीकुंड बैराज हरियाणा के यमुनानगर जिले में यमुना नदी पर स्थित है। इसका निर्माण 1996 से 1999 के बीच 220 करोड़ रुपये की लागत से किया गया था।",
-            answerEnglish: "Hathnikund Barrage is located on the Yamuna river in Yamunanagar district of Haryana. It was constructed between 1996 and 1999 at a cost of ₹220 crore."
+                "questionHindi": "हाथनीकुंड बैराज कहाँ स्थित है और इसका उपयोग क्या है?",
+                "questionEnglish": "Where is Hathnikund Barrage and what is its purpose?",
+                "answerHindi": "हाथनीकुंड बैराज यमुनानगर जिले में यमुना नदी पर है। यह पुराने ताजेवाला हेडवर्क्स की जगह बना और 2002 में संचालित हुआ। इससे पश्चिमी व पूर्वी यमुना नहर प्रणालियों में पानी नियंत्रित किया जाता है।",
+                "answerEnglish": "Hathnikund Barrage is on the Yamuna River in Yamunanagar district. It replaced the old Tajewala headworks and became operational in 2002, regulating diversions into the Western and Eastern Yamuna canal systems."
         }
-    ];
+];
 
     // Section 1: Overview
     const overview = {
-        titleHindi: "हरियाणा में सिंचाई",
-        titleEnglish: "Irrigation in Haryana",
-        contentHindi: "हरियाणा एक कृषि प्रधान राज्य है, इसलिए राज्य में सिंचाई सुविधाएं अच्छी तरह से व्यवस्थित हैं। हरियाणा में लगभग 60% कृषि भूमि में सिंचाई सुविधाएं हैं। सिंचाई के मुख्य स्रोत नहरें, ट्यूबवेल, कुएं और तालाब हैं। हरियाणा राज्य में सिंचाई का एक प्रमुख स्रोत ट्यूबवेल है। राज्य में लगभग 51.12% सिंचाई ट्यूबवेल की सहायता से होती है। राज्य में लगभग 48.3% सिंचाई नहर सिंचाई के माध्यम से और 0.52% अन्य स्रोतों से होती है। ट्यूबवेल के माध्यम से सबसे बड़ी सिंचाई सुविधा वाला जिला कैथल (185 हेक्टेयर) है और सबसे कम पंचकूला (15 हेक्टेयर) है। हरियाणा में लगभग 5672 हेक्टेयर भूमि की सिंचाई होती है। सबसे बड़ी सिंचाई सुविधाओं वाला जिला सिरसा (698 हेक्टेयर) है जबकि सबसे कम पंचकूला (25 हेक्टेयर) है। राज्य के कुछ जिलों (रोहतक, गुरुग्राम, करनाल और भिवानी) में पवन चक्कियों की सहायता से भी सिंचाई की जाती है। सिंचाई की इस प्रक्रिया को जर्मनी और हॉलैंड का समर्थन प्राप्त है। अंबाला, यमुनानगर, कुरुक्षेत्र, करनाल, जींद और पानीपत जैसे जिले उपजाऊ क्षेत्र में आते हैं क्योंकि उन्हें नहरों के माध्यम से उचित सिंचाई मिलती है। हरियाणा के अधिकांश जिलों में सिंचाई के लिए पर्याप्त जल संसाधन नहीं हैं। इसलिए, ऐसे जिलों को भूजल प्रबंधन और अंतर्राष्ट्रीय जल समझौतों के माध्यम से कृषि के लिए पानी मिलता है।",
-        contentEnglish: "Haryana is an agricultural state so irrigation facilities are well-organised in the state. Around 60% of the agricultural land in Haryana has irrigation facilities. The main sources of irrigation are canals, tubewells, wells and ponds. A major source of irrigation in the Haryana state is tubewells. Around 51.12% of the irrigation in the state takes place with the help of tubewells. Around 48.3% of the irrigation in the state is done through canal irrigation and 0.52% from the other sources. District with largest irrigation facility through tubewells is Kaithal (185 hectare) and lowest is in Panchkula (15 hectare). Around 5672 hectares of land is irrigated in Haryana. District with largest irrigation facilities is Sirsa (698 hectare) while lowest is in Panchkula (25 hectare). In some districts (Rohtak, Gurugram, Karnal and Bhiwani) of the state irrigation is also done with the help of windmills. This process of irrigation is supported by Germany and Holland. Districts like Ambala, Yamunanagar, Kurukshetra, Karnal, Jind and Panipat comes under fertile area as they receive proper irrigation through canals. Most of the districts of Haryana do not have adequate water resources for irrigation. Therefore, such districts receive water for agriculture through ground water management and international water agreements."
-    };
+        "titleHindi": "हरियाणा में सिंचाई",
+        "titleEnglish": "Irrigation in Haryana",
+        "contentHindi": "हरियाणा की कृषि में नहरों, ट्यूबवेलों और जल-संरक्षण प्रणालियों का महत्त्वपूर्ण योगदान है। भारत सरकार के भूमि उपयोग आँकड़े 2024-25 (अनंतिम) के अनुसार, राज्य में शुद्ध बोया गया क्षेत्र 35.41 लाख हेक्टेयर तथा शुद्ध सिंचित क्षेत्र 33.02 लाख हेक्टेयर था। इस प्रकार लगभग 93.3% शुद्ध बोया क्षेत्र सिंचित था। शुद्ध सिंचित क्षेत्र में ट्यूबवेलों का योगदान लगभग 62.5% (20.65 लाख हेक्टेयर) और नहरों का लगभग 37.5% (12.37 लाख हेक्टेयर) था। ये क्षेत्रफल तथा प्रतिशत शुद्ध सिंचित क्षेत्र पर आधारित हैं, सकल सिंचित क्षेत्र या कुल भौगोलिक क्षेत्र पर नहीं। हरियाणा में भूमिगत जल के घटते स्तर और कुछ स्थानों पर जलभराव एवं खारे पानी जैसी चुनौतियों के कारण सूक्ष्म सिंचाई, जल-संरक्षण और नहर आधुनिकीकरण महत्त्वपूर्ण हैं।",
+        "contentEnglish": "Haryana agriculture depends on canal networks, tubewells, and water-conservation systems. India’s Land Use Statistics 2024–25 (provisional) report 35.41 lakh hectares of net sown area and 33.02 lakh hectares of net irrigated area in the state; therefore about 93.3% of net sown land was irrigated. Tubewells accounted for approximately 62.5% (20.65 lakh hectares) and canals for approximately 37.5% (12.37 lakh hectares) of net irrigated area. These shares refer to net irrigated area, not gross irrigation or the state’s geographical area. Falling groundwater levels, waterlogging and saline groundwater in some regions make micro-irrigation, conservation and canal modernisation important policy priorities."
+};
 
     // Section 2: Canal Irrigation System Overview
     const canalOverview = {
-        titleHindi: "हरियाणा में नहर सिंचाई प्रणाली",
-        titleEnglish: "Canal Irrigation System in Haryana",
-        contentHindi: "आर्थिक सर्वेक्षण 2020-21 के अनुसार, हरियाणा ने 1521 चैनलों का एक व्यापक नहर नेटवर्क विकसित किया है जो 14125 किमी क्षेत्र में फैला हुआ है। राज्य की नहर प्रणाली में दो प्रमुख जल प्रणालियाँ शामिल हैं, पश्चिमी यमुना नहर प्रणाली और भाखड़ा नहर प्रणाली। आर्थिक सर्वेक्षण 2020-21 के अनुसार, पश्चिमी यमुना नहर प्रणाली में कुल 472 नहरें हैं जो कुल 4311 किमी को कवर करती हैं। आर्थिक सर्वेक्षण 2020-21 के अनुसार, भाखड़ा नहर प्रणाली राज्य की सबसे बड़ी नहर प्रणाली है जिसकी कुल लंबाई 5867 किमी है और इसमें 521 चैनल हैं।",
-        contentEnglish: "As per Economic Survey 2020-21, Haryana has developed an extensive canal network consisting of 1521 channels which have spread in an area of 14125 kms. The state's canal system consists of two major water systems, the Western Yamuna Canal System and the Bhakra Canal System. As per the Economic Survey 2020-21, the Western Yamuna Canal system has total 472 canals covering the total of 4311 km. As per Economic Survey 2020-21, Bhakra Canal System is the largest canal system in the state with a total length of 5867 kms and has 521 channels."
-    };
+        "titleHindi": "हरियाणा में नहर सिंचाई प्रणाली",
+        "titleEnglish": "Canal Irrigation System in Haryana",
+        "contentHindi": "हरियाणा जल संसाधन प्राधिकरण की एकीकृत जल संसाधन कार्ययोजना 2025–27 के अनुसार, हरियाणा में कुल 1,527 नहर चैनल हैं, जिनकी संयुक्त लंबाई लगभग 14,370 किलोमीटर है। इस दस्तावेज़ में नहर नेटवर्क को चार मुख्य समूहों में रखा गया है—पश्चिमी यमुना नहर, भाखड़ा नहर, लिफ्ट नहर तथा आगरा–गुरुग्राम नहर प्रणाली। ये आँकड़े चैनलों की संख्या और उनकी लंबाई बताते हैं; इन्हें सिंचित भूमि के क्षेत्रफल से नहीं मिलाना चाहिए।",
+        "contentEnglish": "According to the Haryana Water Resources Authority’s Integrated Water Resources Action Plan 2025–27, Haryana has 1,527 canal channels with a combined length of approximately 14,370 km. The plan describes four main groups: the Western Yamuna Canal, Bhakra Canal, Lift Canal, and Agra–Gurugram Canal systems. These figures describe canal-channel count and length, not the area of land irrigated."
+};
 
     // Section 3: Western Yamuna Canal System
     const westernYamunaCanal = {
-        titleHindi: "पश्चिमी यमुना नहर प्रणाली",
-        titleEnglish: "Western Yamuna Canal System",
-        contentHindi: "यह नहर 1879 में ताजेवाला में यमुना के दाएं किनारे से शुरू हुई थी। यह राज्य की सबसे पुरानी नहर है। इसका निर्माण मूल रूप से फिरोज शाह तुगलक ने करवाया था। इस नहर और इसकी वितरिकाओं की कुल लंबाई 3226 किमी है और यह राज्य के अंबाला, कुरुक्षेत्र, करनाल, सोनीपत, पानीपत, रोहतक, हिसार, सिरसा और जींद जिलों में लगभग 4 लाख हेक्टेयर भूमि की सिंचाई करती है। यह दिल्ली और राजस्थान के लगभग 1 लाख हेक्टेयर भूमि की भी सिंचाई करती है। वर्तमान में, पश्चिमी यमुना नहर राज्य के हाथनीकुंड बैराज से निकलती है।",
-        contentEnglish: "It was started from the right bank of the Yamuna at Tajewala in 1879. It is the oldest canal in the state. It was originally built by Feroz Shah Tughlaq. The total length of the canal along with its distributaries is 3226 kms and it irrigates about 4 lakh hectare of land in Ambala, Kurukshetra, Karnal, Sonipat, Panipat, Rohtak, Hisar, Sirsa and Jind districts of the state. It also irrigates around 1 lakh hectare land of Delhi and Rajasthan. Currently, the Western Yamuna Canal originates from the Hathnikund Barrage of the state."
-    };
+        "titleHindi": "पश्चिमी यमुना नहर प्रणाली",
+        "titleEnglish": "Western Yamuna Canal System",
+        "contentHindi": "पश्चिमी यमुना नहर प्रणाली का ऐतिहासिक विकास 14वीं शताब्दी में फिरोज शाह तुगलक के शासनकाल से जुड़ा है। बाद में विभिन्न अवधियों में इस नहर का पुनरुद्धार और विस्तार किया गया। ताजेवाला हेडवर्क्स पहले इस प्रणाली में पानी नियंत्रित करते थे; 2002 से हाथनीकुंड बैराज इस भूमिका का प्रमुख केंद्र है। यह नहर यमुना का पानी हरियाणा के कई जिलों में सिंचाई तथा अन्य आवश्यकताओं के लिए पहुँचाती है। इसके अंतर्गत हांसी, सिरसा, दिल्ली और अन्य शाखाएँ व वितरिकाएँ हैं।",
+        "contentEnglish": "The Western Yamuna Canal system has a history dating back to the 14th-century rule of Firoz Shah Tughlaq. It was restored and expanded in later periods. Water was historically controlled at the Tajewala headworks; Hathnikund Barrage took over that role in 2002. The network carries Yamuna water for irrigation and other uses across several Haryana districts through branches and distributaries, including the Hansi, Sirsa and Delhi branches."
+};
 
     // Section 3a: Branches of Western Yamuna Canal
     const westernYamunaBranches = [
         {
-            name: "Sirsa Branch Canal",
-            nameHindi: "सिरसा शाखा नहर",
-            details: "This canal provides irrigation facilities in Jind, Fatehabad and Sirsa. It was constructed in 1896 and it is the longest branch of Western Yamuna Canal System.",
-            detailsHindi: "यह नहर जींद, फतेहाबाद और सिरसा में सिंचाई सुविधाएं प्रदान करती है। इसका निर्माण 1896 में हुआ था और यह पश्चिमी यमुना नहर प्रणाली की सबसे लंबी शाखा है।"
+                "name": "Sirsa Branch Canal",
+                "nameHindi": "सिरसा शाखा नहर",
+                "details": "A historic branch of the Western Yamuna Canal network that serves irrigation areas in western Haryana. Specific historic lengths and first-operation dates depend on the period and network definition.",
+                "detailsHindi": "पश्चिमी यमुना नहर प्रणाली की ऐतिहासिक शाखा, जो पश्चिमी हरियाणा के सिंचाई क्षेत्रों को सेवा देती है। इसकी सटीक लंबाई और आरंभ-वर्ष अलग-अलग काल एवं नेटवर्क परिभाषाओं के अनुसार दर्ज किए जाते हैं।"
         },
         {
-            name: "Bahalaut Branch Canal",
-            nameHindi: "बहलौत शाखा नहर",
-            details: "It is a sub-branch of Delhi branch of Western Yamuna Canal which flows from Khubru village to Jhajjar district. The Jhajjar canal is a sub-canal of the Bhalaut branch.",
-            detailsHindi: "यह पश्चिमी यमुना नहर की दिल्ली शाखा की एक उप-शाखा है जो खुबरू गाँव से झज्जर जिले तक बहती है। झज्जर नहर भलौत शाखा की एक उप-नहर है।"
+                "name": "Bhalaut Branch Canal",
+                "nameHindi": "भलौत शाखा नहर",
+                "details": "A distributary system associated with Western Yamuna Canal water distribution in the Sonipat–Jhajjar region.",
+                "detailsHindi": "सोनीपत–झज्जर क्षेत्र में पश्चिमी यमुना नहर के पानी के वितरण से जुड़ी शाखा प्रणाली।"
         },
         {
-            name: "Barwala Branch Canal",
-            nameHindi: "बरवाला शाखा नहर",
-            details: "It is a sub-branch of Sirsa branch of Western Yamuna Canal. The canal provides water to Hisar district.",
-            detailsHindi: "यह पश्चिमी यमुना नहर की सिरसा शाखा की एक उप-शाखा है। यह नहर हिसार जिले को पानी प्रदान करती है।"
+                "name": "Barwala Branch Canal",
+                "nameHindi": "बरवाला शाखा नहर",
+                "details": "A canal branch associated with irrigation supply in the Hisar–Barwala area.",
+                "detailsHindi": "हिसार–बरवाला क्षेत्र में सिंचाई आपूर्ति से संबंधित नहर शाखा।"
         },
         {
-            name: "Hansi Branch Canal",
-            nameHindi: "हांसी शाखा नहर",
-            details: "The canal was remodelled in 1959 but originally it was built in 1825. One of its main branch, Bhutana canal provides water to the Hansi area of Hisar district. This canal originates from paleochannel of Chautang river.",
-            detailsHindi: "नहर का पुनर्निर्माण 1959 में किया गया था लेकिन मूल रूप से इसका निर्माण 1825 में हुआ था। इसकी एक मुख्य शाखा, भूटाना नहर हिसार जिले के हांसी क्षेत्र को पानी प्रदान करती है। यह नहर चौतंग नदी के प्राचीन चैनल से निकलती है।"
+                "name": "Hansi Branch Canal",
+                "nameHindi": "हांसी शाखा नहर",
+                "details": "An established Western Yamuna Canal branch serving the Hansi region. It has been remodelled on several occasions.",
+                "detailsHindi": "पश्चिमी यमुना नहर की स्थापित शाखा, जो हांसी क्षेत्र को पानी देती है; विभिन्न समयों में इसका पुनर्निर्माण/सुधार हुआ है।"
         },
         {
-            name: "Jind Branch Canal",
-            nameHindi: "जींद शाखा नहर",
-            details: "It flows through the Jind district of the state. Rohtak canal and Bhiwani canal are its main branches. These branches provides the water to Rohtak and Bhiwani districts for irrigation and other activities.",
-            detailsHindi: "यह राज्य के जींद जिले से होकर बहती है। रोहतक नहर और भिवानी नहर इसकी मुख्य शाखाएँ हैं। ये शाखाएँ रोहतक और भिवानी जिलों को सिंचाई और अन्य गतिविधियों के लिए पानी प्रदान करती हैं।"
+                "name": "Jind Branch Canal",
+                "nameHindi": "जींद शाखा नहर",
+                "details": "A network of distributaries supplying canal water to areas around Jind and adjoining districts.",
+                "detailsHindi": "जींद तथा आसपास के जिलों में नहर का पानी पहुँचाने वाली वितरिका प्रणाली।"
         },
         {
-            name: "Munak Canal",
-            nameHindi: "मुनक नहर",
-            details: "The Munak canal is 102 kms long. The Munak canal carries water from Munak village in Karnal to Haidarpur in Delhi. It is one of the main sources of drinking water for Delhi. An MoU was signed between Haryana and Delhi in 1996 for the construction of Munak canal. The project was completed in 2012.",
-            detailsHindi: "मुनक नहर 102 किमी लंबी है। मुनक नहर करनाल के मुनक गाँव से दिल्ली के हैदरपुर तक पानी ले जाती है। यह दिल्ली के लिए पेयजल के मुख्य स्रोतों में से एक है। मुनक नहर के निर्माण के लिए 1996 में हरियाणा और दिल्ली के बीच एक समझौता ज्ञापन पर हस्ताक्षर किए गए थे। यह परियोजना 2012 में पूरी हुई थी।"
+                "name": "Munak / Carrier Canal",
+                "nameHindi": "मुनक / कैरियर नहर",
+                "details": "The Munak carrier system conveys Yamuna water toward Delhi and is significant for the capital’s water supply. Its operational sections should not be conflated with the entire Western Yamuna Canal network.",
+                "detailsHindi": "मुनक कैरियर प्रणाली यमुना का पानी दिल्ली की ओर ले जाती है और राजधानी की जलापूर्ति के लिए महत्त्वपूर्ण है। इसके परिचालन खंडों को पूरी पश्चिमी यमुना नहर प्रणाली की लंबाई नहीं मानना चाहिए।"
         }
-    ];
+];
 
     // Section 4: Bhakra Canal System
     const bhakraCanal = {
-        titleHindi: "भाखड़ा नहर प्रणाली",
-        titleEnglish: "Bhakra Canal System",
-        contentHindi: "भाखड़ा नहर सतलुज नदी पर नंगल बांध बनाकर बनाई गई है। यह पंजाब, हरियाणा और राजस्थान की सिंचाई करती है। यह नहर इन तीन राज्यों की एक संयुक्त परियोजना है और उत्तरी भारत के एक बड़े हिस्से की सिंचाई करती है। भाखड़ा नहर तोहाना के पास हरियाणा में प्रवेश करती है और हिसार, रोहतक, फतेहाबाद और सिरसा जिलों के बड़े हिस्सों की सिंचाई करती है। इसकी मुख्य शाखाएँ रतिया, रोड़ी, बरवाला और फतेहाबाद शाखाएँ हैं। भाखड़ा नहर और पश्चिमी यमुना नहर पश्चिमी यमुना फीडर परियोजना के माध्यम से जुड़ी हुई हैं। फीडर परियोजना पश्चिमी हरियाणा के शुष्क क्षेत्र में गर्मियों के महीनों के दौरान पानी की आपूर्ति सुनिश्चित करती है। पश्चिमी यमुना फीडर परियोजना की दो शाखाएँ हैं - नरवाना लिंक नहर और बरवाला लिंक नहर। बरवाला लिंक गर्मियों में पश्चिमी यमुना नहर से और वर्ष के अंत में भाखड़ा नहर से पानी प्राप्त करती है। नरवाना लिंक नहर की क्षमता 2700 क्यूब्स है और बरवाला लिंक नहर की क्षमता 1700 क्यूब्स है।",
-        contentEnglish: "The Bhakra canal is built on Sutlej river by constructing Nangal dam. It irrigates Punjab, Haryana and Rajasthan. The canal is a combined project of these three states and irrigates a large part of Northern India. The Bhakra canal enters Haryana near Tohana and irrigates large parts of Hisar, Rohtak, Fatehabad and Sirsa districts. Its main branches are the Ratia, the Rori, the Barwala and the Fatehabad branch. The Bhakra canal and Western Yamuna canal are linked through the Western Yamuna Feeder Project. The feeder project ensures water supply during summer months in the arid region of Western Haryana. Western Yamuna Feeder Project has two branches - Narwana Link Canal and Barwala Link Canal. Barwala link gets water from Western Yamuna canal in summer and from Bhakra canal at the end of the year. Narwana link canal has a capacity of 2700 cubes and Barwala link canal has a capacity of 1700 cubes."
-    };
+        "titleHindi": "भाखड़ा नहर प्रणाली",
+        "titleEnglish": "Bhakra Canal System",
+        "contentHindi": "भाखड़ा नहर प्रणाली हरियाणा में सतलुज और रावी–ब्यास से आवंटित जल की आपूर्ति का प्रमुख माध्यम है। राज्य को भाखड़ा मुख्य लाइन और संबंधित शाखाओं से पानी मिलता है। हरियाणा जल संसाधन प्राधिकरण की 2025–27 कार्ययोजना में भाखड़ा प्रणाली का सिंचनीय कमांड क्षेत्र लगभग 33.14 लाख एकड़ बताया गया है। इसका पानी मुख्यतः राज्य के पश्चिमी और मध्य भागों में खेती व अन्य आवश्यकताओं के लिए वितरित किया जाता है। इस प्रणाली को अकेली एक नहर या केवल नंगल बाँध से निकली नहर समझना सही नहीं है।",
+        "contentEnglish": "The Bhakra Canal System is a major means of delivering Haryana’s allocated Sutlej and Ravi–Beas waters through the Bhakra Main Line and associated branches. The Haryana Water Resources Authority’s 2025–27 plan reports a culturable command area of approximately 33.14 lakh acres for this system. It distributes water principally in parts of western and central Haryana. The system should not be confused with a single canal or described simply as a canal created by constructing Nangal Dam."
+};
 
     // Section 5: Other Canal Projects
     const otherCanals = [
         {
-            name: "Gurugram Canal Project",
-            nameHindi: "गुरुग्राम नहर परियोजना",
-            details: "This canal takes off from Okhla (Delhi) by building a dam on Yamuna river. The construction work of this canal was started in 1970. It was completed during the time of 10th Five Year Plan. This canal irrigates 1.2 lakh hectare land in Gurugram, Faridabad and Palwal districts.",
-            detailsHindi: "यह नहर यमुना नदी पर बांध बनाकर ओखला (दिल्ली) से निकलती है। इस नहर का निर्माण कार्य 1970 में शुरू हुआ था। यह 10वीं पंचवर्षीय योजना के दौरान पूरा हुआ था। यह नहर गुरुग्राम, फरीदाबाद और पलवल जिलों में 1.2 लाख हेक्टेयर भूमि की सिंचाई करती है।"
+                "name": "Gurugram Canal System",
+                "nameHindi": "गुरुग्राम नहर प्रणाली",
+                "details": "This system uses Yamuna water for parts of southern Haryana, particularly the Gurugram, Nuh and Palwal areas. The HWRA 2025–27 plan reports a culturable command area of about 3.24 lakh acres.",
+                "detailsHindi": "यह प्रणाली दक्षिणी हरियाणा में, विशेष रूप से गुरुग्राम, नूंह और पलवल क्षेत्रों में यमुना का पानी पहुँचाती है। हरियाणा जल संसाधन प्राधिकरण की 2025–27 योजना में इसका सिंचनीय कमांड क्षेत्र लगभग 3.24 लाख एकड़ है।"
         },
         {
-            name: "Jawaharlal Canal and Bhiwani Canal",
-            nameHindi: "जवाहरलाल नहर और भिवानी नहर",
-            details: "These two small canals are drawn out from Bhakra Canal System. Jawaharlal canal irrigates the area of Sonipat district and Bhiwani canal irrigates the area of Bhiwani district.",
-            detailsHindi: "ये दो छोटी नहरें भाखड़ा नहर प्रणाली से निकाली गई हैं। जवाहरलाल नहर सोनीपत जिले के क्षेत्र की सिंचाई करती है और भिवानी नहर भिवानी जिले के क्षेत्र की सिंचाई करती है।"
+                "name": "Jawaharlal Nehru and Bhiwani Canal Systems",
+                "nameHindi": "जवाहरलाल नेहरू और भिवानी नहर प्रणालियाँ",
+                "details": "Canal and lift-irrigation networks are used to supply water to water-deficient parts of southern and western Haryana. The exact network affiliation and lengths should be taken from the current Irrigation Department inventory.",
+                "detailsHindi": "दक्षिणी और पश्चिमी हरियाणा के जल-अभाव वाले क्षेत्रों में नहर तथा लिफ्ट सिंचाई नेटवर्क से पानी पहुँचाया जाता है। इनकी वर्तमान लंबाई और नेटवर्क-वर्गीकरण के लिए सिंचाई विभाग की अद्यतन सूची देखनी चाहिए।"
         },
         {
-            name: "Agra Canal",
-            nameHindi: "आगरा नहर",
-            details: "This canal draws water from Yamuna river and starts from Okhla Barrage near Delhi. This canal irrigates the area of Agra and Mathura in Uttar Pradesh, Bharatpur in Rajasthan and Faridabad in Haryana.",
-            detailsHindi: "यह नहर यमुना नदी से पानी लेती है और दिल्ली के पास ओखला बैराज से शुरू होती है। यह नहर उत्तर प्रदेश में आगरा और मथुरा, राजस्थान में भरतपुर और हरियाणा में फरीदाबाद के क्षेत्र की सिंचाई करती है।"
+                "name": "Agra Canal System",
+                "nameHindi": "आगरा नहर प्रणाली",
+                "details": "The Agra Canal system draws Yamuna water from the Okhla headworks area and supplies parts of Faridabad and Palwal, as well as areas outside Haryana. HWRA 2025–27 reports a Haryana culturable command area of about 64,750 acres.",
+                "detailsHindi": "आगरा नहर प्रणाली ओखला हेडवर्क्स क्षेत्र से यमुना का पानी लेकर फरीदाबाद और पलवल सहित हरियाणा के कुछ हिस्सों तथा राज्य के बाहर के क्षेत्रों को आपूर्ति करती है। HWRA 2025–27 में हरियाणा के लिए लगभग 64,750 एकड़ सिंचनीय कमांड क्षेत्र दर्ज है।"
         }
-    ];
+];
 
     // Section 6: Sutlej-Yamuna Link Project
     const sylProject = {
-        titleHindi: "सतलुज-यमुना लिंक परियोजना (SYL)",
-        titleEnglish: "Sutlej-Yamuna Link Project (SYL)",
-        contentHindi: "सतलुज-यमुना लिंक परियोजना जिसे SARYU या SYL के रूप में जाना जाता है, नदियों सतलुज और यमुना को जोड़ने के लिए एक प्रस्तावित परियोजना है। राज्य में रावी और ब्यास नदियों के पानी को मोड़ने के लिए सतलुज-यमुना लिंक (SYL) नहर का निर्माण किया जा रहा है। यह परियोजना 214 किमी लंबी है जिसमें 92 किमी हरियाणा में और 122 किमी पंजाब में फैली हुई है। यह परियोजना हरियाणा की जीवन रेखा है। लिंक नहर का निर्माण हरियाणा और पंजाब के बीच कानूनी विवादों के कारण रोका हुआ है।",
-        contentEnglish: "Sutlej-Yamuna Link Project known as SARYU or SYL is a proposed project to link the rivers Sutlej and Yamuna. Sutlej-Yamuna Link (SYL) canal is being constructed in the state to divert the water of Ravi and Beas rivers. The project is 214 kms long in which 92 km is expanded in Haryana and 122 kms in Punjab. This project is the lifeline of Haryana. The construction of the link canal is on hold due to legal disputes between Haryana and Punjab."
-    };
+        "titleHindi": "सतलुज–यमुना लिंक (SYL) परियोजना",
+        "titleEnglish": "Sutlej–Yamuna Link (SYL) Project",
+        "contentHindi": "सतलुज–यमुना लिंक (SYL) नहर की प्रस्तावित लंबाई लगभग 214 किमी है, जिसमें 122 किमी पंजाब और 92 किमी हरियाणा में है। इस योजना का उद्देश्य हरियाणा को आवंटित नदी जल को नहर के माध्यम से पहुँचाने की सुविधा बढ़ाना है। हरियाणा वाला हिस्सा निर्मित है, परंतु पंजाब वाला हिस्सा पूरा न होने के कारण यह परियोजना दशकों से अंतरराज्यीय विवाद और न्यायिक कार्यवाही का विषय बनी हुई है। इसे पूरी तरह चालू या निर्माणाधीन संपूर्ण नहर बताना सही नहीं होगा।",
+        "contentEnglish": "The planned Sutlej–Yamuna Link (SYL) canal is approximately 214 km long: 122 km in Punjab and 92 km in Haryana. Its purpose is to facilitate delivery of water allocated to Haryana through an additional link. The Haryana stretch was constructed, but the incomplete Punjab stretch has led to decades of interstate litigation and negotiations. The whole canal should not be described as an operational completed project."
+};
 
     // Section 7: Lift Irrigation Projects
     const liftIrrigationOverview = {
-        titleHindi: "लिफ्ट सिंचाई परियोजनाएं",
-        titleEnglish: "Lift Irrigation Projects",
-        contentHindi: "लिफ्ट सिंचाई परियोजनाएं हरियाणा के उन क्षेत्रों में स्थापित की गई हैं जो आम तौर पर पहाड़ी और शुष्क क्षेत्र हैं। हरियाणा का दक्षिणी और पश्चिमी भाग राजस्थान की अरावली पहाड़ियों का एक विस्तार है। यह क्षेत्र शुष्क है। इन क्षेत्रों में लिफ्ट सिंचाई प्रणाली का उपयोग किया जाता है जो कृषि के लिए बहुत सहायक है। हरियाणा में, लिफ्ट सिंचाई प्रणाली के तहत 493 नहरें हैं, जो 3702 किमी की लंबाई को कवर करती हैं।",
-        contentEnglish: "The lift irrigation projects are installed in those regions of Haryana which are generally hilly and dry region. The Southern and Western part of Haryana is an offshoot of Aravalli hills of Rajasthan. The region is dry. Lift irrigation system is used in these areas which is very helpful for agriculture. In Haryana, there are 493 canals under lift irrigation system, covering a length of 3702 kms."
-    };
+        "titleHindi": "लिफ्ट सिंचाई परियोजनाएँ",
+        "titleEnglish": "Lift Irrigation Projects",
+        "contentHindi": "जब नहर का पानी ऊँचाई पर स्थित क्षेत्रों में गुरुत्वाकर्षण के सहारे नहीं पहुँच सकता, तब उसे पंपों से ऊपर उठाकर वितरित किया जाता है; इसे लिफ्ट सिंचाई कहते हैं। हरियाणा में यह व्यवस्था विशेष रूप से दक्षिणी और दक्षिण-पश्चिमी जिलों की जल आवश्यकता पूरी करने में महत्त्वपूर्ण है। हरियाणा जल संसाधन प्राधिकरण की 2025–27 योजना में जुई, सिवानी, लोहारू और जवाहरलाल नेहरू (JLN) लिफ्ट प्रणालियों का वर्णन है तथा इनके लिए लगभग 21.72 लाख एकड़ सिंचनीय कमांड क्षेत्र बताया गया है।",
+        "contentEnglish": "Lift irrigation uses pumps to raise canal water to land that cannot be supplied by gravity flow alone. It is particularly important in the water-deficient districts of southern and south-western Haryana. The Haryana Water Resources Authority’s 2025–27 plan names Jui, Siwani, Loharu and Jawaharlal Nehru (JLN) lift systems and reports a combined culturable command area of approximately 21.72 lakh acres."
+};
 
     // Section 7a: Major Lift Irrigation Projects
     const liftIrrigationProjects = [
         {
-            name: "Jui Canal Project",
-            nameHindi: "जुई नहर परियोजना",
-            details: "This Lift Irrigation Scheme is designed to irrigate the upper area of Bhiwani and adjoining areas. This 170 kms long canal irrigates about 32 thousand hectare of land. The Jui Canal Project was started in 1969 and is successfully running in Haryana.",
-            detailsHindi: "यह लिफ्ट सिंचाई योजना भिवानी के ऊपरी क्षेत्र और आसपास के क्षेत्रों की सिंचाई के लिए डिज़ाइन की गई है। यह 170 किमी लंबी नहर लगभग 32 हजार हेक्टेयर भूमि की सिंचाई करती है। जुई नहर परियोजना 1969 में शुरू की गई थी और हरियाणा में सफलतापूर्वक चल रही है।"
+                "name": "Jui Lift Irrigation System",
+                "nameHindi": "जुई लिफ्ट सिंचाई प्रणाली",
+                "details": "A lift-irrigation system serving parts of the Bhiwani region. It raises canal water for distribution to higher-lying farmland.",
+                "detailsHindi": "भिवानी क्षेत्र के कुछ भागों को सेवा देने वाली लिफ्ट सिंचाई प्रणाली, जो ऊँचे खेतों तक पानी पंप करके पहुँचाती है।"
         },
         {
-            name: "Jawaharlal Nehru Lift Irrigation Project",
-            nameHindi: "जवाहरलाल नेहरू लिफ्ट सिंचाई परियोजना",
-            details: "This irrigation project is built along the Bhakra canal. This project was first initiated in 1976 in the dry region of Mahendragarh district. It irrigates the agricultural land areas of Mahendragarh and Bhiwani districts. The project was specially helpful in saving Kharif crops during the drought of 1987.",
-            detailsHindi: "यह सिंचाई परियोजना भाखड़ा नहर के किनारे बनाई गई है। यह परियोजना पहली बार 1976 में महेंद्रगढ़ जिले के शुष्क क्षेत्र में शुरू की गई थी। यह महेंद्रगढ़ और भिवानी जिलों के कृषि भूमि क्षेत्रों की सिंचाई करती है। यह परियोजना 1987 के सूखे के दौरान खरीफ फसलों को बचाने में विशेष रूप से सहायक थी।"
+                "name": "Jawaharlal Nehru (JLN) Lift Irrigation System",
+                "nameHindi": "जवाहरलाल नेहरू (JLN) लिफ्ट सिंचाई प्रणाली",
+                "details": "An important lift-irrigation network in southern Haryana, including the Mahendragarh and adjoining regions.",
+                "detailsHindi": "दक्षिणी हरियाणा में, विशेषकर महेंद्रगढ़ और आसपास के क्षेत्रों में महत्त्वपूर्ण लिफ्ट सिंचाई नेटवर्क।"
         },
         {
-            name: "Loharu Lift Irrigation Project",
-            nameHindi: "लोहारू लिफ्ट सिंचाई परियोजना",
-            details: "This project is also known as Indira Gandhi Irrigation Project. Canal made under this project is 225 kms long. This project provides water to the Bhiwani and Charkhi-Dadri districts.",
-            detailsHindi: "यह परियोजना इंदिरा गांधी सिंचाई परियोजना के नाम से भी जानी जाती है। इस परियोजना के तहत बनाई गई नहर 225 किमी लंबी है। यह परियोजना भिवानी और चरखी-दादरी जिलों को पानी प्रदान करती है।"
+                "name": "Loharu Lift Irrigation System",
+                "nameHindi": "लोहारू लिफ्ट सिंचाई प्रणाली",
+                "details": "One of the principal lift systems identified by the Haryana Water Resources Authority for western and southern Haryana.",
+                "detailsHindi": "पश्चिमी तथा दक्षिणी हरियाणा के लिए हरियाणा जल संसाधन प्राधिकरण द्वारा पहचानी गई प्रमुख लिफ्ट प्रणालियों में से एक।"
         },
         {
-            name: "Bhiwani Lift Irrigation Project",
-            nameHindi: "भिवानी लिफ्ट सिंचाई परियोजना",
-            details: "It is also known as Virendra Narayan Chakravarti Project. Canal made under this project is 200 kms long. This project irrigates about 1 lakh hectare of land in Bhiwani.",
-            detailsHindi: "यह वीरेंद्र नारायण चक्रवर्ती परियोजना के नाम से भी जानी जाती है। इस परियोजना के तहत बनाई गई नहर 200 किमी लंबी है। यह परियोजना भिवानी में लगभग 1 लाख हेक्टेयर भूमि की सिंचाई करती है।"
+                "name": "Siwani Lift Irrigation System",
+                "nameHindi": "सिवानी लिफ्ट सिंचाई प्रणाली",
+                "details": "A named lift system in the HWRA 2025–27 plan, used to convey canal water to higher-elevation command areas.",
+                "detailsHindi": "HWRA 2025–27 में वर्णित लिफ्ट प्रणाली, जिसके माध्यम से ऊँचे सिंचनीय क्षेत्रों में नहर का पानी पहुँचता है।"
         },
         {
-            name: "Nangal Lift Irrigation Project",
-            nameHindi: "नंगल लिफ्ट सिंचाई परियोजना",
-            details: "The canal under this project is 80 kms long and constructed in two phases. The project irrigates Ambala and provides drinking water to Ambala canal and Ambala Cantt areas.",
-            detailsHindi: "इस परियोजना के तहत नहर 80 किमी लंबी है और दो चरणों में बनाई गई है। यह परियोजना अंबाला की सिंचाई करती है और अंबाला नहर और अंबाला छावनी क्षेत्रों को पेयजल प्रदान करती है।"
+                "name": "Nangal Lift Irrigation Scheme",
+                "nameHindi": "नंगल लिफ्ट सिंचाई योजना",
+                "details": "A regional lift-water-supply scheme associated with the Ambala area; historical channel length and beneficiary area require a dated official project report.",
+                "detailsHindi": "अंबाला क्षेत्र से जुड़ी क्षेत्रीय लिफ्ट जलापूर्ति योजना; इसकी पुरानी लंबाई और लाभान्वित क्षेत्र के आँकड़ों के लिए दिनांकित आधिकारिक परियोजना रिपोर्ट आवश्यक है।"
         }
-    ];
+];
 
     // Section 8: Major Barrages and Dams
     const barragesAndDams = [
         {
-            name: "Hathnikund Barrage Project",
-            nameHindi: "हाथनीकुंड बैराज परियोजना",
-            location: "Yamunanagar",
-            details: "It is a concrete barrage located on the Yamuna river in Yamunanagar district. It was constructed to replace old Tajewala barrage. The project was constructed between October, 1996 and completed in June, 1999 at a cost of ₹220 crore. The small reservoir created by the barrage also serves as a wetland for 31 species of water bird. It became functional from 2002. The length of this barrage is 360 meters. The project diverts the excess water during the monsoon effectively to the Western and Eastern Yamuna Canals thus, preventing floods.",
-            detailsHindi: "यह यमुनानगर जिले में यमुना नदी पर स्थित एक कंक्रीट बैराज है। इसे पुराने ताजेवाला बैराज को बदलने के लिए बनाया गया था। यह परियोजना अक्टूबर 1996 से जून 1999 के बीच 220 करोड़ रुपये की लागत से बनाई गई थी। बैराज द्वारा बनाया गया छोटा जलाशय जलीय पक्षियों की 31 प्रजातियों के लिए आर्द्रभूमि के रूप में भी कार्य करता है। यह 2002 से कार्यात्मक हो गया। इस बैराज की लंबाई 360 मीटर है। यह परियोजना मानसून के दौरान अतिरिक्त पानी को प्रभावी ढंग से पश्चिमी और पूर्वी यमुना नहरों की ओर मोड़ देती है, जिससे बाढ़ को रोका जा सकता है।"
+                "name": "Hathnikund Barrage",
+                "nameHindi": "हाथनीकुंड बैराज",
+                "location": "Yamunanagar",
+                "details": "A barrage across the Yamuna in Yamunanagar district. Built to replace the older Tajewala headworks, it became operational in 2002 and regulates canal diversions toward the Western and Eastern Yamuna Canal systems. A barrage is primarily a flow-regulation structure, not a large storage dam.",
+                "detailsHindi": "यमुनानगर जिले में यमुना नदी पर स्थित बैराज। यह पुराने ताजेवाला हेडवर्क्स के स्थान पर बनाया गया और 2002 में संचालित हुआ। यह पश्चिमी तथा पूर्वी यमुना नहर प्रणालियों में जल-वितरण नियंत्रित करता है। बैराज मुख्यतः प्रवाह-नियंत्रण संरचना है, बड़ा भंडारण बाँध नहीं।"
         },
         {
-            name: "Narwana Irrigation Project",
-            nameHindi: "नरवाना सिंचाई परियोजना",
-            location: "Jind",
-            details: "For the expansion of irrigation facilities in Narwana area, State Government had approved the project to connect Salwan feeder with Dhamtan distributory. The Narwana Irrigation Project is 37500 feet long. This project provides water for irrigation to Kaloda Khurel, Bhikhewala, Tulian kalan, Sulehra areas of the state.",
-            detailsHindi: "नरवाना क्षेत्र में सिंचाई सुविधाओं के विस्तार के लिए, राज्य सरकार ने सलवान फीडर को धमतान वितरिका से जोड़ने की परियोजना को मंजूरी दी थी। नरवाना सिंचाई परियोजना 37500 फीट लंबी है। यह परियोजना राज्य के कलोदा खुरेल, भिखेवाला, तुलियन कलां, सुलेहरा क्षेत्रों में सिंचाई के लिए पानी प्रदान करती है।"
+                "name": "Narwana Irrigation Project",
+                "nameHindi": "नरवाना सिंचाई परियोजना",
+                "location": "Jind",
+                "details": "A regional irrigation-related project in the Narwana area. Specific approval dates, route and lengths must be verified from the corresponding current project document before publication as fixed facts.",
+                "detailsHindi": "नरवाना क्षेत्र की क्षेत्रीय सिंचाई परियोजना। स्वीकृति तिथि, मार्ग और लंबाई को निश्चित तथ्य के रूप में प्रकाशित करने से पहले संबंधित अद्यतन परियोजना अभिलेख से जाँचना चाहिए।"
         },
         {
-            name: "Tajewala Barrage",
-            nameHindi: "ताजेवाला बैराज",
-            location: "Yamunanagar",
-            details: "It was constructed in 1873 across the Yamuna river, in Yamunanagar district. It regulated the flow of the Yamuna for irrigation in Uttar Pradesh and Haryana through Western Yamuna Canal and Eastern Yamuna Canal. These two canals originated from Yamuna river at Yamunanagar district. It was 24.73m in height and 360m in length. It was decommissioned after the proper functioning of Hathnikund barrage.",
-            detailsHindi: "इसका निर्माण 1873 में यमुनानगर जिले में यमुना नदी पर किया गया था। यह पश्चिमी यमुना नहर और पूर्वी यमुना नहर के माध्यम से उत्तर प्रदेश और हरियाणा में सिंचाई के लिए यमुना के प्रवाह को नियंत्रित करता था। ये दोनों नहरें यमुनानगर जिले में यमुना नदी से निकलती थीं। इसकी ऊंचाई 24.73 मीटर और लंबाई 360 मीटर थी। हाथनीकुंड बैराज के उचित कामकाज के बाद इसे बंद कर दिया गया था।"
+                "name": "Tajewala Barrage (historic headworks)",
+                "nameHindi": "ताजेवाला बैराज (ऐतिहासिक हेडवर्क्स)",
+                "location": "Yamunanagar",
+                "details": "The historic Tajewala headworks controlled diversions from the Yamuna before Hathnikund Barrage became operational in 2002. The year and dimensions of old structures should be tied to a particular reconstruction phase and official engineering record.",
+                "detailsHindi": "हाथनीकुंड बैराज के 2002 में संचालित होने से पहले ताजेवाला हेडवर्क्स यमुना से नहरों में जल-वितरण नियंत्रित करते थे। पुरानी संरचना के निर्माण-वर्ष तथा आकार को किसी विशेष पुनर्निर्माण चरण और आधिकारिक अभियांत्रिकी अभिलेख से जोड़ना चाहिए।"
         }
-    ];
+];
 
     // Section 9: Major Dams of Haryana
     const majorDams = [
         {
-            name: "Pathrala Dam",
-            nameHindi: "पठराला बांध",
-            location: "Yamunanagar",
-            details: "This dam was built in 1875-76. It is constructed on Somb river. It is located near Dadupur village of Yamunanagar district. The length of this is 460m and height is 34m.",
-            detailsHindi: "यह बांध 1875-76 में बनाया गया था। यह सोम्ब नदी पर बनाया गया है। यह यमुनानगर जिले के दादुपुर गाँव के पास स्थित है। इसकी लंबाई 460 मीटर और ऊंचाई 34 मीटर है।"
+                "name": "Pathrala Barrage",
+                "nameHindi": "पथराला बैराज",
+                "location": "Yamunanagar",
+                "details": "A historical water-control barrage on the Somb River, associated with diversion into the Western Yamuna Canal system. This is not an independently verified “largest dam of Haryana”.",
+                "detailsHindi": "सोम नदी पर स्थित ऐतिहासिक जल-नियंत्रक बैराज, जिसका संबंध पश्चिमी यमुना नहर में जल के प्रवाह से है। इसे हरियाणा का निर्विवाद सबसे बड़ा बाँध कहना सही नहीं है।"
         },
         {
-            name: "Ottu Dam",
-            nameHindi: "ओट्टू बांध",
-            location: "Sirsa",
-            details: "This dam is built on the Ghaggar-Hakra river in Haryana. It is about 8 miles from Sirsa. It is also known as Ottu Weir and Ottu Head. The Ottu dam was constructed in 1896 by the joint effort of the Princely State of Bikaner and British Government. It creates a large water reservoir out of the formerly-small Dhanur lake, located near the village of Ottu in Sirsa district. It provides water to two Ghaggar canals (the Northern Ghaggar Canal and the Southern Ghaggar Canal) that provide water to Northern Rajasthan state for irrigation. In 2002, a new tourist complex was inaugurated at the barrage and it was given the honorary name of Chaudhary Devi Lal Weir to commemorate the former Chief Minister of Haryana, Chaudhary Devi Lal. The Dhanur lake reservoir is now often referred to simply as the Ottu Reservoir.",
-            detailsHindi: "यह बांध हरियाणा में घग्गर-हकरा नदी पर बनाया गया है। यह सिरसा से लगभग 8 मील दूर है। इसे ओट्टू वियर और ओट्टू हेड के नाम से भी जाना जाता है। ओट्टू बांध का निर्माण 1896 में बीकानेर रियासत और ब्रिटिश सरकार के संयुक्त प्रयास से किया गया था। यह सिरसा जिले के ओट्टू गाँव के पास स्थित पहले से छोटी धनुर झील से एक बड़ा जलाशय बनाता है। यह दो घग्गर नहरों (उत्तरी घग्गर नहर और दक्षिणी घग्गर नहर) को पानी प्रदान करता है जो उत्तरी राजस्थान राज्य को सिंचाई के लिए पानी प्रदान करती हैं। 2002 में, बैराज पर एक नया पर्यटन परिसर शुरू किया गया था और हरियाणा के पूर्व मुख्यमंत्री चौधरी देवी लाल की स्मृति में इसे चौधरी देवी लाल वियर का मानद नाम दिया गया था। धनुर झील जलाशय को अब अक्सर केवल ओट्टू जलाशय के रूप में जाना जाता है।"
+                "name": "Ottu Weir",
+                "nameHindi": "ओट्टू वियर",
+                "location": "Sirsa",
+                "details": "A historic weir on the Ghaggar River near Ottu village in Sirsa district. It is associated with the Ottu reservoir and the canal network serving downstream areas, including Rajasthan.",
+                "detailsHindi": "सिरसा जिले में ओट्टू गाँव के पास घग्गर नदी पर स्थित ऐतिहासिक वियर। यह ओट्टू जलाशय तथा राजस्थान सहित नीचे के क्षेत्रों के नहर नेटवर्क से जुड़ा है।"
         },
         {
-            name: "Anangpur Dam",
-            nameHindi: "अनंगपुर बांध",
-            location: "Faridabad",
-            details: "Anangpur dam is located near Anangpur village in the district of Faridabad. It is also known as Gravity Dam. This dam was constructed by King Anangpal of Tomar Dynasty in 8th century. It is an excellent example of Indian Hydraulic Engineering.",
-            detailsHindi: "अनंगपुर बांध फरीदाबाद जिले के अनंगपुर गाँव के पास स्थित है। इसे ग्रेविटी डैम के नाम से भी जाना जाता है। यह बांध 8वीं शताब्दी में तोमर वंश के राजा अनंगपाल द्वारा बनवाया गया था। यह भारतीय जल इंजीनियरिंग का एक उत्कृष्ट उदाहरण है।"
+                "name": "Anangpur Dam",
+                "nameHindi": "अनंगपुर बाँध",
+                "location": "Faridabad",
+                "details": "An ancient masonry hydraulic structure near Anangpur village in Faridabad, associated with the Tomar period. Its exact original construction date and royal attribution are not conclusively established in every archaeological account.",
+                "detailsHindi": "फरीदाबाद के अनंगपुर गाँव के निकट स्थित प्राचीन पत्थर का जल-संरक्षण ढाँचा, जिसका संबंध तोमर काल से माना जाता है। इसके मूल निर्माण-वर्ष और विशिष्ट शासक के नाम पर सभी पुरातात्विक स्रोत एकमत नहीं हैं।"
         },
         {
-            name: "Kaushalya Dam",
-            nameHindi: "कौशल्या बांध",
-            location: "Panchkula",
-            details: "Kaushalya dam is constructed on Kaushalya river which is a tributary of Ghaggar-Hakra river. This dam is 700m in length and 34m in height. Its construction began in 2008 and was completed in 2012. A sum of ₹118 crore was spent on the construction of this dam. It is located at Pinjore in the district of Panchkula. Total catchment area of this dam is 75 sq km. This dam controls the flow of excess water in Kaushalya and Ghaggar rivers during monsoon. It provides water to Panchkula district. It also helps in conservation of underground water level.",
-            detailsHindi: "कौशल्या बांध कौशल्या नदी पर बनाया गया है जो घग्गर-हकरा नदी की एक सहायक नदी है। यह बांध 700 मीटर लंबा और 34 मीटर ऊंचा है। इसका निर्माण 2008 में शुरू हुआ और 2012 में पूरा हुआ। इस बांध के निर्माण पर 118 करोड़ रुपये की राशि खर्च की गई। यह पंचकूला जिले के पिंजौर में स्थित है। इस बांध का कुल जलग्रहण क्षेत्र 75 वर्ग किमी है। यह बांध मानसून के दौरान कौशल्या और घग्गर नदियों में अतिरिक्त पानी के प्रवाह को नियंत्रित करता है। यह पंचकूला जिले को पानी प्रदान करता है। यह भूजल स्तर के संरक्षण में भी मदद करता है।"
+                "name": "Kaushalya Dam",
+                "nameHindi": "कौशल्या बाँध",
+                "location": "Pinjore, Panchkula",
+                "details": "An earthen dam on the Kaushalya River near Pinjore, built for water supply, flood moderation and related purposes. Haryana Assembly audit material reports a height of about 34 m and cost of about ₹208.37 crore through May 2013, rather than the outdated ₹118-crore figure.",
+                "detailsHindi": "पिंजौर के निकट कौशल्या नदी पर बना मिट्टी का बाँध, जिसका उद्देश्य जलापूर्ति, बाढ़ नियंत्रण तथा संबंधित उपयोग हैं। हरियाणा विधानसभा की लेखा-परीक्षा सामग्री के अनुसार इसकी ऊँचाई लगभग 34 मीटर तथा मई 2013 तक लागत लगभग ₹208.37 करोड़ थी, न कि पुराना ₹118 करोड़ का आँकड़ा।"
         },
         {
-            name: "Masani Dam",
-            nameHindi: "मसानी बांध",
-            location: "Rewari",
-            details: "This dam is constructed on Sahibi river which is a tributary of Yamuna river. It is located in Rewari. It prevents flooding of the nearby areas of Sahibi river during monsoons in the district of Rewari.",
-            detailsHindi: "यह बांध साहिबी नदी पर बनाया गया है जो यमुना नदी की एक सहायक नदी है। यह रेवाड़ी में स्थित है। यह रेवाड़ी जिले में मानसून के दौरान साहिबी नदी के आसपास के क्षेत्रों में बाढ़ को रोकता है।"
+                "name": "Masani Barrage",
+                "nameHindi": "मसानी बैराज",
+                "location": "Rewari",
+                "details": "A flood-control and water-management structure on the seasonal Sahibi River in Rewari district. It should not be represented as a major perennial storage dam.",
+                "detailsHindi": "रेवाड़ी जिले में मौसमी साहिबी नदी पर बना बाढ़ नियंत्रण एवं जल प्रबंधन ढाँचा। इसे बड़ा बारहमासी भंडारण बाँध नहीं कहना चाहिए।"
         }
-    ];
+];
 
     // Section 10: Other Irrigation Projects Table
     const otherIrrigationProjects = [
-        { project: "Narwana Lift Irrigation Project", area: "Jind" },
-        { project: "Nangal Lift Irrigation Project", area: "Ambala" },
-        { project: "Loharu Lift Irrigation Project (also known as Indira Gandhi Canal Project)", area: "Bhiwani, Mahendragarh and Jhajjar" },
-        { project: "Mewat Canal Irrigation Project", area: "Mewat" },
-        { project: "Dadupur, Shahbad Canal Irrigation Project", area: "Yamunanagar, Ambala and Kurukshetra" }
-    ];
+        {
+                "project": "Narwana Irrigation / distributary projects",
+                "area": "Jind"
+        },
+        {
+                "project": "Nangal Lift Scheme",
+                "area": "Ambala"
+        },
+        {
+                "project": "Loharu Lift Irrigation System",
+                "area": "Southern Haryana (including Bhiwani region)"
+        },
+        {
+                "project": "Gurugram Canal System",
+                "area": "Gurugram, Nuh and Palwal areas"
+        },
+        {
+                "project": "Dadupur–Shahbad Canal / irrigation scheme (historical scheme)",
+                "area": "North-eastern Haryana; current project status requires verification"
+        }
+];
 
     // Section 11: Region-Wise Irrigation System
     const regionWiseIrrigation = [
         {
-            region: "North-Eastern Region",
-            regionHindi: "उत्तर-पूर्वी क्षेत्र",
-            districts: "Ambala, Shivalik hills",
-            details: "The North-Eastern parts include the plains of Ambala and the Shivalik hills. This region receives sufficient rainfall. The plains of this region are fertile. Rainfall irrigates the fields in most of the areas of this region. After the construction of Nangal Lift Irrigation Scheme, canal irrigation was made possible in Ambala district. Rainfall and canals are main means of irrigation in this region. This scheme covers 45000 acres of land in Ambala district.",
-            detailsHindi: "उत्तर-पूर्वी भागों में अंबाला के मैदान और शिवालिक पहाड़ियाँ शामिल हैं। यह क्षेत्र पर्याप्त वर्षा प्राप्त करता है। इस क्षेत्र के मैदान उपजाऊ हैं। इस क्षेत्र के अधिकांश भागों में वर्षा से खेतों की सिंचाई होती है। नंगल लिफ्ट सिंचाई योजना के निर्माण के बाद, अंबाला जिले में नहर सिंचाई संभव हो पाई। इस क्षेत्र में वर्षा और नहरें सिंचाई के मुख्य साधन हैं। यह योजना अंबाला जिले में 45000 एकड़ भूमि को कवर करती है।"
+                "region": "North-Eastern Region",
+                "regionHindi": "उत्तर-पूर्वी क्षेत्र",
+                "districts": "Panchkula, Ambala and Yamunanagar areas",
+                "details": "Higher rainfall than south-western Haryana, with a mix of canal distribution, groundwater and rainfall-supported cultivation. The Shivalik foothill terrain limits irrigation options in some places.",
+                "detailsHindi": "दक्षिण-पश्चिमी हरियाणा की तुलना में अधिक वर्षा वाला क्षेत्र। यहाँ नहर, भूजल और वर्षा आधारित खेती का मिश्रण है; शिवालिक की तलहटी की भू-आकृति कुछ स्थानों पर सिंचाई सीमित करती है।"
         },
         {
-            region: "Central Region",
-            regionHindi: "मध्य क्षेत्र",
-            districts: "Kurukshetra, Karnal, Jind, Rohtak, Panipat, Sonipat",
-            details: "The Central region of the state comprises of Kurukshetra, Karnal, Jind, Rohtak, Panipat and Sonipat districts. Rainfall occurs in adequate quantities in these districts. Maize and rice are grown here, because these crops need large volume of water. Rabi crops are grown with the help of rainfall, tubewells, wells and canals.",
-            detailsHindi: "राज्य के मध्य क्षेत्र में कुरुक्षेत्र, करनाल, जींद, रोहतक, पानीपत और सोनीपत जिले शामिल हैं। इन जिलों में पर्याप्त मात्रा में वर्षा होती है। यहाँ मक्का और चावल उगाए जाते हैं, क्योंकि इन फसलों को बड़ी मात्रा में पानी की आवश्यकता होती है। रबी की फसलें वर्षा, ट्यूबवेल, कुओं और नहरों की सहायता से उगाई जाती हैं।"
+                "region": "Central Region",
+                "regionHindi": "मध्य क्षेत्र",
+                "districts": "Kurukshetra, Karnal, Kaithal, Jind, Panipat, Sonipat and Rohtak areas",
+                "details": "The fertile plains use both canals and tubewells, especially for wheat–rice cultivation. Groundwater stress is an important concern where water-intensive cropping is prevalent.",
+                "detailsHindi": "उपजाऊ मैदानी क्षेत्रों में विशेषकर गेहूँ–धान की खेती के लिए नहरों और ट्यूबवेलों का उपयोग होता है। अधिक पानी लेने वाली फसलों के कारण कुछ क्षेत्रों में भूजल दबाव गंभीर समस्या है।"
         },
         {
-            region: "South-Eastern Region",
-            regionHindi: "दक्षिण-पूर्वी क्षेत्र",
-            districts: "Gurugram, Faridabad",
-            details: "This area comprises the districts of Gurugram and Faridabad. Rainfall is less than normal in this area. The major crops of this region are maize, barley, millet, oat, wheat and gram. These crops are irrigated by canals and tubewells.",
-            detailsHindi: "इस क्षेत्र में गुरुग्राम और फरीदाबाद जिले शामिल हैं। इस क्षेत्र में वर्षा सामान्य से कम होती है। इस क्षेत्र की प्रमुख फसलें मक्का, जौ, बाजरा, जई, गेहूं और चना हैं। इन फसलों की सिंचाई नहरों और ट्यूबवेल द्वारा की जाती है।"
+                "region": "South-Eastern Region",
+                "regionHindi": "दक्षिण-पूर्वी क्षेत्र",
+                "districts": "Gurugram, Nuh, Faridabad and Palwal areas",
+                "details": "Canals, tubewells and water-conservation systems support agriculture despite variable rainfall and localised groundwater salinity. The Agra and Gurugram canal systems are significant.",
+                "detailsHindi": "परिवर्तनशील वर्षा और कुछ क्षेत्रों में खारे भूजल के बावजूद नहर, ट्यूबवेल और जल-संरक्षण प्रणालियाँ खेती को सहारा देती हैं। आगरा तथा गुरुग्राम नहर प्रणालियाँ महत्त्वपूर्ण हैं।"
         },
         {
-            region: "Sandy Region",
-            regionHindi: "रेतीला क्षेत्र",
-            districts: "Hisar, Sirsa, Mahendragarh, Bhiwani",
-            details: "This region comprises the districts of Hisar, Sirsa, Mahendragarh and Bhiwani. Rainfall is almost nil in this area. Main crops of this region are barley, millet, gram, maize and wheat. Here farmers use camels for agriculture. Tubewells and water sprinklers are used to irrigate the fields.",
-            detailsHindi: "इस क्षेत्र में हिसार, सिरसा, महेंद्रगढ़ और भिवानी जिले शामिल हैं। इस क्षेत्र में वर्षा लगभग शून्य है। इस क्षेत्र की मुख्य फसलें जौ, बाजरा, चना, मक्का और गेहूं हैं। यहाँ किसान कृषि के लिए ऊंटों का उपयोग करते हैं। खेतों की सिंचाई के लिए ट्यूबवेल और पानी के स्प्रिंकलर का उपयोग किया जाता है।"
+                "region": "South-Western / Semi-Arid Region",
+                "regionHindi": "दक्षिण-पश्चिमी / अर्धशुष्क क्षेत्र",
+                "districts": "Hisar, Sirsa, Fatehabad, Bhiwani, Charkhi Dadri, Mahendragarh, Rewari and adjoining areas",
+                "details": "Relatively low rainfall and higher evapotranspiration make lift canals, canal rotation and efficient micro-irrigation important. Rainfall is lower than in north-eastern Haryana, not literally zero.",
+                "detailsHindi": "यहाँ अपेक्षाकृत कम वर्षा और अधिक वाष्पोत्सर्जन के कारण लिफ्ट नहर, आवर्तन आधारित जलापूर्ति तथा कुशल सूक्ष्म सिंचाई महत्त्वपूर्ण हैं। वर्षा उत्तर-पूर्वी हरियाणा से कम होती है, पर शून्य नहीं।"
         }
-    ];
+];
 
     // Section 12: Micro Irrigation
     const microIrrigation = {
-        titleHindi: "सूक्ष्म सिंचाई",
-        titleEnglish: "Micro Irrigation",
-        contentHindi: "सूक्ष्म सिंचाई योजना 'प्रति बूंद अधिक फसल' के तहत 2019-20 में 550.33 हेक्टेयर क्षेत्र को कवर किया गया है, जिसमें 386.60 लाख रुपये का व्यय हुआ है।",
-        contentEnglish: "Micro Irrigation Scheme 'Per Drop More Crop' an area of 550.33 hectare has been covered in 2019-20 with an expenditure of 386.60 lakhs."
-    };
+        "titleHindi": "सूक्ष्म सिंचाई",
+        "titleEnglish": "Micro Irrigation",
+        "contentHindi": "ड्रिप और स्प्रिंकलर जैसी सूक्ष्म सिंचाई विधियाँ पानी को सीधे फसल की आवश्यकतानुसार पहुँचाकर अपव्यय कम करती हैं। हरियाणा में विभिन्न केंद्रीय और राज्य योजनाओं के माध्यम से इन विधियों तथा भूमिगत पाइपलाइन के उपयोग को प्रोत्साहित किया जाता है। किसी योजना के अंतर्गत लाभान्वित क्षेत्रफल, अनुदान प्रतिशत और व्यय वर्ष एवं पात्रता के अनुसार बदलते हैं; इसलिए पुराने 2019-20 आँकड़ों को वर्तमान प्रगति के रूप में नहीं दिखाना चाहिए।",
+        "contentEnglish": "Micro-irrigation methods such as drip and sprinkler systems apply water more efficiently to crop root zones and help reduce losses. Central and state programmes encourage these methods and underground pipe networks in Haryana. Beneficiary area, expenditure and subsidy rates vary by year and eligibility, so figures for 2019–20 should not be presented as current programme results."
+};
 
     // Section 13: Government Initiatives for Irrigation Development
     const govtInitiatives = [
         {
-            name: "Atal Bhujal Yojana",
-            nameHindi: "अटल भूजल योजना",
-            details: "This scheme was launched on 25th December, 2019 on the 95th birth anniversary of Atal Bihari Vajpayee. The scheme aims to improve the ground water management by developing sustainable ground water resources. For this, an outlay of ₹6000 crore is to be implemented over a period of 5 years (2020-21 to 2024-25).",
-            detailsHindi: "यह योजना 25 दिसंबर, 2019 को अटल बिहारी वाजपेयी की 95वीं जयंती पर शुरू की गई थी। यह योजना सतत भूजल संसाधनों के विकास द्वारा भूजल प्रबंधन में सुधार करना चाहती है। इसके लिए 6000 करोड़ रुपये का परिव्यय 5 वर्षों (2020-21 से 2024-25) की अवधि में कार्यान्वित किया जाना है।"
+                "name": "Atal Bhujal Yojana (Atal Jal)",
+                "nameHindi": "अटल भूजल योजना (अटल जल)",
+                "details": "Launched on 25 December 2019; the initial implementation period began on 1 April 2020. Supports community participation and groundwater budgeting in identified stressed areas.",
+                "detailsHindi": "25 दिसंबर 2019 को शुरू हुई; मूल कार्यान्वयन काल 1 अप्रैल 2020 से आरंभ हुआ। चयनित जल-संकटग्रस्त क्षेत्रों में समुदाय की भागीदारी और भूजल बजट को बढ़ावा देती है।"
         },
         {
-            name: "On Farm Water Management",
-            nameHindi: "ऑन फार्म जल प्रबंधन",
-            details: "Under this scheme, State Government encourages various irrigation systems by providing financial assistance to farmers. Farmers are assisted for laying of sprinkler irrigation, drip irrigation and Underground Pipe Line System (UGPL). This scheme encouraged water conservation in the state.",
-            detailsHindi: "इस योजना के तहत, राज्य सरकार किसानों को वित्तीय सहायता प्रदान करके विभिन्न सिंचाई प्रणालियों को प्रोत्साहित करती है। किसानों को स्प्रिंकलर सिंचाई, ड्रिप सिंचाई और अंडरग्राउंड पाइप लाइन सिस्टम (UGPL) बिछाने के लिए सहायता प्रदान की जाती है। इस योजना ने राज्य में जल संरक्षण को प्रोत्साहित किया।"
+                "name": "On-Farm Water Management",
+                "nameHindi": "खेत-स्तरीय जल प्रबंधन",
+                "details": "Encourages efficient distribution and use of water, including water-saving irrigation methods and appropriately designed conveyance systems.",
+                "detailsHindi": "जल की कुशल आपूर्ति एवं उपयोग को बढ़ावा देता है, जिसमें जल-बचत वाली सिंचाई और उपयुक्त पाइप/वितरण प्रणालियाँ शामिल हैं।"
         },
         {
-            name: "Sprinkler Irrigation System",
-            nameHindi: "स्प्रिंकलर सिंचाई प्रणाली",
-            details: "Sprinkler irrigation system is encouraged in the South and South-Western parts of Haryana. These are sandy areas where ground water level is up to 200 feet. Sprinkler system is considered the best system of irrigation in these areas. It uses water judiciously, fulfilling the irrigational needs at the same time. The sprinkler system is encouraged in the districts of Rewari, Mahendragarh, Charkhi-Dadri, Gurugram, Bhiwani and Hisar from 1970. The sprinkler system is beneficial for the growth of crops like wheat, mustard and gram. By laying Underground Pipe Line System (UGPL) for sprinklers, water losses are minimised, energy is saved and additional area can be put under cultivation. The pattern of assistance is 60% subsidy to small and medium farmers and 50% subsidy to farmers with large land areas.",
-            detailsHindi: "स्प्रिंकलर सिंचाई प्रणाली को हरियाणा के दक्षिण और दक्षिण-पश्चिमी भागों में प्रोत्साहित किया जाता है। ये रेतीले क्षेत्र हैं जहाँ भूजल स्तर 200 फीट तक है। इन क्षेत्रों में स्प्रिंकलर प्रणाली को सिंचाई की सबसे अच्छी प्रणाली माना जाता है। यह पानी का विवेकपूर्ण उपयोग करता है, साथ ही सिंचाई की आवश्यकताओं को पूरा करता है। स्प्रिंकलर प्रणाली को 1970 से रेवाड़ी, महेंद्रगढ़, चरखी-दादरी, गुरुग्राम, भिवानी और हिसार जिलों में प्रोत्साहित किया जाता है। स्प्रिंकलर प्रणाली गेहूं, सरसों और चना जैसी फसलों की वृद्धि के लिए फायदेमंद है। स्प्रिंकलर के लिए अंडरग्राउंड पाइप लाइन सिस्टम (UGPL) बिछाकर, पानी के नुकसान को कम किया जाता है, ऊर्जा की बचत होती है और अतिरिक्त क्षेत्र को खेती के अधीन लाया जा सकता है। सहायता का पैटर्न छोटे और मध्यम किसानों के लिए 60% सब्सिडी और बड़े भूमि क्षेत्रों वाले किसानों के लिए 50% सब्सिडी है।"
+                "name": "Sprinkler Irrigation",
+                "nameHindi": "स्प्रिंकलर सिंचाई",
+                "details": "Water is sprayed over crops through nozzles, reducing conveyance losses and supporting irrigation in suitable light-textured or uneven soils. Subsidy rates depend on the current programme notification.",
+                "detailsHindi": "नोजल से पानी का छिड़काव कर फसलों को सिंचित किया जाता है। इससे जल के वितरण में हानि घट सकती है और उपयुक्त रेतीली या असमतल भूमि में सिंचाई संभव होती है। अनुदान दर वर्तमान योजना की अधिसूचना के अनुसार बदलती है।"
         },
         {
-            name: "Drip Irrigation System",
-            nameHindi: "ड्रिप सिंचाई प्रणाली",
-            details: "Under this scheme, underground Pipeline System is laid to provide drip irrigation. This system is promoted for the growth of cotton and sugarcane crops. As per Economic Survey 2020-21, an area of 4819 hectare have been covered under this system by providing a subsidy of ₹29.43 crore in the state.",
-            detailsHindi: "इस योजना के तहत, ड्रिप सिंचाई प्रदान करने के लिए अंडरग्राउंड पाइपलाइन प्रणाली बिछाई जाती है। यह प्रणाली कपास और गन्ने की फसलों की वृद्धि के लिए प्रोत्साहित की जाती है। आर्थिक सर्वेक्षण 2020-21 के अनुसार, राज्य में 29.43 करोड़ रुपये की सब्सिडी प्रदान करके 4819 हेक्टेयर क्षेत्र को इस प्रणाली के तहत कवर किया गया है।"
+                "name": "Drip Irrigation",
+                "nameHindi": "ड्रिप सिंचाई",
+                "details": "Supplies controlled amounts of water near plant roots and is useful for water-efficient horticulture and suitable row crops.",
+                "detailsHindi": "पौधों की जड़ों के पास नियंत्रित मात्रा में पानी पहुँचाती है और बागवानी तथा कुछ कतार वाली फसलों में जल दक्षता बढ़ाने में उपयोगी है।"
         },
         {
-            name: "Underground Pipe Line System (UGPL)",
-            nameHindi: "अंडरग्राउंड पाइप लाइन प्रणाली",
-            details: "Studies related to underground water sources in Haryana revealed that there has been consistent decline in water tables in Karnal, Kurukshetra, Kaithal, Panipat, Sonipat and Yamunanagar. The dominant crops of this region are wheat and rice. Rice needs lot of irrigation. Moreover, about 55% areas of Haryana is affected by poor quality underground water which results in low crop production. Therefore laying of underground pipe lines is a good option. Water for irrigation from a good quality source can be transported through UGPL. Laying of UGPL system is a flagship project of the state under Rashtriya Krishi Vikas Yojana. As per Economic Survey 2020-21, so far an area of 223695 hectare has been brought under the UGPL system by utilising an amount of ₹358.21 crore.",
-            detailsHindi: "हरियाणा में भूजल स्रोतों से संबंधित अध्ययनों से पता चला है कि करनाल, कुरुक्षेत्र, कैथल, पानीपत, सोनीपत और यमुनानगर में जल स्तर में लगातार गिरावट आई है। इस क्षेत्र की प्रमुख फसलें गेहूं और चावल हैं। चावल को बहुत अधिक सिंचाई की आवश्यकता होती है। इसके अलावा, हरियाणा का लगभग 55% क्षेत्र खराब गुणवत्ता वाले भूजल से प्रभावित है, जिसके परिणामस्वरूप फसल उत्पादन कम होता है। इसलिए अंडरग्राउंड पाइप लाइन बिछाना एक अच्छा विकल्प है। एक अच्छे गुणवत्ता वाले स्रोत से सिंचाई के लिए पानी को UGPL के माध्यम से ले जाया जा सकता है। UGPL प्रणाली बिछाना राष्ट्रीय कृषि विकास योजना के तहत राज्य की एक प्रमुख परियोजना है। आर्थिक सर्वेक्षण 2020-21 के अनुसार, अब तक 358.21 करोड़ रुपये की राशि का उपयोग करके 223695 हेक्टेयर क्षेत्र को UGPL प्रणाली के तहत लाया गया है।"
+                "name": "Underground Pipeline System (UGPL)",
+                "nameHindi": "भूमिगत पाइपलाइन प्रणाली (UGPL)",
+                "details": "Conveys irrigation water through pipes to reduce seepage and evaporation losses compared with unlined open field channels. Historical coverage claims need their exact reference year.",
+                "detailsHindi": "बिना पक्की खुली खेत-नालियों की तुलना में रिसाव तथा वाष्पीकरण की हानि कम करने के लिए पाइपों से सिंचाई का पानी पहुँचाती है। पुराने लाभान्वित क्षेत्र के आँकड़ों के साथ सटीक संदर्भ-वर्ष लिखना आवश्यक है।"
         },
         {
-            name: "Integrated Micro Irrigation Scheme",
-            nameHindi: "एकीकृत सूक्ष्म सिंचाई योजना",
-            details: "Under Integrated Micro Irrigation Scheme, 14 different canal outlets are selected in 13 districts where solar energy based micro irrigation schemes are implemented. This scheme is undertaken by HAREDA from 2018.",
-            detailsHindi: "एकीकृत सूक्ष्म सिंचाई योजना के तहत, 13 जिलों में 14 विभिन्न नहर आउटलेट का चयन किया गया है जहाँ सौर ऊर्जा आधारित सूक्ष्म सिंचाई योजनाएं कार्यान्वित की जाती हैं। यह योजना 2018 से HAREDA द्वारा की जा रही है।"
+                "name": "Integrated Micro-Irrigation Projects",
+                "nameHindi": "एकीकृत सूक्ष्म सिंचाई परियोजनाएँ",
+                "details": "Government projects combining canal distribution, pressurised systems and sometimes solar pumping to improve water-use efficiency. Project counts and implementation status require a dated official report.",
+                "detailsHindi": "नहर वितरण, दबाव-आधारित प्रणाली और कभी-कभी सौर पंपों को जोड़कर जल उपयोग दक्षता बढ़ाने वाली परियोजनाएँ। परियोजना संख्या और कार्यान्वयन स्थिति के लिए दिनांकित आधिकारिक रिपोर्ट चाहिए।"
         },
         {
-            name: "Pradhan Mantri Krishi Sinchai Yojana (PMKSY)",
-            nameHindi: "प्रधानमंत्री कृषि सिंचाई योजना",
-            details: "Under Per Drop More Crop component of this scheme, target is to cover 2000 hectare amounting to ₹1374.92 lakh. Government provides assistance of 85% to SC farmers, small and marginal farmers to set up irrigation practices that conserves water along with watering the crops. Under the PMKSY, district irrigation plans for all districts are finalized. The projects aim to provide end-to-end solutions in irrigation supply chain, creation of water sources, rain water harvesting, on farm application and extension services on new irrigation technologies in the state.",
-            detailsHindi: "इस योजना के प्रति बूंद अधिक फसल घटक के तहत, 2000 हेक्टेयर को कवर करने का लक्ष्य है, जिसकी राशि 1374.92 लाख रुपये है। सरकार अनुसूचित जाति के किसानों, छोटे और सीमांत किसानों को सिंचाई प्रथाओं को स्थापित करने के लिए 85% सहायता प्रदान करती है जो फसलों को पानी देने के साथ-साथ पानी का संरक्षण करती है। PMKSY के तहत, सभी जिलों के लिए जिला सिंचाई योजनाएं अंतिम रूप दी जाती हैं। परियोजनाओं का उद्देश्य सिंचाई आपूर्ति श्रृंखला में अंत-से-अंत समाधान, जल स्रोतों का निर्माण, वर्षा जल संचयन, फार्म पर अनुप्रयोग और राज्य में नई सिंचाई प्रौद्योगिकियों पर विस्तार सेवाएं प्रदान करना है।"
+                "name": "Pradhan Mantri Krishi Sinchayee Yojana (PMKSY)",
+                "nameHindi": "प्रधानमंत्री कृषि सिंचाई योजना (PMKSY)",
+                "details": "A central scheme promoting irrigation access and water-use efficiency, including the Per Drop More Crop approach. Current support rates depend on component, farmer category and state guidelines.",
+                "detailsHindi": "सिंचाई की पहुँच और जल उपयोग दक्षता बढ़ाने वाली केंद्रीय योजना, जिसमें प्रति बूंद अधिक फसल की अवधारणा शामिल है। वर्तमान सहायता दर घटक, किसान श्रेणी और राज्य दिशा-निर्देशों पर निर्भर करती है।"
         }
-    ];
+];
 
     // Section 14: Government Departments for Irrigation
     const govtDepartments = [
         {
-            name: "Haryana Irrigation Research and Management Institute (HIRMI)",
-            nameHindi: "हरियाणा सिंचाई अनुसंधान और प्रबंधन संस्थान",
-            location: "Kurukshetra",
-            details: "The institute was set up under Societies Registration Act, 1860 at Kurukshetra. It aims to conserve and efficiently manage the water resources through research and training.",
-            detailsHindi: "यह संस्थान सोसाइटी पंजीकरण अधिनियम, 1860 के तहत कुरुक्षेत्र में स्थापित किया गया था। इसका उद्देश्य अनुसंधान और प्रशिक्षण के माध्यम से जल संसाधनों का संरक्षण और कुशलतापूर्वक प्रबंधन करना है।"
+                "name": "Haryana Irrigation Research and Management Institute (HIRMI)",
+                "nameHindi": "हरियाणा सिंचाई अनुसंधान एवं प्रबंधन संस्थान",
+                "location": "Kurukshetra",
+                "details": "Supports water-management training, research and capacity development for irrigation professionals.",
+                "detailsHindi": "सिंचाई कर्मियों और अधिकारियों के लिए जल प्रबंधन प्रशिक्षण, अनुसंधान एवं क्षमता विकास में सहायता करता है।"
         },
         {
-            name: "Irrigation and Water Resources Department (IWRD)",
-            nameHindi: "सिंचाई एवं जल संसाधन विभाग",
-            location: "Panchkula",
-            details: "The head office of this department is located in Panchkula district. The department is primarily responsible for construction, operation and maintenance of canals and drainage network. It also supplies water for irrigation, drinking, pond-filling, industrial uses, etc.",
-            detailsHindi: "इस विभाग का मुख्यालय पंचकूला जिले में स्थित है। विभाग मुख्य रूप से नहरों और जल निकासी नेटवर्क के निर्माण, संचालन और रखरखाव के लिए जिम्मेदार है। यह सिंचाई, पेयजल, तालाब भरने, औद्योगिक उपयोग आदि के लिए भी पानी की आपूर्ति करता है।"
+                "name": "Irrigation and Water Resources Department, Haryana",
+                "nameHindi": "सिंचाई एवं जल संसाधन विभाग, हरियाणा",
+                "location": "Haryana",
+                "details": "Responsible for construction, operation, improvement and maintenance of major canal, drainage and related water resources infrastructure.",
+                "detailsHindi": "प्रमुख नहर, जलनिकासी तथा संबंधित जल संसाधन अवसंरचना के निर्माण, संचालन, सुधार एवं रखरखाव के लिए जिम्मेदार विभाग।"
         },
         {
-            name: "Command Area Development Authority (CADA)",
-            nameHindi: "कमांड क्षेत्र विकास प्राधिकरण",
-            location: "Haryana",
-            details: "CADA, Haryana has installed Pilot projects of micro irrigation in 14 villages of 13 districts. The total cost of the project is ₹30.60 crore covering 2231 hectare approx.",
-            detailsHindi: "CADA, हरियाणा ने 13 जिलों के 14 गांवों में सूक्ष्म सिंचाई की पायलट परियोजनाएं स्थापित की हैं। परियोजना की कुल लागत 30.60 करोड़ रुपये है जो लगभग 2231 हेक्टेयर को कवर करती है।"
+                "name": "Micro Irrigation and Command Area Development Authority (MICADA)",
+                "nameHindi": "सूक्ष्म सिंचाई एवं कमांड क्षेत्र विकास प्राधिकरण (MICADA)",
+                "location": "Haryana",
+                "details": "Responsible for command-area development and selected micro-irrigation and water-use-efficiency initiatives. Confirm scheme-level targets from its current official records.",
+                "detailsHindi": "कमांड क्षेत्र विकास तथा चयनित सूक्ष्म सिंचाई एवं जल दक्षता संबंधी पहलों का कार्य करता है। योजना-स्तरीय लक्ष्य वर्तमान आधिकारिक अभिलेखों से जाँचे जाने चाहिए।"
         },
         {
-            name: "Haryana State Drought Relief and Flood Control Board",
-            nameHindi: "हरियाणा राज्य सूखा राहत एवं बाढ़ नियंत्रण बोर्ड",
-            location: "Haryana",
-            details: "The board is set up to control the excess water in the rivers during monsoon. For this, reservoirs are developed around those rivers that remain dry most of the year but swell up in the rainy season.",
-            detailsHindi: "बोर्ड मानसून के दौरान नदियों में अतिरिक्त पानी को नियंत्रित करने के लिए स्थापित किया गया है। इसके लिए, उन नदियों के आसपास जलाशय विकसित किए जाते हैं जो वर्ष के अधिकांश समय सूखी रहती हैं लेकिन बरसात के मौसम में उफान पर आ जाती हैं।"
-        },
-        {
-            name: "Irrigation Efficiency Fund",
-            nameHindi: "सिंचाई दक्षता कोष",
-            location: "Haryana",
-            details: "The fund is created to increase the efficiency of irrigation in Haryana by NABARD. It includes 36 blocks which are identified in the state where ground water level is too low or critical. Plans are drawn to recharge the ground water. The scheme was implemented from 2018-19.",
-            detailsHindi: "यह कोष NABARD द्वारा हरियाणा में सिंचाई की दक्षता बढ़ाने के लिए बनाया गया है। इसमें राज्य में 36 ब्लॉक शामिल हैं जहाँ भूजल स्तर बहुत कम या गंभीर है। भूजल को रिचार्ज करने के लिए योजनाएं बनाई जाती हैं। यह योजना 2018-19 से कार्यान्वित की गई थी।"
+                "name": "Flood Control and Drainage Management",
+                "nameHindi": "बाढ़ नियंत्रण एवं जलनिकासी प्रबंधन",
+                "location": "Haryana",
+                "details": "Flood protection, drainage and waterlogging-management works are undertaken through relevant government departments and committees.",
+                "detailsHindi": "संबंधित सरकारी विभागों और समितियों के माध्यम से बाढ़ सुरक्षा, जलनिकासी और जलभराव प्रबंधन का कार्य किया जाता है।"
         }
-    ];
+];
 
     return (
         <div className="min-h-screen bg-background">
@@ -455,7 +463,7 @@ export default function IrrigationInHaryanaPage() {
 
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-sm font-medium backdrop-blur-sm">
                         <Droplets className="w-4 h-4" />
-                        {language === "hindi" ? "सिंचाई - हरियाणा सरकार" : "Irrigation - Government of Haryana"}
+                        {language === "hindi" ? "हरियाणा सिंचाई अध्ययन सामग्री — CET TEST" : "Haryana Irrigation Study Material — CET TEST"}
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
@@ -502,22 +510,23 @@ export default function IrrigationInHaryanaPage() {
                         </div>
                         <p className="text-muted-foreground leading-relaxed">{language === "hindi" ? overview.contentHindi : overview.contentEnglish}</p>
 
+                        <p className="mt-3 text-xs text-muted-foreground">{language === "hindi" ? "स्रोत: भारत सरकार, Land Use Statistics 2024–25 (अनंतिम), तालिका VII तथा X; प्रतिशत शुद्ध सिंचित क्षेत्र पर आधारित हैं।" : "Source: Government of India, Land Use Statistics 2024–25 (provisional), Tables VII and X; source shares use net irrigated area."}</p>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                             <div className="text-center p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
-                                <div className="text-2xl font-bold text-blue-600">60%</div>
-                                <div className="text-xs text-muted-foreground">{language === "hindi" ? "सिंचित कृषि भूमि" : "Irrigated Agril Land"}</div>
+                                <div className="text-2xl font-bold text-blue-600">93.3%</div>
+                                <div className="text-xs text-muted-foreground">{language === "hindi" ? "शुद्ध बोए क्षेत्र का सिंचित भाग (2024-25)" : "Net Sown Area Irrigated (2024–25)"}</div>
                             </div>
                             <div className="text-center p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
-                                <div className="text-2xl font-bold text-blue-600">51.12%</div>
-                                <div className="text-xs text-muted-foreground">{language === "hindi" ? "ट्यूबवेल सिंचाई" : "Tubewell Irrigation"}</div>
+                                <div className="text-2xl font-bold text-blue-600">62.5%</div>
+                                <div className="text-xs text-muted-foreground">{language === "hindi" ? "ट्यूबवेल का हिस्सा (2024-25)" : "Tubewell Share (2024–25)"}</div>
                             </div>
                             <div className="text-center p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
-                                <div className="text-2xl font-bold text-blue-600">48.3%</div>
-                                <div className="text-xs text-muted-foreground">{language === "hindi" ? "नहर सिंचाई" : "Canal Irrigation"}</div>
+                                <div className="text-2xl font-bold text-blue-600">37.5%</div>
+                                <div className="text-xs text-muted-foreground">{language === "hindi" ? "नहर का हिस्सा (2024-25)" : "Canal Share (2024–25)"}</div>
                             </div>
                             <div className="text-center p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
-                                <div className="text-2xl font-bold text-blue-600">5672</div>
-                                <div className="text-xs text-muted-foreground">{language === "hindi" ? "सिंचित भूमि (हे.)" : "Irrigated Land (ha)"}</div>
+                                <div className="text-2xl font-bold text-blue-600">33.02 L</div>
+                                <div className="text-xs text-muted-foreground">{language === "hindi" ? "शुद्ध सिंचित क्षेत्र (लाख हे., 2024-25)" : "Net Irrigated Area (lakh ha, 2024–25)"}</div>
                             </div>
                         </div>
                     </div>
@@ -532,18 +541,19 @@ export default function IrrigationInHaryanaPage() {
                         </div>
                         <p className="text-muted-foreground leading-relaxed">{language === "hindi" ? canalOverview.contentHindi : canalOverview.contentEnglish}</p>
 
+                        <p className="mt-3 text-xs text-muted-foreground">{language === "hindi" ? "स्रोत: हरियाणा जल संसाधन प्राधिकरण, Integrated Water Resources Action Plan 2025–27, अध्याय 1।" : "Source: Haryana Water Resources Authority, Integrated Water Resources Action Plan 2025–27, Chapter 1."}</p>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
                             <div className="text-center p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
-                                <div className="text-xl font-bold text-blue-600">1521</div>
+                                <div className="text-xl font-bold text-blue-600">1,527</div>
                                 <div className="text-xs text-muted-foreground">{language === "hindi" ? "चैनल" : "Channels"}</div>
                             </div>
                             <div className="text-center p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
-                                <div className="text-xl font-bold text-blue-600">14,125</div>
+                                <div className="text-xl font-bold text-blue-600">14,370</div>
                                 <div className="text-xs text-muted-foreground">{language === "hindi" ? "कुल लंबाई (किमी)" : "Total Length (km)"}</div>
                             </div>
                             <div className="text-center p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
-                                <div className="text-xl font-bold text-blue-600">5,867</div>
-                                <div className="text-xs text-muted-foreground">{language === "hindi" ? "भाखड़ा नहर लंबाई" : "Bhakra Canal Length"}</div>
+                                <div className="text-xl font-bold text-blue-600">4</div>
+                                <div className="text-xs text-muted-foreground">{language === "hindi" ? "मुख्य नहर प्रणाली (HWRA 2025-27)" : "Major Canal Systems (HWRA 2025–27)"}</div>
                             </div>
                         </div>
                     </div>
@@ -772,23 +782,23 @@ export default function IrrigationInHaryanaPage() {
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         <div className="bg-card rounded-xl p-4 border text-center">
-                            <div className="text-2xl font-bold text-blue-600">60%</div>
-                            <p className="text-xs text-muted-foreground">{language === "hindi" ? "सिंचित कृषि भूमि" : "Irrigated Agril Land"}</p>
+                            <div className="text-2xl font-bold text-blue-600">93.3%</div>
+                            <p className="text-xs text-muted-foreground">{language === "hindi" ? "शुद्ध बोए क्षेत्र का सिंचित भाग (2024-25)" : "Net Sown Area Irrigated (2024–25)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-4 border text-center">
-                            <div className="text-2xl font-bold text-blue-600">51.12%</div>
-                            <p className="text-xs text-muted-foreground">{language === "hindi" ? "ट्यूबवेल सिंचाई" : "Tubewell Irrigation"}</p>
+                            <div className="text-2xl font-bold text-blue-600">62.5%</div>
+                            <p className="text-xs text-muted-foreground">{language === "hindi" ? "ट्यूबवेल का हिस्सा (2024-25)" : "Tubewell Share (2024–25)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-4 border text-center">
-                            <div className="text-2xl font-bold text-blue-600">48.3%</div>
-                            <p className="text-xs text-muted-foreground">{language === "hindi" ? "नहर सिंचाई" : "Canal Irrigation"}</p>
+                            <div className="text-2xl font-bold text-blue-600">37.5%</div>
+                            <p className="text-xs text-muted-foreground">{language === "hindi" ? "नहर का हिस्सा (2024-25)" : "Canal Share (2024–25)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-4 border text-center">
-                            <div className="text-2xl font-bold text-blue-600">14,125</div>
+                            <div className="text-2xl font-bold text-blue-600">14,370</div>
                             <p className="text-xs text-muted-foreground">{language === "hindi" ? "नहर नेटवर्क (किमी)" : "Canal Network (km)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-4 border text-center">
-                            <div className="text-2xl font-bold text-blue-600">1521</div>
+                            <div className="text-2xl font-bold text-blue-600">1,527</div>
                             <p className="text-xs text-muted-foreground">{language === "hindi" ? "चैनल" : "Channels"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-4 border text-center">
@@ -796,12 +806,12 @@ export default function IrrigationInHaryanaPage() {
                             <p className="text-xs text-muted-foreground">{language === "hindi" ? "SYL नहर लंबाई (किमी)" : "SYL Canal Length (km)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-4 border text-center">
-                            <div className="text-2xl font-bold text-blue-600">223,695</div>
-                            <p className="text-xs text-muted-foreground">{language === "hindi" ? "UGPL के तहत क्षेत्र (हे.)" : "Area under UGPL (ha)"}</p>
+                            <div className="text-2xl font-bold text-blue-600">33.02 L</div>
+                            <p className="text-xs text-muted-foreground">{language === "hindi" ? "शुद्ध सिंचित भूमि (लाख हे., 2024-25)" : "Net Irrigated Land (lakh ha, 2024–25)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-4 border text-center">
-                            <div className="text-2xl font-bold text-blue-600">493</div>
-                            <p className="text-xs text-muted-foreground">{language === "hindi" ? "लिफ्ट सिंचाई नहरें" : "Lift Irrigation Canals"}</p>
+                            <div className="text-2xl font-bold text-blue-600">4</div>
+                            <p className="text-xs text-muted-foreground">{language === "hindi" ? "प्रमुख लिफ्ट सिंचाई प्रणालियाँ" : "Principal Lift Systems"}</p>
                         </div>
                     </div>
                 </div>
@@ -887,8 +897,17 @@ export default function IrrigationInHaryanaPage() {
                             ? "यह पृष्ठ हरियाणा की सिंचाई प्रणाली के बारे में व्यापक जानकारी प्रदान करता है जिसमें नहरें, बांध, बैराज, लिफ्ट सिंचाई परियोजनाएं, सूक्ष्म सिंचाई और सरकारी पहल शामिल हैं। हरियाणा CET, HSSC परीक्षाओं और अन्य प्रतियोगी परीक्षाओं की तैयारी करने वाले छात्रों के लिए एक संपूर्ण संदर्भ।"
                             : "This page provides comprehensive information about the irrigation system of Haryana including canals, dams, barrages, lift irrigation projects, micro irrigation and government initiatives. A complete reference for students preparing for Haryana CET, HSSC exams, and other competitive exams that include Haryana GK."}
                     </p>
+                    <div className="mt-6 text-left text-xs text-muted-foreground space-y-2">
+                        <p className="font-semibold">{language === "hindi" ? "प्रमुख आधिकारिक स्रोत" : "Principal official sources"}</p>
+                        <ul className="list-disc list-inside space-y-1">
+                            <li><a href="https://desagri.gov.in/wp-content/uploads/2026/06/LUS-2024-25.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">{language === "hindi" ? "भारत सरकार — भूमि उपयोग सांख्यिकी 2024–25 (अनंतिम), तालिकाएँ VII, VIII, X" : "Government of India — Land Use Statistics 2024–25 (provisional), Tables VII, VIII, X"}</a></li>
+                            <li><a href="https://hwra.org.in/IWRAPEbook202527/IWRAP_2025-27.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">{language === "hindi" ? "हरियाणा जल संसाधन प्राधिकरण — एकीकृत जल संसाधन कार्ययोजना 2025–27" : "Haryana Water Resources Authority — Integrated Water Resources Action Plan 2025–27"}</a></li>
+                            <li><a href="https://api.sci.gov.in/jonew/judis/18220.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">{language === "hindi" ? "भारत का उच्चतम न्यायालय — सतलुज–यमुना लिंक परियोजना विवाद" : "Supreme Court of India — Sutlej–Yamuna Link Canal case"}</a></li>
+                            <li><a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=1597575" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">{language === "hindi" ? "पत्र सूचना कार्यालय — अटल भूजल योजना, 25 दिसंबर 2019" : "Press Information Bureau — Atal Bhujal Yojana launch, 25 December 2019"}</a></li>
+                        </ul>
+                    </div>
                     <p className="text-xs text-muted-foreground mt-4">
-                        © 2026 CET TEST | {language === "hindi" ? "जानकारी हरियाणा सरकार के आधिकारिक प्रकाशनों और आर्थिक सर्वेक्षण 2020-21 से स्रोतित" : "Information sourced from official Government of Haryana publications and Economic Survey 2020-21"}
+                        © 2026 CET TEST | {language === "hindi" ? "स्रोत: भारत सरकार के भूमि उपयोग आँकड़े 2024-25 (अनंतिम); हरियाणा जल संसाधन प्राधिकरण 2025-27; अन्य आधिकारिक अभिलेख।" : "Sources: Government of India Land Use Statistics 2024–25 (provisional); HWRA 2025–27 plan; other official records."}
                     </p>
                 </div>
             </section>

@@ -45,11 +45,11 @@ export default function UKSSSCPoliceSyllabusPage() {
     const faqs = [
         {
             question: "What is the full syllabus for UKSSSC Police Constable exam?",
-            answer: "The UKSSSC Police Constable syllabus includes 5 main subjects: Computer Knowledge (5 units), General Knowledge & Current Affairs, General Hindi, Reasoning Ability, and Numerical Ability. Each subject covers specific topics as detailed in the syllabus breakdown above."
+            answer: "The subject breakdown on this guide is study material, not proof that all five sections are prescribed for every recruitment. For the 2026 Police Constable vacancy, use UKSSSC Advt. 84/2026 (17 November 2026) and its post-specific syllabus as the authority."
         },
         {
             question: "How many questions are asked from each subject in UK Police exam?",
-            answer: "As per previous year patterns: Computer Knowledge (20-25 questions), General Knowledge & Current Affairs (25-30 questions), General Hindi (15-20 questions), Reasoning Ability (15-20 questions), Numerical Ability (10-15 questions). Total 100 questions in the pattern shown on this page."
+            answer: "The 2026 written paper is worth 100 marks. Subject-wise question counts must follow UKSSSC Advt. 84/2026 and any corrigendum; earlier study-guide estimates should not be treated as official distribution."
         },
         {
             question: "Is there negative marking in UKSSSC Police Constable exam?",
@@ -57,7 +57,7 @@ export default function UKSSSCPoliceSyllabusPage() {
         },
         {
             question: "What is the duration of UK Police Constable exam?",
-            answer: "The written examination is typically conducted for 90 minutes with objective-type multiple choice questions."
+            answer: "UKSSSC Advertisement 84/2026 (dated 17 November 2026) specifies a 100-mark objective written examination lasting 120 minutes (2 hours). See the official notification for post-specific details."
         },
         {
             question: "Where can I download UKSSSC Police syllabus PDF?",
@@ -130,7 +130,7 @@ export default function UKSSSCPoliceSyllabusPage() {
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Clock className="w-4 h-4 text-primary" />
-                            <span>90 Minutes</span>
+                            <span>120 Minutes</span>
                         </div>
                     </div>
 
@@ -174,7 +174,7 @@ export default function UKSSSCPoliceSyllabusPage() {
                             {[
                                 { label: "Total Sections", value: "5", color: "from-blue-500 to-blue-600" },
                                 { label: "Total Questions", value: "100", color: "from-green-500 to-green-600" },
-                                { label: "Duration", value: "90 Minutes", color: "from-orange-500 to-orange-600" },
+                                { label: "Duration", value: "120 Minutes", color: "from-orange-500 to-orange-600" },
                                 { label: "Negative Marking", value: "-0.25", color: "from-red-500 to-red-600" },
                                 { label: "Question Type", value: "MCQ (OMR)", color: "from-purple-500 to-purple-600" }
                             ].map((item, idx) => (

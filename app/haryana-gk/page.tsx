@@ -42,7 +42,7 @@ export default function HaryanaGKStudyMaterialPage() {
         setOpenFaq(openFaq === index ? null : index)
     }
 
-    // Haryana GK Topics from PDF (33 Chapters) - Complete subtopics list
+    // CET Test editorial study-guide chapters; NOT an officially prescribed 33-chapter HSSC syllabus.
     const syllabusTopics = [
         {
             id: 1,
@@ -59,7 +59,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: MapPin,
             color: "from-slate-600 to-slate-700",
             slug: "haryana-basic-info",
-            subtopics: ["State Symbols", "Formation Day (1 Nov 1966)", "Capital: Chandigarh", "Total Districts: 23", "Borders with States", "Total Area", "Population Overview", "State Animal, Bird, Flower"]
+            subtopics: ["State Symbols", "Formation Day (1 Nov 1966)", "Capital: Chandigarh", "23 Districts (Hansi added in December 2025)", "Borders with States", "Total Area", "Population Overview", "State Animal, Bird, Flower"]
         },
         {
             id: 3,
@@ -91,7 +91,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: Landmark,
             color: "from-green-700 to-green-800",
             slug: "formation-of-haryana",
-            subtopics: ["Demand for Punjab Province", "State Reorganisation Commission", "Regional Formula", "Shah Commission", "1 November 1966 - Formation Day", "First Chief Minister", "First Governor"]
+            subtopics: ["Demand for a Separate Haryana State", "State Reorganisation Commission", "Regional Formula", "Shah Commission", "1 November 1966 - Formation Day", "First Chief Minister", "First Governor"]
         },
         {
             id: 7,
@@ -99,7 +99,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: MapPin,
             color: "from-emerald-700 to-emerald-800",
             slug: "geographical-structure",
-            subtopics: ["Location & Extent", "Geological Structure", "Physiological Divisions", "Geographical Area Divisions", "Latitude & Longitude", "Topography"]
+            subtopics: ["Location & Extent", "Geological Structure", "Physiographic Divisions", "Geographical Area Divisions", "Latitude & Longitude", "Topography"]
         },
         {
             id: 8,
@@ -179,7 +179,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: Bus,
             color: "from-indigo-700 to-indigo-800",
             slug: "transport",
-            subtopics: ["Road Transport", "National Highways", "State Highways", "Railway Network", "Metro Rail", "Airports", "Communication Network", "Haryanvi Cinema"]
+            subtopics: ["Road Transport", "National Highways", "State Highways", "Railway Network", "Metro Rail", "Airports", "Communication Network", "Road Transport Services"]
         },
         {
             id: 18,
@@ -203,7 +203,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: Building,
             color: "from-cyan-800 to-cyan-900",
             slug: "panchayati-raj",
-            subtopics: ["Panchayati Raj System", "Haryana Panchayati Raj Act", "Zila Parishad", "Gram Panchayats", "Municipal Corporations", "Nagar Palikas", "Nagar Panchayats"]
+            subtopics: ["Panchayati Raj System", "Haryana Panchayati Raj Act", "Zila Parishad", "Gram Panchayats", "Municipal Corporations", "Nagar Palikas", "Municipal Councils"]
         },
         {
             id: 21,
@@ -251,7 +251,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: Sparkles,
             color: "from-orange-600 to-orange-700",
             slug: "fairs-festivals",
-            subtopics: ["Important Festivals (Teej, Gangore)", "Sikh Festivals", "Fairs of Haryana", "Surajkund International Craft Mela", "Guga Mela", "Pinjore Heritage Festival", "District-wise Fairs"]
+            subtopics: ["Important Festivals (Teej, Gangaur)", "Sikh Festivals", "Fairs of Haryana", "Surajkund International Craft Mela", "Guga Mela", "Pinjore Heritage Festival", "District-wise Fairs"]
         },
         {
             id: 27,
@@ -259,7 +259,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: Utensils,
             color: "from-amber-600 to-amber-700",
             slug: "cultural-heritage",
-            subtopics: ["Men's Traditional Costumes", "Women's Traditional Costumes", "Children Traditional Costumes", "Traditional Ornaments", "Popular Foods (Bajra Roti, Kadhi, Lassi)", "Prevailing Omens"]
+            subtopics: ["Men's Traditional Costumes", "Women's Traditional Costumes", "Children Traditional Costumes", "Traditional Ornaments", "Popular Foods (Bajra Roti, Kadhi, Lassi)", "Haryanvi Cinema", "Folk Beliefs"]
         },
         {
             id: 28,
@@ -283,7 +283,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: Users,
             color: "from-slate-600 to-slate-700",
             slug: "demographics",
-            subtopics: ["Decadal Growth Rate", "Population Density", "Literacy Rate", "Child Population (0-6 years)", "Sex Ratio", "Rural & Urban Population", "Religion Based Census", "Occupational Structure", "Scheduled Castes Population"]
+            subtopics: ["Decadal Growth Rate", "Population Density", "Literacy Rate", "Child Population (0-6 years)", "Sex Ratio", "Rural & Urban Population", "Religion-wise Census 2011", "Occupational Structure", "Scheduled Castes Population"]
         },
         {
             id: 31,
@@ -291,7 +291,7 @@ export default function HaryanaGKStudyMaterialPage() {
             icon: Trophy,
             color: "from-yellow-700 to-yellow-800",
             slug: "sports-awards",
-            subtopics: ["Famous Sports", "Phogat Sisters", "Neeraj Chopra", "Sports Organisations", "Important Sports Stadiums", "Haryana at International Level", "Sports Development Schemes", "Awards of Haryana (Maharana Pratap Award)"]
+            subtopics: ["Famous Sports", "Phogat Sisters", "Neeraj Chopra", "Sports Organisations", "Important Sports Stadiums", "Haryana at International Level", "Sports Development Schemes", "Haryana Sports Awards (Bhim Award)"]
         },
         {
             id: 32,
@@ -313,20 +313,28 @@ export default function HaryanaGKStudyMaterialPage() {
 
     const faqs = [
         {
-            question: "How should I plan Haryana GK preparation for CET Group C?",
-            answer: "Haryana GK is a useful study area, but the marks and number of questions depend on the current selection stage, post group and recruitment notification. Consult the official HSSC syllabus for the exact pattern."
+            question: "What is the official weightage for Haryana GK in HSSC CET?",
+            answer: "The Haryana Government's CET policy, notified on 31 December 2024, specifies 25% weightage for Haryana-related history, current affairs, literature, geography, environment, culture and similar topics. This is percentage weightage, not a fixed topic-wise distribution. Check any subsequent amendments and the applicable notification."
+        },
+        {
+            question: "Are these 33 chapters the official HSSC syllabus?",
+            answer: "No. The 33 chapters are CET Test's own way of organizing study material. HSSC's CET policy provides broad subject areas, not an official list of 33 chapters. Some chapters also cover broader general-awareness subjects."
+        },
+        {
+            question: "How many districts are there in Haryana?",
+            answer: "Haryana has 23 districts as of November 2026. Hansi was notified as the 23rd district in December 2025. For Census 2011 comparisons, remember that Hansi was then part of Hisar district."
         },
         {
             question: "Which Haryana GK topics should I prioritise?",
-            answer: "Review Haryana history, geography, culture, fairs, sports, administration and current affairs. Use official topic descriptions and practise across the syllabus rather than relying on unverified marks estimates."
+            answer: "Start with Haryana history, current affairs, literature, geography, environment and culture as identified in the CET policy. Revise related topics such as district facts, fairs, administrative history, sports and schemes, without assuming unofficial marks per topic."
         },
         {
-            question: "How can I improve my Haryana GK score?",
-            answer: "Work through the chapters, practise with explained questions, check the applicable official syllabus and regularly revise district-wise facts and Haryana current affairs."
+            question: "How should I prepare for CET Group C and Group D?",
+            answer: "Use the applicable HSSC advertisement and syllabus. The CET policy gives Haryana-related topics 25% weightage, but Group C and Group D have different educational levels, and subsequent post-specific selection examinations may use different syllabi."
         },
         {
-            question: "Is the Haryana GK pattern the same for every recruitment?",
-            answer: "No fixed question or marks distribution should be assumed for every HSSC recruitment. Check the official advertisement and selection stage before planning your exam strategy."
+            question: "How can I improve my Haryana GK preparation?",
+            answer: "Read the chapters as revision material, check factual claims against official references, solve previous-year papers, practise mock questions, and keep notes on recent Haryana events and the historical dates and statistics used in questions."
         }
     ]
 
@@ -342,30 +350,30 @@ export default function HaryanaGKStudyMaterialPage() {
                 <div className="max-w-5xl mx-auto text-center relative z-10">
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium backdrop-blur-sm">
                         <Sparkles className="w-4 h-4" />
-                        Complete Study Material - As per HSSC CET Pattern
+                        Haryana-focused study guide for HSSC CET preparation
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
                         Haryana GK
-                        <span className="text-primary"> Complete Syllabus</span>
+                        <span className="text-primary"> Study Guide</span>
                     </h1>
 
                     <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
-                        Comprehensive study material covering <strong className="text-foreground">33 chapters</strong> of Haryana History, Geography, Culture, Polity, and Current Affairs
+                        Explore <strong className="text-foreground">33 curated chapters</strong> on Haryana history, geography, culture, governance and current affairs. This is an independent study outline, not an official HSSC chapter list.
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-6 mb-10">
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <BookOpen className="w-4 h-4 text-primary" />
-                            <span>33 Chapters</span>
+                            <span>33 Curated Chapters</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Target className="w-4 h-4 text-primary" />
-                            <span>25 Marks (Separate Section)</span>
+                            <span>25% Haryana Weightage in CET Policy</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Clock className="w-4 h-4 text-primary" />
-                            <span>High Scoring Section</span>
+                            <span>History, Geography, Culture & More</span>
                         </div>
                     </div>
 
@@ -385,7 +393,7 @@ export default function HaryanaGKStudyMaterialPage() {
                 </div>
             </section>
 
-            {/* 25 Marks Important Banner */}
+            {/* Official syllabus context and editorial guide summary */}
             <section className="py-8 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-6xl mx-auto">
                     <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-2xl p-6 md:p-8 border border-primary/20">
@@ -406,10 +414,10 @@ export default function HaryanaGKStudyMaterialPage() {
                         </div>
                         <div className="grid md:grid-cols-4 gap-4 mt-6">
                             {[
-                                { label: "Official Weightage", value: "Check HSSC", color: "from-blue-500 to-blue-600" },
-                                { label: "Study Resource", value: "Haryana GK", color: "from-green-500 to-green-600" },
-                                { label: "Question Count", value: "Varies", color: "from-orange-500 to-orange-600" },
-                                { label: "Official Cutoff", value: "By notice", color: "from-red-500 to-red-600" }
+                                { label: "Haryana Weightage (CET)", value: "25%", color: "from-blue-500 to-blue-600" },
+                                { label: "Guide Chapters", value: "33 Curated", color: "from-green-500 to-green-600" },
+                                { label: "Exact Questions", value: "Check notice", color: "from-orange-500 to-orange-600" },
+                                { label: "Recruitment Pattern", value: "By notice", color: "from-red-500 to-red-600" }
                             ].map((item, idx) => (
                                 <div key={idx} className="bg-card rounded-xl p-4 text-center border shadow-sm">
                                     <p className="text-sm text-muted-foreground mb-1">{item.label}</p>
@@ -419,19 +427,25 @@ export default function HaryanaGKStudyMaterialPage() {
                                 </div>
                             ))}
                         </div>
+                        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                            The Haryana Government's CET policy specifies <strong className="text-foreground">25% weightage</strong> for Haryana-related topics, not a fixed number of questions for each topic. This 33-chapter guide is independently organized by CET Test. Always review the applicable HSSC recruitment notice and any policy amendments.{' '}
+                            <Link href="https://hssc.gov.in/Syllabus/CET-012025.pdf" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">
+                                Read the official CET policy
+                            </Link>.
+                        </p>
                     </div>
                 </div>
             </section>
 
-            {/* 3 Cards per Row Grid - 33 Chapters with FULL subtopics */}
+            {/* 3 Cards per Row Grid - 33 editorial chapters */}
             <section className="py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-10">
                         <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                            Complete <span className="text-primary">33 Chapters</span> of Haryana GK
+                            Explore <span className="text-primary">33 Curated Chapters</span>
                         </h2>
                         <p className="text-muted-foreground max-w-2xl mx-auto">
-                            Topic-wise breakdown for 25 marks Haryana GK section
+                            CET Test's topic-wise revision guide; chapter names and grouping are editorial, not an HSSC-prescribed 33-chapter list.
                         </p>
                     </div>
 
@@ -485,31 +499,31 @@ export default function HaryanaGKStudyMaterialPage() {
                 </div>
             </section>
 
-            {/* Most Important Topics for 25 Marks */}
+            {/* Suggested revision categories: NOT a marks-prediction table */}
             <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/5 to-background">
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm mb-4">
                             <Target className="w-4 h-4" />
-                            High Priority for 25 Marks
+                            Suggested Revision Areas
                         </div>
-                        <h2 className="text-3xl font-bold mb-4">Most Important Topics for CET 2026</h2>
+                        <h2 className="text-3xl font-bold mb-4">Suggested Haryana GK Revision Topics</h2>
                         <p className="text-muted-foreground max-w-2xl mx-auto">
-                            These topics have the highest question frequency in Haryana GK section
+                            Use these categories for balanced preparation. HSSC does not prescribe the chapter-wise mark estimates shown in many unofficial study guides.
                         </p>
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
                         {[
-                            { subject: "Haryana History", topics: "Mahabharata, Yaudheya, Formation of State, 1857 Revolt", marks: "8-10 Marks" },
-                            { subject: "Haryana Geography", topics: "Rivers, Climate, Districts, National Parks", marks: "5-6 Marks" },
-                            { subject: "Haryana Culture", topics: "Fairs (Surajkund), Dances, Cuisine, Festivals", marks: "4-5 Marks" },
-                            { subject: "Sports & Awards", topics: "Olympians, Phogat, Neeraj Chopra, Sports Policy", marks: "3-4 Marks" }
+                            { subject: "Haryana History", topics: "Ancient history, state formation, 1857 revolt, freedom movement", focus: "Core revision area" },
+                            { subject: "Haryana Geography", topics: "Rivers, climate, districts, forests and protected areas", focus: "Core revision area" },
+                            { subject: "Haryana Culture", topics: "Fairs, folk dance, literature, traditions and festivals", focus: "Core revision area" },
+                            { subject: "Current Affairs & Sports", topics: "Haryana schemes, sports achievements, awards and current affairs", focus: "Revise regularly" }
                         ].map((item, idx) => (
                             <div key={idx} className="bg-card rounded-xl p-5 border shadow-sm hover:shadow-md transition-all">
                                 <h3 className="font-bold text-lg mb-2 text-primary">{item.subject}</h3>
                                 <p className="text-sm text-muted-foreground mb-2">{item.topics}</p>
-                                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">{item.marks}</span>
+                                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">{item.focus}</span>
                             </div>
                         ))}
                     </div>
@@ -525,19 +539,19 @@ export default function HaryanaGKStudyMaterialPage() {
                                 <Target className="w-4 h-4" />
                                 Strategy Guide
                             </div>
-                            <h2 className="text-3xl font-bold mb-4">How to Score Full 25 Marks in Haryana GK?</h2>
+                            <h2 className="text-3xl font-bold mb-4">How to Prepare Effectively for Haryana GK</h2>
                             <p className="text-muted-foreground mb-6">
-                                Follow these proven strategies to master Haryana GK section
+                                Use a balanced revision plan and check the applicable HSSC recruitment notification.
                             </p>
                             <ul className="space-y-3">
                                 {[
-                                    "Master all 33 chapters from this guide - each chapter has 1-2 questions",
-                                    "Focus on Haryana History (8-10 marks) - highest scoring area",
-                                    "Learn all Fairs & Festivals - Surajkund, Guga, Pinjore are must-know",
-                                    "Study Haryana Sports Achievements - Olympians, Awards, Stadiums",
-                                    "Keep notes on Haryana Current Affairs (last 6 months)",
-                                    "Solve previous year Haryana CET papers for pattern understanding",
-                                    "Take weekly mock tests to track your progress"
+                                    "Use these 33 editorial chapters as a revision checklist; HSSC does not assign questions to each chapter",
+                                    "Cover the Haryana-related topics named in the CET policy: history, current affairs, literature, geography, environment and culture",
+                                    "Revise Haryana fairs, festivals and cultural traditions with dates and official references",
+                                    "Study Haryana sports achievements, important personalities and relevant state awards",
+                                    "Revise Haryana current affairs regularly; check the exam date and official syllabus for the relevant coverage",
+                                    "Practise available previous-year papers and check current official exam instructions",
+                                    "Use mock tests to identify weak topics and revise your errors"
                                 ].map((tip, idx) => (
                                     <li key={idx} className="flex items-start gap-2">
                                         <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -550,9 +564,9 @@ export default function HaryanaGKStudyMaterialPage() {
                             <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
                                 <Trophy className="w-10 h-10 text-primary" />
                             </div>
-                            <h3 className="text-xl font-bold mb-2">25 Marks = Game Changer!</h3>
+                            <h3 className="text-xl font-bold mb-2">Consistent Revision Makes a Difference</h3>
                             <p className="text-muted-foreground mb-6">
-                                Scoring 20+ out of 25 in Haryana GK can help you clear the cutoff easily and boost your overall rank
+                                Practise the Haryana-specific syllabus areas, review mistakes and check the current HSSC notice for selection criteria. No score can guarantee qualification.
                             </p>
                             <Link href="/signup">
                                 <Button size="lg" className="gap-2 cursor-pointer">
@@ -626,17 +640,17 @@ export default function HaryanaGKStudyMaterialPage() {
             {/* SEO Footer */}
             <section className="py-12 px-4 bg-muted/30 border-t">
                 <div className="max-w-5xl mx-auto text-center">
-                    <h2 className="text-xl font-semibold mb-3">Haryana GK Complete Study Material - 33 Chapters for 25 Marks</h2>
+                    <h2 className="text-xl font-semibold mb-3">Haryana GK Study Guide — 33 Curated Chapters</h2>
                     <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                        This page provides complete Haryana GK study material for Haryana CET (Common Eligibility Test) Group C examination.
-                        Haryana GK is a separate section of 25 marks in CET. The syllabus includes Haryana History (Ancient, Medieval, Modern),
-                        Haryana Geography, Climate, Soil, Drainage, National Parks, Agriculture, Irrigation, Industries, Transport,
-                        Administrative Structure, Judiciary, Local Self Government, District Profiles, Archaeological Sites, Tourism,
-                        Art & Culture, Music & Dance, Fairs & Festivals, Cultural Heritage, Languages & Literature, Education & Health,
-                        Demographics, Sports & Awards, Social Welfare Schemes, and Famous Personalities as per the latest HSSC notification.
+                        This independent study guide groups Haryana GK revision material into 33 chapters selected by CET Test.
+                        Under the Haryana Government's CET policy notified on 31 December 2024, Haryana-related history, current affairs,
+                        literature, geography, environment and culture carry 25% weightage in the CET syllabus. The HSSC policy does not
+                        prescribe these exact 33 chapters or guarantee a fixed number of questions from each topic. The guide also contains
+                        broader educational topics useful for general preparation. Consult the applicable recruitment notice and amendments
+                        on the official HSSC website for examination-specific requirements.
                     </p>
                     <p className="text-xs text-muted-foreground mt-4">
-                        © 2026 Haryana GK Study Material | 25 Marks Separate Section | All exam names and syllabi are property of their respective owners.
+                        © 2026 CET Test | Independent exam-preparation resource. Not affiliated with or endorsed by HSSC.
                     </p>
                 </div>
             </section>

@@ -257,7 +257,7 @@ export default function HaryanaPoliceConstableSyllabusPage() {
                         {[
                             { label: "Total Marks", value: "97", icon: Award, color: "from-yellow-500 to-yellow-600" },
                             { label: "Question Type", value: "MCQ", icon: CheckCircle2, color: "from-blue-500 to-blue-600" },
-                            { label: "Negative Marking", value: "For unattempted only", icon: AlertCircle, color: "from-red-500 to-red-600" },
+                            { label: "Unmarked skip penalty", value: "-0.97 marks", icon: AlertCircle, color: "from-red-500 to-red-600" },
                             { label: "Standard", value: "10+2 Level", icon: BookOpen, color: "from-purple-500 to-purple-600" }
                         ].map((item, idx) => (
                             <div key={idx} className="bg-card rounded-xl p-5 text-center border shadow-sm">
@@ -279,8 +279,7 @@ export default function HaryanaPoliceConstableSyllabusPage() {
                             <div>
                                 <h4 className="font-semibold text-red-800 mb-1">Important: Negative Marking Rule</h4>
                                 <p className="text-sm text-red-700">
-                                    The current Haryana Police notification should be treated as the source of truth for negative marking. Check the official notice before attempting the exam; do not rely on an unverified older pattern.
-                                    <strong> negative marking of minus 0.97 marks</strong>. Fill the 5th bubble in OMR sheet if you don't wish to attempt a question.
+                                    As per HSSC Police Constable Advt. 01/2026, <strong>there is no deduction for a wrong marked answer</strong>. If you decide not to answer, fill the <strong>fifth (not attempted) OMR bubble</strong>. Leaving a question without marking any answer bubble or the fifth bubble results in a <strong>0.97-mark deduction</strong> for that question. Check the <a className="underline font-medium" href="https://hssc.gov.in/file/ac1f23cd-99c4-13a6-819b-75db7d59001d/advertisements" target="_blank" rel="noopener noreferrer">official HSSC notice and corrigenda</a>.
                                 </p>
                             </div>
                         </div>

@@ -25,6 +25,25 @@ import {
     BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+    HARYANA_DISTRICT_STATISTICS,
+    HARYANA_CENSUS_2011_SOURCE,
+    formatIndianNumber,
+    formatPercent,
+} from "./haryana-districts-facts";
+
+type DistrictProfile = {
+    name: string;
+    nameHindi: string;
+    nickname: string;
+    nicknameHindi?: string;
+    division: string;
+    established: string;
+    river?: string;
+    rivers?: string;
+    touristPlaces: string;
+    facts: string;
+};
 
 export default function HaryanaDistrictsPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -59,16 +78,16 @@ export default function HaryanaDistrictsPage() {
             answerEnglish: "There are 6 administrative divisions in Haryana - Ambala, Faridabad, Gurugram, Hisar, Rohtak and Karnal divisions."
         },
         {
-            questionHindi: "हरियाणा का क्षेत्रफल की दृष्टि से सबसे बड़ा जिला कौन सा है?",
-            questionEnglish: "Which is the largest district of Haryana by area?",
-            answerHindi: "सिरसा जिला हरियाणा का क्षेत्रफल की दृष्टि से सबसे बड़ा जिला है, जिसका क्षेत्रफल 4277 वर्ग किमी है।",
-            answerEnglish: "Sirsa district is the largest district of Haryana by area, covering 4277 sq km."
+            questionHindi: "जनगणना 2011 की जिला सीमाओं के अनुसार हरियाणा का सबसे बड़ा जिला कौन था?",
+            questionEnglish: "Which district was the largest in Haryana under Census 2011 boundaries?",
+            answerHindi: `2011 की जनगणना के अनुसार भिवानी सबसे बड़ा जिला था, जिसका क्षेत्रफल ${formatIndianNumber(HARYANA_DISTRICT_STATISTICS["Bhiwani"].areaKm2)} वर्ग किमी था। 2016 में चरखी दादरी के गठन के बाद जिला सीमाएँ बदल गईं।`,
+            answerEnglish: `In Census 2011, Bhiwani was the largest district at ${formatIndianNumber(HARYANA_DISTRICT_STATISTICS["Bhiwani"].areaKm2)} sq km. Its boundaries changed when Charkhi Dadri was created in 2016.`
         },
         {
             questionHindi: "हरियाणा का सबसे अधिक जनसंख्या घनत्व वाला जिला कौन सा है?",
             questionEnglish: "Which district has the highest population density in Haryana?",
-            answerHindi: "फरीदाबाद जिला हरियाणा का सबसे अधिक जनसंख्या घनत्व (2298 व्यक्ति/वर्ग किमी) वाला जिला है।",
-            answerEnglish: "Faridabad district has the highest population density (2298 persons/sq km) in Haryana."
+            answerHindi: `जनगणना 2011 के अनुसार फरीदाबाद सबसे अधिक जनसंख्या घनत्व (${formatIndianNumber(HARYANA_DISTRICT_STATISTICS["Faridabad"].densityPerKm2!)} व्यक्ति/वर्ग किमी) वाला जिला था।`,
+            answerEnglish: `Faridabad had the highest population density in Census 2011 (${formatIndianNumber(HARYANA_DISTRICT_STATISTICS["Faridabad"].densityPerKm2!)} persons/sq km).`
         },
         {
             questionHindi: "किस जिले को 'स्टील सिटी' के नाम से जाना जाता है?",
@@ -101,7 +120,7 @@ export default function HaryanaDistrictsPage() {
     ];
 
     // Detailed District Data
-    const districts = [
+    const districtProfiles: DistrictProfile[] = [
         {
             name: "Ambala",
             nameHindi: "अंबाला",
@@ -109,11 +128,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "मिक्सी सिटी",
             division: "Ambala Division",
             established: "1st November, 1966",
-            area: "1,574 sq km",
-            population: "11,28,350",
-            sexRatio: "885",
-            literacy: "81.75%",
-            density: "717 person/sq km",
             rivers: "Ghaggar, Markanda, Tangri",
             touristPlaces: "Mahaveer Udyan, Indira Udyan, Badshahi Bagh Gurdwara, Morni Hills",
             facts: "Ambala is a major military city of India. It is also known as Scientific City because about 35% of scientific instruments are manufactured here. The headquarter of the Northern Railway Zone is located in Ambala. Nathuram Godse was hanged in Ambala jail on 15th November, 1949."
@@ -125,11 +139,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "धर्मनगरी",
             division: "Ambala Division",
             established: "23rd January, 1973",
-            area: "1,530 sq km",
-            population: "9,64,655",
-            sexRatio: "888",
-            literacy: "76.7%",
-            density: "630 person/sq km",
             rivers: "Markanda, Ghaggar, Apaga",
             touristPlaces: "Jyotisar, Brahmasarovar, Bhadrakali Shaktipeeth, Sthaneshwar Mahadev Temple",
             facts: "Kurukshetra is famous for the Mahabharata War and the preaching of Srimad Bhagavad Gita by Shri Krishna. It is also called 'Dharmanagri'. Asia's second largest grain market is located at Ladwa in Kurukshetra. Kalpana Chawla Planetarium is built here."
@@ -141,11 +150,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "पेपर सिटी",
             division: "Ambala Division",
             established: "1st November, 1989",
-            area: "1,756 sq km",
-            population: "12,14,205",
-            sexRatio: "877",
-            literacy: "78.9%",
-            density: "687 person/sq km",
             rivers: "Yamuna, Somb, Boli, Saraswati",
             touristPlaces: "Kalesar Wildlife Sanctuary, Hathni Kund Barrage, Chaneti Stupa",
             facts: "Yamunanagar is a prosperous industrial city. Saraswati Sugar Mill located in Jagadhri is Asia's largest sugar mill. It is also known as the City of Paper. The Mumbai Railway Carriage and Wagon Workshop is located here."
@@ -157,11 +161,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "नैनो सिटी",
             division: "Ambala Division",
             established: "15th August, 1995",
-            area: "898 sq km",
-            population: "5,61,293",
-            sexRatio: "873",
-            literacy: "83.4%",
-            density: "625 person/sq km",
             rivers: "Ghaggar, Sirsa, Kaushalya",
             touristPlaces: "Mansa Devi Temple, Cactus Garden, Pinjore Gardens, Tikker Tal Lake",
             facts: "Panchkula is also called the city of Five Irrigation Canals. Morni hills have Karoh Peak (1514 m), the highest point of the state. Asia's largest cactus garden is in Panchkula. The headquarters of Haryana Public Service Commission is located here."
@@ -172,11 +171,6 @@ export default function HaryanaDistrictsPage() {
             nickname: "-",
             division: "Faridabad Division",
             established: "15th August, 1979",
-            area: "741 sq km",
-            population: "18,09,733",
-            sexRatio: "873",
-            literacy: "83.0%",
-            density: "2298 person/sq km",
             river: "Yamuna",
             touristPlaces: "Raja Nahar Singh Palace, Surajkund, Shine Temple",
             facts: "Faridabad is the most densely populated district and has the highest population in Haryana. It was built to rehabilitate the migrants from Pakistan after independence. The city was founded in 1607 by Sheikh Farid."
@@ -187,11 +181,6 @@ export default function HaryanaDistrictsPage() {
             nickname: "-",
             division: "Faridabad Division",
             established: "4th April, 2005",
-            area: "1,507 sq km",
-            population: "10,89,263",
-            sexRatio: "907",
-            literacy: "56.1%",
-            density: "723 person/sq km",
             touristPlaces: "Chuhlmal Ka Talab, Kotla Lake, Tawadu Fort",
             facts: "Mewat has the highest sex ratio (907) in the state. The first mobile court of the country was established in Mewat district. At the time of formation this district was named Satyamevapuram."
         },
@@ -202,11 +191,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "कॉटन सिटी",
             division: "Faridabad Division",
             established: "13th August, 2008",
-            area: "1,359 sq km",
-            population: "10,42,708",
-            sexRatio: "880",
-            literacy: "70.3%",
-            density: "767 person/sq km",
             river: "Yamuna",
             touristPlaces: "Panchavati Temple, Balram Temple, Pandava Forest",
             facts: "Gandhi ji was first arrested on 8th April, 1919 at Palwal station. Palwal is also known as cotton city and is famous for sugar and cycle industry. Skill Development University is proposed in Dudhola village."
@@ -218,11 +202,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "साइबर सिटी",
             division: "Gurugram Division",
             established: "1st November, 1966",
-            area: "1,253 sq km",
-            population: "15,14,432",
-            sexRatio: "854",
-            literacy: "84.4%",
-            density: "1204 person/sq km",
             touristPlaces: "Sultanpur National Park, Damdama Lake, Kingdom of Dreams",
             facts: "Gurugram is known as the Mall Capital of India and Financial capital of Haryana. The first metro train in Haryana started here in 2010. Maruti Udyog was established here in 1983. Asia's first Photographic Art Center has opened in Gurugram."
         },
@@ -233,11 +212,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "खनिज नगरी",
             division: "Gurugram Division",
             established: "1st November, 1966",
-            area: "1,899 sq km",
-            population: "9,22,088",
-            sexRatio: "895",
-            literacy: "77.72%",
-            density: "486 person/sq km",
             river: "Dohan",
             touristPlaces: "Jalmahal, Chor Gumbad, Dhosi Hill, Madhogad Fort",
             facts: "Mahendragarh is called the city of minerals. This district ranks first in mustard production in Haryana. It is the only district whose headquarter is in Narnaul city, not in Mahendragarh city. North India's largest logistics park is located in Narnaul."
@@ -249,11 +223,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "पीतल नगरी",
             division: "Gurugram Division",
             established: "1st November, 1989",
-            area: "1,594 sq km",
-            population: "9,00,332",
-            sexRatio: "898",
-            literacy: "82.2%",
-            density: "565 person/sq km",
             river: "Sahibi",
             touristPlaces: "Rao Tej Singh Talab, Ghatneshwar Temple, Lal Masjid",
             facts: "Rewari Railway Station is the largest and oldest railway station in Haryana (founded in 1873). Hero Honda Motors Limited was established here in 1986-87. Rezang La Memorial has been constructed for the Ahir Regiment soldiers of 1962 war."
@@ -265,11 +234,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "स्टील सिटी",
             division: "Hisar Division",
             established: "1st November, 1966",
-            area: "3,983 sq km",
-            population: "17,43,931",
-            sexRatio: "872",
-            literacy: "73.2%",
-            density: "438 person/sq km",
             touristPlaces: "Gujar Mahal, Rakhigarhi, Firoz Shah Palace",
             facts: "Rakhigarhi, the biggest site of the Harappan civilisation, is located in Hisar district. Hisar was founded by Feroz Shah Tughlaq in 1354 AD. Central Buffalo Research Institute and National Research Centre on Equines (NRCE) are located here."
         },
@@ -280,11 +244,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "तलवारों का शहर",
             division: "Hisar Division",
             established: "22nd December, 2025",
-            area: "1,349.76 sq km (official district profile)",
-            population: "5,40,994 (official district profile)",
-            sexRatio: "—",
-            literacy: "—",
-            density: "—",
             touristPlaces: "Asigarh Fort (Prithviraj Chauhan's Fort)",
             facts: "Hansi became Haryana's 23rd district on 22 December 2025 after being separated from Hisar. The official Hansi district website lists 3 blocks, 97 villages and a population of 5,40,994. Because it is a newly constituted district, older Census 2011 figures for the former Hisar administrative area should not be treated as Hansi district statistics."
         },
@@ -295,11 +254,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "हरियाणा का दिल",
             division: "Hisar Division",
             established: "1st November, 1966",
-            area: "2,702 sq km",
-            population: "13,34,152",
-            sexRatio: "871",
-            literacy: "72.7%",
-            density: "494 person/sq km",
             touristPlaces: "Jayanti Devi Temple, Rani ka Talab, Bhuteshwar Temple",
             facts: "Jind nagar was established by Raja Gajpat Singh in the 18th century. Jind is the district which rears largest number of buffaloes in Haryana. Leather cleaning is mainly done in Jind."
         },
@@ -310,11 +264,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "संतों की नगरी",
             division: "Hisar Division",
             established: "26th August, 1975",
-            area: "4,277 sq km",
-            population: "12,95,189",
-            sexRatio: "897",
-            literacy: "70.4%",
-            density: "303 person/sq km",
             touristPlaces: "Dera Sacha Sauda, Gurudwara Chormar Sahib",
             facts: "Sirsa is the largest district in terms of area in the state. It has the lowest population density (303 per sq km). Chaudhary Devi Lal University is located here. Sirsa has the highest world record for blood donation."
         },
@@ -324,11 +273,6 @@ export default function HaryanaDistrictsPage() {
             nickname: "-",
             division: "Hisar Division",
             established: "15th July, 1997",
-            area: "2,538 sq km",
-            population: "9,42,011",
-            sexRatio: "902",
-            literacy: "58.16%",
-            density: "371 person/sq km",
             touristPlaces: "Lat Masjid, Humayun's Masjid, Fatehabad Fort",
             facts: "Fatehabad city was founded in 1352 by Feroz Shah Tughlaq. The first nuclear power plant of the state is located in village Gorakhpur in Fatehabad. Kunal mound and Banawali mound archaeological sites are located here."
         },
@@ -339,11 +283,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "शिक्षा नगरी",
             division: "Rohtak Division",
             established: "1st November, 1966",
-            area: "1,745 sq km",
-            population: "10,61,204",
-            sexRatio: "867",
-            literacy: "80.4%",
-            density: "608 person/sq km",
             rivers: "Saraswati, Markanda",
             touristPlaces: "Tilyar Lake, Maharishi Dayanand University",
             facts: "Rohtak is called the education city and political capital of Haryana. Maharishi Dayanand University was established here in 1976. Asia's largest wholesale clothing Shorie market is located in Rohtak. Rohtak's Rewri and Gajjak are famous."
@@ -355,11 +294,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "शिक्षा नगरी",
             division: "Rohtak Division",
             established: "22nd December, 1972",
-            area: "2,122 sq km",
-            population: "14,50,001",
-            sexRatio: "856",
-            literacy: "80.8%",
-            density: "687 person/sq km",
             river: "Yamuna",
             touristPlaces: "Khwaja Khizr Khan Tomb, Baba Dham Temple",
             facts: "Sonipat ranks first in the country in the production of Mushroom, Sunflower, and citrus crops. The first women's university of Northern India - Bhagat Phool Singh Mahila Vishwavidyalaya is located here. India's First Tourism University is at Rai."
@@ -371,11 +305,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "मिनी क्यूबा",
             division: "Rohtak Division",
             established: "22nd December, 1972",
-            area: "4,778 sq km",
-            population: "16,34,445",
-            sexRatio: "886",
-            literacy: "76.7%",
-            density: "342 person/sq km",
             river: "Dohan",
             touristPlaces: "Tosham Hill, Gauri Shankar Temple",
             facts: "Bhiwani is called the Kashi of Haryana and the city of temples. Board of School Education of Haryana is located here. This district is being developed into a boxing center, due to which it is also known as Mini Cuba of India."
@@ -387,11 +316,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "शहीदों की नगरी",
             division: "Rohtak Division",
             established: "15th July, 1997",
-            area: "1,834 sq km",
-            population: "9,58,405",
-            sexRatio: "862",
-            literacy: "80.8%",
-            density: "523 person/sq km",
             river: "Sahibi",
             touristPlaces: "Bhindawas Bird Sanctuary, Dighal Village",
             facts: "Jhajjar is also known as the city of martyrs. The first Chief Minister of the state, Pandit Bhagwat Dayal Sharma, belongs to Jhajjar. The largest bus stand of the state is in Jhajjar. Bhindawas Lake is the largest wetland in Haryana."
@@ -402,11 +326,6 @@ export default function HaryanaDistrictsPage() {
             nickname: "-",
             division: "Rohtak Division",
             established: "1st December, 2016",
-            area: "1,370.11 sq km (official district profile)",
-            population: "5,02,276 (Census 2011)",
-            sexRatio: "881",
-            literacy: "67.04% (Census 2011)",
-            density: "—",
             touristPlaces: "Hanuman Temple, Kapuri Hill",
             facts: "Charkhi-Dadri became Haryana's 22nd district on 1 December 2016; Hansi later became the 23rd district in 2025. A cement factory was established by Seth Ramakrishna Dalmia in 1939. Kaliyana village is the only place in India where flexible sandstone (Hilna stones) is found."
         },
@@ -417,11 +336,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "चावल का कटोरा",
             division: "Karnal Division",
             established: "1st November, 1966",
-            area: "2,520 sq km",
-            population: "15,05,324",
-            sexRatio: "887",
-            literacy: "76.4%",
-            density: "597 person/sq km",
             river: "Yamuna",
             touristPlaces: "Karna Lake, Sita Mai Temple, Karna Talab",
             facts: "Karnal is also called the Rice Bowl and Paris of Haryana. National Dairy Research Institute (NDRI) is located here. In 1739, Nadir Shah defeated Mughal Emperor Mohammad Shah in Karnal. Liberty shoes manufactured here are exported abroad."
@@ -433,11 +347,6 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "बुनकर नगरी",
             division: "Karnal Division",
             established: "1st November, 1989",
-            area: "1,268 sq km",
-            population: "12,05,437",
-            sexRatio: "864",
-            literacy: "77.5%",
-            density: "951 person/sq km",
             river: "Yamuna",
             touristPlaces: "Ibrahim Lodi's Tomb, Kala Amb, Devi Talab Temple",
             facts: "Three main battles were fought here - First, Second and Third War of Panipat. Panipat is the largest center for the production of blankets and handloom items. Beti Bachao Beti Padhao program was started on 22nd January, 2016 from Panipat."
@@ -449,19 +358,88 @@ export default function HaryanaDistrictsPage() {
             nicknameHindi: "छोटी काशी",
             division: "Karnal Division",
             established: "1st November, 1989",
-            area: "2,317 sq km",
-            population: "10,74,304",
-            sexRatio: "881",
-            literacy: "69.15%",
-            density: "464 person/sq km",
             rivers: "Saraswati, Markanda",
             touristPlaces: "Anjani Tila, Navagrah Kund, Tomb of Razia Sultan",
             facts: "Kaithal is considered to be the birthplace of Hanuman Ji. It is called Chhoti Kashi due to the Navagraha Kunda located here. Basmati rice produced here is exported abroad. It is also called the City of Gurdwaras."
         }
     ];
 
+
+    // Cards, FAQs, summaries and JSON-LD all derive from this same data source.
+    const districts = districtProfiles.map((district) => {
+        const stats = HARYANA_DISTRICT_STATISTICS[district.name];
+        if (!stats) throw new Error(`Missing official district statistics: ${district.name}`);
+        return {
+            ...district,
+            area: `${formatIndianNumber(stats.areaKm2)} sq km`,
+            population: formatIndianNumber(stats.population),
+            sexRatio: stats.sexRatio === null ? "—" : String(stats.sexRatio),
+            literacy: formatPercent(stats.literacyPct),
+            density: stats.densityPerKm2 === null ? "—" : `${formatIndianNumber(stats.densityPerKm2)} persons/sq km`,
+            statsBasis: stats.basis,
+            statsSourceUrl: stats.sourceUrl,
+            areaKm2: stats.areaKm2,
+            populationValue: stats.population,
+            densityValue: stats.densityPerKm2,
+            literacyValue: stats.literacyPct,
+        };
+    });
+
+    // Schema is derived directly from the same values used in the cards and FAQs.
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Dataset",
+                name: "Haryana districts — Census 2011 demographics",
+                description: "2011-boundary district statistics; newly created districts have separate district-profile figures.",
+                creator: { "@type": "Organization", name: "CET Test" },
+                citation: HARYANA_CENSUS_2011_SOURCE,
+                hasPart: districts.filter((district) => district.statsBasis === "census2011").map((district) => ({
+                    "@type": "Dataset",
+                    name: district.name,
+                    variableMeasured: [
+                        { "@type": "PropertyValue", name: "Area (square kilometres)", value: district.areaKm2 },
+                        { "@type": "PropertyValue", name: "Population", value: district.populationValue },
+                        ...(district.literacyValue === null ? [] : [{ "@type": "PropertyValue", name: "Literacy (%)", value: district.literacyValue }]),
+                        ...(district.densityValue === null ? [] : [{ "@type": "PropertyValue", name: "Population density (persons/km2)", value: district.densityValue }]),
+                    ],
+                    citation: district.statsSourceUrl,
+                    temporalCoverage: "2011",
+                })),
+            },
+            {
+                "@type": "Dataset",
+                name: "Haryana districts — post-2011 district profiles",
+                description: "Newly formed district administrative profiles, not standalone Census 2011 district results.",
+                hasPart: districts.filter((district) => district.statsBasis === "districtProfile").map((district) => ({
+                    "@type": "Dataset",
+                    name: district.name,
+                    citation: district.statsSourceUrl,
+                    variableMeasured: [
+                        { "@type": "PropertyValue", name: "District area (square kilometres)", value: district.areaKm2 },
+                        { "@type": "PropertyValue", name: "District profile population", value: district.populationValue },
+                    ],
+                })),
+            },
+            {
+                "@type": "FAQPage",
+                inLanguage: language === "hindi" ? "hi" : "en",
+                mainEntity: faqs.map((faq) => ({
+                    "@type": "Question",
+                    name: language === "hindi" ? faq.questionHindi : faq.questionEnglish,
+                    acceptedAnswer: { "@type": "Answer", text: language === "hindi" ? faq.answerHindi : faq.answerEnglish },
+                })),
+            },
+        ],
+    };
+
     return (
         <div className="min-h-screen bg-background">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+            />
             <FooterLinkNavbar />
 
             {/* Hero Section */}
@@ -483,7 +461,7 @@ export default function HaryanaDistrictsPage() {
 
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-sm font-medium backdrop-blur-sm">
                         <MapPin className="w-4 h-4" />
-                        {language === "hindi" ? "जिला प्रोफाइल - हरियाणा सरकार" : "District Profile - Government of Haryana"}
+                        {language === "hindi" ? "आधिकारिक स्रोतों पर आधारित जिला प्रोफाइल" : "District Profiles Based on Official Sources"}
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
@@ -580,15 +558,15 @@ export default function HaryanaDistrictsPage() {
                                                 <p className="text-sm font-medium">{district.established}</p>
                                             </div>
                                             <div>
-                                                <p className="text-xs text-muted-foreground">{language === "hindi" ? "क्षेत्रफल" : "Area"}</p>
+                                                <p className="text-xs text-muted-foreground">{district.statsBasis === "census2011" ? (language === "hindi" ? "क्षेत्रफल (2011 सीमाएँ)" : "Area (2011 boundaries)") : (language === "hindi" ? "क्षेत्रफल (जिला प्रोफाइल)" : "Area (district profile)")}</p>
                                                 <p className="text-sm font-medium">{district.area}</p>
                                             </div>
                                             <div>
-                                                <p className="text-xs text-muted-foreground">{language === "hindi" ? "जनसंख्या" : "Population"}</p>
+                                                <p className="text-xs text-muted-foreground">{language === "hindi" ? "जनसंख्या (स्रोत-निर्दिष्ट)" : "Population (source-specific)"}</p>
                                                 <p className="text-sm font-medium">{district.population}</p>
                                             </div>
                                             <div>
-                                                <p className="text-xs text-muted-foreground">{language === "hindi" ? "साक्षरता" : "Literacy"}</p>
+                                                <p className="text-xs text-muted-foreground">{language === "hindi" ? "साक्षरता (2011 / जिला प्रोफाइल)" : "Literacy (2011 / district profile)"}</p>
                                                 <p className="text-sm font-medium">{district.literacy}</p>
                                             </div>
                                             <div>
@@ -596,7 +574,7 @@ export default function HaryanaDistrictsPage() {
                                                 <p className="text-sm font-medium">{district.sexRatio}</p>
                                             </div>
                                             <div>
-                                                <p className="text-xs text-muted-foreground">{language === "hindi" ? "जनसंख्या घनत्व" : "Population Density"}</p>
+                                                <p className="text-xs text-muted-foreground">{language === "hindi" ? "जनसंख्या घनत्व (2011)" : "Population Density (2011)"}</p>
                                                 <p className="text-sm font-medium">{district.density}</p>
                                             </div>
                                             {district.rivers && (
@@ -648,20 +626,20 @@ export default function HaryanaDistrictsPage() {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-emerald-600 mb-2">741</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सबसे छोटा जिला (फरीदाबाद) वर्ग किमी" : "Smallest District (Faridabad) sq km"}</p>
+                            <div className="text-3xl font-bold text-emerald-600 mb-2">{formatIndianNumber(HARYANA_DISTRICT_STATISTICS["Faridabad"].areaKm2)}</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सबसे छोटा जिला (जनगणना 2011: फरीदाबाद) वर्ग किमी" : "Smallest District (Census 2011: Faridabad) sq km"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-emerald-600 mb-2">4,277</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सबसे बड़ा जिला (सिरसा) वर्ग किमी" : "Largest District (Sirsa) sq km"}</p>
+                            <div className="text-3xl font-bold text-emerald-600 mb-2">{formatIndianNumber(HARYANA_DISTRICT_STATISTICS["Bhiwani"].areaKm2)}</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सबसे बड़ा जिला (जनगणना 2011: भिवानी) वर्ग किमी" : "Largest District (Census 2011: Bhiwani) sq km"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
                             <div className="text-3xl font-bold text-emerald-600 mb-2">907</div>
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "सर्वोच्च लिंगानुपात (नूंह)" : "Highest Sex Ratio (Nuh)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-emerald-600 mb-2">2,298</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सर्वोच्च जनसंख्या घनत्व (फरीदाबाद)" : "Highest Population Density (Faridabad)"}</p>
+                            <div className="text-3xl font-bold text-emerald-600 mb-2">{formatIndianNumber(HARYANA_DISTRICT_STATISTICS["Faridabad"].densityPerKm2!)}</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सर्वोच्च जनसंख्या घनत्व (2011: फरीदाबाद)" : "Highest Population Density (2011: Faridabad)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
                             <div className="text-3xl font-bold text-emerald-600 mb-2">1</div>
@@ -764,7 +742,7 @@ export default function HaryanaDistrictsPage() {
                             : "This page provides comprehensive information about the 23 districts of Haryana - establishment date, area, population, literacy rate, sex ratio, population density, major rivers, tourist places, and special facts. A complete reference for students preparing for Haryana CET, HSSC exams, and other competitive exams that include Haryana GK."}
                     </p>
                     <p className="text-xs text-muted-foreground mt-4">
-                        © 2026 CET TEST | {language === "hindi" ? "जानकारी हरियाणा सरकार के आधिकारिक प्रकाशनों और जिला गजेटियर से स्रोतित" : "Information sourced from official Government of Haryana publications and district gazetteers"}
+                        © 2026 CET TEST | {language === "hindi" ? "जनगणना 2011 के आँकड़े: हरियाणा सांख्यिकीय सार, तालिका 3.6 और 10.6। अन्य विशेष तथ्यों की अलग जाँच आवश्यक है।" : "Census 2011 values: Haryana Statistical Abstract, Tables 3.6 & 10.6. Other special facts require separate verification."}
                     </p>
                 </div>
             </section>

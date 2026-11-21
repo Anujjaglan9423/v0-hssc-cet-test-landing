@@ -60,12 +60,14 @@ export default function HaryanaFamousPersonalitiesPage() {
             answerHindi: "चौधरी बंसी लाल को 'आधुनिक हरियाणा के शिल्पकार' और 'हरियाणा का आयरन मैन' कहा जाता है। वे चार बार हरियाणा के मुख्यमंत्री रहे।",
             answerEnglish: "Chaudhary Bansi Lal is known as the 'Architect of Modern Haryana' and 'Iron Man of Haryana'. He served as Chief Minister of Haryana four times."
         },
+
         {
             questionHindi: "हरियाणा की पहली महिला मुख्यमंत्री कौन थीं?",
             questionEnglish: "Who was the first woman Chief Minister of Haryana?",
-            answerHindi: "हरियाणा की पहली महिला मुख्यमंत्री सुचेता कृपलानी थीं। उनका जन्म 25 जून, 1908 को अंबाला शहर में हुआ था। वह उत्तर प्रदेश की मुख्यमंत्री भी रहीं।",
-            answerEnglish: "Sucheta Kripalani was the first woman Chief Minister of Haryana. She was born on 25th June, 1908 in Ambala city. She also served as Chief Minister of Uttar Pradesh."
+            answerHindi: "हरियाणा में अभी तक कोई महिला मुख्यमंत्री नहीं बनी हैं। हरियाणा के अंबाला में 25 जून, 1908 को जन्मी सुचेता कृपलानी भारत की पहली महिला मुख्यमंत्री थीं। उन्होंने 2 अक्टूबर, 1963 से 13 मार्च, 1967 तक उत्तर प्रदेश के मुख्यमंत्री के रूप में कार्य किया।",
+            answerEnglish: "Haryana has never had a woman Chief Minister. Sucheta Kripalani, born on 25 June 1908 in Ambala, Haryana (then part of British India), was India's first woman Chief Minister. She served as the Chief Minister of Uttar Pradesh from 2 October 1963 to 13 March 1967."
         },
+
         {
             questionHindi: "हरियाणा से भारत रत्न पाने वाले एकमात्र व्यक्ति कौन हैं?",
             questionEnglish: "Who is the only Bharat Ratna awardee from Haryana?",

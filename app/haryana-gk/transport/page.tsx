@@ -119,14 +119,18 @@ export default function TransportAndCommunicationPage() {
     ];
 
     // Section 1: Transport System Overview
-    const transportOverview = {
+    const transportOverview =
+    {
         titleHindi: "हरियाणा में परिवहन प्रणाली",
         titleEnglish: "Transport System in Haryana",
+
         contentHindi:
-            "हरियाणा में परिवहन प्रणाली पूरी तरह से विकसित है। हरियाणा के 13 जिले एनसीआर और आसपास के क्षेत्रों में स्थित हैं, जिसके कारण राज्य में परिवहन प्रणाली सहित बुनियादी ढांचे का विकास अच्छी तरह से उन्नत है। हरियाणा का सबसे लोकप्रिय और व्यावसायिक रूप से महत्वपूर्ण मार्ग ग्रैंड ट्रंक रोड है। यह NH-1 है और हरियाणा के उत्तर-पूर्व से होकर गुजरती है। इस सड़क को 'शेरशाह सूरी मार्ग' भी कहा जाता है और इसका बड़ा ऐतिहासिक महत्व है। हरियाणा की परिवहन प्रणाली को 3 मुख्य श्रेणियों में विभाजित किया गया है: सड़क परिवहन; रेल परिवहन और हवाई परिवहन।",
+            "हरियाणा में सड़क, रेल और हवाई परिवहन का एक व्यापक नेटवर्क विकसित हुआ है। राष्ट्रीय राजधानी दिल्ली के निकट स्थित होने के कारण हरियाणा का परिवहन और औद्योगिक दृष्टि से विशेष महत्व है। राष्ट्रीय राजधानी क्षेत्र योजना बोर्ड (NCRPB) के अनुसार, हरियाणा के 14 जिले राष्ट्रीय राजधानी क्षेत्र (NCR) में शामिल हैं। राज्य की सबसे महत्वपूर्ण ऐतिहासिक एवं व्यावसायिक सड़कों में ग्रैंड ट्रंक रोड (जीटी रोड) शामिल है। यह सड़क पहले राष्ट्रीय राजमार्ग-1 (NH-1) का हिस्सा थी, जिसे राष्ट्रीय राजमार्गों के पुनः क्रमांकन के बाद NH-44 में शामिल किया गया। हरियाणा में यह मार्ग सोनीपत, पानीपत, करनाल, कुरुक्षेत्र और अंबाला क्षेत्र से होकर गुजरता है। ग्रैंड ट्रंक रोड का ऐतिहासिक संबंध शेरशाह सूरी से है, जिसने 16वीं शताब्दी में इस मार्ग का विस्तार और विकास कराया था। यह मार्ग प्राचीन काल से व्यापार, यातायात और सांस्कृतिक संपर्क के लिए महत्वपूर्ण रहा है। हरियाणा की परिवहन प्रणाली को मुख्य रूप से तीन श्रेणियों में विभाजित किया जाता है: (1) सड़क परिवहन, (2) रेल परिवहन और (3) हवाई परिवहन। राज्य में दिल्ली मेट्रो और रैपिड मेट्रो जैसी शहरी रेल सेवाएँ भी संचालित होती हैं।",
+
         contentEnglish:
-            "Transport system is completely developed in Haryana. 13 districts of Haryana lie in NCR and adjoining areas due to which the infrastructural development including transport system is well advanced in the state. Most popular and commercially important road of Haryana is Grand Trunk road. It is NH-1 and passes through the North-East of Haryana. This road is also called 'Sher Shah Suri road' and has great historical importance. The transport system of Haryana is divided into 3 main categories: Road transport; Rail transport and Air transport.",
+            "Haryana has developed an extensive network of road, rail and air transport. Its proximity to the National Capital, Delhi, makes the state strategically important for transportation, trade and industrial development. According to the National Capital Region Planning Board (NCRPB), 14 districts of Haryana are included in the National Capital Region (NCR). One of the state's most historically and commercially significant roads is the Grand Trunk Road (GT Road). This road was formerly part of National Highway 1 (NH-1), which was incorporated into National Highway 44 (NH-44) following the renumbering of national highways. In Haryana, this route passes through the Sonipat, Panipat, Karnal, Kurukshetra and Ambala areas. The Grand Trunk Road is historically associated with Sher Shah Suri, who extended and improved the route during the 16th century. It has served as an important route for trade, transportation and cultural exchange since ancient times. Haryana's transport system is broadly classified into three main categories: (1) Road Transport, (2) Rail Transport and (3) Air Transport. Urban rail services such as the Delhi Metro and Rapid Metro also operate in the state."
     };
+
 
     // Section 2: Road Transport Statistics
     const roadTransportStats = {
@@ -349,12 +353,16 @@ export default function TransportAndCommunicationPage() {
 
     // Section 11: Metro Railway Network
     const metroNetworks = [
+
         {
             name: "Delhi-Gurugram Metro Rail",
             nameHindi: "दिल्ली-गुरुग्राम मेट्रो रेल",
             details:
-                "First Metro Rail Network in Haryana started in 2016. Yellow line connects Qutub Minar (Delhi) to HUDA City Centre (Gurugram). 48.3 km long - second longest metro line of Delhi Metro.",
+                "Haryana's first metro rail service began on 21 June 2010 with the opening of the approximately 14.47 km Qutub Minar (Delhi)–HUDA City Centre (Gurugram) corridor of Delhi Metro's Yellow Line. The Yellow Line currently connects Samaypur Badli in Delhi to Millennium City Centre Gurugram (formerly HUDA City Centre). According to DMRC's January 2026 network map, the Yellow Line is approximately 49.02 km long and has 37 stations.",
+            detailsHindi:
+                "हरियाणा में पहली मेट्रो रेल सेवा 21 जून 2010 को दिल्ली मेट्रो की येलो लाइन के लगभग 14.47 किलोमीटर लंबे कुतुब मीनार (दिल्ली) से हुडा सिटी सेंटर (गुरुग्राम) खंड के उद्घाटन के साथ शुरू हुई। वर्तमान में येलो लाइन दिल्ली के समयपुर बादली को मिलेनियम सिटी सेंटर गुरुग्राम (पूर्व नाम हुडा सिटी सेंटर) से जोड़ती है। डीएमआरसी के जनवरी 2026 के नेटवर्क मानचित्र के अनुसार, येलो लाइन लगभग 49.02 किलोमीटर लंबी है और इसमें 37 स्टेशन हैं।"
         },
+
         {
             name: "Rapid Metro Rail, Gurugram",
             nameHindi: "रैपिड मेट्रो रेल, गुरुग्राम",

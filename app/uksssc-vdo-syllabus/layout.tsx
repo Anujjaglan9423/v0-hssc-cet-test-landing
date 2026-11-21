@@ -1,4 +1,3 @@
-// app/uksssc-vdo-syllabus/layout.tsx
 import type { Metadata, Viewport } from "next"
 
 export const metadata: Metadata = {
@@ -6,7 +5,7 @@ export const metadata: Metadata = {
     title: "UKSSSC VDO Syllabus 2026 | Gram Vikas Adhikari Exam Pattern | Uttarakhand VDO Selection Process",
 
     // Description optimized for Google SGE / Bing Chat (GEO) - Bilingual
-    description: "UKSSSC VDO Syllabus 2026: डाउनलोड करें Gram Vikas Adhikari complete syllabus PDF. 4 subjects: Uttarakhand GK (30-35 Qs), General Hindi (20-25 Qs), Reasoning (15-20 Qs), Numerical Ability (15-20 Qs). Exam pattern, negative marking (0.25), 100 questions, 90 minutes, selection process, eligibility, salary ₹35,000-45,000, and free mock tests. Computer Knowledge NOT included.",
+    description: "UKSSSC VDO Syllabus 2026: डाउनलोड करें Gram Vikas Adhikari complete syllabus PDF. 4 subjects: Uttarakhand GK (30-35 Qs), General Hindi (20-25 Qs), Reasoning (15-20 Qs), Numerical Ability (15-20 Qs). Exam pattern, negative marking (0.25), 100 questions, 120 minutes, selection process, eligibility, salary ₹35,000-45,000, and free mock tests. Computer Knowledge NOT included.",
 
     // Keywords extended for long-tail & question-based queries (AEO)
     keywords: [
@@ -59,7 +58,7 @@ export const metadata: Metadata = {
     // Open Graph optimized for higher CTR
     openGraph: {
         title: "📚 UKSSSC VDO Syllabus 2026 PDF | Gram Vikas Adhikari Complete Exam Pattern | Uttarakhand VDO Selection Process",
-        description: "✅ 4 Subjects: GK (30-35 Qs), Hindi (20-25 Qs), Reasoning (15-20 Qs), Maths (15-20 Qs) | ✅ Negative Marking 0.25 | ✅ 100 Questions, 90 Minutes | ✅ Computer Knowledge NOT Included | ✅ Salary ₹35,000-45,000 | ✅ Official notification link + Mock Tests",
+        description: "✅ 4 Subjects: GK (30-35 Qs), Hindi (20-25 Qs), Reasoning (15-20 Qs), Maths (15-20 Qs) | ✅ Negative Marking 0.25 | ✅ 100 Questions, 120 Minutes | ✅ Computer Knowledge NOT Included | ✅ Salary ₹35,000-45,000 | ✅ Official notification link + Mock Tests",
         url: "https://cettest.site/uksssc-vdo-syllabus",
         siteName: "CET TEST | Uttarakhand Govt Exam Prep",
         locale: "en_IN",
@@ -81,7 +80,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "UKSSSC VDO Syllabus 2026 PDF | Gram Vikas Adhikari Complete Exam Pattern",
-        description: "View the syllabus topics: Uttarakhand GK, General Hindi, Reasoning and Numerical Ability. 100 questions, 90 minutes, 0.25 negative marking. Computer Knowledge NOT included. Salary ₹35K-45K.",
+        description: "View the syllabus topics: Uttarakhand GK, General Hindi, Reasoning and Numerical Ability. 100 questions, 120 minutes, 0.25 negative marking. Computer Knowledge NOT included. Salary ₹35K-45K.",
         images: ["/twitter-uksssc-vdo-syllabus.jpg"],
         creator: "@cet__test",
         site: "@cet__test",
@@ -148,7 +147,7 @@ export default function UKSSSCVDOSyllabusLayout({
                         "@type": "EducationalOccupationalProgram",
                         "@id": `${currentUrl}#program`,
                         name: "UKSSSC VDO (Gram Vikas Adhikari) Exam Preparation Program 2026",
-                        description: "Complete syllabus topics and preparation program for UKSSSC Village Development Officer (VDO) / Gram Vikas Adhikari examination. 4 Subjects: General Knowledge & Current Affairs (30-35 questions including Uttarakhand GK, Panchayati Raj system), General Hindi (20-25 questions covering Sandhi, Samas, Muhavare), Reasoning Ability (15-20 questions - Verbal & Non-Verbal), Numerical Ability (15-20 questions - Arithmetic, Algebra, Data Interpretation). Computer Knowledge is NOT included. Exam: 100 questions, 90 minutes, 0.25 negative marking.",
+                        description: "Complete syllabus topics and preparation program for UKSSSC Village Development Officer (VDO) / Gram Vikas Adhikari examination. 4 Subjects: General Knowledge & Current Affairs (30-35 questions including Uttarakhand GK, Panchayati Raj system), General Hindi (20-25 questions covering Sandhi, Samas, Muhavare), Reasoning Ability (15-20 questions - Verbal & Non-Verbal), Numerical Ability (15-20 questions - Arithmetic, Algebra, Data Interpretation). Computer Knowledge is NOT included. Exam: 100 questions, 120 minutes, 0.25 negative marking.",
                         educationalProgramMode: "Exam Preparation",
                         timeToComplete: "P3M",
                         occupationalCategory: "Rural Development Services - Uttarakhand Government",
@@ -201,7 +200,7 @@ export default function UKSSSCVDOSyllabusLayout({
                         "@type": "Course",
                         "@id": `${currentUrl}#course`,
                         name: "UKSSSC VDO (Gram Vikas Adhikari) Complete Syllabus 2026",
-                        description: "Full syllabus for UKSSSC Village Development Officer (VDO) exam 2026 with 4 subjects: General Knowledge & Current Affairs (Uttarakhand GK focus), General Hindi, Reasoning Ability, Numerical Ability. Computer Knowledge NOT included. 100 questions, 90 minutes, 0.25 negative marking. Salary range: ₹35,000-45,000 per month.",
+                        description: "Full syllabus for UKSSSC Village Development Officer (VDO) exam 2026 with 4 subjects: General Knowledge & Current Affairs (Uttarakhand GK focus), General Hindi, Reasoning Ability, Numerical Ability. Computer Knowledge NOT included. 100 questions, 120 minutes, 0.25 negative marking. Salary range: ₹35,000-45,000 per month.",
                         provider: {
                             "@type": "Organization",
                             name: "CET TEST",
@@ -295,7 +294,7 @@ export default function UKSSSCVDOSyllabusLayout({
                                 name: "How many questions are asked from each subject in UKSSSC VDO exam?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "As per previous year patterns of UKSSSC VDO exam: General Knowledge & Current Affairs (30-35 questions), General Hindi (20-25 questions), Reasoning Ability (15-20 questions), Numerical Ability (15-20 questions). Total 100 questions for 100 marks. Exam duration is 90 minutes with 0.25 negative marking for wrong answers.",
+                                    text: "As per previous year patterns of UKSSSC VDO exam: General Knowledge & Current Affairs (30-35 questions), General Hindi (20-25 questions), Reasoning Ability (15-20 questions), Numerical Ability (15-20 questions). Total 100 questions for 100 marks. Exam duration is 120 minutes with 0.25 negative marking for wrong answers.",
                                 },
                             },
                             {
@@ -311,7 +310,7 @@ export default function UKSSSCVDOSyllabusLayout({
                                 name: "What is the duration of UKSSSC VDO exam?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "The UKSSSC VDO written examination is conducted for 90 minutes (90 minutes) with 100 objective-type multiple choice questions (MCQs). Time management is crucial - you have approximately 54 seconds per question.",
+                                    text: "The UKSSSC VDO written examination is conducted for 120 minutes (2 hours) with 100 objective-type multiple choice questions (MCQs). Time management is crucial - you have approximately 72 seconds per question.",
                                 },
                             },
                             {
@@ -359,7 +358,7 @@ export default function UKSSSCVDOSyllabusLayout({
                                 name: "What is the selection process for UKSSSC VDO?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "UKSSSC VDO selection process has 3 stages: (1) Written Examination (CBT) - 100 marks, 100 questions, 90 minutes covering 4 subjects (GK, Hindi, Reasoning, Maths), (2) Document Verification - Verification of educational certificates, caste certificates, etc., (3) Medical Examination. There is no physical test (PET/PST) for VDO unlike Police Constable. Final merit list is based on written exam scores.",
+                                    text: "UKSSSC VDO selection process has 3 stages: (1) Written Examination (CBT) - 100 marks, 100 questions, 120 minutes covering 4 subjects (GK, Hindi, Reasoning, Maths), (2) Document Verification - Verification of educational certificates, caste certificates, etc., (3) Medical Examination. There is no physical test (PET/PST) for VDO unlike Police Constable. Final merit list is based on written exam scores.",
                                 },
                             },
                             {
@@ -367,7 +366,7 @@ export default function UKSSSCVDOSyllabusLayout({
                                 name: "When will UKSSSC VDO notification 2026 be released?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "UKSSSC (Uttarakhand Subordinate Service Selection Commission) typically releases VDO notifications in February-March 2026. The official notification will be available on sssc.uk.gov.in. Examination expected in June-July 2026. Start your preparation now using our complete syllabus guide.",
+                                    text: "The referenced UKSSSC VDO graduate-level recruitment was advertised as 70/UKSSSC/2025 and has a documented 120-minute written examination. Check sssc.uk.gov.in for later VDO advertisements and exam dates.",
                                 },
                             },
                             {
@@ -502,7 +501,7 @@ export default function UKSSSCVDOSyllabusLayout({
                             { "@type": "HowToStep", name: "Week 3-4: General Hindi & Current Affairs", text: "Master General Hindi: Sandhi (Swar, Vyanjan, Visarg), Samas (Tatpurush, Dvandva, Bahuvrihi, Avyayibhav, Karmadharay), Muhavare, Lokoktiyan, Synonyms, Antonyms. Cover last 6 months current affairs." },
                             { "@type": "HowToStep", name: "Month 2: Reasoning & Numerical Ability", text: "Practice Reasoning: Coding-Decoding, Blood Relations, Syllogism, Logical Venn Diagrams. Maths: Percentage, Profit-Loss, Time & Work, Mensuration, Data Interpretation. Solve 30 questions daily from each subject." },
                             { "@type": "HowToStep", name: "Week 9-10: Full Syllabus Revision", text: "Revise all 4 subjects. Create one-liner notes for Uttarakhand GK, Hindi grammar rules, Reasoning shortcuts, Maths formulas. Focus on high-weightage topics." },
-                            { "@type": "HowToStep", name: "Week 11: Mock Tests & Previous Year Papers", text: "Take 10 full-length UKSSSC VDO mock tests. Solve last 5 years papers. Time management is key - 90 minutes for 100 questions (54 seconds per question). Analyze mistakes and weak areas." },
+                            { "@type": "HowToStep", name: "Week 11: Mock Tests & Previous Year Papers", text: "Take 10 full-length UKSSSC VDO mock tests. Solve last 5 years papers. Time management is key - 120 minutes for 100 questions (72 seconds per question). Analyze mistakes and weak areas." },
                             { "@type": "HowToStep", name: "Week 12: Final Revision & Exam Strategy", text: "Revise weak areas. Plan attempt strategy: attempt easier sections first (GK, Hindi), avoid guesswork due to 0.25 negative marking. Aim for 75+ correct answers to secure selection." },
                         ],
                     }),
@@ -560,7 +559,7 @@ export default function UKSSSCVDOSyllabusLayout({
                         "@type": "JobPosting",
                         "@id": `${currentUrl}#vdo-job`,
                         title: "UKSSSC VDO (Gram Vikas Adhikari) Recruitment 2026",
-                        description: "Recruitment for Village Development Officer (VDO) / Gram Vikas Adhikari positions in Uttarakhand. Selection based on written examination (4 subjects: General Knowledge & Current Affairs, General Hindi, Reasoning Ability, Numerical Ability). Computer Knowledge NOT included. Exam: 100 questions, 90 minutes, 0.25 negative marking. Salary: ₹35,000-45,000 per month.",
+                        description: "Recruitment for Village Development Officer (VDO) / Gram Vikas Adhikari positions in Uttarakhand. Selection based on written examination (4 subjects: General Knowledge & Current Affairs, General Hindi, Reasoning Ability, Numerical Ability). Computer Knowledge NOT included. Exam: 100 questions, 120 minutes, 0.25 negative marking. Salary: ₹35,000-45,000 per month.",
                         datePosted: "2026-01-01",
                         validThrough: "2026-12-31",
                         employmentType: "FULL_TIME",

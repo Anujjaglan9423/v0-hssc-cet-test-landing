@@ -143,44 +143,36 @@ export default function RailwayExamsPage() {
       slug: "rrb-ntpc",
       description: "Non-Technical Popular Categories - Station Master, Goods Guard, Commercial Apprentice, Clerk, Typist",
       link: "/mock-test",
-      features: ["CBT Stage 1 & 2 Tests", "Available Mock Tests", "Previous Year Papers", "UG & Graduate Posts"],
+      features: ["NTPC CBT Stages", "Check Available Tests", "Official Notice Updates", "UG & Graduate Posts"],
       icon: <Award className="w-6 h-6 text-blue-600" />,
       color: "blue",
-      totalMocks: 150,
-      totalQuestions: 12000,
     },
     {
       name: "RRB Group D",
       slug: "rrb-group-d",
       description: "Group D and unskilled worker positions - Track Maintainer, Helper, Assistant in various departments",
       link: "/mock-test",
-      features: ["Timed Practice Tests", "Detailed Solutions", "Performance Analytics", "PET Preparation"],
+      features: ["Group D CBT Topics", "Current Exam Notices", "PET Requirements", "Check Test Catalog"],
       icon: <Shield className="w-6 h-6 text-green-600" />,
       color: "green",
-      totalMocks: 100,
-      totalQuestions: 8000,
     },
     {
       name: "RRB ALP",
       slug: "rrb-alp",
       description: "Assistant Loco Pilot recruitment - Driving trains, high salary, fast promotion",
       link: "/mock-test",
-      features: ["Full Mock Tests", "Real Exam Pattern", "Technical Questions", "CBAT Preparation"],
+      features: ["CBT Stage 1 & 2", "Technical Syllabus", "CBAT Guidance", "Check Test Catalog"],
       icon: <Train className="w-6 h-6 text-purple-600" />,
       color: "purple",
-      totalMocks: 120,
-      totalQuestions: 10000,
     },
     {
       name: "RRB Technician",
       slug: "rrb-technician",
       description: "Railway technician and skilled worker positions in Mechanical, Electrical, Electronics",
       link: "/mock-test",
-      features: ["Comprehensive Coverage", "Expert Explanations", "Instant Results", "Trade Test Prep"],
+      features: ["Technician Syllabus", "Trade Knowledge", "Recruitment Stages", "Check Test Catalog"],
       icon: <Brain className="w-6 h-6 text-orange-600" />,
       color: "orange",
-      totalMocks: 80,
-      totalQuestions: 6000,
     },
   ]
 
@@ -240,7 +232,7 @@ export default function RailwayExamsPage() {
             hasCourse: exams.map((exam) => ({
               "@type": "Course",
               name: exam.name,
-              description: `${exam.description} | ${exam.features.join(" | ")} | ${exam.totalMocks}+ Mock Tests | ${exam.totalQuestions}+ Questions`,
+              description: `${exam.description} | ${exam.features.join(" | ")}. See the current test catalog for actual availability.`,
             })),
           }),
         }}
@@ -560,7 +552,7 @@ export default function RailwayExamsPage() {
 
                   <div className="flex items-center justify-between gap-4">
                     <div className="text-xs text-muted-foreground">
-                      {exam.totalMocks}+ Mock Tests | {exam.totalQuestions}+ Qs
+                      View available tests and question sets
                     </div>
                     <Link href={exam.link}>
                       <Button className={`cursor-pointer bg-${exam.color}-600 hover:bg-${exam.color}-700`}>
@@ -580,7 +572,7 @@ export default function RailwayExamsPage() {
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose CET TEST for Railway Exams?</h2>
               <p className="text-muted-foreground max-w-xl mx-auto">
-                Features that make us the #1 choice for railway aspirants across India
+                Explore the platform features and currently available railway practice resources
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

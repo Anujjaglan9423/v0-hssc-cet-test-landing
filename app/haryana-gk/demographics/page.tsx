@@ -53,10 +53,10 @@ export default function HaryanaDemographyPage() {
             answerEnglish: "As per 2011 census, the total population of Haryana is 2,53,51,462, in which the number of males is 1,34,94,734 and the number of females is 1,18,56,728."
         },
         {
-            questionHindi: "हरियाणा का दशकीय वृद्धि दर क्या है?",
-            questionEnglish: "What is the decadal growth rate of Haryana?",
-            answerHindi: "2011 की जनगणना के अनुसार, हरियाणा का दशकीय वृद्धि दर 19.90% है, जो 2001 की जनगणना में 28.43% थी। राज्य का राष्ट्रीय औसत दशकीय वृद्धि दर (17.7%) से 2.2% अधिक है।",
-            answerEnglish: "As per 2011 census, the decadal growth rate of Haryana is 19.90%, which was 28.43% in the 2001 census. The state's decadal growth rate is 2.2% higher than the national average (17.7%)."
+            questionHindi: "2001–2011 के दौरान हरियाणा की दशकीय जनसंख्या वृद्धि दर कितनी थी?",
+            questionEnglish: "What was Haryana’s decadal population growth rate during 2001–2011?",
+            answerHindi: "जनगणना 2011 के अनुसार, 2001 से 2011 के बीच हरियाणा की दशकीय जनसंख्या वृद्धि दर 19.90% थी। 1991–2001 के दशक में यह दर 28.43% थी।",
+            answerEnglish: "According to Census 2011, Haryana’s population grew by 19.90% during 2001–2011, compared with 28.43% during 1991–2001."
         },
         {
             questionHindi: "हरियाणा का लिंगानुपात क्या है?",
@@ -65,34 +65,34 @@ export default function HaryanaDemographyPage() {
             answerEnglish: "As per 2011 census, the sex ratio of Haryana is 879, which is less than the national average (943). The child sex ratio (0-6 years) of the state is 834."
         },
         {
-            questionHindi: "हरियाणा का साक्षरता दर क्या है?",
-            questionEnglish: "What is the literacy rate of Haryana?",
-            answerHindi: "2011 की जनगणना के अनुसार, हरियाणा का साक्षरता दर 75.60% है, जो राष्ट्रीय औसत (74%) से 1.6% अधिक है। पुरुष साक्षरता दर 84.10% और महिला साक्षरता दर 65.90% है।",
-            answerEnglish: "As per 2011 census, the literacy rate of Haryana is 75.60%, which is 1.6% higher than the national average (74%). Male literacy rate is 84.10% and female literacy rate is 65.90%."
+            questionHindi: "2011 की जनगणना के अनुसार हरियाणा की साक्षरता दर कितनी थी?",
+            questionEnglish: "What was Haryana’s literacy rate in Census 2011?",
+            answerHindi: "अंतिम जनगणना 2011 के अनुसार हरियाणा की साक्षरता दर 75.55% थी। पुरुष साक्षरता 84.06% और महिला साक्षरता 65.94% थी। साक्षरता दर की गणना 7 वर्ष या उससे अधिक आयु के लोगों के लिए की जाती है।",
+            answerEnglish: "Final Census 2011 figures show Haryana’s literacy rate was 75.55%, with 84.06% male literacy and 65.94% female literacy. Literacy is calculated for people aged seven years and above."
         },
         {
-            questionHindi: "हरियाणा में सर्वाधिक और न्यूनतम जनसंख्या वाले जिले कौन से हैं?",
-            questionEnglish: "Which districts have the highest and lowest population in Haryana?",
-            answerHindi: "फरीदाबाद (18,09,733) हरियाणा का सर्वाधिक जनसंख्या वाला जिला है, जबकि पंचकूला (5,61,293) सबसे कम जनसंख्या वाला जिला है।",
-            answerEnglish: "Faridabad (18,09,733) is the district with the highest population in Haryana, while Panchkula (5,61,293) has the lowest population."
+            questionHindi: "2011 की जनगणना में हरियाणा के किस जिले की जनसंख्या सबसे अधिक और सबसे कम थी?",
+            questionEnglish: "Which Haryana districts had the highest and lowest populations in Census 2011?",
+            answerHindi: "जनगणना 2011 की तत्कालीन 21 जिला-सीमाओं के अनुसार फरीदाबाद (18,09,733) की जनसंख्या सबसे अधिक और पंचकूला (5,61,293) की सबसे कम थी।",
+            answerEnglish: "Among Haryana’s 21 districts as recorded in Census 2011, Faridabad had the largest population (1,809,733) and Panchkula the smallest (561,293). These rankings use 2011 district boundaries."
         },
         {
-            questionHindi: "हरियाणा में सर्वाधिक और न्यूनतम लिंगानुपात वाले जिले कौन से हैं?",
-            questionEnglish: "Which districts have the highest and lowest sex ratio in Haryana?",
-            answerHindi: "नूंह (907) हरियाणा का सर्वाधिक लिंगानुपात वाला जिला है, जबकि गुरुग्राम (854) सबसे कम लिंगानुपात वाला जिला है।",
-            answerEnglish: "Nuh (907) is the district with the highest sex ratio in Haryana, while Gurugram (854) has the lowest sex ratio."
+            questionHindi: "2011 में हरियाणा के किस जिले का लिंगानुपात सर्वाधिक और न्यूनतम था?",
+            questionEnglish: "Which Haryana districts had the highest and lowest sex ratios in Census 2011?",
+            answerHindi: "जनगणना 2011 के अनुसार नूंह (तत्कालीन मेवात) का लिंगानुपात 907 (सर्वाधिक) और गुरुग्राम (तत्कालीन गुड़गाँव) का 854 (न्यूनतम) था।",
+            answerEnglish: "In Census 2011, Nuh (then Mewat) had the highest district sex ratio (907 females per 1,000 males), while Gurugram (then Gurgaon) had the lowest (854)."
         },
         {
-            questionHindi: "हरियाणा में सर्वाधिक और न्यूनतम साक्षरता वाले जिले कौन से हैं?",
-            questionEnglish: "Which districts have the highest and lowest literacy rate in Haryana?",
-            answerHindi: "गुरुग्राम (84.70%) हरियाणा का सर्वाधिक साक्षरता दर वाला जिला है, जबकि नूंह (54.08%) सबसे कम साक्षरता दर वाला जिला है।",
-            answerEnglish: "Gurugram (84.70%) is the district with the highest literacy rate in Haryana, while Nuh (54.08%) has the lowest literacy rate."
+            questionHindi: "2011 में हरियाणा के किन जिलों की साक्षरता दर सर्वाधिक और न्यूनतम थी?",
+            questionEnglish: "Which Haryana districts had the highest and lowest literacy rates in Census 2011?",
+            answerHindi: "जनगणना 2011 की 21 जिला-सीमाओं के अनुसार गुरुग्राम (84.70%) की साक्षरता दर सर्वाधिक और नूंह (54.08%) की न्यूनतम थी।",
+            answerEnglish: "Among the 21 districts in Census 2011, Gurugram recorded the highest literacy rate (84.70%) and Nuh the lowest (54.08%)."
         },
         {
-            questionHindi: "हरियाणा में सबसे अधिक अनुसूचित जाति की जनसंख्या किस जिले में है?",
-            questionEnglish: "Which district has the highest Scheduled Caste population in Haryana?",
-            answerHindi: "हिसार जिले में अनुसूचित जाति की जनसंख्या सबसे अधिक (4,08,785) है, जबकि नूंह में सबसे कम (75,251) है।",
-            answerEnglish: "Hisar district has the highest Scheduled Caste population (4,08,785), while Nuh has the lowest (75,251)."
+            questionHindi: "2011 की जनगणना में हरियाणा के किस जिले में अनुसूचित जाति की जनसंख्या सर्वाधिक थी?",
+            questionEnglish: "Which Haryana district had the highest Scheduled Caste population in Census 2011?",
+            answerHindi: "जनगणना 2011 के अनुसार हिसार में अनुसूचित जाति की जनसंख्या सर्वाधिक (4,08,785) और नूंह में न्यूनतम (75,251) थी। ये आँकड़े 2011 की जिला-सीमाओं पर आधारित हैं।",
+            answerEnglish: "In Census 2011, Hisar had the largest Scheduled Caste population (408,785), while Nuh had the smallest (75,251), among the 21 districts counted at the time."
         }
     ];
 
@@ -128,8 +128,8 @@ export default function HaryanaDemographyPage() {
         { religion: "Sikhism", total: "12,43,752", percentage: "4.91%", male: "6,53,468", female: "5,90,284" },
         { religion: "Jainism", total: "52,613", percentage: "0.21%", male: "27,358", female: "25,255" },
         { religion: "Christianity", total: "50,353", percentage: "0.20%", male: "26,165", female: "24,188" },
-        { religion: "Buddhism", total: "7,514", percentage: "0.02%", male: "4,099", female: "3,415" },
-        { religion: "Others", total: "44,760", percentage: "0.18%", male: "22,535", female: "22,225" }
+        { religion: "Buddhism", total: "7,514", percentage: "0.03%", male: "4,099", female: "3,415" },
+        { religion: "Other religions / Not stated", total: "44,760", percentage: "0.18%", male: "22,535", female: "22,225" }
     ];
 
     // Top 5 Districts by Population
@@ -206,7 +206,7 @@ export default function HaryanaDemographyPage() {
         { rank: 2, district: "Sirsa", scPopulation: "3,87,381" },
         { rank: 3, district: "Bhiwani", scPopulation: "3,41,162" },
         { rank: 4, district: "Karnal", scPopulation: "3,39,604" },
-        { rank: 5, district: "Faridabad", scPopulation: "3,32,237" }
+        { rank: 5, district: "Yamunanagar", scPopulation: "3,06,743" }
     ];
 
     const bottom5SCPopulation = [
@@ -214,7 +214,7 @@ export default function HaryanaDemographyPage() {
         { rank: 2, district: "Panchkula", scPopulation: "1,01,830" },
         { rank: 3, district: "Mahendragarh", scPopulation: "1,56,314" },
         { rank: 4, district: "Jhajjar", scPopulation: "1,70,448" },
-        { rank: 5, district: "Ambala", scPopulation: "1,78,704" }
+        { rank: 5, district: "Rewari", scPopulation: "1,82,606" }
     ];
 
     return (
@@ -240,7 +240,7 @@ export default function HaryanaDemographyPage() {
 
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-sm font-medium backdrop-blur-sm">
                         <Users className="w-4 h-4" />
-                        {language === "hindi" ? "जनसांख्यिकीय प्रोफाइल - हरियाणा सरकार" : "Demographic Profile - Government of Haryana"}
+                        {language === "hindi" ? "जनगणना 2011 – आधिकारिक आँकड़ों पर आधारित" : "Census 2011 – Based on official statistics"}
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
@@ -287,8 +287,8 @@ export default function HaryanaDemographyPage() {
                         </div>
                         <p className="text-muted-foreground leading-relaxed">
                             {language === "hindi"
-                                ? "हरियाणा राज्य की पहली जनगणना वर्ष 1971 में हुई थी। 2011 की जनगणना राज्य के लिए पाँचवीं जनगणना थी। 2011 की जनगणना के अनुसार, राज्य की कुल जनसंख्या 2,53,51,462 है जिसमें पुरुषों की संख्या 1,34,94,734 और महिलाओं की संख्या 1,18,56,728 है। जनसंख्या के मामले में हरियाणा भारत में 18वें स्थान पर है।"
-                                : "The first census of the state of Haryana was done in the year 1971. The 2011 census was the fifth census for the state. According to the 2011 census, the total population of the state is 2,53,51,462 in which the number of males is 1,34,94,734 and the number of females is 1,18,56,728. Haryana is at the 18th rank in India in terms of population."}
+                                ? "हरियाणा के 1966 में राज्य गठन के बाद पहली जनगणना 1971 में हुई और 2011 की जनगणना राज्य की पाँचवीं जनगणना थी। जनगणना 2011 के अंतिम आँकड़ों के अनुसार कुल जनसंख्या 2,53,51,462 थी, जिसमें 1,34,94,734 पुरुष और 1,18,56,728 महिलाएँ थीं। इस पृष्ठ के जिलेवार आँकड़े 2011 की तत्कालीन 21 जिला-सीमाओं पर आधारित हैं; बाद में बने चरखी दादरी (2016) और हांसी (2025) के अलग जिला-आँकड़े इन तालिकाओं में शामिल नहीं हैं।"
+                                : "The first census after Haryana became a state in 1966 was conducted in 1971; Census 2011 was the state’s fifth census. Final Census 2011 figures recorded a population of 25,351,462, comprising 13,494,734 males and 11,856,728 females. District-wise figures on this page reflect the 21 districts and their boundaries in 2011; Charkhi Dadri (created in 2016) and Hansi (created in 2025) were not separately enumerated as districts."}
                         </p>
                     </div>
 
@@ -314,7 +314,7 @@ export default function HaryanaDemographyPage() {
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center hover:shadow-md transition-all">
                             <GraduationCap className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                            <div className="text-2xl font-bold text-blue-600">75.60%</div>
+                            <div className="text-2xl font-bold text-blue-600">75.55%</div>
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "साक्षरता दर" : "Literacy Rate"}</p>
                             <p className="text-xs text-muted-foreground mt-1">(2011 Census)</p>
                         </div>
@@ -430,8 +430,8 @@ export default function HaryanaDemographyPage() {
                         <div className="mt-4 bg-card p-4 rounded-lg border">
                             <p className="text-sm text-muted-foreground">
                                 {language === "hindi"
-                                    ? "पुरुष साक्षरता दर 84.10% और महिला साक्षरता दर 65.90% है। रेवाड़ी (91.44%) में सर्वाधिक पुरुष साक्षरता और गुरुग्राम (77.98%) में सर्वाधिक महिला साक्षरता है।"
-                                    : "Male literacy rate is 84.10% and female literacy rate is 65.90%. Rewari (91.44%) has the highest male literacy and Gurugram (77.98%) has the highest female literacy."}
+                                    ? "जनगणना 2011 में हरियाणा की पुरुष साक्षरता दर 84.06% और महिला साक्षरता दर 65.94% थी। तत्कालीन 21 जिलों में रेवाड़ी (91.44%) की पुरुष और गुरुग्राम (77.98%) की महिला साक्षरता दर सर्वाधिक थी।"
+                                    : "In Census 2011, Haryana’s male literacy rate was 84.06% and female literacy rate was 65.94%. Among the 21 districts then recorded, Rewari (91.44%) had the highest male literacy and Gurugram (77.98%) the highest female literacy."}
                             </p>
                         </div>
                     </div>
@@ -442,7 +442,7 @@ export default function HaryanaDemographyPage() {
                             <div className="p-2 rounded-xl bg-primary/20">
                                 <MapPin className="w-5 h-5 text-primary" />
                             </div>
-                            <h2 className="text-2xl font-bold">{language === "hindi" ? "जिलेवार जनसंख्या (2011)" : "District-wise Population (2011)"}</h2>
+                            <h2 className="text-2xl font-bold">{language === "hindi" ? "जिलेवार जनसंख्या (2011 की 21 जिला-सीमाएँ)" : "District-wise Population (21 districts, Census 2011)"}</h2>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="w-full border-collapse text-sm">
@@ -507,8 +507,8 @@ export default function HaryanaDemographyPage() {
                         <div className="mt-4 bg-card p-4 rounded-lg border">
                             <p className="text-sm text-muted-foreground">
                                 {language === "hindi"
-                                    ? "जैन समुदाय (94.2%) की साक्षरता दर सर्वाधिक है जबकि मुस्लिम समुदाय (40%) की सबसे कम है। ईसाई समुदाय (918) का लिंगानुपात सर्वाधिक है।"
-                                    : "The Jain community (94.2%) has the highest literacy rate while the Muslim community (40%) has the lowest. The Christian community (918) has the highest sex ratio."}
+                                    ? "जनगणना 2011 के अनुसार हिंदू समुदाय (87.46%) की जनसंख्या सबसे अधिक थी। ‘अन्य धर्म / धर्म नहीं बताया’ श्रेणी के 44,760 व्यक्तियों में 2,548 ‘अन्य धर्म’ और 42,212 ‘धर्म नहीं बताया’ श्रेणी के थे। यहाँ दर्शाए गए सभी आँकड़े 2011 के हैं।"
+                                    : "Hindus formed the largest religious group in Haryana (87.46%) in Census 2011. The 44,760 people shown under ‘Other religions / Not stated’ comprise 2,548 under ‘Other religions and persuasions’ and 42,212 whose religion was not stated. These are 2011 figures."}
                             </p>
                         </div>
                     </div>
@@ -548,8 +548,8 @@ export default function HaryanaDemographyPage() {
                         <div className="mt-4 bg-card p-4 rounded-lg border">
                             <p className="text-sm text-muted-foreground">
                                 {language === "hindi"
-                                    ? "2011 की जनगणना के अनुसार, हरियाणा में अनुसूचित जाति की कुल जनसंख्या 51,13,615 (20.02%) है। एससी का साक्षरता दर 66.85% और लिंगानुपात 887 है।"
-                                    : "According to 2011 census, the total SC population in Haryana is 51,13,615 (20.02%). The literacy rate of SC is 66.85% and sex ratio is 887."}
+                                    ? "जनगणना 2011 के अनुसार हरियाणा में अनुसूचित जाति की जनसंख्या 51,13,615 (राज्य की जनसंख्या का 20.17%) थी। अनुसूचित जाति की साक्षरता दर (7 वर्ष और उससे अधिक आयु) 66.85% और लिंगानुपात लगभग 887 महिलाएँ प्रति 1,000 पुरुष था।"
+                                    : "In Census 2011, Haryana had 5,113,615 Scheduled Caste residents (20.17% of the state population). The Scheduled Caste literacy rate (age 7+) was 66.85%, and the sex ratio was approximately 887 females per 1,000 males."}
                             </p>
                         </div>
                     </div>
@@ -575,10 +575,10 @@ export default function HaryanaDemographyPage() {
                             <div className="bg-card p-4 rounded-lg border">
                                 <h3 className="text-lg font-semibold text-teal-600 mb-3">{language === "hindi" ? "रोजगार संरचना" : "Occupational Structure"}</h3>
                                 <ul className="space-y-2 text-sm">
-                                    <li className="flex justify-between"><span>{language === "hindi" ? "कुल कार्यबल" : "Total Work Force"}:</span> <span className="font-semibold">35.17%</span></li>
-                                    <li className="flex justify-between"><span>{language === "hindi" ? "कृषि से संबद्ध" : "Related to Agriculture"}:</span> <span className="font-semibold">44.96%</span></li>
-                                    <li className="flex justify-between"><span>{language === "hindi" ? "घरेलू उद्योग" : "Domestic Industries"}:</span> <span className="font-semibold">2.94%</span></li>
-                                    <li className="flex justify-between"><span>{language === "hindi" ? "अन्य क्षेत्र" : "Other Sectors"}:</span> <span className="font-semibold">52.10%</span></li>
+                                    <li className="flex justify-between"><span>{language === "hindi" ? "कार्य भागीदारी दर (जनसंख्या का %)" : "Work participation rate (% of population)"}:</span> <span className="font-semibold">35.17%</span></li>
+                                    <li className="flex justify-between"><span>{language === "hindi" ? "कृषि कार्य में लगे श्रमिक (% श्रमिक)" : "Agricultural workers (% of workers)"}:</span> <span className="font-semibold">44.96%</span></li>
+                                    <li className="flex justify-between"><span>{language === "hindi" ? "घरेलू उद्योग (% श्रमिक)" : "Household industries (% of workers)"}:</span> <span className="font-semibold">2.94%</span></li>
+                                    <li className="flex justify-between"><span>{language === "hindi" ? "अन्य श्रमिक (% श्रमिक)" : "Other workers (% of workers)"}:</span> <span className="font-semibold">52.10%</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -590,26 +590,26 @@ export default function HaryanaDemographyPage() {
                             <div className="p-2 rounded-xl bg-primary/20">
                                 <Activity className="w-5 h-5 text-primary" />
                             </div>
-                            <h2 className="text-2xl font-bold">{language === "hindi" ? "जन्म और मृत्यु दर" : "Birth and Death Rates"}</h2>
+                            <h2 className="text-2xl font-bold">{language === "hindi" ? "जन्म, मृत्यु और शिशु मृत्यु दर (2020)" : "Birth, Death and Infant Mortality Rates (2020)"}</h2>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg text-center">
                                 <Baby className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                                <div className="text-2xl font-bold text-blue-600">20.5</div>
+                                <div className="text-2xl font-bold text-blue-600">19.9</div>
                                 <p className="text-sm font-medium">{language === "hindi" ? "जन्म दर" : "Birth Rate"}</p>
-                                <p className="text-xs text-muted-foreground">(per thousand)</p>
+                                <p className="text-xs text-muted-foreground">(SRS 2020; per 1,000 population)</p>
                             </div>
                             <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-lg text-center">
                                 <Activity className="w-6 h-6 text-red-600 mx-auto mb-2" />
-                                <div className="text-2xl font-bold text-red-600">5.8</div>
+                                <div className="text-2xl font-bold text-red-600">6.1</div>
                                 <p className="text-sm font-medium">{language === "hindi" ? "मृत्यु दर" : "Death Rate"}</p>
-                                <p className="text-xs text-muted-foreground">(per thousand)</p>
+                                <p className="text-xs text-muted-foreground">(SRS 2020; per 1,000 population)</p>
                             </div>
                             <div className="bg-orange-50 dark:bg-orange-950/20 p-4 rounded-lg text-center">
                                 <Heart className="w-6 h-6 text-orange-600 mx-auto mb-2" />
-                                <div className="text-2xl font-bold text-orange-600">30</div>
-                                <p className="text-sm font-medium">{language === "hindi" ? "शिशु मृत्यु दर" : "Child Mortality Rate"}</p>
-                                <p className="text-xs text-muted-foreground">(per thousand)</p>
+                                <div className="text-2xl font-bold text-orange-600">28</div>
+                                <p className="text-sm font-medium">{language === "hindi" ? "शिशु मृत्यु दर" : "Infant Mortality Rate"}</p>
+                                <p className="text-xs text-muted-foreground">(SRS 2020; per 1,000 live births)</p>
                             </div>
                         </div>
                     </div>
@@ -624,36 +624,36 @@ export default function HaryanaDemographyPage() {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-blue-600 mb-2">18वाँ</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "जनसंख्या में रैंक" : "Population Rank"}</p>
+                            <div className="text-3xl font-bold text-blue-600 mb-2">19.90%</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "दशकीय वृद्धि (2001–11)" : "Decadal Growth (2001–11)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
                             <div className="text-3xl font-bold text-blue-600 mb-2">2.09%</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "देश की कुल जनसंख्या में हिस्सा" : "Share in National Population"}</p>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "भारत की जनसंख्या में हिस्सा (2011)" : "Share of India’s Population (2011)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-blue-600 mb-2">15वाँ</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "साक्षरता में रैंक" : "Literacy Rank"}</p>
+                            <div className="text-3xl font-bold text-blue-600 mb-2">75.55%</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "साक्षरता दर (2011)" : "Literacy Rate (2011)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-blue-600 mb-2">35वाँ</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "बाल लिंगानुपात में रैंक" : "Child Sex Ratio Rank"}</p>
+                            <div className="text-3xl font-bold text-blue-600 mb-2">834</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "बाल लिंगानुपात (2011)" : "Child Sex Ratio (2011)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-blue-600 mb-2">11वाँ</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "जनसंख्या घनत्व में रैंक" : "Population Density Rank"}</p>
+                            <div className="text-3xl font-bold text-blue-600 mb-2">573</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "घनत्व (व्यक्ति/वर्ग किमी; 2011)" : "Density (persons/km²; 2011)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
                             <div className="text-3xl font-bold text-blue-600 mb-2">87.46%</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "हिंदू जनसंख्या" : "Hindu Population"}</p>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "हिंदू जनसंख्या (2011)" : "Hindu Population (2011)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-blue-600 mb-2">20.02%</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "अनुसूचित जाति जनसंख्या" : "SC Population"}</p>
+                            <div className="text-3xl font-bold text-blue-600 mb-2">20.17%</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "अनुसूचित जाति का हिस्सा (2011)" : "SC Share (2011)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
                             <div className="text-3xl font-bold text-blue-600 mb-2">34.88%</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "शहरी जनसंख्या" : "Urban Population"}</p>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "शहरी जनसंख्या का हिस्सा (2011)" : "Urban Population Share (2011)"}</p>
                         </div>
                     </div>
                 </div>
@@ -740,7 +740,16 @@ export default function HaryanaDemographyPage() {
                             : "This page provides comprehensive information about the demography of Haryana - total population, district-wise population, population density, decadal growth rate, sex ratio, child sex ratio, literacy rate, religious population, scheduled caste population, rural-urban population, birth and death rates, and occupational structure. A complete reference for students preparing for Haryana CET, HSSC exams, and other competitive exams that include Haryana GK."}
                     </p>
                     <p className="text-xs text-muted-foreground mt-4">
-                        © 2026 CET TEST | {language === "hindi" ? "जानकारी भारत सरकार के जनगणना 2011 के आधिकारिक प्रकाशनों से स्रोतित" : "Information sourced from official Government of India Census 2011 publications"}
+                        © 2026 CET TEST | {language === "hindi" ? "स्रोत: जनगणना 2011; हरियाणा सांख्यिकीय सार 2023–24, तालिकाएँ 3.6, 3.17, 3.20, 3.21, 4.1 और 10.6; अनुसूचित जाति की साक्षरता: लोकसभा प्रश्न 3144 (2016); जन्म/मृत्यु दर SRS 2020" : "Sources: Census 2011; Haryana Statistical Abstract 2023–24, Tables 3.6, 3.17, 3.20, 3.21, 4.1 and 10.6; SC literacy: Lok Sabha Question 3144 (2016); vital rates from SRS 2020"}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-2">
+                        <a href="https://esaharyana.gov.in/document/state-statistical-abstract-of-haryana-2023-24/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">
+                            {language === "hindi" ? "आधिकारिक हरियाणा सांख्यिकीय सार" : "Official Haryana Statistical Abstract"}
+                        </a>
+                        {" | "}
+                        <a href="https://sansad.in/getFile/loksabhaquestions/annex/10/AU3144.pdf?source=pqals" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">
+                            {language === "hindi" ? "अनुसूचित जाति साक्षरता का सरकारी स्रोत" : "Official source for SC literacy"}
+                        </a>
                     </p>
                 </div>
             </section>

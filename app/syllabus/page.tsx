@@ -100,7 +100,7 @@ export default function SyllabusLandingPage() {
             headquarters: "Dehradun, Uttarakhand",
             officialWebsite: "https://sssc.uk.gov.in",
             features: [
-                "State-specific GK focus (40% weightage)",
+                "State GK weightage varies by post and notice",
                 "Recruitment for Group C posts",
                 "Village Development Officer (VDO) recruitment",
                 "Police Constable recruitment"
@@ -402,7 +402,7 @@ export default function SyllabusLandingPage() {
                         <div className="p-4 bg-muted/20 border-t text-xs text-muted-foreground">
                             <p className="flex items-center gap-1">
                                 <span className="font-medium text-foreground">Note:</span>
-                                Uttarakhand GK carries 40% weightage in most UKSSSC exams. Negative marking of -0.25 applies for wrong answers. VDO and Police Constable are the most popular recruitments.
+                                UKSSSC subject weightage varies by post and advertisement. Do not apply Police Constable or VDO marks distributions across all UKSSSC examinations. Check the specific official notification for negative-marking rules and time limits.
                             </p>
                         </div>
                     </div>
@@ -467,7 +467,7 @@ export default function SyllabusLandingPage() {
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span><strong>State GK Focus:</strong> Uttarakhand topics carry up to 40% weightage</span>
+                                    <span><strong>State GK Focus:</strong> Weightage depends on the post-specific UKSSSC notice</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -551,7 +551,7 @@ export default function SyllabusLandingPage() {
                                     <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-green-600">1</span>
                                     </div>
-                                    <span><strong>Uttarakhand GK is Key:</strong> Study state history, culture, Char Dham, national parks (40% weightage)</span>
+                                    <span><strong>Uttarakhand GK is Key:</strong> Study state history, culture, Char Dham and national parks; verify marks distribution by recruitment</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm">
                                     <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">

@@ -239,14 +239,15 @@ export default function AllSSCExamsPage() {
             <div className="bg-muted/30 p-8 rounded-2xl border border-dashed">
               <h3 className="text-xl font-bold mb-3 text-primary">Is there negative marking in SSC 2026 exams?</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Yes, most SSC exams have negative marking. In CGL Tier-1, it is typically 0.25 marks for every wrong answer, while in Tier-2, it varies by section. Always check the latest notification for specific changes.
+                For SSC CGL 2026 Tier-I, each wrong answer carries a penalty of 0.50 mark under section 13.8.2 of the official notification. Tier-II has different section/paper-wise penalties; verify the applicable instructions before the exam.
               </p>
+              <a className="text-primary underline text-sm" href="https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_adv_cgl_2026.pdf" target="_blank" rel="noopener noreferrer">SSC CGL 2026 official notification (section 13.8.2)</a>
             </div>
 
             <div className="bg-muted/30 p-8 rounded-2xl border border-dashed">
               <h3 className="text-xl font-bold mb-3 text-primary">Are these mock tests updated for the 2026 pattern?</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Absolutely. Our test series is updated as per the latest Staff Selection Commission guidelines. This includes the new Tier-2 pattern for CGL and the session-based scoring for MTS.
+                The official 2026 SSC notifications determine the applicable exam pattern. Check the currently listed tests and their instructions; availability and coverage may vary by exam and stage.
               </p>
             </div>
 

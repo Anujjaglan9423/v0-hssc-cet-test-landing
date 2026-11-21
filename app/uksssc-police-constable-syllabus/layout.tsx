@@ -1,4 +1,3 @@
-// app/uksssc-police-forest-guard-syllabus/layout.tsx
 import type { Metadata, Viewport } from "next"
 
 export const metadata: Metadata = {
@@ -6,7 +5,7 @@ export const metadata: Metadata = {
     title: "UKSSSC Police Constable & Forest Guard Syllabus 2026 PDF | Uttarakhand Van Rakshak Exam Pattern | Computer 5 Units Complete Guide",
 
     // Description optimized for Google SGE / Bing Chat (GEO) - Bilingual
-    description: "UKSSSC Police Constable & Forest Guard Syllabus 2026: डाउनलोड करें complete syllabus PDF. Same syllabus for both posts: Computer Knowledge (5 Units: Basic Concepts, OS, MS Office, Internet, Cyber Security), Uttarakhand GK, General Hindi, Reasoning, Numerical Ability. Exam pattern: 100 questions, 90 minutes, negative marking 0.25. Physical standards (168cm/81cm Male, 147cm Female). Free mock tests at CET TEST.",
+    description: "UKSSSC Police Constable & Forest Guard Syllabus 2026: डाउनलोड करें complete syllabus PDF. Post-specific syllabus must be checked separately: Computer Knowledge (5 Units: Basic Concepts, OS, MS Office, Internet, Cyber Security), Uttarakhand GK, General Hindi, Reasoning, Numerical Ability. Exam pattern: 100 questions, 120 minutes, negative marking 0.25. Physical standards (168cm/81cm Male, 147cm Female). Free mock tests at CET TEST.",
 
     // Keywords extended for long-tail & question-based queries (AEO)
     keywords: [
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
         "UKSSSC Police Constable computer questions", "Uttarakhand GK important topics",
 
         // Unified/Common Exam Keywords
-        "UKSSSC Group C common syllabus", "UKSSSC Police Forest Guard same syllabus",
+        "UKSSSC Group C common syllabus", "UKSSSC Police Forest Guard syllabus differences",
         "Uttarakhand common eligibility test syllabus", "UKSSSC inter level syllabus 2026",
         "Police Constable Forest Guard syllabus difference",
 
@@ -75,8 +74,8 @@ export const metadata: Metadata = {
     // Open Graph optimized for higher CTR
     openGraph: {
         title: "📚 UKSSSC Police Constable & Forest Guard Syllabus 2026 PDF | Van Rakshak Complete Exam Pattern | Computer 5 Units",
-        description: "✅ Same Syllabus for Both Posts | ✅ Computer Knowledge 5 Units (Basic Concepts, OS, MS Office, Internet, Cyber Security) | ✅ Uttarakhand GK | ✅ Physical Standards: 168cm/81cm Male, 147cm Female | ✅ 100 Questions, 90 Minutes, 0.25 Negative Marking | ✅ Free study material + Mock Tests",
-        url: "https://cettest.site/uksssc-police-forest-guard-syllabus",
+        description: "✅ Post-specific Notification Check | ✅ Computer Knowledge 5 Units (Basic Concepts, OS, MS Office, Internet, Cyber Security) | ✅ Uttarakhand GK | ✅ Physical Standards: 168cm/81cm Male, 147cm Female | ✅ 100 Questions, 120 Minutes, 0.25 Negative Marking | ✅ Free study material + Mock Tests",
+        url: "https://cettest.site/uksssc-police-constable-syllabus",
         siteName: "CET TEST | Uttarakhand Govt Exam Prep",
         locale: "en_IN",
         type: "website",
@@ -85,7 +84,7 @@ export const metadata: Metadata = {
                 url: "/og-uksssc-police-forest-guard-2026.jpg",
                 width: 1200,
                 height: 630,
-                alt: "UKSSSC Police Constable & Forest Guard Syllabus 2026 - Same Syllabus for Both Posts - Computer 5 Units - Free study material Download",
+                alt: "UKSSSC Police Constable & Forest Guard Syllabus 2026 - Post-specific Notification Check - Computer 5 Units - Free study material Download",
                 type: "image/jpeg",
             },
         ],
@@ -118,7 +117,7 @@ export const metadata: Metadata = {
     // App Links for mobile
     appLinks: {
         web: {
-            url: "https://cettest.site/uksssc-police-forest-guard-syllabus",
+            url: "https://cettest.site/uksssc-police-constable-syllabus",
             should_fallback: true,
         },
     },
@@ -147,7 +146,7 @@ export default function UKSSSCPoliceForestGuardLayout({
 }) {
     // Base URL for all schemas
     const baseUrl = "https://cettest.site"
-    const currentUrl = "https://cettest.site/uksssc-police-forest-guard-syllabus"
+    const currentUrl = "https://cettest.site/uksssc-police-constable-syllabus"
     const socialMedia = "cet__test"
     const email = "cettest.education@gmail.com"
     const phone = "+917291849546"
@@ -164,7 +163,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                         "@type": "EducationalOccupationalProgram",
                         "@id": `${currentUrl}#program`,
                         name: "UKSSSC Police Constable & Forest Guard (Van Rakshak) Exam Preparation Program 2026",
-                        description: "Complete syllabus and preparation program for UKSSSC Police Constable and Forest Guard (Van Rakshak) examinations. BOTH EXAMS HAVE EXACTLY THE SAME WRITTEN SYLLABUS. 5 Subjects: Computer Knowledge (5 Units: Basic Computer Concepts, Operating System, MS Office Suite, Internet & Networking, Cyber Security), General Knowledge & Current Affairs (Uttarakhand GK focus), General Hindi (Grammar & Composition), Reasoning Ability (Verbal & Non-Verbal), Numerical Ability (Arithmetic, Algebra, Data Interpretation). Exam: 100 questions, 90 minutes (90 minutes), 0.25 negative marking. Physical Standards: Male: 168cm height, 81cm chest (5cm expansion); Female: 147cm height.",
+                        description: "Complete syllabus and preparation program for UKSSSC Police Constable and Forest Guard (Van Rakshak) examinations. Police and Forest Guard requirements must be verified separately against the relevant official notification. 5 Subjects: Computer Knowledge (5 Units: Basic Computer Concepts, Operating System, MS Office Suite, Internet & Networking, Cyber Security), General Knowledge & Current Affairs (Uttarakhand GK focus), General Hindi (Grammar & Composition), Reasoning Ability (Verbal & Non-Verbal), Numerical Ability (Arithmetic, Algebra, Data Interpretation). Exam: 100 questions, 120 minutes (2 hours), 0.25 negative marking. Physical Standards: Male: 168cm height, 81cm chest (5cm expansion); Female: 147cm height.",
                         educationalProgramMode: "Exam Preparation",
                         timeToComplete: "P3M",
                         occupationalCategory: "Police & Forest Services - Uttarakhand Government",
@@ -222,7 +221,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                         "@type": "Course",
                         "@id": `${currentUrl}#course`,
                         name: "UKSSSC Police Constable & Forest Guard Common Syllabus 2026",
-                        description: "Complete common syllabus for UKSSSC Police Constable and Forest Guard (Van Rakshak) exams 2026. BOTH POSTS HAVE IDENTICAL SYLLABUS. 5 subjects: Computer Knowledge (5 Units), General Knowledge & Current Affairs (Uttarakhand GK focus), General Hindi, Reasoning Ability, Numerical Ability. Exam: 100 questions, 90 minutes, 0.25 negative marking. Physical standards: Male 168cm/81cm, Female 147cm.",
+                        description: "Complete common syllabus for UKSSSC Police Constable and Forest Guard (Van Rakshak) exams 2026. The syllabus can vary by post and advertisement. 5 subjects: Computer Knowledge (5 Units), General Knowledge & Current Affairs (Uttarakhand GK focus), General Hindi, Reasoning Ability, Numerical Ability. Exam: 100 questions, 120 minutes, 0.25 negative marking. Physical standards: Male 168cm/81cm, Female 147cm.",
                         provider: {
                             "@type": "Organization",
                             name: "CET TEST",
@@ -304,7 +303,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                                 name: "Is the syllabus same for UKSSSC Police Constable and Forest Guard?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "Yes, the written examination syllabus for UKSSSC Police Constable and Forest Guard (Van Rakshak) is EXACTLY THE SAME. Both exams cover the same 5 subjects: Computer Knowledge (5 Units), General Knowledge & Current Affairs (including Uttarakhand GK), General Hindi, Reasoning Ability, and Numerical Ability. The only difference is in physical standards and job-specific requirements after the written exam.",
+                                    text: "Not necessarily. UKSSSC Police Constable and Forest Guard are separate posts; do not assume identical subject units, weightages or physical criteria. Check each post against its dated UKSSSC notification, including Advertisement 84/2026 where relevant.",
                                 },
                             },
                             {
@@ -336,7 +335,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                                 name: "What is the duration of UKSSSC Police and Forest Guard exam?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "The UKSSSC Police Constable and Forest Guard written examination is conducted for 90 minutes. The exam is typically conducted in offline OMR mode or online CBT mode depending on the notification.",
+                                    text: "The UKSSSC Police Constable and Forest Guard written examination is conducted for 120 minutes. The exam is typically conducted in offline OMR mode or online CBT mode depending on the notification.",
                                 },
                             },
                             {
@@ -384,7 +383,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                                 name: "Where can I download UKSSSC Police and Forest Guard syllabus PDF?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "You can review the official UKSSSC Police Constable and Forest Guard syllabus on UKSSSC's official website: ssc.uk.gov.in. The complete topic-wise syllabus is available on this page.",
+                                    text: "You can review the official UKSSSC Police Constable and Forest Guard syllabus on UKSSSC's official website: sssc.uk.gov.in. The complete topic-wise syllabus is available on this page.",
                                 },
                             },
                             {
@@ -408,7 +407,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                                 name: "What is the selection process for UKSSSC Police Constable?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "UKSSSC Police Constable selection process has 4 stages: (1) Written Examination (100 marks, 90 minutes) covering 5 subjects, (2) Physical Standard Test (PST) - Height, Chest measurement, (3) Physical Efficiency Test (PET) - Running: Male 4.8 km/25 min, Female 2.4 km/18 min, (4) Document Verification & Medical Examination. Final merit based on written exam scores + PET/PST qualification.",
+                                    text: "For UKSSSC Police Constable Advertisement 84/2026, check the notice-specific physical standards/efficiency stages followed by the 100-mark, 120-minute written examination and subsequent document/medical checks. Do not apply Railway Group D running rules or a different post syllabus to this recruitment.",
                                 },
                             },
                             {
@@ -416,7 +415,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                                 name: "What is the selection process for UKSSSC Forest Guard?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "UKSSSC Forest Guard (Van Rakshak) selection process: (1) Written Examination (same syllabus as Police Constable), (2) Physical Standard Test (PST) - Height 168cm Male/147cm Female, Chest 81cm Male, (3) Physical Efficiency Test (PET) - Running and endurance tests, (4) Document Verification. Final selection based on written exam scores and physical qualification.",
+                                    text: "UKSSSC Forest Guard (Van Rakshak) selection process: (1) Written Examination (confirm the Forest Guard syllabus in the applicable recruitment notice), (2) Physical Standard Test (PST) - Height 168cm Male/147cm Female, Chest 81cm Male, (3) Physical Efficiency Test (PET) - Running and endurance tests, (4) Document Verification. Final selection based on written exam scores and physical qualification.",
                                 },
                             },
                             {
@@ -424,7 +423,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                                 name: "When will UKSSSC Police Constable and Forest Guard notification 2026 be released?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "UKSSSC (Uttarakhand Subordinate Service Selection Commission) typically releases Police Constable and Forest Guard notifications between January-March 2026. The official notification will be available on ssc.uk.gov.in. Exams expected in June-August 2026. Start your preparation now using our complete syllabus guide.",
+                                    text: "UKSSSC Advertisement 84/2026 for uniformed posts was issued on 17 November 2026. Check sssc.uk.gov.in for the official post-wise notification, corrections, and examination dates; no date should be assumed from older recruitment cycles.",
                                 },
                             },
                             {
@@ -518,7 +517,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                         "@type": "HowTo",
                         "@id": `${currentUrl}#howto-prepare`,
                         name: "How to Prepare for UKSSSC Police Constable & Forest Guard Exam in 90 Days",
-                        description: "Complete 90-day study plan to crack UKSSSC Police Constable and Forest Guard 2026 examinations (same syllabus for both)",
+                        description: "Complete 90-day study plan to crack UKSSSC Police Constable and Forest Guard 2026 examinations (post-specific syllabi)",
                         totalTime: "P90D",
                         estimatedCost: 0,
                         step: [
@@ -527,7 +526,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                             { "@type": "HowToStep", name: "Week 3-4: Computer Units 4,5 & Uttarakhand GK Deep Dive", text: "Internet protocols (TCP/IP, HTTP, SMTP, POP3), Cyber Security (viruses, malware, firewall, encryption, IT Act). Uttarakhand GK: Char Dham Yatra, National Parks, Famous Personalities, Panchayati Raj." },
                             { "@type": "HowToStep", name: "Month 2: General Hindi, Reasoning & Numerical Ability", text: "General Hindi: Sandhi (Swar, Vyanjan, Visarg), Samas (Tatpurush, Dvandva, Bahuvrihi), Muhavare, Ras, Chhand. Reasoning: Coding-Decoding, Blood Relations, Syllogism, Venn Diagrams. Maths: Percentage, Profit-Loss, Time & Work, Mensuration." },
                             { "@type": "HowToStep", name: "Week 9-10: Current Affairs & Full Syllabus Revision", text: "Cover last 6 months National & Uttarakhand current affairs. Revise all 5 subjects. Create one-liner notes for Computer shortcuts, Uttarakhand GK, Hindi grammar rules, Reasoning shortcuts, Maths formulas." },
-                            { "@type": "HowToStep", name: "Week 11: Mock Tests & Previous Year Papers", text: "Take 10 full-length UKSSSC Police & Forest Guard mock tests. Solve last 5 years papers. Time management is key - 90 minutes for 100 questions (about 54 seconds per question). Analyze mistakes." },
+                            { "@type": "HowToStep", name: "Week 11: Mock Tests & Previous Year Papers", text: "Take 10 full-length UKSSSC Police & Forest Guard mock tests. Solve last 5 years papers. Time management is key - 120 minutes for 100 questions (about 72 seconds per question). Analyze mistakes." },
                             { "@type": "HowToStep", name: "Week 12: Physical Preparation & Final Strategy", text: "Prepare physically: Male - 4.8 km running in 25 minutes, Female - 2.4 km in 18 minutes. Maintain height (168cm male/147cm female) and chest (81cm male). Plan exam attempt strategy: attempt Computer and GK first, avoid guesswork due to 0.25 negative marking." },
                         ],
                     }),
@@ -718,32 +717,6 @@ export default function UKSSSCPoliceForestGuardLayout({
                 }}
             />
 
-            {/* 10. Comparison Schema - Shows both exams have same syllabus */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "ComparisonType",
-                        name: "UKSSSC Police Constable vs Forest Guard Syllabus Comparison 2026",
-                        description: "Comparison of written examination syllabus for UKSSSC Police Constable and Forest Guard (Van Rakshak) recruitment",
-                        itemReviewed: [
-                            {
-                                "@type": "Thing",
-                                name: "UKSSSC Police Constable Syllabus",
-                                description: "Same as Forest Guard - 5 subjects: Computer Knowledge (5 Units), GK (Uttarakhand focus), General Hindi, Reasoning, Numerical Ability",
-                            },
-                            {
-                                "@type": "Thing",
-                                name: "UKSSSC Forest Guard Syllabus",
-                                description: "Exactly identical to Police Constable - 5 subjects with same topic coverage. Both exams share 100% same written syllabus.",
-                            },
-                        ],
-                        result: "Both exams have IDENTICAL written syllabus. The only differences are in physical standards and job-specific requirements after the written exam. Police focuses on law enforcement, Forest Guard focuses on wildlife/conservation.",
-                    }),
-                }}
-            />
-
             {/* 11. SearchAction Schema (For Google SGE / Voice Search) */}
             <script
                 type="application/ld+json"
@@ -805,7 +778,7 @@ export default function UKSSSCPoliceForestGuardLayout({
                         primaryImageOfPage: {
                             "@type": "ImageObject",
                             url: "/og-uksssc-police-forest-guard-2026.jpg",
-                            caption: "UKSSSC Police Constable & Forest Guard Syllabus 2026 - Same Syllabus for Both Posts - Computer 5 Units",
+                            caption: "UKSSSC Police Constable & Forest Guard Syllabus 2026 - Post-specific Notification Check - Computer 5 Units",
                         },
                         keywords: "UKSSSC Police Constable Syllabus, UKSSSC Forest Guard Syllabus, Van Rakshak Exam Pattern, Uttarakhand Police Recruitment",
                     }),
@@ -830,10 +803,10 @@ export default function UKSSSCPoliceForestGuardLayout({
                             "@type": "DownloadAction",
                             object: {
                                 "@type": "MediaObject",
-                                contentUrl: `${currentUrl}/uksssc-police-forest-guard-syllabus-2026.pdf`,
+                                contentUrl: `${currentUrl}/uksssc-police-constable-syllabus-2026.pdf`,
                                 encodingFormat: "application/pdf",
                                 name: "UKSSSC_Police_Forest_Guard_Complete_Syllabus_2026.pdf",
-                                description: "Complete common syllabus for UKSSSC Police Constable and Forest Guard (Van Rakshak) with 5 subjects: Computer Knowledge (5 Units: Basic Concepts, OS, MS Office, Internet, Cyber Security), General Knowledge & Current Affairs (Uttarakhand GK focus), General Hindi, Reasoning Ability, Numerical Ability. Exam pattern: 100 questions, 90 minutes, 0.25 negative marking. Physical standards included.",
+                                description: "Complete common syllabus for UKSSSC Police Constable and Forest Guard (Van Rakshak) with 5 subjects: Computer Knowledge (5 Units: Basic Concepts, OS, MS Office, Internet, Cyber Security), General Knowledge & Current Affairs (Uttarakhand GK focus), General Hindi, Reasoning Ability, Numerical Ability. Exam pattern: 100 questions, 120 minutes, 0.25 negative marking. Physical standards included.",
                                 fileSize: "3.2MB",
                             },
                         },

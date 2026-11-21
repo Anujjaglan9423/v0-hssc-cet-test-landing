@@ -70,7 +70,7 @@ export default function HaryanaCETGroupDSyllabusPage() {
                     {/* Badge */}
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium backdrop-blur-sm">
                         <Sparkles className="w-4 h-4" />
-                        Official Syllabus - Haryana Staff Selection Commission | Advt. No. 1/2023
+                        HSSC Group D: 2023 syllabus reference; 2026 notice must be checked separately
                     </div>
 
                     {/* Heading */}
@@ -81,8 +81,7 @@ export default function HaryanaCETGroupDSyllabusPage() {
 
                     {/* Subheading */}
                     <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
-                        Complete breakdown of subjects, topics, and exam pattern for
-                        <strong className="text-foreground"> HSSC Group D (CET)</strong> recruitment as per Advt. No. 1/2023
+                        Historical syllabus reference for <strong className="text-foreground"> HSSC Group D (CET)</strong> under Advt. No. 1/2023. HSSC also issued <a href="https://hssc.gov.in/file/ac1f23cd-9d9c-1328-819e-da8c1fe70055/advertisements" target="_blank" rel="noopener noreferrer" className="underline text-primary">CET Group D Advt. 05/2026</a>; use that notice and corrigenda for the 2026 exam pattern.
                     </p>
 
                     {/* Stats */}
@@ -561,15 +560,14 @@ export default function HaryanaCETGroupDSyllabusPage() {
             {/* SEO Footer */}
             <section className="py-12 px-4 bg-muted/30 border-t">
                 <div className="max-w-5xl mx-auto text-center">
-                    <h2 className="text-xl font-semibold mb-3">HSSC Group D Syllabus 2026 - Complete Guide (Advt. No. 1/2023)</h2>
+                    <h2 className="text-xl font-semibold mb-3">HSSC Group D Syllabus: 2023 Reference and 2026 Notification</h2>
                     <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                        This page provides the complete syllabus for Haryana CET (Common Eligibility Test) for Group D posts conducted by
-                        Haryana Staff Selection Commission (HSSC) as per Advertisement No. 1/2023. The syllabus includes General Awareness (India & Science),
+                        The subject outline on this page is based on HSSC Group D Advertisement 1/2023. For 2026 eligibility, exam pattern and amendments, confirm HSSC CET Group D Advertisement 05/2026. The syllabus includes General Awareness (India & Science),
                         Reasoning, Quantitative Ability, English Language, Hindi Language, and most importantly, General Knowledge of Haryana with 25% weightage.
                         Prepare effectively with our free mock tests, previous year papers and topic-wise practice sets.
                     </p>
                     <p className="text-xs text-muted-foreground mt-4">
-                        © 2026 CET TEST | All exam names and syllabi are property of their respective owners. | Based on HSSC Advt. No. 1/2023 for Group D
+                        © 2026 CET TEST | Historical subject outline: HSSC Advt. 1/2023; current cycle: HSSC CET Group D Advt. 05/2026 (verify amendments)
                     </p>
                 </div>
             </section>

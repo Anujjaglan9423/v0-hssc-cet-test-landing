@@ -147,7 +147,7 @@ export default function RRBNTPCPage() {
       subjects: "General Awareness (40-50 Qs), Mathematics (30-35 Qs), General Intelligence & Reasoning (30-35 Qs). Total 100-120 Qs, 90 minutes.",
       totalQuestions: 100,
       duration: "90 minutes",
-      negativeMarking: "0.25",
+      negativeMarking: "1/3 of the allotted marks per wrong CBT answer",
       ageLimitUG: "18-30 years",
       ageLimitGraduate: "18-33 years",
     },
@@ -160,7 +160,7 @@ export default function RRBNTPCPage() {
       subjects: "General Science (25 Qs), Mathematics (25 Qs), General Intelligence & Reasoning (30 Qs), General Awareness & Current Affairs (20 Qs). Total 100 Qs, 90 minutes.",
       totalQuestions: 100,
       duration: "90 minutes",
-      negativeMarking: "0.25",
+      negativeMarking: "1/3 of the allotted marks per wrong CBT answer",
       physicalRequirements: "Male: 4.8 km/25 min, Female: 2.4 km/18 min",
     },
     {
@@ -172,7 +172,7 @@ export default function RRBNTPCPage() {
       subjects: "Stage 1: Maths, Reasoning, General Science, General Awareness. Stage 2 (Part A): Maths, Reasoning, Basic Science & Engineering. Stage 2 (Part B): Trade Test.",
       totalQuestions: 75,
       duration: "60 minutes",
-      negativeMarking: "0.25",
+      negativeMarking: "1/3 of the allotted marks per wrong CBT answer",
     },
     {
       name: "RRB JE (Junior Engineer)",
@@ -255,7 +255,7 @@ export default function RRBNTPCPage() {
                 name: "Is there negative marking in RRB exams?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Yes, RRB exams have negative marking. For NTPC, Group D, ALP: 0.25 marks deducted per wrong answer. For RRB JE: 0.33 marks deducted per wrong answer. Unanswered questions have no penalty. So avoid guesswork unless you are confident.",
+                  text: "For the relevant RRB NTPC and ALP CBT notifications, one-third of the marks allotted to the question is deducted for each wrong answer; applicable Group D CBT notices also prescribe one-third. RRB JE rules must be checked in the specific CEN and CBT stage. Unanswered questions generally carry no penalty.",
                 },
               },
               {
@@ -327,7 +327,7 @@ export default function RRBNTPCPage() {
                 name: "When is the RRB NTPC 2026 exam date?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "RRB NTPC 2026 exam is expected in June-December 2026. Official notification will be released by RRB (Railway Recruitment Board) on rrbalp.gov.in. Start your preparation now with our free mock tests to stay ahead.",
+                  text: "RRB exam and application dates depend on the CEN number and stage. Consult the dated official RRB notices at https://www.rrbcdg.gov.in/employment-notices.php; do not rely on predicted dates or an ALP-specific site for NTPC updates.",
                 },
               },
               {

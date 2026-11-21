@@ -1,4 +1,3 @@
-// app/uksssc-exam-syllabus/layout.tsx
 import type { Metadata, Viewport } from "next"
 
 export const metadata: Metadata = {
@@ -148,7 +147,7 @@ export default function UKSSSCExamSyllabusLayout({
                         "@type": "EducationalOccupationalProgram",
                         "@id": `${currentUrl}#program`,
                         name: "UKSSSC Police Constable & VDO Exam Preparation Program 2026",
-                        description: "Complete syllabus and preparation program for UKSSSC Police Constable and Village Development Officer (VDO) examinations. Police Constable: 5 subjects (Computer Knowledge, General Knowledge & Current Affairs, General Hindi, Reasoning Ability, Numerical Ability) - 100 questions, 90 minutes, 0.25 negative marking. VDO: 4 subjects (Computer Knowledge NOT included) with focus on Uttarakhand GK and Panchayati Raj system.",
+                        description: "Complete syllabus and preparation program for UKSSSC Police Constable and Village Development Officer (VDO) examinations. Police Constable: 5 subjects (Computer Knowledge, General Knowledge & Current Affairs, General Hindi, Reasoning Ability, Numerical Ability) - 100 questions, 120 minutes, 0.25 negative marking. VDO: 4 subjects (Computer Knowledge NOT included) with focus on Uttarakhand GK and Panchayati Raj system.",
                         educationalProgramMode: "Exam Preparation",
                         timeToComplete: "P3M",
                         occupationalCategory: "Government Jobs - Uttarakhand Subordinate Service Selection Commission",
@@ -266,7 +265,7 @@ export default function UKSSSCExamSyllabusLayout({
                                 name: "What is the difference between UKSSSC Police Constable and VDO syllabus?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "Police Constable syllabus includes 5 subjects: Computer Knowledge (5 units including Computer Fundamentals, MS Office, Internet, Cyber Security), General Knowledge & Current Affairs, General Hindi, Reasoning Ability, and Numerical Ability. VDO syllabus has only 4 subjects: Computer Knowledge is NOT included. VDO focuses more on Uttarakhand GK, Panchayati Raj system, and rural development topics. Both exams have 100 questions, 90 minutes duration, and 0.25 negative marking.",
+                                    text: "Police Constable syllabus includes 5 subjects: Computer Knowledge (5 units including Computer Fundamentals, MS Office, Internet, Cyber Security), General Knowledge & Current Affairs, General Hindi, Reasoning Ability, and Numerical Ability. VDO syllabus has only 4 subjects: Computer Knowledge is NOT included. VDO focuses more on Uttarakhand GK, Panchayati Raj system, and rural development topics. Both exams have 100 questions, 120 minutes duration, and 0.25 negative marking.",
                                 },
                             },
                             {
@@ -298,7 +297,7 @@ export default function UKSSSCExamSyllabusLayout({
                                 name: "What is the duration of UKSSSC Police Constable exam?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "The UKSSSC Police Constable written examination is conducted for 90 minutes (1.5 hours) with 100 objective-type multiple choice questions (MCQs). Subjects: Computer Knowledge (15-20 questions), GK & Current Affairs (30-35 questions), General Hindi (15-20 questions), Reasoning Ability (15-20 questions), Numerical Ability (15-20 questions).",
+                                    text: "The UKSSSC Police Constable written examination is conducted for 120 minutes (2 hours) with 100 objective-type multiple choice questions (MCQs). Subjects: Computer Knowledge (15-20 questions), GK & Current Affairs (30-35 questions), General Hindi (15-20 questions), Reasoning Ability (15-20 questions), Numerical Ability (15-20 questions).",
                                 },
                             },
                             {
@@ -306,7 +305,7 @@ export default function UKSSSCExamSyllabusLayout({
                                 name: "What is the duration of UKSSSC VDO exam?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "The UKSSSC VDO written examination is conducted for 90 minutes (1.5 hours) with 100 objective-type multiple choice questions. Subject distribution: General Knowledge & Current Affairs (35-40 questions with focus on Uttarakhand GK), General Hindi (20-25 questions), Reasoning Ability (15-20 questions), Numerical Ability (15-20 questions). Computer Knowledge section is absent in VDO exam.",
+                                    text: "The UKSSSC VDO written examination is conducted for 120 minutes (2 hours) with 100 objective-type multiple choice questions. Subject distribution: General Knowledge & Current Affairs (35-40 questions with focus on Uttarakhand GK), General Hindi (20-25 questions), Reasoning Ability (15-20 questions), Numerical Ability (15-20 questions). Computer Knowledge section is absent in VDO exam.",
                                 },
                             },
                             {
@@ -330,7 +329,7 @@ export default function UKSSSCExamSyllabusLayout({
                                 name: "What is the selection process for UKSSSC Police Constable?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "UKSSSC Police Constable selection process has 4 stages: (1) Written Examination (CBT) - 100 marks, 100 questions, 90 minutes, (2) Physical Efficiency Test (PET) - Running, (3) Physical Standard Test (PST) - Height, Chest, Weight measurement, (4) Document Verification & Medical Examination. Final merit list based on written exam scores and PET/PST qualification status.",
+                                    text: "UKSSSC Police Constable selection process has 4 stages: (1) Written Examination (CBT) - 100 marks, 100 questions, 120 minutes, (2) Physical Efficiency Test (PET) - Running, (3) Physical Standard Test (PST) - Height, Chest, Weight measurement, (4) Document Verification & Medical Examination. Final merit list based on written exam scores and PET/PST qualification status.",
                                 },
                             },
                             {
@@ -346,7 +345,7 @@ export default function UKSSSCExamSyllabusLayout({
                                 name: "When will UKSSSC notification 2026 be released?",
                                 acceptedAnswer: {
                                     "@type": "Answer",
-                                    text: "UKSSSC (Uttarakhand Subordinate Service Selection Commission) typically releases notifications in February-March for Police Constable and VDO exams. The official notification will be available on sssc.uk.gov.in. Exam expected in June-July 2026. Start your preparation now using our complete syllabus guide.",
+                                    text: "UKSSSC Police Constable is covered by Advertisement 84/2026 (dated 17 November 2026); the referenced VDO graduate-level cycle used Advertisement 70/2025. Consult sssc.uk.gov.in for the applicable post-specific notices and exam dates.",
                                 },
                             },
                             {
@@ -473,7 +472,7 @@ export default function UKSSSCExamSyllabusLayout({
                             { "@type": "HowToStep", name: "Week 3-4: Computer Knowledge & General Hindi", text: "For Police Constable: Master Computer Fundamentals, MS Word/Excel shortcuts, Internet protocols, Cyber Security basics. For Hindi: Learn Sandhi, Samas, Muhavare, Lokoktiyan, Synonyms, Antonyms." },
                             { "@type": "HowToStep", name: "Month 2: Reasoning & Numerical Ability", text: "Practice Reasoning: Coding-Decoding, Blood Relations, Syllogism, Logical Venn Diagrams. Maths: Percentage, Profit-Loss, Time & Work, Mensuration, Data Interpretation. Solve 30 questions daily." },
                             { "@type": "HowToStep", name: "Week 9-10: Current Affairs & Full Revision", text: "Cover last 6 months Uttarakhand & National current affairs. Revise all subjects. Create one-liner notes for Uttarakhand GK, Computer shortcuts, Hindi grammar rules." },
-                            { "@type": "HowToStep", name: "Week 11: Mock Tests & Previous Year Papers", text: "Take 10 full-length UKSSSC mock tests. Solve last 5 years papers. Time management is key - 90 minutes for 100 questions. Analyze weak areas." },
+                            { "@type": "HowToStep", name: "Week 11: Mock Tests & Previous Year Papers", text: "Take 10 full-length UKSSSC mock tests. Solve last 5 years papers. Time management is key - 120 minutes for 100 questions. Analyze weak areas." },
                             { "@type": "HowToStep", name: "Week 12: Physical Preparation (Police Constable Only)", text: "If preparing for Police Constable, prepare physically: 4.8 km running in 25 minutes (male) or 2.4 km in 18 minutes (female). Maintain height (168cm male/147cm female) and chest (81cm with expansion)." },
                         ],
                     }),

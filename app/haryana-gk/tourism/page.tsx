@@ -42,161 +42,164 @@ export default function HaryanaTourismPage() {
         {
             questionHindi: "हरियाणा पर्यटन निगम (HTC) की स्थापना कब हुई थी?",
             questionEnglish: "When was Haryana Tourism Corporation (HTC) established?",
-            answerHindi: "हरियाणा पर्यटन निगम की स्थापना 1 मई, 1974 को कंपनी अधिनियम, 1956 के तहत एक पब्लिक लिमिटेड कंपनी के रूप में की गई थी। इसका मुख्यालय गुरुग्राम जिले में स्थित है।",
-            answerEnglish: "Haryana Tourism Corporation was established on 1st May, 1974 as a Public Limited Company under the Companies Act, 1956. Its head office is located in Gurugram district."
+            answerHindi: "हरियाणा पर्यटन निगम लिमिटेड की स्थापना 1 मई 1974 को कंपनी अधिनियम, 1956 के अंतर्गत हुई थी। इसका पंजीकृत कार्यालय और मुख्य कार्यालय सेक्टर 17-बी, चंडीगढ़ में स्थित है।",
+            answerEnglish: "Haryana Tourism Corporation Limited was incorporated on 1 May 1974 under the Companies Act, 1956. Its registered and head office is in Sector 17-B, Chandigarh."
         },
         {
             questionHindi: "हरियाणा का एकमात्र हिल स्टेशन कौन सा है?",
             questionEnglish: "Which is the only hill station in Haryana?",
-            answerHindi: "मोरनी हिल्स हरियाणा का एकमात्र हिल स्टेशन है, जो अंबाला जिले में स्थित है। यह भौगोलिक रूप से शिवालिक पहाड़ियों के बाहरी किनारे पर स्थित है।",
-            answerEnglish: "Morni Hills is the only hill station in Haryana, situated in Ambala district. Geographically, it lies on the outer fringe of the Shiwalik hills."
+            answerHindi: "मोरनी हिल्स हरियाणा का एकमात्र प्रमुख हिल स्टेशन है। यह पंचकूला जिले में शिवालिक पहाड़ियों के क्षेत्र में स्थित है।",
+            answerEnglish: "Morni Hills is regarded as Haryana’s only hill station. It is in Panchkula district, in the Shivalik hill region."
         },
         {
             questionHindi: "यादविंद्र गार्डन कहाँ स्थित है और इसे किसने बनवाया था?",
             questionEnglish: "Where is Yadavindra Garden located and who built it?",
-            answerHindi: "यादविंद्र गार्डन पंचकूला जिले के पिंजौर में स्थित है। इसे 17वीं शताब्दी में औरंगजेब द्वारा नियुक्त वास्तुकार फिदाई खान ने बनवाया था। इसे मुगल गार्डन के नाम से भी जाना जाता है।",
-            answerEnglish: "Yadavindra Garden is located in Pinjore, Panchkula district. It was built in the 17th century by Fidai Khan, an architect appointed by Aurangzeb. It is also known as Mughal Garden."
+            answerHindi: "यादविंद्र गार्डन (पिंजौर गार्डन) पंचकूला जिले के पिंजौर में स्थित है। इसका निर्माण 17वीं शताब्दी में मुगल सम्राट औरंगजेब के शासनकाल में नवाब फिदाई खान ने करवाया था।",
+            answerEnglish: "Yadavindra Gardens (Pinjore Gardens) are located in Pinjore, Panchkula district. They were built in the 17th century by Nawab Fidai Khan during the reign of Mughal emperor Aurangzeb."
         },
         {
             questionHindi: "ज्योतिसर सरोवर का क्या महत्व है?",
             questionEnglish: "What is the significance of Jyotisar Sarovar?",
-            answerHindi: "ज्योतिसर कुरुक्षेत्र का सबसे पवित्र स्थल है। यहाँ एक पवित्र बरगद के पेड़ के नीचे भगवान कृष्ण ने अर्जुन को महाभारत युद्ध शुरू होने से पहले भगवद गीता का उपदेश दिया था। इसे गीता स्थली भी कहा जाता है।",
-            answerEnglish: "Jyotisar is the most revered place of Kurukshetra. It is here under the holy banyan tree that Lord Krishna delivered the eternal message of Bhagwad Gita to Arjuna before the commencement of the Battle of Mahabharata. It is also called Geeta Stahli."
+            answerHindi: "ज्योतिसर, कुरुक्षेत्र का एक प्रमुख तीर्थस्थल है। धार्मिक परंपरा के अनुसार, यहीं भगवान श्रीकृष्ण ने अर्जुन को भगवद्गीता का उपदेश दिया था। इसे गीता स्थली भी कहा जाता है।",
+            answerEnglish: "Jyotisar is a major pilgrimage site in Kurukshetra. According to religious tradition, Lord Krishna delivered the teachings of the Bhagavad Gita to Arjuna here. It is also known as Gita Sthali."
         },
         {
-            questionHindi: "हरियाणा का 'ताजमहल' किसे कहा जाता है?",
-            questionEnglish: "Which monument is called the 'Taj Mahal of Haryana'?",
-            answerHindi: "शेख चिल्ली का मकबरा, जो कुरुक्षेत्र जिले के थानेसर में स्थित है, हरियाणा के ताजमहल के रूप में जाना जाता है। यह संगमरमर से बना एक सुंदर स्मारक है।",
-            answerEnglish: "Sheikh Chilli's tomb, located in Thanesar, Kurukshetra district, is known as the Taj Mahal of Haryana. It is a beautiful monument made of marble."
+            questionHindi: "शेख चिल्ली का मकबरा कहाँ स्थित है?",
+            questionEnglish: "Where is Sheikh Chilli’s Tomb located?",
+            answerHindi: "शेख चिल्ली का मकबरा कुरुक्षेत्र जिले के थानेसर में स्थित 17वीं शताब्दी का मुगलकालीन स्मारक है। इसके गुंबद में सफेद संगमरमर तथा संरचना में बलुआ पत्थर का उपयोग हुआ है।",
+            answerEnglish: "Sheikh Chilli’s Tomb is a 17th-century Mughal-era monument in Thanesar, Kurukshetra district. Its dome is made of white marble, while the structure also uses sandstone."
         },
         {
             questionHindi: "सूरजकुंड का निर्माण किसने करवाया था?",
             questionEnglish: "Who built Surajkund?",
-            answerHindi: "सूरजकुंड का निर्माण तोमर वंश के राजा सूरजमाल ने करवाया था। यह फरीदाबाद में स्थित है और इसका आकार उगते सूर्य जैसा है। यहाँ प्रतिवर्ष अंतर्राष्ट्रीय शिल्प मेले का आयोजन होता है।",
-            answerEnglish: "Surajkund was originally constructed by King Surajmal of Tomar Dynasty. It is situated in Faridabad and its shape resembles the rising sun. The annual International Crafts Fair is held here."
+            answerHindi: "हरियाणा पर्यटन विभाग के अनुसार, फरीदाबाद स्थित ऐतिहासिक सूरजकुंड का निर्माण परंपरागत रूप से 10वीं शताब्दी के तोमर शासक सूरज पाल से जोड़ा जाता है। सूरजकुंड शिल्प मेला पहली बार 1987 में आयोजित हुआ था।",
+            answerEnglish: "According to Haryana Tourism, Surajkund in Faridabad is traditionally attributed to the 10th-century Tomar ruler Suraj Pal. The Surajkund Crafts Mela was first held in 1987."
         },
         {
             questionHindi: "हरियाणा में कितने पर्यटन परिसर हैं?",
             questionEnglish: "How many tourist complexes are there in Haryana?",
-            answerHindi: "हरियाणा सरकार ने पूरे राज्य में 44 पर्यटन परिसरों का नेटवर्क स्थापित किया है। ये परिसर राज्य से गुजरने वाले राजमार्गों के साथ रणनीतिक बिंदुओं पर स्थापित किए गए हैं।",
-            answerEnglish: "The Government of Haryana has set up a network of 44 tourist complexes all over the state. Tourist complexes have been set at strategic points along the highways passing through the state."
+            answerHindi: "हरियाणा पर्यटन विभाग और नवंबर 2025 के हरियाणा पर्यटन निगम के दस्तावेज़ के अनुसार, राज्य में 42 पर्यटन परिसरों का नेटवर्क है। इनकी संख्या समय के साथ बदल सकती है।",
+            answerEnglish: "Haryana Tourism Department and a Haryana Tourism Corporation document dated November 2025 describe a network of 42 tourist complexes across the state. The number may change over time."
         },
         {
             questionHindi: "पिंजौर में कौन से प्रमुख त्योहार मनाए जाते हैं?",
             questionEnglish: "Which major festivals are celebrated in Pinjore?",
-            answerHindi: "पिंजौर में तीन प्रमुख वार्षिक त्योहार मनाए जाते हैं - अप्रैल में पिंजौर बैसाखी महोत्सव, जुलाई में पिंजौर आम महोत्सव, और दिसंबर में पिंजौर हेरिटेज महोत्सव।",
-            answerEnglish: "Three major annual festivals are celebrated in Pinjore - Pinjore Baisakhi Festival in April, Pinjore Mango Mela in July, and Pinjore Heritage Festival in December."
+            answerHindi: "पिंजौर के यादविंद्र गार्डन में प्रमुख आयोजनों में बैसाखी उत्सव (सामान्यतः अप्रैल) और आम मेला (सामान्यतः जुलाई) शामिल हैं। अन्य उत्सवों की तारीखें हर वर्ष की आधिकारिक कार्यक्रम-सूची के अनुसार देखनी चाहिए।",
+            answerEnglish: "Major events at Yadavindra Gardens, Pinjore, include the Baisakhi Festival (usually April) and Mango Mela (usually July). Other festival dates should be checked against the official calendar for each year."
         }
     ];
 
     // Tourist Complexes/Resorts Data
     const touristResorts = [
-        { name: "Blue Jay", place: "Panipat", year: "1972" },
-        { name: "Parakeet", place: "Kurukshetra", year: "1972" },
-        { name: "Bulbul", place: "Jind", year: "1972" },
-        { name: "Jungle Babbler", place: "Rewari", year: "1974" },
-        { name: "Dabchick", place: "Palwal", year: "1974" },
-        { name: "Barbet, Saras, Shama", place: "Gurugram", year: "1974" },
-        { name: "Myna", place: "Rohtak", year: "1975" },
-        { name: "Skylark", place: "Panipat", year: "1976" },
-        { name: "Surkhab", place: "Sirsa", year: "1980" },
-        { name: "Sandpiper", place: "Rewari", year: "1982" },
-        { name: "Magpie, Rajhans, Sunbird", place: "Faridabad", year: "1982" },
-        { name: "Baya", place: "Bhiwani", year: "1983" },
-        { name: "Grey Pelican", place: "Yamunanagar", year: "1984" },
-        { name: "Koel", place: "Kaithal", year: "1984" },
-        { name: "Kingfisher", place: "Ambala", year: "1986" },
-        { name: "Neelkanthi", place: "Kurukshetra", year: "1987" },
-        { name: "Mountain Quail", place: "Panchkula", year: "1987" },
-        { name: "Gauriyya", place: "Jhajjar", year: "1990" },
-        { name: "Jatayu Yatrika", place: "Panchkula", year: "1993" },
-        { name: "Papiha", place: "Fatehabad", year: "1994" },
-        { name: "Black bird", place: "Hansi", year: "1999" },
-        { name: "Anjan", place: "Pehowa", year: "1999" },
-        { name: "Highway Golf Club", place: "Uchana", year: "1999" },
-        { name: "Ethnic Indian", place: "Rai (Sonipat)", year: "2000" },
-        { name: "Nahar Singh Palace", place: "Ballabhgarh", year: "2003" },
-        { name: "Adventure Resort", place: "Tikkar Tal (Panchkula)", year: "2003" }
+        { name: "Blue Jay", place: "Samalkha, Panipat", year: "—" },
+        { name: "Parakeet", place: "Pipli, Kurukshetra", year: "—" },
+        { name: "Bulbul", place: "Jind", year: "—" },
+        { name: "Jungle Babbler", place: "Dharuhera, Rewari", year: "—" },
+        { name: "Dabchick", place: "Hodal, Palwal", year: "—" },
+        { name: "Barbet", place: "Sohna, Gurugram", year: "—" },
+        { name: "Saras", place: "Damdama, Gurugram", year: "—" },
+        { name: "Shama", place: "Gurugram", year: "—" },
+        { name: "Myna", place: "Rohtak", year: "—" },
+        { name: "Skylark", place: "Panipat", year: "—" },
+        { name: "Surkhab", place: "Sirsa", year: "—" },
+        { name: "Sandpiper", place: "Rewari", year: "—" },
+        { name: "Magpie", place: "Faridabad", year: "—" },
+        { name: "Rajhans", place: "Surajkund, Faridabad", year: "—" },
+        { name: "Sunbird", place: "Surajkund, Faridabad", year: "—" },
+        { name: "Baya", place: "Bhiwani", year: "—" },
+        { name: "Grey Pelican", place: "Yamunanagar", year: "—" },
+        { name: "Koel", place: "Kaithal", year: "—" },
+        { name: "Kingfisher", place: "Ambala", year: "—" },
+        { name: "Neelkanthi", place: "Kurukshetra", year: "—" },
+        { name: "Mountain Quail", place: "Morni, Panchkula", year: "—" },
+        { name: "Gauriyya", place: "Bahadurgarh, Jhajjar", year: "—" },
+        { name: "Jatayu Yatrika", place: "Mansa Devi, Panchkula", year: "—" },
+        { name: "Papiha", place: "Fatehabad", year: "—" },
+        { name: "Black Bird", place: "Hansi (Hansi district)", year: "—" },
+        { name: "Anjan Yatrika", place: "Pehowa, Kurukshetra", year: "—" },
+        { name: "Highway Golf Course", place: "Uchana, Karnal", year: "—" },
+        { name: "Ethnic India", place: "Rai, Sonipat", year: "—" },
+        { name: "Nahar Singh Palace", place: "Ballabhgarh, Faridabad", year: "—" },
+        { name: "Adventure Resort", place: "Tikkar Tal, Morni, Panchkula", year: "—" }
     ];
 
-    // Tourist Destinations Developed by HTCL
+    // Important tourism destinations; dates describe the stated event, not HTC establishment.
     const touristDestinations = [
-        { name: "Aravalli Golf Course", place: "Faridabad", year: "1966" },
-        { name: "Yadavindra Gardens", place: "Pinjore (Panchkula)", year: "1967" },
-        { name: "Badkhal Lake", place: "Faridabad", year: "1969" },
-        { name: "Sultanpur Lake", place: "Gurugram", year: "1972" },
-        { name: "Karna Lake", place: "Karnal", year: "1972" },
-        { name: "Tilyar Lake", place: "Rohtak", year: "1973" },
-        { name: "Surajkund", place: "Faridabad", year: "1988" },
-        { name: "Damdama Lake", place: "Gurugram", year: "1989" },
-        { name: "Chokhi Dhani", place: "Sonipat", year: "-" }
+        { name: "Aravalli Golf Course", place: "Faridabad", year: "Opened 1966; HTC takeover 1988" },
+        { name: "Yadavindra Gardens", place: "Pinjore, Panchkula", year: "Built in the 17th century" },
+        { name: "Badkhal Lake", place: "Faridabad", year: "—" },
+        { name: "Sultanpur National Park", place: "Gurugram", year: "Sanctuary 1971; national park 1991" },
+        { name: "Karna Lake", place: "Karnal", year: "—" },
+        { name: "Tilyar Lake", place: "Rohtak", year: "—" },
+        { name: "Surajkund", place: "Faridabad", year: "10th-century attribution; mela since 1987" },
+        { name: "Damdama Lake", place: "Gurugram", year: "—" }
     ];
 
     // Religious Places Data
     const religiousPlaces = [
-        { name: "Jyotisar Sarovar", place: "Kurukshetra", significance: "Geeta Stahli - Lord Krishna preached Bhagavad Gita" },
-        { name: "Brahmasarovar", place: "Thanesar, Kurukshetra", significance: "Built by Raja Kuru, mentioned in Al-Biruni's Kitabul-Hind" },
-        { name: "Sthaneshwar Mahadev Temple", place: "Thanesar", significance: "Built by King Pushyabhuti, Pandavas prayed here" },
-        { name: "Bhadrakali Shaktipeeth", place: "Kurukshetra", significance: "One of 51 Shaktipeeths, Sati's ankle fell here" },
-        { name: "Pehowa", place: "Kurukshetra", significance: "Prithudaka - equal significance to Gaya for Pind Daan" },
+        { name: "Jyotisar Sarovar", place: "Kurukshetra", significance: "Gita Sthali — traditionally associated with Lord Krishna teaching the Bhagavad Gita" },
+        { name: "Brahmasarovar", place: "Thanesar, Kurukshetra", significance: "Major sacred bathing tank; its origin is associated with religious traditions" },
+        { name: "Sthaneshwar Mahadev Temple", place: "Thanesar", significance: "Ancient Shiva temple linked with local traditions and the history of Thanesar" },
+        { name: "Bhadrakali Shaktipeeth", place: "Kurukshetra", significance: "Revered as a Shakti Peeth; the association with Sati belongs to religious tradition" },
+        { name: "Pehowa", place: "Kurukshetra", significance: "Prithudaka — an important pilgrimage place associated with ancestral rites" },
         { name: "Dukh Bhanjan Mahadev Temple", place: "Kurukshetra", significance: "People worship for peace and prosperity" },
-        { name: "Chandi Devi Temple", place: "Panchkula", significance: "Siddh Peeth, Chandigarh named after this temple" },
+        { name: "Chandi Devi Temple", place: "Panchkula", significance: "Shakti shrine associated with local traditions around Chandigarh" },
         { name: "Mata Mansa Devi Temple", place: "Panchkula", significance: "One of prominent Shakti temples of North India" },
-        { name: "Bhimav Devi Temple", place: "Pinjore, Panchkula", significance: "Khajuraho of North India for erotic sculptures" },
-        { name: "Bhuteshwara Temple (Rani Talab)", place: "Jind", significance: "Built by ruler Ragbhir Singh, large water tank around" },
-        { name: "Navagraha Kund (Chhoti Kashi)", place: "Kaithal", significance: "9 kundas built by Lord Krishna" },
-        { name: "Gyarah Rudri Shiva Temple", place: "Kaithal", significance: "11 Rudras established by Lord Krishna after Mahabharata war" },
+        { name: "Bhimav Devi Temple", place: "Pinjore, Panchkula", significance: "Early medieval temple remains, with sculptures sometimes compared to Khajuraho" },
+        { name: "Bhuteshwara Temple (Rani Talab)", place: "Jind", significance: "Shiva temple at Rani Talab, associated with Jind’s royal heritage" },
+        { name: "Navagraha Kund (Chhoti Kashi)", place: "Kaithal", significance: "A group of sacred kunds; traditions link the site with Krishna" },
+        { name: "Gyarah Rudri Shiva Temple", place: "Kaithal", significance: "Temple dedicated to the eleven forms of Rudra; local traditions link it with the Mahabharata" },
         { name: "Modewala Temple", place: "Narnaul, Mahendragarh", significance: "Dedicated to Lord Shiva, fair during Rakhi" },
-        { name: "Chamunda Devi Temple", place: "Narnaul, Mahendragarh", significance: "84 pillars with Ashokan era inscriptions" },
-        { name: "Ancient Shri Mata Sheetla Devi Temple", place: "Gurugram", significance: "Built by Maharaja of Bharatpur in 1650" },
-        { name: "Bhawani Amba Temple", place: "Ambala", significance: "City Ambala named after Devi Amba" },
+        { name: "Chamunda Devi Temple", place: "Narnaul, Mahendragarh", significance: "Temple dedicated to Goddess Chamunda in the Narnaul area" },
+        { name: "Ancient Shri Mata Sheetla Devi Temple", place: "Gurugram", significance: "Prominent shrine of Sheetla Mata; exact origin date and patronage require separate verification" },
+        { name: "Bhawani Amba Temple", place: "Ambala", significance: "Shrine of Goddess Amba; the city’s name is sometimes linked with the goddess in local tradition" },
         { name: "Karneshwar Temple", place: "Karnal", significance: "Associated with Karna of Mahabharata, 5-headed Shiva idol" },
-        { name: "Panchvati Temple", place: "Palwal", significance: "Pandavas stayed here during Agyatvas" },
+        { name: "Panchvati Temple", place: "Palwal", significance: "Temple linked by local tradition with the Pandavas’ exile" },
         { name: "Dauji Temple", place: "Palwal", significance: "Dedicated to Balaram, Krishna's elder brother" },
-        { name: "Adi Badri Narayan Temple", place: "Yamunanagar", significance: "Built by Adi Shankaracharya in 8th century" }
+        { name: "Adi Badri Narayan Temple", place: "Yamunanagar", significance: "Ancient pilgrimage site traditionally associated with Adi Shankaracharya" }
     ];
 
     // Gurudwaras Data
     const gurudwaras = [
-        { name: "Gurudwara Mastgarh", location: "Shahabad Markanda, Ambala", significance: "Originally a mosque built by Shah Jahan in 1630" },
-        { name: "Gurudwara Kapal Mochan", location: "Bilaspur, Yamunanagar", significance: "Dedicated to Guru Gobind Singh, weapons washed in Rinnochan Sarovar" },
+        { name: "Gurudwara Mastgarh", location: "Shahabad Markanda, Kurukshetra", significance: "Historic Sikh shrine in a building formerly used as a mosque; the exact original date is not securely established" },
+        { name: "Gurudwara Kapal Mochan", location: "Bilaspur, Yamunanagar", significance: "Associated with Guru Gobind Singh Ji; local traditions refer to the sacred sarovars at Kapal Mochan" },
         { name: "Gurudwara Dhamtan Sahib", location: "Jind", significance: "Dedicated to 9th Sikh Guru, Guru Tegh Bahadur" },
-        { name: "Gurudwara Manji Sahib", location: "Kaithal", significance: "Named after Tarkhan Singh Manji who invited Guru Tegh Bahadur" },
-        { name: "Gurudwara Neem Sahib", location: "Kaithal", significance: "Guru Tegh Bahadur meditated under neem tree, cured devotee" },
-        { name: "Badshahi Bagh Sahib Gurudwara", location: "Ambala", significance: "Guru Gobind Singh's visit in 1670, famous sparrow-hawk story" },
-        { name: "Gurudwara Lakhan Majra", location: "Rohtak", significance: "Dedicated to Guru Tegh Bahadur, stayed here for 13 days" },
+        { name: "Gurudwara Manji Sahib", location: "Kaithal", significance: "Sikh shrine associated with the visit of Guru Tegh Bahadur Ji" },
+        { name: "Gurudwara Neem Sahib", location: "Kaithal", significance: "Traditionally associated with Guru Tegh Bahadur Ji and a neem tree" },
+        { name: "Badshahi Bagh Sahib Gurudwara", location: "Ambala", significance: "Sikh shrine traditionally associated with a visit of Guru Gobind Singh Ji" },
+        { name: "Gurudwara Lakhan Majra", location: "Rohtak", significance: "Sikh shrine associated with Guru Tegh Bahadur Ji" },
         { name: "Gurudwara Navin Patshahi", location: "Kurukshetra", significance: "Dedicated to 9th Sikh Guru, Tegh Bahadur" },
-        { name: "Gurudwara Shri Damdama Sahib", location: "Siana-Saidan", significance: "Preserves wooden shoes given to Guru Gobind Singh" },
-        { name: "Gurudwara Jora Sahib", location: "Siana-Saidan", significance: "Named after pair of shoes (Jora) given to Guru Gobind Singh" }
+        { name: "Gurudwara Shri Damdama Sahib", location: "Siana-Saidan", significance: "Local Sikh tradition associates this shrine with Guru Gobind Singh Ji" },
+        { name: "Gurudwara Jora Sahib", location: "Siana-Saidan", significance: "The shrine’s name is associated in local tradition with a pair of shoes (jora)" }
     ];
 
     // Mosques Data
     const mosques = [
         { name: "Kabuli Bagh Masjid", location: "Panipat", significance: "Built by Babur in 1526 AD to commemorate victory over Ibrahim Lodhi" },
-        { name: "Jama Masjid", location: "Panipat", significance: "Built by Humayun in 1531, largest mosque in Panipat" },
-        { name: "Lal Masjid", location: "Rohtak", significance: "Built by Haji Aashiq Ali in 1939, made of red sandstone" },
-        { name: "Humayun Mosque", location: "Fatehabad, Hisar", significance: "Humayun offered Friday Namaz here while going to Amarcot" },
+        { name: "Jama Masjid", location: "Panipat", significance: "Historic mosque in Panipat; the specific founding date and claim of largest size need verification" },
+        { name: "Lal Masjid", location: "Rohtak", significance: "Historic mosque of Rohtak; exact builder and construction date need verification" },
+        { name: "Humayun Mosque", location: "Fatehabad, Fatehabad district", significance: "16th-century mosque built under Mughal emperor Humayun, near the Firoz Shah Tughlaq pillar" },
         { name: "Mosque of Ali Vardi Khan", location: "Gurugram", significance: "Built in 18th century by Nawab Ali Vardi Khan" },
         { name: "Shishewali Masjid", location: "Rohtak", significance: "Entrance made of white marble, 14 pillars in corridor" },
-        { name: "Dini Masjid (Adina Masjid)", location: "Rohtak", significance: "Believed to be a Jain temple earlier, later turned into mosque by Aurangzeb" }
+        { name: "Dini Masjid (Adina Masjid)", location: "Rohtak", significance: "Historic mosque; accounts of an earlier structure are not conclusively established" }
     ];
 
     // Shrines and Dargahs Data
     const shrinesDargahs = [
         { name: "Dargah Naugaja Peer", location: "Shahabad, Kurukshetra", significance: "Shrine of Baba Naugaja Peer (Sayed Ibrahim Badshah)" },
         { name: "Shrine of Bu Ali Shah Qalandar", location: "Panipat", significance: "Built by Mahabat Khan, Urs Mela held annually" },
-        { name: "Char Qutab Shrine", location: "Hansi, Hisar", significance: "Tombs of four Sufi Saints, large mosque by Feroz Shah Tughlaq" },
-        { name: "Shrine of Sheikh Musa", location: "Palla, Nuh", significance: "700 years old, shaking minarets that vibrate synchronously" },
-        { name: "Shrine of Mira Nau Bahaar", location: "Guhla-Cheeka, Kaithal", significance: "1000 years old, fair held in June" },
+        { name: "Char Qutab Shrine", location: "Hansi, Hansi district", significance: "Tombs of four Sufi Saints, large mosque by Feroz Shah Tughlaq" },
+        { name: "Shrine of Sheikh Musa", location: "Palla, Nuh", significance: "Traditionally known for its unusual minarets; age and reported movement require specialist documentation" },
+        { name: "Shrine of Mira Nau Bahaar", location: "Guhla-Cheeka, Kaithal", significance: "Local shrine associated with religious gatherings; precise age not independently verified" },
         { name: "Shrine of Hamza Peer", location: "Dharasu, Narnaul", significance: "Tomb of Hamza Peer, disciple of Hazrat Shamsuddin Auliya" },
-        { name: "Tomb of Peer Baba Shah Mir", location: "Fatehabad", significance: "Built by Feroz Shah Tughlaq in white marble" }
+        { name: "Tomb of Peer Baba Shah Mir", location: "Fatehabad", significance: "Historic tomb traditionally associated with Peer Baba Shah Mir; attribution and materials need verification" }
     ];
 
     // Mausoleums/Samadhis Data
     const mausoleums = [
-        { name: "Sheikh Chilli's Tomb", location: "Thanesar, Kurukshetra", significance: "Known as Taj Mahal of Haryana, built by Dara Shikoh" },
-        { name: "Ibrahim Lodhi's Tomb", location: "Panipat", significance: "First Battle of Panipat, built by Britishers in 1867" },
-        { name: "Razia Sultan's Tomb", location: "Kaithal", significance: "Tomb of first female Muslim ruler of Delhi Sultanate" },
+        { name: "Sheikh Chilli's Tomb", location: "Thanesar, Kurukshetra", significance: "17th-century Mughal-era tomb associated with the Sufi saint Sheikh Chilli" },
+        { name: "Ibrahim Lodhi's Tomb", location: "Panipat", significance: "Grave of Ibrahim Lodi, who died in 1526; the memorial was rebuilt under British administration in 1867" },
+        { name: "Razia Sultan's Tomb", location: "Kaithal", significance: "Traditional site associated with Razia Sultan; the identification of her burial place is disputed" },
         { name: "Khwaja Khizr's Tomb", location: "Sonipat", significance: "Built by Ibrahim Lodhi in 1522-24 AD, red sandstone" },
         { name: "Ibrahim Khan Suri's Tomb", location: "Narnaul, Mahendragarh", significance: "Built by Sher Shah Suri for his grandfather" },
         { name: "Shah Wilayat's Tomb", location: "Narnaul, Mahendragarh", significance: "Built during Feroz Shah Tughlaq's tenure" },
@@ -207,29 +210,29 @@ export default function HaryanaTourismPage() {
     // Modern Tourist Centres Data
     const modernTouristCentres = [
         { name: "Surajkund", location: "Faridabad", features: "Annual Crafts Fair, Sun Temple ruins, Mayur Lake" },
-        { name: "Yadavindra Garden (Pinjore Gardens)", location: "Pinjore, Panchkula", features: "Mughal Garden style, 4 floors, Baisakhi Festival, Mango Mela" },
-        { name: "Morni Hills", location: "Ambala/Panchkula", features: "Only hill station in Haryana, Shiwalik hills, eco-tourism" },
+        { name: "Yadavindra Garden (Pinjore Gardens)", location: "Pinjore, Panchkula", features: "17th-century Mughal-style terraced garden; Baisakhi and Mango Mela events" },
+        { name: "Morni Hills", location: "Panchkula", features: "Only hill station in Haryana, Shiwalik hills, eco-tourism" },
         { name: "Tilyar Lake", location: "Rohtak", features: "Man-made lake, 123 acres, zoo, cafeteria, picnic lawns" },
         { name: "Karna Lake", location: "Karnal", features: "Associated with Karna of Mahabharata" },
         { name: "Damdama Lake", location: "Gurugram", features: "Boating, adventure activities" },
-        { name: "Sultanpur Lake", location: "Gurugram", features: "Bird sanctuary, migratory birds" },
+        { name: "Sultanpur Lake", location: "Gurugram", features: "National park and bird sanctuary; migratory birds, especially in winter" },
         { name: "Badkhal Lake", location: "Faridabad", features: "Picnic spot" },
-        { name: "Aravalli Golf Course", location: "Faridabad", features: "9-hole golf course, modeled on US Stephan Golf Course" },
-        { name: "Sohna", location: "Gurugram", features: "Hot springs (kunds), Vintage car rally in February" },
+        { name: "Aravalli Golf Course", location: "Faridabad", features: "Opened in 1966; acquired by Haryana Tourism in 1988; official sources disagree on the number of golf holes" },
+        { name: "Sohna", location: "Gurugram", features: "Known for sulphur-rich hot-water springs and tourism in the Aravalli foothills" },
         { name: "Mountain Quail", location: "Morni Hills, Panchkula", features: "Eco-tourism spot" },
         { name: "Kingfisher Resort", location: "Ambala", features: "Health club, swimming pool, former British stable" },
-        { name: "Tajewala-Hathnikund-Kalesar Complex", location: "Yamunanagar", features: "Fishing, camping, rafting, Sal forest reserve" },
-        { name: "Dabchik", location: "Faridabad", features: "Resort, entertainment park, camel rides" },
-        { name: "Chokhi Dhani", location: "Sonipat", features: "Village tourism, ethnic food and culture" }
+        { name: "Tajewala-Hathnikund-Kalesar Complex", location: "Yamunanagar", features: "Landscape around Hathnikund Barrage and Kalesar forests; activities subject to local regulations" },
+        { name: "Dabchick", location: "Hodal, Palwal", features: "Haryana Tourism resort with accommodation and a restaurant" },
+        { name: "Chokhi Dhani", location: "Sonipat (independent verification pending)", features: "Cultural dining or village-tourism concept; current site identity and operation are not independently verified" }
     ];
 
     // Tourism Divisions
     const tourismDivisions = [
-        { name: "Highway Tourism", description: "Kurukshetra, Karnal, Panipat, Sonipat, Palwal - 65 lakh tourists annually" },
-        { name: "Weekend Tourism", description: "Faridabad, Rohtak, Gurugram, Hisar, Panchkula - for business class" },
-        { name: "Heritage Tourism", description: "Pinjore, Ballabhgarh, Rewari-Mahendragarh-Madhogarh Circuit" },
-        { name: "Pilgrim Tourism", description: "Kurukshetra, Kaithal, Panchkula - Kurukshetra as international centre" },
-        { name: "Eco Tourism", description: "Morni Hills, Sultanpur, Kalesar complex" }
+        { name: "Highway Tourism", description: "Highway stopovers and resorts along key routes, including Panipat, Karnal, Kurukshetra and Palwal" },
+        { name: "Weekend Tourism", description: "Short-break destinations and urban leisure opportunities around major cities" },
+        { name: "Heritage Tourism", description: "Historic gardens, palaces, forts and cultural sites in Pinjore, Ballabhgarh and southern Haryana" },
+        { name: "Pilgrim Tourism", description: "Religious and pilgrimage destinations including Kurukshetra, Kaithal and Panchkula" },
+        { name: "Eco Tourism", description: "Nature tourism including Morni Hills, Sultanpur National Park and Kalesar" }
     ];
 
     return (
@@ -255,7 +258,7 @@ export default function HaryanaTourismPage() {
 
                     <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 text-sm font-medium backdrop-blur-sm">
                         <MapPin className="w-4 h-4" />
-                        {language === "hindi" ? "पर्यटन - हरियाणा सरकार" : "Tourism - Government of Haryana"}
+                        {language === "hindi" ? "हरियाणा पर्यटन — अध्ययन सामग्री" : "Haryana Tourism — Study Material"}
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
@@ -279,7 +282,7 @@ export default function HaryanaTourismPage() {
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Hotel className="w-4 h-4 text-orange-600" />
-                            <span>{language === "hindi" ? "44 पर्यटन परिसर" : "44 Tourist Complexes"}</span>
+                            <span>{language === "hindi" ? "42 पर्यटन परिसर (विभागीय संख्या)" : "42 Tourist Complexes (departmental figure)"}</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm bg-card/50 backdrop-blur-sm px-4 py-2 rounded-full border">
                             <Sun className="w-4 h-4 text-orange-600" />
@@ -302,15 +305,21 @@ export default function HaryanaTourismPage() {
                         </div>
                         <p className="text-muted-foreground leading-relaxed mb-4">
                             {language === "hindi"
-                                ? "ऐतिहासिक रूप से, हरियाणा एक महत्वपूर्ण स्थान है जहाँ विभिन्न शासकों द्वारा बनाए गए विभिन्न ऐतिहासिक स्थल मौजूद हैं। कुरुक्षेत्र, जो महाभारत का स्थल है, ने महाभारत के महाकाव्य युद्ध और पानीपत के युद्ध को देखा है। निस्संदेह, राज्य धार्मिक और ऐतिहासिक स्थलों से भरा हुआ है। लोहारू, रामपुर, मधोगढ़, बल्लभगढ़ और महेंद्रगढ़ में कई प्राचीन किले हैं। तरावड़ी, पानीपत और कुरुक्षेत्र युद्धों के लिए प्रसिद्ध हैं।"
-                                : "Historically, Haryana is an important place where various historical places made by different rulers exist at present. Kurukshetra being the place of Mahabharata has witnessed the epic Battle of Mahabharata and the Battle of Panipat. No doubt, the state is full of religious and historical places. Loharu, Rampur, Madhogarh, Ballabhgarh and Mahendragarh have many ancient forts. Tarawadi, Panipat and Kurukshetra are famous for battles."}
+                                ? "हरियाणा में प्राचीन तीर्थस्थलों, किलों, स्मारकों, उद्यानों और प्राकृतिक पर्यटन स्थलों की समृद्ध विरासत है। कुरुक्षेत्र धार्मिक परंपराओं में महाभारत और भगवद्गीता से जुड़ा है, जबकि पानीपत 1526, 1556 और 1761 के ऐतिहासिक युद्धों के लिए प्रसिद्ध है। लोहारू, माधोगढ़, बल्लभगढ़ और महेंद्रगढ़ क्षेत्र में ऐतिहासिक किले मिलते हैं। राज्य में धार्मिक, सांस्कृतिक, विरासत, प्राकृतिक और राजमार्ग पर्यटन के अवसर हैं।"
+                                : "Haryana has a rich heritage of pilgrimage sites, forts, monuments, gardens and natural attractions. Kurukshetra is traditionally associated with the Mahabharata and the Bhagavad Gita, while Panipat is known for the historical battles of 1526, 1556 and 1761. Historic forts can be found in the Loharu, Madhogarh, Ballabhgarh and Mahendragarh areas. The state offers pilgrimage, heritage, cultural, nature and highway tourism."}
                         </p>
                         <div className="bg-orange-500/10 rounded-lg p-4">
                             <h3 className="font-semibold text-orange-600 mb-2">{language === "hindi" ? "हरियाणा पर्यटन निगम (HTC)" : "Haryana Tourism Corporation (HTC)"}</h3>
                             <p className="text-sm text-muted-foreground">
                                 {language === "hindi"
-                                    ? "राज्य में पर्यटन को बढ़ावा देने के लिए, राज्य सरकार ने 1 मई, 1974 को कंपनी अधिनियम, 1956 के तहत हरियाणा पर्यटन निगम को एक पब्लिक लिमिटेड कंपनी के रूप में गठित किया। यह मौजूदा केंद्रों का प्रबंधन, रखरखाव करता है और नए पर्यटन स्थलों का विकास करता है। इसका मुख्यालय गुरुग्राम जिले में स्थित है।"
-                                    : "In order to boost tourism in state, State Government constituted Haryana Tourism Corporation as a Public Limited Company under the Companies Act, 1956 on 1st May, 1974. It manages, maintains the existing centres and develops new tourist places. Its head office is located in Gurugram district."}
+                                    ? "राज्य में पर्यटन को बढ़ावा देने के लिए हरियाणा पर्यटन निगम लिमिटेड की स्थापना 1 मई 1974 को कंपनी अधिनियम, 1956 के तहत की गई थी। निगम पर्यटन परिसरों का संचालन और रखरखाव करता है। इसका पंजीकृत एवं मुख्य कार्यालय सेक्टर 17-बी, चंडीगढ़ में स्थित है।"
+                                    : "Haryana Tourism Corporation Limited was incorporated on 1 May 1974 under the Companies Act, 1956 to promote tourism and operate tourist facilities. Its registered and head office is in Sector 17-B, Chandigarh."}
+                            </p>
+                            <p className="text-xs text-muted-foreground mt-3">
+                                {language === "hindi" ? "स्रोत: " : "Sources: "}
+                                <a href="https://haryanatourism.gov.in/tourism-corporation/" target="_blank" rel="noopener noreferrer" className="underline">{language === "hindi" ? "हरियाणा पर्यटन निगम" : "Haryana Tourism Corporation"}</a>
+                                {" · "}
+                                <a href="https://haryanatourism.gov.in/tourism-department/" target="_blank" rel="noopener noreferrer" className="underline">{language === "hindi" ? "पर्यटन विभाग" : "Tourism Department"}</a>
                             </p>
                         </div>
                     </div>
@@ -452,7 +461,7 @@ export default function HaryanaTourismPage() {
                             <div className="p-2 rounded-xl bg-primary/20">
                                 <Calendar className="w-5 h-5 text-primary" />
                             </div>
-                            <h2 className="text-2xl font-bold">{language === "hindi" ? "HTCL द्वारा विकसित पर्यटन स्थल" : "Tourist Destinations Developed by HTCL"}</h2>
+                            <h2 className="text-2xl font-bold">{language === "hindi" ? "हरियाणा के प्रमुख पर्यटन स्थल" : "Major Tourism Destinations in Haryana"}</h2>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="w-full border-collapse text-sm">
@@ -460,7 +469,7 @@ export default function HaryanaTourismPage() {
                                     <tr className="bg-primary/10">
                                         <th className="border p-2 text-left">{language === "hindi" ? "पर्यटन स्थल" : "Tourist Spot"}</th>
                                         <th className="border p-2 text-left">{language === "hindi" ? "स्थान" : "Place"}</th>
-                                        <th className="border p-2 text-left">{language === "hindi" ? "स्थापना वर्ष" : "Year of Formation"}</th>
+                                        <th className="border p-2 text-left">{language === "hindi" ? "ऐतिहासिक वर्ष / संदर्भ" : "Historical Date / Context"}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -474,6 +483,9 @@ export default function HaryanaTourismPage() {
                                 </tbody>
                             </table>
                         </div>
+                        <p className="text-xs text-muted-foreground mt-3">
+                            {language === "hindi" ? "तालिका में वर्ष निर्माण, उद्घाटन, संरक्षण-स्थिति या मेले के आरंभ का हो सकता है; प्रत्येक के साथ उसका अर्थ दिया गया है। ‘—’ का अर्थ है कि सटीक वर्ष की पुष्टि नहीं हुई है।" : "The dates refer to construction, opening, protection status or the start of a festival, as specified. ‘—’ means the exact year was not independently verified."}
+                        </p>
                     </div>
 
                     {/* Tourist Complexes Table */}
@@ -486,16 +498,16 @@ export default function HaryanaTourismPage() {
                         </div>
                         <p className="text-muted-foreground mb-4">
                             {language === "hindi"
-                                ? "हरियाणा सरकार ने पूरे राज्य में 44 पर्यटन परिसरों का नेटवर्क स्थापित किया है। राज्य से गुजरने वाले राजमार्गों के साथ रणनीतिक बिंदुओं पर पर्यटन परिसर स्थापित किए गए हैं।"
-                                : "The Government of Haryana has set up a network of 44 tourist complexes all over the state. Tourist complexes have been set at strategic points along the highways passing through the state."}
+                                ? "हरियाणा पर्यटन विभाग के आधिकारिक विवरण के अनुसार राज्य में 42 पर्यटन परिसर हैं। नीचे चुनिंदा परिसरों के स्थान दिए गए हैं; इनके सटीक उद्घाटन वर्ष विश्वसनीय स्रोत से पुष्टि न होने पर खाली रखे गए हैं।"
+                                : "Haryana Tourism Department describes a network of 42 tourist complexes. The table lists selected resorts; opening years are left blank when no reliable, property-specific source was confirmed."}
                         </p>
                         <div className="overflow-x-auto">
                             <table className="w-full border-collapse text-sm">
                                 <thead>
                                     <tr className="bg-primary/10">
-                                        <th className="border p-2 text-left">{language === "hindi" ? "रिसॉर्ट का नाम" : "Name"}</th>
+                                        <th className="border p-2 text-left">{language === "hindi" ? "रिसॉर्ट का नाम" : "Resort"}</th>
                                         <th className="border p-2 text-left">{language === "hindi" ? "स्थान" : "Place"}</th>
-                                        <th className="border p-2 text-left">{language === "hindi" ? "वर्ष" : "Year"}</th>
+                                        <th className="border p-2 text-left">{language === "hindi" ? "उद्घाटन वर्ष (पुष्ट होने पर)" : "Opening Year (if verified)"}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -517,7 +529,7 @@ export default function HaryanaTourismPage() {
                             <div className="p-2 rounded-xl bg-indigo-500/30">
                                 <MapPin className="w-5 h-5 text-indigo-600" />
                             </div>
-                            <h2 className="text-2xl font-bold text-indigo-600">{language === "hindi" ? "पर्यटन प्रभाग" : "Tourism Divisions"}</h2>
+                            <h2 className="text-2xl font-bold text-indigo-600">{language === "hindi" ? "पर्यटन के प्रकार (उदाहरण)" : "Types of Tourism (Examples)"}</h2>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {tourismDivisions.map((div, idx) => (
@@ -564,32 +576,32 @@ export default function HaryanaTourismPage() {
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "हरियाणा पर्यटन निगम की स्थापना" : "Haryana Tourism Corporation Established"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-orange-600 mb-2">44</div>
+                            <div className="text-3xl font-bold text-orange-600 mb-2">42</div>
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "पर्यटन परिसर" : "Tourist Complexes"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-orange-600 mb-2">65+ लाख</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "वार्षिक पर्यटक (हाईवे)" : "Annual Tourists (Highway)"}</p>
+                            <div className="text-3xl font-bold text-orange-600 mb-2">1987</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सूरजकुंड शिल्प मेले की शुरुआत" : "First Surajkund Crafts Mela"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-orange-600 mb-2">51</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "शक्तिपीठों में से एक" : "One of 51 Shaktipeeths"}</p>
+                            <div className="text-3xl font-bold text-orange-600 mb-2">1991</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "सुल्तानपुर को राष्ट्रीय उद्यान का दर्जा" : "Sultanpur National Park Status"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
                             <div className="text-3xl font-bold text-orange-600 mb-2">1</div>
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "एकमात्र हिल स्टेशन (मोरनी)" : "Only Hill Station (Morni)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-orange-600 mb-2">37 ft</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "रामगढ़ किले के मुख्य द्वार की ऊँचाई" : "Ramgarh Fort Main Gate Height"}</p>
+                            <div className="text-3xl font-bold text-orange-600 mb-2">1966</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "अरावली गोल्फ कोर्स खुला" : "Aravalli Golf Course Opened"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
                             <div className="text-3xl font-bold text-orange-600 mb-2">3</div>
                             <p className="text-sm text-muted-foreground">{language === "hindi" ? "प्रमुख युद्ध (पानीपत)" : "Major Battles (Panipat)"}</p>
                         </div>
                         <div className="bg-card rounded-xl p-5 border text-center">
-                            <div className="text-3xl font-bold text-orange-600 mb-2">5</div>
-                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "पर्यटन प्रभाग" : "Tourism Divisions"}</p>
+                            <div className="text-3xl font-bold text-orange-600 mb-2">2008</div>
+                            <p className="text-sm text-muted-foreground">{language === "hindi" ? "हरियाणा पर्यटन नीति" : "Haryana Tourism Policy"}</p>
                         </div>
                     </div>
                 </div>
@@ -676,7 +688,7 @@ export default function HaryanaTourismPage() {
                             : "This page provides comprehensive information about religious places, historical monuments, modern tourist centres, Gurudwaras, Mosques, Dargahs, Mausoleums, tourist complexes, and tourism policy of Haryana. A complete reference for students preparing for Haryana CET, HSSC exams, and other competitive exams that include Haryana GK."}
                     </p>
                     <p className="text-xs text-muted-foreground mt-4">
-                        © 2026 CET TEST | {language === "hindi" ? "जानकारी हरियाणा सरकार के आधिकारिक प्रकाशनों और पर्यटन अभिलेखों से स्रोतित" : "Information sourced from official Government of Haryana publications and tourism records"}
+                        © 2026 CET TEST | {language === "hindi" ? "प्रमुख स्रोत: हरियाणा पर्यटन विभाग और जिला वेबसाइटें; धार्मिक मान्यताओं को इतिहास से अलग दर्शाया गया है।" : "Main sources: Haryana Tourism Department and district websites; religious traditions are distinguished from recorded history."}
                     </p>
                 </div>
             </section>
