@@ -542,7 +542,7 @@ export default function CurrentAffairsPage() {
         <div className="min-h-screen bg-background">
             <FooterLinkNavbar />
 
-            {/* Only two content collections are exposed: by-topic and September 2026. */}
+            {/* Current affairs collections and state-wise editorial preview. */}
             <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 to-background px-4 pb-16 pt-28 sm:px-6 lg:px-8 md:pb-20 md:pt-36">
                 <div className="pointer-events-none absolute left-10 top-20 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
                 <div className="pointer-events-none absolute bottom-10 right-10 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
@@ -575,7 +575,21 @@ export default function CurrentAffairsPage() {
                 </div>
             </section>
 
-            {/* By-topic is the first and primary content collection. */}
+            <section id="uttarakhand-current-affairs" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <Link href="/current-affairs/uttarakhand-current-affairs-2026" className="block rounded-2xl border bg-card p-6 transition-colors hover:bg-muted/40">
+                    <div className="flex items-center justify-between gap-4">
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-wide text-primary">State-wise · Editorial preview</p>
+                            <h2 className="mt-2 text-xl font-bold sm:text-2xl">Uttarakhand Current Affairs 2026</h2>
+                            <p lang="hi" className="mt-1 font-medium">उत्तराखंड करेंट अफेयर्स 2026</p>
+                            <p className="mt-2 text-sm text-muted-foreground">January–October · 300 bilingual MCQs · Answers and explanations</p>
+                        </div>
+                        <ChevronRight className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
+                    </div>
+                </Link>
+            </section>
+
+            {/* Existing by-topic collection. */}
             <section id="by-topic" className="scroll-mt-24 bg-gradient-to-b from-white to-muted/10 px-4 py-12 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-6xl">
                     <div className="mb-6 flex flex-wrap items-center gap-3">

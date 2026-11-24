@@ -1,3 +1,4 @@
+import { ukSitemapEntries } from "@/lib/data/uttarakhand-current-affairs-seo"
 import { MetadataRoute } from 'next'
 import { staticBlogs } from '@/lib/blog-data'
 
@@ -63,6 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Only include lastModified when an actual content update date is known.
 
   return [
+    ...ukSitemapEntries(),
     // 🔥 Homepage
     {
       url: baseUrl,
