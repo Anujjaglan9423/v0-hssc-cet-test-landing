@@ -470,12 +470,12 @@ export default function UttarakhandCurrentAffairsQuiz() {
                         >
                           {q.explanation.en}
                         </p>
-                        <p className="mt-2 text-xs" style={{ color: p.muted }}>
+                        {/* <p className="mt-2 text-xs" style={{ color: p.muted }}>
                           Source PDF page {q.sourcePage ?? "—"}
                           {q.editorialStatus !== "source-based"
                             ? ` · ${q.editorialStatus}`
                             : ""}
-                        </p>
+                        </p> */}
                       </div>
                     )}
                     <button
@@ -535,10 +535,10 @@ export default function UttarakhandCurrentAffairsQuiz() {
               </nav>
             </div>
           </div>
-          <p className="text-xs text-muted-foreground">
+          {/* <p className="text-xs text-muted-foreground">
             Progress and bookmarks are stored in this browser. Chapter labels
             follow the source PDF; individual event dates may differ.
-          </p>
+          </p> */}
         </div>
       </div>
     </section>

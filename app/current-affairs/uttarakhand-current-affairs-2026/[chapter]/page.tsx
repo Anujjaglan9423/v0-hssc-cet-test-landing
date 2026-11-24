@@ -154,9 +154,9 @@ export default async function ChapterPage({ params }: Props) {
                   <p lang="en" className="mt-2 whitespace-pre-line">
                     {q.explanation.en}
                   </p>
-                  <p className="mt-2 text-xs">
+                  {/* <p className="mt-2 text-xs">
                     Source PDF page {q.sourcePage ?? "—"} · {q.editorialStatus}
-                  </p>
+                  </p> */}
                 </div>
                 <a
                   href={`#question-${q.id}`}
