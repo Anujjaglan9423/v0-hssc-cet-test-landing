@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const UK_PATH = "/current-affairs/uttarakhand-current-affairs-2026";
 export const UK_URL = `https://cettest.site${UK_PATH}`;
 // Enable only after independent fact-checking and publication permission.
-export const UK_PUBLISHED = false;
+export const UK_PUBLISHED = true;
 export const UK_CHAPTERS = [
   ["october", "October", "अक्टूबर"],
   ["september", "September", "सितंबर"],
